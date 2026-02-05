@@ -61,7 +61,7 @@ export default function SurgePage() {
               <h3 className="text-2xl font-bold mb-6 text-center">Download Free Resources</h3>
               <LeadForm
                 buttonText="Download Free Resources"
-                redirectUrl="/surge/thank-you"
+                redirectUrl="/surge/upsell"
                 source="surge"
               />
             </div>
@@ -127,16 +127,18 @@ export default function SurgePage() {
 
       {/* CTA Section */}
       <section className="section bg-gradient-to-b from-slate-800 to-slate-900">
-        <div className="max-w-xl mx-auto text-center">
-          <h2 className="text-3xl font-bold mb-6">Get Instant Access</h2>
-          <p className="text-slate-300 mb-8">
-            Download all 10 resources right now. No strings attached.
-          </p>
-          <LeadForm
-            buttonText="Download Free Resources"
-            redirectUrl="/surge/thank-you"
-            source="surge"
-          />
+        <div className="max-w-lg mx-auto">
+          <div className="card green-glow text-center">
+            <h2 className="text-2xl font-bold mb-4">Get Instant Access</h2>
+            <p className="text-slate-300 mb-6">
+              Download all 10 resources right now. No strings attached.
+            </p>
+            <LeadForm
+              buttonText="Download Free Resources"
+              redirectUrl="/surge/upsell"
+              source="surge"
+            />
+          </div>
         </div>
       </section>
 

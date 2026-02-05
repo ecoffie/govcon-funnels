@@ -52,7 +52,7 @@ export default function LeadForm({
   };
 
   return (
-    <form onSubmit={handleSubmit} className="space-y-4 w-full max-w-md">
+    <form onSubmit={handleSubmit} className="space-y-4 w-full max-w-md mx-auto">
       <input
         type="text"
         placeholder="Your Name"

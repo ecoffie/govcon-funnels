@@ -64,7 +64,7 @@ export default function FreeCoursePage() {
               <h3 className="text-2xl font-bold mb-6 text-center">Start Your Free Course</h3>
               <LeadForm
                 buttonText="Start Free Course Now"
-                redirectUrl="/free-course/thank-you"
+                redirectUrl="/free-course/upsell"
                 source="free-course"
               />
             </div>
@@ -99,16 +99,18 @@ export default function FreeCoursePage() {
 
       {/* CTA Section */}
       <section className="section bg-gradient-to-b from-slate-800 to-slate-900">
-        <div className="max-w-xl mx-auto text-center">
-          <h2 className="text-3xl font-bold mb-6">Ready to Get Started?</h2>
-          <p className="text-slate-300 mb-8">
-            Join 5,000+ entrepreneurs who are already learning how to win federal contracts.
-          </p>
-          <LeadForm
-            buttonText="Get Free Access Now"
-            redirectUrl="/free-course/thank-you"
-            source="free-course"
-          />
+        <div className="max-w-lg mx-auto">
+          <div className="card green-glow text-center">
+            <h2 className="text-2xl font-bold mb-4">Ready to Get Started?</h2>
+            <p className="text-slate-300 mb-6">
+              Join 5,000+ entrepreneurs who are already learning how to win federal contracts.
+            </p>
+            <LeadForm
+              buttonText="Get Free Access Now"
+              redirectUrl="/free-course/upsell"
+              source="free-course"
+            />
+          </div>
         </div>
       </section>
 

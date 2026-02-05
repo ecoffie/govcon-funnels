@@ -67,7 +67,7 @@ export default function OpportunityPage() {
               <h3 className="text-2xl font-bold mb-6 text-center">Get Free Access</h3>
               <LeadForm
                 buttonText="Get Free Access"
-                redirectUrl="/opp/thank-you"
+                redirectUrl="/opp/upsell"
                 source="opp"
               />
             </div>
@@ -165,16 +165,18 @@ export default function OpportunityPage() {
 
       {/* CTA Section */}
       <section className="section bg-gradient-to-b from-slate-800 to-slate-900">
-        <div className="max-w-xl mx-auto text-center">
-          <h2 className="text-3xl font-bold mb-6">Find Your Target Agencies</h2>
-          <p className="text-slate-300 mb-8">
-            Stop guessing. Let our AI show you exactly where to focus.
-          </p>
-          <LeadForm
-            buttonText="Get Free Access"
-            redirectUrl="/opp/thank-you"
-            source="opp"
-          />
+        <div className="max-w-lg mx-auto">
+          <div className="card green-glow text-center">
+            <h2 className="text-2xl font-bold mb-4">Find Your Target Agencies</h2>
+            <p className="text-slate-300 mb-6">
+              Stop guessing. Let our AI show you exactly where to focus.
+            </p>
+            <LeadForm
+              buttonText="Get Free Access"
+              redirectUrl="/opp/upsell"
+              source="opp"
+            />
+          </div>
         </div>
       </section>
 

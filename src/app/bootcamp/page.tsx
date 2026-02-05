@@ -2,7 +2,7 @@ import { Metadata } from 'next';
 import LeadForm from '@/components/LeadForm';
 
 export const metadata: Metadata = {
-  title: 'Free GovCon Bootcamp - Win Federal Contracts in Q1 2026 | GovCon Giants',
+  title: 'January 2026 GovCon Bootcamp - Win Federal Contracts | GovCon Giants',
   description: 'Full-Day Intensive: Win Federal Contracts in Q1 2026. Get personalized agency lists, 5+ opportunities, and your 90-day plan.',
 };
 
@@ -74,7 +74,7 @@ export default function BootcampPage() {
               <h3 className="text-2xl font-bold mb-6 text-center">Get Free Bootcamp Handouts</h3>
               <LeadForm
                 buttonText="Send Me the Free Handouts"
-                redirectUrl="/bootcamp/thank-you"
+                redirectUrl="/bootcamp/upsell"
                 source="bootcamp"
               />
             </div>
@@ -144,16 +144,18 @@ export default function BootcampPage() {
 
       {/* CTA Section */}
       <section className="section bg-gradient-to-b from-slate-800 to-slate-900">
-        <div className="max-w-xl mx-auto text-center">
-          <h2 className="text-3xl font-bold mb-6">Reserve Your Spot Now</h2>
-          <p className="text-slate-300 mb-8">
-            Get instant access to all the free handouts and bootcamp details.
-          </p>
-          <LeadForm
-            buttonText="Send Me the Free Handouts"
-            redirectUrl="/bootcamp/thank-you"
-            source="bootcamp"
-          />
+        <div className="max-w-lg mx-auto">
+          <div className="card green-glow text-center">
+            <h2 className="text-2xl font-bold mb-4">Reserve Your Spot Now</h2>
+            <p className="text-slate-300 mb-6">
+              Get instant access to all the free handouts and bootcamp details.
+            </p>
+            <LeadForm
+              buttonText="Send Me the Free Handouts"
+              redirectUrl="/bootcamp/upsell"
+              source="bootcamp"
+            />
+          </div>
         </div>
       </section>
 

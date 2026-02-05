@@ -71,6 +71,15 @@ body {
   background-color: var(--card-bg);
   border-radius: 1rem;
   padding: 1.5rem;
+  border: 1px solid #334155;
+}
+
+.card-white {
+  background-color: white;
+  border-radius: 1rem;
+  padding: 1.5rem;
+  border: 1px solid #e2e8f0;
+  color: #1e293b;
 }
 
 /* Section styles */

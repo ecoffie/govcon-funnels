@@ -39,7 +39,7 @@ const resources = [
     icon: "🎯",
     title: "Opportunity Hunter",
     desc: "Agency search tool to find contracts by NAICS code and keywords.",
-    link: "https://tools.govcongiants.org/opportunity-hunter",
+    link: "/opp",
     cta: "Try It Free →",
   },
   {
@@ -65,21 +65,21 @@ const videoCategories = [
     desc: "Getting started in government contracting",
     videos: 5,
     color: "green",
-    link: "/resources#getting-started",
+    link: "/resources/library",
   },
   {
     title: "Finding Contract Opportunities",
     desc: "How to find the right contracts for your business",
     videos: 4,
     color: "blue",
-    link: "/resources#finding-opportunities",
+    link: "/resources/library",
   },
   {
     title: "Winning Without Past Performance",
     desc: "How to win when you're just starting out",
     videos: 5,
     color: "amber",
-    link: "/resources#winning-contracts",
+    link: "/resources/library",
   },
 ];
 
