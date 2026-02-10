@@ -29,7 +29,7 @@ export default async function Jan31PaidSuccessPage(props: {
       sessionId,
     });
 
-    cookies().set('jan31_bootcamp_access', value, {
+    (await cookies()).set('jan31_bootcamp_access', value, {
       httpOnly: true,
       secure: process.env.NODE_ENV === 'production',
       sameSite: 'lax',

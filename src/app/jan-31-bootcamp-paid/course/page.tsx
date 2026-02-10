@@ -12,7 +12,7 @@ export default async function Jan31PaidCoursePage() {
     return <CourseClient />;
   }
 
-  const cookie = cookies().get('jan31_bootcamp_access')?.value;
+  const cookie = (await cookies()).get('jan31_bootcamp_access')?.value;
   let result: { ok: boolean } = { ok: false };
   try {
     result = verifyAccessCookieValue({
