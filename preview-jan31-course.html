@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Jan 31 Bootcamp Replay Course | GovCon Giants</title>
+  <style>
+    * { box-sizing: border-box; }
+    body { margin: 0; font-family: system-ui, sans-serif; background: #020617; color: #f8fafc; min-height: 100vh; }
+    a { color: inherit; text-decoration: none; }
+    .container { max-width: 72rem; margin: 0 auto; padding: 0 1.5rem; }
+    .green { color: #22c55e; }
+    .muted { color: #94a3b8; }
+    .card { background: #1e293b; border: 1px solid #334155; border-radius: 1rem; overflow: hidden; cursor: pointer; transition: transform 0.2s, border-color 0.2s; }
+    .card:hover { transform: translateY(-4px); }
+    .card.done { border-color: rgba(34, 197, 94, 0.5); }
+    .grid { display: grid; gap: 1.5rem; }
+    @media (min-width: 768px) { .grid { grid-template-columns: repeat(2, 1fr); } }
+    @media (min-width: 1024px) { .grid { grid-template-columns: repeat(3, 1fr); } }
+    .thumb { position: relative; aspect-ratio: 16/9; background: #1e293b; }
+    .thumb img { width: 100%; height: 100%; object-fit: cover; }
+    .play { position: absolute; inset: 0; display: flex; align-items: center; justify-content: center; }
+    .play span { width: 4rem; height: 4rem; background: rgba(255,255,255,0.9); border-radius: 50%; display: flex; align-items: center; justify-content: center; }
+    .modal { display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.9); z-index: 50; align-items: center; justify-content: center; padding: 1rem; }
+    .modal.show { display: flex; }
+    .modal-inner { width: 100%; max-width: 56rem; }
+    .modal h3 { color: white; margin-bottom: 1rem; }
+    .modal .close { color: white; font-size: 1.5rem; cursor: pointer; background: none; border: none; }
+    .video-wrap { aspect-ratio: 16/9; border-radius: 0.75rem; overflow: hidden; }
+    .video-wrap iframe { width: 100%; height: 100%; }
+  </style>
+</head>
+<body>
+  <header style="padding: 1.5rem; border-bottom: 1px solid #1e293b;">
+    <div class="container" style="display: flex; align-items: center; justify-content: space-between;">
+      <a href="preview-jan31.html" style="font-size: 1.5rem; font-weight: 700;"><span style="color: white;">GovCon</span><span class="green">Giants</span></a>
+      <span class="muted" style="font-size: 0.875rem;">0 of 6 completed</span>
+    </div>
+  </header>
+  <div style="background: #1e293b; padding: 0.75rem 1.5rem;">
+    <div class="container">
+      <div style="height: 0.5rem; background: #334155; border-radius: 9999px; overflow: hidden;">
+        <div style="height: 100%; width: 0%; background: #16a34a; border-radius: 9999px; transition: width 0.3s;"></div>
+      </div>
+    </div>
+  </div>
+
+  <section style="padding: 3rem 1.5rem;">
+    <div class="container">
+      <div style="text-align: center; margin-bottom: 3rem;">
+        <h1 style="font-size: 1.875rem; font-weight: 700; margin-bottom: 1rem;">Jan 31 Bootcamp Replay Course</h1>
+        <p class="muted" style="max-width: 42rem; margin: 0 auto;">Watch each chapter in order. Your progress is saved automatically on this device.</p>
+      </div>
+      <div class="grid" id="lessons">
+        <div class="card" data-video="1161765986" data-title="Part 1 — Early Session" data-desc="Bootcamp kickoff and morning content.">
+          <div class="thumb"><img src="https://vumbnail.com/1161765986.jpg" alt="Part 1" /><div class="play"><span>▶</span></div></div>
+          <div style="padding: 1rem;"><span style="background: rgba(34,197,94,0.2); color: #22c55e; font-size: 0.75rem; font-weight: 600; padding: 0.25rem 0.5rem; border-radius: 0.25rem;">Chapter 1</span><h3 style="margin: 0.5rem 0 0.25rem;">Part 1 — Early Session</h3><p class="muted" style="font-size: 0.875rem; margin: 0;">Bootcamp kickoff and morning content.</p></div>
+        </div>
+        <div class="card" data-video="1161766070" data-title="Part 2 — Mid-Day Session" data-desc="Core training and implementation.">
+          <div class="thumb"><img src="https://vumbnail.com/1161766070.jpg" alt="Part 2" /><div class="play"><span>▶</span></div></div>
+          <div style="padding: 1rem;"><span style="background: rgba(34,197,94,0.2); color: #22c55e; font-size: 0.75rem; font-weight: 600; padding: 0.25rem 0.5rem; border-radius: 0.25rem;">Chapter 2</span><h3 style="margin: 0.5rem 0 0.25rem;">Part 2 — Mid-Day Session</h3><p class="muted" style="font-size: 0.875rem; margin: 0;">Core training and implementation.</p></div>
+        </div>
+        <div class="card" data-video="1161766212" data-title="Part 3 — Afternoon Session" data-desc="Deep dive and Q&A.">
+          <div class="thumb"><img src="https://vumbnail.com/1161766212.jpg" alt="Part 3" /><div class="play"><span>▶</span></div></div>
+          <div style="padding: 1rem;"><span style="background: rgba(34,197,94,0.2); color: #22c55e; font-size: 0.75rem; font-weight: 600; padding: 0.25rem 0.5rem; border-radius: 0.25rem;">Chapter 3</span><h3 style="margin: 0.5rem 0 0.25rem;">Part 3 — Afternoon Session</h3><p class="muted" style="font-size: 0.875rem; margin: 0;">Deep dive and Q&A.</p></div>
+        </div>
+        <div class="card" data-video="1161766342" data-title="Part 4 — Evening Session" data-desc="Evening block and next steps.">
+          <div class="thumb"><img src="https://vumbnail.com/1161766342.jpg" alt="Part 4" /><div class="play"><span>▶</span></div></div>
+          <div style="padding: 1rem;"><span style="background: rgba(34,197,94,0.2); color: #22c55e; font-size: 0.75rem; font-weight: 600; padding: 0.25rem 0.5rem; border-radius: 0.25rem;">Chapter 4</span><h3 style="margin: 0.5rem 0 0.25rem;">Part 4 — Evening Session</h3><p class="muted" style="font-size: 0.875rem; margin: 0;">Evening block and next steps.</p></div>
+        </div>
+        <div class="card" data-video="1161766348" data-title="Part 5" data-desc="Additional bootcamp content.">
+          <div class="thumb"><img src="https://vumbnail.com/1161766348.jpg" alt="Part 5" /><div class="play"><span>▶</span></div></div>
+          <div style="padding: 1rem;"><span style="background: rgba(34,197,94,0.2); color: #22c55e; font-size: 0.75rem; font-weight: 600; padding: 0.25rem 0.5rem; border-radius: 0.25rem;">Chapter 5</span><h3 style="margin: 0.5rem 0 0.25rem;">Part 5</h3><p class="muted" style="font-size: 0.875rem; margin: 0;">Additional bootcamp content.</p></div>
+        </div>
+        <div class="card" data-video="1161766514" data-title="Part 6" data-desc="Additional bootcamp content.">
+          <div class="thumb"><img src="https://vumbnail.com/1161766514.jpg" alt="Part 6" /><div class="play"><span>▶</span></div></div>
+          <div style="padding: 1rem;"><span style="background: rgba(34,197,94,0.2); color: #22c55e; font-size: 0.75rem; font-weight: 600; padding: 0.25rem 0.5rem; border-radius: 0.25rem;">Chapter 6</span><h3 style="margin: 0.5rem 0 0.25rem;">Part 6</h3><p class="muted" style="font-size: 0.875rem; margin: 0;">Additional bootcamp content.</p></div>
+        </div>
+      </div>
+      <div style="margin-top: 3rem; text-align: center;">
+        <div class="card" style="max-width: 42rem; margin: 0 auto; padding: 2rem; background: linear-gradient(to right, #1e293b, #334155); border: 1px solid #475569;">
+          <h2 style="font-size: 1.5rem; font-weight: 700; margin-bottom: 1rem;">Need to purchase access?</h2>
+          <p class="muted" style="margin-bottom: 1.5rem;">If you haven't purchased yet, head to checkout to unlock the replay.</p>
+          <a href="preview-jan31-checkout.html" style="display: inline-block; padding: 1rem 2rem; background: #16a34a; color: white; font-weight: 600; border-radius: 0.5rem;">Go to Checkout →</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <div id="modal" class="modal">
+    <div class="modal-inner">
+      <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1rem;">
+        <h3 id="modalTitle"></h3>
+        <button class="close" id="modalClose" aria-label="Close">✕</button>
+      </div>
+      <div class="video-wrap"><iframe id="modalIframe" allow="autoplay; fullscreen; picture-in-picture" allowfullscreen></iframe></div>
+    </div>
+  </div>
+
+  <footer style="padding: 2rem; text-align: center; color: #475569; font-size: 0.875rem; border-top: 1px solid #1e293b;">© 2026 GovCon Giants. All rights reserved.</footer>
+
+  <script>
+    var modal = document.getElementById('modal');
+    var modalTitle = document.getElementById('modalTitle');
+    var modalIframe = document.getElementById('modalIframe');
+    var modalClose = document.getElementById('modalClose');
+    document.getElementById('lessons').addEventListener('click', function (e) {
+      var card = e.target.closest('.card');
+      if (!card) return;
+      var video = card.getAttribute('data-video');
+      var title = card.getAttribute('data-title');
+      modalTitle.textContent = title;
+      modalIframe.src = 'https://player.vimeo.com/video/' + video + '?autoplay=1';
+      modal.classList.add('show');
+    });
+    modalClose.addEventListener('click', function () { modal.classList.remove('show'); modalIframe.src = ''; });
+    modal.addEventListener('click', function (e) { if (e.target === modal) { modal.classList.remove('show'); modalIframe.src = ''; } });
+  </script>
+</body>
+</html>

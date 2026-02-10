@@ -4,6 +4,7 @@
   "private": true,
   "scripts": {
     "dev": "next dev",
+    "dev:jan31": "ONLY_JAN31_FUNNEL=1 next dev",
     "build": "next build",
     "start": "next start",
     "lint": "eslint"

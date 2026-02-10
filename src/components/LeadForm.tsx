@@ -34,13 +34,13 @@ export default function LeadForm({
       });
       localStorage.setItem('govcon_leads', JSON.stringify(leads));
 
-      // Post to API endpoint
+      // Post to API endpoint (sends to CRM: GoHighLevel and/or webhook)
       await fetch('/api/lead', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ ...formData, source })
+        body: JSON.stringify({ ...formData, source, redirectUrl })
       }).catch(() => {
-        // Continue even if API fails
+        // Continue even if API fails so user still gets redirect
       });
 
       // Redirect to thank you / upsell page

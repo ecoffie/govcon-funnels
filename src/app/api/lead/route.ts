@@ -1,38 +1,32 @@
 import { NextRequest, NextResponse } from 'next/server';
+import { sendLeadToCrm } from '@/lib/crm';
 
 export async function POST(request: NextRequest) {
   try {
     const body = await request.json();
-    const { name, email, phone, source } = body;
+    const { name, email, phone, source, redirectUrl } = body;
 
-    // Log the lead (in production, integrate with GoHighLevel or your CRM)
-    console.log('New lead:', { name, email, phone, source, timestamp: new Date().toISOString() });
-
-    // Optional: Send to GoHighLevel
-    if (process.env.GHL_API_KEY && process.env.GHL_LOCATION_ID) {
-      try {
-        await fetch('https://rest.gohighlevel.com/v1/contacts/', {
-          method: 'POST',
-          headers: {
-            'Authorization': `Bearer ${process.env.GHL_API_KEY}`,
-            'Content-Type': 'application/json'
-          },
-          body: JSON.stringify({
-            firstName: name?.split(' ')[0] || '',
-            lastName: name?.split(' ').slice(1).join(' ') || '',
-            email,
-            phone,
-            source,
-            locationId: process.env.GHL_LOCATION_ID,
-            tags: [`funnel-${source}`]
-          })
-        });
-      } catch (ghlError) {
-        console.error('GHL API error:', ghlError);
-      }
+    if (!email?.trim()) {
+      return NextResponse.json({ error: 'Email is required' }, { status: 400 });
     }
 
-    return NextResponse.json({ success: true });
+    const lead = {
+      name: name?.trim() ?? '',
+      email: email.trim(),
+      phone: phone?.trim() ?? '',
+      source: source?.trim() ?? 'website',
+      redirectUrl,
+    };
+
+    // Send to CRM(s): GoHighLevel and/or webhook (Zapier, Make, etc.)
+    const results = await sendLeadToCrm(lead);
+
+    // Log for debugging (optional in production)
+    if (process.env.NODE_ENV !== 'production') {
+      console.log('New lead:', { ...lead, timestamp: new Date().toISOString(), crmResults: results });
+    }
+
+    return NextResponse.json({ success: true, crm: results });
   } catch (error) {
     console.error('Lead API error:', error);
     return NextResponse.json({ error: 'Failed to process lead' }, { status: 500 });
