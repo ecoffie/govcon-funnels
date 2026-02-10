@@ -11,7 +11,7 @@ type StripeCheckoutSession = {
 };
 
 function getStripeSecretKey() {
-  const key = process.env.STRIPE_SECRET_KEY?.trim();
+  const key = process.env.STRIPE_SECRET_KEY?.replace(/\s+/g, '');
   if (!key) throw new Error('Missing STRIPE_SECRET_KEY env var');
   return key;
 }
