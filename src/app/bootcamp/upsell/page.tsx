@@ -87,7 +87,6 @@ export default function BootcampUpsell() {
                 </li>
               </ul>
               <div className="mt-6 pt-4 border-t border-slate-700">
-                <div className="text-2xl font-bold text-white">$0</div>
                 <div className="text-slate-600 text-sm">Handouts only</div>
               </div>
             </div>
@@ -126,11 +125,7 @@ export default function BootcampUpsell() {
                 </li>
               </ul>
               <div className="mt-6 pt-4 border-t border-slate-700">
-                <div className="flex items-baseline gap-2">
-                  <div className="text-3xl font-bold text-white">$99</div>
-                  <div className="text-slate-500">/month</div>
-                </div>
-                <div className="text-green-500 text-sm">or $799/year (save $389)</div>
+                <div className="text-green-500 text-sm">Monthly or annual options available</div>
               </div>
             </div>
           </div>
@@ -174,7 +169,7 @@ export default function BootcampUpsell() {
               rel="noopener noreferrer"
               className="green-glow block w-full px-8 py-4 bg-green-600 hover:bg-green-500 text-white rounded-xl font-bold text-lg text-center transition-all"
             >
-              Yes! Join Pro for $99/month
+              Yes! Join Pro
             </a>
 
             <a
@@ -183,7 +178,7 @@ export default function BootcampUpsell() {
               rel="noopener noreferrer"
               className="block w-full px-8 py-4 bg-slate-700 hover:bg-slate-600 text-white rounded-xl font-bold text-lg text-center transition-all border border-slate-700"
             >
-              Save $389 - Get Annual for $799
+              Get Annual (Save More)
             </a>
 
             <Link

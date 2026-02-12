@@ -23,16 +23,6 @@ export default function ResourcesThankYou() {
 
   return (
     <main className="min-h-screen bg-slate-950">
-      {/* Header */}
-      <header className="py-6 px-6 border-b border-slate-800">
-        <div className="max-w-4xl mx-auto flex items-center justify-center">
-          <Link href="/" className="flex items-center gap-1">
-            <span className="text-2xl font-bold text-white">GovCon</span>
-            <span className="text-2xl font-bold text-green-500">Giants</span>
-          </Link>
-        </div>
-      </header>
-
       {/* Progress Bar - Complete */}
       <div className="bg-slate-900 py-3 px-6">
         <div className="max-w-2xl mx-auto">

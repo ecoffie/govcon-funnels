@@ -110,11 +110,7 @@ export default function SurgeUpsell() {
             </div>
 
             <div className="text-center border-t border-slate-800/50 pt-6">
-              <div className="flex items-baseline justify-center gap-2 mb-2">
-                <div className="text-4xl font-bold text-white">$99</div>
-                <div className="text-slate-400">/month</div>
-              </div>
-              <div className="text-green-500 text-sm mb-6">or $799/year (save $389)</div>
+              <div className="text-green-500 text-sm mb-6">Monthly or annual options available</div>
 
               <a
                 href="https://federalhelpcenter.com/pro"
@@ -122,7 +118,7 @@ export default function SurgeUpsell() {
                 rel="noopener noreferrer"
                 className="block w-full px-8 py-4 green-glow bg-green-600 hover:bg-green-500 text-white rounded-xl font-bold text-lg text-center transition-all mb-4"
               >
-                Yes! Join Pro for $99/month
+                Yes! Join Pro
               </a>
 
               <a
@@ -131,7 +127,7 @@ export default function SurgeUpsell() {
                 rel="noopener noreferrer"
                 className="block w-full px-8 py-4 bg-slate-700 hover:bg-slate-600 text-white rounded-xl font-bold text-lg text-center transition-all border border-slate-700"
               >
-                Save $389 - Get Annual for $799
+                Get Annual (Save More)
               </a>
             </div>
           </div>

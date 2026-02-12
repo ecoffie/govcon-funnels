@@ -1,5 +1,6 @@
 import Link from 'next/link';
 import { Metadata } from 'next';
+import StatsCounter from '@/components/StatsCounter';
 
 export const metadata: Metadata = {
   title: 'GovCon Giants - Win Federal Contracts | $82 Billion Unspent',
@@ -7,10 +8,10 @@ export const metadata: Metadata = {
 };
 
 const stats = [
-  { value: "$750B+", label: "Annual Federal Spending" },
-  { value: "23%", label: "Set Aside for Small Biz" },
-  { value: "5,000+", label: "Members Trained" },
-  { value: "$2B+", label: "Contracts Won" },
+  { value: "$750B+", label: "Annual Federal Spending", numericValue: 750, prefix: "$", suffix: "B+" },
+  { value: "23%", label: "Set Aside for Small Biz", numericValue: 23, suffix: "%" },
+  { value: "5,000+", label: "Members Trained", numericValue: 5000, suffix: "+" },
+  { value: "$2B+", label: "Contracts Won", numericValue: 2, prefix: "$", suffix: "B+" },
 ];
 
 const resources = [
@@ -50,12 +51,11 @@ const resources = [
     cta: "Browse Library →",
   },
   {
-    icon: "👑",
-    title: "Pro Member Group",
-    desc: "Bootcamps, tools, calls, and expert support - $99/mo.",
-    link: "https://shop.govcongiants.org",
-    cta: "Join Pro →",
-    featured: true,
+    icon: "📹",
+    title: "Jan 31 Bootcamp Replay",
+    desc: "Full replay of the Jan 31 intensive + handouts. One-time $99, lifetime access.",
+    link: "/jan-31-bootcamp-paid",
+    cta: "Get Access →",
   },
 ];
 
@@ -86,23 +86,6 @@ const videoCategories = [
 export default function Home() {
   return (
     <main className="min-h-screen bg-slate-950">
-      {/* Header */}
-      <header className="py-4 px-6 border-b border-slate-800 sticky top-0 bg-slate-950/95 backdrop-blur z-50">
-        <div className="max-w-6xl mx-auto flex items-center justify-between">
-          <Link href="/" className="flex items-center gap-1">
-            <span className="text-2xl font-bold text-white">GovCon</span>
-            <span className="text-2xl font-bold text-green-500">Giants</span>
-          </Link>
-          <nav className="hidden md:flex items-center gap-6">
-            <a href="#resources" className="text-slate-400 hover:text-white transition">Resources</a>
-            <a href="#training" className="text-slate-400 hover:text-white transition">Training</a>
-            <Link href="https://shop.govcongiants.org" className="px-5 py-2 bg-green-600 hover:bg-green-500 text-white rounded-lg font-semibold transition">
-              Join Pro
-            </Link>
-          </nav>
-        </div>
-      </header>
-
       {/* Hero Section */}
       <section className="py-20 px-6">
         <div className="max-w-6xl mx-auto text-center">
@@ -128,25 +111,15 @@ export default function Home() {
             We&apos;ll show you exactly how to position your business to win federal contracts.
           </p>
 
-          {/* CTA Buttons */}
-          <div className="flex flex-col sm:flex-row gap-4 justify-center mb-12">
+          {/* CTA Button */}
+          <div className="flex justify-center mb-12">
             <Link href="/free-course" className="px-8 py-4 bg-green-600 hover:bg-green-500 text-white rounded-xl font-bold text-lg transition-all green-glow">
               Get Started Free
-            </Link>
-            <Link href="/bootcamp" className="px-8 py-4 bg-slate-800 hover:bg-slate-700 text-white border border-slate-700 rounded-xl font-bold text-lg transition-all">
-              Watch Free Training
             </Link>
           </div>
 
           {/* Stats Bar */}
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-4 max-w-4xl mx-auto">
-            {stats.map((stat, index) => (
-              <div key={index} className="bg-slate-900 border border-slate-800 rounded-xl p-6">
-                <div className="text-3xl font-black text-green-500 mb-1">{stat.value}</div>
-                <div className="text-slate-500 text-sm">{stat.label}</div>
-              </div>
-            ))}
-          </div>
+          <StatsCounter stats={stats} />
         </div>
       </section>
 
@@ -257,6 +230,89 @@ export default function Home() {
         </div>
       </section>
 
+      {/* Premium Resources Section */}
+      <section id="premium" className="py-20 px-6">
+        <div className="max-w-6xl mx-auto">
+          <div className="text-center mb-12">
+            <h2 className="text-4xl font-bold text-white mb-4">
+              <span className="text-green-500">Premium</span> Resources
+            </h2>
+            <p className="text-slate-500 text-lg max-w-2xl mx-auto">
+              Take it to the next level with paid replays and ongoing support. Get instant access to full bootcamp recordings and join the Pro community for tools, calls, and expert guidance.
+            </p>
+          </div>
+
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+            <Link
+              href="/jan-31-bootcamp-paid"
+              className="bg-slate-900 border border-slate-800 rounded-xl p-6 block hover:border-green-600/50 transition"
+            >
+              <div className="w-12 h-12 rounded-lg bg-green-900/50 border border-green-800 flex items-center justify-center mb-4">
+                <span className="text-2xl">📹</span>
+              </div>
+              <h3 className="text-xl font-bold text-white mb-2">Jan 31 Bootcamp Replay</h3>
+              <p className="text-slate-500 mb-2 text-sm">One-time $99. Full replay plus handouts, lifetime access.</p>
+              <span className="text-green-500 font-semibold">Get Access →</span>
+            </Link>
+
+            <Link
+              href="/premium/pro-member-group"
+              className="bg-slate-900 border-2 border-green-600 rounded-xl p-6 block hover:bg-slate-800 transition relative"
+            >
+              <div className="absolute -top-3 left-4">
+                <span className="bg-green-600 text-white text-xs font-bold px-3 py-1 rounded-full">RECOMMENDED</span>
+              </div>
+              <div className="w-12 h-12 rounded-lg bg-green-900/50 border border-green-800 flex items-center justify-center mb-4">
+                <span className="text-2xl">👑</span>
+              </div>
+              <h3 className="text-xl font-bold text-white mb-2">Pro Member Group</h3>
+              <p className="text-slate-500 mb-2 text-sm">$99/month. Ongoing support, community, updates and training.</p>
+              <span className="text-green-500 font-semibold">Learn More →</span>
+            </Link>
+
+            <Link
+              href="/premium/pro-member-plan"
+              className="bg-slate-900 border border-slate-800 rounded-xl p-6 block hover:border-green-600/50 transition"
+            >
+              <div className="w-12 h-12 rounded-lg bg-slate-800 flex items-center justify-center mb-4">
+                <span className="text-2xl">🎓</span>
+              </div>
+              <h3 className="text-xl font-bold text-white mb-2">Pro Member Plan</h3>
+              <p className="text-slate-500 mb-2 text-sm">$997 one-time. Lifetime Training License, 4,000+ community, Success Guide, bootcamps.</p>
+              <span className="text-green-500 font-semibold">Learn More →</span>
+            </Link>
+
+            <Link
+              href="/premium/accelerator"
+              className="bg-slate-900 border border-slate-800 rounded-xl p-6 block hover:border-green-600/50 transition"
+            >
+              <div className="w-12 h-12 rounded-lg bg-slate-800 flex items-center justify-center mb-4">
+                <span className="text-2xl">⚡</span>
+              </div>
+              <h3 className="text-xl font-bold text-white mb-2">Accelerator Program</h3>
+              <p className="text-slate-500 mb-2 text-sm">$5,997 one-time. 90 days, 12 weekly 1:1 coaching sessions, access to Lifetime Program.</p>
+              <span className="text-green-500 font-semibold">Learn More →</span>
+            </Link>
+
+            <Link
+              href="/premium/white-glove"
+              className="bg-slate-900 border-2 border-green-600 rounded-xl p-6 block hover:bg-slate-800 transition relative"
+            >
+              <div className="absolute -top-3 left-4">
+                <span className="bg-green-600 text-white text-xs font-bold px-3 py-1 rounded-full">RECOMMENDED</span>
+              </div>
+              <div className="w-12 h-12 rounded-lg bg-green-900/50 border border-green-800 flex items-center justify-center mb-4">
+                <span className="text-2xl">🤝</span>
+              </div>
+              <p className="text-green-500 text-sm font-medium mb-1">Premium Service</p>
+              <h3 className="text-xl font-bold text-white mb-2">White Glove Service</h3>
+              <p className="text-slate-500 mb-2 text-sm">Premium fractional business development and dedicated consultant support.</p>
+              <span className="text-green-500 font-semibold">Learn More →</span>
+            </Link>
+          </div>
+        </div>
+      </section>
+
       {/* CTA Section */}
       <section className="py-20 px-6">
         <div className="max-w-4xl mx-auto text-center">
@@ -302,8 +358,9 @@ export default function Home() {
             </div>
 
             <div className="flex items-center gap-6 text-slate-500">
-              <a href="#resources" className="hover:text-white transition">Resources</a>
-              <a href="#training" className="hover:text-white transition">Training</a>
+              <a href="/#resources" className="hover:text-white transition">Resources</a>
+              <a href="/#training" className="hover:text-white transition">Training</a>
+              <a href="/#premium" className="hover:text-white transition">Premium</a>
               <Link href="https://govcongiants.com" className="hover:text-white transition">Contact</Link>
             </div>
 

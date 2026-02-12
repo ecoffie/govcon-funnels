@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Premium | GovCon Giants</title>
+  <style>
+    * { box-sizing: border-box; }
+    body { margin: 0; font-family: system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif; background: #0f172a; color: #f8fafc; min-height: 100vh; }
+    a { color: inherit; text-decoration: none; }
+    .container { max-width: 72rem; margin: 0 auto; padding: 0 1.5rem; }
+    .green { color: #22c55e; }
+    .muted { color: #94a3b8; }
+    .card-bg { background: #1e293b; border: 1px solid #334155; }
+    .btn-green { display: inline-block; padding: 1rem 2rem; background: #16a34a; color: white; font-weight: 700; border-radius: 0.75rem; border: none; cursor: pointer; transition: all 0.2s; }
+    .btn-green:hover { background: #22c55e; box-shadow: 0 0 30px rgba(34, 197, 94, 0.4); }
+    .btn-outline { display: inline-block; padding: 1rem 2rem; background: transparent; color: white; font-weight: 700; border-radius: 0.75rem; border: 1px solid #475569; transition: all 0.2s; }
+    .btn-outline:hover { background: #334155; }
+    .green-glow { box-shadow: 0 0 30px rgba(34, 197, 94, 0.4); }
+  </style>
+</head>
+<body>
+  <header style="padding: 1rem 1.5rem; border-bottom: 1px solid #1e293b; position: sticky; top: 0; background: rgba(15,23,42,0.95); backdrop-filter: blur(8px); z-index: 50;">
+    <div class="container" style="display: flex; align-items: center; justify-content: space-between;">
+      <a href="preview.html" style="display: flex; align-items: center; gap: 0.25rem;">
+        <span style="font-size: 1.5rem; font-weight: 700; color: white;">GovCon</span>
+        <span style="font-size: 1.5rem; font-weight: 700;" class="green">Giants</span>
+      </a>
+      <nav style="display: flex; align-items: center; gap: 1.5rem;">
+        <a href="preview.html#resources" class="muted">Resources</a>
+        <a href="preview.html#premium" class="muted">Premium</a>
+        <a href="https://shop.govcongiants.org" class="btn-green" style="padding: 0.5rem 1.25rem; font-size: 0.875rem;">Join Pro</a>
+      </nav>
+    </div>
+  </header>
+
+  <main style="padding: 4rem 1.5rem;">
+    <div class="container">
+      <div id="content">
+        <p class="muted">Loading…</p>
+      </div>
+      <p style="margin-top: 2rem;">
+        <a href="preview.html#premium" class="muted" style="text-decoration: underline;">← Back to all Premium options</a>
+      </p>
+    </div>
+  </main>
+
+  <script>
+    var products = {
+      'pro-member-group': {
+        title: 'Pro Member Group',
+        description: 'Ongoing support, community resources, and regular updates and training materials. Join thousands of contractors getting guidance and accountability.',
+        price: '$99/month',
+        badge: 'RECOMMENDED',
+        ctaText: 'Join Pro →',
+        ctaUrl: 'https://shop.govcongiants.org',
+        highlights: [
+          { icon: '👑', title: 'Ongoing Support', desc: 'Direct access to experts and community.' },
+          { icon: '📚', title: 'Community Resources', desc: '4,000+ members and shared knowledge.' },
+          { icon: '🔄', title: 'Regular Updates', desc: 'New training and materials included.' }
+        ]
+      },
+      'pro-member-plan': {
+        title: 'Pro Member Plan',
+        description: 'Lifetime Training License, access to the 4,000+ member community, Step-by-Step Success Guide, First Partner Bootcamp, and Proposal Bootcamp. One-time payment.',
+        price: '$997 one-time',
+        ctaText: 'Get Access →',
+        ctaUrl: '#',
+        highlights: [
+          { icon: '🎓', title: 'Lifetime Training License', desc: 'Access all training for good.' },
+          { icon: '👥', title: '4,000+ Community', desc: 'Connect with other contractors.' },
+          { icon: '📋', title: 'Success Guide + Bootcamps', desc: 'First Partner and Proposal Bootcamps included.' }
+        ]
+      },
+      'accelerator': {
+        title: 'Accelerator Program',
+        description: '90 days of intensive support: 12 one-on-one coaching sessions (one per week), access to the Lifetime Program, personalized guidance through the federal contracting process, and step-by-step implementation support. Goal: contract-ready by program completion.',
+        price: '$5,997 one-time',
+        ctaText: 'Apply Now →',
+        ctaUrl: '#',
+        highlights: [
+          { icon: '⚡', title: '12 Weekly 1:1 Sessions', desc: '90 days of dedicated coaching.' },
+          { icon: '📋', title: 'Lifetime Program Access', desc: 'Full access included.' },
+          { icon: '🎯', title: 'Contract-Ready Goal', desc: 'Step-by-step implementation support.' }
+        ]
+      },
+      'white-glove': {
+        title: 'White Glove Service',
+        premiumService: true,
+        description: 'Premium fractional business development services with dedicated consultant support tailored to your company. Monthly retainer options available.',
+        price: '',
+        badge: 'RECOMMENDED',
+        ctaText: 'Contact Us →',
+        ctaUrl: 'mailto:hello@govconedu.com?subject=White%20Glove%20Inquiry',
+        highlights: [
+          { icon: '🤝', title: 'Dedicated Consultant', desc: 'Fractional BD support for your team.' },
+          { icon: '📊', title: 'Tailored to You', desc: 'Strategy and execution for your company.' },
+          { icon: '📅', title: 'Monthly Retainers', desc: 'Flexible retainer options available.' }
+        ]
+      }
+    };
+
+    function render() {
+      var slug = (location.hash || '#').replace(/^#/, '') || null;
+      var el = document.getElementById('content');
+      if (!slug || !products[slug]) {
+        el.innerHTML = '<h1 style="font-size: 2rem; margin-bottom: 1rem;">Premium Options</h1><p class="muted">Choose an option from the <a href="preview.html#premium" class="green">homepage Premium section</a>.</p>';
+        return;
+      }
+      var p = products[slug];
+      var html = '';
+      if (p.badge) html += '<div style="display: inline-flex; align-items: center; gap: 0.5rem; background: rgba(34,197,94,0.15); color: #22c55e; padding: 0.5rem 1rem; border-radius: 9999px; font-size: 0.875rem; font-weight: 700; margin-bottom: 1.5rem;">' + p.badge + '</div>';
+      if (p.premiumService) html += '<p style="font-size: 1.25rem; color: #22c55e; font-weight: 600; margin-bottom: 0.25rem;">Premium Service</p>';
+      html += '<h1 style="font-size: clamp(2rem, 5vw, 3rem); font-weight: 800; margin-bottom: 1rem;"><span class="green">' + p.title + '</span></h1>';
+      html += '<p style="font-size: 1.25rem; color: #cbd5e1; margin-bottom: 1rem;">' + p.description + '</p>';
+      if (p.price) html += '<p style="font-size: 1.125rem; margin-bottom: 1.5rem;"><span class="green" style="font-weight: 700;">' + p.price + '</span></p>';
+      html += '<div style="display: flex; flex-wrap: wrap; gap: 1rem; margin-bottom: 2rem;">';
+      html += '<a href="' + p.ctaUrl + '" class="btn-green green-glow">' + p.ctaText + '</a>';
+      html += '<a href="preview.html#premium" class="btn-outline">View All Premium Options</a>';
+      html += '</div>';
+      html += '<div class="card-bg" style="padding: 1.5rem; border-radius: 0.75rem; max-width: 32rem;">';
+      html += '<h3 style="font-size: 1.25rem; font-weight: 700; margin-bottom: 1rem;">What You Get</h3>';
+      for (var i = 0; i < p.highlights.length; i++) {
+        var h = p.highlights[i];
+        html += '<div style="display: flex; gap: 1rem; align-items: flex-start; padding: 1rem; border-radius: 0.5rem; background: rgba(15,23,42,0.5); margin-bottom: 0.75rem; border: 1px solid #334155;">';
+        html += '<span style="font-size: 1.5rem;">' + h.icon + '</span>';
+        html += '<div><strong style="color: white;">' + h.title + '</strong><p class="muted" style="margin: 0.25rem 0 0; font-size: 0.875rem;">' + h.desc + '</p></div>';
+        html += '</div>';
+      }
+      html += '</div>';
+      el.innerHTML = html;
+    }
+    render();
+    window.addEventListener('hashchange', render);
+  </script>
+</body>
+</html>

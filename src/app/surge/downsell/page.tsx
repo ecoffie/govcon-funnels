@@ -80,12 +80,7 @@ export default function SurgeDownsell() {
             </div>
 
             <div className="text-center border-t border-slate-800 pt-6">
-              <div className="flex items-baseline justify-center gap-2 mb-2">
-                <div className="text-slate-500 line-through text-xl">$99</div>
-                <div className="text-4xl font-bold text-white">$27</div>
-                <div className="text-slate-400">/month</div>
-              </div>
-              <div className="text-blue-400 text-sm mb-6">Save 70% compared to Pro</div>
+              <div className="text-blue-400 text-sm mb-6">More affordable than Pro</div>
 
               <a
                 href="https://federalhelpcenter.com/starter"
@@ -93,7 +88,7 @@ export default function SurgeDownsell() {
                 rel="noopener noreferrer"
                 className="block w-full px-8 py-4 bg-blue-600 hover:bg-blue-500 text-white rounded-xl font-bold text-lg text-center transition-all mb-4"
               >
-                Join Starter for $27/month
+                Join Starter
               </a>
             </div>
           </div>
@@ -143,10 +138,10 @@ export default function SurgeDownsell() {
                     <td className="text-center text-green-500">✓</td>
                   </tr>
                   <tr>
-                    <td className="py-2 font-bold text-white">Price</td>
-                    <td className="text-center">$0</td>
-                    <td className="text-center text-blue-400 font-bold">$27/mo</td>
-                    <td className="text-center text-green-500 font-bold">$99/mo</td>
+                    <td className="py-2 font-bold text-white">Tier</td>
+                    <td className="text-center">Free</td>
+                    <td className="text-center text-blue-400 font-bold">Starter</td>
+                    <td className="text-center text-green-500 font-bold">Pro</td>
                   </tr>
                 </tbody>
               </table>

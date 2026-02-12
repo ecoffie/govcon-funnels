@@ -19,21 +19,13 @@ const handouts = [
 export default function HandoutsLanding() {
   return (
     <main className="min-h-screen bg-slate-950">
-      {/* Header */}
-      <header className="py-6 px-6 border-b border-slate-800">
-        <div className="max-w-4xl mx-auto flex items-center justify-between">
-          <Link href="/" className="flex items-center gap-1">
-            <span className="text-2xl font-bold text-white">GovCon</span>
-            <span className="text-2xl font-bold text-green-500">Giants</span>
-          </Link>
-          <Link href="/resources" className="text-slate-400 hover:text-white text-sm transition">
+      {/* Hero Section */}
+      <section className="py-16 px-6">
+        <div className="max-w-3xl mx-auto">
+          <Link href="/resources" className="inline-block text-slate-400 hover:text-white text-sm mb-8 transition">
             ← Back to Resources
           </Link>
         </div>
-      </header>
-
-      {/* Hero Section */}
-      <section className="py-16 px-6">
         <div className="max-w-3xl mx-auto text-center">
           {/* Badge */}
           <div className="inline-flex items-center gap-2 bg-blue-900/50 border border-blue-700/50 text-blue-300 px-4 py-2 rounded-full text-sm font-medium mb-8">

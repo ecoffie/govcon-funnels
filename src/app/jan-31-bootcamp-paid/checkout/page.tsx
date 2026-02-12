@@ -12,22 +12,15 @@ export default function Jan31PaidCheckoutPage() {
 
   return (
     <main className="min-h-screen bg-slate-950">
-      <header className="py-6 px-6 border-b border-slate-800">
-        <div className="max-w-5xl mx-auto flex items-center justify-between">
-          <Link href="/" className="flex items-center gap-1">
-            <span className="text-2xl font-bold text-white">GovCon</span>
-            <span className="text-2xl font-bold text-green-500">Giants</span>
-          </Link>
+      <section className="py-12 px-6">
+        <div className="max-w-5xl mx-auto">
           <Link
             href="/jan-31-bootcamp-paid"
-            className="text-slate-400 hover:text-slate-200 text-sm"
+            className="inline-block text-slate-400 hover:text-slate-200 text-sm mb-6"
           >
-            ← Back
+            ← Back to Jan 31 Bootcamp
           </Link>
         </div>
-      </header>
-
-      <section className="py-12 px-6">
         <div className="max-w-5xl mx-auto grid md:grid-cols-2 gap-8 items-start">
           <div>
             <h1 className="text-3xl md:text-4xl font-bold text-white mb-4">

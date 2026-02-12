@@ -24,7 +24,7 @@ export default function CourseClient() {
 
   const toggleComplete = (day: number) => {
     const updated = completedLessons.includes(day)
-      ? completedLessons.filter((d) => d !== day)
+      ? completedLessons.filter((d: number) => d !== day)
       : [...completedLessons, day];
     setCompletedLessons(updated);
     localStorage.setItem('govcon_jan31_progress', JSON.stringify(updated));
@@ -35,28 +35,16 @@ export default function CourseClient() {
 
   return (
     <main className="min-h-screen bg-slate-950">
-      {/* Header */}
-      <header className="py-6 px-6 border-b border-slate-800">
-        <div className="max-w-6xl mx-auto flex items-center justify-between">
-          <Link href="/" className="flex items-center gap-1">
-            <span className="text-2xl font-bold text-white">GovCon</span>
-            <span className="text-2xl font-bold text-green-500">Giants</span>
-          </Link>
-          <div className="text-slate-400 text-sm">
-            {completedCount} of {totalCount} completed
-          </div>
-        </div>
-      </header>
-
       {/* Progress Bar */}
       <div className="bg-slate-900 py-3 px-6">
-        <div className="max-w-6xl mx-auto">
-          <div className="h-2 bg-slate-700 rounded-full overflow-hidden">
+        <div className="max-w-6xl mx-auto flex items-center justify-between gap-4">
+          <div className="flex-1 h-2 bg-slate-700 rounded-full overflow-hidden">
             <div
               className="h-full bg-green-600 rounded-full transition-all duration-300"
               style={{ width: `${(completedCount / totalCount) * 100}%` }}
             ></div>
           </div>
+          <span className="text-slate-400 text-sm flex-shrink-0">{completedCount} of {totalCount} completed</span>
         </div>
       </div>
 
