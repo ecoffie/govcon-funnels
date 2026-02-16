@@ -21,6 +21,7 @@ const resources = [
     desc: "Monthly training sessions with live Q&A to help start your GovCon journey.",
     link: "/bootcamp",
     cta: "Register Now →",
+    featured: false,
   },
   {
     icon: "🔥",
@@ -28,6 +29,7 @@ const resources = [
     desc: "Q4 federal spending focus - learn how to capture end-of-year opportunities.",
     link: "/surge",
     cta: "Access Now →",
+    featured: false,
   },
   {
     icon: "📚",
@@ -35,6 +37,7 @@ const resources = [
     desc: "Beginner curriculum from SAM.gov registration to landing your first contract.",
     link: "/free-course",
     cta: "Start Learning →",
+    featured: false,
   },
   {
     icon: "🎯",
@@ -42,6 +45,7 @@ const resources = [
     desc: "Agency search tool to find contracts by NAICS code and keywords.",
     link: "/opp",
     cta: "Try It Free →",
+    featured: false,
   },
   {
     icon: "📂",
@@ -49,6 +53,7 @@ const resources = [
     desc: "35+ free downloads: templates, contact lists, videos, and AI prompts.",
     link: "/resources",
     cta: "Browse Library →",
+    featured: false,
   },
   {
     icon: "📹",
@@ -56,6 +61,7 @@ const resources = [
     desc: "Full replay of the Jan 31 intensive + handouts. One-time $99, lifetime access.",
     link: "/jan-31-bootcamp-paid",
     cta: "Get Access →",
+    featured: false,
   },
 ];
 
