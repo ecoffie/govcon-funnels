@@ -56,9 +56,9 @@ const resources = [
     featured: false,
   },
   {
-    icon: "🎯",
-    title: "Feb 28 Bootcamp",
-    desc: "Join our February bootcamp - live training to help you start winning federal contracts.",
+    icon: "📅",
+    title: "Bid Bootcamp Downloads",
+    desc: "Get bid forms and event details for the Feb 28 Specifics and Proposals bootcamp.",
     link: "/feb-28-bootcamp",
     cta: "Register Now →",
     featured: false,
