@@ -56,11 +56,11 @@ const resources = [
     featured: false,
   },
   {
-    icon: "📹",
-    title: "Jan 31 Bootcamp Replay",
-    desc: "Full replay of the Jan 31 intensive + handouts. One-time $99, lifetime access.",
-    link: "/jan-31-bootcamp-paid",
-    cta: "Get Access →",
+    icon: "🎯",
+    title: "Feb 28 Bootcamp",
+    desc: "Join our February bootcamp - live training to help you start winning federal contracts.",
+    link: "/feb-28-bootcamp",
+    cta: "Register Now →",
     featured: false,
   },
 ];
