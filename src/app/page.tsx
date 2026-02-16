@@ -38,30 +38,6 @@ const freeResources = [
   },
 ];
 
-const beginnerStartHere = [
-  {
-    icon: "📚",
-    title: "Beginner's Course",
-    desc: "Start here. Curriculum from SAM.gov registration to landing your first contract.",
-    link: "/free-course",
-    cta: "Start Learning →",
-  },
-  {
-    icon: "🎯",
-    title: "Opportunity Hunter",
-    desc: "Find contracts by NAICS code and keywords. Free agency search tool.",
-    link: "/opp",
-    cta: "Try It Free →",
-  },
-  {
-    icon: "📞",
-    title: "Schedule a Call",
-    desc: "Talk with our team about your goals and get a clear next step.",
-    link: "https://govcongiants.com",
-    cta: "Book Now →",
-  },
-];
-
 const videoCategories = [
   {
     title: "Where Do I Start?",
@@ -153,32 +129,51 @@ export default function Home() {
             ))}
           </div>
 
-          {/* Beginner Start Here */}
+          {/* Beginners Start Here - Pathway */}
           <div className="mt-20">
             <div className="text-center mb-12">
               <h2 className="text-4xl font-bold text-white mb-4">
-                Beginner <span className="text-green-500">Start Here</span>
+                Beginners <span className="text-green-500">Start Here</span>
               </h2>
               <p className="text-slate-500 text-lg max-w-2xl mx-auto">
                 The first things you need to do as a beginner
               </p>
             </div>
 
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-              {beginnerStartHere.map((resource, index) => (
-                <Link
-                  key={index}
-                  href={resource.link}
-                  className="bg-slate-900 border border-slate-800 rounded-xl p-6 block hover:border-green-600/50 transition"
-                >
-                  <div className="w-12 h-12 rounded-lg bg-slate-800 flex items-center justify-center mb-4">
-                    <span className="text-2xl">{resource.icon}</span>
-                  </div>
-                  <h3 className="text-xl font-bold text-white mb-2">{resource.title}</h3>
-                  <p className="text-slate-500 mb-4">{resource.desc}</p>
-                  <span className="text-green-500 font-semibold">{resource.cta}</span>
-                </Link>
-              ))}
+            <div className="max-w-4xl mx-auto space-y-0">
+              {/* Step 1 */}
+              <Link href="/free-course" className="flex flex-col sm:flex-row gap-4 sm:gap-6 items-start p-6 rounded-xl bg-slate-900 border border-slate-800 hover:border-green-600/50 transition group">
+                <div className="flex-shrink-0 w-14 h-14 rounded-full bg-green-600 text-white font-black text-xl flex items-center justify-center">1</div>
+                <div className="flex-1">
+                  <h3 className="text-xl font-bold text-white mb-1 group-hover:text-green-400 transition">Step 1: Take the Beginner&apos;s Course</h3>
+                  <p className="text-slate-500">Build your foundation from SAM.gov registration to landing your first contract.</p>
+                  <span className="inline-block mt-2 text-green-500 font-semibold">Start Learning →</span>
+                </div>
+              </Link>
+              <div className="flex justify-center py-1">
+                <span className="text-slate-600">↓</span>
+              </div>
+              {/* Step 2 */}
+              <Link href="/opp" className="flex flex-col sm:flex-row gap-4 sm:gap-6 items-start p-6 rounded-xl bg-slate-900 border border-slate-800 hover:border-green-600/50 transition group">
+                <div className="flex-shrink-0 w-14 h-14 rounded-full bg-green-600 text-white font-black text-xl flex items-center justify-center">2</div>
+                <div className="flex-1">
+                  <h3 className="text-xl font-bold text-white mb-1 group-hover:text-green-400 transition">Step 2: Use the Opportunity Hunter</h3>
+                  <p className="text-slate-500">Find agencies and contracts by NAICS code and keywords. Free searches.</p>
+                  <span className="inline-block mt-2 text-green-500 font-semibold">Try It Free →</span>
+                </div>
+              </Link>
+              <div className="flex justify-center py-1">
+                <span className="text-slate-600">↓</span>
+              </div>
+              {/* Step 3 */}
+              <a href="https://govcongiants.com" className="flex flex-col sm:flex-row gap-4 sm:gap-6 items-start p-6 rounded-xl bg-slate-900 border border-slate-800 hover:border-green-600/50 transition group block">
+                <div className="flex-shrink-0 w-14 h-14 rounded-full bg-green-600 text-white font-black text-xl flex items-center justify-center">3</div>
+                <div className="flex-1">
+                  <h3 className="text-xl font-bold text-white mb-1 group-hover:text-green-400 transition">Step 3: Schedule a call</h3>
+                  <p className="text-slate-500">Talk with our team and see where you&apos;re at from there.</p>
+                  <span className="inline-block mt-2 text-green-500 font-semibold">Book Now →</span>
+                </div>
+              </a>
             </div>
           </div>
         </div>
@@ -257,81 +252,79 @@ export default function Home() {
       <section id="premium" className="py-20 px-6">
         <div className="max-w-6xl mx-auto">
           <div className="text-center mb-12">
-            <h2 className="text-4xl font-bold text-white mb-4">
-              <span className="text-green-500">Premium</span> Resources
-            </h2>
+            <Link href="/premium-page" className="block group">
+              <h2 className="text-4xl font-bold text-white mb-4 group-hover:text-green-400 transition">
+                <span className="text-green-500">Premium</span> Resources
+              </h2>
+            </Link>
             <p className="text-slate-500 text-lg max-w-2xl mx-auto">
-              Take it to the next level with paid replays and ongoing support. Get instant access to full bootcamp recordings and join the Pro community for tools, calls, and expert guidance.
+              Take it to the next level with paid replays and ongoing support.
             </p>
+            <Link href="/premium-page" className="inline-block mt-4 text-green-500 hover:text-green-400 font-semibold">
+              See what level is right for you →
+            </Link>
           </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-            <Link
-              href="/jan-31-bootcamp-paid"
-              className="bg-slate-900 border border-slate-800 rounded-xl p-6 block hover:border-green-600/50 transition"
-            >
-              <div className="w-12 h-12 rounded-lg bg-green-900/50 border border-green-800 flex items-center justify-center mb-4">
-                <span className="text-2xl">📹</span>
-              </div>
-              <h3 className="text-xl font-bold text-white mb-2">Jan 31 Bootcamp Replay</h3>
-              <p className="text-slate-500 mb-2 text-sm">One-time $99. Full replay plus handouts, lifetime access.</p>
-              <span className="text-green-500 font-semibold">Get Access →</span>
-            </Link>
+          {/* Beginner */}
+          <div className="mb-12">
+            <h3 className="text-xl font-bold text-white mb-4">Beginner</h3>
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+              <Link href="/premium/pro-member-group" className="bg-slate-900 border border-slate-800 rounded-xl p-6 block hover:border-green-600/50 transition">
+                <div className="w-12 h-12 rounded-lg bg-slate-800 flex items-center justify-center mb-4">
+                  <span className="text-2xl">👑</span>
+                </div>
+                <h4 className="text-lg font-bold text-white mb-2">Pro Member Group</h4>
+                <p className="text-slate-500 text-sm mb-2">$99/month. Ongoing support, community, updates and training.</p>
+                <span className="text-green-500 font-semibold text-sm">Learn More →</span>
+              </Link>
+              <Link href="/premium/pro-member-plan" className="bg-slate-900 border border-slate-800 rounded-xl p-6 block hover:border-green-600/50 transition">
+                <div className="w-12 h-12 rounded-lg bg-slate-800 flex items-center justify-center mb-4">
+                  <span className="text-2xl">🎓</span>
+                </div>
+                <h4 className="text-lg font-bold text-white mb-2">Pro Member Plan</h4>
+                <p className="text-slate-500 text-sm mb-2">$997 one-time. Lifetime Training License, 4,000+ community, Success Guide, bootcamps.</p>
+                <span className="text-green-500 font-semibold text-sm">Learn More →</span>
+              </Link>
+            </div>
+          </div>
 
-            <Link
-              href="/premium/pro-member-group"
-              className="bg-slate-900 border-2 border-green-600 rounded-xl p-6 block hover:bg-slate-800 transition relative"
-            >
-              <div className="absolute -top-3 left-4">
-                <span className="bg-green-600 text-white text-xs font-bold px-3 py-1 rounded-full">RECOMMENDED</span>
-              </div>
-              <div className="w-12 h-12 rounded-lg bg-green-900/50 border border-green-800 flex items-center justify-center mb-4">
-                <span className="text-2xl">👑</span>
-              </div>
-              <h3 className="text-xl font-bold text-white mb-2">Pro Member Group</h3>
-              <p className="text-slate-500 mb-2 text-sm">$99/month. Ongoing support, community, updates and training.</p>
-              <span className="text-green-500 font-semibold">Learn More →</span>
-            </Link>
+          {/* Intermediate */}
+          <div className="mb-12">
+            <h3 className="text-xl font-bold text-white mb-4">Intermediate</h3>
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+              <Link href="/jan-31-bootcamp-paid" className="bg-slate-900 border border-slate-800 rounded-xl p-6 block hover:border-green-600/50 transition">
+                <div className="w-12 h-12 rounded-lg bg-slate-800 flex items-center justify-center mb-4">
+                  <span className="text-2xl">📹</span>
+                </div>
+                <h4 className="text-lg font-bold text-white mb-2">Jan 31 Bootcamp Replay</h4>
+                <p className="text-slate-500 text-sm mb-2">One-time $99. Full replay plus handouts, lifetime access.</p>
+                <span className="text-green-500 font-semibold text-sm">Get Access →</span>
+              </Link>
+              <Link href="/premium/accelerator" className="bg-slate-900 border border-slate-800 rounded-xl p-6 block hover:border-green-600/50 transition">
+                <div className="w-12 h-12 rounded-lg bg-slate-800 flex items-center justify-center mb-4">
+                  <span className="text-2xl">⚡</span>
+                </div>
+                <h4 className="text-lg font-bold text-white mb-2">Accelerator Program</h4>
+                <p className="text-slate-500 text-sm mb-2">$5,997 one-time. 90 days, 12 weekly 1:1 coaching sessions, access to Lifetime Program.</p>
+                <span className="text-green-500 font-semibold text-sm">Learn More →</span>
+              </Link>
+            </div>
+          </div>
 
-            <Link
-              href="/premium/pro-member-plan"
-              className="bg-slate-900 border border-slate-800 rounded-xl p-6 block hover:border-green-600/50 transition"
-            >
-              <div className="w-12 h-12 rounded-lg bg-slate-800 flex items-center justify-center mb-4">
-                <span className="text-2xl">🎓</span>
-              </div>
-              <h3 className="text-xl font-bold text-white mb-2">Pro Member Plan</h3>
-              <p className="text-slate-500 mb-2 text-sm">$997 one-time. Lifetime Training License, 4,000+ community, Success Guide, bootcamps.</p>
-              <span className="text-green-500 font-semibold">Learn More →</span>
-            </Link>
-
-            <Link
-              href="/premium/accelerator"
-              className="bg-slate-900 border border-slate-800 rounded-xl p-6 block hover:border-green-600/50 transition"
-            >
-              <div className="w-12 h-12 rounded-lg bg-slate-800 flex items-center justify-center mb-4">
-                <span className="text-2xl">⚡</span>
-              </div>
-              <h3 className="text-xl font-bold text-white mb-2">Accelerator Program</h3>
-              <p className="text-slate-500 mb-2 text-sm">$5,997 one-time. 90 days, 12 weekly 1:1 coaching sessions, access to Lifetime Program.</p>
-              <span className="text-green-500 font-semibold">Learn More →</span>
-            </Link>
-
-            <Link
-              href="/premium/white-glove"
-              className="bg-slate-900 border-2 border-green-600 rounded-xl p-6 block hover:bg-slate-800 transition relative"
-            >
-              <div className="absolute -top-3 left-4">
-                <span className="bg-green-600 text-white text-xs font-bold px-3 py-1 rounded-full">RECOMMENDED</span>
-              </div>
-              <div className="w-12 h-12 rounded-lg bg-green-900/50 border border-green-800 flex items-center justify-center mb-4">
-                <span className="text-2xl">🤝</span>
-              </div>
-              <p className="text-green-500 text-sm font-medium mb-1">Premium Service</p>
-              <h3 className="text-xl font-bold text-white mb-2">White Glove Service</h3>
-              <p className="text-slate-500 mb-2 text-sm">Premium fractional business development and dedicated consultant support.</p>
-              <span className="text-green-500 font-semibold">Learn More →</span>
-            </Link>
+          {/* Advanced */}
+          <div>
+            <h3 className="text-xl font-bold text-white mb-4">Advanced</h3>
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+              <Link href="/premium/white-glove" className="bg-slate-900 border border-slate-800 rounded-xl p-6 block hover:border-green-600/50 transition md:max-w-md">
+                <div className="w-12 h-12 rounded-lg bg-slate-800 flex items-center justify-center mb-4">
+                  <span className="text-2xl">🤝</span>
+                </div>
+                <p className="text-green-500 text-sm font-medium mb-1">Premium Service</p>
+                <h4 className="text-lg font-bold text-white mb-2">White Glove Service</h4>
+                <p className="text-slate-500 text-sm mb-2">Premium fractional business development and dedicated consultant support.</p>
+                <span className="text-green-500 font-semibold text-sm">Learn More →</span>
+              </Link>
+            </div>
           </div>
         </div>
       </section>
@@ -381,9 +374,9 @@ export default function Home() {
             </div>
 
             <div className="flex items-center gap-6 text-slate-500">
-              <a href="/#resources" className="hover:text-white transition">Resources</a>
-              <a href="/#training" className="hover:text-white transition">Training</a>
-              <a href="/#premium" className="hover:text-white transition">Premium</a>
+              <Link href="/resources" className="hover:text-white transition">Resources</Link>
+              <Link href="/training" className="hover:text-white transition">Training</Link>
+              <Link href="/premium-page" className="hover:text-white transition">Premium</Link>
               <Link href="https://govcongiants.com" className="hover:text-white transition">Contact</Link>
             </div>
 
