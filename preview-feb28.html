@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Feb 28 Bootcamp: Specifics and Proposals | GovCon Giants</title>
+  <style>
+    * { box-sizing: border-box; }
+    body { margin: 0; font-family: system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif; background: #0f172a; color: #f8fafc; min-height: 100vh; }
+    a { color: inherit; text-decoration: none; }
+    .green { color: #22c55e; }
+    .muted { color: #94a3b8; }
+    .card-bg { background: #1e293b; border: 1px solid #334155; }
+    .pulse { animation: pulse 1.5s ease-in-out infinite; }
+    @keyframes pulse { 0%, 100% { opacity: 1; } 50% { opacity: 0.5; } }
+    .btn-green { display: inline-block; padding: 1rem 2rem; background: #16a34a; color: white; font-weight: 700; border-radius: 0.75rem; border: none; cursor: pointer; transition: all 0.2s; width: 100%; text-align: center; }
+    .btn-green:hover { background: #22c55e; box-shadow: 0 0 30px rgba(34, 197, 94, 0.4); }
+    input { width: 100%; padding: 0.75rem 1rem; background: #1e293b; border: 1px solid #475569; border-radius: 0.5rem; color: white; margin-bottom: 1rem; font-size: 1rem; }
+    input::placeholder { color: #64748b; }
+  </style>
+</head>
+<body>
+  <main style="min-height: 100vh;">
+    <section style="padding: 4rem 1.5rem;">
+      <div style="max-width: 48rem; margin: 0 auto;">
+        <a href="preview.html" style="color: #94a3b8; font-size: 0.875rem;">← Back to Home</a>
+      </div>
+      <div style="max-width: 48rem; margin: 0 auto; text-align: center;">
+        <div style="display: inline-flex; align-items: center; gap: 0.5rem; background: rgba(127,29,29,0.5); border: 1px solid #b91c1c; color: #fca5a5; padding: 0.5rem 1rem; border-radius: 9999px; font-size: 0.875rem; font-weight: 600; margin-bottom: 2rem;">
+          <span class="pulse" style="width: 8px; height: 8px; background: #ef4444; border-radius: 50%;"></span>
+          Saturday, February 28th – Live Bootcamp
+        </div>
+        <h1 style="font-size: clamp(2rem, 5vw, 3rem); font-weight: 800; margin-bottom: 1rem;">
+          Get All the <span class="green">Bid Forms</span>
+        </h1>
+        <p style="font-size: 1.25rem; color: #94a3b8; margin-bottom: 0.5rem; font-weight: 500;">Feb 28 Bootcamp: Specifics and Proposals</p>
+        <p style="font-size: 1.125rem; color: #94a3b8; margin-bottom: 2rem;">Enter your email to get instant access to all the bid forms and event details for the February 28th bootcamp.</p>
+        <div style="background: #1e293b; border: 1px solid #334155; border-radius: 1rem; padding: 2rem; max-width: 28rem; margin: 0 auto 3rem;">
+          <h3 style="font-size: 1.25rem; font-weight: 700; margin-bottom: 0.5rem;">Unlock Your Bid Forms</h3>
+          <p class="muted" style="font-size: 0.875rem; margin-bottom: 1.5rem;">Enter your info to access all bid forms and bootcamp details</p>
+          <form onsubmit="event.preventDefault(); window.location.href='preview-feb28-upsell.html'; return false;">
+            <input type="text" placeholder="Your Name" required />
+            <input type="email" placeholder="Your Email" required />
+            <input type="tel" placeholder="Your Phone (optional)" />
+            <button type="submit" class="btn-green">Get My Bid Forms</button>
+          </form>
+          <p style="text-align: center; font-size: 0.875rem; color: #64748b; margin-top: 1rem;">Instant access. No credit card required.</p>
+        </div>
+      </div>
+    </section>
+    <section style="padding: 3rem 1.5rem; background: rgba(15,23,42,0.5);">
+      <div style="max-width: 56rem; margin: 0 auto;">
+        <h2 style="font-size: 1.875rem; font-weight: 700; color: white; text-align: center; margin-bottom: 2rem;">What You'll Get</h2>
+        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 1.5rem;">
+          <div class="card-bg" style="padding: 1.5rem; border-radius: 0.75rem; display: flex; align-items: flex-start; gap: 1rem;">
+            <span style="font-size: 1.5rem;">📄</span>
+            <div><h3 style="font-weight: 700; color: white;">Bid Forms Pack</h3><p class="muted" style="font-size: 0.875rem;">All the forms you need for proposals and specifics</p></div>
+          </div>
+          <div class="card-bg" style="padding: 1.5rem; border-radius: 0.75rem; display: flex; align-items: flex-start; gap: 1rem;">
+            <span style="font-size: 1.5rem;">📋</span>
+            <div><h3 style="font-weight: 700; color: white;">Proposal Templates</h3><p class="muted" style="font-size: 0.875rem;">Ready-to-use templates for the bootcamp</p></div>
+          </div>
+          <div class="card-bg" style="padding: 1.5rem; border-radius: 0.75rem; display: flex; align-items: flex-start; gap: 1rem;">
+            <span style="font-size: 1.5rem;">🎯</span>
+            <div><h3 style="font-weight: 700; color: white;">Specifics Checklist</h3><p class="muted" style="font-size: 0.875rem;">Step-by-step specifics and compliance checklists</p></div>
+          </div>
+          <div class="card-bg" style="padding: 1.5rem; border-radius: 0.75rem; display: flex; align-items: flex-start; gap: 1rem;">
+            <span style="font-size: 1.5rem;">📅</span>
+            <div><h3 style="font-weight: 700; color: white;">Feb 28 Event Details</h3><p class="muted" style="font-size: 0.875rem;">Date, time, and access info for the live bootcamp</p></div>
+          </div>
+        </div>
+      </div>
+    </section>
+    <footer style="padding: 2rem 1.5rem; border-top: 1px solid #1e293b; text-align: center;">
+      <p class="muted" style="font-size: 0.875rem;">© 2026 GovCon Giants. All rights reserved.</p>
+    </footer>
+  </main>
+</body>
+</html>
