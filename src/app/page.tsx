@@ -14,14 +14,13 @@ const stats = [
   { value: "$2B+", label: "Contracts Won", numericValue: 2, prefix: "$", suffix: "B+" },
 ];
 
-const resources = [
+const freeResources = [
   {
     icon: "🎓",
     title: "January Bootcamp",
     desc: "Monthly training sessions with live Q&A to help start your GovCon journey.",
     link: "/bootcamp",
     cta: "Register Now →",
-    featured: false,
   },
   {
     icon: "🔥",
@@ -29,31 +28,6 @@ const resources = [
     desc: "Q4 federal spending focus - learn how to capture end-of-year opportunities.",
     link: "/surge",
     cta: "Access Now →",
-    featured: false,
-  },
-  {
-    icon: "📚",
-    title: "Free GovCon Course",
-    desc: "Beginner curriculum from SAM.gov registration to landing your first contract.",
-    link: "/free-course",
-    cta: "Start Learning →",
-    featured: false,
-  },
-  {
-    icon: "🎯",
-    title: "Opportunity Hunter",
-    desc: "Agency search tool to find contracts by NAICS code and keywords.",
-    link: "/opp",
-    cta: "Try It Free →",
-    featured: false,
-  },
-  {
-    icon: "📂",
-    title: "Free Resources Library",
-    desc: "35+ free downloads: templates, contact lists, videos, and AI prompts.",
-    link: "/resources",
-    cta: "Browse Library →",
-    featured: false,
   },
   {
     icon: "📅",
@@ -61,7 +35,30 @@ const resources = [
     desc: "Get bid forms and event details for the Feb 28 Specifics and Proposals bootcamp.",
     link: "/feb-28-bootcamp",
     cta: "Register Now →",
-    featured: false,
+  },
+];
+
+const beginnerStartHere = [
+  {
+    icon: "📚",
+    title: "Beginner's Course",
+    desc: "Start here. Curriculum from SAM.gov registration to landing your first contract.",
+    link: "/free-course",
+    cta: "Start Learning →",
+  },
+  {
+    icon: "🎯",
+    title: "Opportunity Hunter",
+    desc: "Find contracts by NAICS code and keywords. Free agency search tool.",
+    link: "/opp",
+    cta: "Try It Free →",
+  },
+  {
+    icon: "📞",
+    title: "Schedule a Call",
+    desc: "Talk with our team about your goals and get a clear next step.",
+    link: "https://govcongiants.com",
+    cta: "Book Now →",
   },
 ];
 
@@ -117,9 +114,9 @@ export default function Home() {
             We&apos;ll show you exactly how to position your business to win federal contracts.
           </p>
 
-          {/* CTA Button */}
+          {/* CTA Button - goes to Free Resources Library */}
           <div className="flex justify-center mb-12">
-            <Link href="/free-course" className="px-8 py-4 bg-green-600 hover:bg-green-500 text-white rounded-xl font-bold text-lg transition-all green-glow">
+            <Link href="/resources" className="px-8 py-4 bg-green-600 hover:bg-green-500 text-white rounded-xl font-bold text-lg transition-all green-glow">
               Get Started Free
             </Link>
           </div>
@@ -129,7 +126,7 @@ export default function Home() {
         </div>
       </section>
 
-      {/* Resources Section */}
+      {/* Free Resources to Get Started - 3 cards */}
       <section id="resources" className="py-20 px-6 bg-slate-900/50">
         <div className="max-w-6xl mx-auto">
           <div className="text-center mb-12">
@@ -139,23 +136,14 @@ export default function Home() {
             <p className="text-slate-500 text-lg">Everything you need to start winning federal contracts</p>
           </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-            {resources.map((resource, index) => (
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+            {freeResources.map((resource, index) => (
               <Link
                 key={index}
                 href={resource.link}
-                className={`bg-slate-900 border rounded-xl p-6 block hover:border-slate-700 transition relative ${
-                  resource.featured ? 'border-2 border-green-600 hover:bg-slate-800' : 'border-slate-800'
-                }`}
+                className="bg-slate-900 border border-slate-800 rounded-xl p-6 block hover:border-slate-700 transition"
               >
-                {resource.featured && (
-                  <div className="absolute -top-3 left-4">
-                    <span className="bg-green-600 text-white text-xs font-bold px-3 py-1 rounded-full">RECOMMENDED</span>
-                  </div>
-                )}
-                <div className={`w-12 h-12 rounded-lg flex items-center justify-center mb-4 ${
-                  resource.featured ? 'bg-green-900/50 border border-green-800' : 'bg-slate-800'
-                }`}>
+                <div className="w-12 h-12 rounded-lg bg-slate-800 flex items-center justify-center mb-4">
                   <span className="text-2xl">{resource.icon}</span>
                 </div>
                 <h3 className="text-xl font-bold text-white mb-2">{resource.title}</h3>
@@ -163,6 +151,35 @@ export default function Home() {
                 <span className="text-green-500 font-semibold">{resource.cta}</span>
               </Link>
             ))}
+          </div>
+
+          {/* Beginner Start Here */}
+          <div className="mt-20">
+            <div className="text-center mb-12">
+              <h2 className="text-4xl font-bold text-white mb-4">
+                Beginner <span className="text-green-500">Start Here</span>
+              </h2>
+              <p className="text-slate-500 text-lg max-w-2xl mx-auto">
+                The first things you need to do as a beginner
+              </p>
+            </div>
+
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+              {beginnerStartHere.map((resource, index) => (
+                <Link
+                  key={index}
+                  href={resource.link}
+                  className="bg-slate-900 border border-slate-800 rounded-xl p-6 block hover:border-green-600/50 transition"
+                >
+                  <div className="w-12 h-12 rounded-lg bg-slate-800 flex items-center justify-center mb-4">
+                    <span className="text-2xl">{resource.icon}</span>
+                  </div>
+                  <h3 className="text-xl font-bold text-white mb-2">{resource.title}</h3>
+                  <p className="text-slate-500 mb-4">{resource.desc}</p>
+                  <span className="text-green-500 font-semibold">{resource.cta}</span>
+                </Link>
+              ))}
+            </div>
           </div>
         </div>
       </section>
@@ -330,7 +347,7 @@ export default function Home() {
           </p>
 
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
-            <Link href="/free-course" className="px-10 py-5 bg-green-600 hover:bg-green-500 text-white rounded-xl font-bold text-xl transition-all green-glow">
+            <Link href="/resources" className="px-10 py-5 bg-green-600 hover:bg-green-500 text-white rounded-xl font-bold text-xl transition-all green-glow">
               Get Started Free
             </Link>
             <Link href="https://shop.govcongiants.org" className="px-10 py-5 bg-slate-800 hover:bg-slate-700 text-white border border-slate-700 rounded-xl font-bold text-xl transition-all">
