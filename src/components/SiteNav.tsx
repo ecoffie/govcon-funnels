@@ -12,13 +12,13 @@ export default function SiteNav() {
           <Link href="/" className="text-slate-400 hover:text-white transition text-sm">
             ← Back to Home
           </Link>
-          <Link href="/#resources" className="text-slate-400 hover:text-white transition">
+          <Link href="/resources" className="text-slate-400 hover:text-white transition">
             Resources
           </Link>
-          <Link href="/#training" className="text-slate-400 hover:text-white transition">
+          <Link href="/training" className="text-slate-400 hover:text-white transition">
             Training
           </Link>
-          <Link href="/#premium" className="text-slate-400 hover:text-white transition">
+          <Link href="/premium" className="text-slate-400 hover:text-white transition">
             Premium
           </Link>
           <Link
