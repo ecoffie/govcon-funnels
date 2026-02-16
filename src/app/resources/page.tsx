@@ -216,9 +216,9 @@ const resources: Resource[] = [
     link: "https://youtu.be/SdefXaGSS5Q",
     thumbnail: "/images/videos/GSA Business mastery.jpg"
   },
-  // TEMPLATES & TOOLS
+  // TEMPLATES
   {
-    section: "Templates, Tools & Contact Lists",
+    section: "Templates",
     category: "templates",
     gated: true,
     title: "GovCon Guides & Templates",
@@ -228,8 +228,9 @@ const resources: Resource[] = [
     buttonText: "Download PDF",
     link: "#"
   },
+  // CONTACT LISTS
   {
-    section: "Templates, Tools & Contact Lists",
+    section: "Contact Lists",
     category: "contacts",
     gated: true,
     title: "Tier-2 Supplier List",
@@ -239,8 +240,9 @@ const resources: Resource[] = [
     buttonText: "Download PDF",
     link: "#"
   },
+  // TOOLS
   {
-    section: "Templates, Tools & Contact Lists",
+    section: "Tools",
     category: "tools",
     gated: true,
     title: "Expiring Contracts CSV",
@@ -251,7 +253,7 @@ const resources: Resource[] = [
     link: "#"
   },
   {
-    section: "Templates, Tools & Contact Lists",
+    section: "Contact Lists",
     category: "contacts",
     gated: true,
     title: "SBLO Contact Directory",
@@ -262,7 +264,7 @@ const resources: Resource[] = [
     link: "#"
   },
   {
-    section: "Templates, Tools & Contact Lists",
+    section: "Templates",
     category: "templates",
     gated: true,
     title: "75 GovCon AI Prompts",
@@ -273,7 +275,7 @@ const resources: Resource[] = [
     link: "#"
   },
   {
-    section: "Templates, Tools & Contact Lists",
+    section: "Tools",
     category: "tools",
     gated: true,
     title: "Opportunity Hunter Tool",
@@ -284,7 +286,7 @@ const resources: Resource[] = [
     link: "https://tools.govcongiants.org/opportunity-hunter"
   },
   {
-    section: "Templates, Tools & Contact Lists",
+    section: "Templates",
     category: "templates",
     gated: true,
     title: "2026 GovCon Action Plan",
@@ -295,7 +297,7 @@ const resources: Resource[] = [
     link: "#"
   },
   {
-    section: "Templates, Tools & Contact Lists",
+    section: "Templates",
     category: "templates",
     gated: true,
     title: "December 2025 Bootcamp Slides",
@@ -306,7 +308,7 @@ const resources: Resource[] = [
     link: "#"
   },
   {
-    section: "Templates, Tools & Contact Lists",
+    section: "Tools",
     category: "tools",
     gated: true,
     title: "December 2025 Hit List - 30+ Low-Competition Contracts",
@@ -317,7 +319,7 @@ const resources: Resource[] = [
     link: "#"
   },
   {
-    section: "Templates, Tools & Contact Lists",
+    section: "Tools",
     category: "tools",
     gated: true,
     title: "December 2025 Hit List - Top 10 for Beginners",
@@ -328,7 +330,7 @@ const resources: Resource[] = [
     link: "#"
   },
   {
-    section: "Templates, Tools & Contact Lists",
+    section: "Tools",
     category: "tools",
     gated: true,
     title: "December 2025 Spend Forecast + Immediate Buyers",
@@ -339,7 +341,7 @@ const resources: Resource[] = [
     link: "#"
   },
   {
-    section: "Templates, Tools & Contact Lists",
+    section: "Contact Lists",
     category: "contacts",
     gated: true,
     title: "Tribal Small Business Directory",
@@ -351,8 +353,13 @@ const resources: Resource[] = [
   },
 ];
 
-// Group resources by section
-const sections = [...new Set(resources.map(r => r.section))];
+// Group resources by section (order: video sections first, then Templates, Tools, Contact Lists)
+const sectionOrder = ['Getting Started', 'Finding Opportunities', 'Winning Contracts', 'Fulfillment & Growth', 'Industry Specific', 'Templates', 'Tools', 'Contact Lists'];
+const sections = [...new Set(resources.map(r => r.section))].sort((a, b) => {
+  const i = sectionOrder.indexOf(a);
+  const j = sectionOrder.indexOf(b);
+  return (i === -1 ? 99 : i) - (j === -1 ? 99 : j);
+});
 
 export default function ResourceLibrary() {
   const [activeCategory, setActiveCategory] = useState<Category>('all');
@@ -478,7 +485,9 @@ export default function ResourceLibrary() {
                   {section === "Winning Contracts" && "Master proposals, pricing, and capability statements to win contracts."}
                   {section === "Fulfillment & Growth" && "Financing, suppliers, and scaling your government contracting business."}
                   {section === "Industry Specific" && "Specialized guidance for specific industries and situations."}
-                  {section === "Templates, Tools & Contact Lists" && "Downloadable templates and contact lists - enter your email for free access."}
+                  {section === "Templates" && "Downloadable guides and templates—enter your email for free access."}
+                  {section === "Tools" && "Data, hit lists, and tools to find and track opportunities."}
+                  {section === "Contact Lists" && "SBLO directories, supplier lists, and contact lists—enter your email for free access."}
                 </p>
 
                 <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">

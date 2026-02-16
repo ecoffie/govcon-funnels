@@ -89,6 +89,57 @@ export async function sendToWebhook(lead: LeadPayload): Promise<{ ok: boolean; e
   }
 }
 
+/** Send lead to Slack (notification with email, name, source, phone). */
+export async function sendToSlack(lead: LeadPayload): Promise<{ ok: boolean; error?: string }> {
+  const webhookUrl = process.env.SLACK_LEAD_WEBHOOK_URL;
+  if (!webhookUrl) {
+    return { ok: false, error: 'SLACK_LEAD_WEBHOOK_URL not set' };
+  }
+
+  const sourceLabel = lead.source.replace(/-/g, ' ').replace(/\b\w/g, (c) => c.toUpperCase());
+  const text = `New lead: ${lead.name || '—'} (${lead.email}) · *${sourceLabel}*${lead.phone ? ` · ${lead.phone}` : ''}`;
+
+  try {
+    const res = await fetch(webhookUrl, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        text: `:tada: *New Lead Magnet Signup*`,
+        blocks: [
+          {
+            type: 'header',
+            text: { type: 'plain_text', text: 'New Lead Magnet Signup', emoji: true },
+          },
+          {
+            type: 'section',
+            fields: [
+              { type: 'mrkdwn', text: `*Name:*\n${lead.name || '—'}` },
+              { type: 'mrkdwn', text: `*Email:*\n${lead.email}` },
+              { type: 'mrkdwn', text: `*Signed up for:*\n${sourceLabel}` },
+              { type: 'mrkdwn', text: `*Phone:*\n${lead.phone || '—'}` },
+            ],
+          },
+          {
+            type: 'context',
+            elements: [{ type: 'mrkdwn', text: `Source: \`${lead.source}\` · ${new Date().toISOString()}` }],
+          },
+        ],
+      }),
+    });
+
+    if (!res.ok) {
+      const errText = await res.text();
+      console.error('Slack webhook error:', res.status, errText);
+      return { ok: false, error: `${res.status}: ${errText.slice(0, 200)}` };
+    }
+    return { ok: true };
+  } catch (e) {
+    const message = e instanceof Error ? e.message : String(e);
+    console.error('Slack notification failed:', message);
+    return { ok: false, error: message };
+  }
+}
+
 /** Send lead to all configured CRM destinations (GHL and/or webhook). Runs in parallel. */
 export async function sendLeadToCrm(lead: LeadPayload): Promise<{ ghl?: { ok: boolean; error?: string }; webhook?: { ok: boolean; error?: string } }> {
   const results: { ghl?: { ok: boolean; error?: string }; webhook?: { ok: boolean; error?: string } } = {};

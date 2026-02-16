@@ -1,0 +1,161 @@
+# All Content for Framer - Copy & Paste Ready
+
+## HERO SECTION
+
+Badge: 🔴 LIVE NOW
+
+Headline: $82 BILLION UNSPENT FEDERAL MONEY
+
+Subheadline: Most agencies must spend their remaining budget by September 30th. Your business could capture this urgent government spending.
+
+Button 1: Get Started Free
+Button 2: Watch Free Training
+
+Form Title: Start Your Free Course
+Form Button: Get Free Access
+
+---
+
+## STATS BAR
+
+Stat 1:
+$750B+
+Annual Federal Spending
+Your market opportunity
+
+Stat 2:
+23%
+Set Aside for Small Biz
+Mandated by law
+
+Stat 3:
+5,000+
+Members Trained
+Join the community
+
+Stat 4:
+$2B+
+Contracts Won
+By our members
+
+---
+
+## RESOURCES SECTION
+
+Section Title: Start Your GovCon Journey
+Section Subtitle: Choose your path to winning federal contracts
+
+Card 1:
+Icon: 🎯
+Title: January Bootcamp
+Description: Full-Day Intensive: Win Federal Contracts in Q1 2026
+Badge: LIVE EVENT
+Button: Get Free Handouts
+Link: /bootcamp
+
+Card 2:
+Icon: ⚡
+Title: SURGE Bootcamp
+Description: 10 Free Resources to Win Federal Contracts
+Badge: FREE
+Button: Download Resources
+Link: /surge
+
+Card 3:
+Icon: 📚
+Title: Free 12-Day Course
+Description: Learn government contracting from scratch
+Badge: 100% FREE
+Button: Start Free Course
+Link: /free-course
+
+Card 4:
+Icon: 🔍
+Title: Opportunity Hunter
+Description: Find contracts perfect for your business
+Badge: TOOL
+Button: Start Hunting
+Link: /opp
+
+Card 5:
+Icon: 📹
+Title: Free Resources
+Description: Training videos, templates, and contact lists
+Badge: FREE
+Button: Browse Resources
+Link: /resources
+
+Card 6:
+Icon: 👑
+Title: GovCon Pro
+Description: Premium training and 1-on-1 support
+Badge: PREMIUM
+Button: Learn More
+Link: /premium
+
+---
+
+## URGENCY CTA
+
+Badge: ⚠️ URGENT
+
+Title: $82 Billion Must Be Spent by September 30th
+
+Subtitle: Don't let this opportunity pass. Start your journey today.
+
+Button: Get Started Now
+
+---
+
+## FINAL CTA
+
+Title: Ready to Win Federal Contracts?
+
+Subtitle: Join 5,000+ entrepreneurs winning government contracts
+
+Button: Start Your Free Course
+
+---
+
+## FOOTER
+
+Logo: GovCon Giants
+Tagline: Win Federal Contracts
+
+Links:
+- Resources
+- Free Course
+- Bootcamp
+- Contact
+
+Contact:
+Phone: 786-477-0477
+Email: hello@govconedu.com
+
+Copyright: © 2026 GovCon Giants. All rights reserved.
+
+---
+
+## COLORS (for reference)
+
+Background: #0f172a
+Card Background: #1e293b
+Border: #334155
+Text: #f8fafc
+Muted Text: #94a3b8
+Green: #22c55e
+Green Dark: #16a34a
+Red: #ef4444
+
+---
+
+## LINKS (button destinations)
+
+Get Started Free → /bootcamp or /free-course
+Watch Free Training → /resources
+January Bootcamp → /bootcamp
+SURGE → /surge
+Free Course → /free-course
+Opportunity Hunter → /opp
+Free Resources → /resources
+GovCon Pro → /premium (or your Next.js URL)
