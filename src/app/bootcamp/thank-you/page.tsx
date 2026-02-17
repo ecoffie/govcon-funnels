@@ -7,7 +7,7 @@ export default function BootcampThankYou() {
       message="Check your email for your free bootcamp handouts and event details."
       nextSteps={[
         "Download your free handouts from the email",
-        "Add Jan 31, 9am-5pm ET to your calendar",
+        "Add Feb 28, 9am-5pm ET to your calendar",
         "Review the handouts before the bootcamp",
         "Prepare your questions for the live Q&A"
       ]}

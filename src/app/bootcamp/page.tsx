@@ -2,7 +2,7 @@ import { Metadata } from 'next';
 import LeadForm from '@/components/LeadForm';
 
 export const metadata: Metadata = {
-  title: 'January 2026 GovCon Bootcamp - Win Federal Contracts | GovCon Giants',
+  title: 'February 2026 GovCon Bootcamp - Win Federal Contracts | GovCon Giants',
   description: 'Full-Day Intensive: Win Federal Contracts in Q1 2026. Get personalized agency lists, 5+ opportunities, and your 90-day plan.',
 };
 
@@ -41,7 +41,7 @@ export default function BootcampPage() {
             <div>
               <div className="inline-flex items-center gap-2 bg-red-500/10 text-red-400 px-4 py-2 rounded-full text-sm mb-6">
                 <span className="w-2 h-2 bg-red-500 rounded-full animate-pulse"></span>
-                LIVE EVENT - JAN 31, 2026
+                LIVE EVENT - FEB 28, 2026
               </div>
               <h1 className="text-4xl md:text-5xl font-bold mb-6 leading-tight">
                 Full-Day Intensive: <span className="text-green-500">Win Federal Contracts</span> in Q1 2026
@@ -54,7 +54,7 @@ export default function BootcampPage() {
                   <svg className="w-5 h-5 text-green-500" fill="currentColor" viewBox="0 0 20 20">
                     <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clipRule="evenodd" />
                   </svg>
-                  Jan 31, 9am-5pm ET
+                  Feb 28, 9am-5pm ET
                 </span>
                 <span className="flex items-center gap-2">
                   <svg className="w-5 h-5 text-green-500" fill="currentColor" viewBox="0 0 20 20">
