@@ -1,0 +1,14 @@
+{
+  "redirects": [
+    {
+      "source": "/funding",
+      "destination": "https://gov.encore-funding.com/govcon-giants-partner-government-contractor-funding/?utm_source=Eric+Coffie&utm_medium=Referral",
+      "permanent": false
+    },
+    {
+      "source": "/encore-funding",
+      "destination": "https://gov.encore-funding.com/govcon-giants-partner-government-contractor-funding/?utm_source=Eric+Coffie&utm_medium=Referral",
+      "permanent": false
+    }
+  ]
+}
