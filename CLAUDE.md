@@ -22,6 +22,42 @@ When user says: "the $82B page", "govcon funnels", "main marketing site", "the h
 ## Tech Stack
 - **Frontend:** Next.js 16, React 19, TypeScript, Tailwind CSS
 - **Styling:** Dark theme (slate-950 base), green accents
+- **CRM:** GoHighLevel v2 API (PIT key)
+- **Notifications:** Slack incoming webhooks
+
+---
+
+## Integrations
+
+### GoHighLevel CRM
+- **API:** v2 (`services.leadconnectorhq.com`)
+- **Key Type:** PIT (Personal Integration Token)
+- **Location ID:** `AMkIivLuREYwsX5GhAAL`
+- **Auto-tags:** `funnel-{source}` (e.g., `funnel-bootcamp`)
+
+### Slack Notifications
+- **Webhook:** Configured in Vercel env vars
+- **Channel:** Receives lead notifications with name, email, phone, source
+
+### Lead Flow
+```
+User submits form → /api/lead
+    ↓ (parallel)
+├── GHL v2 API → Creates contact with tags
+├── Slack → Sends notification
+└── (optional) Webhook → Zapier/Make
+```
+
+---
+
+## Environment Variables
+
+| Variable | Purpose | Location |
+|----------|---------|----------|
+| `GHL_API_KEY` | GoHighLevel PIT key | Vercel + .env.local |
+| `GHL_LOCATION_ID` | GHL sub-account ID | Vercel + .env.local |
+| `SLACK_LEAD_WEBHOOK_URL` | Slack incoming webhook | Vercel + .env.local |
+| `STRIPE_SECRET_KEY` | Stripe payments | Vercel + .env.local |
 
 ---
 
@@ -68,6 +104,9 @@ When user says: "the $82B page", "govcon funnels", "main marketing site", "the h
 | `/src/app/resources/page.tsx` | Free resources library with videos |
 | `/src/app/globals.css` | Global styles with green-glow effect |
 | `/src/app/layout.tsx` | Root layout |
+| `/src/lib/crm.ts` | GHL + Slack + webhook integrations |
+| `/src/app/api/lead/route.ts` | Lead submission API endpoint |
+| `/src/components/LeadForm.tsx` | Reusable lead capture form |
 
 ---
 
@@ -141,6 +180,22 @@ npm run build
 
 ## Recent Work History
 
+### February 16, 2026
+- **GoHighLevel Integration:**
+  - Upgraded from v1 API to v2 API (`services.leadconnectorhq.com`)
+  - Switched from JWT key to PIT (Personal Integration Token)
+  - All funnel forms now auto-create contacts with tags
+- **Slack Integration:**
+  - Added real-time lead notifications to Slack
+  - Rich formatted messages with name, email, phone, source
+- **Code Fixes:**
+  - Removed `"type": "commonjs"` from package.json (was breaking Next.js 16)
+  - Updated `/src/lib/crm.ts` to run GHL + Slack in parallel
+- **Tested & Verified:**
+  - Contacts appearing in GHL with correct tags
+  - Slack notifications working
+  - Deployed to production
+
 ### February 4, 2026
 - Created CLAUDE.md files for all GovCon projects:
   - `/Users/ericcoffie/Market Assasin/CLAUDE.md` (master reference)
@@ -160,4 +215,4 @@ npm run build
 
 ---
 
-*Last Updated: February 4, 2026*
+*Last Updated: February 16, 2026*
