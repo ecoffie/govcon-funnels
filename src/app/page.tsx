@@ -33,7 +33,7 @@ const freeResources = [
     icon: "📅",
     title: "Bid Bootcamp Downloads",
     desc: "Get bid forms and event details for the Feb 28 Specifics and Proposals bootcamp.",
-    link: "/feb-28-bootcamp",
+    link: "https://funnels.govcongiants.org/proposal-bootcamp",
     cta: "Register Now →",
   },
 ];
@@ -118,6 +118,7 @@ export default function Home() {
                 key={index}
                 href={resource.link}
                 className="bg-slate-900 border border-slate-800 rounded-xl p-6 block hover:border-slate-700 transition"
+                {...(resource.link.startsWith("http") ? { target: "_blank", rel: "noopener noreferrer" } : {})}
               >
                 <div className="w-12 h-12 rounded-lg bg-slate-800 flex items-center justify-center mb-4">
                   <span className="text-2xl">{resource.icon}</span>

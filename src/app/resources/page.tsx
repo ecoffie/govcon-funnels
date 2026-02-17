@@ -426,7 +426,7 @@ export default function ResourceLibrary() {
               <p className="text-slate-400 text-sm mb-3">Q4 federal spending focus. Access free.</p>
               <span className="text-green-500 font-semibold text-sm">Access Now →</span>
             </Link>
-            <Link href="/feb-28-bootcamp" className="bg-slate-900 border border-slate-700 rounded-xl p-5 block hover:bg-slate-800 transition">
+            <Link href="https://funnels.govcongiants.org/proposal-bootcamp" className="bg-slate-900 border border-slate-700 rounded-xl p-5 block hover:bg-slate-800 transition" target="_blank" rel="noopener noreferrer">
               <span className="text-2xl">📅</span>
               <h3 className="text-lg font-bold text-white mt-2 mb-1">Bid Bootcamp Downloads</h3>
               <p className="text-slate-400 text-sm mb-3">Bid forms and event details for the Feb 28 bootcamp.</p>

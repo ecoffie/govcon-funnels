@@ -57,7 +57,7 @@ export default function TrainingPage() {
                   <p className="text-slate-400 mb-4">
                     Get bid forms and event details for our live bootcamps. Specifics and Proposals training—everything you need to show up prepared.
                   </p>
-                  <Link href="/feb-28-bootcamp" className="inline-block px-6 py-3 bg-green-600 hover:bg-green-500 text-white font-semibold rounded-lg transition">
+                  <Link href="https://funnels.govcongiants.org/proposal-bootcamp" className="inline-block px-6 py-3 bg-green-600 hover:bg-green-500 text-white font-semibold rounded-lg transition" target="_blank" rel="noopener noreferrer">
                     Get Bid Forms →
                   </Link>
                 </div>
