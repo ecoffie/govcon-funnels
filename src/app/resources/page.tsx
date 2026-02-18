@@ -466,7 +466,7 @@ export default function ResourceLibrary() {
             if (sectionResources.length === 0) return null;
 
             return (
-              <div key={section} className="mb-12">
+              <div key={section} id={section.toLowerCase().replace(/\s+&\s+/g, '-').replace(/\s+/g, '-')} className="mb-12 scroll-mt-32">
                 <h2 className="text-2xl font-bold text-white mb-2">{section}</h2>
                 <p className="text-slate-400 mb-6">
                   {section === "Getting Started" && "New to GovCon? Start here to learn the fundamentals."}

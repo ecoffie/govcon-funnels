@@ -44,21 +44,21 @@ const videoCategories = [
     desc: "Getting started in government contracting",
     videos: 5,
     color: "green",
-    link: "/resources/library",
+    link: "/resources#getting-started",
   },
   {
     title: "Finding Contract Opportunities",
     desc: "How to find the right contracts for your business",
     videos: 4,
     color: "blue",
-    link: "/resources/library",
+    link: "/resources#finding-opportunities",
   },
   {
     title: "Winning Without Past Performance",
     desc: "How to win when you're just starting out",
     videos: 5,
     color: "amber",
-    link: "/resources/library",
+    link: "/resources#winning-contracts",
   },
 ];
 
