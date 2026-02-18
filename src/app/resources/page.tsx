@@ -1,6 +1,6 @@
 'use client';
 
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import Link from 'next/link';
 
 type Category = 'all' | 'videos' | 'templates' | 'contacts' | 'tools';
@@ -14,6 +14,8 @@ interface Resource {
   value: string;
   buttonText: string;
   link?: string;
+  /** Direct download path in /handouts/ (for gated resources) */
+  downloadFile?: string;
   thumbnail?: string;
   section: string;
 }
@@ -216,42 +218,7 @@ const resources: Resource[] = [
     link: "https://youtu.be/SdefXaGSS5Q",
     thumbnail: "/images/videos/GSA Business mastery.jpg"
   },
-  // TEMPLATES
-  {
-    section: "Templates",
-    category: "templates",
-    gated: true,
-    title: "GovCon Guides & Templates",
-    description: "Comprehensive guides and ready-to-use templates for federal contracting success.",
-    features: ["SAM Registration Guide", "SBLO Email Templates", "Proposal Checklists", "BD Pipeline Tracker"],
-    value: "$97",
-    buttonText: "Download PDF",
-    link: "#"
-  },
   // CONTACT LISTS
-  {
-    section: "Contact Lists",
-    category: "contacts",
-    gated: true,
-    title: "Tier-2 Supplier List",
-    description: "Access Tier-2 supplier contacts and vendor registration portals at major prime contractors.",
-    features: ["50+ Prime Contractors", "Vendor Portal Links", "Supplier Contacts", "Organized by NAICS"],
-    value: "$697",
-    buttonText: "Download PDF",
-    link: "#"
-  },
-  // TOOLS
-  {
-    section: "Tools",
-    category: "tools",
-    gated: true,
-    title: "Expiring Contracts CSV",
-    description: "Sample of expiring federal contracts data. Import into Excel, Sheets, or your CRM.",
-    features: ["Sample Contract Data", "Prime Contractor Info", "Expiration Dates", "Works with Any CRM"],
-    value: "$697",
-    buttonText: "Download CSV",
-    link: "#"
-  },
   {
     section: "Contact Lists",
     category: "contacts",
@@ -261,7 +228,18 @@ const resources: Resource[] = [
     features: ["100+ SBLO Contacts", "Direct Email Addresses", "Phone Numbers", "Agency Breakdown"],
     value: "$297",
     buttonText: "Download PDF",
-    link: "#"
+    downloadFile: "prime-contractor-directory.pdf"
+  },
+  {
+    section: "Contact Lists",
+    category: "contacts",
+    gated: true,
+    title: "Tier-2 Supplier List",
+    description: "Access Tier-2 supplier contacts and vendor registration portals at major prime contractors.",
+    features: ["50+ Prime Contractors", "Vendor Portal Links", "Supplier Contacts", "Organized by NAICS"],
+    value: "$697",
+    buttonText: "Download PDF",
+    downloadFile: "subcontractor-directory.pdf"
   },
   {
     section: "Templates",
@@ -272,12 +250,23 @@ const resources: Resource[] = [
     features: ["Proposal Writing Prompts", "Research Prompts", "Cap Statement Prompts", "Outreach Templates"],
     value: "$47",
     buttonText: "Download PDF",
-    link: "#"
+    downloadFile: "ai-prompts.pdf"
   },
   {
     section: "Tools",
     category: "tools",
     gated: true,
+    title: "Expiring Contracts Data",
+    description: "Sample of expiring federal contracts data. Import into Excel, Sheets, or your CRM.",
+    features: ["Sample Contract Data", "Prime Contractor Info", "Expiration Dates", "Works with Any CRM"],
+    value: "$697",
+    buttonText: "Download XLSX",
+    downloadFile: "expiring-contracts-2025.xlsx"
+  },
+  {
+    section: "Tools",
+    category: "tools",
+    gated: false,
     title: "Opportunity Hunter Tool",
     description: "Find federal agencies that buy what you sell. Analyze spending data by NAICS code or keyword.",
     features: ["Agency Spending Data", "NAICS Code Search", "Top Buyers List", "5 Free Searches/Day"],
@@ -294,51 +283,29 @@ const resources: Resource[] = [
     features: ["Monthly action items", "Key milestones", "Goal tracking"],
     value: "$97",
     buttonText: "Download PDF",
-    link: "#"
-  },
-  {
-    section: "Templates",
-    category: "templates",
-    gated: true,
-    title: "December 2025 Bootcamp Slides",
-    description: "Complete slide deck from our December 2025 Surge Bootcamp event.",
-    features: ["Full presentation", "Reference material", "Downloadable PDF"],
-    value: "$197",
-    buttonText: "Download PDF",
-    link: "#"
+    downloadFile: "2026-action-plan.pdf"
   },
   {
     section: "Tools",
     category: "tools",
     gated: true,
-    title: "December 2025 Hit List - 30+ Low-Competition Contracts",
+    title: "Low-Competition Contracts",
     description: "Curated list of 30+ low-competition federal contracts perfect for small businesses.",
     features: ["Hand-picked opportunities", "Less competition", "Small business friendly"],
     value: "$297",
     buttonText: "Download PDF",
-    link: "#"
+    downloadFile: "low-competition-contracts.pdf"
   },
   {
     section: "Tools",
     category: "tools",
     gated: true,
-    title: "December 2025 Hit List - Top 10 for Beginners",
-    description: "The top 10 easiest contracts for newcomers to federal contracting.",
-    features: ["Beginner-friendly", "Lower barriers to entry", "Quick wins possible"],
-    value: "$197",
-    buttonText: "Download PDF",
-    link: "#"
-  },
-  {
-    section: "Tools",
-    category: "tools",
-    gated: true,
-    title: "December 2025 Spend Forecast + Immediate Buyers",
+    title: "Spend Forecast + Immediate Buyers",
     description: "Forecasted government spending and a list of agencies actively buying right now.",
     features: ["Spending predictions", "Active buyers list", "Hot opportunities"],
     value: "$297",
     buttonText: "Download PDF",
-    link: "#"
+    downloadFile: "december-spend-forecast.pdf"
   },
   {
     section: "Contact Lists",
@@ -348,8 +315,8 @@ const resources: Resource[] = [
     description: "Directory of tribal-owned small businesses for teaming and subcontracting opportunities.",
     features: ["Tribal business contacts", "Teaming opportunities", "8(a) eligible partners"],
     value: "$297",
-    buttonText: "Download PDF",
-    link: "#"
+    buttonText: "Download CSV",
+    downloadFile: "tribal-list.csv"
   },
 ];
 
@@ -361,8 +328,23 @@ const sections = [...new Set(resources.map(r => r.section))].sort((a, b) => {
   return (i === -1 ? 99 : i) - (j === -1 ? 99 : j);
 });
 
+function isUnlocked(): boolean {
+  if (typeof window === 'undefined') return false;
+  try {
+    const leads = JSON.parse(localStorage.getItem('govcon_leads') || '[]');
+    return leads.some((l: { source?: string }) => l.source === 'free-handouts');
+  } catch {
+    return false;
+  }
+}
+
 export default function ResourceLibrary() {
   const [activeCategory, setActiveCategory] = useState<Category>('all');
+  const [unlocked, setUnlocked] = useState(false);
+
+  useEffect(() => {
+    setUnlocked(isUnlocked());
+  }, []);
 
   const filteredResources = activeCategory === 'all'
     ? resources
@@ -392,10 +374,17 @@ export default function ResourceLibrary() {
               <span className="px-3 py-1 bg-green-600 text-white text-xs font-bold rounded">FREE</span>
               <span className="text-slate-400 text-sm">Open access - no signup required</span>
             </div>
-            <div className="flex items-center gap-2">
-              <span className="px-3 py-1 bg-blue-600 text-white text-xs font-bold rounded">FREE + EMAIL</span>
-              <span className="text-slate-400 text-sm">Requires free email signup</span>
-            </div>
+            {unlocked ? (
+              <div className="flex items-center gap-2">
+                <span className="px-3 py-1 bg-green-600 text-white text-xs font-bold rounded">UNLOCKED</span>
+                <span className="text-slate-400 text-sm">Downloads unlocked - click to download</span>
+              </div>
+            ) : (
+              <div className="flex items-center gap-2">
+                <span className="px-3 py-1 bg-blue-600 text-white text-xs font-bold rounded">FREE + EMAIL</span>
+                <span className="text-slate-400 text-sm">Requires free email signup</span>
+              </div>
+            )}
           </div>
         </div>
       </section>
@@ -520,9 +509,9 @@ export default function ResourceLibrary() {
                           <div className="bg-white rounded-lg shadow-xl p-3 transform -rotate-3">
                             <div className="w-40 h-28 bg-gradient-to-br from-slate-100 to-slate-200 rounded flex flex-col items-center justify-center">
                               <div className="text-3xl mb-1">
-                                {resource.category === 'templates' && '📄'}
-                                {resource.category === 'contacts' && '📋'}
-                                {resource.category === 'tools' && '🛠️'}
+                                {resource.category === 'templates' && '\u{1F4C4}'}
+                                {resource.category === 'contacts' && '\u{1F4CB}'}
+                                {resource.category === 'tools' && '\u{1F6E0}\u{FE0F}'}
                               </div>
                               <div className="text-xs text-slate-600 font-medium">
                                 {resource.category === 'templates' && 'PDF Template'}
@@ -535,15 +524,21 @@ export default function ResourceLibrary() {
                       )}
 
                       <div className="p-6">
-                        <span className={`px-3 py-1 text-white text-xs font-bold rounded ${resource.gated ? 'bg-blue-600' : 'bg-green-600'}`}>
-                          {resource.gated ? 'FREE + EMAIL' : 'FREE VIDEO'}
-                        </span>
+                        {resource.gated ? (
+                          unlocked ? (
+                            <span className="px-3 py-1 bg-green-600 text-white text-xs font-bold rounded">UNLOCKED</span>
+                          ) : (
+                            <span className="px-3 py-1 bg-blue-600 text-white text-xs font-bold rounded">FREE + EMAIL</span>
+                          )
+                        ) : (
+                          <span className="px-3 py-1 bg-green-600 text-white text-xs font-bold rounded">FREE VIDEO</span>
+                        )}
                         <h3 className="text-xl font-bold text-white mt-3 mb-2">{resource.title}</h3>
                         <p className="text-slate-400 text-sm mb-4">{resource.description}</p>
                         <ul className="space-y-2 mb-6">
                           {resource.features.map((feature, i) => (
                             <li key={i} className="flex items-center gap-2 text-slate-300 text-sm">
-                              <span className="text-green-500">✓</span> {feature}
+                              <span className="text-green-500">&#10003;</span> {feature}
                             </li>
                           ))}
                         </ul>
@@ -553,12 +548,31 @@ export default function ResourceLibrary() {
                             <div className="text-2xl font-bold text-green-500">FREE</div>
                           </div>
                           {resource.gated ? (
-                            <Link
-                              href="/resources/handouts"
-                              className="px-6 py-3 bg-blue-600 hover:bg-blue-500 text-white rounded-lg font-semibold transition"
-                            >
-                              Get Free Access
-                            </Link>
+                            unlocked && resource.downloadFile ? (
+                              <a
+                                href={`/handouts/${resource.downloadFile}`}
+                                download
+                                className="px-6 py-3 bg-green-600 hover:bg-green-500 text-white rounded-lg font-semibold transition"
+                              >
+                                {resource.buttonText}
+                              </a>
+                            ) : resource.link ? (
+                              <a
+                                href={resource.link}
+                                target="_blank"
+                                rel="noopener noreferrer"
+                                className="px-6 py-3 bg-blue-600 hover:bg-blue-500 text-white rounded-lg font-semibold transition"
+                              >
+                                {resource.buttonText}
+                              </a>
+                            ) : (
+                              <Link
+                                href="/resources/handouts"
+                                className="px-6 py-3 bg-blue-600 hover:bg-blue-500 text-white rounded-lg font-semibold transition"
+                              >
+                                Get Free Access
+                              </Link>
+                            )
                           ) : (
                             <a
                               href={resource.link}
@@ -595,7 +609,7 @@ export default function ResourceLibrary() {
             rel="noopener noreferrer"
             className="inline-block px-8 py-4 bg-green-600 hover:bg-green-500 text-white rounded-xl font-bold text-lg transition-all green-glow"
           >
-            Upgrade to Pro →
+            Upgrade to Pro &rarr;
           </a>
         </div>
       </section>
@@ -607,7 +621,7 @@ export default function ResourceLibrary() {
             <span className="text-xl font-bold text-white">GovCon</span>
             <span className="text-xl font-bold text-green-500">Giants</span>
           </div>
-          <p className="text-slate-600 text-sm">© 2026 GovCon Giants. All rights reserved.</p>
+          <p className="text-slate-600 text-sm">&copy; 2026 GovCon Giants. All rights reserved.</p>
         </div>
       </footer>
     </main>

@@ -120,7 +120,6 @@ export async function sendToSlack(lead: LeadPayload): Promise<{ ok: boolean; err
   }
 
   const sourceLabel = lead.source.replace(/-/g, ' ').replace(/\b\w/g, (c) => c.toUpperCase());
-  const text = `New lead: ${lead.name || '—'} (${lead.email}) · *${sourceLabel}*${lead.phone ? ` · ${lead.phone}` : ''}`;
 
   try {
     const res = await fetch(webhookUrl, {
@@ -136,15 +135,15 @@ export async function sendToSlack(lead: LeadPayload): Promise<{ ok: boolean; err
           {
             type: 'section',
             fields: [
-              { type: 'mrkdwn', text: `*Name:*\n${lead.name || '—'}` },
+              { type: 'mrkdwn', text: `*Name:*\n${lead.name || '\u2014'}` },
               { type: 'mrkdwn', text: `*Email:*\n${lead.email}` },
               { type: 'mrkdwn', text: `*Signed up for:*\n${sourceLabel}` },
-              { type: 'mrkdwn', text: `*Phone:*\n${lead.phone || '—'}` },
+              { type: 'mrkdwn', text: `*Phone:*\n${lead.phone || '\u2014'}` },
             ],
           },
           {
             type: 'context',
-            elements: [{ type: 'mrkdwn', text: `Source: \`${lead.source}\` · ${new Date().toISOString()}` }],
+            elements: [{ type: 'mrkdwn', text: `Source: \`${lead.source}\` \u00b7 ${new Date().toISOString()}` }],
           },
         ],
       }),

@@ -131,6 +131,8 @@ export async function sendConfirmationEmail(params: EmailParams & { source: stri
   const firstName = name.split(' ')[0] || 'there';
 
   switch (source) {
+    case 'free-handouts':
+      return sendFreeHandoutsEmail({ to, name });
     case 'proposal-bootcamp':
       return sendProposalResourcesEmail({ to, name });
     case 'opp':
@@ -531,4 +533,66 @@ export async function sendProposalResourcesEmail(params: EmailParams): Promise<E
     console.error('[EMAIL] Stack:', stack);
     return { ok: false, error: message };
   }
+}
+
+/**
+ * Free handouts email with download links for all 8 resources
+ */
+const HANDOUT_DOWNLOADS = [
+  { name: '75 GovCon AI Prompts', file: 'ai-prompts.pdf' },
+  { name: '2026 GovCon Action Plan', file: '2026-action-plan.pdf' },
+  { name: 'SBLO Contact Directory', file: 'prime-contractor-directory.pdf' },
+  { name: 'Tier-2 Supplier List', file: 'subcontractor-directory.pdf' },
+  { name: 'Expiring Contracts', file: 'expiring-contracts-2025.xlsx' },
+  { name: 'Low-Competition Contracts', file: 'low-competition-contracts.pdf' },
+  { name: 'Spend Forecast', file: 'december-spend-forecast.pdf' },
+  { name: 'Tribal Directory', file: 'tribal-list.csv' },
+];
+
+export async function sendFreeHandoutsEmail(params: EmailParams): Promise<EmailResult> {
+  const firstName = params.name.split(' ')[0] || 'there';
+  const baseUrl = 'https://funnels.govcongiants.org';
+
+  const downloadRows = HANDOUT_DOWNLOADS.map(
+    (d) =>
+      `<tr>
+        <td style="padding: 10px 0; border-bottom: 1px solid #334155;">
+          <a href="${baseUrl}/handouts/${d.file}" style="color: #4ade80; text-decoration: none; font-weight: 600;">${d.name}</a>
+        </td>
+        <td style="padding: 10px 0; border-bottom: 1px solid #334155; text-align: right;">
+          <a href="${baseUrl}/handouts/${d.file}" style="display: inline-block; padding: 6px 16px; background-color: #22c55e; color: #ffffff; text-decoration: none; border-radius: 6px; font-weight: 600; font-size: 13px;">Download</a>
+        </td>
+      </tr>`
+  ).join('\n');
+
+  const content = `
+<h1 style="color: #ffffff; font-size: 28px; margin: 0 0 20px; text-align: center;">
+  Your Free Resources Are Ready!
+</h1>
+
+<p style="color: #94a3b8; font-size: 16px; line-height: 1.6; margin: 0 0 30px;">
+  Hey ${firstName},<br><br>
+  Thanks for signing up! Here are your free GovCon resources. Click any button below to download.
+</p>
+
+<div style="background-color: #0f172a; border-radius: 8px; padding: 24px; margin: 30px 0;">
+  <h3 style="color: #ffffff; font-size: 16px; margin: 0 0 16px;">Your Downloads:</h3>
+  <table width="100%" cellpadding="0" cellspacing="0">
+    ${downloadRows}
+  </table>
+</div>
+
+<table width="100%" cellpadding="0" cellspacing="0">
+  <tr>
+    <td align="center" style="padding: 20px 0;">
+      <a href="${baseUrl}/resources" style="display: inline-block; background-color: #4ade80; color: #0f172a; padding: 16px 32px; border-radius: 8px; text-decoration: none; font-weight: 700; font-size: 16px;">
+        Browse Full Resource Library
+      </a>
+    </td>
+  </tr>
+</table>
+
+${proCta()}`;
+
+  return sendEmail(params.to, `${firstName}, Your Free GovCon Resources Are Ready!`, emailWrapper(content));
 }
