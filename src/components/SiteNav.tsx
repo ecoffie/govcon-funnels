@@ -1,6 +1,12 @@
+'use client';
+
 import Link from 'next/link';
+import { usePathname } from 'next/navigation';
 
 export default function SiteNav() {
+  const pathname = usePathname();
+  const isHome = pathname === '/';
+
   return (
     <header className="py-4 px-6 border-b border-slate-800 sticky top-0 bg-slate-950/95 backdrop-blur z-50">
       <div className="max-w-6xl mx-auto flex items-center justify-between">
@@ -9,9 +15,11 @@ export default function SiteNav() {
           <span className="text-2xl font-bold text-green-500">Giants</span>
         </Link>
         <nav className="hidden md:flex items-center gap-6">
-          <Link href="/" className="text-slate-400 hover:text-white transition text-sm">
-            ← Back to Home
-          </Link>
+          {!isHome && (
+            <Link href="/" className="text-slate-400 hover:text-white transition text-sm">
+              ← Back to Home
+            </Link>
+          )}
           <Link href="/resources" className="text-slate-400 hover:text-white transition">
             Resources
           </Link>
