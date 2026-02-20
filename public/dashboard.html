@@ -407,17 +407,52 @@
       var searchInput = document.getElementById('search-input');
       var searchBtn = document.getElementById('search-btn');
       var searchAnswer = document.getElementById('search-answer');
-      searchBtn.addEventListener('click', function() {
+
+      async function askQuestion() {
         var q = (searchInput.value || '').trim();
-        searchAnswer.classList.add('show');
         if (!q) {
-          searchAnswer.textContent = 'Type a question and click Ask. On the live site (govcongiants.org/internal), AI answers are available when OPENAI_API_KEY is configured.';
+          searchAnswer.classList.add('show');
+          searchAnswer.textContent = 'Please type a question about the site backend, funnels, integrations, or recent updates.';
           return;
         }
-        searchAnswer.textContent = 'This is a static preview. AI search runs on the live internal page at govcongiants.org/internal when OPENAI_API_KEY is set in the environment.';
-      });
+
+        searchAnswer.classList.add('show');
+        searchAnswer.textContent = 'Thinking...';
+        searchBtn.disabled = true;
+        searchBtn.textContent = '...';
+
+        try {
+          var response = await fetch('/api/dashboard/ask', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ question: q })
+          });
+
+          var data = await response.json();
+
+          if (data.error && data.answer) {
+            searchAnswer.textContent = data.answer;
+          } else if (data.answer) {
+            searchAnswer.textContent = data.answer;
+          } else if (data.error) {
+            searchAnswer.textContent = 'Error: ' + data.error;
+          } else {
+            searchAnswer.textContent = 'No answer received';
+          }
+        } catch (error) {
+          searchAnswer.textContent = 'Error connecting to chat API. Please try again.';
+          console.error('Chat error:', error);
+        } finally {
+          searchBtn.disabled = false;
+          searchBtn.textContent = 'Ask';
+        }
+      }
+
+      searchBtn.addEventListener('click', askQuestion);
       searchInput.addEventListener('keydown', function(e) {
-        if (e.key === 'Enter') searchBtn.click();
+        if (e.key === 'Enter' && !searchBtn.disabled) {
+          askQuestion();
+        }
       });
     })();
   </script>
