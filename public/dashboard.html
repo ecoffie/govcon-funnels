@@ -51,6 +51,13 @@
     details[open] summary .open-arrow { display: inline; }
     .plan-card a { text-decoration: none; color: inherit; display: block; }
     .plan-card a:hover { border-color: rgba(34,197,94,0.5); }
+    .search-bar { display: flex; gap: 0.5rem; flex-wrap: wrap; margin-bottom: 2rem; }
+    .search-bar input { flex: 1; min-width: 200px; padding: 0.75rem 1rem; border-radius: 0.5rem; background: #1e293b; border: 1px solid #334155; color: white; font-size: 1rem; }
+    .search-bar input::placeholder { color: #64748b; }
+    .search-bar button { padding: 0.75rem 1.25rem; border-radius: 0.5rem; background: #16a34a; color: white; font-weight: 600; border: none; cursor: pointer; }
+    .search-bar button:hover { background: #22c55e; }
+    .search-answer { margin-top: 0.75rem; padding: 1rem; border-radius: 0.75rem; background: rgba(15,23,42,0.8); border: 1px solid #334155; color: #cbd5e1; font-size: 0.875rem; white-space: pre-wrap; display: none; }
+    .search-answer.show { display: block; }
     .tab-bar { display: flex; flex-wrap: wrap; gap: 2px; border-bottom: 1px solid #334155; padding-bottom: 1px; margin-bottom: 1.5rem; }
     .tab-btn { padding: 0.5rem 1rem; border-radius: 0.5rem 0.5rem 0 0; font-weight: 600; font-size: 0.875rem; border: 1px solid transparent; border-bottom: none; background: rgba(30,41,59,0.5); color: #94a3b8; cursor: pointer; }
     .tab-btn:hover { color: white; background: #334155; }
@@ -88,6 +95,14 @@
           <div class="muted-sm">All systems operational</div>
         </div>
       </div>
+    </section>
+
+    <section class="search-bar-wrap">
+      <div class="search-bar">
+        <input type="text" id="search-input" placeholder="Ask a question about funnels, plans, or lead flow..." />
+        <button type="button" id="search-btn">Ask</button>
+      </div>
+      <div id="search-answer" class="search-answer"></div>
     </section>
 
     <section>
@@ -388,6 +403,21 @@
           });
           this.classList.add('active');
         });
+      });
+      var searchInput = document.getElementById('search-input');
+      var searchBtn = document.getElementById('search-btn');
+      var searchAnswer = document.getElementById('search-answer');
+      searchBtn.addEventListener('click', function() {
+        var q = (searchInput.value || '').trim();
+        searchAnswer.classList.add('show');
+        if (!q) {
+          searchAnswer.textContent = 'Type a question and click Ask. On the live site (govcongiants.org/internal), AI answers are available when OPENAI_API_KEY is configured.';
+          return;
+        }
+        searchAnswer.textContent = 'This is a static preview. AI search runs on the live internal page at govcongiants.org/internal when OPENAI_API_KEY is set in the environment.';
+      });
+      searchInput.addEventListener('keydown', function(e) {
+        if (e.key === 'Enter') searchBtn.click();
       });
     })();
   </script>
