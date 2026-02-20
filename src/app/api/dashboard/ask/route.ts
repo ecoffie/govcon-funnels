@@ -104,38 +104,38 @@ export async function POST(request: NextRequest) {
       );
     }
 
-    const apiKey = process.env.OPENAI_API_KEY;
+    const apiKey = process.env.ANTHROPIC_API_KEY;
 
     if (!apiKey) {
       return NextResponse.json(
         {
-          error: 'OpenAI API key not configured',
-          answer: 'The chat feature requires OPENAI_API_KEY to be set in Vercel environment variables. Please add it to enable AI-powered answers about the site backend.'
+          error: 'Claude API key not configured',
+          answer: 'The chat feature requires ANTHROPIC_API_KEY to be set in Vercel environment variables. Please add it to enable AI-powered answers about the site backend.'
         },
         { status: 200 } // Return 200 so the UI can show the message
       );
     }
 
-    const response = await fetch('https://api.openai.com/v1/chat/completions', {
+    const response = await fetch('https://api.anthropic.com/v1/messages', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
-        'Authorization': `Bearer ${apiKey}`,
+        'x-api-key': apiKey,
+        'anthropic-version': '2023-06-01',
       },
       body: JSON.stringify({
-        model: 'gpt-4o-mini',
+        model: 'claude-3-5-sonnet-20241022',
+        max_tokens: 1024,
+        system: SYSTEM_PROMPT,
         messages: [
-          { role: 'system', content: SYSTEM_PROMPT },
           { role: 'user', content: question }
         ],
-        temperature: 0.7,
-        max_tokens: 500,
       }),
     });
 
     if (!response.ok) {
       const error = await response.text();
-      console.error('OpenAI API error:', error);
+      console.error('Claude API error:', error);
       return NextResponse.json(
         { error: 'Failed to get answer from AI' },
         { status: 500 }
@@ -143,7 +143,7 @@ export async function POST(request: NextRequest) {
     }
 
     const data = await response.json();
-    const answer = data.choices[0]?.message?.content || 'No answer generated';
+    const answer = data.content[0]?.text || 'No answer generated';
 
     return NextResponse.json({ answer });
   } catch (error) {
