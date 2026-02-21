@@ -137,7 +137,11 @@ export async function POST(request: NextRequest) {
       const error = await response.text();
       console.error('Claude API error:', error);
       return NextResponse.json(
-        { error: 'Failed to get answer from AI' },
+        {
+          error: 'Failed to get answer from AI',
+          details: error,
+          status: response.status
+        },
         { status: 500 }
       );
     }
