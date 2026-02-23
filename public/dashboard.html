@@ -64,16 +64,276 @@
     .tab-btn.active { background: #334155; color: white; border-color: #475569; margin-bottom: -1px; padding-bottom: calc(0.5rem + 1px); }
     .tab-panel { display: none; }
     .tab-panel.active { display: block; }
-    @media (max-width: 640px) { .funnels-list { grid-template-columns: 1fr; } }
+    .task-workspace { background: rgba(15,23,42,0.7); border: 1px solid #334155; border-radius: 0.75rem; padding: 1rem; }
+    .task-toolbar { display: flex; flex-wrap: wrap; justify-content: space-between; gap: 0.75rem; margin-bottom: 0.75rem; }
+    .task-toolbar h3 { margin: 0; color: white; }
+    .task-toolbar .meta { font-size: 0.8rem; color: #94a3b8; }
+    .task-toolbar button { padding: 0.5rem 0.75rem; border-radius: 0.5rem; border: 1px solid #334155; background: #1e293b; color: #e2e8f0; cursor: pointer; }
+    .task-toolbar button.primary { background: #16a34a; border-color: #16a34a; color: white; font-weight: 600; }
+    .task-toolbar button:hover { background: #334155; }
+    .task-toolbar button.primary:hover { background: #22c55e; }
+    .task-controls { display: grid; grid-template-columns: 1.4fr repeat(7, minmax(120px, 1fr)); gap: 0.5rem; margin-bottom: 0.75rem; }
+    .task-controls input, .task-controls select { padding: 0.5rem 0.625rem; border-radius: 0.5rem; background: #0f172a; border: 1px solid #334155; color: #e2e8f0; font-size: 0.85rem; }
+    .task-controls .toggle-wrap { display: inline-flex; align-items: center; gap: 0.5rem; border: 1px solid #334155; border-radius: 0.5rem; background: #0f172a; padding: 0.45rem 0.6rem; font-size: 0.82rem; color: #cbd5e1; }
+    .task-controls .toggle-wrap input { width: auto; margin: 0; }
+    .project-strip { display: flex; flex-wrap: wrap; gap: 0.5rem; margin: 0.25rem 0 0.75rem 0; }
+    .project-chip { border: 1px solid #334155; background: #1e293b; color: #cbd5e1; border-radius: 9999px; padding: 0.35rem 0.65rem; font-size: 0.78rem; cursor: pointer; }
+    .project-chip.active { border-color: #22c55e66; background: #22c55e1f; color: #86efac; }
+    .task-properties-menu { display: none; margin-bottom: 0.6rem; border: 1px solid #334155; background: #0f172a; border-radius: 0.6rem; padding: 0.6rem; grid-template-columns: repeat(4, minmax(120px, 1fr)); gap: 0.45rem; }
+    .task-properties-menu.show { display: grid; }
+    .task-properties-menu label { display: inline-flex; align-items: center; gap: 0.35rem; font-size: 0.78rem; color: #cbd5e1; }
+    .task-view-tabs { display: flex; flex-wrap: wrap; gap: 0.5rem; margin-bottom: 0.75rem; }
+    .task-view-btn { padding: 0.4rem 0.65rem; border-radius: 9999px; border: 1px solid #334155; background: #1e293b; color: #cbd5e1; font-size: 0.8rem; cursor: pointer; }
+    .task-view-btn.active { background: #22c55e1f; color: #86efac; border-color: #22c55e66; }
+    .task-new-form-backdrop { position: fixed; inset: 0; background: rgba(2, 6, 23, 0.55); z-index: 65; display: none; }
+    .task-new-form-backdrop.show { display: block; }
+    .task-new-form { display: none; position: fixed; right: 1rem; top: 1rem; bottom: 1rem; width: min(440px, calc(100vw - 2rem)); margin: 0; background: #020617; border: 1px solid #334155; border-radius: 0.75rem; padding: 1rem; z-index: 70; box-shadow: 0 20px 40px rgba(0,0,0,0.4); overflow-y: auto; }
+    .task-new-form.show { display: block; }
+    .task-new-grid { display: grid; grid-template-columns: 1fr; gap: 0.55rem; }
+    .task-new-head { display: flex; align-items: center; justify-content: space-between; margin-bottom: 0.75rem; }
+    .task-new-head h4 { margin: 0; color: #fff; font-size: 1rem; }
+    .task-new-close { border: 1px solid #334155; background: #1e293b; color: #cbd5e1; border-radius: 0.45rem; padding: 0.35rem 0.55rem; cursor: pointer; }
+    .task-new-form input, .task-new-form select { padding: 0.5rem 0.625rem; border-radius: 0.5rem; background: #020617; border: 1px solid #334155; color: #e2e8f0; }
+    .task-new-form button { padding: 0.5rem 0.75rem; border-radius: 0.5rem; border: 1px solid #334155; background: #1e293b; color: #e2e8f0; cursor: pointer; }
+    .task-new-form button.primary { background: #16a34a; border-color: #16a34a; color: #fff; }
+    .task-table-wrap { overflow-x: auto; border: 1px solid #1e293b; border-radius: 0.6rem; }
+    .task-table { width: 100%; border-collapse: collapse; font-size: 0.85rem; min-width: 980px; table-layout: fixed; }
+    .task-table th, .task-table td { border-bottom: 1px solid #1e293b; padding: 0.55rem 0.4rem; vertical-align: middle; }
+    .task-table th { color: #94a3b8; font-weight: 600; text-align: left; font-size: 0.75rem; text-transform: uppercase; letter-spacing: 0.03em; }
+    .col-id { width: 92px; }
+    .col-title { width: 300px; }
+    .col-status, .col-priority { width: 108px; }
+    .col-assignee { width: 140px; }
+    .col-due { width: 128px; }
+    .col-project { width: 170px; }
+    .col-tags { width: 170px; }
+    .col-estimate { width: 110px; }
+    .title-preview { display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; font-size: 0.82rem; line-height: 1.25; }
+    .title-preview.expanded { -webkit-line-clamp: unset; }
+    .task-cell-input { width: 100%; padding: 0.35rem 0.45rem; border-radius: 0.4rem; background: #0f172a; border: 1px solid #334155; color: #e2e8f0; font-size: 0.82rem; }
+    .chip { display: inline-flex; align-items: center; gap: 0.25rem; border: 1px solid #334155; border-radius: 9999px; padding: 0.2rem 0.55rem; font-size: 0.72rem; cursor: pointer; user-select: none; }
+    .chip.status-open { border-color: #475569; color: #cbd5e1; }
+    .chip.status-in_progress { border-color: #0284c7; color: #7dd3fc; }
+    .chip.status-review { border-color: #a855f7; color: #e9d5ff; }
+    .chip.status-done { border-color: #16a34a; color: #86efac; }
+    .chip.priority-low { border-color: #475569; color: #94a3b8; }
+    .chip.priority-medium { border-color: #ca8a04; color: #fde68a; }
+    .chip.priority-high { border-color: #ef4444; color: #fca5a5; }
+    .task-board { display: grid; grid-template-columns: repeat(4, minmax(160px, 1fr)); gap: 0.6rem; }
+    .task-board-col { background: #0f172a; border: 1px solid #334155; border-radius: 0.6rem; padding: 0.55rem; min-height: 180px; }
+    .task-board-col h4 { margin: 0 0 0.5rem 0; font-size: 0.75rem; color: #94a3b8; text-transform: uppercase; letter-spacing: 0.04em; }
+    .task-card { background: #1e293b; border: 1px solid #334155; border-radius: 0.5rem; padding: 0.5rem; margin-bottom: 0.45rem; cursor: pointer; }
+    .task-card .title { color: #e2e8f0; font-size: 0.82rem; margin-bottom: 0.25rem; }
+    .task-card .meta { color: #94a3b8; font-size: 0.72rem; }
+    .task-list-plain { list-style: none; padding: 0; margin: 0; }
+    .task-list-plain li { display: flex; justify-content: space-between; gap: 0.75rem; align-items: center; background: #0f172a; border: 1px solid #334155; border-radius: 0.5rem; padding: 0.5rem 0.65rem; margin-bottom: 0.45rem; }
+    .task-calendar-group { margin-bottom: 0.8rem; }
+    .task-calendar-group h4 { margin: 0 0 0.35rem 0; color: #94a3b8; font-size: 0.78rem; text-transform: uppercase; }
+    .task-calendar-item { background: #0f172a; border: 1px solid #334155; border-radius: 0.45rem; padding: 0.45rem 0.6rem; margin-bottom: 0.35rem; display: flex; justify-content: space-between; }
+    .task-empty { color: #64748b; font-size: 0.85rem; padding: 0.75rem 0; }
+    .task-detail { position: fixed; inset: 1rem; width: auto; background: #020617; border: 1px solid #334155; border-radius: 0.8rem; padding: 1rem; overflow-y: auto; z-index: 60; box-shadow: 0 20px 40px rgba(0,0,0,0.4); display: none; }
+    .task-detail.show { display: block; }
+    .task-progress { margin: 0.75rem 0; }
+    .progress-bar { height: 8px; background: #1e293b; border-radius: 999px; overflow: hidden; }
+    .progress-fill { height: 100%; background: #22c55e; }
+    .activity-list { list-style: none; padding: 0; margin: 0.5rem 0 0 0; }
+    .activity-list li { border-bottom: 1px solid #1e293b; padding: 0.4rem 0; font-size: 0.8rem; color: #94a3b8; }
+    .task-detail h3 { margin-top: 0; color: #fff; }
+    .task-detail label { display: block; color: #94a3b8; font-size: 0.74rem; margin-bottom: 0.2rem; }
+    .task-detail input, .task-detail textarea, .task-detail select { width: 100%; margin-bottom: 0.55rem; padding: 0.5rem 0.6rem; border-radius: 0.45rem; border: 1px solid #334155; background: #0f172a; color: #e2e8f0; }
+    .task-detail textarea { min-height: 90px; resize: vertical; }
+    .task-detail-actions { display: flex; gap: 0.5rem; justify-content: flex-end; }
+    .task-detail-actions button { padding: 0.45rem 0.7rem; border-radius: 0.45rem; border: 1px solid #334155; background: #1e293b; color: #e2e8f0; cursor: pointer; }
+    .task-detail-actions button.primary { background: #16a34a; border-color: #16a34a; color: #fff; }
+    .tasks-err { color: #f87171; font-size: 0.875rem; margin-top: 0.5rem; }
+    .tasks-note {
+      color: #86efac;
+      font-size: 0.875rem;
+      margin-top: 0.5rem;
+      border: 1px solid #166534;
+      background: rgba(22, 163, 74, 0.12);
+      border-radius: 0.5rem;
+      padding: 0.5rem 0.75rem;
+    }
+    @media (max-width: 900px) {
+      .task-controls { grid-template-columns: 1fr 1fr; }
+      .task-properties-menu { grid-template-columns: 1fr 1fr; }
+      .task-board { grid-template-columns: 1fr 1fr; }
+      .task-detail { left: 1rem; right: 1rem; width: auto; }
+    }
+    @media (max-width: 640px) {
+      .funnels-list { grid-template-columns: 1fr; }
+      .task-controls { grid-template-columns: 1fr; }
+      .task-properties-menu { grid-template-columns: 1fr; }
+      .task-board { grid-template-columns: 1fr; }
+    }
   </style>
 </head>
 <body>
   <main class="container">
     <h1>Internal <span class="green">Dashboard</span></h1>
-    <p class="muted" style="margin-bottom: 1.5rem;">For the internal team: see plans, funnels, and how the backend works.</p>
+    <p class="muted" style="margin-bottom: 1.5rem;">Internal AI workspace and task management hub.</p>
 
-    <section style="margin-bottom: 2rem;">
-      <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 1rem;">
+    <section class="search-bar-wrap">
+      <h2>Internal AI</h2>
+      <p class="muted-sm" style="margin-bottom: 1rem;">For internal team to ask chatbot any questions about the internal side.</p>
+      <div class="search-bar">
+        <input type="text" id="search-input" placeholder="Ask a question about funnels, plans, or lead flow..." />
+        <button type="button" id="search-btn">Ask</button>
+      </div>
+      <div id="search-answer" class="search-answer"></div>
+    </section>
+
+    <section>
+      <h2>Manage tasks</h2>
+      <div class="task-workspace">
+        <div class="task-toolbar">
+          <div>
+            <h3>Tasks</h3>
+            <div id="task-count" class="meta">0 tasks</div>
+          </div>
+          <div style="display:flex; gap:0.5rem; flex-wrap:wrap;">
+            <button type="button" id="apply-template">Use template</button>
+            <button type="button" id="new-task-btn" class="primary">New task</button>
+          </div>
+        </div>
+        <div class="task-controls">
+          <input type="text" id="task-search" placeholder="Search tasks..." />
+          <select id="task-template">
+            <option value="funnel_launch">Template: Funnel Launch</option>
+            <option value="content_update">Template: Content Update</option>
+            <option value="crm_cleanup">Template: CRM Cleanup</option>
+          </select>
+          <select id="task-filter-status">
+            <option value="all">All statuses</option>
+            <option value="open">Open</option>
+            <option value="in_progress">In progress</option>
+            <option value="review">Review</option>
+            <option value="done">Done</option>
+          </select>
+          <select id="task-filter-priority">
+            <option value="all">All priorities</option>
+            <option value="high">High priority</option>
+            <option value="medium">Medium priority</option>
+            <option value="low">Low priority</option>
+          </select>
+          <label class="toggle-wrap"><input type="checkbox" id="include-done-toggle" /> Include done</label>
+          <select id="task-sort">
+            <option value="updated_desc">Sort: Recently updated</option>
+            <option value="due_asc">Sort: Due date</option>
+            <option value="priority_desc">Sort: Priority</option>
+            <option value="title_asc">Sort: Title</option>
+          </select>
+          <button type="button" id="properties-btn">Customize columns</button>
+          <input type="text" id="my-assignee" placeholder="My tasks assignee (e.g. Eric)" value="Eric" />
+        </div>
+        <div id="task-properties-menu" class="task-properties-menu"></div>
+        <div id="project-strip" class="project-strip"></div>
+        <div class="task-view-tabs">
+          <button type="button" class="task-view-btn active" data-task-view="table">Table</button>
+          <button type="button" class="task-view-btn" data-task-view="board">Board</button>
+          <button type="button" class="task-view-btn" data-task-view="my">My tasks</button>
+          <button type="button" class="task-view-btn" data-task-view="calendar">Calendar</button>
+        </div>
+        <div id="task-new-backdrop" class="task-new-form-backdrop"></div>
+        <div id="task-new-form" class="task-new-form">
+          <div class="task-new-head">
+            <h4>New task</h4>
+            <button type="button" id="new-task-close" class="task-new-close">Close</button>
+          </div>
+          <div class="task-new-grid">
+            <input type="text" id="new-title" placeholder="Task title" />
+            <input type="text" id="new-assignee" placeholder="Assignee" />
+            <input type="date" id="new-due" />
+            <select id="new-priority">
+              <option value="medium">Medium</option>
+              <option value="high">High</option>
+              <option value="low">Low</option>
+            </select>
+            <input type="text" id="new-project" placeholder="Project" />
+            <button type="button" id="create-task-btn" class="primary">Create</button>
+          </div>
+        </div>
+        <div style="display:flex; gap:0.5rem; margin-bottom:0.75rem;">
+          <button type="button" id="release-project-template">Release project template</button>
+          <input type="text" id="new-project-name" placeholder="New project name" style="flex:1; padding:0.5rem 0.625rem; border-radius:0.5rem; background:#0f172a; border:1px solid #334155; color:#e2e8f0;" />
+        </div>
+        <div id="task-view-root"></div>
+      </div>
+      <p id="tasks-err" class="tasks-err" style="display: none;"></p>
+      <p id="tasks-note" class="tasks-note" style="display: none;"></p>
+      <aside id="task-detail" class="task-detail" aria-hidden="true">
+        <h3>Task details</h3>
+        <label for="detail-title">Title</label>
+        <input type="text" id="detail-title" />
+        <label for="detail-status">Status</label>
+        <select id="detail-status">
+          <option value="open">Open</option>
+          <option value="in_progress">In progress</option>
+          <option value="review">Review</option>
+          <option value="done">Done</option>
+        </select>
+        <label for="detail-priority">Priority</label>
+        <select id="detail-priority">
+          <option value="high">High</option>
+          <option value="medium">Medium</option>
+          <option value="low">Low</option>
+        </select>
+        <label for="detail-assignee">Assignee</label>
+        <input type="text" id="detail-assignee" />
+        <label for="detail-due">Due date</label>
+        <input type="date" id="detail-due" />
+        <label for="detail-project">Project</label>
+        <input type="text" id="detail-project" />
+        <label for="detail-tags">Tags (comma separated)</label>
+        <input type="text" id="detail-tags" />
+        <label for="detail-estimate">Estimate</label>
+        <input type="text" id="detail-estimate" placeholder="e.g. 4h" />
+        <label for="detail-description">Description</label>
+        <textarea id="detail-description"></textarea>
+        <div class="task-progress">
+          <label>Progress</label>
+          <div class="progress-bar"><div id="progress-fill" class="progress-fill" style="width:0%;"></div></div>
+        </div>
+        <div id="detail-subtasks-wrap" style="margin:0.5rem 0 0.75rem 0;"></div>
+        <label>Activity</label>
+        <ul id="detail-activity" class="activity-list"></ul>
+        <div class="task-detail-actions">
+          <button type="button" id="detail-close">Close</button>
+          <button type="button" id="detail-save" class="primary">Save</button>
+        </div>
+      </aside>
+    </section>
+
+    <section>
+      <h2>Top priority</h2>
+      <div class="top-priority">
+        <h3>February 28 Proposal Bootcamp</h3>
+        <p class="muted" style="margin-bottom: 0.75rem;">Feb 28 Specifics and Proposals bootcamp. Free proposal resources and live 8-hour training.</p>
+        <a href="https://funnels.govcongiants.org/proposal-bootcamp" class="cta" target="_blank" rel="noopener">Open funnel →</a>
+        <p class="muted-sm">Active funnel: Free proposal resources (IDIQ templates, Sources Sought template, task order checklist) → Live 8-hour bootcamp Feb 28 → Upsell/Downsell offers. All leads: GHL + Slack notifications enabled.</p>
+      </div>
+    </section>
+
+    <section>
+      <h2>Recent updates</h2>
+      <div id="recent-updates-wrap" style="background: rgba(15,23,42,0.5); border: 1px solid #1e293b; border-radius: 0.75rem; padding: 1.25rem;">
+        <ul id="recent-updates-list" style="list-style: none; padding: 0; margin: 0;"></ul>
+        <p id="recent-updates-empty" class="muted-sm" style="display: none;">No recent task activity yet.</p>
+      </div>
+    </section>
+
+    <div class="tab-bar">
+      <button type="button" class="tab-btn active" data-tab="dashboard-info">Dashboard info</button>
+      <button type="button" class="tab-btn" data-tab="automation">Lead automation</button>
+      <button type="button" class="tab-btn" data-tab="how-it-fits">How it all fits together</button>
+      <button type="button" class="tab-btn" data-tab="funnels-lead">Funnels and lead flow</button>
+      <button type="button" class="tab-btn" data-tab="plans">Plans overview</button>
+    </div>
+
+    <div id="tab-dashboard-info" class="tab-panel active">
+      <h3 style="color: white; margin-bottom: 0.75rem;">Dashboard snapshot</h3>
+      <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 1rem; margin-bottom: 1.5rem;">
         <div style="background: rgba(15,23,42,0.8); border: 1px solid #334155; border-radius: 0.75rem; padding: 1.25rem;">
           <div style="color: #22c55e; font-size: 0.75rem; font-weight: 600; text-transform: uppercase; letter-spacing: 0.05em; margin-bottom: 0.5rem;">Active Funnels</div>
           <div style="color: white; font-size: 2rem; font-weight: 700;">12</div>
@@ -95,60 +355,8 @@
           <div class="muted-sm">All systems operational</div>
         </div>
       </div>
-    </section>
-
-    <section class="search-bar-wrap">
-      <div class="search-bar">
-        <input type="text" id="search-input" placeholder="Ask a question about funnels, plans, or lead flow..." />
-        <button type="button" id="search-btn">Ask</button>
-      </div>
-      <div id="search-answer" class="search-answer"></div>
-    </section>
-
-    <section>
-      <h2>Top priority</h2>
-      <div class="top-priority">
-        <h3>February 28 Proposal Bootcamp</h3>
-        <p class="muted" style="margin-bottom: 0.75rem;">Feb 28 Specifics and Proposals bootcamp. Free proposal resources and live 8-hour training.</p>
-        <a href="https://funnels.govcongiants.org/proposal-bootcamp" class="cta" target="_blank" rel="noopener">Open funnel →</a>
-        <p class="muted-sm">Active funnel: Free proposal resources (IDIQ templates, Sources Sought template, task order checklist) → Live 8-hour bootcamp Feb 28 → Upsell/Downsell offers. All leads: GHL + Slack notifications enabled.</p>
-      </div>
-    </section>
-
-    <section>
-      <h2>Recent updates</h2>
-      <div style="background: rgba(15,23,42,0.5); border: 1px solid #1e293b; border-radius: 0.75rem; padding: 1.25rem;">
-        <ul style="list-style: none; padding: 0; margin: 0;">
-          <li style="padding: 0.75rem 0; border-bottom: 1px solid #1e293b;">
-            <div style="color: #22c55e; font-weight: 600; margin-bottom: 0.25rem;">Feb 17, 2026</div>
-            <div class="muted-sm">Updated all "Bid Bootcamp Downloads" links to point to proposal bootcamp funnel</div>
-          </li>
-          <li style="padding: 0.75rem 0; border-bottom: 1px solid #1e293b;">
-            <div style="color: #22c55e; font-weight: 600; margin-bottom: 0.25rem;">Feb 16, 2026</div>
-            <div class="muted-sm">Slack integration configured and deployed - real-time lead notifications now active</div>
-          </li>
-          <li style="padding: 0.75rem 0; border-bottom: 1px solid #1e293b;">
-            <div style="color: #22c55e; font-weight: 600; margin-bottom: 0.25rem;">Feb 16, 2026</div>
-            <div class="muted-sm">Updated bootcamp dates from Jan 31 to Feb 28 across all pages</div>
-          </li>
-          <li style="padding: 0.75rem 0;">
-            <div style="color: #22c55e; font-weight: 600; margin-bottom: 0.25rem;">Feb 11, 2026</div>
-            <div class="muted-sm">Fixed Stripe key handling - added whitespace stripping to prevent invalid header errors</div>
-          </li>
-        </ul>
-      </div>
-    </section>
-
-    <div class="tab-bar">
-      <button type="button" class="tab-btn active" data-tab="quick-links">Quick links</button>
-      <button type="button" class="tab-btn" data-tab="automation">Lead automation</button>
-      <button type="button" class="tab-btn" data-tab="how-it-fits">How it all fits together</button>
-      <button type="button" class="tab-btn" data-tab="funnels-lead">Funnels and lead flow</button>
-      <button type="button" class="tab-btn" data-tab="plans">Plans overview</button>
-    </div>
-
-    <div id="tab-quick-links" class="tab-panel active">
-      <div class="quick-links">
+      <h3 style="color: white; margin-bottom: 0.75rem;">Quick links</h3>
+      <div class="quick-links" style="margin-bottom: 1.5rem;">
         <a href="https://funnels.govcongiants.org/proposal-bootcamp" target="_blank" rel="noopener">🎯 Feb 28 Proposal Bootcamp</a>
         <a href="https://govcongiants.org/" target="_blank" rel="noopener">🏠 Homepage</a>
         <a href="https://govcongiants.org/resources" target="_blank" rel="noopener">📚 Resources Library</a>
@@ -160,6 +368,22 @@
         <a href="https://api.slack.com/apps" target="_blank" rel="noopener">🔔 Slack App Settings</a>
         <a href="https://vercel.com/dashboard" target="_blank" rel="noopener">🚀 Vercel Dashboard</a>
       </div>
+      <h3 style="color: white; margin-bottom: 0.75rem;">Active funnels</h3>
+      <p class="muted muted-sm" style="margin-bottom: 0.75rem;">All active lead capture pages and funnels. Source tags in parentheses.</p>
+      <ul class="funnels-list">
+        <li><a href="https://govcongiants.org/" target="_blank">Homepage</a></li>
+        <li><a href="https://govcongiants.org/resources" target="_blank">Free Resources Library</a></li>
+        <li><a href="https://govcongiants.org/training" target="_blank">Training Hub</a></li>
+        <li><a href="https://govcongiants.org/bootcamp" target="_blank">January Bootcamp (bootcamp)</a></li>
+        <li><a href="https://govcongiants.org/surge" target="_blank">Surge Bootcamp (surge)</a></li>
+        <li><a href="https://funnels.govcongiants.org/proposal-bootcamp" target="_blank">Feb 28 Proposal Bootcamp (proposal-bootcamp)</a></li>
+        <li><a href="https://govcongiants.org/free-course" target="_blank">Free 12-Day Course (free-course)</a></li>
+        <li><a href="https://govcongiants.org/opp" target="_blank">Opportunity Hunter Tool (opp)</a></li>
+        <li><a href="https://govcongiants.org/resources/handouts" target="_blank">Resource Handouts (handouts)</a></li>
+        <li><a href="https://govcongiants.org/feb-28-bootcamp" target="_blank">Feb 28 Bootcamp Alt (feb28-bootcamp)</a></li>
+        <li><a href="https://govcongiants.org/premium" target="_blank">Premium Plans Overview</a></li>
+        <li><a href="https://govcongiants.org/jan-31-bootcamp-paid" target="_blank">Jan 31 Bootcamp Paid (Stripe)</a></li>
+      </ul>
     </div>
 
     <div id="tab-automation" class="tab-panel">
@@ -454,6 +678,516 @@
           askQuestion();
         }
       });
+
+      var taskViewRoot = document.getElementById('task-view-root');
+      var taskCountEl = document.getElementById('task-count');
+      var taskSearchEl = document.getElementById('task-search');
+      var taskFilterStatusEl = document.getElementById('task-filter-status');
+      var taskFilterPriorityEl = document.getElementById('task-filter-priority');
+      var taskSortEl = document.getElementById('task-sort');
+      var taskMyAssigneeEl = document.getElementById('my-assignee');
+      var includeDoneToggleEl = document.getElementById('include-done-toggle');
+      var propertiesBtnEl = document.getElementById('properties-btn');
+      var propertiesMenuEl = document.getElementById('task-properties-menu');
+      var projectStripEl = document.getElementById('project-strip');
+      var taskViewBtns = document.querySelectorAll('.task-view-btn');
+      var newTaskBtn = document.getElementById('new-task-btn');
+      var applyTemplateBtn = document.getElementById('apply-template');
+      var releaseProjectTemplateBtn = document.getElementById('release-project-template');
+      var newProjectNameEl = document.getElementById('new-project-name');
+      var taskTemplateEl = document.getElementById('task-template');
+      var taskNewBackdropEl = document.getElementById('task-new-backdrop');
+      var taskNewFormEl = document.getElementById('task-new-form');
+      var newTaskCloseEl = document.getElementById('new-task-close');
+      var newTitleEl = document.getElementById('new-title');
+      var newAssigneeEl = document.getElementById('new-assignee');
+      var newDueEl = document.getElementById('new-due');
+      var newPriorityEl = document.getElementById('new-priority');
+      var newProjectEl = document.getElementById('new-project');
+      var createTaskBtn = document.getElementById('create-task-btn');
+      var detailEl = document.getElementById('task-detail');
+      var detailCloseEl = document.getElementById('detail-close');
+      var detailSaveEl = document.getElementById('detail-save');
+      var detailTitleEl = document.getElementById('detail-title');
+      var detailStatusEl = document.getElementById('detail-status');
+      var detailPriorityEl = document.getElementById('detail-priority');
+      var detailAssigneeEl = document.getElementById('detail-assignee');
+      var detailDueEl = document.getElementById('detail-due');
+      var detailProjectEl = document.getElementById('detail-project');
+      var detailTagsEl = document.getElementById('detail-tags');
+      var detailEstimateEl = document.getElementById('detail-estimate');
+      var detailDescriptionEl = document.getElementById('detail-description');
+      var detailSubtasksWrapEl = document.getElementById('detail-subtasks-wrap');
+      var detailActivityEl = document.getElementById('detail-activity');
+      var progressFillEl = document.getElementById('progress-fill');
+      var tasksErrEl = document.getElementById('tasks-err');
+      var tasksNoteEl = document.getElementById('tasks-note');
+      var recentUpdatesList = document.getElementById('recent-updates-list');
+      var recentUpdatesEmpty = document.getElementById('recent-updates-empty');
+
+      var WORKSPACE_KEY = 'dashboard_workspace_v3';
+      var LEGACY_TASK_KEY = 'dashboard_tasks_v2';
+      var activeTaskView = 'table';
+      var activeDetailTaskId = null;
+      var selectedProjectId = 'all';
+      var statusOrder = ['open', 'in_progress', 'review', 'done'];
+      var priorityOrder = ['low', 'medium', 'high'];
+      var defaultColumns = { status: true, priority: true, assignee: true, due: true, project: true, tags: true, estimate: true };
+      var workspace = { schema: 3, ui: { includeDone: false, columns: defaultColumns }, projects: [], tasks: [], events: [] };
+
+      function uid(prefix) { return prefix + '-' + Date.now() + '-' + Math.floor(Math.random() * 100000); }
+      function escapeHtml(s) { var d = document.createElement('div'); d.textContent = s == null ? '' : String(s); return d.innerHTML; }
+      function showTasksErr(msg) { tasksErrEl.textContent = msg || ''; tasksErrEl.style.display = msg ? 'block' : 'none'; }
+      function showTasksNote(msg) { tasksNoteEl.textContent = msg || ''; tasksNoteEl.style.display = msg ? 'block' : 'none'; }
+      function formatDate(iso) { if (!iso) return '—'; var d = new Date(iso); return isNaN(d.getTime()) ? iso : d.toLocaleDateString(undefined, { month: 'short', day: 'numeric', year: 'numeric' }); }
+      function statusLabel(s) { return s === 'in_progress' ? 'In progress' : (s === 'review' ? 'Review' : (s === 'done' ? 'Done' : 'Open')); }
+      function nextValue(current, list) { var idx = list.indexOf(current); return list[(idx + 1) % list.length]; }
+      function touchTask(task) { task.updated_at = new Date().toISOString().slice(0, 10); }
+
+      function seedWorkspace() {
+        var p1 = { id: 'proj-1', name: 'Proposal Bootcamp', status: 'active' };
+        var p2 = { id: 'proj-2', name: 'Internal Ops', status: 'active' };
+        var p3 = { id: 'proj-3', name: 'Resources', status: 'active' };
+        workspace.projects = [p1, p2, p3];
+        workspace.tasks = [
+          { id: 'sample-1', task_id: 'T-001', title: 'Finalize monthly proposal campaign copy and CTA variants for launch', assignee: 'Maya', due_date: '2026-02-28', priority: 'high', status: 'open', project_id: p1.id, tags: ['copy', 'funnel'], estimate: '3h', description: 'Finalize hero messaging and CTA language for the Feb 28 campaign.', subtasks: [{ id: 's1-1', title: 'Finalize hero sentence', done: true }, { id: 's1-2', title: 'Review CTA copy', done: false }], updated_at: '2026-02-23' },
+          { id: 'sample-2', task_id: 'T-002', title: 'Review Slack bot command mapping for task updates', assignee: 'Eric', due_date: '2026-02-26', priority: 'medium', status: 'in_progress', project_id: p2.id, tags: ['slack', 'automation'], estimate: '2h', description: 'Validate command phrases and response messages used in Slack.', subtasks: [{ id: 's2-1', title: 'Test done command', done: false }, { id: 's2-2', title: 'Test assign command', done: false }], updated_at: '2026-02-22' },
+          { id: 'sample-3', task_id: 'T-003', title: 'Publish handouts funnel CTA updates', assignee: 'Team Ops', due_date: '2026-02-20', priority: 'low', status: 'done', project_id: p3.id, tags: ['handouts'], estimate: '1h', description: 'Push latest CTA links to handouts pages and verify redirects.', subtasks: [{ id: 's3-1', title: 'Replace old links', done: true }], updated_at: '2026-02-21' }
+        ];
+        workspace.events = [
+          { id: uid('evt'), task_id: 'sample-1', text: 'Task created', at: '2026-02-20' },
+          { id: uid('evt'), task_id: 'sample-2', text: 'Status moved to in progress', at: '2026-02-22' }
+        ];
+      }
+
+      function migrateLegacyTasks(legacyTasks) {
+        var defaultProject = { id: uid('proj'), name: 'Imported Tasks', status: 'active' };
+        workspace.projects = [defaultProject];
+        workspace.tasks = legacyTasks.map(function(t, idx) {
+          return {
+            id: t.id || uid('task'),
+            task_id: t.task_id || ('T-' + String(idx + 1).padStart(3, '0')),
+            title: t.title || 'Untitled task',
+            assignee: t.assignee || '',
+            due_date: t.due_date || '',
+            priority: t.priority || 'medium',
+            status: t.status || 'open',
+            project_id: defaultProject.id,
+            tags: Array.isArray(t.tags) ? t.tags : [],
+            estimate: t.estimate || '',
+            description: t.description || '',
+            subtasks: Array.isArray(t.subtasks) ? t.subtasks : [],
+            updated_at: t.updated_at || new Date().toISOString().slice(0, 10)
+          };
+        });
+        workspace.events = [];
+      }
+
+      function loadWorkspace() {
+        try {
+          var raw = localStorage.getItem(WORKSPACE_KEY);
+          if (raw) {
+            var parsed = JSON.parse(raw);
+            if (parsed && parsed.tasks && parsed.projects) {
+              workspace = parsed;
+              workspace.ui = workspace.ui || { includeDone: false, columns: defaultColumns };
+              workspace.ui.columns = Object.assign({}, defaultColumns, workspace.ui.columns || {});
+              return true;
+            }
+          }
+          var legacyRaw = localStorage.getItem(LEGACY_TASK_KEY);
+          if (legacyRaw) {
+            var legacy = JSON.parse(legacyRaw);
+            if (Array.isArray(legacy) && legacy.length) {
+              migrateLegacyTasks(legacy);
+              saveWorkspace();
+              return true;
+            }
+          }
+        } catch (e) {}
+        seedWorkspace();
+        saveWorkspace();
+        return true;
+      }
+
+      function saveWorkspace() {
+        workspace.schema = 3;
+        localStorage.setItem(WORKSPACE_KEY, JSON.stringify(workspace));
+      }
+
+      function projectNameById(id) {
+        var p = workspace.projects.find(function(x) { return x.id === id; });
+        return p ? p.name : 'Unassigned';
+      }
+
+      function filteredTasks() {
+        var q = (taskSearchEl.value || '').trim().toLowerCase();
+        var statusFilter = taskFilterStatusEl.value;
+        var priorityFilter = taskFilterPriorityEl.value;
+        var myAssignee = (taskMyAssigneeEl.value || '').trim().toLowerCase();
+        var includeDone = !!workspace.ui.includeDone;
+        var projectFilter = selectedProjectId;
+        return workspace.tasks.filter(function(t) {
+          var projectName = projectNameById(t.project_id);
+          var matchesQ = !q || (t.title + ' ' + t.task_id + ' ' + t.assignee + ' ' + projectName + ' ' + (t.tags || []).join(' ')).toLowerCase().indexOf(q) !== -1;
+          var matchesStatus = statusFilter === 'all' ? true : t.status === statusFilter;
+          var matchesPriority = priorityFilter === 'all' ? true : t.priority === priorityFilter;
+          var matchesMine = activeTaskView !== 'my' || !myAssignee || (t.assignee || '').toLowerCase().indexOf(myAssignee) !== -1;
+          var matchesDone = includeDone ? true : t.status !== 'done';
+          var matchesProject = projectFilter === 'all' || t.project_id === projectFilter;
+          return matchesQ && matchesStatus && matchesPriority && matchesMine && matchesDone && matchesProject;
+        }).sort(function(a, b) {
+          var sortValue = taskSortEl.value;
+          if (sortValue === 'due_asc') return String(a.due_date || '9999-12-31').localeCompare(String(b.due_date || '9999-12-31'));
+          if (sortValue === 'priority_desc') return priorityOrder.indexOf(b.priority) - priorityOrder.indexOf(a.priority);
+          if (sortValue === 'title_asc') return String(a.title).localeCompare(String(b.title));
+          return String(b.updated_at || '').localeCompare(String(a.updated_at || ''));
+        });
+      }
+
+      function renderProjectFilters() {
+        projectStripEl.innerHTML = '<button type="button" class="project-chip ' + (selectedProjectId === 'all' ? 'active' : '') + '" data-project-chip="all">All</button>' + workspace.projects.map(function(p) {
+          var cls = selectedProjectId === p.id ? 'active' : '';
+          return '<button type="button" class="project-chip ' + cls + '" data-project-chip="' + escapeHtml(p.id) + '">' + escapeHtml(p.name) + '</button>';
+        }).join('');
+      }
+
+      function renderPropertiesMenu() {
+        var cols = workspace.ui.columns || defaultColumns;
+        var fields = ['status', 'priority', 'assignee', 'due', 'project', 'tags', 'estimate'];
+        propertiesMenuEl.innerHTML = fields.map(function(f) {
+          return '<label><input type="checkbox" data-col-toggle="' + f + '"' + (cols[f] ? ' checked' : '') + ' /> ' + f + '</label>';
+        }).join('');
+      }
+
+      function renderTable(tasks) {
+        if (!tasks.length) { taskViewRoot.innerHTML = '<div class="task-empty">No tasks match this filter.</div>'; return; }
+        var cols = workspace.ui.columns;
+        var head = '<th class="col-id">ID</th><th class="col-title">Title</th>';
+        if (cols.status) head += '<th class="col-status">Status</th>';
+        if (cols.priority) head += '<th class="col-priority">Priority</th>';
+        if (cols.assignee) head += '<th class="col-assignee">Assignee</th>';
+        if (cols.due) head += '<th class="col-due">Due</th>';
+        if (cols.project) head += '<th class="col-project">Project</th>';
+        if (cols.tags) head += '<th class="col-tags">Tags</th>';
+        if (cols.estimate) head += '<th class="col-estimate">Estimate</th>';
+        var html = '<div class="task-table-wrap"><table class="task-table"><thead><tr>' + head + '</tr></thead><tbody>';
+        tasks.forEach(function(t) {
+          html += '<tr><td class="col-id"><strong style="color:#86efac;">' + escapeHtml(t.task_id) + '</strong></td>';
+          html += '<td class="col-title"><div class="title-preview" data-action="expand-title" data-id="' + escapeHtml(t.id) + '">' + escapeHtml(t.title) + '</div></td>';
+          if (cols.status) html += '<td><span class="chip status-' + escapeHtml(t.status) + '" data-action="cycle-status" data-id="' + escapeHtml(t.id) + '">' + escapeHtml(statusLabel(t.status)) + '</span></td>';
+          if (cols.priority) html += '<td><span class="chip priority-' + escapeHtml(t.priority) + '" data-action="cycle-priority" data-id="' + escapeHtml(t.id) + '">' + escapeHtml(t.priority) + '</span></td>';
+          if (cols.assignee) html += '<td><input class="task-cell-input" data-action="edit-assignee" data-id="' + escapeHtml(t.id) + '" value="' + escapeHtml(t.assignee || '') + '" /></td>';
+          if (cols.due) html += '<td><input class="task-cell-input" type="date" data-action="edit-due" data-id="' + escapeHtml(t.id) + '" value="' + escapeHtml(t.due_date || '') + '" /></td>';
+          if (cols.project) html += '<td>' + escapeHtml(projectNameById(t.project_id)) + '</td>';
+          if (cols.tags) html += '<td>' + escapeHtml((t.tags || []).join(', ')) + '</td>';
+          if (cols.estimate) html += '<td>' + escapeHtml(t.estimate || '') + '</td>';
+          html += '</tr>';
+        });
+        html += '</tbody></table></div>';
+        taskViewRoot.innerHTML = html;
+      }
+
+      function renderBoard(tasks) {
+        var columns = ['open', 'in_progress', 'review', 'done'];
+        var html = '<div class="task-board">';
+        columns.forEach(function(col) {
+          if (!workspace.ui.includeDone && col === 'done') return;
+          html += '<div class="task-board-col"><h4>' + escapeHtml(statusLabel(col)) + '</h4>';
+          var items = tasks.filter(function(t) { return t.status === col; });
+          if (!items.length) html += '<div class="task-empty">No tasks</div>';
+          items.forEach(function(t) {
+            html += '<div class="task-card" data-action="open-detail" data-id="' + escapeHtml(t.id) + '"><div class="title">' + escapeHtml(t.title) + '</div><div class="meta">' + escapeHtml(t.task_id) + ' · ' + escapeHtml(projectNameById(t.project_id)) + '</div></div>';
+          });
+          html += '</div>';
+        });
+        html += '</div>';
+        taskViewRoot.innerHTML = html;
+      }
+
+      function renderMyTasks(tasks) {
+        if (!tasks.length) { taskViewRoot.innerHTML = '<div class="task-empty">No tasks assigned for this person.</div>'; return; }
+        var html = '<ul class="task-list-plain">';
+        tasks.forEach(function(t) { html += '<li data-action="open-detail" data-id="' + escapeHtml(t.id) + '"><div><strong style="color:#86efac;">' + escapeHtml(t.task_id) + '</strong> ' + escapeHtml(t.title) + '</div><span class="chip status-' + escapeHtml(t.status) + '">' + escapeHtml(statusLabel(t.status)) + '</span></li>'; });
+        html += '</ul>';
+        taskViewRoot.innerHTML = html;
+      }
+
+      function renderCalendar(tasks) {
+        if (!tasks.length) { taskViewRoot.innerHTML = '<div class="task-empty">No dated tasks to show.</div>'; return; }
+        var grouped = {};
+        tasks.forEach(function(t) { var key = t.due_date || 'No due date'; if (!grouped[key]) grouped[key] = []; grouped[key].push(t); });
+        var keys = Object.keys(grouped).sort();
+        var html = '';
+        keys.forEach(function(k) {
+          html += '<div class="task-calendar-group"><h4>' + escapeHtml(k === 'No due date' ? k : formatDate(k)) + '</h4>';
+          grouped[k].forEach(function(t) { html += '<div class="task-calendar-item" data-action="open-detail" data-id="' + escapeHtml(t.id) + '"><span>' + escapeHtml(t.task_id + ' · ' + t.title) + '</span><span class="chip priority-' + escapeHtml(t.priority) + '">' + escapeHtml(t.priority) + '</span></div>'; });
+          html += '</div>';
+        });
+        taskViewRoot.innerHTML = html;
+      }
+
+      function renderTaskViews() {
+        taskCountEl.textContent = String(workspace.tasks.length) + ' tasks';
+        renderProjectFilters();
+        renderPropertiesMenu();
+        var tasks = filteredTasks();
+        if (activeTaskView === 'board') renderBoard(tasks);
+        else if (activeTaskView === 'my') renderMyTasks(tasks);
+        else if (activeTaskView === 'calendar') renderCalendar(tasks);
+        else renderTable(tasks);
+      }
+
+      function nextTaskId() {
+        var nextNum = workspace.tasks.reduce(function(max, t) {
+          var n = parseInt(String(t.task_id || '').replace('T-', ''), 10);
+          return isNaN(n) ? max : Math.max(max, n);
+        }, 0) + 1;
+        return 'T-' + String(nextNum).padStart(3, '0');
+      }
+
+      function addEvent(taskId, text) {
+        workspace.events.unshift({ id: uid('evt'), task_id: taskId, text: text, at: new Date().toISOString().slice(0, 10) });
+        workspace.events = workspace.events.slice(0, 120);
+      }
+
+      function createTask(input) {
+        var projectId = input.project_id || selectedProjectId;
+        if (!projectId || projectId === 'all') {
+          if (workspace.projects.length) projectId = workspace.projects[0].id;
+          else {
+            var fallback = { id: uid('proj'), name: 'General', status: 'active' };
+            workspace.projects.push(fallback);
+            projectId = fallback.id;
+          }
+        }
+        var task = {
+          id: uid('task'),
+          task_id: nextTaskId(),
+          title: input.title || 'Untitled task',
+          assignee: input.assignee || '',
+          due_date: input.due_date || '',
+          priority: input.priority || 'medium',
+          status: 'open',
+          project_id: projectId,
+          tags: input.tags || [],
+          estimate: input.estimate || '',
+          description: input.description || '',
+          subtasks: input.subtasks || [],
+          updated_at: new Date().toISOString().slice(0, 10)
+        };
+        workspace.tasks.unshift(task);
+        addEvent(task.id, 'Task created');
+        saveWorkspace();
+        renderTaskViews();
+        loadRecentUpdates();
+        return task;
+      }
+
+      function releaseProjectTemplate() {
+        var name = (newProjectNameEl.value || '').trim();
+        if (!name) { showTasksErr('Add a project name to release template.'); return; }
+        showTasksErr('');
+        var project = { id: uid('proj'), name: name, status: 'active' };
+        workspace.projects.push(project);
+        selectedProjectId = project.id;
+        createTask({ title: name + ': Kickoff checklist', priority: 'high', project_id: project.id, tags: ['kickoff'] });
+        createTask({ title: name + ': QA and launch pass', priority: 'medium', project_id: project.id, tags: ['qa', 'launch'] });
+        createTask({ title: name + ': Post-launch monitoring', priority: 'low', project_id: project.id, tags: ['monitoring'] });
+        newProjectNameEl.value = '';
+        showTasksNote('Project template released with starter tasks.');
+        saveWorkspace();
+        renderTaskViews();
+      }
+
+      function findTaskById(id) { return workspace.tasks.find(function(t) { return String(t.id) === String(id); }); }
+
+      function openTaskDetail(id) {
+        var task = findTaskById(id); if (!task) return;
+        activeDetailTaskId = task.id;
+        detailTitleEl.value = task.title || '';
+        detailStatusEl.value = task.status || 'open';
+        detailPriorityEl.value = task.priority || 'medium';
+        detailAssigneeEl.value = task.assignee || '';
+        detailDueEl.value = task.due_date || '';
+        detailProjectEl.value = projectNameById(task.project_id);
+        detailTagsEl.value = (task.tags || []).join(', ');
+        detailEstimateEl.value = task.estimate || '';
+        detailDescriptionEl.value = task.description || '';
+        var subtasks = Array.isArray(task.subtasks) ? task.subtasks : [];
+        var doneCount = subtasks.filter(function(s) { return s.done; }).length;
+        var pct = subtasks.length ? Math.round((doneCount / subtasks.length) * 100) : 0;
+        progressFillEl.style.width = pct + '%';
+        detailSubtasksWrapEl.innerHTML = '<label>Subtasks</label>' + (subtasks.length ? subtasks.map(function(st) {
+          return '<div style="display:flex; align-items:center; gap:0.5rem; margin-bottom:0.35rem;"><input type="checkbox" data-subtask-id="' + escapeHtml(st.id) + '"' + (st.done ? ' checked' : '') + ' /><span style="font-size:0.82rem;">' + escapeHtml(st.title) + '</span></div>';
+        }).join('') : '<div class="task-empty">No subtasks</div>');
+        var events = workspace.events.filter(function(e) { return e.task_id === task.id; }).slice(0, 8);
+        detailActivityEl.innerHTML = events.length ? events.map(function(e) { return '<li><strong style="color:#86efac;">' + escapeHtml(formatDate(e.at)) + '</strong> · ' + escapeHtml(e.text) + '</li>'; }).join('') : '<li>No activity yet.</li>';
+        detailEl.classList.add('show');
+        detailEl.setAttribute('aria-hidden', 'false');
+      }
+
+      function closeTaskDetail() { activeDetailTaskId = null; detailEl.classList.remove('show'); detailEl.setAttribute('aria-hidden', 'true'); }
+
+      function saveTaskDetail() {
+        var task = findTaskById(activeDetailTaskId); if (!task) return;
+        task.title = detailTitleEl.value.trim() || task.title;
+        task.status = detailStatusEl.value;
+        task.priority = detailPriorityEl.value;
+        task.assignee = detailAssigneeEl.value.trim();
+        task.due_date = detailDueEl.value;
+        var desiredProject = detailProjectEl.value.trim();
+        if (desiredProject) {
+          var existingProject = workspace.projects.find(function(p) { return p.name === desiredProject; });
+          if (!existingProject) {
+            existingProject = { id: uid('proj'), name: desiredProject, status: 'active' };
+            workspace.projects.push(existingProject);
+          }
+          task.project_id = existingProject.id;
+        }
+        task.tags = detailTagsEl.value.split(',').map(function(t) { return t.trim(); }).filter(Boolean);
+        task.estimate = detailEstimateEl.value.trim();
+        task.description = detailDescriptionEl.value.trim();
+        var checks = detailSubtasksWrapEl.querySelectorAll('input[type="checkbox"][data-subtask-id]');
+        var subtasks = Array.isArray(task.subtasks) ? task.subtasks : [];
+        checks.forEach(function(c) {
+          var id = c.getAttribute('data-subtask-id');
+          var st = subtasks.find(function(s) { return s.id === id });
+          if (st) st.done = c.checked;
+        });
+        task.subtasks = subtasks;
+        touchTask(task);
+        addEvent(task.id, 'Task details updated');
+        saveWorkspace();
+        renderTaskViews();
+        loadRecentUpdates();
+        closeTaskDetail();
+      }
+
+      function loadRecentUpdates() {
+        recentUpdatesList.innerHTML = '';
+        var tasks = workspace.tasks.slice().sort(function(a, b) { return String(b.updated_at || '').localeCompare(String(a.updated_at || '')); }).slice(0, 8);
+        if (!tasks.length) { recentUpdatesEmpty.style.display = 'block'; return; }
+        recentUpdatesEmpty.style.display = 'none';
+        tasks.forEach(function(t) {
+          var li = document.createElement('li');
+          li.style.padding = '0.75rem 0';
+          li.style.borderBottom = '1px solid #1e293b';
+          li.innerHTML = '<div style="color: #22c55e; font-weight: 600; margin-bottom: 0.25rem;">' + escapeHtml(formatDate(t.updated_at)) + '</div><div class="muted-sm">Task ' + escapeHtml(t.task_id) + ': ' + escapeHtml(t.title) + ' – ' + escapeHtml(statusLabel(t.status)) + ' · ' + escapeHtml(projectNameById(t.project_id)) + '</div>';
+          recentUpdatesList.appendChild(li);
+        });
+      }
+
+      function setTaskView(view) {
+        activeTaskView = view;
+        taskViewBtns.forEach(function(btn) { btn.classList.toggle('active', btn.getAttribute('data-task-view') === view); });
+        renderTaskViews();
+      }
+
+      function openNewTaskDrawer() {
+        taskNewBackdropEl.classList.add('show');
+        taskNewFormEl.classList.add('show');
+        setTimeout(function() { newTitleEl.focus(); }, 0);
+      }
+
+      function closeNewTaskDrawer() {
+        taskNewBackdropEl.classList.remove('show');
+        taskNewFormEl.classList.remove('show');
+      }
+
+      taskViewBtns.forEach(function(btn) { btn.addEventListener('click', function() { setTaskView(btn.getAttribute('data-task-view')); }); });
+      taskSearchEl.addEventListener('input', renderTaskViews);
+      taskFilterStatusEl.addEventListener('change', renderTaskViews);
+      taskFilterPriorityEl.addEventListener('change', renderTaskViews);
+      taskSortEl.addEventListener('change', renderTaskViews);
+      taskMyAssigneeEl.addEventListener('input', function() { if (activeTaskView === 'my') renderTaskViews(); });
+      includeDoneToggleEl.addEventListener('change', function() { workspace.ui.includeDone = includeDoneToggleEl.checked; saveWorkspace(); renderTaskViews(); });
+      propertiesBtnEl.addEventListener('click', function() { propertiesMenuEl.classList.toggle('show'); });
+      propertiesMenuEl.addEventListener('change', function(e) {
+        var col = e.target.getAttribute('data-col-toggle');
+        if (!col) return;
+        workspace.ui.columns[col] = !!e.target.checked;
+        saveWorkspace();
+        renderTaskViews();
+      });
+      projectStripEl.addEventListener('click', function(e) {
+        var btn = e.target.closest('[data-project-chip]');
+        if (!btn) return;
+        selectedProjectId = btn.getAttribute('data-project-chip');
+        renderTaskViews();
+      });
+
+      newTaskBtn.addEventListener('click', openNewTaskDrawer);
+      newTaskCloseEl.addEventListener('click', closeNewTaskDrawer);
+      taskNewBackdropEl.addEventListener('click', closeNewTaskDrawer);
+      createTaskBtn.addEventListener('click', function() {
+        var title = (newTitleEl.value || '').trim();
+        if (!title) { showTasksErr('Task title is required.'); return; }
+        showTasksErr('');
+        var projectNameInput = (newProjectEl.value || '').trim();
+        var projectMatch = workspace.projects.find(function(p) { return p.name === projectNameInput; });
+        createTask({
+          title: title,
+          assignee: (newAssigneeEl.value || '').trim(),
+          due_date: newDueEl.value,
+          priority: newPriorityEl.value,
+          project_id: projectMatch ? projectMatch.id : selectedProjectId
+        });
+        newTitleEl.value = ''; newAssigneeEl.value = ''; newDueEl.value = ''; newProjectEl.value = '';
+        closeNewTaskDrawer();
+      });
+
+      applyTemplateBtn.addEventListener('click', function() {
+        var v = taskTemplateEl.value;
+        if (v === 'content_update') createTask({ title: 'Content update checklist', priority: 'medium', tags: ['content', 'review'] });
+        else if (v === 'crm_cleanup') createTask({ title: 'CRM cleanup sprint', priority: 'high', tags: ['crm', 'cleanup'] });
+        else createTask({ title: 'Funnel launch prep', priority: 'high', tags: ['launch', 'funnel'] });
+      });
+      releaseProjectTemplateBtn.addEventListener('click', releaseProjectTemplate);
+
+      taskViewRoot.addEventListener('click', function(e) {
+        var target = e.target;
+        var action = target.getAttribute('data-action');
+        var id = target.getAttribute('data-id') || (target.closest('[data-id]') && target.closest('[data-id]').getAttribute('data-id'));
+        if (!action || !id) return;
+        var task = findTaskById(id);
+        if (!task) return;
+        if (action === 'cycle-status') { task.status = nextValue(task.status, statusOrder); touchTask(task); addEvent(task.id, 'Status changed to ' + statusLabel(task.status)); saveWorkspace(); renderTaskViews(); loadRecentUpdates(); }
+        else if (action === 'cycle-priority') { task.priority = nextValue(task.priority, priorityOrder); touchTask(task); addEvent(task.id, 'Priority changed to ' + task.priority); saveWorkspace(); renderTaskViews(); loadRecentUpdates(); }
+        else if (action === 'open-detail') openTaskDetail(id);
+        else if (action === 'expand-title') target.classList.toggle('expanded');
+      });
+
+      taskViewRoot.addEventListener('change', function(e) {
+        var target = e.target;
+        var action = target.getAttribute('data-action');
+        var id = target.getAttribute('data-id');
+        if (!action || !id) return;
+        var task = findTaskById(id);
+        if (!task) return;
+        if (action === 'edit-assignee') task.assignee = target.value.trim();
+        else if (action === 'edit-due') task.due_date = target.value;
+        touchTask(task);
+        addEvent(task.id, 'Quick edit saved');
+        saveWorkspace();
+        loadRecentUpdates();
+      });
+
+      detailCloseEl.addEventListener('click', closeTaskDetail);
+      detailSaveEl.addEventListener('click', saveTaskDetail);
+      document.addEventListener('keydown', function(e) {
+        if (e.key !== 'Escape') return;
+        if (taskNewFormEl.classList.contains('show')) closeNewTaskDrawer();
+        if (detailEl.classList.contains('show')) closeTaskDetail();
+      });
+
+      loadWorkspace();
+      workspace.ui.columns = Object.assign({}, defaultColumns, workspace.ui.columns || {});
+      includeDoneToggleEl.checked = !!workspace.ui.includeDone;
+      taskFilterStatusEl.value = 'all';
+      showTasksNote('Demo mode: frontend workspace with local persistence.');
+      renderTaskViews();
+      loadRecentUpdates();
     })();
   </script>
 </body>

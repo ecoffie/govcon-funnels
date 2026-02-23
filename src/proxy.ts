@@ -3,7 +3,7 @@ import type { NextRequest } from 'next/server';
 
 const JAN31_BASE = '/jan-31-bootcamp-paid';
 
-export function middleware(request: NextRequest) {
+export function proxy(request: NextRequest) {
   // Only apply when you want to run the site as "Jan 31 funnel only"
   if (process.env.ONLY_JAN31_FUNNEL !== '1') {
     return NextResponse.next();
