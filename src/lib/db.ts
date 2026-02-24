@@ -451,3 +451,33 @@ export async function releaseProjectTemplate(data: {
   }
   return { project, tasks };
 }
+
+export async function resetTasksAndProjectsToFeb28Bootcamp(): Promise<{
+  project: Project;
+  tasks: Task[];
+}> {
+  const r = getRedis();
+
+  const taskIds = (await r.smembers(k.tasks())) as string[];
+  for (const id of taskIds) {
+    const taskHash = await r.hgetall<Record<string, unknown>>(k.task(id));
+    if (taskHash && taskHash.task_id) {
+      await r.del(k.tid(String(taskHash.task_id)));
+    }
+    await r.del(k.task(id));
+    await r.del(k.events(id));
+  }
+  await r.del(k.tasks());
+  await r.del(k.taskSeq());
+
+  const projectIds = (await r.smembers(k.projects())) as string[];
+  for (const id of projectIds) {
+    await r.del(k.project(id));
+  }
+  await r.del(k.projects());
+
+  return releaseProjectTemplate({
+    name: 'Feb 28th Bootcamp',
+    template: 'bootcamp',
+  });
+}
