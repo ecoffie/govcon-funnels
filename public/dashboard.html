@@ -91,7 +91,11 @@
     .task-new-head { display: flex; align-items: center; justify-content: space-between; margin-bottom: 0.75rem; }
     .task-new-head h4 { margin: 0; color: #fff; font-size: 1rem; }
     .task-new-close { border: 1px solid #334155; background: #1e293b; color: #cbd5e1; border-radius: 0.45rem; padding: 0.35rem 0.55rem; cursor: pointer; }
-    .task-new-form input, .task-new-form select { padding: 0.5rem 0.625rem; border-radius: 0.5rem; background: #020617; border: 1px solid #334155; color: #e2e8f0; }
+    .task-new-form input, .task-new-form select, .task-new-form textarea { padding: 0.5rem 0.625rem; border-radius: 0.5rem; background: #020617; border: 1px solid #334155; color: #e2e8f0; }
+    .task-new-form textarea { min-height: 92px; resize: vertical; }
+    .field-with-mic { display: grid; grid-template-columns: 1fr auto; gap: 0.45rem; align-items: stretch; }
+    .mic-btn { border: 1px solid #334155; background: #1e293b; color: #cbd5e1; border-radius: 0.45rem; padding: 0.45rem 0.55rem; cursor: pointer; font-size: 0.75rem; min-width: 56px; }
+    .mic-btn.listening { border-color: #16a34a; color: #86efac; background: #12361f; }
     .task-new-form button { padding: 0.5rem 0.75rem; border-radius: 0.5rem; border: 1px solid #334155; background: #1e293b; color: #e2e8f0; cursor: pointer; }
     .task-new-form button.primary { background: #16a34a; border-color: #16a34a; color: #fff; }
     .task-table-wrap { overflow-x: auto; border: 1px solid #1e293b; border-radius: 0.6rem; }
@@ -130,19 +134,23 @@
     .date-num { color: #cbd5e1; font-size: 0.72rem; font-weight: 600; }
     .date-task { width: 100%; text-align: left; border: 1px solid #334155; background: #1e293b; color: #e2e8f0; border-radius: 0.35rem; font-size: 0.68rem; padding: 0.2rem 0.3rem; cursor: pointer; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
     .task-empty { color: #64748b; font-size: 0.85rem; padding: 0.75rem 0; }
-    .task-detail { position: fixed; inset: 1rem; width: auto; background: #020617; border: 1px solid #334155; border-radius: 0.8rem; padding: 1rem; overflow-y: auto; z-index: 60; box-shadow: 0 20px 40px rgba(0,0,0,0.4); display: none; }
+    .task-detail { position: fixed; inset: 1rem; width: auto; background: #020617; border: 1px solid #334155; border-radius: 0.8rem; padding: 0.75rem; overflow-y: auto; z-index: 60; box-shadow: 0 20px 40px rgba(0,0,0,0.4); display: none; }
     .task-detail.show { display: block; }
     .activity-list { list-style: none; padding: 0; margin: 0.5rem 0 0 0; }
     .activity-list li { border-bottom: 1px solid #1e293b; padding: 0.4rem 0; font-size: 0.8rem; color: #94a3b8; }
-    .task-detail-head { display: flex; align-items: center; justify-content: space-between; gap: 0.5rem; margin-bottom: 0.6rem; }
+    .task-detail-head { position: sticky; top: 0; z-index: 1; display: flex; align-items: center; justify-content: space-between; gap: 0.5rem; margin-bottom: 0.55rem; background: #020617; border-bottom: 1px solid #1e293b; padding-bottom: 0.45rem; }
     .task-detail h3 { margin: 0; color: #fff; }
     .task-detail-head .task-detail-actions { margin: 0; }
-    .task-detail label { display: block; color: #94a3b8; font-size: 0.74rem; margin-bottom: 0.2rem; }
-    .task-detail input, .task-detail textarea, .task-detail select { width: 100%; margin-bottom: 0.55rem; padding: 0.5rem 0.6rem; border-radius: 0.45rem; border: 1px solid #334155; background: #0f172a; color: #e2e8f0; }
-    .task-detail textarea { min-height: 90px; resize: vertical; }
+    .task-detail label { display: block; color: #94a3b8; font-size: 0.73rem; margin-bottom: 0.15rem; }
+    .task-detail input, .task-detail textarea, .task-detail select { width: 100%; margin-bottom: 0; padding: 0.5rem 0.6rem; border-radius: 0.45rem; border: 1px solid #334155; background: #0f172a; color: #e2e8f0; }
+    .task-detail textarea { min-height: 92px; resize: vertical; }
     .task-detail-actions { display: flex; gap: 0.5rem; justify-content: flex-end; }
     .task-detail-actions button { padding: 0.45rem 0.7rem; border-radius: 0.45rem; border: 1px solid #334155; background: #1e293b; color: #e2e8f0; cursor: pointer; }
     .task-detail-actions button.primary { background: #16a34a; border-color: #16a34a; color: #fff; }
+    .task-detail-section { border: 1px solid #1e293b; background: #0b1220; border-radius: 0.55rem; padding: 0.6rem; margin-bottom: 0.5rem; }
+    .task-detail-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 0.45rem 0.6rem; }
+    .task-detail-field { display: flex; flex-direction: column; gap: 0.2rem; }
+    .task-detail-field.full { grid-column: 1 / -1; }
     .tasks-err { color: #f87171; font-size: 0.875rem; margin-top: 0.5rem; }
     .tasks-note {
       color: #86efac;
@@ -155,15 +163,22 @@
     }
     @media (max-width: 900px) {
       .task-controls { grid-template-columns: 1fr 1fr; }
-      .task-controls { grid-template-columns: 1fr 1fr; }
       .task-filter-panel { grid-template-columns: 1fr 1fr; }
-      .task-detail { left: 1rem; right: 1rem; width: auto; }
+      .task-detail { left: 0.75rem; right: 0.75rem; width: auto; }
+      .task-detail-grid { grid-template-columns: 1fr; }
+      .task-detail-field.full { grid-column: auto; }
     }
     @media (max-width: 640px) {
       .funnels-list { grid-template-columns: 1fr; }
       .task-controls { grid-template-columns: 1fr; }
       .task-filter-panel { grid-template-columns: 1fr; }
       .date-grid-weekdays, .date-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+      .task-new-form { inset: 0; width: 100vw; border-radius: 0; }
+      .task-detail { inset: 0; border-radius: 0; }
+      .task-detail-head { flex-direction: column; align-items: flex-start; gap: 0.45rem; }
+      .task-detail-actions { width: 100%; justify-content: flex-start; }
+      .task-toolbar button, .task-controls button, .task-controls select, .task-controls input { min-height: 40px; }
+      .mic-btn { min-width: 64px; }
     }
   </style>
 </head>
@@ -246,7 +261,10 @@
             <button type="button" id="new-task-close" class="task-new-close">Close</button>
           </div>
           <div class="task-new-grid">
-            <input type="text" id="new-title" placeholder="Task title" />
+            <div class="field-with-mic">
+              <input type="text" id="new-title" placeholder="Task title" />
+              <button type="button" class="mic-btn" data-dictate-target="new-title">Mic</button>
+            </div>
             <select id="new-assignee"></select>
             <input type="date" id="new-due" />
             <select id="new-priority">
@@ -255,7 +273,10 @@
               <option value="low">Low</option>
             </select>
             <input type="text" id="new-project" placeholder="Project" />
-            <textarea id="new-description" placeholder="Description"></textarea>
+            <div class="field-with-mic">
+              <textarea id="new-description" placeholder="Description"></textarea>
+              <button type="button" class="mic-btn" data-dictate-target="new-description">Mic</button>
+            </div>
             <button type="button" id="create-task-btn" class="primary">Create</button>
           </div>
         </div>
@@ -271,31 +292,57 @@
             <button type="button" id="detail-close">Close</button>
           </div>
         </div>
-        <label for="detail-title">Title</label>
-        <input type="text" id="detail-title" />
-        <label for="detail-status">Status</label>
-        <select id="detail-status">
-          <option value="open">Open</option>
-          <option value="in_progress">In progress</option>
-          <option value="review">Review</option>
-          <option value="done">Done</option>
-        </select>
-        <label for="detail-priority">Priority</label>
-        <select id="detail-priority">
-          <option value="high">High</option>
-          <option value="medium">Medium</option>
-          <option value="low">Low</option>
-        </select>
-        <label for="detail-assignee">Assignee</label>
-        <select id="detail-assignee"></select>
-        <label for="detail-due">Due date</label>
-        <input type="date" id="detail-due" />
-        <label for="detail-project">Project</label>
-        <input type="text" id="detail-project" />
-        <label for="detail-description">Description</label>
-        <textarea id="detail-description"></textarea>
-        <label>Activity</label>
-        <ul id="detail-activity" class="activity-list"></ul>
+        <div class="task-detail-section">
+          <div class="task-detail-grid">
+            <div class="task-detail-field full">
+              <label for="detail-title">Title</label>
+              <div class="field-with-mic">
+                <input type="text" id="detail-title" />
+                <button type="button" class="mic-btn" data-dictate-target="detail-title">Mic</button>
+              </div>
+            </div>
+            <div class="task-detail-field">
+              <label for="detail-status">Status</label>
+              <select id="detail-status">
+                <option value="open">Open</option>
+                <option value="in_progress">In progress</option>
+                <option value="review">Review</option>
+                <option value="done">Done</option>
+              </select>
+            </div>
+            <div class="task-detail-field">
+              <label for="detail-priority">Priority</label>
+              <select id="detail-priority">
+                <option value="high">High</option>
+                <option value="medium">Medium</option>
+                <option value="low">Low</option>
+              </select>
+            </div>
+            <div class="task-detail-field">
+              <label for="detail-assignee">Assignee</label>
+              <select id="detail-assignee"></select>
+            </div>
+            <div class="task-detail-field">
+              <label for="detail-due">Due date</label>
+              <input type="date" id="detail-due" />
+            </div>
+            <div class="task-detail-field full">
+              <label for="detail-project">Project</label>
+              <input type="text" id="detail-project" />
+            </div>
+          </div>
+        </div>
+        <div class="task-detail-section">
+          <label for="detail-description">Description</label>
+          <div class="field-with-mic">
+            <textarea id="detail-description"></textarea>
+            <button type="button" class="mic-btn" data-dictate-target="detail-description">Mic</button>
+          </div>
+        </div>
+        <div class="task-detail-section">
+          <label>Activity</label>
+          <ul id="detail-activity" class="activity-list"></ul>
+        </div>
       </aside>
     </section>
 
@@ -723,7 +770,27 @@
       var dateCursor = new Date();
       var statusOrder = ['open', 'in_progress', 'review', 'done'];
       var priorityOrder = ['low', 'medium', 'high'];
-      var ASSIGNEE_OPTIONS = ['Sikandar', 'Stephanie Couch', 'Syed Jawad Hussain', 'Usama Ashraf', 'Yasir Khan', 'Zach Golden', 'Zeeshan Aamir Khan'];
+      var ASSIGNEE_OPTIONS = [
+        'Sikandar',
+        'Stephanie Couch',
+        'Syed Jawad Hussain',
+        'Usama Ashraf',
+        'Yasir Khan',
+        'Zach Golden',
+        'Zeeshan Aamir Khan',
+        'Percy',
+        'Annelle Agualimpia',
+        'Branden (you)',
+        'Christian Rabulan',
+        'Eric Coffie',
+        'Kashif Hameed',
+        'Kay Villanueva',
+        'Kennedy Dafeakeh',
+        'Mehar Inaam',
+        'Muneeba Mehmood',
+        'Randie Ward',
+        'Ryan Atencio'
+      ];
       var workspace = {
         schema: 3,
         ui: {
@@ -785,6 +852,17 @@
         workspace.events = [];
       }
 
+      function assignAllTasksToPercy() {
+        var changed = false;
+        workspace.tasks.forEach(function(t) {
+          if (t.assignee !== 'Percy') {
+            t.assignee = 'Percy';
+            changed = true;
+          }
+        });
+        return changed;
+      }
+
       function loadWorkspace() {
         try {
           var raw = localStorage.getItem(WORKSPACE_KEY);
@@ -799,6 +877,7 @@
                 { project: 'all', status: 'all', priority: 'all', assignee: '', due: '' },
                 workspace.ui.filters || {}
               );
+              if (assignAllTasksToPercy()) saveWorkspace();
               return true;
             }
           }
@@ -807,12 +886,14 @@
             var legacy = JSON.parse(legacyRaw);
             if (Array.isArray(legacy) && legacy.length) {
               migrateLegacyTasks(legacy);
+              assignAllTasksToPercy();
               saveWorkspace();
               return true;
             }
           }
         } catch (e) {}
         seedWorkspace();
+        assignAllTasksToPercy();
         saveWorkspace();
         return true;
       }
@@ -840,6 +921,80 @@
       function renderAssigneeSelects() {
         newAssigneeEl.innerHTML = assigneeOptionsHtml(newAssigneeEl.value || '');
         detailAssigneeEl.innerHTML = assigneeOptionsHtml(detailAssigneeEl.value || '');
+      }
+
+      var SpeechCtor = window.SpeechRecognition || window.webkitSpeechRecognition;
+      var activeRecognition = null;
+      var activeMicBtn = null;
+
+      function resetMicButton(btn) {
+        if (!btn) return;
+        btn.classList.remove('listening');
+        btn.textContent = 'Mic';
+      }
+
+      function appendDictation(targetId, text) {
+        var target = document.getElementById(targetId);
+        if (!target || !text) return;
+        var incoming = text.trim();
+        if (!incoming) return;
+        var existing = String(target.value || '').trim();
+        target.value = existing ? (existing + ' ' + incoming) : incoming;
+      }
+
+      function startDictation(targetId, btn) {
+        if (!SpeechCtor) {
+          showTasksNote('Voice dictation is not supported in this browser.');
+          return;
+        }
+        if (activeRecognition) {
+          try { activeRecognition.stop(); } catch (e) {}
+          resetMicButton(activeMicBtn);
+          if (activeMicBtn === btn) {
+            activeRecognition = null;
+            activeMicBtn = null;
+            return;
+          }
+        }
+
+        var rec = new SpeechCtor();
+        rec.lang = 'en-US';
+        rec.interimResults = false;
+        rec.continuous = false;
+        activeRecognition = rec;
+        activeMicBtn = btn;
+        btn.classList.add('listening');
+        btn.textContent = 'Stop';
+
+        rec.onresult = function(evt) {
+          var parts = [];
+          for (var i = evt.resultIndex; i < evt.results.length; i++) {
+            parts.push(evt.results[i][0].transcript);
+          }
+          appendDictation(targetId, parts.join(' '));
+        };
+
+        rec.onerror = function() {
+          showTasksNote('Could not capture voice right now. Try again.');
+          resetMicButton(btn);
+          activeRecognition = null;
+          activeMicBtn = null;
+        };
+
+        rec.onend = function() {
+          resetMicButton(btn);
+          activeRecognition = null;
+          activeMicBtn = null;
+        };
+
+        try {
+          rec.start();
+        } catch (e) {
+          showTasksNote('Voice dictation is unavailable right now.');
+          resetMicButton(btn);
+          activeRecognition = null;
+          activeMicBtn = null;
+        }
       }
 
       function renderProjectFilterOptions() {
@@ -1242,6 +1397,14 @@
         if (!task) return;
         if (action === 'cycle-status') { task.status = nextValue(task.status, statusOrder); touchTask(task); addEvent(task.id, 'Status changed to ' + statusLabel(task.status)); saveWorkspace(); renderTaskViews(); loadRecentUpdates(); }
         else if (action === 'open-detail') openTaskDetail(id);
+      });
+
+      document.addEventListener('click', function(e) {
+        var micBtn = e.target.closest('[data-dictate-target]');
+        if (!micBtn) return;
+        var targetId = micBtn.getAttribute('data-dictate-target');
+        if (!targetId) return;
+        startDictation(targetId, micBtn);
       });
 
       taskViewRoot.addEventListener('change', function(e) {

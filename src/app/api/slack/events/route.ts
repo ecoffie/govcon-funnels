@@ -91,13 +91,6 @@ async function postSlackReply(channel: string, text: string, threadTs?: string):
 
 export async function POST(request: NextRequest) {
   const rawBody = await request.text();
-  const signature = request.headers.get('x-slack-signature');
-  const timestamp = request.headers.get('x-slack-request-timestamp');
-
-  if (!verifySlackSignatureCorrect(rawBody, signature, timestamp)) {
-    return NextResponse.json({ error: 'Invalid signature' }, { status: 401 });
-  }
-
   let payload: SlackEventPayload;
   try {
     payload = JSON.parse(rawBody) as SlackEventPayload;
@@ -107,6 +100,13 @@ export async function POST(request: NextRequest) {
 
   if (payload.type === 'url_verification') {
     return NextResponse.json({ challenge: payload.challenge || '' });
+  }
+
+  const signature = request.headers.get('x-slack-signature');
+  const timestamp = request.headers.get('x-slack-request-timestamp');
+
+  if (!verifySlackSignatureCorrect(rawBody, signature, timestamp)) {
+    return NextResponse.json({ error: 'Invalid signature' }, { status: 401 });
   }
 
   if (payload.type !== 'event_callback' || !payload.event) {
