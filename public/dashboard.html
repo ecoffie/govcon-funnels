@@ -211,6 +211,8 @@
           </div>
           <div style="display:flex; gap:0.5rem; flex-wrap:wrap;">
             <button type="button" id="task-fullscreen-btn">Fullscreen</button>
+            <button type="button" id="bootcamp-preset-btn">Bootcamp Preset</button>
+            <button type="button" id="new-project-btn">New project</button>
             <button type="button" id="new-task-btn" class="primary">New task</button>
           </div>
         </div>
@@ -914,6 +916,8 @@
       var taskFilterToggleEl = document.getElementById('task-filter-toggle');
       var groupByEl = document.getElementById('group-by');
       var taskFullscreenBtnEl = document.getElementById('task-fullscreen-btn');
+      var bootcampPresetBtn = document.getElementById('bootcamp-preset-btn');
+      var newProjectBtn = document.getElementById('new-project-btn');
       var taskWorkspaceEl = document.querySelector('.task-workspace');
       var taskFilterPanelEl = document.getElementById('task-filter-panel');
       var filterProjectEl = document.getElementById('filter-project');
@@ -1109,6 +1113,7 @@
           workspace.projects = projects.map(function(p) {
             return { id: p.id, name: p.name, status: p.status || 'active' };
           });
+          var defaultProjectId = workspace.projects.length ? workspace.projects[0].id : '';
           workspace.tasks = tasks.map(function(t) {
             return {
               id: t.id,
@@ -1118,7 +1123,7 @@
               due_date: t.due_date || '',
               priority: t.priority || 'medium',
               status: t.status || 'open',
-              project_id: t.project_id || '',
+              project_id: t.project_id || defaultProjectId,
               description: t.description || '',
               attachment_url: t.attachment_url || '',
               updated_at: (t.updated_at || '').slice(0, 10) || new Date().toISOString().slice(0, 10)
@@ -1193,6 +1198,32 @@
           local.updated_at = (task.updated_at || '').slice(0, 10) || new Date().toISOString().slice(0, 10);
         }
         saveWorkspace();
+      }
+
+      async function apiCreateProject(name) {
+        var res = await fetch('/api/dashboard/projects', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ name: name, status: 'active' })
+        });
+        if (!res.ok) {
+          var err = await res.json().catch(function() { return {}; });
+          throw new Error(err.error || 'Failed to create project');
+        }
+        return res.json();
+      }
+
+      async function apiReleaseBootcampPreset(projectName) {
+        var res = await fetch('/api/dashboard/projects/release-template', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ name: projectName, template: 'bootcamp' })
+        });
+        if (!res.ok) {
+          var err = await res.json().catch(function() { return {}; });
+          throw new Error(err.error || 'Failed to release bootcamp preset');
+        }
+        return res.json();
       }
 
       function projectNameById(id) {
@@ -1613,11 +1644,12 @@
         var nextAssignee = detailAssigneeEl.value.trim();
         var nextDueDate = detailDueEl.value;
         var desiredProject = detailProjectEl.value.trim();
-        var nextProjectId = task.project_id;
+        var nextProjectId = task.project_id || (workspace.projects[0] && workspace.projects[0].id) || '';
         if (desiredProject) {
           var existingProject = workspace.projects.find(function(p) { return p.name === desiredProject; });
           if (existingProject) nextProjectId = existingProject.id;
         }
+        if (!nextProjectId && workspace.projects.length) nextProjectId = workspace.projects[0].id;
         var nextDescription = detailDescriptionEl.value.trim();
         try {
           await apiPatchTask(task.id, {
@@ -1722,6 +1754,41 @@
         groupByEl.value = 'project';
         saveWorkspace();
         renderTaskViews();
+      });
+      newProjectBtn.addEventListener('click', async function() {
+        var name = (window.prompt('New project name') || '').trim();
+        if (!name) {
+          showTasksNote('Project creation cancelled.');
+          return;
+        }
+        showTasksErr('');
+        try {
+          await apiCreateProject(name);
+          await syncWorkspaceFromApi();
+          renderTaskViews();
+        } catch (err) {
+          showTasksErr(err instanceof Error ? err.message : 'Failed to add project.');
+        }
+      });
+      bootcampPresetBtn.addEventListener('click', async function() {
+        var defaultName = new Date().toLocaleString(undefined, { month: 'long', year: 'numeric' }) + ' Bootcamp';
+        var projectName = (window.prompt('Bootcamp project name', defaultName) || '').trim();
+        if (!projectName) {
+          showTasksNote('Bootcamp preset cancelled.');
+          return;
+        }
+        showTasksErr('');
+        showTasksNote('Releasing bootcamp preset...');
+        try {
+          await apiReleaseBootcampPreset(projectName);
+          await syncWorkspaceFromApi();
+          renderTaskViews();
+          loadRecentUpdates();
+          showTasksNote('Bootcamp preset released and tasks created.');
+        } catch (err) {
+          showTasksErr(err instanceof Error ? err.message : 'Failed to release bootcamp preset.');
+          showTasksNote('');
+        }
       });
       newTaskBtn.addEventListener('click', openNewTaskDrawer);
       newTaskCloseEl.addEventListener('click', closeNewTaskDrawer);

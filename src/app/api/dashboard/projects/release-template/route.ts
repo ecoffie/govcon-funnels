@@ -1,5 +1,9 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { releaseProjectTemplate } from '@/lib/db';
+import {
+  notifySlackTaskChange,
+  formatTemplateReleaseSummary,
+} from '@/lib/slackTasks';
 
 export async function POST(request: NextRequest) {
   try {
@@ -10,13 +14,25 @@ export async function POST(request: NextRequest) {
     }
     const template =
       typeof body.template === 'string' &&
-      ['funnel_launch', 'content_update', 'crm_cleanup'].includes(body.template)
+      ['funnel_launch', 'content_update', 'crm_cleanup', 'bootcamp'].includes(body.template)
         ? body.template
         : 'funnel_launch';
     const result = await releaseProjectTemplate({
       name,
-      template: template as 'funnel_launch' | 'content_update' | 'crm_cleanup',
+      template: template as 'funnel_launch' | 'content_update' | 'crm_cleanup' | 'bootcamp',
     });
+    try {
+      await notifySlackTaskChange(
+        formatTemplateReleaseSummary({
+          template,
+          projectId: result.project.id,
+          projectName: result.project.name,
+          taskTitles: result.tasks.map((t) => t.title),
+        })
+      );
+    } catch (notifyErr) {
+      console.error('Preset summary Slack notify failed:', notifyErr);
+    }
     return NextResponse.json(result, { status: 201 });
   } catch (err) {
     const message = err instanceof Error ? err.message : 'Database error';

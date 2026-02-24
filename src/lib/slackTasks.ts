@@ -70,3 +70,19 @@ export function formatProjectSlackMessage(args: {
     `*Status:* ${args.status}`,
   ].join('\n');
 }
+
+export function formatTemplateReleaseSummary(args: {
+  template: string;
+  projectId: string;
+  projectName: string;
+  taskTitles: string[];
+}): string {
+  const header = [
+    `*Template released:* ${args.template}`,
+    `*Project:* ${args.projectName}`,
+    `*Project ID:* ${args.projectId}`,
+    `*Tasks created:* ${args.taskTitles.length}`,
+  ];
+  const lines = args.taskTitles.map((title, idx) => `${idx + 1}. ${title}`);
+  return header.concat(['*Task list:*'], lines).join('\n');
+}

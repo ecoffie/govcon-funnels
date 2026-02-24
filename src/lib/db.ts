@@ -400,10 +400,10 @@ export async function getTaskEvents(taskId: string): Promise<TaskEvent[]> {
 
 export async function releaseProjectTemplate(data: {
   name: string;
-  template: 'funnel_launch' | 'content_update' | 'crm_cleanup';
+  template: 'funnel_launch' | 'content_update' | 'crm_cleanup' | 'bootcamp';
 }): Promise<{ project: Project; tasks: Task[] }> {
   const project = await createProject({ name: data.name, status: 'active' });
-  const templates: Record<string, string[]> = {
+  const templates: Record<'funnel_launch' | 'content_update' | 'crm_cleanup' | 'bootcamp', string[]> = {
     funnel_launch: [
       'Kickoff checklist',
       'Landing page QA',
@@ -421,6 +421,21 @@ export async function releaseProjectTemplate(data: {
       'Deduplicate records',
       'Fix missing owners',
       'Re-run lead sync',
+    ],
+    // Monthly bootcamp preset. Replace these titles with your exact list when provided.
+    bootcamp: [
+      'Confirm bootcamp offer and monthly objective',
+      'Finalize bootcamp landing page headline and CTA',
+      'QA registration form and tracking parameters',
+      'Upload/update bootcamp handouts and download links',
+      'Configure CRM tags and pipeline stage for bootcamp leads',
+      'Verify Slack lead + task notifications are active',
+      'Schedule promotional email and SMS sequence',
+      'Publish social promo assets and ad links',
+      'Run full test signup (form -> CRM -> Slack -> email)',
+      'Launch day checklist and live monitoring',
+      'Post-bootcamp replay + follow-up sequence',
+      'Review conversion metrics and lessons learned',
     ],
   };
   const taskTitles = templates[data.template] ?? templates.funnel_launch;
