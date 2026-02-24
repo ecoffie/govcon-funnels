@@ -19,7 +19,7 @@ export async function GET(request: NextRequest) {
     return NextResponse.json(tasks);
   } catch (err) {
     const message = err instanceof Error ? err.message : 'Database error';
-    if (message.includes('DATABASE_URL')) {
+    if (message.includes('KV_REST_API_URL')) {
       return NextResponse.json(
         { error: 'Tasks database not configured' },
         { status: 503 }
@@ -90,7 +90,7 @@ export async function POST(request: NextRequest) {
     return NextResponse.json(task, { status: 201 });
   } catch (err) {
     const message = err instanceof Error ? err.message : 'Database error';
-    if (message.includes('DATABASE_URL')) {
+    if (message.includes('KV_REST_API_URL')) {
       return NextResponse.json(
         { error: 'Tasks database not configured' },
         { status: 503 }

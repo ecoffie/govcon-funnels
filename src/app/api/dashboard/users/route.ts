@@ -7,7 +7,7 @@ export async function GET() {
     return NextResponse.json(users);
   } catch (err) {
     const message = err instanceof Error ? err.message : 'Database error';
-    if (message.includes('DATABASE_URL')) {
+    if (message.includes('KV_REST_API_URL')) {
       return NextResponse.json(
         { error: 'Users database not configured' },
         { status: 503 }
