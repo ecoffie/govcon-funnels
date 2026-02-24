@@ -202,7 +202,7 @@ ${proCta()}`;
  */
 export async function sendSurgeEmail(params: EmailParams): Promise<EmailResult> {
   const firstName = params.name.split(' ')[0] || 'there';
-  const resourcesUrl = 'https://funnels.govcongiants.org/surge/thank-you';
+  const resourcesUrl = 'https://funnels.govcongiants.org/resources/handouts/thank-you';
 
   const content = `
 <h1 style="color: #ffffff; font-size: 28px; margin: 0 0 20px; text-align: center;">
