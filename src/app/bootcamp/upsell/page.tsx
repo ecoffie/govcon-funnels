@@ -183,7 +183,7 @@ export default function BootcampUpsell() {
 
             <Link
               href="/bootcamp/downsell"
-              className="block w-full py-3 text-slate-500 hover:text-slate-400 text-sm text-center transition-all"
+              className="block w-full py-3 text-green-500 hover:text-green-400 font-medium text-base text-center transition-all underline underline-offset-2"
             >
               No thanks, show me other options →
             </Link>

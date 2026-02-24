@@ -137,7 +137,7 @@ export default function ResourcesUpsell() {
           <div className="text-center">
             <Link
               href="/resources/handouts/downsell"
-              className="text-slate-500 hover:text-slate-400 text-sm transition-all"
+              className="text-green-500 hover:text-green-400 font-medium text-base transition-all underline underline-offset-2"
             >
               No thanks, show me other options →
             </Link>
