@@ -65,6 +65,7 @@
     .tab-panel { display: none; }
     .tab-panel.active { display: block; }
     .task-workspace { background: rgba(15,23,42,0.7); border: 1px solid #334155; border-radius: 0.75rem; padding: 1rem; }
+    .task-workspace.fullscreen { position: fixed; inset: 0.75rem; z-index: 55; background: #020617; border-radius: 0.85rem; overflow: auto; }
     .task-toolbar { display: flex; flex-wrap: wrap; justify-content: space-between; gap: 0.75rem; margin-bottom: 0.75rem; }
     .task-toolbar h3 { margin: 0; color: white; }
     .task-toolbar .meta { font-size: 0.8rem; color: #94a3b8; }
@@ -72,12 +73,13 @@
     .task-toolbar button.primary { background: #16a34a; border-color: #16a34a; color: white; font-weight: 600; }
     .task-toolbar button:hover { background: #334155; }
     .task-toolbar button.primary:hover { background: #22c55e; }
-    .task-controls { display: grid; grid-template-columns: 1.8fr repeat(4, minmax(120px, 1fr)); gap: 0.5rem; margin-bottom: 0.75rem; }
+    .task-controls { display: grid; grid-template-columns: 1.8fr 1.1fr auto auto; gap: 0.5rem; margin-bottom: 0.75rem; }
     .task-controls input, .task-controls select, .task-controls button { padding: 0.5rem 0.625rem; border-radius: 0.5rem; background: #0f172a; border: 1px solid #334155; color: #e2e8f0; font-size: 0.85rem; }
     .task-controls button { cursor: pointer; }
-    .task-properties-menu { display: none; margin-bottom: 0.6rem; border: 1px solid #334155; background: #0f172a; border-radius: 0.6rem; padding: 0.6rem; grid-template-columns: repeat(4, minmax(120px, 1fr)); gap: 0.45rem; }
-    .task-properties-menu.show { display: grid; }
-    .task-properties-menu label { display: inline-flex; align-items: center; gap: 0.35rem; font-size: 0.78rem; color: #cbd5e1; }
+    .task-filter-panel { display: none; margin-bottom: 0.6rem; border: 1px solid #334155; background: #0f172a; border-radius: 0.6rem; padding: 0.6rem; grid-template-columns: repeat(6, minmax(120px, 1fr)); gap: 0.45rem; }
+    .task-filter-panel.show { display: grid; }
+    .task-filter-panel input, .task-filter-panel select { padding: 0.5rem 0.625rem; border-radius: 0.5rem; background: #020617; border: 1px solid #334155; color: #e2e8f0; font-size: 0.82rem; }
+    .task-filter-panel button { padding: 0.5rem 0.625rem; border-radius: 0.5rem; border: 1px solid #334155; background: #1e293b; color: #e2e8f0; cursor: pointer; }
     .task-view-tabs { display: flex; flex-wrap: wrap; gap: 0.5rem; margin-bottom: 0.75rem; }
     .task-view-btn { padding: 0.4rem 0.65rem; border-radius: 9999px; border: 1px solid #334155; background: #1e293b; color: #cbd5e1; font-size: 0.8rem; cursor: pointer; }
     .task-view-btn.active { background: #22c55e1f; color: #86efac; border-color: #22c55e66; }
@@ -97,16 +99,16 @@
     .task-table th, .task-table td { border-bottom: 1px solid #1e293b; padding: 0.55rem 0.4rem; vertical-align: middle; }
     .task-table th { color: #94a3b8; font-weight: 600; text-align: left; font-size: 0.75rem; text-transform: uppercase; letter-spacing: 0.03em; }
     .col-id { width: 92px; }
-    .col-title { width: 300px; }
+    .col-project { width: 170px; }
+    .col-title { width: 320px; }
     .col-status, .col-priority { width: 108px; }
     .col-assignee { width: 140px; }
     .col-due { width: 128px; }
-    .col-project { width: 170px; }
-    .col-tags { width: 170px; }
-    .col-estimate { width: 110px; }
     .title-preview { display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; font-size: 0.82rem; line-height: 1.25; }
     .title-preview.expanded { -webkit-line-clamp: unset; }
     .task-cell-input { width: 100%; padding: 0.35rem 0.45rem; border-radius: 0.4rem; background: #0f172a; border: 1px solid #334155; color: #e2e8f0; font-size: 0.82rem; }
+    .task-table tbody tr { cursor: pointer; transition: background 120ms ease; }
+    .task-table tbody tr:hover { background: rgba(30,41,59,0.55); }
     .chip { display: inline-flex; align-items: center; gap: 0.25rem; border: 1px solid #334155; border-radius: 9999px; padding: 0.2rem 0.55rem; font-size: 0.72rem; cursor: pointer; user-select: none; }
     .chip.status-open { border-color: #475569; color: #cbd5e1; }
     .chip.status-in_progress { border-color: #0284c7; color: #7dd3fc; }
@@ -115,18 +117,26 @@
     .chip.priority-low { border-color: #475569; color: #94a3b8; }
     .chip.priority-medium { border-color: #ca8a04; color: #fde68a; }
     .chip.priority-high { border-color: #ef4444; color: #fca5a5; }
-    .task-calendar-group { margin-bottom: 0.8rem; }
-    .task-calendar-group h4 { margin: 0 0 0.35rem 0; color: #94a3b8; font-size: 0.78rem; text-transform: uppercase; }
-    .task-calendar-item { background: #0f172a; border: 1px solid #334155; border-radius: 0.45rem; padding: 0.45rem 0.6rem; margin-bottom: 0.35rem; display: flex; justify-content: space-between; }
+    .project-group { margin-bottom: 0.9rem; }
+    .project-group h4 { margin: 0 0 0.4rem 0; color: #86efac; font-size: 0.8rem; letter-spacing: 0.02em; }
+    .date-grid-head { display: flex; justify-content: space-between; align-items: center; margin-bottom: 0.6rem; }
+    .date-grid-head button { padding: 0.35rem 0.55rem; border-radius: 0.45rem; border: 1px solid #334155; background: #1e293b; color: #cbd5e1; cursor: pointer; }
+    .date-grid-label { color: #e2e8f0; font-size: 0.92rem; font-weight: 600; }
+    .date-grid-weekdays { display: grid; grid-template-columns: repeat(7, minmax(0, 1fr)); gap: 0.35rem; margin-bottom: 0.35rem; }
+    .date-grid-weekdays div { color: #94a3b8; font-size: 0.72rem; text-transform: uppercase; letter-spacing: 0.03em; padding: 0.25rem 0.4rem; }
+    .date-grid { display: grid; grid-template-columns: repeat(7, minmax(0, 1fr)); gap: 0.35rem; }
+    .date-cell { min-height: 118px; border: 1px solid #334155; border-radius: 0.5rem; background: #0b1220; padding: 0.35rem; display: flex; flex-direction: column; gap: 0.3rem; }
+    .date-cell.muted { opacity: 0.4; }
+    .date-num { color: #cbd5e1; font-size: 0.72rem; font-weight: 600; }
+    .date-task { width: 100%; text-align: left; border: 1px solid #334155; background: #1e293b; color: #e2e8f0; border-radius: 0.35rem; font-size: 0.68rem; padding: 0.2rem 0.3rem; cursor: pointer; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
     .task-empty { color: #64748b; font-size: 0.85rem; padding: 0.75rem 0; }
     .task-detail { position: fixed; inset: 1rem; width: auto; background: #020617; border: 1px solid #334155; border-radius: 0.8rem; padding: 1rem; overflow-y: auto; z-index: 60; box-shadow: 0 20px 40px rgba(0,0,0,0.4); display: none; }
     .task-detail.show { display: block; }
-    .task-progress { margin: 0.75rem 0; }
-    .progress-bar { height: 8px; background: #1e293b; border-radius: 999px; overflow: hidden; }
-    .progress-fill { height: 100%; background: #22c55e; }
     .activity-list { list-style: none; padding: 0; margin: 0.5rem 0 0 0; }
     .activity-list li { border-bottom: 1px solid #1e293b; padding: 0.4rem 0; font-size: 0.8rem; color: #94a3b8; }
-    .task-detail h3 { margin-top: 0; color: #fff; }
+    .task-detail-head { display: flex; align-items: center; justify-content: space-between; gap: 0.5rem; margin-bottom: 0.6rem; }
+    .task-detail h3 { margin: 0; color: #fff; }
+    .task-detail-head .task-detail-actions { margin: 0; }
     .task-detail label { display: block; color: #94a3b8; font-size: 0.74rem; margin-bottom: 0.2rem; }
     .task-detail input, .task-detail textarea, .task-detail select { width: 100%; margin-bottom: 0.55rem; padding: 0.5rem 0.6rem; border-radius: 0.45rem; border: 1px solid #334155; background: #0f172a; color: #e2e8f0; }
     .task-detail textarea { min-height: 90px; resize: vertical; }
@@ -145,15 +155,15 @@
     }
     @media (max-width: 900px) {
       .task-controls { grid-template-columns: 1fr 1fr; }
-      .task-properties-menu { grid-template-columns: 1fr 1fr; }
-      .task-board { grid-template-columns: 1fr 1fr; }
+      .task-controls { grid-template-columns: 1fr 1fr; }
+      .task-filter-panel { grid-template-columns: 1fr 1fr; }
       .task-detail { left: 1rem; right: 1rem; width: auto; }
     }
     @media (max-width: 640px) {
       .funnels-list { grid-template-columns: 1fr; }
       .task-controls { grid-template-columns: 1fr; }
-      .task-properties-menu { grid-template-columns: 1fr; }
-      .task-board { grid-template-columns: 1fr; }
+      .task-filter-panel { grid-template-columns: 1fr; }
+      .date-grid-weekdays, .date-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
     }
   </style>
 </head>
@@ -173,44 +183,61 @@
     </section>
 
     <section>
-      <h2>Manage tasks</h2>
+      <h2>Task manager</h2>
       <div class="task-workspace">
         <div class="task-toolbar">
           <div>
-            <h3>Tasks</h3>
+            <h3>Tasks and Projects</h3>
             <div id="task-count" class="meta">0 tasks</div>
           </div>
           <div style="display:flex; gap:0.5rem; flex-wrap:wrap;">
+            <button type="button" id="task-fullscreen-btn">Fullscreen</button>
             <button type="button" id="new-task-btn" class="primary">New task</button>
           </div>
         </div>
         <div class="task-controls">
           <input type="text" id="task-search" placeholder="Search tasks..." />
-          <select id="task-filter-status">
-            <option value="all">All statuses</option>
+          <select id="task-sort">
+            <option value="updated_desc">Sort: Recently updated</option>
+            <option value="due_asc">Sort: Due date</option>
+            <option value="assignee_asc">Sort: Assignee A-Z</option>
+            <option value="priority_desc">Sort: Priority</option>
+            <option value="title_asc">Sort: Title</option>
+          </select>
+          <button type="button" id="task-filter-toggle">Filters</button>
+          <select id="group-by">
+            <option value="project">Grouped by: Project</option>
+            <option value="none">Grouped by: None</option>
+            <option value="status">Grouped by: Status</option>
+            <option value="assignee">Grouped by: Assignee</option>
+            <option value="due_date">Grouped by: Due date</option>
+            <option value="priority">Grouped by: Priority</option>
+          </select>
+        </div>
+        <div id="task-filter-panel" class="task-filter-panel">
+          <select id="filter-project">
+            <option value="all">Project: All</option>
+          </select>
+          <select id="filter-status">
+            <option value="all">Status: All</option>
             <option value="open">Open</option>
             <option value="in_progress">In progress</option>
             <option value="review">Review</option>
             <option value="done">Done</option>
           </select>
-          <select id="task-filter-priority">
-            <option value="all">All priorities</option>
-            <option value="high">High priority</option>
-            <option value="medium">Medium priority</option>
-            <option value="low">Low priority</option>
+          <select id="filter-priority">
+            <option value="all">Priority: All</option>
+            <option value="high">High</option>
+            <option value="medium">Medium</option>
+            <option value="low">Low</option>
           </select>
-          <select id="task-sort">
-            <option value="updated_desc">Sort: Recently updated</option>
-            <option value="due_asc">Sort: Due date</option>
-            <option value="priority_desc">Sort: Priority</option>
-            <option value="title_asc">Sort: Title</option>
-          </select>
-          <button type="button" id="properties-btn">Customize columns</button>
+          <input type="text" id="filter-assignee" placeholder="Assignee" />
+          <input type="date" id="filter-due" />
+          <button type="button" id="reset-filters">Reset all filters</button>
         </div>
-        <div id="task-properties-menu" class="task-properties-menu"></div>
         <div class="task-view-tabs">
           <button type="button" class="task-view-btn active" data-task-view="table">Table</button>
-          <button type="button" class="task-view-btn" data-task-view="calendar">Calendar</button>
+          <button type="button" class="task-view-btn" data-task-view="date">Date</button>
         </div>
         <div id="task-new-backdrop" class="task-new-form-backdrop"></div>
         <div id="task-new-form" class="task-new-form">
@@ -220,7 +247,7 @@
           </div>
           <div class="task-new-grid">
             <input type="text" id="new-title" placeholder="Task title" />
-            <input type="text" id="new-assignee" placeholder="Assignee" />
+            <select id="new-assignee"></select>
             <input type="date" id="new-due" />
             <select id="new-priority">
               <option value="medium">Medium</option>
@@ -228,6 +255,7 @@
               <option value="low">Low</option>
             </select>
             <input type="text" id="new-project" placeholder="Project" />
+            <textarea id="new-description" placeholder="Description"></textarea>
             <button type="button" id="create-task-btn" class="primary">Create</button>
           </div>
         </div>
@@ -236,7 +264,13 @@
       <p id="tasks-err" class="tasks-err" style="display: none;"></p>
       <p id="tasks-note" class="tasks-note" style="display: none;"></p>
       <aside id="task-detail" class="task-detail" aria-hidden="true">
-        <h3>Task details</h3>
+        <div class="task-detail-head">
+          <h3>Task details</h3>
+          <div class="task-detail-actions">
+            <button type="button" id="detail-save" class="primary">Save</button>
+            <button type="button" id="detail-close">Close</button>
+          </div>
+        </div>
         <label for="detail-title">Title</label>
         <input type="text" id="detail-title" />
         <label for="detail-status">Status</label>
@@ -253,28 +287,15 @@
           <option value="low">Low</option>
         </select>
         <label for="detail-assignee">Assignee</label>
-        <input type="text" id="detail-assignee" />
+        <select id="detail-assignee"></select>
         <label for="detail-due">Due date</label>
         <input type="date" id="detail-due" />
         <label for="detail-project">Project</label>
         <input type="text" id="detail-project" />
-        <label for="detail-tags">Tags (comma separated)</label>
-        <input type="text" id="detail-tags" />
-        <label for="detail-estimate">Estimate</label>
-        <input type="text" id="detail-estimate" placeholder="e.g. 4h" />
         <label for="detail-description">Description</label>
         <textarea id="detail-description"></textarea>
-        <div class="task-progress">
-          <label>Progress</label>
-          <div class="progress-bar"><div id="progress-fill" class="progress-fill" style="width:0%;"></div></div>
-        </div>
-        <div id="detail-subtasks-wrap" style="margin:0.5rem 0 0.75rem 0;"></div>
         <label>Activity</label>
         <ul id="detail-activity" class="activity-list"></ul>
-        <div class="task-detail-actions">
-          <button type="button" id="detail-close">Close</button>
-          <button type="button" id="detail-save" class="primary">Save</button>
-        </div>
       </aside>
     </section>
 
@@ -655,11 +676,18 @@
       var taskViewRoot = document.getElementById('task-view-root');
       var taskCountEl = document.getElementById('task-count');
       var taskSearchEl = document.getElementById('task-search');
-      var taskFilterStatusEl = document.getElementById('task-filter-status');
-      var taskFilterPriorityEl = document.getElementById('task-filter-priority');
       var taskSortEl = document.getElementById('task-sort');
-      var propertiesBtnEl = document.getElementById('properties-btn');
-      var propertiesMenuEl = document.getElementById('task-properties-menu');
+      var taskFilterToggleEl = document.getElementById('task-filter-toggle');
+      var groupByEl = document.getElementById('group-by');
+      var taskFullscreenBtnEl = document.getElementById('task-fullscreen-btn');
+      var taskWorkspaceEl = document.querySelector('.task-workspace');
+      var taskFilterPanelEl = document.getElementById('task-filter-panel');
+      var filterProjectEl = document.getElementById('filter-project');
+      var filterStatusEl = document.getElementById('filter-status');
+      var filterPriorityEl = document.getElementById('filter-priority');
+      var filterAssigneeEl = document.getElementById('filter-assignee');
+      var filterDueEl = document.getElementById('filter-due');
+      var resetFiltersEl = document.getElementById('reset-filters');
       var taskViewBtns = document.querySelectorAll('.task-view-btn');
       var newTaskBtn = document.getElementById('new-task-btn');
       var taskNewBackdropEl = document.getElementById('task-new-backdrop');
@@ -670,6 +698,7 @@
       var newDueEl = document.getElementById('new-due');
       var newPriorityEl = document.getElementById('new-priority');
       var newProjectEl = document.getElementById('new-project');
+      var newDescriptionEl = document.getElementById('new-description');
       var createTaskBtn = document.getElementById('create-task-btn');
       var detailEl = document.getElementById('task-detail');
       var detailCloseEl = document.getElementById('detail-close');
@@ -680,12 +709,8 @@
       var detailAssigneeEl = document.getElementById('detail-assignee');
       var detailDueEl = document.getElementById('detail-due');
       var detailProjectEl = document.getElementById('detail-project');
-      var detailTagsEl = document.getElementById('detail-tags');
-      var detailEstimateEl = document.getElementById('detail-estimate');
       var detailDescriptionEl = document.getElementById('detail-description');
-      var detailSubtasksWrapEl = document.getElementById('detail-subtasks-wrap');
       var detailActivityEl = document.getElementById('detail-activity');
-      var progressFillEl = document.getElementById('progress-fill');
       var tasksErrEl = document.getElementById('tasks-err');
       var tasksNoteEl = document.getElementById('tasks-note');
       var recentUpdatesList = document.getElementById('recent-updates-list');
@@ -695,10 +720,22 @@
       var LEGACY_TASK_KEY = 'dashboard_tasks_v2';
       var activeTaskView = 'table';
       var activeDetailTaskId = null;
+      var dateCursor = new Date();
       var statusOrder = ['open', 'in_progress', 'review', 'done'];
       var priorityOrder = ['low', 'medium', 'high'];
-      var defaultColumns = { status: true, priority: true, assignee: true, due: true, project: true, tags: true, estimate: true };
-      var workspace = { schema: 3, ui: { columns: defaultColumns }, projects: [], tasks: [], events: [] };
+      var ASSIGNEE_OPTIONS = ['Sikandar', 'Stephanie Couch', 'Syed Jawad Hussain', 'Usama Ashraf', 'Yasir Khan', 'Zach Golden', 'Zeeshan Aamir Khan'];
+      var workspace = {
+        schema: 3,
+        ui: {
+          fullscreen: false,
+          groupBy: 'project',
+          filters: { project: 'all', status: 'all', priority: 'all', assignee: '', due: '' },
+          sort: 'updated_desc'
+        },
+        projects: [],
+        tasks: [],
+        events: []
+      };
 
       function uid(prefix) { return prefix + '-' + Date.now() + '-' + Math.floor(Math.random() * 100000); }
       function escapeHtml(s) { var d = document.createElement('div'); d.textContent = s == null ? '' : String(s); return d.innerHTML; }
@@ -755,8 +792,13 @@
             var parsed = JSON.parse(raw);
             if (parsed && parsed.tasks && parsed.projects) {
               workspace = parsed;
-              workspace.ui = workspace.ui || { columns: defaultColumns };
-              workspace.ui.columns = Object.assign({}, defaultColumns, workspace.ui.columns || {});
+              workspace.ui = workspace.ui || {};
+              workspace.ui.groupBy = workspace.ui.groupBy || 'project';
+              workspace.ui.sort = workspace.ui.sort || 'updated_desc';
+              workspace.ui.filters = Object.assign(
+                { project: 'all', status: 'all', priority: 'all', assignee: '', due: '' },
+                workspace.ui.filters || {}
+              );
               return true;
             }
           }
@@ -785,80 +827,226 @@
         return p ? p.name : 'Unassigned';
       }
 
+      function assigneeOptionsHtml(selected) {
+        return (
+          '<option value="">Unassigned</option>' +
+          ASSIGNEE_OPTIONS.map(function(name) {
+            var isSelected = String(selected || '') === name ? ' selected' : '';
+            return '<option value="' + escapeHtml(name) + '"' + isSelected + '>' + escapeHtml(name) + '</option>';
+          }).join('')
+        );
+      }
+
+      function renderAssigneeSelects() {
+        newAssigneeEl.innerHTML = assigneeOptionsHtml(newAssigneeEl.value || '');
+        detailAssigneeEl.innerHTML = assigneeOptionsHtml(detailAssigneeEl.value || '');
+      }
+
+      function renderProjectFilterOptions() {
+        filterProjectEl.innerHTML =
+          '<option value="all">Project: All</option>' +
+          workspace.projects
+            .map(function(p) {
+              return '<option value="' + escapeHtml(p.id) + '">' + escapeHtml(p.name) + '</option>';
+            })
+            .join('');
+      }
+
+      function sortComparator(sortValue) {
+        return function(a, b) {
+          if (sortValue === 'due_asc') return String(a.due_date || '9999-12-31').localeCompare(String(b.due_date || '9999-12-31'));
+          if (sortValue === 'assignee_asc') return String(a.assignee || 'zzz').localeCompare(String(b.assignee || 'zzz'));
+          if (sortValue === 'priority_desc') return priorityOrder.indexOf(b.priority) - priorityOrder.indexOf(a.priority);
+          if (sortValue === 'title_asc') return String(a.title).localeCompare(String(b.title));
+          return String(b.updated_at || '').localeCompare(String(a.updated_at || ''));
+        };
+      }
+
       function filteredTasks() {
         var q = (taskSearchEl.value || '').trim().toLowerCase();
-        var statusFilter = taskFilterStatusEl.value;
-        var priorityFilter = taskFilterPriorityEl.value;
+        var statusFilter = workspace.ui.filters.status;
+        var priorityFilter = workspace.ui.filters.priority;
+        var projectFilter = workspace.ui.filters.project;
+        var assigneeFilter = (workspace.ui.filters.assignee || '').trim().toLowerCase();
+        var dueFilter = workspace.ui.filters.due;
         return workspace.tasks.filter(function(t) {
           var projectName = projectNameById(t.project_id);
           var matchesQ = !q || (t.title + ' ' + t.task_id + ' ' + t.assignee + ' ' + projectName + ' ' + (t.tags || []).join(' ')).toLowerCase().indexOf(q) !== -1;
           var matchesStatus = statusFilter === 'all' ? true : t.status === statusFilter;
           var matchesPriority = priorityFilter === 'all' ? true : t.priority === priorityFilter;
-          return matchesQ && matchesStatus && matchesPriority;
-        }).sort(function(a, b) {
-          var sortValue = taskSortEl.value;
-          if (sortValue === 'due_asc') return String(a.due_date || '9999-12-31').localeCompare(String(b.due_date || '9999-12-31'));
-          if (sortValue === 'priority_desc') return priorityOrder.indexOf(b.priority) - priorityOrder.indexOf(a.priority);
-          if (sortValue === 'title_asc') return String(a.title).localeCompare(String(b.title));
-          return String(b.updated_at || '').localeCompare(String(a.updated_at || ''));
-        });
+          var matchesProject = projectFilter === 'all' ? true : t.project_id === projectFilter;
+          var matchesAssignee = !assigneeFilter ? true : String(t.assignee || '').toLowerCase().indexOf(assigneeFilter) !== -1;
+          var matchesDue = !dueFilter ? true : String(t.due_date || '') === dueFilter;
+          return matchesQ && matchesStatus && matchesPriority && matchesProject && matchesAssignee && matchesDue;
+        }).sort(sortComparator(workspace.ui.sort || 'updated_desc'));
       }
 
-      function renderPropertiesMenu() {
-        var cols = workspace.ui.columns || defaultColumns;
-        var fields = ['status', 'priority', 'assignee', 'due', 'project', 'tags', 'estimate'];
-        propertiesMenuEl.innerHTML = fields.map(function(f) {
-          return '<label><input type="checkbox" data-col-toggle="' + f + '"' + (cols[f] ? ' checked' : '') + ' /> ' + f + '</label>';
-        }).join('');
+      function taskTableRows(tasks) {
+        return tasks
+          .map(function(t) {
+            var priorityText = t.priority === 'high' ? 'High' : '—';
+            return (
+              '<tr data-action="open-detail" data-id="' +
+              escapeHtml(t.id) +
+              '"><td class="col-id"><strong style="color:#86efac;">' +
+              escapeHtml(t.task_id) +
+              '</strong></td>' +
+              '<td class="col-project">' +
+              escapeHtml(projectNameById(t.project_id)) +
+              '</td>' +
+              '<td class="col-title"><button type="button" data-action="open-detail" data-id="' +
+              escapeHtml(t.id) +
+              '" style="all:unset; cursor:pointer; color:#e2e8f0;"><div class="title-preview">' +
+              escapeHtml(t.title) +
+              '</div></button></td>' +
+              '<td class="col-status"><span class="chip status-' +
+              escapeHtml(t.status) +
+              '" data-action="cycle-status" data-id="' +
+              escapeHtml(t.id) +
+              '">' +
+              escapeHtml(statusLabel(t.status)) +
+              '</span></td>' +
+              '<td class="col-due"><input class="task-cell-input" type="date" data-action="edit-due" data-id="' +
+              escapeHtml(t.id) +
+              '" value="' +
+              escapeHtml(t.due_date || '') +
+              '" /></td>' +
+              '<td class="col-assignee">' + escapeHtml(t.assignee || 'Unassigned') + '</td>' +
+              '<td class="col-priority">' +
+              escapeHtml(priorityText) +
+              '</td></tr>'
+            );
+          })
+          .join('');
       }
 
       function renderTable(tasks) {
-        if (!tasks.length) { taskViewRoot.innerHTML = '<div class="task-empty">No tasks match this filter.</div>'; return; }
-        var cols = workspace.ui.columns;
-        var head = '<th class="col-id">ID</th><th class="col-title">Title</th>';
-        if (cols.status) head += '<th class="col-status">Status</th>';
-        if (cols.priority) head += '<th class="col-priority">Priority</th>';
-        if (cols.assignee) head += '<th class="col-assignee">Assignee</th>';
-        if (cols.due) head += '<th class="col-due">Due</th>';
-        if (cols.project) head += '<th class="col-project">Project</th>';
-        if (cols.tags) head += '<th class="col-tags">Tags</th>';
-        if (cols.estimate) head += '<th class="col-estimate">Estimate</th>';
-        var html = '<div class="task-table-wrap"><table class="task-table"><thead><tr>' + head + '</tr></thead><tbody>';
+        if (!tasks.length) {
+          taskViewRoot.innerHTML = '<div class="task-empty">No tasks match this filter.</div>';
+          return;
+        }
+        var head =
+          '<th class="col-id">ID</th><th class="col-project">Project</th><th class="col-title">Task</th><th class="col-status">Status</th><th class="col-due">Due</th><th class="col-assignee">Assignee</th><th class="col-priority">Priority</th>';
+        var groupBy = workspace.ui.groupBy || 'project';
+        if (groupBy === 'none') {
+          taskViewRoot.innerHTML =
+            '<div class="task-table-wrap"><table class="task-table"><thead><tr>' +
+            head +
+            '</tr></thead><tbody>' +
+            taskTableRows(tasks) +
+            '</tbody></table></div>';
+          return;
+        }
+        var grouped = {};
         tasks.forEach(function(t) {
-          html += '<tr data-action="open-detail" data-id="' + escapeHtml(t.id) + '"><td class="col-id"><strong style="color:#86efac;">' + escapeHtml(t.task_id) + '</strong></td>';
-          html += '<td class="col-title"><button type="button" data-action="open-detail" data-id="' + escapeHtml(t.id) + '" style="all:unset; cursor:pointer; color:#e2e8f0;"><div class="title-preview">' + escapeHtml(t.title) + '</div></button></td>';
-          if (cols.status) html += '<td><span class="chip status-' + escapeHtml(t.status) + '" data-action="cycle-status" data-id="' + escapeHtml(t.id) + '">' + escapeHtml(statusLabel(t.status)) + '</span></td>';
-          if (cols.priority) html += '<td><span class="chip priority-' + escapeHtml(t.priority) + '" data-action="cycle-priority" data-id="' + escapeHtml(t.id) + '">' + escapeHtml(t.priority) + '</span></td>';
-          if (cols.assignee) html += '<td><input class="task-cell-input" data-action="edit-assignee" data-id="' + escapeHtml(t.id) + '" value="' + escapeHtml(t.assignee || '') + '" /></td>';
-          if (cols.due) html += '<td><input class="task-cell-input" type="date" data-action="edit-due" data-id="' + escapeHtml(t.id) + '" value="' + escapeHtml(t.due_date || '') + '" /></td>';
-          if (cols.project) html += '<td>' + escapeHtml(projectNameById(t.project_id)) + '</td>';
-          if (cols.tags) html += '<td>' + escapeHtml((t.tags || []).join(', ')) + '</td>';
-          if (cols.estimate) html += '<td>' + escapeHtml(t.estimate || '') + '</td>';
-          html += '</tr>';
+          var key = '';
+          if (groupBy === 'project') key = t.project_id || 'none';
+          else if (groupBy === 'status') key = t.status || 'open';
+          else if (groupBy === 'assignee') key = (t.assignee || '').trim() || 'unassigned';
+          else if (groupBy === 'due_date') key = t.due_date || 'no_due_date';
+          else if (groupBy === 'priority') key = t.priority || 'medium';
+          else key = t.project_id || 'none';
+          if (!grouped[key]) grouped[key] = [];
+          grouped[key].push(t);
         });
-        html += '</tbody></table></div>';
+        var keys = Object.keys(grouped).sort();
+        if (groupBy === 'project') {
+          keys.sort(function(a, b) { return projectNameById(a).localeCompare(projectNameById(b)); });
+        } else if (groupBy === 'status') {
+          keys.sort(function(a, b) { return statusOrder.indexOf(a) - statusOrder.indexOf(b); });
+        } else if (groupBy === 'priority') {
+          keys.sort(function(a, b) { return priorityOrder.indexOf(a) - priorityOrder.indexOf(b); });
+        } else if (groupBy === 'due_date') {
+          keys.sort(function(a, b) { return String(a).localeCompare(String(b)); });
+        }
+        var html = '';
+        keys.forEach(function(k) {
+          var label = '';
+          if (groupBy === 'project') label = projectNameById(k);
+          else if (groupBy === 'status') label = statusLabel(k);
+          else if (groupBy === 'assignee') label = k === 'unassigned' ? 'Unassigned' : k;
+          else if (groupBy === 'due_date') label = k === 'no_due_date' ? 'No due date' : formatDate(k);
+          else if (groupBy === 'priority') label = k;
+          else label = k;
+          html +=
+            '<div class="project-group"><h4>' +
+            escapeHtml(label) +
+            '</h4><div class="task-table-wrap"><table class="task-table"><thead><tr>' +
+            head +
+            '</tr></thead><tbody>' +
+            taskTableRows(grouped[k]) +
+            '</tbody></table></div></div>';
+        });
         taskViewRoot.innerHTML = html;
       }
 
-      function renderCalendar(tasks) {
-        if (!tasks.length) { taskViewRoot.innerHTML = '<div class="task-empty">No dated tasks to show.</div>'; return; }
-        var grouped = {};
-        tasks.forEach(function(t) { var key = t.due_date || 'No due date'; if (!grouped[key]) grouped[key] = []; grouped[key].push(t); });
-        var keys = Object.keys(grouped).sort();
-        var html = '';
-        keys.forEach(function(k) {
-          html += '<div class="task-calendar-group"><h4>' + escapeHtml(k === 'No due date' ? k : formatDate(k)) + '</h4>';
-          grouped[k].forEach(function(t) { html += '<div class="task-calendar-item" data-action="open-detail" data-id="' + escapeHtml(t.id) + '"><span>' + escapeHtml(t.task_id + ' · ' + t.title) + '</span><span class="chip priority-' + escapeHtml(t.priority) + '">' + escapeHtml(t.priority) + '</span></div>'; });
-          html += '</div>';
+      function daysInMonth(y, m) {
+        return new Date(y, m + 1, 0).getDate();
+      }
+
+      function renderDateGrid(tasks) {
+        var year = dateCursor.getFullYear();
+        var month = dateCursor.getMonth();
+        var firstDay = new Date(year, month, 1);
+        var startOffset = firstDay.getDay();
+        var totalDays = daysInMonth(year, month);
+        var prevMonthDays = daysInMonth(year, month - 1);
+        var map = {};
+        tasks.forEach(function(t) {
+          if (!t.due_date) return;
+          if (!map[t.due_date]) map[t.due_date] = [];
+          map[t.due_date].push(t);
         });
+        var monthLabel = firstDay.toLocaleDateString(undefined, { month: 'long', year: 'numeric' });
+        var html =
+          '<div class="date-grid-head"><button type="button" id="date-prev-month">Prev</button><div class="date-grid-label">' +
+          escapeHtml(monthLabel) +
+          '</div><button type="button" id="date-next-month">Next</button></div>' +
+          '<div class="date-grid-weekdays"><div>Sun</div><div>Mon</div><div>Tue</div><div>Wed</div><div>Thu</div><div>Fri</div><div>Sat</div></div><div class="date-grid">';
+        for (var i = 0; i < 42; i++) {
+          var dayNum;
+          var cellDate;
+          var muted = false;
+          if (i < startOffset) {
+            dayNum = prevMonthDays - startOffset + i + 1;
+            cellDate = new Date(year, month - 1, dayNum);
+            muted = true;
+          } else if (i >= startOffset + totalDays) {
+            dayNum = i - (startOffset + totalDays) + 1;
+            cellDate = new Date(year, month + 1, dayNum);
+            muted = true;
+          } else {
+            dayNum = i - startOffset + 1;
+            cellDate = new Date(year, month, dayNum);
+          }
+          var key = cellDate.toISOString().slice(0, 10);
+          var items = map[key] || [];
+          html += '<div class="date-cell' + (muted ? ' muted' : '') + '"><div class="date-num">' + dayNum + '</div>';
+          items.slice(0, 3).forEach(function(t) {
+            html +=
+              '<button type="button" class="date-task" data-action="open-detail" data-id="' +
+              escapeHtml(t.id) +
+              '">' +
+              escapeHtml(t.task_id + ' · ' + t.title) +
+              '</button>';
+          });
+          if (items.length > 3) html += '<div class="muted-sm">+' + (items.length - 3) + ' more</div>';
+          html += '</div>';
+        }
+        html += '</div>';
         taskViewRoot.innerHTML = html;
       }
 
       function renderTaskViews() {
         taskCountEl.textContent = String(workspace.tasks.length) + ' tasks';
-        renderPropertiesMenu();
+        renderProjectFilterOptions();
+        filterProjectEl.value = workspace.ui.filters.project || 'all';
+        taskSortEl.value = workspace.ui.sort || 'updated_desc';
+        groupByEl.value = workspace.ui.groupBy || 'project';
+        taskFullscreenBtnEl.textContent = workspace.ui.fullscreen ? 'Exit fullscreen' : 'Fullscreen';
+        taskWorkspaceEl.classList.toggle('fullscreen', !!workspace.ui.fullscreen);
         var tasks = filteredTasks();
-        if (activeTaskView === 'calendar') renderCalendar(tasks);
+        if (activeTaskView === 'date') renderDateGrid(tasks);
         else renderTable(tasks);
       }
 
@@ -894,10 +1082,7 @@
           priority: input.priority || 'medium',
           status: 'open',
           project_id: projectId,
-          tags: input.tags || [],
-          estimate: input.estimate || '',
           description: input.description || '',
-          subtasks: input.subtasks || [],
           updated_at: new Date().toISOString().slice(0, 10)
         };
         workspace.tasks.unshift(task);
@@ -916,19 +1101,11 @@
         detailTitleEl.value = task.title || '';
         detailStatusEl.value = task.status || 'open';
         detailPriorityEl.value = task.priority || 'medium';
+        renderAssigneeSelects();
         detailAssigneeEl.value = task.assignee || '';
         detailDueEl.value = task.due_date || '';
         detailProjectEl.value = projectNameById(task.project_id);
-        detailTagsEl.value = (task.tags || []).join(', ');
-        detailEstimateEl.value = task.estimate || '';
         detailDescriptionEl.value = task.description || '';
-        var subtasks = Array.isArray(task.subtasks) ? task.subtasks : [];
-        var doneCount = subtasks.filter(function(s) { return s.done; }).length;
-        var pct = subtasks.length ? Math.round((doneCount / subtasks.length) * 100) : 0;
-        progressFillEl.style.width = pct + '%';
-        detailSubtasksWrapEl.innerHTML = '<label>Subtasks</label>' + (subtasks.length ? subtasks.map(function(st) {
-          return '<div style="display:flex; align-items:center; gap:0.5rem; margin-bottom:0.35rem;"><input type="checkbox" data-subtask-id="' + escapeHtml(st.id) + '"' + (st.done ? ' checked' : '') + ' /><span style="font-size:0.82rem;">' + escapeHtml(st.title) + '</span></div>';
-        }).join('') : '<div class="task-empty">No subtasks</div>');
         var events = workspace.events.filter(function(e) { return e.task_id === task.id; }).slice(0, 8);
         detailActivityEl.innerHTML = events.length ? events.map(function(e) { return '<li><strong style="color:#86efac;">' + escapeHtml(formatDate(e.at)) + '</strong> · ' + escapeHtml(e.text) + '</li>'; }).join('') : '<li>No activity yet.</li>';
         detailEl.classList.add('show');
@@ -953,17 +1130,7 @@
           }
           task.project_id = existingProject.id;
         }
-        task.tags = detailTagsEl.value.split(',').map(function(t) { return t.trim(); }).filter(Boolean);
-        task.estimate = detailEstimateEl.value.trim();
         task.description = detailDescriptionEl.value.trim();
-        var checks = detailSubtasksWrapEl.querySelectorAll('input[type="checkbox"][data-subtask-id]');
-        var subtasks = Array.isArray(task.subtasks) ? task.subtasks : [];
-        checks.forEach(function(c) {
-          var id = c.getAttribute('data-subtask-id');
-          var st = subtasks.find(function(s) { return s.id === id });
-          if (st) st.done = c.checked;
-        });
-        task.subtasks = subtasks;
         touchTask(task);
         addEvent(task.id, 'Task details updated');
         saveWorkspace();
@@ -1005,14 +1172,39 @@
 
       taskViewBtns.forEach(function(btn) { btn.addEventListener('click', function() { setTaskView(btn.getAttribute('data-task-view')); }); });
       taskSearchEl.addEventListener('input', renderTaskViews);
-      taskFilterStatusEl.addEventListener('change', renderTaskViews);
-      taskFilterPriorityEl.addEventListener('change', renderTaskViews);
-      taskSortEl.addEventListener('change', renderTaskViews);
-      propertiesBtnEl.addEventListener('click', function() { propertiesMenuEl.classList.toggle('show'); });
-      propertiesMenuEl.addEventListener('change', function(e) {
-        var col = e.target.getAttribute('data-col-toggle');
-        if (!col) return;
-        workspace.ui.columns[col] = !!e.target.checked;
+      taskSortEl.addEventListener('change', function() {
+        workspace.ui.sort = taskSortEl.value;
+        saveWorkspace();
+        renderTaskViews();
+      });
+      taskFilterToggleEl.addEventListener('click', function() { taskFilterPanelEl.classList.toggle('show'); });
+      groupByEl.addEventListener('change', function() {
+        workspace.ui.groupBy = groupByEl.value;
+        saveWorkspace();
+        renderTaskViews();
+      });
+      taskFullscreenBtnEl.addEventListener('click', function() {
+        workspace.ui.fullscreen = !workspace.ui.fullscreen;
+        saveWorkspace();
+        renderTaskViews();
+      });
+      filterProjectEl.addEventListener('change', function() { workspace.ui.filters.project = filterProjectEl.value; saveWorkspace(); renderTaskViews(); });
+      filterStatusEl.addEventListener('change', function() { workspace.ui.filters.status = filterStatusEl.value; saveWorkspace(); renderTaskViews(); });
+      filterPriorityEl.addEventListener('change', function() { workspace.ui.filters.priority = filterPriorityEl.value; saveWorkspace(); renderTaskViews(); });
+      filterAssigneeEl.addEventListener('input', function() { workspace.ui.filters.assignee = filterAssigneeEl.value; saveWorkspace(); renderTaskViews(); });
+      filterDueEl.addEventListener('change', function() { workspace.ui.filters.due = filterDueEl.value; saveWorkspace(); renderTaskViews(); });
+      resetFiltersEl.addEventListener('click', function() {
+        workspace.ui.filters = { project: 'all', status: 'all', priority: 'all', assignee: '', due: '' };
+        workspace.ui.sort = 'updated_desc';
+        workspace.ui.groupBy = 'project';
+        taskSearchEl.value = '';
+        filterProjectEl.value = 'all';
+        filterStatusEl.value = 'all';
+        filterPriorityEl.value = 'all';
+        filterAssigneeEl.value = '';
+        filterDueEl.value = '';
+        taskSortEl.value = 'updated_desc';
+        groupByEl.value = 'project';
         saveWorkspace();
         renderTaskViews();
       });
@@ -1030,22 +1222,25 @@
           assignee: (newAssigneeEl.value || '').trim(),
           due_date: newDueEl.value,
           priority: newPriorityEl.value,
-          project_id: projectMatch ? projectMatch.id : null
+          project_id: projectMatch ? projectMatch.id : null,
+          description: (newDescriptionEl.value || '').trim()
         });
-        newTitleEl.value = ''; newAssigneeEl.value = ''; newDueEl.value = ''; newProjectEl.value = '';
+        newTitleEl.value = ''; newAssigneeEl.value = ''; newDueEl.value = ''; newProjectEl.value = ''; newDescriptionEl.value = '';
+        renderAssigneeSelects();
         closeNewTaskDrawer();
       });
 
       taskViewRoot.addEventListener('click', function(e) {
         var target = e.target;
         if (target.closest('input, select, textarea')) return;
+        if (target.id === 'date-prev-month') { dateCursor = new Date(dateCursor.getFullYear(), dateCursor.getMonth() - 1, 1); renderTaskViews(); return; }
+        if (target.id === 'date-next-month') { dateCursor = new Date(dateCursor.getFullYear(), dateCursor.getMonth() + 1, 1); renderTaskViews(); return; }
         var action = target.getAttribute('data-action') || (target.closest('[data-action]') && target.closest('[data-action]').getAttribute('data-action'));
         var id = target.getAttribute('data-id') || (target.closest('[data-id]') && target.closest('[data-id]').getAttribute('data-id'));
         if (!action || !id) return;
         var task = findTaskById(id);
         if (!task) return;
         if (action === 'cycle-status') { task.status = nextValue(task.status, statusOrder); touchTask(task); addEvent(task.id, 'Status changed to ' + statusLabel(task.status)); saveWorkspace(); renderTaskViews(); loadRecentUpdates(); }
-        else if (action === 'cycle-priority') { task.priority = nextValue(task.priority, priorityOrder); touchTask(task); addEvent(task.id, 'Priority changed to ' + task.priority); saveWorkspace(); renderTaskViews(); loadRecentUpdates(); }
         else if (action === 'open-detail') openTaskDetail(id);
       });
 
@@ -1056,8 +1251,7 @@
         if (!action || !id) return;
         var task = findTaskById(id);
         if (!task) return;
-        if (action === 'edit-assignee') task.assignee = target.value.trim();
-        else if (action === 'edit-due') task.due_date = target.value;
+        if (action === 'edit-due') task.due_date = target.value;
         touchTask(task);
         addEvent(task.id, 'Quick edit saved');
         saveWorkspace();
@@ -1073,9 +1267,18 @@
       });
 
       loadWorkspace();
-      workspace.ui.columns = Object.assign({}, defaultColumns, workspace.ui.columns || {});
-      taskFilterStatusEl.value = 'all';
-      showTasksNote('Demo mode: frontend workspace with local persistence.');
+      workspace.ui.fullscreen = !!workspace.ui.fullscreen;
+      workspace.ui.groupBy = workspace.ui.groupBy || 'project';
+      workspace.ui.sort = workspace.ui.sort || 'updated_desc';
+      workspace.ui.filters = Object.assign({ project: 'all', status: 'all', priority: 'all', assignee: '', due: '' }, workspace.ui.filters || {});
+      taskSortEl.value = workspace.ui.sort;
+      groupByEl.value = workspace.ui.groupBy;
+      filterStatusEl.value = workspace.ui.filters.status;
+      filterPriorityEl.value = workspace.ui.filters.priority;
+      filterAssigneeEl.value = workspace.ui.filters.assignee;
+      filterDueEl.value = workspace.ui.filters.due;
+      renderAssigneeSelects();
+      showTasksNote('');
       renderTaskViews();
       loadRecentUpdates();
     })();
