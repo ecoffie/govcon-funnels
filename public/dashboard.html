@@ -370,10 +370,10 @@
 
     <div class="tab-bar">
       <button type="button" class="tab-btn active" data-tab="dashboard-info">Dashboard info</button>
-      <button type="button" class="tab-btn" data-tab="automation">Lead automation</button>
-      <button type="button" class="tab-btn" data-tab="how-it-fits">How it all fits together</button>
-      <button type="button" class="tab-btn" data-tab="funnels-lead">Funnels and lead flow</button>
       <button type="button" class="tab-btn" data-tab="plans">Plans overview</button>
+      <button type="button" class="tab-btn" data-tab="how-it-fits">How it all fits together</button>
+      <button type="button" class="tab-btn" data-tab="automation">Lead automation</button>
+      <button type="button" class="tab-btn" data-tab="funnels-lead">Funnels and lead flow</button>
     </div>
 
     <div id="tab-dashboard-info" class="tab-panel active">
@@ -673,6 +673,160 @@
           this.classList.add('active');
         });
       });
+
+      function renderDashboardInfoTab(section) {
+        var panel = document.getElementById('tab-dashboard-info');
+        if (!panel || !section) return;
+        var cards = (section.snapshotCards || []).map(function(card) {
+          return (
+            '<div style="background: rgba(15,23,42,0.8); border: 1px solid #334155; border-radius: 0.75rem; padding: 1.25rem;">' +
+              '<div style="color: #22c55e; font-size: 0.75rem; font-weight: 600; text-transform: uppercase; letter-spacing: 0.05em; margin-bottom: 0.5rem;">' + escapeHtml(card.title) + '</div>' +
+              '<div style="color: white; font-size: 2rem; font-weight: 700;">' + escapeHtml(card.value) + '</div>' +
+              '<div class="muted-sm">' + escapeHtml(card.detail) + '</div>' +
+            '</div>'
+          );
+        }).join('');
+
+        var quickLinks = (section.quickLinks || []).map(function(link) {
+          return '<a href="' + escapeHtml(link.url) + '" target="_blank" rel="noopener">' + escapeHtml(link.label) + '</a>';
+        }).join('');
+
+        var activeFunnels = (section.activeFunnels || []).map(function(link) {
+          return '<li><a href="' + escapeHtml(link.url) + '" target="_blank">' + escapeHtml(link.label) + '</a></li>';
+        }).join('');
+
+        panel.innerHTML =
+          '<h3 style="color: white; margin-bottom: 0.75rem;">Dashboard snapshot</h3>' +
+          '<div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 1rem; margin-bottom: 1.5rem;">' +
+            cards +
+          '</div>' +
+          '<h3 style="color: white; margin-bottom: 0.75rem;">Quick links</h3>' +
+          '<div class="quick-links" style="margin-bottom: 1.5rem;">' + quickLinks + '</div>' +
+          '<h3 style="color: white; margin-bottom: 0.75rem;">Active funnels</h3>' +
+          '<p class="muted muted-sm" style="margin-bottom: 0.75rem;">All active lead capture pages and funnels. Source tags in parentheses.</p>' +
+          '<ul class="funnels-list">' + activeFunnels + '</ul>';
+      }
+
+      function renderPlansTab(section) {
+        var panel = document.getElementById('tab-plans');
+        if (!panel || !section) return;
+        var levels = (section.levels || []).map(function(level) {
+          var cards = (level.cards || []).map(function(card) {
+            return (
+              '<a href="' + escapeHtml(card.link) + '" class="plan-card" target="_blank" rel="noopener">' +
+                '<div class="title">' + escapeHtml(card.title) + '</div>' +
+                '<div class="price">' + escapeHtml(card.price) + '</div>' +
+                '<div class="where">Where sold: ' + escapeHtml(card.whereSold) + '</div>' +
+                '<div class="after">After signup: ' + escapeHtml(card.afterSignup) + '</div>' +
+              '</a>'
+            );
+          }).join('');
+          return (
+            '<div class="level">' +
+              '<h3>' + escapeHtml(level.title) + '</h3>' +
+              '<p>' + escapeHtml(level.description) + '</p>' +
+              cards +
+            '</div>'
+          );
+        }).join('');
+        panel.innerHTML =
+          '<p class="muted">' + escapeHtml(section.intro || '') + '</p>' +
+          levels;
+      }
+
+      function renderLeadAutomationTab(section) {
+        var panel = document.getElementById('tab-automation');
+        if (!panel || !section) return;
+        var integrations = (section.integrations || []).map(function(item, idx, arr) {
+          var border = idx < arr.length - 1 ? ' border-bottom: 1px solid #1e293b;' : '';
+          return (
+            '<li style="padding: 0.5rem 0;' + border + '">' +
+              '<strong style="color: #22c55e;">' + escapeHtml(item.title) + '</strong>' +
+              '<div class="muted-sm" style="margin-top: 0.25rem;">Status: ' + escapeHtml(item.status) + '</div>' +
+              '<div class="muted-sm">' + escapeHtml(item.detail) + '</div>' +
+              '<div class="muted-sm">' + escapeHtml(item.note) + '</div>' +
+            '</li>'
+          );
+        }).join('');
+        var tags = (section.sourceTags || []).map(function(tag) {
+          return '<div style="background: #1e293b; padding: 0.5rem; border-radius: 0.5rem;"><code>' + escapeHtml(tag) + '</code></div>';
+        }).join('');
+        var vars = (section.envVars || []).map(function(item) {
+          return '<li style="padding: 0.25rem 0;"><code>' + escapeHtml(item) + '</code></li>';
+        }).join('');
+        panel.innerHTML =
+          '<h3 style="color: white; margin-bottom: 1rem;">Lead Capture & Automation Status</h3>' +
+          '<p class="muted" style="margin-bottom: 1.5rem;">All form submissions on this site post to <code>/api/lead</code> which handles CRM and notifications.</p>' +
+          '<div style="background: rgba(15,23,42,0.8); border: 1px solid #334155; border-radius: 0.75rem; padding: 1.5rem; margin-bottom: 1.5rem;">' +
+            '<h3 style="margin-bottom: 1rem;">✅ Active Integrations</h3>' +
+            '<ul style="list-style: none; padding: 0; margin: 0;">' + integrations + '</ul>' +
+          '</div>' +
+          '<div style="background: rgba(15,23,42,0.8); border: 1px solid #334155; border-radius: 0.75rem; padding: 1.5rem; margin-bottom: 1.5rem;">' +
+            '<h3 style="margin-bottom: 1rem;">📋 Lead Source Tags</h3>' +
+            '<p class="muted-sm" style="margin-bottom: 1rem;">Each form submission includes a source tag for tracking in GHL:</p>' +
+            '<div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 0.5rem;">' + tags + '</div>' +
+          '</div>' +
+          '<div style="background: rgba(15,23,42,0.8); border: 1px solid #334155; border-radius: 0.75rem; padding: 1.5rem;">' +
+            '<h3 style="margin-bottom: 1rem;">🔧 Environment Variables (Vercel)</h3>' +
+            '<p class="muted-sm" style="margin-bottom: 1rem;">Required environment variables configured in Vercel Dashboard:</p>' +
+            '<ul style="list-style: none; padding: 0; margin: 0;">' + vars + '</ul>' +
+          '</div>';
+      }
+
+      function renderHowItFitsDefinitions(section) {
+        var list = document.querySelector('#tab-how-it-fits .glossary-list');
+        if (!list || !section) return;
+        list.innerHTML = (section.definitions || []).map(function(item) {
+          return '<li><span class="term">' + escapeHtml(item.term) + '</span><span class="def">– ' + escapeHtml(item.def) + '</span></li>';
+        }).join('');
+      }
+
+      function renderFunnelsLeadFlowTab(section) {
+        var panel = document.getElementById('tab-funnels-lead');
+        if (!panel || !section) return;
+        var steps = (section.leadCaptureSteps || []).map(function(step) {
+          return '<li style="margin-bottom: 0.5rem;">' + escapeHtml(step) + '</li>';
+        }).join('');
+        var testing = (section.testingSteps || []).map(function(step) {
+          return '<li style="margin-bottom: 0.5rem;">' + escapeHtml(step) + '</li>';
+        }).join('');
+        var funnels = (section.activeFunnels || []).map(function(link) {
+          return '<li><a href="' + escapeHtml(link.url) + '" target="_blank">' + escapeHtml(link.label) + '</a></li>';
+        }).join('');
+        panel.innerHTML =
+          '<div style="background: rgba(15,23,42,0.8); border: 1px solid #334155; border-radius: 0.75rem; padding: 1.5rem; margin-bottom: 1.5rem;">' +
+            '<h3 style="margin-bottom: 1rem;">How Lead Capture Works</h3>' +
+            '<p class="muted" style="margin-bottom: 1rem;">All forms use the <code>LeadForm</code> component which posts to <code>/api/lead</code>:</p>' +
+            '<ol style="color: #94a3b8; padding-left: 1.5rem; margin: 0;">' + steps + '</ol>' +
+          '</div>' +
+          '<div style="background: rgba(15,23,42,0.8); border: 1px solid #22c55e20; border-radius: 0.75rem; padding: 1.5rem; margin-bottom: 1.5rem;">' +
+            '<h3 style="color: #22c55e; margin-bottom: 1rem;">🧪 Testing Lead Automation</h3>' +
+            '<p class="muted-sm" style="margin-bottom: 0.75rem;">To test if leads are flowing correctly:</p>' +
+            '<ol style="color: #94a3b8; font-size: 0.875rem; padding-left: 1.5rem; margin: 0;">' + testing + '</ol>' +
+            '<p class="muted-sm" style="margin-top: 1rem;">View Vercel function logs at <a href="https://vercel.com/dashboard" target="_blank" rel="noopener" style="color: #22c55e;">Vercel Dashboard</a> → Project → Logs for debugging.</p>' +
+          '</div>' +
+          '<h3 style="color: white; margin-bottom: 0.75rem;">Active Funnels & Pages</h3>' +
+          '<p class="muted muted-sm" style="margin-bottom: 0.75rem;">All active lead capture pages and funnels. Source tags in parentheses.</p>' +
+          '<ul class="funnels-list">' + funnels + '</ul>';
+      }
+
+      async function syncDashboardSharedContent() {
+        try {
+          var response = await fetch('/api/dashboard/content', { cache: 'no-store' });
+          if (!response.ok) return;
+          var shared = await response.json();
+          renderDashboardInfoTab(shared.dashboardInfo);
+          renderPlansTab(shared.plansOverview);
+          renderHowItFitsDefinitions(shared.howItFits);
+          renderLeadAutomationTab(shared.leadAutomation);
+          renderFunnelsLeadFlowTab(shared.funnelsLeadFlow);
+        } catch (error) {
+          console.error('Shared dashboard content sync failed:', error);
+        }
+      }
+
+      syncDashboardSharedContent();
+
       var searchInput = document.getElementById('search-input');
       var searchBtn = document.getElementById('search-btn');
       var searchAnswer = document.getElementById('search-answer');

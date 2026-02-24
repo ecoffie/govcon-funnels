@@ -1,6 +1,7 @@
 import Link from 'next/link';
 import { Metadata } from 'next';
 import StatsCounter from '@/components/StatsCounter';
+import { sharedHomepageContent } from '@/lib/shared-content';
 
 export const metadata: Metadata = {
   title: 'GovCon Giants - Win Federal Contracts | $82 Billion Unspent',
@@ -12,30 +13,6 @@ const stats = [
   { value: "23%", label: "Set Aside for Small Biz", numericValue: 23, suffix: "%" },
   { value: "5,000+", label: "Members Trained", numericValue: 5000, suffix: "+" },
   { value: "$2B+", label: "Contracts Won", numericValue: 2, prefix: "$", suffix: "B+" },
-];
-
-const freeResources = [
-  {
-    icon: "🎓",
-    title: "January Bootcamp",
-    desc: "Monthly training sessions with live Q&A to help start your GovCon journey.",
-    link: "/bootcamp",
-    cta: "Register Now →",
-  },
-  {
-    icon: "🔥",
-    title: "Surge Bootcamp",
-    desc: "Q4 federal spending focus - learn how to capture end-of-year opportunities.",
-    link: "/surge",
-    cta: "Access Now →",
-  },
-  {
-    icon: "📅",
-    title: "Bid Bootcamp Downloads",
-    desc: "Get bid forms and event details for the Feb 28 Specifics and Proposals bootcamp.",
-    link: "https://funnels.govcongiants.org/proposal-bootcamp",
-    cta: "Register Now →",
-  },
 ];
 
 const videoCategories = [
@@ -113,7 +90,7 @@ export default function Home() {
           </div>
 
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-            {freeResources.map((resource, index) => (
+            {sharedHomepageContent.freeResources.map((resource, index) => (
               <Link
                 key={index}
                 href={resource.link}
@@ -125,7 +102,7 @@ export default function Home() {
                 </div>
                 <h3 className="text-xl font-bold text-white mb-2">{resource.title}</h3>
                 <p className="text-slate-500 mb-4">{resource.desc}</p>
-                <span className="text-green-500 font-semibold">{resource.cta}</span>
+                <span className="text-green-500 font-semibold">{resource.cta.replace('->', '→')}</span>
               </Link>
             ))}
           </div>
@@ -266,67 +243,30 @@ export default function Home() {
             </Link>
           </div>
 
-          {/* Beginner */}
-          <div className="mb-12">
-            <h3 className="text-xl font-bold text-white mb-4">Beginner</h3>
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-              <Link href="/premium/pro-member-group" className="bg-slate-900 border border-slate-800 rounded-xl p-6 block hover:border-green-600/50 transition">
-                <div className="w-12 h-12 rounded-lg bg-slate-800 flex items-center justify-center mb-4">
-                  <span className="text-2xl">👑</span>
-                </div>
-                <h4 className="text-lg font-bold text-white mb-2">Pro Member Group</h4>
-                <p className="text-slate-500 text-sm mb-2">$99/month. Ongoing support, community, updates and training.</p>
-                <span className="text-green-500 font-semibold text-sm">Learn More →</span>
-              </Link>
-              <Link href="/premium/pro-member-plan" className="bg-slate-900 border border-slate-800 rounded-xl p-6 block hover:border-green-600/50 transition">
-                <div className="w-12 h-12 rounded-lg bg-slate-800 flex items-center justify-center mb-4">
-                  <span className="text-2xl">🎓</span>
-                </div>
-                <h4 className="text-lg font-bold text-white mb-2">Pro Member Plan</h4>
-                <p className="text-slate-500 text-sm mb-2">$997 one-time. Lifetime Training License, 4,000+ community, Success Guide, bootcamps.</p>
-                <span className="text-green-500 font-semibold text-sm">Learn More →</span>
-              </Link>
+          {sharedHomepageContent.premiumLevels.map((level, levelIndex) => (
+            <div key={level.title} className={levelIndex < sharedHomepageContent.premiumLevels.length - 1 ? 'mb-12' : ''}>
+              <h3 className="text-xl font-bold text-white mb-4">{level.title}</h3>
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                {level.cards.map((card) => (
+                  <Link
+                    key={card.title}
+                    href={card.href}
+                    className={`bg-slate-900 border border-slate-800 rounded-xl p-6 block hover:border-green-600/50 transition ${level.cards.length === 1 ? 'md:max-w-md' : ''}`}
+                  >
+                    <div className="w-12 h-12 rounded-lg bg-slate-800 flex items-center justify-center mb-4">
+                      <span className="text-2xl">{card.icon}</span>
+                    </div>
+                    {card.badge ? (
+                      <p className="text-green-500 text-sm font-medium mb-1">{card.badge}</p>
+                    ) : null}
+                    <h4 className="text-lg font-bold text-white mb-2">{card.title}</h4>
+                    <p className="text-slate-500 text-sm mb-2">{card.description}</p>
+                    <span className="text-green-500 font-semibold text-sm">{card.cta.replace('->', '→')}</span>
+                  </Link>
+                ))}
+              </div>
             </div>
-          </div>
-
-          {/* Intermediate */}
-          <div className="mb-12">
-            <h3 className="text-xl font-bold text-white mb-4">Intermediate</h3>
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-              <Link href="/jan-31-bootcamp-paid" className="bg-slate-900 border border-slate-800 rounded-xl p-6 block hover:border-green-600/50 transition">
-                <div className="w-12 h-12 rounded-lg bg-slate-800 flex items-center justify-center mb-4">
-                  <span className="text-2xl">📹</span>
-                </div>
-                <h4 className="text-lg font-bold text-white mb-2">Jan 31 Bootcamp Replay</h4>
-                <p className="text-slate-500 text-sm mb-2">One-time $99. Full replay plus handouts, lifetime access.</p>
-                <span className="text-green-500 font-semibold text-sm">Get Access →</span>
-              </Link>
-              <Link href="/premium/accelerator" className="bg-slate-900 border border-slate-800 rounded-xl p-6 block hover:border-green-600/50 transition">
-                <div className="w-12 h-12 rounded-lg bg-slate-800 flex items-center justify-center mb-4">
-                  <span className="text-2xl">⚡</span>
-                </div>
-                <h4 className="text-lg font-bold text-white mb-2">Accelerator Program</h4>
-                <p className="text-slate-500 text-sm mb-2">$5,997 one-time. 90 days, 12 weekly 1:1 coaching sessions, access to Lifetime Program.</p>
-                <span className="text-green-500 font-semibold text-sm">Learn More →</span>
-              </Link>
-            </div>
-          </div>
-
-          {/* Advanced */}
-          <div>
-            <h3 className="text-xl font-bold text-white mb-4">Advanced</h3>
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-              <Link href="/premium/white-glove" className="bg-slate-900 border border-slate-800 rounded-xl p-6 block hover:border-green-600/50 transition md:max-w-md">
-                <div className="w-12 h-12 rounded-lg bg-slate-800 flex items-center justify-center mb-4">
-                  <span className="text-2xl">🤝</span>
-                </div>
-                <p className="text-green-500 text-sm font-medium mb-1">Premium Service</p>
-                <h4 className="text-lg font-bold text-white mb-2">White Glove Service</h4>
-                <p className="text-slate-500 text-sm mb-2">Premium fractional business development and dedicated consultant support.</p>
-                <span className="text-green-500 font-semibold text-sm">Learn More →</span>
-              </Link>
-            </div>
-          </div>
+          ))}
         </div>
       </section>
 
