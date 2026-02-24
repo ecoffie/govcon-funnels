@@ -1,5 +1,5 @@
 import { NextRequest, NextResponse } from 'next/server';
-import { releaseProjectTemplate } from '@/lib/db';
+import { releaseProjectTemplate, type TaskContext } from '@/lib/db';
 import {
   notifySlackTaskChange,
   formatTemplateReleaseSummary,
@@ -17,9 +17,12 @@ export async function POST(request: NextRequest) {
       ['funnel_launch', 'content_update', 'crm_cleanup', 'bootcamp'].includes(body.template)
         ? body.template
         : 'funnel_launch';
+    const context: TaskContext =
+      body.context === 'delivery' ? 'delivery' : 'marketing';
     const result = await releaseProjectTemplate({
       name,
       template: template as 'funnel_launch' | 'content_update' | 'crm_cleanup' | 'bootcamp',
+      context,
     });
     try {
       await notifySlackTaskChange(

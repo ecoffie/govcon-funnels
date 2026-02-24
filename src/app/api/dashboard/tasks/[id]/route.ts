@@ -1,5 +1,5 @@
 import { NextRequest, NextResponse } from 'next/server';
-import { updateTask, getTaskById, addTaskEvent } from '@/lib/db';
+import { updateTask, getTaskById, addTaskEvent, type TaskContext } from '@/lib/db';
 import {
   notifySlackTaskChange,
   formatTaskSlackMessage,
@@ -27,6 +27,7 @@ export async function PATCH(
       estimate?: string | null;
       tags?: string[] | null;
       status?: string;
+      context?: TaskContext;
     } = {};
     if (typeof body.title === 'string') updates.title = body.title.trim();
     if (body.description !== undefined)
@@ -71,6 +72,9 @@ export async function PATCH(
       ['open', 'in_progress', 'review', 'done'].includes(body.status)
     ) {
       updates.status = body.status;
+    }
+    if (body.context !== undefined) {
+      updates.context = body.context === 'delivery' ? 'delivery' : 'marketing';
     }
     const task = await updateTask(id, updates);
     if (!task) {

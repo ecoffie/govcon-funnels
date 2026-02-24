@@ -1,5 +1,5 @@
 import { redirect } from 'next/navigation';
 
 export default function InternalPage() {
-  redirect('/dashboard.html');
+  redirect('/dashboard');
 }

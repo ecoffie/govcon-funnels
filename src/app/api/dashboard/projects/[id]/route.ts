@@ -1,5 +1,5 @@
 import { NextRequest, NextResponse } from 'next/server';
-import { updateProject } from '@/lib/db';
+import { updateProject, type TaskContext } from '@/lib/db';
 import {
   notifySlackTaskChange,
   formatProjectSlackMessage,
@@ -18,6 +18,7 @@ export async function PATCH(
     const updates: {
       name?: string;
       status?: 'active' | 'paused' | 'archived';
+      context?: TaskContext;
     } = {};
     if (typeof body.name === 'string') updates.name = body.name.trim();
     if (
@@ -25,6 +26,9 @@ export async function PATCH(
       ['active', 'paused', 'archived'].includes(body.status)
     ) {
       updates.status = body.status;
+    }
+    if (body.context !== undefined) {
+      updates.context = body.context === 'delivery' ? 'delivery' : 'marketing';
     }
     const project = await updateProject(id, updates);
     if (!project) {

@@ -73,6 +73,9 @@
     .task-toolbar { display: flex; flex-wrap: wrap; justify-content: space-between; gap: 0.75rem; margin-bottom: 0.75rem; }
     .task-toolbar h3 { margin: 0; color: white; }
     .task-toolbar .meta { font-size: 0.8rem; color: #94a3b8; }
+    .manager-switch { display: inline-flex; align-items: center; gap: 0.35rem; border: 1px solid #334155; background: #0f172a; border-radius: 9999px; padding: 0.2rem; margin-bottom: 0.55rem; }
+    .manager-switch button { border: none; background: transparent; color: #cbd5e1; border-radius: 9999px; padding: 0.35rem 0.65rem; font-size: 0.76rem; cursor: pointer; }
+    .manager-switch button.active { background: #22c55e1f; color: #86efac; border: 1px solid #22c55e66; }
     .task-toolbar button { padding: 0.5rem 0.75rem; border-radius: 0.5rem; border: 1px solid #334155; background: #1e293b; color: #e2e8f0; cursor: pointer; }
     .task-toolbar button.primary { background: #16a34a; border-color: #16a34a; color: white; font-weight: 600; }
     .task-toolbar button:hover { background: #334155; }
@@ -204,9 +207,13 @@
     <section>
       <h2>Task manager</h2>
       <div class="task-workspace">
+        <div class="manager-switch">
+          <button type="button" id="manager-marketing-btn" class="active" data-manager="marketing">Marketing strategy</button>
+          <button type="button" id="manager-delivery-btn" data-manager="delivery">Delivery to clients</button>
+        </div>
         <div class="task-toolbar">
           <div>
-            <h3>Tasks and Projects</h3>
+            <h3 id="task-manager-heading">Marketing Tasks and Projects</h3>
             <div id="task-count" class="meta">0 tasks</div>
           </div>
           <div style="display:flex; gap:0.5rem; flex-wrap:wrap;">
@@ -910,6 +917,7 @@
       });
 
       var taskViewRoot = document.getElementById('task-view-root');
+      var taskManagerHeadingEl = document.getElementById('task-manager-heading');
       var taskCountEl = document.getElementById('task-count');
       var taskSearchEl = document.getElementById('task-search');
       var taskSortEl = document.getElementById('task-sort');
@@ -958,14 +966,19 @@
       var tasksNoteEl = document.getElementById('tasks-note');
       var recentUpdatesList = document.getElementById('recent-updates-list');
       var recentUpdatesEmpty = document.getElementById('recent-updates-empty');
+      var managerSwitchBtns = document.querySelectorAll('[data-manager]');
 
-      var WORKSPACE_KEY = 'dashboard_workspace_v3';
+      var WORKSPACE_KEY = 'dashboard_workspace_v4';
       var LEGACY_TASK_KEY = 'dashboard_tasks_v2';
       var activeTaskView = 'table';
       var activeDetailTaskId = null;
       var dateCursor = new Date();
       var statusOrder = ['open', 'in_progress', 'review', 'done'];
       var priorityOrder = ['low', 'medium', 'high'];
+      var managerLabelMap = {
+        marketing: 'Marketing Tasks and Projects',
+        delivery: 'Delivery to Clients Tasks and Projects'
+      };
       var ASSIGNEE_OPTIONS = [
         'Sikandar',
         'Stephanie Couch',
@@ -988,18 +1001,74 @@
         'Ryan Atencio'
       ];
       var workspace = {
-        schema: 3,
+        schema: 4,
         ui: {
           fullscreen: false,
-          groupBy: 'project',
-          filters: { project: 'all', status: 'all', priority: 'all', assignee: '', due: '' },
-          sort: 'updated_desc'
+          activeContext: 'marketing',
+          contextSettings: {
+            marketing: {
+              groupBy: 'project',
+              filters: { project: 'all', status: 'all', priority: 'all', assignee: '', due: '' },
+              sort: 'updated_desc'
+            },
+            delivery: {
+              groupBy: 'project',
+              filters: { project: 'all', status: 'all', priority: 'all', assignee: '', due: '' },
+              sort: 'updated_desc'
+            }
+          }
         },
         projects: [],
         tasks: [],
         events: []
       };
       var apiTasksEnabled = false;
+
+      function getActiveContext() {
+        return workspace.ui.activeContext === 'delivery' ? 'delivery' : 'marketing';
+      }
+
+      function getContextSettings() {
+        var context = getActiveContext();
+        workspace.ui.contextSettings = workspace.ui.contextSettings || {};
+        if (!workspace.ui.contextSettings.marketing) {
+          workspace.ui.contextSettings.marketing = {
+            groupBy: 'project',
+            filters: { project: 'all', status: 'all', priority: 'all', assignee: '', due: '' },
+            sort: 'updated_desc'
+          };
+        }
+        if (!workspace.ui.contextSettings.delivery) {
+          workspace.ui.contextSettings.delivery = {
+            groupBy: 'project',
+            filters: { project: 'all', status: 'all', priority: 'all', assignee: '', due: '' },
+            sort: 'updated_desc'
+          };
+        }
+        return workspace.ui.contextSettings[context];
+      }
+
+      function contextProjects() {
+        var context = getActiveContext();
+        return workspace.projects.filter(function(p) {
+          return (p.context || 'marketing') === context;
+        });
+      }
+
+      function contextTasks() {
+        var context = getActiveContext();
+        return workspace.tasks.filter(function(t) {
+          return (t.context || 'marketing') === context;
+        });
+      }
+
+      function updateManagerUiState() {
+        var context = getActiveContext();
+        managerSwitchBtns.forEach(function(btn) {
+          btn.classList.toggle('active', btn.getAttribute('data-manager') === context);
+        });
+        taskManagerHeadingEl.textContent = managerLabelMap[context];
+      }
 
       function uid(prefix) { return prefix + '-' + Date.now() + '-' + Math.floor(Math.random() * 100000); }
       function escapeHtml(s) { var d = document.createElement('div'); d.textContent = s == null ? '' : String(s); return d.innerHTML; }
@@ -1068,12 +1137,22 @@
             if (parsed && parsed.tasks && parsed.projects) {
               workspace = parsed;
               workspace.ui = workspace.ui || {};
-              workspace.ui.groupBy = workspace.ui.groupBy || 'project';
-              workspace.ui.sort = workspace.ui.sort || 'updated_desc';
-              workspace.ui.filters = Object.assign(
-                { project: 'all', status: 'all', priority: 'all', assignee: '', due: '' },
-                workspace.ui.filters || {}
-              );
+              workspace.ui.activeContext = workspace.ui.activeContext === 'delivery' ? 'delivery' : 'marketing';
+              if (workspace.ui.groupBy || workspace.ui.sort || workspace.ui.filters) {
+                workspace.ui.contextSettings = workspace.ui.contextSettings || {};
+                workspace.ui.contextSettings.marketing = {
+                  groupBy: workspace.ui.groupBy || 'project',
+                  sort: workspace.ui.sort || 'updated_desc',
+                  filters: Object.assign(
+                    { project: 'all', status: 'all', priority: 'all', assignee: '', due: '' },
+                    workspace.ui.filters || {}
+                  )
+                };
+                delete workspace.ui.groupBy;
+                delete workspace.ui.sort;
+                delete workspace.ui.filters;
+              }
+              getContextSettings();
               if (assignAllTasksToPercy()) saveWorkspace();
               return true;
             }
@@ -1096,25 +1175,32 @@
       }
 
       function saveWorkspace() {
-        workspace.schema = 3;
+        workspace.schema = 4;
         localStorage.setItem(WORKSPACE_KEY, JSON.stringify(workspace));
       }
 
       async function syncWorkspaceFromApi() {
         try {
+          var context = getActiveContext();
           var responses = await Promise.all([
-            fetch('/api/dashboard/projects', { cache: 'no-store' }),
-            fetch('/api/dashboard/tasks?limit=200&include_done=true', { cache: 'no-store' })
+            fetch('/api/dashboard/projects?context=' + encodeURIComponent(context), { cache: 'no-store' }),
+            fetch('/api/dashboard/tasks?limit=200&include_done=true&context=' + encodeURIComponent(context), { cache: 'no-store' })
           ]);
           if (!responses[0].ok || !responses[1].ok) return false;
           var projects = await responses[0].json();
           var tasks = await responses[1].json();
           if (!Array.isArray(projects) || !Array.isArray(tasks)) return false;
-          workspace.projects = projects.map(function(p) {
-            return { id: p.id, name: p.name, status: p.status || 'active' };
+          var keepProjects = workspace.projects.filter(function(p) {
+            return (p.context || 'marketing') !== context;
           });
-          var defaultProjectId = workspace.projects.length ? workspace.projects[0].id : '';
-          workspace.tasks = tasks.map(function(t) {
+          var keepTasks = workspace.tasks.filter(function(t) {
+            return (t.context || 'marketing') !== context;
+          });
+          var syncedProjects = projects.map(function(p) {
+            return { id: p.id, name: p.name, status: p.status || 'active', context: p.context || context };
+          });
+          var defaultProjectId = syncedProjects.length ? syncedProjects[0].id : '';
+          var syncedTasks = tasks.map(function(t) {
             return {
               id: t.id,
               task_id: t.task_id,
@@ -1126,9 +1212,12 @@
               project_id: t.project_id || defaultProjectId,
               description: t.description || '',
               attachment_url: t.attachment_url || '',
-              updated_at: (t.updated_at || '').slice(0, 10) || new Date().toISOString().slice(0, 10)
+              updated_at: (t.updated_at || '').slice(0, 10) || new Date().toISOString().slice(0, 10),
+              context: t.context || context
             };
           });
+          workspace.projects = keepProjects.concat(syncedProjects);
+          workspace.tasks = keepTasks.concat(syncedTasks);
           workspace.events = [];
           saveWorkspace();
           return true;
@@ -1138,6 +1227,7 @@
       }
 
       async function apiCreateTask(input) {
+        var context = getActiveContext();
         var payload = {
           title: input.title,
           description: input.description || null,
@@ -1146,7 +1236,8 @@
           priority: input.priority || 'medium',
           project_id: input.project_id || null,
           attachment_url: input.attachment_url || null,
-          status: 'open'
+          status: 'open',
+          context: context
         };
         var res = await fetch('/api/dashboard/tasks', {
           method: 'POST',
@@ -1169,7 +1260,8 @@
           project_id: task.project_id || '',
           description: task.description || '',
           attachment_url: task.attachment_url || '',
-          updated_at: (task.updated_at || '').slice(0, 10) || new Date().toISOString().slice(0, 10)
+          updated_at: (task.updated_at || '').slice(0, 10) || new Date().toISOString().slice(0, 10),
+          context: task.context || context
         });
         saveWorkspace();
       }
@@ -1196,15 +1288,17 @@
           local.description = task.description || '';
           local.attachment_url = task.attachment_url || '';
           local.updated_at = (task.updated_at || '').slice(0, 10) || new Date().toISOString().slice(0, 10);
+          local.context = task.context || local.context || 'marketing';
         }
         saveWorkspace();
       }
 
       async function apiCreateProject(name) {
+        var context = getActiveContext();
         var res = await fetch('/api/dashboard/projects', {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({ name: name, status: 'active' })
+          body: JSON.stringify({ name: name, status: 'active', context: context })
         });
         if (!res.ok) {
           var err = await res.json().catch(function() { return {}; });
@@ -1214,10 +1308,11 @@
       }
 
       async function apiReleaseBootcampPreset(projectName) {
+        var context = getActiveContext();
         var res = await fetch('/api/dashboard/projects/release-template', {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({ name: projectName, template: 'bootcamp' })
+          body: JSON.stringify({ name: projectName, template: 'bootcamp', context: context })
         });
         if (!res.ok) {
           var err = await res.json().catch(function() { return {}; });
@@ -1227,7 +1322,7 @@
       }
 
       function projectNameById(id) {
-        var p = workspace.projects.find(function(x) { return x.id === id; });
+        var p = contextProjects().find(function(x) { return x.id === id; });
         return p ? p.name : 'Unassigned';
       }
 
@@ -1321,9 +1416,10 @@
       }
 
       function renderProjectFilterOptions() {
+        var projects = contextProjects();
         filterProjectEl.innerHTML =
           '<option value="all">Project: All</option>' +
-          workspace.projects
+          projects
             .map(function(p) {
               return '<option value="' + escapeHtml(p.id) + '">' + escapeHtml(p.name) + '</option>';
             })
@@ -1331,18 +1427,19 @@
       }
 
       function renderNewProjectOptions() {
-        var options = workspace.projects
+        var projects = contextProjects();
+        var options = projects
           .map(function(p) {
             return '<option value="' + escapeHtml(p.id) + '">' + escapeHtml(p.name) + '</option>';
           })
           .join('');
         newProjectEl.innerHTML = options;
-        if (!workspace.projects.length) {
+        if (!projects.length) {
           showTasksErr('No projects available. Add a project before creating tasks.');
           return;
         }
-        if (!newProjectEl.value || !workspace.projects.some(function(p) { return p.id === newProjectEl.value; })) {
-          newProjectEl.value = workspace.projects[0].id;
+        if (!newProjectEl.value || !projects.some(function(p) { return p.id === newProjectEl.value; })) {
+          newProjectEl.value = projects[0].id;
         }
       }
 
@@ -1385,13 +1482,14 @@
       }
 
       function filteredTasks() {
+        var ui = getContextSettings();
         var q = (taskSearchEl.value || '').trim().toLowerCase();
-        var statusFilter = workspace.ui.filters.status;
-        var priorityFilter = workspace.ui.filters.priority;
-        var projectFilter = workspace.ui.filters.project;
-        var assigneeFilter = (workspace.ui.filters.assignee || '').trim().toLowerCase();
-        var dueFilter = workspace.ui.filters.due;
-        return workspace.tasks.filter(function(t) {
+        var statusFilter = ui.filters.status;
+        var priorityFilter = ui.filters.priority;
+        var projectFilter = ui.filters.project;
+        var assigneeFilter = (ui.filters.assignee || '').trim().toLowerCase();
+        var dueFilter = ui.filters.due;
+        return contextTasks().filter(function(t) {
           var projectName = projectNameById(t.project_id);
           var matchesQ = !q || (t.title + ' ' + t.task_id + ' ' + t.assignee + ' ' + projectName + ' ' + (t.tags || []).join(' ')).toLowerCase().indexOf(q) !== -1;
           var matchesStatus = statusFilter === 'all' ? true : t.status === statusFilter;
@@ -1400,7 +1498,7 @@
           var matchesAssignee = !assigneeFilter ? true : String(t.assignee || '').toLowerCase().indexOf(assigneeFilter) !== -1;
           var matchesDue = !dueFilter ? true : String(t.due_date || '') === dueFilter;
           return matchesQ && matchesStatus && matchesPriority && matchesProject && matchesAssignee && matchesDue;
-        }).sort(sortComparator(workspace.ui.sort || 'updated_desc'));
+        }).sort(sortComparator(ui.sort || 'updated_desc'));
       }
 
       function taskTableRows(tasks) {
@@ -1449,7 +1547,7 @@
         }
         var head =
           '<th class="col-id">ID</th><th class="col-project">Project</th><th class="col-title">Task</th><th class="col-status">Status</th><th class="col-due">Due</th><th class="col-assignee">Assignee</th><th class="col-priority">Priority</th>';
-        var groupBy = workspace.ui.groupBy || 'project';
+        var groupBy = getContextSettings().groupBy || 'project';
         if (groupBy === 'none') {
           taskViewRoot.innerHTML =
             '<div class="task-table-wrap"><table class="task-table"><thead><tr>' +
@@ -1560,12 +1658,14 @@
       }
 
       function renderTaskViews() {
-        taskCountEl.textContent = String(workspace.tasks.length) + ' tasks';
+        var ui = getContextSettings();
+        updateManagerUiState();
+        taskCountEl.textContent = String(contextTasks().length) + ' tasks';
         renderProjectFilterOptions();
         renderNewProjectOptions();
-        filterProjectEl.value = workspace.ui.filters.project || 'all';
-        taskSortEl.value = workspace.ui.sort || 'updated_desc';
-        groupByEl.value = workspace.ui.groupBy || 'project';
+        filterProjectEl.value = ui.filters.project || 'all';
+        taskSortEl.value = ui.sort || 'updated_desc';
+        groupByEl.value = ui.groupBy || 'project';
         taskFullscreenBtnEl.textContent = workspace.ui.fullscreen ? 'Exit fullscreen' : 'Fullscreen';
         taskWorkspaceEl.classList.toggle('fullscreen', !!workspace.ui.fullscreen);
         var tasks = filteredTasks();
@@ -1574,7 +1674,7 @@
       }
 
       function nextTaskId() {
-        var nextNum = workspace.tasks.reduce(function(max, t) {
+        var nextNum = contextTasks().reduce(function(max, t) {
           var n = parseInt(String(t.task_id || '').replace('T-', ''), 10);
           return isNaN(n) ? max : Math.max(max, n);
         }, 0) + 1;
@@ -1587,8 +1687,10 @@
       }
 
       function createTask(input) {
+        var projects = contextProjects();
+        var context = getActiveContext();
         var projectId = input.project_id;
-        if (!projectId || !workspace.projects.find(function(p) { return p.id === projectId; })) {
+        if (!projectId || !projects.find(function(p) { return p.id === projectId; })) {
           throw new Error('Project selection is required.');
         }
         var task = {
@@ -1602,7 +1704,8 @@
           project_id: projectId,
           description: input.description || '',
           attachment_url: input.attachment_url || '',
-          updated_at: new Date().toISOString().slice(0, 10)
+          updated_at: new Date().toISOString().slice(0, 10),
+          context: context
         };
         workspace.tasks.unshift(task);
         addEvent(task.id, 'Task created');
@@ -1644,12 +1747,13 @@
         var nextAssignee = detailAssigneeEl.value.trim();
         var nextDueDate = detailDueEl.value;
         var desiredProject = detailProjectEl.value.trim();
-        var nextProjectId = task.project_id || (workspace.projects[0] && workspace.projects[0].id) || '';
+        var projects = contextProjects();
+        var nextProjectId = task.project_id || (projects[0] && projects[0].id) || '';
         if (desiredProject) {
-          var existingProject = workspace.projects.find(function(p) { return p.name === desiredProject; });
+          var existingProject = projects.find(function(p) { return p.name === desiredProject; });
           if (existingProject) nextProjectId = existingProject.id;
         }
-        if (!nextProjectId && workspace.projects.length) nextProjectId = workspace.projects[0].id;
+        if (!nextProjectId && projects.length) nextProjectId = projects[0].id;
         var nextDescription = detailDescriptionEl.value.trim();
         try {
           await apiPatchTask(task.id, {
@@ -1689,6 +1793,7 @@
       function loadRecentUpdates() {
         recentUpdatesList.innerHTML = '';
         var tasks = workspace.tasks.slice().sort(function(a, b) { return String(b.updated_at || '').localeCompare(String(a.updated_at || '')); }).slice(0, 8);
+        tasks = tasks.filter(function(t) { return (t.context || 'marketing') === getActiveContext(); });
         if (!tasks.length) { recentUpdatesEmpty.style.display = 'block'; return; }
         recentUpdatesEmpty.style.display = 'none';
         tasks.forEach(function(t) {
@@ -1720,13 +1825,13 @@
       taskViewBtns.forEach(function(btn) { btn.addEventListener('click', function() { setTaskView(btn.getAttribute('data-task-view')); }); });
       taskSearchEl.addEventListener('input', renderTaskViews);
       taskSortEl.addEventListener('change', function() {
-        workspace.ui.sort = taskSortEl.value;
+        getContextSettings().sort = taskSortEl.value;
         saveWorkspace();
         renderTaskViews();
       });
       taskFilterToggleEl.addEventListener('click', function() { taskFilterPanelEl.classList.toggle('show'); });
       groupByEl.addEventListener('change', function() {
-        workspace.ui.groupBy = groupByEl.value;
+        getContextSettings().groupBy = groupByEl.value;
         saveWorkspace();
         renderTaskViews();
       });
@@ -1735,15 +1840,35 @@
         saveWorkspace();
         renderTaskViews();
       });
-      filterProjectEl.addEventListener('change', function() { workspace.ui.filters.project = filterProjectEl.value; saveWorkspace(); renderTaskViews(); });
-      filterStatusEl.addEventListener('change', function() { workspace.ui.filters.status = filterStatusEl.value; saveWorkspace(); renderTaskViews(); });
-      filterPriorityEl.addEventListener('change', function() { workspace.ui.filters.priority = filterPriorityEl.value; saveWorkspace(); renderTaskViews(); });
-      filterAssigneeEl.addEventListener('input', function() { workspace.ui.filters.assignee = filterAssigneeEl.value; saveWorkspace(); renderTaskViews(); });
-      filterDueEl.addEventListener('change', function() { workspace.ui.filters.due = filterDueEl.value; saveWorkspace(); renderTaskViews(); });
+      filterProjectEl.addEventListener('change', function() { getContextSettings().filters.project = filterProjectEl.value; saveWorkspace(); renderTaskViews(); });
+      filterStatusEl.addEventListener('change', function() { getContextSettings().filters.status = filterStatusEl.value; saveWorkspace(); renderTaskViews(); });
+      filterPriorityEl.addEventListener('change', function() { getContextSettings().filters.priority = filterPriorityEl.value; saveWorkspace(); renderTaskViews(); });
+      filterAssigneeEl.addEventListener('input', function() { getContextSettings().filters.assignee = filterAssigneeEl.value; saveWorkspace(); renderTaskViews(); });
+      filterDueEl.addEventListener('change', function() { getContextSettings().filters.due = filterDueEl.value; saveWorkspace(); renderTaskViews(); });
+      managerSwitchBtns.forEach(function(btn) {
+        btn.addEventListener('click', function() {
+          var nextContext = btn.getAttribute('data-manager') === 'delivery' ? 'delivery' : 'marketing';
+          if (nextContext === getActiveContext()) return;
+          workspace.ui.activeContext = nextContext;
+          activeDetailTaskId = null;
+          closeTaskDetail();
+          closeNewTaskDrawer();
+          taskSearchEl.value = '';
+          saveWorkspace();
+          renderTaskViews();
+          loadRecentUpdates();
+          syncWorkspaceFromApi().then(function(ok) {
+            if (ok) {
+              renderTaskViews();
+              loadRecentUpdates();
+            }
+          });
+        });
+      });
       resetFiltersEl.addEventListener('click', function() {
-        workspace.ui.filters = { project: 'all', status: 'all', priority: 'all', assignee: '', due: '' };
-        workspace.ui.sort = 'updated_desc';
-        workspace.ui.groupBy = 'project';
+        getContextSettings().filters = { project: 'all', status: 'all', priority: 'all', assignee: '', due: '' };
+        getContextSettings().sort = 'updated_desc';
+        getContextSettings().groupBy = 'project';
         taskSearchEl.value = '';
         filterProjectEl.value = 'all';
         filterStatusEl.value = 'all';
@@ -1815,7 +1940,7 @@
       createTaskBtn.addEventListener('click', async function() {
         var title = (newTitleEl.value || '').trim();
         if (!title) { showTasksErr('Task title is required.'); return; }
-        if (!workspace.projects.length) { showTasksErr('No projects available. Add a project first.'); return; }
+        if (!contextProjects().length) { showTasksErr('No projects available. Add a project first.'); return; }
         if (!newProjectEl.value) { showTasksErr('Please select a project.'); return; }
         showTasksErr('');
         try {
@@ -1841,7 +1966,7 @@
           newAttachmentFileEl.value = '';
           newAttachmentUrlEl.value = '';
           setAttachmentPreview('');
-          if (workspace.projects.length) newProjectEl.value = workspace.projects[0].id;
+          if (contextProjects().length) newProjectEl.value = contextProjects()[0].id;
           renderAssigneeSelects();
           closeNewTaskDrawer();
         } catch (err) {
@@ -1916,15 +2041,14 @@
 
       loadWorkspace();
       workspace.ui.fullscreen = !!workspace.ui.fullscreen;
-      workspace.ui.groupBy = workspace.ui.groupBy || 'project';
-      workspace.ui.sort = workspace.ui.sort || 'updated_desc';
-      workspace.ui.filters = Object.assign({ project: 'all', status: 'all', priority: 'all', assignee: '', due: '' }, workspace.ui.filters || {});
-      taskSortEl.value = workspace.ui.sort;
-      groupByEl.value = workspace.ui.groupBy;
-      filterStatusEl.value = workspace.ui.filters.status;
-      filterPriorityEl.value = workspace.ui.filters.priority;
-      filterAssigneeEl.value = workspace.ui.filters.assignee;
-      filterDueEl.value = workspace.ui.filters.due;
+      workspace.ui.activeContext = workspace.ui.activeContext === 'delivery' ? 'delivery' : 'marketing';
+      var initialSettings = getContextSettings();
+      taskSortEl.value = initialSettings.sort;
+      groupByEl.value = initialSettings.groupBy;
+      filterStatusEl.value = initialSettings.filters.status;
+      filterPriorityEl.value = initialSettings.filters.priority;
+      filterAssigneeEl.value = initialSettings.filters.assignee;
+      filterDueEl.value = initialSettings.filters.due;
       renderAssigneeSelects();
       showTasksNote('');
       renderTaskViews();

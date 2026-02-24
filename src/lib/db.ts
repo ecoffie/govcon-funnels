@@ -8,6 +8,7 @@
 import { Redis } from '@upstash/redis';
 
 const NS = 'gfd';
+export type TaskContext = 'marketing' | 'delivery';
 
 let _redis: Redis | null = null;
 
@@ -52,6 +53,7 @@ export interface Task {
   tags: string[];
   created_at: string;
   updated_at: string;
+  context: TaskContext;
 }
 
 export interface Project {
@@ -61,6 +63,7 @@ export interface Project {
   status: 'active' | 'paused' | 'archived';
   created_at: string;
   updated_at: string;
+  context: TaskContext;
 }
 
 export interface User {
@@ -83,6 +86,10 @@ export interface TaskEvent {
 function strOrNull(v: unknown): string | null {
   if (v === null || v === undefined || v === '' || v === false) return null;
   return String(v);
+}
+
+function normalizeContext(input: unknown): TaskContext {
+  return input === 'delivery' ? 'delivery' : 'marketing';
 }
 
 function mapTask(h: Record<string, unknown>): Task {
@@ -108,6 +115,7 @@ function mapTask(h: Record<string, unknown>): Task {
     tags,
     created_at: String(h.created_at ?? ''),
     updated_at: String(h.updated_at ?? ''),
+    context: normalizeContext(h.context),
   };
 }
 
@@ -119,6 +127,7 @@ function mapProject(h: Record<string, unknown>): Project {
     status: (h.status as 'active' | 'paused' | 'archived') || 'active',
     created_at: String(h.created_at ?? ''),
     updated_at: String(h.updated_at ?? ''),
+    context: normalizeContext(h.context),
   };
 }
 
@@ -132,17 +141,23 @@ function mapUser(h: Record<string, unknown>): User {
   };
 }
 
-async function ensureDefaultProject(): Promise<string> {
+async function ensureDefaultProject(context: TaskContext): Promise<string> {
   const r = getRedis();
   const ids = await r.smembers(k.projects());
   if (ids.length > 0) {
     const hashes = await Promise.all(
       (ids as string[]).map(id => r.hgetall<Record<string, unknown>>(k.project(id)))
     );
-    const active = hashes.find(h => h && h.status === 'active');
+    const active = hashes.find(
+      h => h && h.status === 'active' && normalizeContext(h.context) === context
+    );
     if (active) return String(active.id);
   }
-  const project = await createProject({ name: 'General Ops', status: 'active' });
+  const project = await createProject({
+    name: context === 'delivery' ? 'Delivery Ops' : 'Marketing Ops',
+    status: 'active',
+    context,
+  });
   return project.id;
 }
 
@@ -151,8 +166,9 @@ export async function queryTasks(opts: {
   status?: string;
   project_id?: string;
   includeDone?: boolean;
+  context?: TaskContext;
 }): Promise<Task[]> {
-  const { limit = 50, status, project_id, includeDone = true } = opts;
+  const { limit = 50, status, project_id, includeDone = true, context } = opts;
   const r = getRedis();
   const ids = await r.smembers(k.tasks());
   if (!(ids as string[]).length) return [];
@@ -162,6 +178,7 @@ export async function queryTasks(opts: {
   let tasks = hashes
     .filter((h): h is Record<string, unknown> => h !== null)
     .map(mapTask);
+  if (context) tasks = tasks.filter(t => t.context === context);
   if (status) tasks = tasks.filter(t => t.status === status);
   if (project_id) tasks = tasks.filter(t => t.project_id === project_id);
   if (!includeDone) tasks = tasks.filter(t => t.status !== 'done');
@@ -209,11 +226,17 @@ export async function createTask(data: {
   status?: 'open' | 'in_progress' | 'review' | 'done' | null;
   estimate?: string | null;
   tags?: string[] | null;
+  context?: TaskContext;
 }): Promise<Task> {
   const r = getRedis();
   const id = crypto.randomUUID();
   const task_id = await nextTaskId();
-  const projectId = data.project_id || (await ensureDefaultProject());
+  let context: TaskContext = normalizeContext(data.context);
+  if (data.project_id) {
+    const linkedProject = await r.hgetall<Record<string, unknown>>(k.project(data.project_id));
+    if (linkedProject) context = normalizeContext(linkedProject.context);
+  }
+  const projectId = data.project_id || (await ensureDefaultProject(context));
   const now = new Date().toISOString();
   const status = data.status || 'open';
   const hash: Record<string, string> = {
@@ -230,6 +253,7 @@ export async function createTask(data: {
     status,
     estimate: data.estimate ?? '',
     tags: JSON.stringify(data.tags ?? []),
+    context,
     created_at: now,
     updated_at: now,
   };
@@ -253,6 +277,7 @@ export async function updateTask(
     estimate?: string | null;
     tags?: string[] | null;
     status?: string;
+    context?: TaskContext;
   }
 ): Promise<Task | null> {
   const r = getRedis();
@@ -271,27 +296,30 @@ export async function updateTask(
   if (updates.estimate !== undefined) patch.estimate = updates.estimate ?? '';
   if (updates.tags !== undefined) patch.tags = JSON.stringify(updates.tags ?? []);
   if (updates.status !== undefined) patch.status = updates.status;
+  if (updates.context !== undefined) patch.context = normalizeContext(updates.context);
   await r.hset(k.task(id), patch);
   const updated = await r.hgetall<Record<string, unknown>>(k.task(id));
   return updated ? mapTask(updated) : null;
 }
 
-export async function queryProjects(): Promise<Project[]> {
+export async function queryProjects(context?: TaskContext): Promise<Project[]> {
   const r = getRedis();
   const ids = await r.smembers(k.projects());
   if (!(ids as string[]).length) return [];
   const hashes = await Promise.all(
     (ids as string[]).map(id => r.hgetall<Record<string, unknown>>(k.project(id)))
   );
-  return hashes
+  let projects = hashes
     .filter((h): h is Record<string, unknown> => h !== null)
-    .map(mapProject)
-    .sort((a, b) => a.created_at.localeCompare(b.created_at));
+    .map(mapProject);
+  if (context) projects = projects.filter((p) => p.context === context);
+  return projects.sort((a, b) => a.created_at.localeCompare(b.created_at));
 }
 
 export async function createProject(data: {
   name: string;
   status?: 'active' | 'paused' | 'archived';
+  context?: TaskContext;
 }): Promise<Project> {
   const r = getRedis();
   const id = crypto.randomUUID();
@@ -304,6 +332,7 @@ export async function createProject(data: {
     project_key: projectKey,
     name: data.name,
     status: data.status ?? 'active',
+    context: normalizeContext(data.context),
     created_at: now,
     updated_at: now,
   };
@@ -314,16 +343,21 @@ export async function createProject(data: {
 
 export async function updateProject(
   id: string,
-  updates: { name?: string; status?: 'active' | 'paused' | 'archived' }
+  updates: {
+    name?: string;
+    status?: 'active' | 'paused' | 'archived';
+    context?: TaskContext;
+  }
 ): Promise<Project | null> {
   const r = getRedis();
   const existing = await r.hgetall<Record<string, unknown>>(k.project(id));
   if (!existing) return null;
-  if (!updates.name && !updates.status) return null;
+  if (!updates.name && !updates.status && updates.context === undefined) return null;
   const now = new Date().toISOString();
   const patch: Record<string, string> = { updated_at: now };
   if (updates.name) patch.name = updates.name;
   if (updates.status) patch.status = updates.status;
+  if (updates.context !== undefined) patch.context = normalizeContext(updates.context);
   await r.hset(k.project(id), patch);
   const updated = await r.hgetall<Record<string, unknown>>(k.project(id));
   return updated ? mapProject(updated) : null;
@@ -401,8 +435,14 @@ export async function getTaskEvents(taskId: string): Promise<TaskEvent[]> {
 export async function releaseProjectTemplate(data: {
   name: string;
   template: 'funnel_launch' | 'content_update' | 'crm_cleanup' | 'bootcamp';
+  context?: TaskContext;
 }): Promise<{ project: Project; tasks: Task[] }> {
-  const project = await createProject({ name: data.name, status: 'active' });
+  const context = normalizeContext(data.context);
+  const project = await createProject({
+    name: data.name,
+    status: 'active',
+    context,
+  });
   const templates: Record<'funnel_launch' | 'content_update' | 'crm_cleanup' | 'bootcamp', string[]> = {
     funnel_launch: [
       'Kickoff checklist',
@@ -446,6 +486,7 @@ export async function releaseProjectTemplate(data: {
       project_id: project.id,
       priority: 'medium',
       status: 'open',
+      context,
     });
     tasks.push(task);
   }

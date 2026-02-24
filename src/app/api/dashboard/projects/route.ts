@@ -1,13 +1,19 @@
 import { NextRequest, NextResponse } from 'next/server';
-import { createProject, queryProjects } from '@/lib/db';
+import { createProject, queryProjects, type TaskContext } from '@/lib/db';
 import {
   notifySlackTaskChange,
   formatProjectSlackMessage,
 } from '@/lib/slackTasks';
 
-export async function GET() {
+export async function GET(request: NextRequest) {
   try {
-    const projects = await queryProjects();
+    const { searchParams } = new URL(request.url);
+    const contextParam = searchParams.get('context');
+    const context: TaskContext | undefined =
+      contextParam === 'delivery' || contextParam === 'marketing'
+        ? contextParam
+        : undefined;
+    const projects = await queryProjects(context);
     return NextResponse.json(projects);
   } catch (err) {
     const message = err instanceof Error ? err.message : 'Database error';
@@ -37,7 +43,9 @@ export async function POST(request: NextRequest) {
       ['active', 'paused', 'archived'].includes(body.status)
         ? body.status
         : 'active';
-    const project = await createProject({ name, status });
+    const context: TaskContext =
+      body.context === 'delivery' ? 'delivery' : 'marketing';
+    const project = await createProject({ name, status, context });
     await notifySlackTaskChange(
       formatProjectSlackMessage({
         action: 'created',

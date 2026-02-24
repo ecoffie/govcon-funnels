@@ -3,6 +3,7 @@ import {
   queryTasks,
   createTask,
   addTaskEvent,
+  type TaskContext,
 } from '@/lib/db';
 import {
   notifySlackTaskChange,
@@ -19,7 +20,12 @@ export async function GET(request: NextRequest) {
     const status = searchParams.get('status') ?? undefined;
     const project_id = searchParams.get('project_id') ?? undefined;
     const includeDone = searchParams.get('include_done') === 'true';
-    const tasks = await queryTasks({ limit, status, project_id, includeDone });
+    const contextParam = searchParams.get('context');
+    const context: TaskContext | undefined =
+      contextParam === 'delivery' || contextParam === 'marketing'
+        ? contextParam
+        : undefined;
+    const tasks = await queryTasks({ limit, status, project_id, includeDone, context });
     return NextResponse.json(tasks);
   } catch (err) {
     const message = err instanceof Error ? err.message : 'Database error';
@@ -76,6 +82,8 @@ export async function POST(request: NextRequest) {
       typeof body.estimate === 'string' ? body.estimate.trim() || null : null;
     const tags =
       Array.isArray(body.tags) ? body.tags.filter((t: unknown) => typeof t === 'string') : [];
+    const context: TaskContext =
+      body.context === 'delivery' ? 'delivery' : 'marketing';
     const task = await createTask({
       title,
       description: description || null,
@@ -88,6 +96,7 @@ export async function POST(request: NextRequest) {
       status,
       estimate,
       tags,
+      context,
     });
     await addTaskEvent({
       task_id: task.id,
