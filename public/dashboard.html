@@ -194,7 +194,7 @@
     <h1>Internal <span class="green">Dashboard</span></h1>
     <p class="muted" style="margin-bottom: 1.5rem;">Internal AI workspace and task management hub.</p>
 
-    <section class="search-bar-wrap">
+    <section id="internal-ai-section" class="search-bar-wrap">
       <h2>Internal AI</h2>
       <p class="muted-sm" style="margin-bottom: 1rem;">For internal team to ask chatbot any questions about the internal side.</p>
       <div class="search-bar">
@@ -204,7 +204,7 @@
       <div id="search-answer" class="search-answer"></div>
     </section>
 
-    <section>
+    <section id="task-manager-section">
       <h2>Task manager</h2>
       <div class="task-workspace">
         <div class="manager-switch">
@@ -388,7 +388,7 @@
       </aside>
     </section>
 
-    <section>
+    <section id="top-priority-section">
       <h2>Top priority</h2>
       <div class="top-priority">
         <h3>February 28 Proposal Bootcamp</h3>
@@ -398,7 +398,7 @@
       </div>
     </section>
 
-    <section>
+    <section id="recent-updates-section">
       <h2>Recent updates</h2>
       <div id="recent-updates-wrap" style="background: rgba(15,23,42,0.5); border: 1px solid #1e293b; border-radius: 0.75rem; padding: 1.25rem;">
         <ul id="recent-updates-list" style="list-style: none; padding: 0; margin: 0;"></ul>
@@ -406,7 +406,7 @@
       </div>
     </section>
 
-    <div class="tab-bar">
+    <div id="dashboard-tabs-bar" class="tab-bar">
       <button type="button" class="tab-btn active" data-tab="dashboard-info">Dashboard info</button>
       <button type="button" class="tab-btn" data-tab="plans">Plans overview</button>
       <button type="button" class="tab-btn" data-tab="how-it-fits">How it all fits together</button>
@@ -699,6 +699,35 @@
   </main>
   <script>
     (function() {
+      var urlParams = new URLSearchParams(window.location.search);
+      var embedMode = urlParams.get('embed');
+      if (embedMode === 'task-manager') {
+        document.body.style.background = '#020617';
+        var container = document.querySelector('main.container');
+        if (container) {
+          container.style.maxWidth = '100%';
+          container.style.padding = '0.5rem';
+        }
+        [
+          'main.container > h1',
+          'main.container > p.muted',
+          '#internal-ai-section',
+          '#top-priority-section',
+          '#recent-updates-section',
+          '#dashboard-tabs-bar',
+          '.tab-panel',
+          '.back'
+        ].forEach(function(sel) {
+          document.querySelectorAll(sel).forEach(function(el) {
+            el.style.display = 'none';
+          });
+        });
+        var taskSection = document.getElementById('task-manager-section');
+        if (taskSection) {
+          taskSection.style.marginBottom = '0';
+        }
+      }
+
       var tabBtns = document.querySelectorAll('.tab-btn');
       var panels = document.querySelectorAll('.tab-panel');
       tabBtns.forEach(function(btn) {

@@ -5,6 +5,9 @@ import { usePathname } from 'next/navigation';
 
 export default function SiteNav() {
   const pathname = usePathname();
+  if (pathname.startsWith('/dashboard') || pathname.startsWith('/internal')) {
+    return null;
+  }
   const isHome = pathname === '/';
 
   return (

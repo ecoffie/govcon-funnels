@@ -1,5 +1,4 @@
-import Link from 'next/link';
-import RecentUpdates from './_components/RecentUpdates';
+import DashboardAskBot from './_components/DashboardAskBot';
 
 export default function DashboardHomePage() {
   return (
@@ -31,44 +30,20 @@ export default function DashboardHomePage() {
       </section>
 
       <section>
-        <h2 className="mb-3 text-2xl font-bold text-white">Recent updates</h2>
-        <div className="rounded-xl border border-slate-800 bg-slate-900/50 p-5">
-          <RecentUpdates />
-        </div>
+        <DashboardAskBot />
       </section>
 
       <section>
-        <h2 className="mb-3 text-2xl font-bold text-white">Dashboard home</h2>
-        <div className="grid gap-4 md:grid-cols-2">
-          <div className="rounded-xl border border-slate-800 bg-slate-900/60 p-5">
-            <h3 className="mb-2 text-lg font-semibold text-white">
-              Open task manager workspace
-            </h3>
-            <p className="mb-3 text-sm text-slate-400">
-              Continue working in the full task workspace while page navigation
-              moves to route-based dashboard pages.
-            </p>
-            <Link
-              href="/dashboard.html"
-              className="text-sm font-semibold text-green-400 hover:text-green-300"
-            >
-              Open workspace →
-            </Link>
-          </div>
-          <div className="rounded-xl border border-slate-800 bg-slate-900/60 p-5">
-            <h3 className="mb-2 text-lg font-semibold text-white">
-              Browse dashboard sections
-            </h3>
-            <p className="mb-3 text-sm text-slate-400">
-              Use the navigation bar above to open each section on its own page.
-            </p>
-            <Link
-              href="/dashboard/dashboard-info"
-              className="text-sm font-semibold text-green-400 hover:text-green-300"
-            >
-              Go to dashboard info →
-            </Link>
-          </div>
+        <h2 className="mb-3 text-2xl font-bold text-white">Task manager</h2>
+        <p className="mb-3 text-sm text-slate-400">
+          Full original workspace restored (including New project and Bootcamp preset).
+        </p>
+        <div className="rounded-xl border border-slate-700 bg-slate-900/60 p-2">
+          <iframe
+            title="Legacy task manager"
+            src="/dashboard.html?embed=task-manager"
+            className="h-[1100px] w-full rounded-lg border-0"
+          />
         </div>
       </section>
     </div>

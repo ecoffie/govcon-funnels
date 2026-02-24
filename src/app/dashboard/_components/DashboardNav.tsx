@@ -5,11 +5,8 @@ import { usePathname } from 'next/navigation';
 
 const navItems = [
   { href: '/dashboard', label: 'Dashboard home' },
-  { href: '/dashboard/dashboard-info', label: 'Dashboard info' },
-  { href: '/dashboard/plans-overview', label: 'Plans overview' },
-  { href: '/dashboard/how-it-all-fits-together', label: 'How it all fits together' },
-  { href: '/dashboard/lead-automation', label: 'Lead automation' },
-  { href: '/dashboard/funnels-and-lead-flow', label: 'Funnels and lead flow' },
+  { href: '/dashboard/how-it-all-fits-together', label: 'How It All Fits Together' },
+  { href: '/dashboard/funnels-and-plans-overview', label: 'Funnels and Plans Overview' },
 ];
 
 export default function DashboardNav() {
