@@ -366,10 +366,10 @@ export default function PremiumPage() {
             Schedule a call with our team to find the right premium resource for your goals.
           </p>
           <a
-            href="mailto:hello@govconedu.com?subject=Premium%20Resource%20Inquiry"
+            href="mailto:hello@govconedu.com?subject=Schedule%20a%20Call%20-%20Meeting%20Request"
             className="inline-block px-8 py-4 bg-green-600 hover:bg-green-500 text-white rounded-xl font-bold text-lg transition-all"
           >
-            Contact Us
+            Email to Schedule
           </a>
         </div>
       </section>

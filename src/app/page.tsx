@@ -144,12 +144,12 @@ export default function Home() {
                 <span className="text-slate-600">↓</span>
               </div>
               {/* Step 3 */}
-              <a href="https://govcongiants.com" className="flex flex-col sm:flex-row gap-4 sm:gap-6 items-start p-6 rounded-xl bg-slate-900 border border-slate-800 hover:border-green-600/50 transition group block">
+              <a href="mailto:hello@govconedu.com?subject=Schedule%20a%20Call%20-%20Meeting%20Request" className="flex flex-col sm:flex-row gap-4 sm:gap-6 items-start p-6 rounded-xl bg-slate-900 border border-slate-800 hover:border-green-600/50 transition group block">
                 <div className="flex-shrink-0 w-14 h-14 rounded-full bg-green-600 text-white font-black text-xl flex items-center justify-center">3</div>
                 <div className="flex-1">
                   <h3 className="text-xl font-bold text-white mb-1 group-hover:text-green-400 transition">Step 3: Schedule a call</h3>
-                  <p className="text-slate-500">Talk with our team and see where you&apos;re at from there.</p>
-                  <span className="inline-block mt-2 text-green-500 font-semibold">Book Now →</span>
+                  <p className="text-slate-500">Email us at hello@govconedu.com to schedule a call with our team.</p>
+                  <span className="inline-block mt-2 text-green-500 font-semibold">Email to Schedule →</span>
                 </div>
               </a>
             </div>
