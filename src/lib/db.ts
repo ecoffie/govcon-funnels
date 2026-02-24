@@ -70,6 +70,7 @@ export interface User {
   id: string;
   username: string;
   display_name: string;
+  email: string | null;
   active: boolean;
   created_at: string;
 }
@@ -136,6 +137,7 @@ function mapUser(h: Record<string, unknown>): User {
     id: String(h.id ?? ''),
     username: String(h.username ?? ''),
     display_name: String(h.display_name ?? ''),
+    email: strOrNull(h.email),
     active: h.active === 'true' || h.active === true,
     created_at: String(h.created_at ?? ''),
   };
@@ -376,20 +378,36 @@ export async function queryUsers(): Promise<User[]> {
     .sort((a, b) => a.display_name.localeCompare(b.display_name));
 }
 
-export async function importUsers(displayNames: string[]): Promise<User[]> {
+export async function importUsers(
+  displayNames: string[],
+  emailByName?: Record<string, string>
+): Promise<User[]> {
   const r = getRedis();
   const normalized = Array.from(
     new Set(displayNames.map(n => n.trim()).filter(Boolean))
   );
+  const emailLookup = new Map<string, string>();
+  if (emailByName) {
+    Object.entries(emailByName).forEach(([name, email]) => {
+      const cleanName = String(name || '').trim().toLowerCase();
+      const cleanEmail = String(email || '').trim().toLowerCase();
+      if (cleanName && cleanEmail) {
+        emailLookup.set(cleanName, cleanEmail);
+      }
+    });
+  }
   const inserted: User[] = [];
   for (const name of normalized) {
+    const matchedEmail = emailLookup.get(name.trim().toLowerCase()) || '';
     const username = name
       .toLowerCase()
       .replace(/[^a-z0-9]+/g, '.')
       .replace(/^\.+|\.+$/g, '');
     const existingId = await r.get<string>(k.uname(username));
     if (existingId) {
-      await r.hset(k.user(existingId), { display_name: name });
+      const patch: Record<string, string> = { display_name: name };
+      if (matchedEmail) patch.email = matchedEmail;
+      await r.hset(k.user(existingId), patch);
       const h = await r.hgetall<Record<string, unknown>>(k.user(existingId));
       if (h) inserted.push(mapUser(h));
     } else {
@@ -398,6 +416,7 @@ export async function importUsers(displayNames: string[]): Promise<User[]> {
       const hash: Record<string, string> = {
         id, username, display_name: name, active: 'true', created_at: now,
       };
+      if (matchedEmail) hash.email = matchedEmail;
       await r.hset(k.user(id), hash);
       await r.sadd(k.users(), id);
       await r.set(k.uname(username), id);

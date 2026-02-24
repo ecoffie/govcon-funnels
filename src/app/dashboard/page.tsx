@@ -36,9 +36,9 @@ export default function DashboardHomePage() {
       <section>
         <h2 className="mb-3 text-2xl font-bold text-white">Task manager</h2>
         <p className="mb-3 text-sm text-slate-400">
-          Full original workspace restored (including New project and Bootcamp preset).
+          task management for marketing and delivery
         </p>
-        <div className="rounded-xl border border-slate-700 bg-slate-900/60 p-2">
+        <div className="rounded-xl bg-transparent p-0">
           <iframe
             title="Legacy task manager"
             src="/dashboard.html?embed=task-manager"

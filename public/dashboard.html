@@ -725,6 +725,14 @@
         var taskSection = document.getElementById('task-manager-section');
         if (taskSection) {
           taskSection.style.marginBottom = '0';
+          var taskSectionTitle = taskSection.querySelector('h2');
+          if (taskSectionTitle) taskSectionTitle.style.display = 'none';
+          var taskWorkspace = taskSection.querySelector('.task-workspace');
+          if (taskWorkspace) {
+            taskWorkspace.style.border = 'none';
+            taskWorkspace.style.background = 'transparent';
+            taskWorkspace.style.padding = '0';
+          }
         }
       }
 

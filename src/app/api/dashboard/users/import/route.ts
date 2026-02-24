@@ -14,11 +14,29 @@ const DEFAULT_USERS = [
 export async function POST(request: NextRequest) {
   try {
     const body = await request.json().catch(() => ({}));
+    const providedUsers = Array.isArray(body.users)
+      ? body.users.filter(
+          (u: unknown): u is { name: string; email?: string } =>
+            !!u &&
+            typeof u === 'object' &&
+            typeof (u as { name?: unknown }).name === 'string'
+        )
+      : [];
     const provided = Array.isArray(body.names)
       ? body.names.filter((n: unknown) => typeof n === 'string')
       : [];
-    const names = provided.length ? provided : DEFAULT_USERS;
-    const users = await importUsers(names);
+    const names = providedUsers.length
+      ? providedUsers.map((u: { name: string; email?: string }) => u.name)
+      : provided.length
+        ? provided
+        : DEFAULT_USERS;
+    const emailByName: Record<string, string> = {};
+    providedUsers.forEach((user: { name: string; email?: string }) => {
+      if (typeof user.email === 'string' && user.email.trim()) {
+        emailByName[user.name.trim()] = user.email.trim();
+      }
+    });
+    const users = await importUsers(names, emailByName);
     return NextResponse.json(
       { count: users.length, users },
       { status: 201 }
