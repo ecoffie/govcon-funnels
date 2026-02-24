@@ -2,9 +2,22 @@ import type { NextConfig } from "next";
 
 const nextConfig: NextConfig = {
   async rewrites() {
-    return [
-      { source: '/dashboard.html', destination: '/api/dashboard-page' },
-    ];
+    return {
+      beforeFiles: [
+        {
+          source: "/vault",
+          destination: "https://govcon-resources.vercel.app/vault",
+        },
+        {
+          source: "/vault/:path*",
+          destination: "https://govcon-resources.vercel.app/vault/:path*",
+        },
+      ],
+      afterFiles: [
+        { source: "/dashboard.html", destination: "/api/dashboard-page" },
+      ],
+      fallback: [],
+    };
   },
 };
 
