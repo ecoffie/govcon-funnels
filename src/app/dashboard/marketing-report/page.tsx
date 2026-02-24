@@ -59,6 +59,7 @@ interface ReportData {
   current: WeekData | null;
   previous: WeekData | null;
   sections: Record<string, string>;
+  history?: WeekData[];
 }
 
 function formatMetric(val: unknown): string {
@@ -195,6 +196,27 @@ export default function MarketingReportPage() {
   const current = report?.current ?? null;
   const previous = report?.previous ?? null;
   const weeks = report?.weeks ?? [];
+  const history = report?.history ?? [];
+
+  const chartData = history.map((h) => ({
+    week: h.week_start?.slice(5) ?? '',
+    fullWeek: h.week_start,
+    emails: Number(h.total_email_sent) || 0,
+    content: Number(h.top_of_funnel_content_outputs) || 0,
+    discoveryBooked: Number(h.discovery_calls_booked) || 0,
+    discoveryHeld: Number(h.discovery_calls_held) || 0,
+    cash: Number(h.cash_collected) || 0,
+    clients: Number(h.new_clients) || 0,
+  }));
+
+  const chartColors = {
+    emails: '#22c55e',
+    content: '#3b82f6',
+    discoveryBooked: '#8b5cf6',
+    discoveryHeld: '#ec4899',
+    cash: '#eab308',
+    clients: '#06b6d4',
+  };
 
   return (
     <div className="space-y-8">
@@ -225,6 +247,83 @@ export default function MarketingReportPage() {
           })}
         </div>
       </section>
+
+      {/* Charts */}
+      {chartData.length > 0 && (
+        <section className="space-y-6">
+          <h3 className="text-lg font-semibold text-white">Trends over time</h3>
+
+          <div className="rounded-xl border border-slate-700 bg-slate-900/70 p-4">
+            <h4 className="mb-3 text-sm font-medium text-slate-300">Emails sent & content output</h4>
+            <div className="h-64">
+              <ResponsiveContainer width="100%" height="100%">
+                <LineChart data={chartData} margin={{ top: 5, right: 20, left: 0, bottom: 5 }}>
+                  <CartesianGrid strokeDasharray="3 3" stroke="#334155" />
+                  <XAxis dataKey="week" stroke="#94a3b8" fontSize={11} />
+                  <YAxis stroke="#94a3b8" fontSize={11} />
+                  <Tooltip
+                    contentStyle={{ backgroundColor: '#1e293b', border: '1px solid #475569' }}
+                    labelStyle={{ color: '#94a3b8' }}
+                  />
+                  <Legend />
+                  <Line type="monotone" dataKey="emails" name="Emails sent" stroke={chartColors.emails} strokeWidth={2} dot={{ r: 3 }} />
+                  <Line type="monotone" dataKey="content" name="Content outputs" stroke={chartColors.content} strokeWidth={2} dot={{ r: 3 }} />
+                </LineChart>
+              </ResponsiveContainer>
+            </div>
+          </div>
+
+          <div className="rounded-xl border border-slate-700 bg-slate-900/70 p-4">
+            <h4 className="mb-3 text-sm font-medium text-slate-300">Discovery calls</h4>
+            <div className="h-64">
+              <ResponsiveContainer width="100%" height="100%">
+                <AreaChart data={chartData} margin={{ top: 5, right: 20, left: 0, bottom: 5 }}>
+                  <defs>
+                    <linearGradient id="colorBooked" x1="0" y1="0" x2="0" y2="1">
+                      <stop offset="5%" stopColor="#8b5cf6" stopOpacity={0.4} />
+                      <stop offset="95%" stopColor="#8b5cf6" stopOpacity={0} />
+                    </linearGradient>
+                    <linearGradient id="colorHeld" x1="0" y1="0" x2="0" y2="1">
+                      <stop offset="5%" stopColor="#ec4899" stopOpacity={0.4} />
+                      <stop offset="95%" stopColor="#ec4899" stopOpacity={0} />
+                    </linearGradient>
+                  </defs>
+                  <CartesianGrid strokeDasharray="3 3" stroke="#334155" />
+                  <XAxis dataKey="week" stroke="#94a3b8" fontSize={11} />
+                  <YAxis stroke="#94a3b8" fontSize={11} />
+                  <Tooltip
+                    contentStyle={{ backgroundColor: '#1e293b', border: '1px solid #475569' }}
+                    labelStyle={{ color: '#94a3b8' }}
+                  />
+                  <Legend />
+                  <Area type="monotone" dataKey="discoveryBooked" name="Booked" fill="url(#colorBooked)" stroke={chartColors.discoveryBooked} strokeWidth={2} />
+                  <Area type="monotone" dataKey="discoveryHeld" name="Held" fill="url(#colorHeld)" stroke={chartColors.discoveryHeld} strokeWidth={2} />
+                </AreaChart>
+              </ResponsiveContainer>
+            </div>
+          </div>
+
+          <div className="rounded-xl border border-slate-700 bg-slate-900/70 p-4">
+            <h4 className="mb-3 text-sm font-medium text-slate-300">Cash collected & new clients</h4>
+            <div className="h-64">
+              <ResponsiveContainer width="100%" height="100%">
+                <BarChart data={chartData} margin={{ top: 5, right: 20, left: 0, bottom: 5 }}>
+                  <CartesianGrid strokeDasharray="3 3" stroke="#334155" />
+                  <XAxis dataKey="week" stroke="#94a3b8" fontSize={11} />
+                  <YAxis stroke="#94a3b8" fontSize={11} />
+                  <Tooltip
+                    contentStyle={{ backgroundColor: '#1e293b', border: '1px solid #475569' }}
+                    labelStyle={{ color: '#94a3b8' }}
+                  />
+                  <Legend />
+                  <Bar dataKey="cash" name="Cash collected" fill={chartColors.cash} radius={[4, 4, 0, 0]} />
+                  <Bar dataKey="clients" name="New clients" fill={chartColors.clients} radius={[4, 4, 0, 0]} />
+                </BarChart>
+              </ResponsiveContainer>
+            </div>
+          </div>
+        </section>
+      )}
 
       {/* Week selector + upload */}
       <section className="flex flex-wrap items-center gap-4">
