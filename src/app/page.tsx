@@ -20,22 +20,40 @@ const videoCategories = [
     title: "Where Do I Start?",
     desc: "Getting started in government contracting",
     videos: 5,
-    color: "green",
     link: "/resources#getting-started",
+    classes: {
+      card: "hover:border-green-600/50",
+      gradient: "from-green-900/40",
+      icon: "text-green-500",
+      label: "text-green-500/60",
+    },
+    iconPath: "M13 10V3L4 14h7v7l9-11h-7z",
   },
   {
     title: "Finding Contract Opportunities",
     desc: "How to find the right contracts for your business",
     videos: 4,
-    color: "blue",
     link: "/resources#finding-opportunities",
+    classes: {
+      card: "hover:border-blue-600/50",
+      gradient: "from-blue-900/40",
+      icon: "text-blue-500",
+      label: "text-blue-500/60",
+    },
+    iconPath: "M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z",
   },
   {
     title: "Winning Without Past Performance",
     desc: "How to win when you're just starting out",
     videos: 5,
-    color: "amber",
     link: "/resources#winning-contracts",
+    classes: {
+      card: "hover:border-amber-600/50",
+      gradient: "from-amber-900/40",
+      icon: "text-amber-500",
+      label: "text-amber-500/60",
+    },
+    iconPath: "M9 12l2 2 4-4M7.835 4.697a3.42 3.42 0 001.946-.806 3.42 3.42 0 014.438 0 3.42 3.42 0 001.946.806 3.42 3.42 0 013.138 3.138 3.42 3.42 0 00.806 1.946 3.42 3.42 0 010 4.438 3.42 3.42 0 00-.806 1.946 3.42 3.42 0 01-3.138 3.138 3.42 3.42 0 00-1.946.806 3.42 3.42 0 01-4.438 0 3.42 3.42 0 00-1.946-.806 3.42 3.42 0 01-3.138-3.138 3.42 3.42 0 00-.806-1.946 3.42 3.42 0 010-4.438 3.42 3.42 0 00.806-1.946 3.42 3.42 0 013.138-3.138z",
   },
 ];
 
@@ -198,16 +216,14 @@ export default function Home() {
               <Link
                 key={index}
                 href={cat.link}
-                className={`bg-slate-900 border border-slate-800 rounded-xl overflow-hidden block hover:border-${cat.color}-600/50 transition group`}
+                className={`bg-slate-900 border border-slate-800 rounded-xl overflow-hidden block ${cat.classes.card} transition group`}
               >
-                <div className={`aspect-video bg-gradient-to-br from-${cat.color}-900/40 to-slate-900 flex items-center justify-center relative`}>
+                <div className={`aspect-video bg-gradient-to-br ${cat.classes.gradient} to-slate-900 flex items-center justify-center relative`}>
                   <div className="text-center">
-                    <svg className={`w-16 h-16 text-${cat.color}-500 mx-auto mb-2 group-hover:scale-110 transition`} fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                      {cat.color === 'green' && <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="1.5" d="M13 10V3L4 14h7v7l9-11h-7z"/>}
-                      {cat.color === 'blue' && <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="1.5" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"/>}
-                      {cat.color === 'amber' && <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="1.5" d="M9 12l2 2 4-4M7.835 4.697a3.42 3.42 0 001.946-.806 3.42 3.42 0 014.438 0 3.42 3.42 0 001.946.806 3.42 3.42 0 013.138 3.138 3.42 3.42 0 00.806 1.946 3.42 3.42 0 010 4.438 3.42 3.42 0 00-.806 1.946 3.42 3.42 0 01-3.138 3.138 3.42 3.42 0 00-1.946.806 3.42 3.42 0 01-4.438 0 3.42 3.42 0 00-1.946-.806 3.42 3.42 0 01-3.138-3.138 3.42 3.42 0 00-.806-1.946 3.42 3.42 0 010-4.438 3.42 3.42 0 00.806-1.946 3.42 3.42 0 013.138-3.138z"/>}
+                    <svg className={`w-16 h-16 ${cat.classes.icon} mx-auto mb-2 group-hover:scale-110 transition`} fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="1.5" d={cat.iconPath} />
                     </svg>
-                    <span className={`text-${cat.color}-500/60 text-sm font-medium`}>{cat.videos} Videos</span>
+                    <span className={`${cat.classes.label} text-sm font-medium`}>{cat.videos} Videos</span>
                   </div>
                 </div>
                 <div className="p-4">
