@@ -4,6 +4,10 @@ import {
   createTask,
   addTaskEvent,
 } from '@/lib/db';
+import {
+  notifySlackTaskChange,
+  formatTaskSlackMessage,
+} from '@/lib/slackTasks';
 
 export async function GET(request: NextRequest) {
   try {
@@ -46,6 +50,8 @@ export async function POST(request: NextRequest) {
     }
     const description =
       typeof body.description === 'string' ? body.description.trim() : null;
+    const attachment_url =
+      typeof body.attachment_url === 'string' ? body.attachment_url.trim() || null : null;
     const assignee =
       typeof body.assignee === 'string' ? body.assignee.trim() || null : null;
     const assignee_user_id =
@@ -73,6 +79,7 @@ export async function POST(request: NextRequest) {
     const task = await createTask({
       title,
       description: description || null,
+      attachment_url,
       assignee,
       assignee_user_id,
       project_id,
@@ -87,6 +94,19 @@ export async function POST(request: NextRequest) {
       event_type: 'created',
       message: 'Task created',
     });
+    await notifySlackTaskChange(
+      formatTaskSlackMessage({
+        action: 'created',
+        taskId: task.task_id,
+        title: task.title,
+        status: task.status,
+        assignee: task.assignee,
+        dueDate: task.due_date,
+        priority: task.priority,
+        projectId: task.project_id,
+        attachmentUrl: task.attachment_url,
+      })
+    );
     return NextResponse.json(task, { status: 201 });
   } catch (err) {
     const message = err instanceof Error ? err.message : 'Database error';

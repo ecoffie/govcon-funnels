@@ -1,5 +1,9 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { createProject, queryProjects } from '@/lib/db';
+import {
+  notifySlackTaskChange,
+  formatProjectSlackMessage,
+} from '@/lib/slackTasks';
 
 export async function GET() {
   try {
@@ -34,6 +38,14 @@ export async function POST(request: NextRequest) {
         ? body.status
         : 'active';
     const project = await createProject({ name, status });
+    await notifySlackTaskChange(
+      formatProjectSlackMessage({
+        action: 'created',
+        projectId: project.id,
+        name: project.name,
+        status: project.status,
+      })
+    );
     return NextResponse.json(project, { status: 201 });
   } catch (err) {
     const message = err instanceof Error ? err.message : 'Database error';

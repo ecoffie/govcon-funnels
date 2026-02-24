@@ -41,6 +41,7 @@ export interface Task {
   task_id: string;
   title: string;
   description: string | null;
+  attachment_url: string | null;
   assignee: string | null;
   assignee_user_id: string | null;
   project_id: string | null;
@@ -96,6 +97,7 @@ function mapTask(h: Record<string, unknown>): Task {
     task_id: String(h.task_id ?? ''),
     title: String(h.title ?? ''),
     description: strOrNull(h.description),
+    attachment_url: strOrNull(h.attachment_url),
     assignee: strOrNull(h.assignee),
     assignee_user_id: strOrNull(h.assignee_user_id),
     project_id: strOrNull(h.project_id),
@@ -198,6 +200,7 @@ async function nextTaskId(): Promise<string> {
 export async function createTask(data: {
   title: string;
   description?: string | null;
+  attachment_url?: string | null;
   assignee?: string | null;
   assignee_user_id?: string | null;
   project_id?: string | null;
@@ -218,6 +221,7 @@ export async function createTask(data: {
     task_id,
     title: data.title,
     description: data.description ?? '',
+    attachment_url: data.attachment_url ?? '',
     assignee: data.assignee ?? '',
     assignee_user_id: data.assignee_user_id ?? '',
     project_id: projectId,
@@ -240,6 +244,7 @@ export async function updateTask(
   updates: {
     title?: string;
     description?: string | null;
+    attachment_url?: string | null;
     assignee?: string | null;
     assignee_user_id?: string | null;
     project_id?: string | null;
@@ -257,6 +262,7 @@ export async function updateTask(
   const patch: Record<string, string> = { updated_at: now };
   if (updates.title !== undefined) patch.title = updates.title;
   if (updates.description !== undefined) patch.description = updates.description ?? '';
+  if (updates.attachment_url !== undefined) patch.attachment_url = updates.attachment_url ?? '';
   if (updates.assignee !== undefined) patch.assignee = updates.assignee ?? '';
   if (updates.assignee_user_id !== undefined) patch.assignee_user_id = updates.assignee_user_id ?? '';
   if (updates.project_id !== undefined) patch.project_id = updates.project_id ?? '';

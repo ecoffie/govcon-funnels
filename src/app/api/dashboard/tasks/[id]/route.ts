@@ -1,5 +1,9 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { updateTask, getTaskById, addTaskEvent } from '@/lib/db';
+import {
+  notifySlackTaskChange,
+  formatTaskSlackMessage,
+} from '@/lib/slackTasks';
 
 export async function PATCH(
   request: NextRequest,
@@ -14,6 +18,7 @@ export async function PATCH(
     const updates: {
       title?: string;
       description?: string | null;
+      attachment_url?: string | null;
       assignee?: string | null;
       assignee_user_id?: string | null;
       project_id?: string | null;
@@ -27,6 +32,9 @@ export async function PATCH(
     if (body.description !== undefined)
       updates.description =
         typeof body.description === 'string' ? body.description.trim() : null;
+    if (body.attachment_url !== undefined)
+      updates.attachment_url =
+        typeof body.attachment_url === 'string' ? body.attachment_url.trim() || null : null;
     if (body.assignee !== undefined)
       updates.assignee =
         typeof body.assignee === 'string' ? body.assignee.trim() || null : null;
@@ -73,6 +81,19 @@ export async function PATCH(
       event_type: 'updated',
       message: 'Task updated',
     });
+    await notifySlackTaskChange(
+      formatTaskSlackMessage({
+        action: 'updated',
+        taskId: task.task_id,
+        title: task.title,
+        status: task.status,
+        assignee: task.assignee,
+        dueDate: task.due_date,
+        priority: task.priority,
+        projectId: task.project_id,
+        attachmentUrl: task.attachment_url,
+      })
+    );
     return NextResponse.json(task);
   } catch (err) {
     const message = err instanceof Error ? err.message : 'Database error';

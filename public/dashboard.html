@@ -265,21 +265,46 @@
             <button type="button" id="new-task-close" class="task-new-close">Close</button>
           </div>
           <div class="task-new-grid">
-            <div class="field-with-mic">
-              <input type="text" id="new-title" placeholder="Task title" />
-              <button type="button" class="mic-btn" data-dictate-target="new-title">Mic</button>
+            <div>
+              <label for="new-title">Task name</label>
+              <div class="field-with-mic">
+                <input type="text" id="new-title" placeholder="Enter task name" />
+                <button type="button" class="mic-btn" data-dictate-target="new-title">Mic</button>
+              </div>
             </div>
-            <select id="new-assignee"></select>
-            <input type="date" id="new-due" />
-            <select id="new-priority">
-              <option value="medium">Medium</option>
-              <option value="high">High</option>
-              <option value="low">Low</option>
-            </select>
-            <input type="text" id="new-project" placeholder="Project" />
-            <div class="field-with-mic">
-              <textarea id="new-description" placeholder="Description"></textarea>
-              <button type="button" class="mic-btn" data-dictate-target="new-description">Mic</button>
+            <div>
+              <label for="new-assignee">Assignee</label>
+              <select id="new-assignee"></select>
+            </div>
+            <div>
+              <label for="new-due">Due date</label>
+              <input type="date" id="new-due" />
+            </div>
+            <div>
+              <label for="new-priority">Priority</label>
+              <select id="new-priority">
+                <option value="medium">Medium</option>
+                <option value="high">High</option>
+                <option value="low">Low</option>
+              </select>
+            </div>
+            <div>
+              <label for="new-project">Project</label>
+              <select id="new-project"></select>
+            </div>
+            <div>
+              <label for="new-attachment-file">Attachment (image)</label>
+              <input type="file" id="new-attachment-file" accept="image/*" />
+              <input type="hidden" id="new-attachment-url" />
+              <p id="new-attachment-note" class="muted-sm" style="margin-top:0.35rem;">No image attached.</p>
+              <div id="new-attachment-preview" class="muted-sm" style="display:none; margin-top:0.35rem;"></div>
+            </div>
+            <div>
+              <label for="new-description">Description</label>
+              <div class="field-with-mic">
+                <textarea id="new-description" placeholder="Describe the task"></textarea>
+                <button type="button" class="mic-btn" data-dictate-target="new-description">Mic</button>
+              </div>
             </div>
             <button type="button" id="create-task-btn" class="primary">Create</button>
           </div>
@@ -342,6 +367,10 @@
             <textarea id="detail-description"></textarea>
             <button type="button" class="mic-btn" data-dictate-target="detail-description">Mic</button>
           </div>
+        </div>
+        <div class="task-detail-section">
+          <label>Attachment</label>
+          <div id="detail-attachment" class="muted-sm">No attachment.</div>
         </div>
         <div class="task-detail-section">
           <label>Activity</label>
@@ -903,6 +932,10 @@
       var newDueEl = document.getElementById('new-due');
       var newPriorityEl = document.getElementById('new-priority');
       var newProjectEl = document.getElementById('new-project');
+      var newAttachmentFileEl = document.getElementById('new-attachment-file');
+      var newAttachmentUrlEl = document.getElementById('new-attachment-url');
+      var newAttachmentPreviewEl = document.getElementById('new-attachment-preview');
+      var newAttachmentNoteEl = document.getElementById('new-attachment-note');
       var newDescriptionEl = document.getElementById('new-description');
       var createTaskBtn = document.getElementById('create-task-btn');
       var detailEl = document.getElementById('task-detail');
@@ -915,6 +948,7 @@
       var detailDueEl = document.getElementById('detail-due');
       var detailProjectEl = document.getElementById('detail-project');
       var detailDescriptionEl = document.getElementById('detail-description');
+      var detailAttachmentEl = document.getElementById('detail-attachment');
       var detailActivityEl = document.getElementById('detail-activity');
       var tasksErrEl = document.getElementById('tasks-err');
       var tasksNoteEl = document.getElementById('tasks-note');
@@ -961,6 +995,7 @@
         tasks: [],
         events: []
       };
+      var apiTasksEnabled = false;
 
       function uid(prefix) { return prefix + '-' + Date.now() + '-' + Math.floor(Math.random() * 100000); }
       function escapeHtml(s) { var d = document.createElement('div'); d.textContent = s == null ? '' : String(s); return d.innerHTML; }
@@ -1059,6 +1094,105 @@
       function saveWorkspace() {
         workspace.schema = 3;
         localStorage.setItem(WORKSPACE_KEY, JSON.stringify(workspace));
+      }
+
+      async function syncWorkspaceFromApi() {
+        try {
+          var responses = await Promise.all([
+            fetch('/api/dashboard/projects', { cache: 'no-store' }),
+            fetch('/api/dashboard/tasks?limit=200&include_done=true', { cache: 'no-store' })
+          ]);
+          if (!responses[0].ok || !responses[1].ok) return false;
+          var projects = await responses[0].json();
+          var tasks = await responses[1].json();
+          if (!Array.isArray(projects) || !Array.isArray(tasks)) return false;
+          workspace.projects = projects.map(function(p) {
+            return { id: p.id, name: p.name, status: p.status || 'active' };
+          });
+          workspace.tasks = tasks.map(function(t) {
+            return {
+              id: t.id,
+              task_id: t.task_id,
+              title: t.title || '',
+              assignee: t.assignee || '',
+              due_date: t.due_date || '',
+              priority: t.priority || 'medium',
+              status: t.status || 'open',
+              project_id: t.project_id || '',
+              description: t.description || '',
+              attachment_url: t.attachment_url || '',
+              updated_at: (t.updated_at || '').slice(0, 10) || new Date().toISOString().slice(0, 10)
+            };
+          });
+          workspace.events = [];
+          saveWorkspace();
+          return true;
+        } catch (e) {
+          return false;
+        }
+      }
+
+      async function apiCreateTask(input) {
+        var payload = {
+          title: input.title,
+          description: input.description || null,
+          assignee: input.assignee || null,
+          due_date: input.due_date || null,
+          priority: input.priority || 'medium',
+          project_id: input.project_id || null,
+          attachment_url: input.attachment_url || null,
+          status: 'open'
+        };
+        var res = await fetch('/api/dashboard/tasks', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(payload)
+        });
+        if (!res.ok) {
+          var err = await res.json().catch(function() { return {}; });
+          throw new Error(err.error || 'Failed to create task');
+        }
+        var task = await res.json();
+        workspace.tasks.unshift({
+          id: task.id,
+          task_id: task.task_id,
+          title: task.title || '',
+          assignee: task.assignee || '',
+          due_date: task.due_date || '',
+          priority: task.priority || 'medium',
+          status: task.status || 'open',
+          project_id: task.project_id || '',
+          description: task.description || '',
+          attachment_url: task.attachment_url || '',
+          updated_at: (task.updated_at || '').slice(0, 10) || new Date().toISOString().slice(0, 10)
+        });
+        saveWorkspace();
+      }
+
+      async function apiPatchTask(taskId, updates) {
+        var res = await fetch('/api/dashboard/tasks/' + encodeURIComponent(taskId), {
+          method: 'PATCH',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(updates)
+        });
+        if (!res.ok) {
+          var err = await res.json().catch(function() { return {}; });
+          throw new Error(err.error || 'Failed to update task');
+        }
+        var task = await res.json();
+        var local = findTaskById(task.id);
+        if (local) {
+          local.title = task.title || local.title;
+          local.assignee = task.assignee || '';
+          local.due_date = task.due_date || '';
+          local.priority = task.priority || 'medium';
+          local.status = task.status || 'open';
+          local.project_id = task.project_id || local.project_id;
+          local.description = task.description || '';
+          local.attachment_url = task.attachment_url || '';
+          local.updated_at = (task.updated_at || '').slice(0, 10) || new Date().toISOString().slice(0, 10);
+        }
+        saveWorkspace();
       }
 
       function projectNameById(id) {
@@ -1163,6 +1297,50 @@
               return '<option value="' + escapeHtml(p.id) + '">' + escapeHtml(p.name) + '</option>';
             })
             .join('');
+      }
+
+      function renderNewProjectOptions() {
+        var options = workspace.projects
+          .map(function(p) {
+            return '<option value="' + escapeHtml(p.id) + '">' + escapeHtml(p.name) + '</option>';
+          })
+          .join('');
+        newProjectEl.innerHTML = options;
+        if (!workspace.projects.length) {
+          showTasksErr('No projects available. Add a project before creating tasks.');
+          return;
+        }
+        if (!newProjectEl.value || !workspace.projects.some(function(p) { return p.id === newProjectEl.value; })) {
+          newProjectEl.value = workspace.projects[0].id;
+        }
+      }
+
+      function setAttachmentPreview(url) {
+        if (!url) {
+          newAttachmentPreviewEl.style.display = 'none';
+          newAttachmentPreviewEl.innerHTML = '';
+          newAttachmentNoteEl.textContent = 'No image attached.';
+          return;
+        }
+        newAttachmentNoteEl.textContent = 'Image attached.';
+        newAttachmentPreviewEl.style.display = 'block';
+        newAttachmentPreviewEl.innerHTML =
+          '<a href="' + escapeHtml(url) + '" target="_blank" rel="noopener" style="color:#22c55e;">Open image</a>';
+      }
+
+      async function uploadAttachment(file) {
+        var form = new FormData();
+        form.append('file', file);
+        var response = await fetch('/api/dashboard/tasks/upload', {
+          method: 'POST',
+          body: form
+        });
+        if (!response.ok) {
+          var err = await response.json().catch(function() { return {}; });
+          throw new Error(err.error || 'Upload failed');
+        }
+        var data = await response.json();
+        return data.url || '';
       }
 
       function sortComparator(sortValue) {
@@ -1353,6 +1531,7 @@
       function renderTaskViews() {
         taskCountEl.textContent = String(workspace.tasks.length) + ' tasks';
         renderProjectFilterOptions();
+        renderNewProjectOptions();
         filterProjectEl.value = workspace.ui.filters.project || 'all';
         taskSortEl.value = workspace.ui.sort || 'updated_desc';
         groupByEl.value = workspace.ui.groupBy || 'project';
@@ -1378,13 +1557,8 @@
 
       function createTask(input) {
         var projectId = input.project_id;
-        if (!projectId) {
-          if (workspace.projects.length) projectId = workspace.projects[0].id;
-          else {
-            var fallback = { id: uid('proj'), name: 'General', status: 'active' };
-            workspace.projects.push(fallback);
-            projectId = fallback.id;
-          }
+        if (!projectId || !workspace.projects.find(function(p) { return p.id === projectId; })) {
+          throw new Error('Project selection is required.');
         }
         var task = {
           id: uid('task'),
@@ -1396,6 +1570,7 @@
           status: 'open',
           project_id: projectId,
           description: input.description || '',
+          attachment_url: input.attachment_url || '',
           updated_at: new Date().toISOString().slice(0, 10)
         };
         workspace.tasks.unshift(task);
@@ -1419,6 +1594,9 @@
         detailDueEl.value = task.due_date || '';
         detailProjectEl.value = projectNameById(task.project_id);
         detailDescriptionEl.value = task.description || '';
+        detailAttachmentEl.innerHTML = task.attachment_url
+          ? '<a href="' + escapeHtml(task.attachment_url) + '" target="_blank" rel="noopener" style="color:#22c55e;">Open attached image</a>'
+          : 'No attachment.';
         var events = workspace.events.filter(function(e) { return e.task_id === task.id; }).slice(0, 8);
         detailActivityEl.innerHTML = events.length ? events.map(function(e) { return '<li><strong style="color:#86efac;">' + escapeHtml(formatDate(e.at)) + '</strong> · ' + escapeHtml(e.text) + '</li>'; }).join('') : '<li>No activity yet.</li>';
         detailEl.classList.add('show');
@@ -1427,23 +1605,47 @@
 
       function closeTaskDetail() { activeDetailTaskId = null; detailEl.classList.remove('show'); detailEl.setAttribute('aria-hidden', 'true'); }
 
-      function saveTaskDetail() {
+      async function saveTaskDetail() {
         var task = findTaskById(activeDetailTaskId); if (!task) return;
-        task.title = detailTitleEl.value.trim() || task.title;
-        task.status = detailStatusEl.value;
-        task.priority = detailPriorityEl.value;
-        task.assignee = detailAssigneeEl.value.trim();
-        task.due_date = detailDueEl.value;
+        var nextTitle = detailTitleEl.value.trim() || task.title;
+        var nextStatus = detailStatusEl.value;
+        var nextPriority = detailPriorityEl.value;
+        var nextAssignee = detailAssigneeEl.value.trim();
+        var nextDueDate = detailDueEl.value;
         var desiredProject = detailProjectEl.value.trim();
+        var nextProjectId = task.project_id;
         if (desiredProject) {
           var existingProject = workspace.projects.find(function(p) { return p.name === desiredProject; });
-          if (!existingProject) {
-            existingProject = { id: uid('proj'), name: desiredProject, status: 'active' };
-            workspace.projects.push(existingProject);
-          }
-          task.project_id = existingProject.id;
+          if (existingProject) nextProjectId = existingProject.id;
         }
-        task.description = detailDescriptionEl.value.trim();
+        var nextDescription = detailDescriptionEl.value.trim();
+        try {
+          await apiPatchTask(task.id, {
+            title: nextTitle,
+            status: nextStatus,
+            priority: nextPriority,
+            assignee: nextAssignee || null,
+            due_date: nextDueDate || null,
+            project_id: nextProjectId || null,
+            description: nextDescription || null
+          });
+        } catch (err) {
+          task.title = nextTitle;
+          task.status = nextStatus;
+          task.priority = nextPriority;
+          task.assignee = nextAssignee;
+          task.due_date = nextDueDate;
+          task.project_id = nextProjectId;
+          task.description = nextDescription;
+          showTasksNote('Saved locally. Backend sync unavailable.');
+        }
+        task.title = nextTitle;
+        task.status = nextStatus;
+        task.priority = nextPriority;
+        task.assignee = nextAssignee;
+        task.due_date = nextDueDate;
+        task.project_id = nextProjectId;
+        task.description = nextDescription;
         touchTask(task);
         addEvent(task.id, 'Task details updated');
         saveWorkspace();
@@ -1524,26 +1726,63 @@
       newTaskBtn.addEventListener('click', openNewTaskDrawer);
       newTaskCloseEl.addEventListener('click', closeNewTaskDrawer);
       taskNewBackdropEl.addEventListener('click', closeNewTaskDrawer);
-      createTaskBtn.addEventListener('click', function() {
+      newAttachmentFileEl.addEventListener('change', async function() {
+        var file = newAttachmentFileEl.files && newAttachmentFileEl.files[0];
+        if (!file) {
+          newAttachmentUrlEl.value = '';
+          setAttachmentPreview('');
+          return;
+        }
+        showTasksErr('');
+        newAttachmentNoteEl.textContent = 'Uploading image...';
+        try {
+          var url = await uploadAttachment(file);
+          newAttachmentUrlEl.value = url;
+          setAttachmentPreview(url);
+        } catch (err) {
+          newAttachmentUrlEl.value = '';
+          setAttachmentPreview('');
+          showTasksErr(err instanceof Error ? err.message : 'Image upload failed.');
+        }
+      });
+      createTaskBtn.addEventListener('click', async function() {
         var title = (newTitleEl.value || '').trim();
         if (!title) { showTasksErr('Task title is required.'); return; }
+        if (!workspace.projects.length) { showTasksErr('No projects available. Add a project first.'); return; }
+        if (!newProjectEl.value) { showTasksErr('Please select a project.'); return; }
         showTasksErr('');
-        var projectNameInput = (newProjectEl.value || '').trim();
-        var projectMatch = workspace.projects.find(function(p) { return p.name === projectNameInput; });
-        createTask({
-          title: title,
-          assignee: (newAssigneeEl.value || '').trim(),
-          due_date: newDueEl.value,
-          priority: newPriorityEl.value,
-          project_id: projectMatch ? projectMatch.id : null,
-          description: (newDescriptionEl.value || '').trim()
-        });
-        newTitleEl.value = ''; newAssigneeEl.value = ''; newDueEl.value = ''; newProjectEl.value = ''; newDescriptionEl.value = '';
-        renderAssigneeSelects();
-        closeNewTaskDrawer();
+        try {
+          var payload = {
+            title: title,
+            assignee: (newAssigneeEl.value || '').trim(),
+            due_date: newDueEl.value,
+            priority: newPriorityEl.value,
+            project_id: newProjectEl.value,
+            description: (newDescriptionEl.value || '').trim(),
+            attachment_url: newAttachmentUrlEl.value || ''
+          };
+          try {
+            await apiCreateTask(payload);
+          } catch (err) {
+            createTask(payload);
+            showTasksNote('Saved locally. Backend sync unavailable.');
+          }
+          newTitleEl.value = '';
+          newAssigneeEl.value = '';
+          newDueEl.value = '';
+          newDescriptionEl.value = '';
+          newAttachmentFileEl.value = '';
+          newAttachmentUrlEl.value = '';
+          setAttachmentPreview('');
+          if (workspace.projects.length) newProjectEl.value = workspace.projects[0].id;
+          renderAssigneeSelects();
+          closeNewTaskDrawer();
+        } catch (err) {
+          showTasksErr(err instanceof Error ? err.message : 'Failed to create task.');
+        }
       });
 
-      taskViewRoot.addEventListener('click', function(e) {
+      taskViewRoot.addEventListener('click', async function(e) {
         var target = e.target;
         if (target.closest('input, select, textarea')) return;
         if (target.id === 'date-prev-month') { dateCursor = new Date(dateCursor.getFullYear(), dateCursor.getMonth() - 1, 1); renderTaskViews(); return; }
@@ -1553,7 +1792,21 @@
         if (!action || !id) return;
         var task = findTaskById(id);
         if (!task) return;
-        if (action === 'cycle-status') { task.status = nextValue(task.status, statusOrder); touchTask(task); addEvent(task.id, 'Status changed to ' + statusLabel(task.status)); saveWorkspace(); renderTaskViews(); loadRecentUpdates(); }
+        if (action === 'cycle-status') {
+          var nextStatus = nextValue(task.status, statusOrder);
+          try {
+            await apiPatchTask(task.id, { status: nextStatus });
+            task.status = nextStatus;
+          } catch (err) {
+            task.status = nextStatus;
+            showTasksNote('Saved locally. Backend sync unavailable.');
+          }
+          touchTask(task);
+          addEvent(task.id, 'Status changed to ' + statusLabel(task.status));
+          saveWorkspace();
+          renderTaskViews();
+          loadRecentUpdates();
+        }
         else if (action === 'open-detail') openTaskDetail(id);
       });
 
@@ -1565,14 +1818,21 @@
         startDictation(targetId, micBtn);
       });
 
-      taskViewRoot.addEventListener('change', function(e) {
+      taskViewRoot.addEventListener('change', async function(e) {
         var target = e.target;
         var action = target.getAttribute('data-action');
         var id = target.getAttribute('data-id');
         if (!action || !id) return;
         var task = findTaskById(id);
         if (!task) return;
-        if (action === 'edit-due') task.due_date = target.value;
+        if (action === 'edit-due') {
+          try {
+            await apiPatchTask(task.id, { due_date: target.value || null });
+          } catch (err) {
+            showTasksNote('Saved locally. Backend sync unavailable.');
+          }
+          task.due_date = target.value;
+        }
         touchTask(task);
         addEvent(task.id, 'Quick edit saved');
         saveWorkspace();
@@ -1602,6 +1862,12 @@
       showTasksNote('');
       renderTaskViews();
       loadRecentUpdates();
+      syncWorkspaceFromApi().then(function(ok) {
+        if (ok) {
+          renderTaskViews();
+          loadRecentUpdates();
+        }
+      });
     })();
   </script>
 </body>

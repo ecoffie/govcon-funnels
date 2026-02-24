@@ -1,5 +1,9 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { updateProject } from '@/lib/db';
+import {
+  notifySlackTaskChange,
+  formatProjectSlackMessage,
+} from '@/lib/slackTasks';
 
 export async function PATCH(
   request: NextRequest,
@@ -26,6 +30,14 @@ export async function PATCH(
     if (!project) {
       return NextResponse.json({ error: 'Project not found' }, { status: 404 });
     }
+    await notifySlackTaskChange(
+      formatProjectSlackMessage({
+        action: 'updated',
+        projectId: project.id,
+        name: project.name,
+        status: project.status,
+      })
+    );
     return NextResponse.json(project);
   } catch (err) {
     const message = err instanceof Error ? err.message : 'Database error';
