@@ -155,7 +155,7 @@ export async function sendConfirmationEmail(params: EmailParams & { source: stri
  */
 export async function sendOpportunityHunterEmail(params: EmailParams): Promise<EmailResult> {
   const firstName = params.name.split(' ')[0] || 'there';
-  const toolUrl = 'https://funnels.govcongiants.org/opp/thank-you';
+  const toolUrl = 'https://tools.govcongiants.org/opportunity-hunter';
   const logoUrl = 'https://funnels.govcongiants.org/images/opportunity-hunter-logo.png';
 
   const content = `
