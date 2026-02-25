@@ -1,21 +1,17 @@
 # Deploy Meeting Intelligence Dashboard
 
-## Render.com (recommended)
+When the user asks to deploy the dashboard or make it live, do the following.
 
-1. Go to [render.com](https://render.com) → **New** → **Web Service**
-2. Connect your GitHub repo (`ecoffie/govcon-funnels`)
-3. **Root Directory**: `dashboard`
-4. **Build Command**: `npm install && npm run build`
-5. **Start Command**: `node server.js`
-6. Add **Environment Variables** (Settings → Environment):
-   - `ANTHROPIC_API_KEY` (required for AI analysis)
-   - `GOOGLE_CLIENT_ID` (for Calendar sync)
-   - `GOOGLE_CLIENT_SECRET`
-   - `GOOGLE_REDIRECT_URI` = `https://YOUR-RENDER-URL.onrender.com/api/google/callback` (set after first deploy)
-   - `FIREFLIES_API_KEY` (optional, for Fireflies transcript sync)
-   - `FIREFLIES_WEBHOOK_SECRET` (optional)
+## Render.com deployment
 
-7. Deploy → your live URL will be `https://meeting-intelligence-dashboard-xxx.onrender.com`
-8. Update `GOOGLE_REDIRECT_URI` with that URL + `/api/google/callback`
-9. In [Google Cloud Console](https://console.cloud.google.com) → APIs & Services → Credentials → your OAuth client:
-   - Add `https://YOUR-RENDER-URL.onrender.com/api/google/callback` to **Authorized redirect URIs**
+1. **Create a Render Web Service** (render.com → New → Web Service).
+2. **Connect** the GitHub repo `ecoffie/govcon-funnels`.
+3. **Set deployment:**
+   - Root Directory: `dashboard`
+   - Build Command: `npm install && npm run build`
+   - Start Command: `node server.js`
+4. **Add env vars:** `ANTHROPIC_API_KEY`, `GOOGLE_CLIENT_ID`, `GOOGLE_CLIENT_SECRET`, `FIREFLIES_API_KEY` (optional), `FIREFLIES_WEBHOOK_SECRET` (optional).
+5. **Deploy** and get the live URL.
+6. **Set** `GOOGLE_REDIRECT_URI` = `https://<live-url>/api/google/callback`.
+7. **Tell the user** to add that same URL to Google Cloud Console → Credentials → OAuth client → Authorized redirect URIs.
+8. **Return the live URL** so they can open the dashboard and connect Google.
