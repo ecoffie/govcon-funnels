@@ -478,8 +478,8 @@
                 console.log('API error (continuing anyway):', err);
             }
 
-            // Redirect to upsell page
-            window.location.href = '2-upsell.html';
+            // Redirect to upsell page (use absolute path to avoid 404 when URL has no trailing slash)
+            window.location.href = '/proposal-bootcamp/2-upsell.html';
         });
     </script>
 </body>
