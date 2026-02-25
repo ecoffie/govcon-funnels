@@ -1,6 +1,20 @@
 import type { NextConfig } from "next";
 
 const nextConfig: NextConfig = {
+  async redirects() {
+    return [
+      {
+        source: '/feb-28-bootcamp',
+        destination: 'https://funnels.govcongiants.org/proposal-bootcamp',
+        permanent: true,
+      },
+      {
+        source: '/feb-28-bootcamp/:path*',
+        destination: 'https://funnels.govcongiants.org/proposal-bootcamp',
+        permanent: true,
+      },
+    ];
+  },
   async rewrites() {
     return {
       beforeFiles: [

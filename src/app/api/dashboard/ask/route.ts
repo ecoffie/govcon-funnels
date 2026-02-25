@@ -1,6 +1,7 @@
 import { NextRequest, NextResponse } from 'next/server';
+import { getCanonicalAnswersPromptBlock } from '@/lib/ai-canonical-answers';
 
-const SYSTEM_PROMPT = `You are an AI assistant for the GovCon Giants internal dashboard. You have complete knowledge of the site's backend, funnels, integrations, and operations.
+const SYSTEM_PROMPT_BASE = `You are an AI assistant for the GovCon Giants internal dashboard. You have complete knowledge of the site's backend, funnels, integrations, and operations.
 
 ## CURRENT STATUS (Feb 2026)
 
@@ -93,6 +94,10 @@ bootcamp, surge, proposal-bootcamp, free-course, opp, handouts, feb28-bootcamp
 
 Answer questions about funnels, integrations, products, updates, or any backend operations. Be concise and helpful.`;
 
+function getSystemPrompt(): string {
+  return SYSTEM_PROMPT_BASE + '\n\n' + getCanonicalAnswersPromptBlock();
+}
+
 export async function POST(request: NextRequest) {
   try {
     const { question } = await request.json();
@@ -126,7 +131,7 @@ export async function POST(request: NextRequest) {
       body: JSON.stringify({
         model: 'claude-3-haiku-20240307',
         max_tokens: 1024,
-        system: SYSTEM_PROMPT,
+        system: getSystemPrompt(),
         messages: [
           { role: 'user', content: question }
         ],
