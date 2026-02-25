@@ -2,6 +2,10 @@
 
 # dependencies
 /node_modules
+node_modules
+
+# transcripts (large PDFs - dashboard syncs from Fireflies)
+Transcripts/
 /.pnp
 .pnp.*
 .yarn/*
@@ -19,6 +23,8 @@
 
 # production
 /build
+dashboard/dist
+dashboard/data/
 
 # misc
 .DS_Store
