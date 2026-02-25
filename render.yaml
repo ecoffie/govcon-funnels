@@ -1,0 +1,26 @@
+# Render.com Blueprint for Meeting Intelligence Dashboard
+# Root Directory must be set to "dashboard" when creating the service
+services:
+  - type: web
+    name: meeting-intelligence-dashboard
+    env: node
+    rootDir: dashboard
+    buildCommand: npm install && npm run build
+    startCommand: node server.js
+    envVars:
+      - key: NODE_ENV
+        value: production
+      - key: ANTHROPIC_API_KEY
+        sync: false
+      - key: GOOGLE_CLIENT_ID
+        sync: false
+      - key: GOOGLE_CLIENT_SECRET
+        sync: false
+      - key: GOOGLE_REDIRECT_URI
+        sync: false
+      - key: FIREFLIES_SYNC_INTERVAL_MINUTES
+        value: "60"
+      - key: FIREFLIES_API_KEY
+        sync: false
+      - key: FIREFLIES_WEBHOOK_SECRET
+        sync: false
