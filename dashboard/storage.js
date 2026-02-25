@@ -5,6 +5,7 @@ import { fileURLToPath } from 'node:url';
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 const STORE_PATH = path.join(__dirname, 'data', 'fireflies_store.json');
+const REDIS_KEY = 'mid:store';
 
 const DEFAULT_STORE = {
   transcripts: [],
@@ -27,6 +28,38 @@ const DEFAULT_STORE = {
   },
 };
 
+// --- Redis backend (Upstash REST API) ---
+
+async function redisCmd(...args) {
+  const url = process.env.KV_REST_API_URL;
+  const token = process.env.KV_REST_API_TOKEN;
+  const res = await fetch(url, {
+    method: 'POST',
+    headers: { Authorization: `Bearer ${token}`, 'Content-Type': 'application/json' },
+    body: JSON.stringify(args),
+  });
+  const data = await res.json();
+  if (data.error) throw new Error(data.error);
+  return data.result;
+}
+
+async function redisReadStore() {
+  const raw = await redisCmd('GET', REDIS_KEY);
+  if (!raw) return structuredClone(DEFAULT_STORE);
+  try {
+    const parsed = typeof raw === 'string' ? JSON.parse(raw) : raw;
+    return { ...structuredClone(DEFAULT_STORE), ...parsed };
+  } catch {
+    return structuredClone(DEFAULT_STORE);
+  }
+}
+
+async function redisWriteStore(store) {
+  await redisCmd('SET', REDIS_KEY, JSON.stringify(store));
+}
+
+// --- Filesystem backend ---
+
 async function ensureStore() {
   await fs.mkdir(path.dirname(STORE_PATH), { recursive: true });
   try {
@@ -36,7 +69,7 @@ async function ensureStore() {
   }
 }
 
-export async function readStore() {
+async function fsReadStore() {
   await ensureStore();
   const raw = await fs.readFile(STORE_PATH, 'utf8');
   try {
@@ -46,9 +79,21 @@ export async function readStore() {
   }
 }
 
-export async function writeStore(store) {
+async function fsWriteStore(store) {
   await ensureStore();
   await fs.writeFile(STORE_PATH, JSON.stringify(store, null, 2), 'utf8');
+}
+
+// --- Public API (auto-selects backend) ---
+
+const useRedis = () => !!(process.env.KV_REST_API_URL && process.env.KV_REST_API_TOKEN);
+
+export async function readStore() {
+  return useRedis() ? redisReadStore() : fsReadStore();
+}
+
+export async function writeStore(store) {
+  return useRedis() ? redisWriteStore(store) : fsWriteStore(store);
 }
 
 export async function upsertTranscripts(meetings, source) {
@@ -74,7 +119,6 @@ export async function savePipeline(leads) {
     'notes',
     'next_follow_up_at',
   ];
-
   store.lead_pipeline = leads.map((lead) => {
     const prev = byPrevId.get(lead.lead_id);
     if (!prev) return lead;

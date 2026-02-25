@@ -427,7 +427,8 @@ app.get('/api/google/callback', async (req, res) => {
     store.google_calendar.refresh_token = tokenData.refresh_token || store.google_calendar.refresh_token || null;
     store.google_calendar.token_expires_at = tokenData.expires_in ? new Date(Date.now() + tokenData.expires_in * 1000).toISOString() : null;
     await writeStore(store);
-    res.redirect('http://localhost:5173/?google_connected=1');
+    const appUrl = process.env.APP_URL || 'http://localhost:5173';
+    res.redirect(`${appUrl}/?google_connected=1`);
   } catch (err) {
     res.status(500).send(err.message || 'Google callback failed');
   }
@@ -529,7 +530,8 @@ app.post('/api/analyze', async (req, res) => {
   }
 });
 
-if (FIRELIES_SYNC_INTERVAL_MINUTES > 0) {
+// Periodic sync — skipped in Vercel serverless (use manual /api/fireflies/sync instead)
+if (FIRELIES_SYNC_INTERVAL_MINUTES > 0 && !process.env.VERCEL) {
   const ms = FIRELIES_SYNC_INTERVAL_MINUTES * 60 * 1000;
   setInterval(async () => {
     try {
@@ -548,15 +550,21 @@ if (FIRELIES_SYNC_INTERVAL_MINUTES > 0) {
   }, ms);
 }
 
-// Serve built frontend in production (Vite outputs to dist/)
-const distPath = path.join(__dirname, 'dist');
-const { existsSync } = await import('node:fs');
-if (existsSync(distPath)) {
-  app.use(express.static(distPath));
-  app.get('*', (req, res, next) => {
-    if (req.path.startsWith('/api')) return next();
-    res.sendFile(path.join(distPath, 'index.html'));
-  });
+// Serve built frontend in production — skipped on Vercel (Vercel serves dist/ as static)
+if (!process.env.VERCEL) {
+  const distPath = path.join(__dirname, 'dist');
+  const { existsSync } = await import('node:fs');
+  if (existsSync(distPath)) {
+    app.use(express.static(distPath));
+    app.get('*', (req, res, next) => {
+      if (req.path.startsWith('/api')) return next();
+      res.sendFile(path.join(distPath, 'index.html'));
+    });
+  }
 }
 
-app.listen(PORT, () => console.log(`Server http://localhost:${PORT}`));
+// Export for Vercel serverless; only listen when running directly
+export default app;
+if (!process.env.VERCEL) {
+  app.listen(PORT, () => console.log(`Server http://localhost:${PORT}`));
+}
