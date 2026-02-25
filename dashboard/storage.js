@@ -19,6 +19,12 @@ const DEFAULT_STORE = {
     last_sync_at: null,
     last_error: null,
   },
+  google_gmail: {
+    connected: false,
+    last_sync_at: null,
+    last_error: null,
+    messages: [],
+  },
   sync_state: {
     last_sync_at: null,
     source: null,
@@ -118,6 +124,14 @@ export async function savePipeline(leads) {
     'owner',
     'notes',
     'next_follow_up_at',
+    'upcoming_call_at',
+    'upcoming_call_name',
+    'last_meeting_at',
+    'calendar_match_count',
+    'last_email_at',
+    'last_email_subject',
+    'gmail_match_count',
+    'last_contact_at',
   ];
   store.lead_pipeline = leads.map((lead) => {
     const prev = byPrevId.get(lead.lead_id);

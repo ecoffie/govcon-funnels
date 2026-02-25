@@ -27,6 +27,7 @@ import {
   Download,
   Loader2,
   Calendar,
+  Mail,
   RefreshCw,
   Database,
 } from 'lucide-react';
@@ -455,7 +456,6 @@ export default function App() {
     leadType: '',
     stage: '',
     confidence: '',
-    minScore: '0',
     q: '',
     callName: '',
     startDate: '',
@@ -681,7 +681,7 @@ export default function App() {
           params.set(k, '1');
           return;
         }
-        if (v && String(v).trim() !== '' && !(k === 'minScore' && String(v) === '0')) params.set(k, String(v));
+        if (v && String(v).trim() !== '') params.set(k, String(v));
       });
       const [statusRes, leadsRes, summaryRes] = await Promise.all([
         fetch(`${API_BASE}/api/fireflies/status`),
@@ -714,7 +714,6 @@ export default function App() {
         if (pipelineFilters.hotOnly && l.stage !== 'hot') return false;
         if (pipelineFilters.externalHighTicketOnly && (!l.is_external_verified_high_ticket || l.lead_type !== 'high_ticket')) return false;
         if (pipelineFilters.confidence && l.confidence !== pipelineFilters.confidence) return false;
-        if (Number(l.score || 0) < Number(pipelineFilters.minScore || 0)) return false;
         if (pipelineFilters.q) {
           const hay = `${l.call_name || ''} ${l.name || ''} ${l.company || ''} ${(l.reason_codes || []).join(' ')} ${(l.evidence_quotes || []).map(toQuoteText).join(' ')}`.toLowerCase();
           if (!hay.includes(String(pipelineFilters.q).toLowerCase())) return false;
@@ -746,7 +745,6 @@ export default function App() {
         if (pipelineFilters.hotOnly && l.stage !== 'hot') return false;
         if (pipelineFilters.externalHighTicketOnly && (!l.is_external_verified_high_ticket || l.lead_type !== 'high_ticket')) return false;
         if (pipelineFilters.confidence && l.confidence !== pipelineFilters.confidence) return false;
-        if (Number(l.score || 0) < Number(pipelineFilters.minScore || 0)) return false;
         if (pipelineFilters.q) {
           const hay = `${l.call_name || ''} ${l.name || ''} ${l.company || ''} ${(l.reason_codes || []).join(' ')} ${(l.evidence_quotes || []).map(toQuoteText).join(' ')}`.toLowerCase();
           if (!hay.includes(String(pipelineFilters.q).toLowerCase())) return false;
@@ -805,7 +803,7 @@ export default function App() {
     }
   }, []);
 
-  const connectGoogleCalendar = useCallback(async () => {
+  const connectGoogleWorkspace = useCallback(async () => {
     setGoogleLoading(true);
     try {
       const res = await fetch(`${API_BASE}/api/google/auth-url`);
@@ -816,7 +814,7 @@ export default function App() {
     }
   }, []);
 
-  const syncGoogleCalendar = useCallback(async () => {
+  const syncGoogleWorkspace = useCallback(async () => {
     setGoogleLoading(true);
     try {
       await fetch(`${API_BASE}/api/google/sync`, { method: 'POST' });
@@ -826,6 +824,46 @@ export default function App() {
       setGoogleLoading(false);
     }
   }, [loadGoogleStatus, loadPipelineData]);
+
+  const syncGmail = useCallback(async () => {
+    setGoogleLoading(true);
+    try {
+      await fetch(`${API_BASE}/api/gmail/sync`, { method: 'POST' });
+      await loadGoogleStatus();
+      await loadPipelineData();
+    } finally {
+      setGoogleLoading(false);
+    }
+  }, [loadGoogleStatus, loadPipelineData]);
+
+  const sendLeadFollowUpEmail = useCallback(async () => {
+    if (!selectedLead) return;
+    const to = window.prompt('Recipient email address');
+    if (!to) return;
+    const subject = window.prompt('Email subject', `Follow-up: ${selectedLead.call_name || 'Next Steps'}`) || '';
+    if (!subject) return;
+    const body =
+      window.prompt(
+        'Email body',
+        `Hi ${selectedLead.name || ''},\n\nGreat speaking with you. I wanted to follow up on next steps.\n\nBest,\n`
+      ) || '';
+    if (!body) return;
+    setGoogleLoading(true);
+    try {
+      const res = await fetch(`${API_BASE}/api/gmail/send`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ to, subject, body, leadId: selectedLead.lead_id }),
+      });
+      if (!res.ok) throw new Error(await res.text());
+      await loadGoogleStatus();
+      await loadPipelineData();
+    } catch (e) {
+      window.alert(`Failed to send email: ${e.message}`);
+    } finally {
+      setGoogleLoading(false);
+    }
+  }, [selectedLead, loadGoogleStatus, loadPipelineData]);
 
   const updateLeadTracking = useCallback(
     async (leadId, patch) => {
@@ -864,10 +902,17 @@ export default function App() {
   }, [filteredTranscripts.length, customer.painPoints, customer.reasonsForComing, localLeadInsights]);
   useEffect(() => {
     if (tab === 'pipeline') {
-      loadPipelineData();
       loadGoogleStatus();
     }
-  }, [tab, loadPipelineData, loadGoogleStatus]);
+  }, [tab, loadGoogleStatus]);
+
+  useEffect(() => {
+    if (tab !== 'pipeline') return undefined;
+    const timer = setTimeout(() => {
+      loadPipelineData();
+    }, 250);
+    return () => clearTimeout(timer);
+  }, [tab, loadPipelineData]);
 
   // Call volume by month with human-readable labels (June 25, Jan 26)
   const callVolumeByMonth = useMemo(() => {
@@ -1266,18 +1311,25 @@ export default function App() {
             <section className="bg-white dark:bg-gray-800 rounded-xl shadow p-6">
               <div className="flex items-center justify-between flex-wrap gap-3">
                 <div>
-                  <h3 className="font-semibold">Google Calendar</h3>
+                  <h3 className="font-semibold">Google Workspace</h3>
                   <p className="text-sm text-gray-500 dark:text-gray-400">
-                    {googleStatus?.connected ? `Connected · ${googleStatus.events_count || 0} events` : 'Not connected'}
+                    {googleStatus?.connected ? `Calendar connected · ${googleStatus.events_count || 0} events` : 'Calendar not connected'}
                     {googleStatus?.last_sync_at ? ` · Last sync ${googleStatus.last_sync_at}` : ''}
+                  </p>
+                  <p className="text-sm text-gray-500 dark:text-gray-400">
+                    {googleStatus?.gmail_connected ? `Gmail connected · ${googleStatus.gmail_messages_count || 0} recent messages` : 'Gmail not connected'}
+                    {googleStatus?.gmail_last_sync_at ? ` · Last sync ${googleStatus.gmail_last_sync_at}` : ''}
                   </p>
                 </div>
                 <div className="flex gap-2">
-                  <button onClick={connectGoogleCalendar} disabled={googleLoading} className="px-3 py-2 rounded-lg border border-gray-300 dark:border-gray-600 text-sm">
+                  <button onClick={connectGoogleWorkspace} disabled={googleLoading} className="px-3 py-2 rounded-lg border border-gray-300 dark:border-gray-600 text-sm">
                     Connect Google
                   </button>
-                  <button onClick={syncGoogleCalendar} disabled={googleLoading || !googleStatus?.connected} className="px-3 py-2 rounded-lg bg-blue-600 text-white text-sm disabled:opacity-60">
-                    Sync Calendar
+                  <button onClick={syncGoogleWorkspace} disabled={googleLoading || !googleStatus?.connected} className="px-3 py-2 rounded-lg bg-blue-600 text-white text-sm disabled:opacity-60">
+                    Sync Workspace
+                  </button>
+                  <button onClick={syncGmail} disabled={googleLoading || !googleStatus?.gmail_connected} className="px-3 py-2 rounded-lg border border-gray-300 dark:border-gray-600 text-sm disabled:opacity-60">
+                    Sync Gmail
                   </button>
                 </div>
               </div>
@@ -1305,7 +1357,6 @@ export default function App() {
                                 <tr>
                                   <th className="text-left p-2">Call Name</th>
                                   <th className="text-left p-2">Date</th>
-                                  <th className="text-left p-2">Score</th>
                                   <th className="text-left p-2">Stage</th>
                                   <th className="text-left p-2">Outreach</th>
                                   <th className="text-left p-2">Last Contact</th>
@@ -1316,10 +1367,9 @@ export default function App() {
                                   <tr key={lead.lead_id} className="border-t border-gray-200 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-700/30 cursor-pointer" onClick={() => setSelectedLead(lead)}>
                                     <td className="p-2">{lead.call_name || 'Unknown call'}</td>
                                     <td className="p-2">{formatUsDate(lead.date)}</td>
-                                    <td className="p-2">{lead.score}</td>
                                     <td className="p-2">{lead.stage}</td>
                                     <td className="p-2">{lead.outreach_status || 'new'}</td>
-                                    <td className="p-2">{lead.last_contacted_at ? formatUsDate(lead.last_contacted_at) : '-'}</td>
+                                    <td className="p-2">{lead.last_contact_at ? formatUsDate(lead.last_contact_at) : lead.last_contacted_at ? formatUsDate(lead.last_contacted_at) : '-'}</td>
                                   </tr>
                                 ))}
                               </tbody>
@@ -1344,12 +1394,13 @@ export default function App() {
                           External-Verified High Ticket
                         </div>
                       )}
-                      <div><span className="font-medium">Score:</span> {selectedLead.score} ({selectedLead.confidence})</div>
+                      <div><span className="font-medium">Confidence:</span> {selectedLead.confidence}</div>
                       <div><span className="font-medium">Reason codes:</span> {(selectedLead.reason_codes || []).join(', ') || 'n/a'}</div>
-                      <div><span className="font-medium">Last contacted:</span> {selectedLead.last_contacted_at ? formatUsDate(selectedLead.last_contacted_at) : 'Not logged'}</div>
+                      <div><span className="font-medium">Last contacted:</span> {selectedLead.last_contact_at ? formatUsDate(selectedLead.last_contact_at) : selectedLead.last_contacted_at ? formatUsDate(selectedLead.last_contacted_at) : 'Not logged'}</div>
                       <div><span className="font-medium">Outreach status:</span> {selectedLead.outreach_status || 'new'}</div>
                       <div><span className="font-medium">Next follow-up:</span> {selectedLead.next_follow_up_at ? formatUsDate(selectedLead.next_follow_up_at) : 'Not set'}</div>
                       <div><span className="font-medium">Upcoming call:</span> {selectedLead.upcoming_call_at ? `${formatUsDate(selectedLead.upcoming_call_at)} (${selectedLead.upcoming_call_name || 'Calendar event'})` : 'None'}</div>
+                      <div><span className="font-medium">Last email:</span> {selectedLead.last_email_at ? `${formatUsDate(selectedLead.last_email_at)}${selectedLead.last_email_subject ? ` (${selectedLead.last_email_subject})` : ''}` : 'None'}</div>
                       <div className="grid grid-cols-1 gap-2">
                         <button
                           type="button"
@@ -1367,6 +1418,14 @@ export default function App() {
                           className="px-2 py-1 rounded border border-gray-300 dark:border-gray-600 text-left text-xs"
                         >
                           Set follow-up in 3 days
+                        </button>
+                        <button
+                          type="button"
+                          onClick={sendLeadFollowUpEmail}
+                          disabled={googleLoading || !googleStatus?.gmail_connected}
+                          className="px-2 py-1 rounded border border-gray-300 dark:border-gray-600 text-left text-xs disabled:opacity-60 inline-flex items-center gap-1"
+                        >
+                          <Mail className="w-3 h-3" /> Send follow-up email
                         </button>
                       </div>
                       <div>
@@ -1524,12 +1583,6 @@ export default function App() {
                       <option value="medium">medium</option>
                       <option value="low">low</option>
                     </select>
-                  </div>
-                </details>
-                <details className="relative">
-                  <summary className="list-none cursor-pointer rounded border border-gray-300 dark:border-gray-600 px-3 py-1 bg-white dark:bg-gray-700">Min score: {pipelineFilters.minScore}</summary>
-                  <div className="absolute z-10 mt-1 w-40 rounded border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-800 p-2 shadow">
-                    <input value={pipelineFilters.minScore} onChange={(e) => setPipelineFilters((f) => ({ ...f, minScore: e.target.value }))} type="number" min="0" max="100" className="w-full rounded border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-700 px-2 py-1" />
                   </div>
                 </details>
                 <details className="relative">

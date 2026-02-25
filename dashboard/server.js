@@ -44,6 +44,9 @@ const GOOGLE_CLIENT_ID = process.env.GOOGLE_CLIENT_ID || '';
 const GOOGLE_CLIENT_SECRET = process.env.GOOGLE_CLIENT_SECRET || '';
 const GOOGLE_REDIRECT_URI = process.env.GOOGLE_REDIRECT_URI || `http://localhost:${PORT}/api/google/callback`;
 const GOOGLE_CALENDAR_SCOPE = 'https://www.googleapis.com/auth/calendar.readonly';
+const GOOGLE_GMAIL_READ_SCOPE = 'https://www.googleapis.com/auth/gmail.readonly';
+const GOOGLE_GMAIL_SEND_SCOPE = 'https://www.googleapis.com/auth/gmail.send';
+const GOOGLE_OAUTH_SCOPES = [GOOGLE_CALENDAR_SCOPE, GOOGLE_GMAIL_READ_SCOPE, GOOGLE_GMAIL_SEND_SCOPE].join(' ');
 
 function verifyFirefliesSignature(req) {
   if (!FIREFLIES_WEBHOOK_SECRET) return { ok: true, mode: 'no-secret' };
@@ -219,9 +222,80 @@ function mergeCalendarIntoLeads(leads = [], events = []) {
   });
 }
 
+function mergeGmailIntoLeads(leads = [], messages = []) {
+  return leads.map((lead) => {
+    const nameNeedle = String(lead.call_name || lead.name || '').toLowerCase().trim();
+    if (!nameNeedle) return lead;
+    const matched = messages
+      .filter((msg) => String(msg.subject || '').toLowerCase().includes(nameNeedle))
+      .sort((a, b) => String(b.date || '').localeCompare(String(a.date || '')));
+    const latest = matched[0];
+    return {
+      ...lead,
+      last_email_at: latest?.date || lead.last_email_at || null,
+      last_email_subject: latest?.subject || lead.last_email_subject || null,
+      gmail_match_count: matched.length,
+    };
+  });
+}
+
+function mergeLastContactIntoLeads(leads = []) {
+  return leads.map((lead) => {
+    const candidates = [lead.last_contacted_at, lead.last_meeting_at, lead.last_email_at]
+      .filter(Boolean)
+      .map((value) => ({ value, time: new Date(value).getTime() }))
+      .filter((d) => !Number.isNaN(d.time))
+      .sort((a, b) => b.time - a.time);
+    if (!candidates.length) return lead;
+    return {
+      ...lead,
+      last_contact_at: candidates[0].value,
+    };
+  });
+}
+
+async function refreshGoogleAccessToken(store) {
+  const refreshToken = store.google_calendar?.refresh_token;
+  if (!refreshToken) return store;
+  const tokenRes = await fetch('https://oauth2.googleapis.com/token', {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+    body: new URLSearchParams({
+      client_id: GOOGLE_CLIENT_ID,
+      client_secret: GOOGLE_CLIENT_SECRET,
+      refresh_token: refreshToken,
+      grant_type: 'refresh_token',
+    }),
+  });
+  if (!tokenRes.ok) {
+    throw new Error(`Google token refresh failed ${tokenRes.status}`);
+  }
+  const tokenData = await tokenRes.json();
+  store.google_calendar.token = tokenData.access_token || store.google_calendar.token || null;
+  if (tokenData.refresh_token) {
+    store.google_calendar.refresh_token = tokenData.refresh_token;
+  }
+  store.google_calendar.token_expires_at = tokenData.expires_in
+    ? new Date(Date.now() + tokenData.expires_in * 1000).toISOString()
+    : store.google_calendar.token_expires_at || null;
+  return store;
+}
+
+async function getGoogleAccessToken(store) {
+  const expiresAtMs = store.google_calendar?.token_expires_at
+    ? new Date(store.google_calendar.token_expires_at).getTime()
+    : 0;
+  const needsRefresh = !store.google_calendar?.token || (expiresAtMs && Date.now() >= expiresAtMs - 60 * 1000);
+  if (needsRefresh && store.google_calendar?.refresh_token) {
+    await refreshGoogleAccessToken(store);
+  }
+  if (!store.google_calendar?.token) throw new Error('Google access token missing');
+  return store.google_calendar.token;
+}
+
 async function refreshGoogleCalendarEvents(store) {
-  if (!store.google_calendar?.token) return store;
-  const token = store.google_calendar.token;
+  if (!store.google_calendar?.connected) return store;
+  const token = await getGoogleAccessToken(store);
   const timeMin = new Date(Date.now() - 1000 * 60 * 60 * 24 * 60).toISOString();
   const timeMax = new Date(Date.now() + 1000 * 60 * 60 * 24 * 90).toISOString();
   const url = new URL('https://www.googleapis.com/calendar/v3/calendars/primary/events');
@@ -246,6 +320,56 @@ async function refreshGoogleCalendarEvents(store) {
   store.google_calendar.last_sync_at = new Date().toISOString();
   store.google_calendar.last_error = null;
   store.lead_pipeline = mergeCalendarIntoLeads(store.lead_pipeline, events);
+  store.lead_pipeline = mergeLastContactIntoLeads(store.lead_pipeline);
+  return store;
+}
+
+async function refreshGmailMessages(store) {
+  if (!store.google_calendar?.connected) return store;
+  const token = await getGoogleAccessToken(store);
+  const listUrl = new URL('https://gmail.googleapis.com/gmail/v1/users/me/messages');
+  listUrl.searchParams.set('maxResults', '30');
+  listUrl.searchParams.set('q', 'newer_than:180d');
+  const listRes = await fetch(listUrl.toString(), {
+    headers: { Authorization: `Bearer ${token}` },
+  });
+  if (!listRes.ok) throw new Error(`Gmail API list error ${listRes.status}`);
+  const listData = await listRes.json();
+  const ids = Array.isArray(listData.messages) ? listData.messages.map((m) => m.id).filter(Boolean) : [];
+  const details = await Promise.all(
+    ids.slice(0, 20).map(async (id) => {
+      const msgRes = await fetch(`https://gmail.googleapis.com/gmail/v1/users/me/messages/${id}?format=metadata&metadataHeaders=Subject&metadataHeaders=Date&metadataHeaders=From&metadataHeaders=To`, {
+        headers: { Authorization: `Bearer ${token}` },
+      });
+      if (!msgRes.ok) return null;
+      const msg = await msgRes.json();
+      const headers = Array.isArray(msg.payload?.headers) ? msg.payload.headers : [];
+      const subject = headers.find((h) => String(h.name || '').toLowerCase() === 'subject')?.value || '';
+      const rawDate = headers.find((h) => String(h.name || '').toLowerCase() === 'date')?.value || '';
+      const from = headers.find((h) => String(h.name || '').toLowerCase() === 'from')?.value || '';
+      const to = headers.find((h) => String(h.name || '').toLowerCase() === 'to')?.value || '';
+      const parsedDate = rawDate ? new Date(rawDate) : null;
+      return {
+        id,
+        threadId: msg.threadId || '',
+        subject,
+        from,
+        to,
+        snippet: msg.snippet || '',
+        date: parsedDate && !Number.isNaN(parsedDate.getTime()) ? parsedDate.toISOString() : null,
+      };
+    })
+  );
+  const messages = details.filter(Boolean);
+  store.google_gmail = {
+    ...(store.google_gmail || {}),
+    connected: true,
+    messages,
+    last_sync_at: new Date().toISOString(),
+    last_error: null,
+  };
+  store.lead_pipeline = mergeGmailIntoLeads(store.lead_pipeline, messages);
+  store.lead_pipeline = mergeLastContactIntoLeads(store.lead_pipeline);
   return store;
 }
 
@@ -259,6 +383,7 @@ async function performSync(opts = {}) {
   if (store.google_calendar?.connected && store.google_calendar?.token) {
     try {
       store = await refreshGoogleCalendarEvents(store);
+      store = await refreshGmailMessages(store);
     } catch (err) {
       store.google_calendar.last_error = err.message || 'Google Calendar sync failed';
     }
@@ -397,7 +522,7 @@ app.get('/api/google/auth-url', async (_req, res) => {
   authUrl.searchParams.set('client_id', GOOGLE_CLIENT_ID);
   authUrl.searchParams.set('redirect_uri', GOOGLE_REDIRECT_URI);
   authUrl.searchParams.set('response_type', 'code');
-  authUrl.searchParams.set('scope', GOOGLE_CALENDAR_SCOPE);
+  authUrl.searchParams.set('scope', GOOGLE_OAUTH_SCOPES);
   authUrl.searchParams.set('access_type', 'offline');
   authUrl.searchParams.set('prompt', 'consent');
   authUrl.searchParams.set('state', state);
@@ -426,6 +551,11 @@ app.get('/api/google/callback', async (req, res) => {
     store.google_calendar.token = tokenData.access_token || null;
     store.google_calendar.refresh_token = tokenData.refresh_token || store.google_calendar.refresh_token || null;
     store.google_calendar.token_expires_at = tokenData.expires_in ? new Date(Date.now() + tokenData.expires_in * 1000).toISOString() : null;
+    store.google_gmail = {
+      ...(store.google_gmail || {}),
+      connected: true,
+      last_error: null,
+    };
     await writeStore(store);
     const appUrl = process.env.APP_URL || 'http://localhost:5173';
     res.redirect(`${appUrl}/?google_connected=1`);
@@ -442,6 +572,10 @@ app.get('/api/google/status', async (_req, res) => {
       last_sync_at: store.google_calendar?.last_sync_at || null,
       last_error: store.google_calendar?.last_error || null,
       events_count: Array.isArray(store.google_calendar?.events) ? store.google_calendar.events.length : 0,
+      gmail_connected: Boolean(store.google_gmail?.connected),
+      gmail_last_sync_at: store.google_gmail?.last_sync_at || null,
+      gmail_last_error: store.google_gmail?.last_error || null,
+      gmail_messages_count: Array.isArray(store.google_gmail?.messages) ? store.google_gmail.messages.length : 0,
     });
   } catch (err) {
     return res.status(500).json({ error: err.message || 'Failed to load Google status' });
@@ -454,18 +588,125 @@ app.post('/api/google/sync', async (_req, res) => {
     if (!store.google_calendar?.connected || !store.google_calendar?.token) {
       return res.status(400).json({ error: 'Google Calendar not connected' });
     }
-    const updated = await refreshGoogleCalendarEvents(store);
+    let updated = await refreshGoogleCalendarEvents(store);
+    updated = await refreshGmailMessages(updated);
     await writeStore(updated);
     return res.json({
       ok: true,
       events_count: updated.google_calendar.events.length,
       last_sync_at: updated.google_calendar.last_sync_at,
+      gmail_messages_count: Array.isArray(updated.google_gmail?.messages) ? updated.google_gmail.messages.length : 0,
+      gmail_last_sync_at: updated.google_gmail?.last_sync_at || null,
     });
   } catch (err) {
     const store = await readStore();
     store.google_calendar.last_error = err.message || 'Google Calendar sync failed';
     await writeStore(store);
     return res.status(500).json({ error: err.message || 'Google Calendar sync failed' });
+  }
+});
+
+app.get('/api/gmail/status', async (_req, res) => {
+  try {
+    const store = await readStore();
+    return res.json({
+      connected: Boolean(store.google_gmail?.connected),
+      last_sync_at: store.google_gmail?.last_sync_at || null,
+      last_error: store.google_gmail?.last_error || null,
+      messages_count: Array.isArray(store.google_gmail?.messages) ? store.google_gmail.messages.length : 0,
+    });
+  } catch (err) {
+    return res.status(500).json({ error: err.message || 'Failed to load Gmail status' });
+  }
+});
+
+app.post('/api/gmail/sync', async (_req, res) => {
+  try {
+    const store = await readStore();
+    if (!store.google_calendar?.connected) {
+      return res.status(400).json({ error: 'Google account not connected' });
+    }
+    const updated = await refreshGmailMessages(store);
+    await writeStore(updated);
+    return res.json({
+      ok: true,
+      messages_count: Array.isArray(updated.google_gmail?.messages) ? updated.google_gmail.messages.length : 0,
+      last_sync_at: updated.google_gmail?.last_sync_at || null,
+    });
+  } catch (err) {
+    const store = await readStore();
+    store.google_gmail = { ...(store.google_gmail || {}), last_error: err.message || 'Gmail sync failed' };
+    await writeStore(store);
+    return res.status(500).json({ error: err.message || 'Gmail sync failed' });
+  }
+});
+
+app.get('/api/gmail/messages', async (_req, res) => {
+  try {
+    const store = await readStore();
+    return res.json({ items: Array.isArray(store.google_gmail?.messages) ? store.google_gmail.messages : [] });
+  } catch (err) {
+    return res.status(500).json({ error: err.message || 'Failed to load Gmail messages' });
+  }
+});
+
+app.post('/api/gmail/send', async (req, res) => {
+  try {
+    const { to, subject, body, leadId } = req.body || {};
+    if (!to || !subject || !body) {
+      return res.status(400).json({ error: 'to, subject, and body are required' });
+    }
+    const store = await readStore();
+    if (!store.google_calendar?.connected) {
+      return res.status(400).json({ error: 'Google account not connected' });
+    }
+    const token = await getGoogleAccessToken(store);
+    const rawMessage = [
+      `To: ${String(to).trim()}`,
+      'Content-Type: text/plain; charset="UTF-8"',
+      'MIME-Version: 1.0',
+      `Subject: ${String(subject).trim()}`,
+      '',
+      String(body),
+    ].join('\r\n');
+    const encodedRaw = Buffer.from(rawMessage)
+      .toString('base64')
+      .replace(/\+/g, '-')
+      .replace(/\//g, '_')
+      .replace(/=+$/g, '');
+    const sendRes = await fetch('https://gmail.googleapis.com/gmail/v1/users/me/messages/send', {
+      method: 'POST',
+      headers: {
+        Authorization: `Bearer ${token}`,
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({ raw: encodedRaw }),
+    });
+    if (!sendRes.ok) throw new Error(`Gmail send failed ${sendRes.status}`);
+    const sendData = await sendRes.json();
+    const nowIso = new Date().toISOString();
+    if (leadId) {
+      const idx = store.lead_pipeline.findIndex((l) => l.lead_id === leadId);
+      if (idx >= 0) {
+        store.lead_pipeline[idx].last_contacted_at = nowIso;
+        store.lead_pipeline[idx].last_contact_method = 'gmail';
+        store.lead_pipeline[idx].last_email_at = nowIso;
+        store.lead_pipeline[idx].last_email_subject = String(subject);
+        store.lead_pipeline[idx].last_contact_at = nowIso;
+      }
+    }
+    store.google_gmail = {
+      ...(store.google_gmail || {}),
+      connected: true,
+      last_error: null,
+    };
+    await writeStore(store);
+    return res.json({ ok: true, id: sendData.id || null, threadId: sendData.threadId || null });
+  } catch (err) {
+    const store = await readStore();
+    store.google_gmail = { ...(store.google_gmail || {}), last_error: err.message || 'Gmail send failed' };
+    await writeStore(store);
+    return res.status(500).json({ error: err.message || 'Gmail send failed' });
   }
 });
 
