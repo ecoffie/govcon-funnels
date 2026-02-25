@@ -6,12 +6,24 @@ interface LeadFormProps {
   buttonText?: string;
   redirectUrl?: string;
   source?: string;
+  /** Hide phone field (e.g. for minimal lead magnets) */
+  hidePhone?: boolean;
+  /** Custom button class (e.g. for Encore branding) */
+  buttonClassName?: string;
+  /** Custom input class (e.g. form-input-encore for light theme) */
+  inputClassName?: string;
+  /** Custom helper text class */
+  helperTextClassName?: string;
 }
 
 export default function LeadForm({
   buttonText = "Get Free Access",
   redirectUrl = "/thank-you",
-  source = "funnel"
+  source = "funnel",
+  hidePhone = false,
+  buttonClassName = "btn-primary w-full green-glow disabled:opacity-50",
+  inputClassName = "form-input",
+  helperTextClassName = "text-center text-sm text-slate-400"
 }: LeadFormProps) {
   const [formData, setFormData] = useState({
     name: '',
@@ -33,6 +45,7 @@ export default function LeadForm({
         timestamp: new Date().toISOString()
       });
       localStorage.setItem('govcon_leads', JSON.stringify(leads));
+      localStorage.setItem('leadName', formData.name);
 
       // Post to API endpoint (sends to CRM: GoHighLevel and/or webhook)
       await fetch('/api/lead', {
@@ -59,7 +72,7 @@ export default function LeadForm({
         value={formData.name}
         onChange={(e) => setFormData({ ...formData, name: e.target.value })}
         required
-        className="form-input"
+        className={inputClassName}
       />
       <input
         type="email"
@@ -67,23 +80,25 @@ export default function LeadForm({
         value={formData.email}
         onChange={(e) => setFormData({ ...formData, email: e.target.value })}
         required
-        className="form-input"
+        className={inputClassName}
       />
-      <input
-        type="tel"
-        placeholder="Your Phone (optional)"
-        value={formData.phone}
-        onChange={(e) => setFormData({ ...formData, phone: e.target.value })}
-        className="form-input"
-      />
+      {!hidePhone && (
+        <input
+          type="tel"
+          placeholder="Your Phone (optional)"
+          value={formData.phone}
+          onChange={(e) => setFormData({ ...formData, phone: e.target.value })}
+          className={inputClassName}
+        />
+      )}
       <button
         type="submit"
         disabled={isSubmitting}
-        className="btn-primary w-full green-glow disabled:opacity-50"
+        className={buttonClassName}
       >
         {isSubmitting ? 'Processing...' : buttonText}
       </button>
-      <p className="text-center text-sm text-slate-400">
+      <p className={helperTextClassName}>
         Instant access. No credit card required.
       </p>
     </form>

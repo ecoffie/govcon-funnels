@@ -9,6 +9,20 @@ export default function SiteNav() {
     return null;
   }
   const isHome = pathname === '/';
+  const isEncore = pathname?.startsWith('/encore');
+
+  // Minimal Encore header for /encore pages (white bg, dark text)
+  if (isEncore) {
+    return (
+      <header className="py-4 px-6 border-b border-slate-200 bg-white">
+        <div className="max-w-6xl mx-auto flex items-center justify-center">
+          <a href="https://gov.encore-funding.com/" className="text-xl font-bold text-orange-500 hover:text-orange-600 transition">
+            Encore Funding
+          </a>
+        </div>
+      </header>
+    );
+  }
 
   return (
     <header className="py-4 px-6 border-b border-slate-800 sticky top-0 bg-slate-950/95 backdrop-blur z-50">

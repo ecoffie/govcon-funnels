@@ -144,6 +144,8 @@ export async function sendConfirmationEmail(params: EmailParams & { source: stri
     case 'bootcamp':
     case 'feb28-bootcamp':
       return sendBootcampEmail({ to, name });
+    case 'encore':
+      return sendEncoreBookletEmail({ to, name });
     default:
       // Generic welcome email for unknown sources
       return sendGenericWelcomeEmail({ to, name, source });
@@ -359,6 +361,40 @@ export async function sendGenericWelcomeEmail(params: EmailParams & { source: st
 ${proCta()}`;
 
   return sendEmail(params.to, `${firstName}, Welcome to GovCon Giants!`, emailWrapper(content));
+}
+
+/**
+ * Encore Funding TempNet book confirmation email
+ */
+export async function sendEncoreBookletEmail(params: EmailParams): Promise<EmailResult> {
+  const firstName = params.name.split(' ')[0] || 'there';
+  const thankYouUrl = 'https://funnels.govcongiants.org/encore/thank-you';
+
+  const content = `
+<h1 style="color: #ffffff; font-size: 28px; margin: 0 0 20px; text-align: center;">
+  Your TempNet Book is Ready!
+</h1>
+
+<p style="color: #94a3b8; font-size: 16px; line-height: 1.6; margin: 0 0 30px;">
+  Hey ${firstName},<br><br>
+  Thanks for signing up! Click below to download your free TempNet book.
+</p>
+
+<table width="100%" cellpadding="0" cellspacing="0">
+  <tr>
+    <td align="center" style="padding: 20px 0;">
+      <a href="${thankYouUrl}" style="display: inline-block; background-color: #ea580c; color: #ffffff; padding: 16px 32px; border-radius: 8px; text-decoration: none; font-weight: 700; font-size: 16px;">
+        Download Your Book
+      </a>
+    </td>
+  </tr>
+</table>
+
+<p style="color: #94a3b8; font-size: 14px; text-align: center;">
+  <a href="https://gov.encore-funding.com" style="color: #fb923c; text-decoration: none;">Encore Funding</a> — Government Contractor Financing
+</p>`;
+
+  return sendEmail(params.to, `${firstName}, Your TempNet Book is Ready!`, emailWrapper(content));
 }
 
 /**
