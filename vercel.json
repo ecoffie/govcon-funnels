@@ -1,6 +1,21 @@
 {
   "redirects": [
     {
+      "source": "/2-upsell.html",
+      "destination": "/proposal-bootcamp/2-upsell.html",
+      "permanent": false
+    },
+    {
+      "source": "/3-downsell.html",
+      "destination": "/proposal-bootcamp/3-downsell.html",
+      "permanent": false
+    },
+    {
+      "source": "/4-thank-you.html",
+      "destination": "/proposal-bootcamp/4-thank-you.html",
+      "permanent": false
+    },
+    {
       "source": "/pb",
       "destination": "https://funnels.govcongiants.org/proposal-bootcamp",
       "permanent": false

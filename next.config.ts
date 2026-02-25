@@ -4,13 +4,9 @@ const nextConfig: NextConfig = {
   async redirects() {
     return [
       {
-        source: '/feb-28-bootcamp',
-        destination: 'https://funnels.govcongiants.org/proposal-bootcamp',
-        permanent: true,
-      },
-      {
-        source: '/feb-28-bootcamp/:path*',
-        destination: 'https://funnels.govcongiants.org/proposal-bootcamp',
+        source: "/:path*",
+        has: [{ type: "host", value: "guides.govcongiants.org" }],
+        destination: "https://govcongiants.org/vault/:path*",
         permanent: true,
       },
     ];
