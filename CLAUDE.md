@@ -16,7 +16,7 @@ When user says: "the $82B page", "govcon funnels", "main marketing site", "the h
 
 ## Project Location
 ```
-/Users/ericcoffie/govcon-funnels
+/Users/ericcoffie/Projects/govcon-funnels
 ```
 
 ## Tech Stack
@@ -63,14 +63,38 @@ User submits form → /api/lead
 
 ## Pages
 
+### Next.js App Routes
 | Route | Purpose |
 |-------|---------|
 | `/` | Main homepage - "$82 BILLION UNSPENT" hero |
-| `/bootcamp` | January Bootcamp landing page |
+| `/bootcamp` | Bootcamp funnel (upsell, downsell, thank-you sub-routes) |
 | `/surge` | Surge Bootcamp landing page |
 | `/free-course` | Free GovCon Course signup |
-| `/opp` | Opportunity Hunter tool redirect |
+| `/opp` | Opportunity Hunter funnel |
 | `/resources` | Free resources library |
+| `/training` | Training hub |
+| `/premium` | Premium membership page |
+| `/dashboard` | Internal dashboard |
+| `/encore` | Encore Funding partner page |
+| `/feb-28-bootcamp` | Redirects → `/proposal-bootcamp` |
+
+### Static HTML Funnels (`public/`)
+| Path | Purpose |
+|------|---------|
+| `/proposal-bootcamp/` | Feb 28 Proposal Bootcamp funnel (4-step: landing → upsell → downsell → thank-you) |
+| `/proposal-bootcamp/index.html` | Landing page with lead capture form |
+| `/proposal-bootcamp/2-upsell.html` | Pro membership upsell ($99/mo or $799/yr) |
+| `/proposal-bootcamp/3-downsell.html` | Downsell alternative offer |
+| `/proposal-bootcamp/4-thank-you.html` | Thank you + resource downloads |
+
+### Shortlinks (vercel.json)
+| Short URL | Destination |
+|-----------|-------------|
+| `/pb` | `/proposal-bootcamp` |
+| `/funding` | Encore Funding partner page |
+| `/2-upsell.html` | Redirects → `/proposal-bootcamp/2-upsell.html` |
+| `/3-downsell.html` | Redirects → `/proposal-bootcamp/3-downsell.html` |
+| `/4-thank-you.html` | Redirects → `/proposal-bootcamp/4-thank-you.html` |
 
 ---
 
@@ -165,7 +189,7 @@ npm run build
 
 | Project | Location | Purpose |
 |---------|----------|---------|
-| **Market Assassin** | `/Users/ericcoffie/Market Assasin/market-assassin` | Dev/staging tools |
+| **Market Assassin** | `/Users/ericcoffie/Projects/market-assassin` | Dev/staging tools (tools.govcongiants.org) |
 | **GovCon Shop** | `/Users/ericcoffie/govcon-shop` | Live shop (shop.govcongiants.org) |
 | **GovCon Funnels** | This project | Marketing funnel pages |
 
@@ -178,7 +202,28 @@ npm run build
 
 ---
 
+## Critical Notes
+
+### Static Funnel URLs Must Be Absolute
+Static HTML funnels in `public/` MUST use absolute paths for inter-page links (e.g., `/proposal-bootcamp/2-upsell.html`, NOT `2-upsell.html`). Relative URLs break when the browser loads the page without a trailing slash — the relative URL resolves to the root instead of the subdirectory.
+
+### Dual Routing: Next.js + vercel.json
+- `vercel.json` redirects run FIRST (before Next.js)
+- `next.config.ts` has its own `redirects()` and `rewrites()` — check both when debugging routing
+- Static files in `public/` are served by Next.js but can be shadowed by app routes at the same path
+
+### No Node.js on Dev Machine
+Same as market-assassin — `npm`, `node`, `vercel` CLI are not available locally. Vercel handles builds on push.
+
+---
+
 ## Recent Work History
+
+### February 25, 2026
+- **Fixed broken proposal-bootcamp funnel flow:**
+  - All 4 funnel pages had relative URLs (`2-upsell.html`) that broke without trailing slash
+  - Changed to absolute paths (`/proposal-bootcamp/2-upsell.html`) in index.html, 1-landing.html, 2-upsell.html, 3-downsell.html
+  - Added catch-all redirects in vercel.json for `/2-upsell.html`, `/3-downsell.html`, `/4-thank-you.html`
 
 ### February 16, 2026
 - **GoHighLevel Integration:**
@@ -215,4 +260,4 @@ npm run build
 
 ---
 
-*Last Updated: February 16, 2026*
+*Last Updated: February 25, 2026*
