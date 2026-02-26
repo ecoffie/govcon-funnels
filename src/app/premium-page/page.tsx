@@ -3,7 +3,7 @@ import Link from 'next/link';
 
 export const metadata: Metadata = {
   title: 'Premium Resources | GovCon Giants',
-  description: 'Find the right premium resource for your level - from beginner to advanced.',
+  description: 'Find the right premium resource for your level - from training to done-for-you support.',
 };
 
 export default function PremiumPage() {
@@ -25,7 +25,7 @@ export default function PremiumPage() {
         </div>
       </section>
 
-      {/* Beginner Section */}
+      {/* Training Section */}
       <section className="py-16 px-6 bg-slate-900/50">
         <div className="max-w-6xl mx-auto">
           {/* Level Badge */}
@@ -34,8 +34,8 @@ export default function PremiumPage() {
               <span className="text-2xl">🌱</span>
             </div>
             <div>
-              <h2 className="text-3xl font-bold text-white">Beginner</h2>
-              <p className="text-slate-400">Just starting your GovCon journey</p>
+              <h2 className="text-3xl font-bold text-white">Training</h2>
+              <p className="text-slate-400">Build your foundation and core execution skills</p>
             </div>
           </div>
 
@@ -48,8 +48,8 @@ export default function PremiumPage() {
             </p>
           </div>
 
-          {/* Beginner Options */}
-          <div className="grid md:grid-cols-2 gap-6">
+          {/* Training Options */}
+          <div className="grid md:grid-cols-3 gap-6">
             {/* Pro Member Group */}
             <Link
               href="/premium/pro-member-group"
@@ -141,11 +141,50 @@ export default function PremiumPage() {
                 Learn More <span>→</span>
               </span>
             </Link>
+
+            {/* Jan 31 Bootcamp Replay */}
+            <Link
+              href="/jan-31-bootcamp-paid"
+              className="bg-slate-900 border border-slate-800 rounded-xl p-8 block hover:border-green-600/50 transition group"
+            >
+              <div className="flex items-start gap-4 mb-4">
+                <div className="w-14 h-14 rounded-lg bg-slate-800 flex items-center justify-center flex-shrink-0">
+                  <span className="text-3xl">📹</span>
+                </div>
+                <div>
+                  <h3 className="text-2xl font-bold text-white mb-2">January 31st Bootcamp Replay</h3>
+                  <p className="text-green-500 font-semibold mb-3">$99 one-time</p>
+                </div>
+              </div>
+
+              <p className="text-slate-400 mb-6">
+                Full replay of the Jan 31 bootcamp plus handouts and resources, with lifetime access.
+              </p>
+
+              <div className="space-y-3 mb-6">
+                <div className="flex items-start gap-3">
+                  <span className="text-green-500 flex-shrink-0 mt-1">✓</span>
+                  <span className="text-slate-300">Complete bootcamp recording</span>
+                </div>
+                <div className="flex items-start gap-3">
+                  <span className="text-green-500 flex-shrink-0 mt-1">✓</span>
+                  <span className="text-slate-300">All handouts and worksheets</span>
+                </div>
+                <div className="flex items-start gap-3">
+                  <span className="text-green-500 flex-shrink-0 mt-1">✓</span>
+                  <span className="text-slate-300">Lifetime access to content</span>
+                </div>
+              </div>
+
+              <span className="text-green-500 font-semibold group-hover:gap-2 inline-flex items-center gap-1 transition-all">
+                Get Access <span>→</span>
+              </span>
+            </Link>
           </div>
         </div>
       </section>
 
-      {/* Intermediate Section */}
+      {/* Consulting Section */}
       <section className="py-16 px-6">
         <div className="max-w-6xl mx-auto">
           {/* Level Badge */}
@@ -154,8 +193,8 @@ export default function PremiumPage() {
               <span className="text-2xl">🎯</span>
             </div>
             <div>
-              <h2 className="text-3xl font-bold text-white">Intermediate</h2>
-              <p className="text-slate-400">Ready to accelerate your progress</p>
+              <h2 className="text-3xl font-bold text-white">Consulting (101)</h2>
+              <p className="text-slate-400">Hands-on support and guided implementation</p>
             </div>
           </div>
 
@@ -168,49 +207,44 @@ export default function PremiumPage() {
             </p>
           </div>
 
-          {/* Intermediate Options */}
+          {/* Consulting Options */}
           <div className="grid md:grid-cols-2 gap-6">
-            {/* Bootcamp Replay */}
+            {/* Consulting Pack */}
             <Link
-              href="/jan-31-bootcamp-paid"
+              href="/premium/consulting-pack"
               className="bg-slate-900 border border-slate-800 rounded-xl p-8 block hover:border-blue-600/50 transition group"
             >
               <div className="flex items-start gap-4 mb-4">
                 <div className="w-14 h-14 rounded-lg bg-blue-900/50 border border-blue-800 flex items-center justify-center flex-shrink-0">
-                  <span className="text-3xl">📹</span>
+                  <span className="text-3xl">🧠</span>
                 </div>
                 <div>
-                  <h3 className="text-2xl font-bold text-white mb-2">Jan 31 Bootcamp Replay</h3>
-                  <p className="text-blue-400 font-semibold mb-3">$99 one-time</p>
+                  <h3 className="text-2xl font-bold text-white mb-2">Consulting Pack</h3>
                 </div>
               </div>
 
               <p className="text-slate-400 mb-6">
-                Full replay of the intensive Jan 31 bootcamp plus all handouts and resources. Lifetime access to watch
-                at your own pace and implement the strategies.
+                One-on-one consulting package with 20 dedicated hours to map strategy, review opportunities, and
+                execute your next federal growth moves.
               </p>
 
               <div className="space-y-3 mb-6">
                 <div className="flex items-start gap-3">
                   <span className="text-blue-400 flex-shrink-0 mt-1">✓</span>
-                  <span className="text-slate-300">Complete bootcamp recording</span>
+                  <span className="text-slate-300">20 hours of direct consulting support</span>
                 </div>
                 <div className="flex items-start gap-3">
                   <span className="text-blue-400 flex-shrink-0 mt-1">✓</span>
-                  <span className="text-slate-300">All handouts and worksheets</span>
+                  <span className="text-slate-300">Personalized strategy and execution plan</span>
                 </div>
                 <div className="flex items-start gap-3">
                   <span className="text-blue-400 flex-shrink-0 mt-1">✓</span>
-                  <span className="text-slate-300">Lifetime access to content</span>
-                </div>
-                <div className="flex items-start gap-3">
-                  <span className="text-blue-400 flex-shrink-0 mt-1">✓</span>
-                  <span className="text-slate-300">Watch and rewatch anytime</span>
+                  <span className="text-slate-300">Opportunity and proposal review sessions</span>
                 </div>
               </div>
 
               <span className="text-blue-400 font-semibold group-hover:gap-2 inline-flex items-center gap-1 transition-all">
-                Get Access <span>→</span>
+                Learn More <span>→</span>
               </span>
             </Link>
 
@@ -225,7 +259,6 @@ export default function PremiumPage() {
                 </div>
                 <div>
                   <h3 className="text-2xl font-bold text-white mb-2">Accelerator Program</h3>
-                  <p className="text-blue-400 font-semibold mb-3">$5,997 one-time</p>
                 </div>
               </div>
 
@@ -261,7 +294,7 @@ export default function PremiumPage() {
         </div>
       </section>
 
-      {/* Advanced Section */}
+      {/* Fractional BD Section */}
       <section className="py-16 px-6 bg-slate-900/50">
         <div className="max-w-6xl mx-auto">
           {/* Level Badge */}
@@ -270,8 +303,8 @@ export default function PremiumPage() {
               <span className="text-2xl">👑</span>
             </div>
             <div>
-              <h2 className="text-3xl font-bold text-white">Advanced</h2>
-              <p className="text-slate-400">Established business seeking premium support</p>
+              <h2 className="text-3xl font-bold text-white">Fractional BD (Done for You)</h2>
+              <p className="text-slate-400">Established business seeking done-for-you support</p>
             </div>
           </div>
 

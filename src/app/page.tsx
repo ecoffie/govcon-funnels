@@ -120,10 +120,27 @@ export default function Home() {
 
             <div className="max-w-4xl mx-auto space-y-0">
               {/* Step 1 */}
-              <Link href="/free-course" className="flex flex-col sm:flex-row gap-4 sm:gap-6 items-start p-6 rounded-xl bg-slate-900 border border-slate-800 hover:border-green-600/50 transition group">
+              <a
+                href="https://funnels.govcongiants.org/proposal-bootcamp"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="flex flex-col sm:flex-row gap-4 sm:gap-6 items-start p-6 rounded-xl bg-slate-900 border border-slate-800 hover:border-green-600/50 transition group block"
+              >
                 <div className="flex-shrink-0 w-14 h-14 rounded-full bg-green-600 text-white font-black text-xl flex items-center justify-center">1</div>
                 <div className="flex-1">
-                  <h3 className="text-xl font-bold text-white mb-1 group-hover:text-green-400 transition">Step 1: Take the Beginner&apos;s Course</h3>
+                  <h3 className="text-xl font-bold text-white mb-1 group-hover:text-green-400 transition">Step 1: Download the free action plan</h3>
+                  <p className="text-slate-500">Get your free action plan and the exact first moves to start winning federal contracts.</p>
+                  <span className="inline-block mt-2 text-green-500 font-semibold">Download Now →</span>
+                </div>
+              </a>
+              <div className="flex justify-center py-1">
+                <span className="text-slate-600">↓</span>
+              </div>
+              {/* Step 2 */}
+              <Link href="/free-course" className="flex flex-col sm:flex-row gap-4 sm:gap-6 items-start p-6 rounded-xl bg-slate-900 border border-slate-800 hover:border-green-600/50 transition group">
+                <div className="flex-shrink-0 w-14 h-14 rounded-full bg-green-600 text-white font-black text-xl flex items-center justify-center">2</div>
+                <div className="flex-1">
+                  <h3 className="text-xl font-bold text-white mb-1 group-hover:text-green-400 transition">Step 2: Take our free beginner&apos;s course</h3>
                   <p className="text-slate-500">Build your foundation from SAM.gov registration to landing your first contract.</p>
                   <span className="inline-block mt-2 text-green-500 font-semibold">Start Learning →</span>
                 </div>
@@ -131,24 +148,29 @@ export default function Home() {
               <div className="flex justify-center py-1">
                 <span className="text-slate-600">↓</span>
               </div>
-              {/* Step 2 */}
+              {/* Step 3 */}
               <Link href="/opp" className="flex flex-col sm:flex-row gap-4 sm:gap-6 items-start p-6 rounded-xl bg-slate-900 border border-slate-800 hover:border-green-600/50 transition group">
-                <div className="flex-shrink-0 w-14 h-14 rounded-full bg-green-600 text-white font-black text-xl flex items-center justify-center">2</div>
+                <div className="flex-shrink-0 w-14 h-14 rounded-full bg-green-600 text-white font-black text-xl flex items-center justify-center">3</div>
                 <div className="flex-1">
-                  <h3 className="text-xl font-bold text-white mb-1 group-hover:text-green-400 transition">Step 2: Use the Opportunity Hunter</h3>
-                  <p className="text-slate-500">Find agencies and contracts by NAICS code and keywords. Free searches.</p>
+                  <h3 className="text-xl font-bold text-white mb-1 group-hover:text-green-400 transition">Step 3: Research using our free Opportunity Hunter tool</h3>
+                  <p className="text-slate-500">Find agencies and contracts by NAICS code and keywords with free searches.</p>
                   <span className="inline-block mt-2 text-green-500 font-semibold">Try It Free →</span>
                 </div>
               </Link>
               <div className="flex justify-center py-1">
                 <span className="text-slate-600">↓</span>
               </div>
-              {/* Step 3 */}
-              <a href="https://govcongiants.com" className="flex flex-col sm:flex-row gap-4 sm:gap-6 items-start p-6 rounded-xl bg-slate-900 border border-slate-800 hover:border-green-600/50 transition group block">
-                <div className="flex-shrink-0 w-14 h-14 rounded-full bg-green-600 text-white font-black text-xl flex items-center justify-center">3</div>
+              {/* Step 4 */}
+              <a
+                href="https://calendly.com/govconedumeet/gcg-beginnerscall"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="flex flex-col sm:flex-row gap-4 sm:gap-6 items-start p-6 rounded-xl bg-slate-900 border border-slate-800 hover:border-green-600/50 transition group block"
+              >
+                <div className="flex-shrink-0 w-14 h-14 rounded-full bg-green-600 text-white font-black text-xl flex items-center justify-center">4</div>
                 <div className="flex-1">
-                  <h3 className="text-xl font-bold text-white mb-1 group-hover:text-green-400 transition">Step 3: Schedule a call</h3>
-                  <p className="text-slate-500">Talk with our team and see where you&apos;re at from there.</p>
+                  <h3 className="text-xl font-bold text-white mb-1 group-hover:text-green-400 transition">Step 4: Schedule a call</h3>
+                  <p className="text-slate-500">Talk with our team and get clear next steps for your business.</p>
                   <span className="inline-block mt-2 text-green-500 font-semibold">Book Now →</span>
                 </div>
               </a>

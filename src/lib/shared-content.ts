@@ -161,8 +161,15 @@ export const sharedHomepageContent = {
   ] as SharedHomepageResourceCard[],
   premiumLevels: [
     {
-      title: 'Beginner',
+      title: 'Training',
       cards: [
+        {
+          icon: '📹',
+          title: 'January 31st Bootcamp Replay',
+          href: '/jan-31-bootcamp-paid',
+          description: 'Full replay plus handouts with lifetime access.',
+          cta: 'Get Access ->',
+        },
         {
           icon: '👑',
           title: 'Pro Member Group',
@@ -182,27 +189,27 @@ export const sharedHomepageContent = {
       ],
     },
     {
-      title: 'Intermediate',
+      title: 'Consulting (101)',
       cards: [
         {
-          icon: '📹',
-          title: 'Jan 31 Bootcamp Replay',
-          href: '/jan-31-bootcamp-paid',
-          description: 'One-time $99. Full replay plus handouts, lifetime access.',
-          cta: 'Get Access ->',
+          icon: '🧠',
+          title: 'Consulting Pack',
+          href: '/premium/consulting-pack',
+          description: '20 hours of one-on-one consulting to build and execute your federal growth plan.',
+          cta: 'Learn More ->',
         },
         {
           icon: '⚡',
           title: 'Accelerator Program',
           href: '/premium/accelerator',
           description:
-            '$5,997 one-time. 90 days, 12 weekly 1:1 coaching sessions, access to Lifetime Program.',
+            '90 days, 12 weekly 1:1 coaching sessions, access to Lifetime Program.',
           cta: 'Learn More ->',
         },
       ],
     },
     {
-      title: 'Advanced',
+      title: 'Fractional BD (Done for You)',
       cards: [
         {
           icon: '🤝',

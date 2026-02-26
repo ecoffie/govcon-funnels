@@ -45,13 +45,27 @@ export const PREMIUM_PRODUCTS: PremiumProduct[] = [
     title: 'Accelerator Program',
     shortTitle: 'Accelerator Program',
     description: '90 days of intensive support: 12 one-on-one coaching sessions (one per week), access to the Lifetime Program, personalized guidance through the federal contracting process, and step-by-step implementation support. Goal: contract-ready by program completion.',
-    price: '$5,997 one-time',
+    price: '',
     ctaUrl: '/premium/accelerator/checkout',
     ctaText: 'Apply Now →',
     highlights: [
       { icon: '⚡', title: '12 Weekly 1:1 Sessions', desc: '90 days of dedicated coaching.' },
       { icon: '📋', title: 'Lifetime Program Access', desc: 'Full access included.' },
       { icon: '🎯', title: 'Contract-Ready Goal', desc: 'Step-by-step implementation support.' },
+    ],
+  },
+  {
+    slug: 'consulting-pack',
+    title: 'Consulting Pack',
+    shortTitle: 'Consulting Pack',
+    description: 'Get 20 hours of one-on-one consulting focused on your federal growth strategy, target opportunities, and execution plan.',
+    price: '',
+    ctaUrl: 'mailto:hello@govconedu.com?subject=Consulting%20Pack%20Inquiry',
+    ctaText: 'Book Consulting →',
+    highlights: [
+      { icon: '🧠', title: '20 Hours 1:1', desc: 'Dedicated consulting tailored to your business goals.' },
+      { icon: '🗺️', title: 'Custom Strategy', desc: 'Clear federal growth roadmap and priority actions.' },
+      { icon: '📝', title: 'Opportunity + Proposal Reviews', desc: 'Hands-on review and guidance to improve execution.' },
     ],
   },
   {

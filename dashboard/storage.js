@@ -94,6 +94,10 @@ async function fsWriteStore(store) {
 
 const useRedis = () => !!(process.env.KV_REST_API_URL && process.env.KV_REST_API_TOKEN);
 
+export function getStorageMode() {
+  return useRedis() ? 'redis' : 'filesystem';
+}
+
 export async function readStore() {
   return useRedis() ? redisReadStore() : fsReadStore();
 }

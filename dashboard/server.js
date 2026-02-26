@@ -21,6 +21,7 @@ import {
   upsertTranscripts,
   savePipeline,
   updateSyncState,
+  getStorageMode,
 } from './storage.js';
 import { scoreLeadsFromTranscripts, summarizeLeads } from './leadRules.js';
 
@@ -47,6 +48,44 @@ const GOOGLE_CALENDAR_SCOPE = 'https://www.googleapis.com/auth/calendar.readonly
 const GOOGLE_GMAIL_READ_SCOPE = 'https://www.googleapis.com/auth/gmail.readonly';
 const GOOGLE_GMAIL_SEND_SCOPE = 'https://www.googleapis.com/auth/gmail.send';
 const GOOGLE_OAUTH_SCOPES = [GOOGLE_CALENDAR_SCOPE, GOOGLE_GMAIL_READ_SCOPE, GOOGLE_GMAIL_SEND_SCOPE].join(' ');
+
+function hasEnv(name) {
+  return Boolean(process.env[name] && String(process.env[name]).trim());
+}
+
+function getReadiness() {
+  const storage = getStorageMode();
+  const requiredGoogle = ['GOOGLE_CLIENT_ID', 'GOOGLE_CLIENT_SECRET', 'GOOGLE_REDIRECT_URI', 'APP_URL'];
+  const requiredFireflies = ['FIREFLIES_API_KEY'];
+  const requiredKv = ['KV_REST_API_URL', 'KV_REST_API_TOKEN'];
+  const googleMissing = requiredGoogle.filter((k) => !hasEnv(k));
+  const firefliesMissing = requiredFireflies.filter((k) => !hasEnv(k));
+  const kvMissing = requiredKv.filter((k) => !hasEnv(k));
+  return {
+    ok: googleMissing.length === 0 && firefliesMissing.length === 0 && (storage === 'redis' ? kvMissing.length === 0 : false),
+    storage,
+    google: {
+      ready: googleMissing.length === 0,
+      missing: googleMissing,
+    },
+    fireflies: {
+      ready: firefliesMissing.length === 0,
+      missing: firefliesMissing,
+    },
+    kv: {
+      ready: storage === 'redis' && kvMissing.length === 0,
+      missing: kvMissing,
+      hint:
+        storage === 'filesystem'
+          ? 'Running in filesystem mode. On Vercel you should use Upstash KV for persistent OAuth/sync state.'
+          : null,
+    },
+  };
+}
+
+function errorResponse(res, status, error, hint) {
+  return res.status(status).json({ ok: false, error, hint });
+}
 
 function verifyFirefliesSignature(req) {
   if (!FIREFLIES_WEBHOOK_SECRET) return { ok: true, mode: 'no-secret' };
@@ -450,6 +489,14 @@ app.post('/api/fireflies/webhook', async (req, res) => {
 
 app.post('/api/fireflies/sync', async (req, res) => {
   try {
+    if (!hasEnv('FIREFLIES_API_KEY')) {
+      return errorResponse(
+        res,
+        400,
+        'Fireflies API key is missing',
+        'Set FIREFLIES_API_KEY in Vercel Environment Variables and redeploy.'
+      );
+    }
     const { fromDate, toDate, limit = 50, skip = 0 } = req.body || {};
     const store = await performSync({ fromDate, toDate, limit, skip });
     return res.json({
@@ -463,8 +510,13 @@ app.post('/api/fireflies/sync', async (req, res) => {
   } catch (err) {
     const store = await updateSyncState({ last_error: err.message || 'Sync failed' });
     await writeStore(store);
-    return res.status(500).json({ error: err.message || 'Sync failed' });
+    return errorResponse(res, 500, err.message || 'Sync failed', 'Confirm Fireflies credentials and API connectivity.');
   }
+});
+
+app.get('/api/readiness', (_req, res) => {
+  const readiness = getReadiness();
+  return res.json(readiness);
 });
 
 app.get('/api/leads', async (req, res) => {
@@ -515,7 +567,12 @@ app.patch('/api/leads/:leadId', async (req, res) => {
 
 app.get('/api/google/auth-url', async (_req, res) => {
   if (!GOOGLE_CLIENT_ID || !GOOGLE_CLIENT_SECRET) {
-    return res.status(500).json({ error: 'Google OAuth env vars missing' });
+    return errorResponse(
+      res,
+      500,
+      'Google OAuth env vars missing',
+      'Set GOOGLE_CLIENT_ID, GOOGLE_CLIENT_SECRET, GOOGLE_REDIRECT_URI, and APP_URL in Vercel and redeploy.'
+    );
   }
   const state = Buffer.from(String(Date.now())).toString('base64url');
   const authUrl = new URL('https://accounts.google.com/o/oauth2/v2/auth');
@@ -560,7 +617,9 @@ app.get('/api/google/callback', async (req, res) => {
     const appUrl = process.env.APP_URL || 'http://localhost:5173';
     res.redirect(`${appUrl}/?google_connected=1`);
   } catch (err) {
-    res.status(500).send(err.message || 'Google callback failed');
+    const appUrl = process.env.APP_URL || 'http://localhost:5173';
+    const message = encodeURIComponent(err.message || 'Google callback failed');
+    res.redirect(`${appUrl}/?google_error=${message}`);
   }
 });
 
@@ -586,7 +645,7 @@ app.post('/api/google/sync', async (_req, res) => {
   try {
     const store = await readStore();
     if (!store.google_calendar?.connected || !store.google_calendar?.token) {
-      return res.status(400).json({ error: 'Google Calendar not connected' });
+      return errorResponse(res, 400, 'Google Calendar not connected', 'Click Connect Google first, approve scopes, then try Sync Workspace.');
     }
     let updated = await refreshGoogleCalendarEvents(store);
     updated = await refreshGmailMessages(updated);
@@ -602,7 +661,12 @@ app.post('/api/google/sync', async (_req, res) => {
     const store = await readStore();
     store.google_calendar.last_error = err.message || 'Google Calendar sync failed';
     await writeStore(store);
-    return res.status(500).json({ error: err.message || 'Google Calendar sync failed' });
+    return errorResponse(
+      res,
+      500,
+      err.message || 'Google Calendar sync failed',
+      'Verify GOOGLE_REDIRECT_URI matches Google OAuth redirect URI exactly and that tokens are persisted in KV.'
+    );
   }
 });
 
@@ -624,7 +688,7 @@ app.post('/api/gmail/sync', async (_req, res) => {
   try {
     const store = await readStore();
     if (!store.google_calendar?.connected) {
-      return res.status(400).json({ error: 'Google account not connected' });
+      return errorResponse(res, 400, 'Google account not connected', 'Click Connect Google first and grant Gmail scope.');
     }
     const updated = await refreshGmailMessages(store);
     await writeStore(updated);
@@ -637,7 +701,7 @@ app.post('/api/gmail/sync', async (_req, res) => {
     const store = await readStore();
     store.google_gmail = { ...(store.google_gmail || {}), last_error: err.message || 'Gmail sync failed' };
     await writeStore(store);
-    return res.status(500).json({ error: err.message || 'Gmail sync failed' });
+    return errorResponse(res, 500, err.message || 'Gmail sync failed', 'Ensure Gmail API is enabled and OAuth consent includes Gmail scope.');
   }
 });
 
@@ -654,11 +718,11 @@ app.post('/api/gmail/send', async (req, res) => {
   try {
     const { to, subject, body, leadId } = req.body || {};
     if (!to || !subject || !body) {
-      return res.status(400).json({ error: 'to, subject, and body are required' });
+      return errorResponse(res, 400, 'to, subject, and body are required', 'Provide all fields before sending.');
     }
     const store = await readStore();
     if (!store.google_calendar?.connected) {
-      return res.status(400).json({ error: 'Google account not connected' });
+      return errorResponse(res, 400, 'Google account not connected', 'Connect Google before sending email.');
     }
     const token = await getGoogleAccessToken(store);
     const rawMessage = [
@@ -706,7 +770,7 @@ app.post('/api/gmail/send', async (req, res) => {
     const store = await readStore();
     store.google_gmail = { ...(store.google_gmail || {}), last_error: err.message || 'Gmail send failed' };
     await writeStore(store);
-    return res.status(500).json({ error: err.message || 'Gmail send failed' });
+    return errorResponse(res, 500, err.message || 'Gmail send failed', 'Ensure Gmail send scope is granted and Gmail API is enabled.');
   }
 });
 

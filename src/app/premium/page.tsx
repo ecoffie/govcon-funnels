@@ -3,13 +3,13 @@ import Link from 'next/link';
 
 export const metadata: Metadata = {
   title: 'Premium Resources | GovCon Giants',
-  description: 'Take the next step with premium training, community, and support. Find the right level for where you are—beginner, growing, or scaling.',
+  description: 'Take the next step with premium training, consulting, and done-for-you support.',
 };
 
 const levels = [
   {
-    id: 'beginner',
-    label: 'Beginner',
+    id: 'training',
+    label: 'Training',
     definition: 'You’re new to government contracting. You’ve started (or want to start) your SAM.gov registration and are learning the basics. You want structured training and a clear path to your first opportunity.',
     resources: [
       { title: 'Jan 31 Bootcamp Replay', desc: 'Full replay plus handouts, lifetime access. One-time purchase.', href: '/jan-31-bootcamp-paid', icon: '📹' },
@@ -17,17 +17,18 @@ const levels = [
     ],
   },
   {
-    id: 'mid',
-    label: 'Growing (Mid-Level)',
+    id: 'consulting-101',
+    label: 'Consulting (101)',
     definition: 'You’re past the basics. You’ve completed training, maybe attended bootcamps, and you’re ready to go deeper. You want lifetime access to materials and a community, or a structured program to get contract-ready.',
     resources: [
       { title: 'Pro Member Plan', desc: '$997 one-time. Lifetime Training License, 4,000+ community, Success Guide, bootcamps.', href: '/premium/pro-member-plan', icon: '🎓' },
+      { title: 'Consulting Pack', desc: '20 hours of one-on-one consulting support for strategy, opportunities, and execution.', href: '/premium/consulting-pack', icon: '🧠' },
       { title: 'Accelerator Program', desc: '90 days, 12 weekly 1:1 coaching sessions. Goal: contract-ready by completion.', href: '/premium/accelerator', icon: '⚡' },
     ],
   },
   {
-    id: 'advanced',
-    label: 'Scaling (Pro / Advanced)',
+    id: 'fractional-bd',
+    label: 'Fractional BD (Done for You)',
     definition: 'You’re serious about winning and scaling. You want intensive coaching or hands-on business development support—someone in your corner to help you execute and win contracts.',
     resources: [
       { title: 'Accelerator Program', desc: '90 days of intensive 1:1 coaching. Contract-ready by program end.', href: '/premium/accelerator', icon: '⚡' },

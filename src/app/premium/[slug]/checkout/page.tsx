@@ -36,7 +36,7 @@ export default async function PremiumCheckoutPage({ params }: Props) {
           </Link>
           <div className="card green-glow p-8 text-center">
             <h1 className="text-2xl font-bold text-white mb-2">Checkout: {product.title}</h1>
-            <p className="text-slate-400 mb-4">{product.price}</p>
+            {product.price ? <p className="text-slate-400 mb-4">{product.price}</p> : null}
             <p className="text-slate-300 mb-8">
               Secure checkout for this package is being set up. To complete your order now, contact us and we’ll get you set up right away.
             </p>

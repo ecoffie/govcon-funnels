@@ -452,6 +452,8 @@ export default function App() {
   const [pipelineSyncing, setPipelineSyncing] = useState(false);
   const [googleStatus, setGoogleStatus] = useState(null);
   const [googleLoading, setGoogleLoading] = useState(false);
+  const [integrationHealth, setIntegrationHealth] = useState(null);
+  const [integrationError, setIntegrationError] = useState('');
   const [pipelineFilters, setPipelineFilters] = useState({
     leadType: '',
     stage: '',
@@ -780,14 +782,23 @@ export default function App() {
 
   const syncFireflies = useCallback(async () => {
     setPipelineSyncing(true);
+    setIntegrationError('');
     try {
       const today = new Date().toISOString().slice(0, 10);
-      await fetch(`${API_BASE}/api/fireflies/sync`, {
+      const res = await fetch(`${API_BASE}/api/fireflies/sync`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ toDate: today, limit: 50, skip: 0 }),
       });
+      if (!res.ok) {
+        const payload = await res.json().catch(() => ({}));
+        throw new Error(payload.error || payload.hint || 'Fireflies sync failed');
+      }
       await loadPipelineData();
+      await loadIntegrationHealth();
+      setIntegrationError('');
+    } catch (e) {
+      setIntegrationError(e.message || 'Fireflies sync failed');
     } finally {
       setPipelineSyncing(false);
     }
@@ -796,6 +807,7 @@ export default function App() {
   const loadGoogleStatus = useCallback(async () => {
     try {
       const res = await fetch(`${API_BASE}/api/google/status`);
+      if (!res.ok) throw new Error('Failed to load Google status');
       const data = await res.json();
       setGoogleStatus(data);
     } catch (e) {
@@ -803,12 +815,29 @@ export default function App() {
     }
   }, []);
 
+  const loadIntegrationHealth = useCallback(async () => {
+    try {
+      const res = await fetch(`${API_BASE}/api/readiness`);
+      if (!res.ok) throw new Error('Failed to load readiness');
+      const data = await res.json();
+      setIntegrationHealth(data);
+    } catch (e) {
+      setIntegrationHealth(null);
+      setIntegrationError(e.message || 'Failed to load readiness');
+    }
+  }, []);
+
   const connectGoogleWorkspace = useCallback(async () => {
     setGoogleLoading(true);
+    setIntegrationError('');
     try {
       const res = await fetch(`${API_BASE}/api/google/auth-url`);
-      const data = await res.json();
+      const data = await res.json().catch(() => ({}));
+      if (!res.ok) throw new Error(data.error || data.hint || 'Failed to start Google connect');
       if (data?.url) window.open(data.url, '_blank', 'noopener,noreferrer');
+      else throw new Error('Google auth URL missing');
+    } catch (e) {
+      setIntegrationError(e.message || 'Failed to start Google connect');
     } finally {
       setGoogleLoading(false);
     }
@@ -816,25 +845,37 @@ export default function App() {
 
   const syncGoogleWorkspace = useCallback(async () => {
     setGoogleLoading(true);
+    setIntegrationError('');
     try {
-      await fetch(`${API_BASE}/api/google/sync`, { method: 'POST' });
+      const res = await fetch(`${API_BASE}/api/google/sync`, { method: 'POST' });
+      const data = await res.json().catch(() => ({}));
+      if (!res.ok || data?.ok === false) throw new Error(data.error || data.hint || 'Google workspace sync failed');
       await loadGoogleStatus();
       await loadPipelineData();
+      await loadIntegrationHealth();
+    } catch (e) {
+      setIntegrationError(e.message || 'Google workspace sync failed');
     } finally {
       setGoogleLoading(false);
     }
-  }, [loadGoogleStatus, loadPipelineData]);
+  }, [loadGoogleStatus, loadPipelineData, loadIntegrationHealth]);
 
   const syncGmail = useCallback(async () => {
     setGoogleLoading(true);
+    setIntegrationError('');
     try {
-      await fetch(`${API_BASE}/api/gmail/sync`, { method: 'POST' });
+      const res = await fetch(`${API_BASE}/api/gmail/sync`, { method: 'POST' });
+      const data = await res.json();
+      if (!res.ok || data?.ok === false) throw new Error(data.error || data.hint || 'Gmail sync failed');
       await loadGoogleStatus();
       await loadPipelineData();
+      await loadIntegrationHealth();
+    } catch (e) {
+      setIntegrationError(e.message || 'Gmail sync failed');
     } finally {
       setGoogleLoading(false);
     }
-  }, [loadGoogleStatus, loadPipelineData]);
+  }, [loadGoogleStatus, loadPipelineData, loadIntegrationHealth]);
 
   const sendLeadFollowUpEmail = useCallback(async () => {
     if (!selectedLead) return;
@@ -849,21 +890,24 @@ export default function App() {
       ) || '';
     if (!body) return;
     setGoogleLoading(true);
+    setIntegrationError('');
     try {
       const res = await fetch(`${API_BASE}/api/gmail/send`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ to, subject, body, leadId: selectedLead.lead_id }),
       });
-      if (!res.ok) throw new Error(await res.text());
+      const data = await res.json().catch(() => ({}));
+      if (!res.ok || data?.ok === false) throw new Error(data.error || data.hint || 'Failed to send follow-up email');
       await loadGoogleStatus();
       await loadPipelineData();
+      await loadIntegrationHealth();
     } catch (e) {
-      window.alert(`Failed to send email: ${e.message}`);
+      setIntegrationError(e.message || 'Failed to send follow-up email');
     } finally {
       setGoogleLoading(false);
     }
-  }, [selectedLead, loadGoogleStatus, loadPipelineData]);
+  }, [selectedLead, loadGoogleStatus, loadPipelineData, loadIntegrationHealth]);
 
   const updateLeadTracking = useCallback(
     async (leadId, patch) => {
@@ -903,8 +947,9 @@ export default function App() {
   useEffect(() => {
     if (tab === 'pipeline') {
       loadGoogleStatus();
+      loadIntegrationHealth();
     }
-  }, [tab, loadGoogleStatus]);
+  }, [tab, loadGoogleStatus, loadIntegrationHealth]);
 
   useEffect(() => {
     if (tab !== 'pipeline') return undefined;
@@ -1308,6 +1353,26 @@ export default function App() {
                 <div className="text-amber-800 dark:text-amber-300 mt-1">Sync status error: {pipelineStatus.error}</div>
               </section>
             )}
+            {integrationError && (
+              <section className="rounded-lg border border-red-300 dark:border-red-700 bg-red-50 dark:bg-red-900/20 p-4 text-sm">
+                <div className="font-medium text-red-900 dark:text-red-200">Integration Error</div>
+                <div className="text-red-800 dark:text-red-300 mt-1">{integrationError}</div>
+              </section>
+            )}
+            <section className="bg-white dark:bg-gray-800 rounded-xl shadow p-6">
+              <h3 className="font-semibold mb-2">Integration Health</h3>
+              {integrationHealth ? (
+                <div className="text-sm text-gray-600 dark:text-gray-300 space-y-1">
+                  <div>Storage mode: <span className="font-medium">{integrationHealth.storage}</span></div>
+                  <div>Google: {integrationHealth.google?.ready ? 'ready' : `missing ${integrationHealth.google?.missing?.join(', ') || ''}`}</div>
+                  <div>Fireflies: {integrationHealth.fireflies?.ready ? 'ready' : `missing ${integrationHealth.fireflies?.missing?.join(', ') || ''}`}</div>
+                  <div>KV: {integrationHealth.kv?.ready ? 'ready' : `missing ${integrationHealth.kv?.missing?.join(', ') || ''}`}</div>
+                  {integrationHealth.kv?.hint && <div className="text-amber-700 dark:text-amber-300">{integrationHealth.kv.hint}</div>}
+                </div>
+              ) : (
+                <div className="text-sm text-gray-500">Health check unavailable.</div>
+              )}
+            </section>
             <section className="bg-white dark:bg-gray-800 rounded-xl shadow p-6">
               <div className="flex items-center justify-between flex-wrap gap-3">
                 <div>
@@ -1322,13 +1387,13 @@ export default function App() {
                   </p>
                 </div>
                 <div className="flex gap-2">
-                  <button onClick={connectGoogleWorkspace} disabled={googleLoading} className="px-3 py-2 rounded-lg border border-gray-300 dark:border-gray-600 text-sm">
+                  <button onClick={connectGoogleWorkspace} disabled={googleLoading || (integrationHealth && !integrationHealth.google?.ready)} className="px-3 py-2 rounded-lg border border-gray-300 dark:border-gray-600 text-sm disabled:opacity-60">
                     Connect Google
                   </button>
-                  <button onClick={syncGoogleWorkspace} disabled={googleLoading || !googleStatus?.connected} className="px-3 py-2 rounded-lg bg-blue-600 text-white text-sm disabled:opacity-60">
+                  <button onClick={syncGoogleWorkspace} disabled={googleLoading || !googleStatus?.connected || (integrationHealth && !integrationHealth.google?.ready)} className="px-3 py-2 rounded-lg bg-blue-600 text-white text-sm disabled:opacity-60">
                     Sync Workspace
                   </button>
-                  <button onClick={syncGmail} disabled={googleLoading || !googleStatus?.gmail_connected} className="px-3 py-2 rounded-lg border border-gray-300 dark:border-gray-600 text-sm disabled:opacity-60">
+                  <button onClick={syncGmail} disabled={googleLoading || !googleStatus?.gmail_connected || (integrationHealth && !integrationHealth.google?.ready)} className="px-3 py-2 rounded-lg border border-gray-300 dark:border-gray-600 text-sm disabled:opacity-60">
                     Sync Gmail
                   </button>
                 </div>
@@ -1466,7 +1531,7 @@ export default function App() {
                 </div>
                 <button
                   onClick={syncFireflies}
-                  disabled={pipelineSyncing}
+                  disabled={pipelineSyncing || (integrationHealth && !integrationHealth.fireflies?.ready)}
                   className="px-3 py-2 rounded-lg bg-blue-600 text-white text-sm hover:bg-blue-700 disabled:opacity-60 flex items-center gap-2"
                 >
                   {pipelineSyncing ? <Loader2 className="w-4 h-4 animate-spin" /> : <RefreshCw className="w-4 h-4" />}
