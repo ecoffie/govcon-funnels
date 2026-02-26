@@ -109,22 +109,35 @@ export default function SiteNav() {
           </nav>
         </div>
       </div>
-      <div className="border-t border-red-900/60 bg-gradient-to-r from-red-950/70 via-slate-900 to-red-950/70 px-4 py-2">
-        <div className="max-w-6xl mx-auto flex flex-col md:flex-row items-center justify-between gap-2">
-          <p className="text-sm text-red-100 text-center md:text-left">
-            <span className="font-bold text-red-300">Live Bootcamp:</span> Seats are filling up for Saturday at 9:00 AM ET.
-          </p>
-          <div className="flex items-center gap-2 text-xs sm:text-sm">
-            <span className="text-slate-300">Starts in</span>
-            <div className="flex items-center gap-1 text-white font-semibold">
-              <span className="bg-slate-800/80 border border-slate-700 rounded px-2 py-1">{countdown.days}d</span>
-              <span className="bg-slate-800/80 border border-slate-700 rounded px-2 py-1">{countdown.hours}h</span>
-              <span className="bg-slate-800/80 border border-slate-700 rounded px-2 py-1">{countdown.minutes}m</span>
-              <span className="bg-slate-800/80 border border-slate-700 rounded px-2 py-1">{countdown.seconds}s</span>
+      <a
+        href="https://funnels.govcongiants.org/proposal-bootcamp"
+        target="_blank"
+        rel="noopener noreferrer"
+        className="group block border-t border-slate-700 bg-gradient-to-r from-slate-900 via-slate-900 to-slate-800/95 px-4 py-3 transition hover:from-slate-800 hover:to-slate-700/90"
+      >
+        <div className="max-w-6xl mx-auto flex flex-col md:flex-row items-center justify-between gap-3">
+          <div className="flex items-center gap-2 text-center md:text-left">
+            <span className="inline-flex items-center rounded-full border border-red-500/40 bg-red-500/10 px-2 py-0.5 text-[10px] font-bold uppercase tracking-wide text-red-300">
+              Live Bootcamp
+            </span>
+            <p className="text-xs sm:text-sm text-slate-200">
+              Join Saturday at <span className="font-semibold text-white">9:00 AM ET</span>. Limited seats available.
+            </p>
+          </div>
+          <div className="flex items-center gap-2">
+            <span className="text-slate-300 text-xs sm:text-sm">Starts in</span>
+            <div className="flex items-center gap-1 sm:gap-1.5 text-white font-black">
+              <span className="rounded-md border border-slate-500/80 bg-slate-950/85 px-2.5 py-1.5 text-base leading-none shadow-sm sm:text-lg">{countdown.days}d</span>
+              <span className="rounded-md border border-slate-500/80 bg-slate-950/85 px-2.5 py-1.5 text-base leading-none shadow-sm sm:text-lg">{countdown.hours}h</span>
+              <span className="rounded-md border border-slate-500/80 bg-slate-950/85 px-2.5 py-1.5 text-base leading-none shadow-sm sm:text-lg">{countdown.minutes}m</span>
+              <span className="rounded-md border border-slate-500/80 bg-slate-950/85 px-2.5 py-1.5 text-base leading-none shadow-sm sm:text-lg">{countdown.seconds}s</span>
             </div>
+            <span className="text-green-400 text-sm font-semibold hidden sm:inline group-hover:text-green-300">
+              Reserve now →
+            </span>
           </div>
         </div>
-      </div>
+      </a>
     </header>
   );
 }
