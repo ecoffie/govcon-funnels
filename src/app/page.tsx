@@ -79,8 +79,80 @@ export default function Home() {
         </div>
       </section>
 
-      {/* Free Resources to Get Started - 3 cards */}
+      {/* Beginners Start Here */}
       <section id="resources" className="py-20 px-6 bg-slate-900/50">
+        <div className="max-w-6xl mx-auto">
+          <div className="text-center mb-12">
+            <h2 className="text-4xl font-bold text-white mb-4">
+              Beginners <span className="text-green-500">Start Here</span>
+            </h2>
+            <p className="text-slate-500 text-lg max-w-2xl mx-auto">
+              The first things you need to do as a beginner
+            </p>
+          </div>
+
+          <div className="max-w-4xl mx-auto space-y-0">
+            {/* Step 1 */}
+            <a
+              href="https://funnels.govcongiants.org/proposal-bootcamp"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="flex flex-col sm:flex-row gap-4 sm:gap-6 items-start p-6 rounded-xl bg-slate-900 border border-slate-800 hover:border-green-600/50 transition group block"
+            >
+              <div className="flex-shrink-0 w-14 h-14 rounded-full bg-green-600 text-white font-black text-xl flex items-center justify-center">1</div>
+              <div className="flex-1">
+                <h3 className="text-xl font-bold text-white mb-1 group-hover:text-green-400 transition">Step 1: Download the free action plan</h3>
+                <p className="text-slate-500">Get your free action plan and the exact first moves to start winning federal contracts.</p>
+                <span className="inline-block mt-2 text-green-500 font-semibold">Download Now →</span>
+              </div>
+            </a>
+            <div className="flex justify-center py-1">
+              <span className="text-slate-600">↓</span>
+            </div>
+            {/* Step 2 */}
+            <Link href="/free-course" className="flex flex-col sm:flex-row gap-4 sm:gap-6 items-start p-6 rounded-xl bg-slate-900 border border-slate-800 hover:border-green-600/50 transition group">
+              <div className="flex-shrink-0 w-14 h-14 rounded-full bg-green-600 text-white font-black text-xl flex items-center justify-center">2</div>
+              <div className="flex-1">
+                <h3 className="text-xl font-bold text-white mb-1 group-hover:text-green-400 transition">Step 2: Take our free beginner&apos;s course</h3>
+                <p className="text-slate-500">Build your foundation from SAM.gov registration to landing your first contract.</p>
+                <span className="inline-block mt-2 text-green-500 font-semibold">Start Learning →</span>
+              </div>
+            </Link>
+            <div className="flex justify-center py-1">
+              <span className="text-slate-600">↓</span>
+            </div>
+            {/* Step 3 */}
+            <Link href="/opp" className="flex flex-col sm:flex-row gap-4 sm:gap-6 items-start p-6 rounded-xl bg-slate-900 border border-slate-800 hover:border-green-600/50 transition group">
+              <div className="flex-shrink-0 w-14 h-14 rounded-full bg-green-600 text-white font-black text-xl flex items-center justify-center">3</div>
+              <div className="flex-1">
+                <h3 className="text-xl font-bold text-white mb-1 group-hover:text-green-400 transition">Step 3: Research using our free Opportunity Hunter tool</h3>
+                <p className="text-slate-500">Find agencies and contracts by NAICS code and keywords with free searches.</p>
+                <span className="inline-block mt-2 text-green-500 font-semibold">Try It Free →</span>
+              </div>
+            </Link>
+            <div className="flex justify-center py-1">
+              <span className="text-slate-600">↓</span>
+            </div>
+            {/* Step 4 */}
+            <a
+              href="https://calendly.com/govconedumeet/gcg-beginnerscall"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="flex flex-col sm:flex-row gap-4 sm:gap-6 items-start p-6 rounded-xl bg-slate-900 border border-slate-800 hover:border-green-600/50 transition group block"
+            >
+              <div className="flex-shrink-0 w-14 h-14 rounded-full bg-green-600 text-white font-black text-xl flex items-center justify-center">4</div>
+              <div className="flex-1">
+                <h3 className="text-xl font-bold text-white mb-1 group-hover:text-green-400 transition">Step 4: Schedule a call</h3>
+                <p className="text-slate-500">Talk with our team and get clear next steps for your business.</p>
+                <span className="inline-block mt-2 text-green-500 font-semibold">Book Now →</span>
+              </div>
+            </a>
+          </div>
+        </div>
+      </section>
+
+      {/* Free Resources to Get Started - 3 cards */}
+      <section className="py-20 px-6 bg-slate-900/50">
         <div className="max-w-6xl mx-auto">
           <div className="text-center mb-12">
             <h2 className="text-4xl font-bold text-white mb-4">
@@ -91,104 +163,20 @@ export default function Home() {
 
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
             {sharedHomepageContent.freeResources.map((resource, index) => (
-              (() => {
-                const isActionPlanCard = resource.link.includes('proposal-bootcamp');
-                return (
               <Link
                 key={index}
                 href={resource.link}
-                className={`bg-slate-900 rounded-xl p-6 sm:p-7 block transition relative ${
-                  isActionPlanCard
-                    ? 'border-2 border-green-400/90 bg-gradient-to-b from-green-950/30 to-slate-900 shadow-[0_0_0_1px_rgba(74,222,128,0.45),0_0_30px_rgba(34,197,94,0.22)] hover:border-green-300 hover:shadow-[0_0_0_1px_rgba(74,222,128,0.6),0_0_40px_rgba(34,197,94,0.28)]'
-                    : 'border border-slate-800 hover:border-slate-700'
-                }`}
+                className="bg-slate-900 border border-slate-800 rounded-xl p-6 block hover:border-slate-700 transition"
                 {...(resource.link.startsWith("http") ? { target: "_blank", rel: "noopener noreferrer" } : {})}
               >
-                {isActionPlanCard ? (
-                  <p className="inline-flex items-center mb-4 px-3 py-1 rounded-full text-[11px] sm:text-xs font-bold uppercase tracking-wide bg-green-800/70 text-green-100 border border-green-500/60">
-                    Beginners Start Here
-                  </p>
-                ) : null}
                 <div className="w-12 h-12 rounded-lg bg-slate-800 flex items-center justify-center mb-4">
                   <span className="text-2xl">{resource.icon}</span>
                 </div>
-                <h3 className={`text-xl font-bold mb-2 ${isActionPlanCard ? 'text-green-100' : 'text-white'}`}>{resource.title}</h3>
+                <h3 className="text-xl font-bold text-white mb-2">{resource.title}</h3>
                 <p className="text-slate-500 mb-4">{resource.desc}</p>
                 <span className="text-green-500 font-semibold">{resource.cta.replace('->', '→')}</span>
               </Link>
-                );
-              })()
             ))}
-          </div>
-
-          {/* Beginners Start Here - Pathway */}
-          <div className="mt-20">
-            <div className="text-center mb-12">
-              <h2 className="text-4xl font-bold text-white mb-4">
-                Beginners <span className="text-green-500">Start Here</span>
-              </h2>
-              <p className="text-slate-500 text-lg max-w-2xl mx-auto">
-                The first things you need to do as a beginner
-              </p>
-            </div>
-
-            <div className="max-w-4xl mx-auto space-y-0">
-              {/* Step 1 */}
-              <a
-                href="https://funnels.govcongiants.org/proposal-bootcamp"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="flex flex-col sm:flex-row gap-4 sm:gap-6 items-start p-6 rounded-xl bg-slate-900 border border-slate-800 hover:border-green-600/50 transition group block"
-              >
-                <div className="flex-shrink-0 w-14 h-14 rounded-full bg-green-600 text-white font-black text-xl flex items-center justify-center">1</div>
-                <div className="flex-1">
-                  <h3 className="text-xl font-bold text-white mb-1 group-hover:text-green-400 transition">Step 1: Download the free action plan</h3>
-                  <p className="text-slate-500">Get your free action plan and the exact first moves to start winning federal contracts.</p>
-                  <span className="inline-block mt-2 text-green-500 font-semibold">Download Now →</span>
-                </div>
-              </a>
-              <div className="flex justify-center py-1">
-                <span className="text-slate-600">↓</span>
-              </div>
-              {/* Step 2 */}
-              <Link href="/free-course" className="flex flex-col sm:flex-row gap-4 sm:gap-6 items-start p-6 rounded-xl bg-slate-900 border border-slate-800 hover:border-green-600/50 transition group">
-                <div className="flex-shrink-0 w-14 h-14 rounded-full bg-green-600 text-white font-black text-xl flex items-center justify-center">2</div>
-                <div className="flex-1">
-                  <h3 className="text-xl font-bold text-white mb-1 group-hover:text-green-400 transition">Step 2: Take our free beginner&apos;s course</h3>
-                  <p className="text-slate-500">Build your foundation from SAM.gov registration to landing your first contract.</p>
-                  <span className="inline-block mt-2 text-green-500 font-semibold">Start Learning →</span>
-                </div>
-              </Link>
-              <div className="flex justify-center py-1">
-                <span className="text-slate-600">↓</span>
-              </div>
-              {/* Step 3 */}
-              <Link href="/opp" className="flex flex-col sm:flex-row gap-4 sm:gap-6 items-start p-6 rounded-xl bg-slate-900 border border-slate-800 hover:border-green-600/50 transition group">
-                <div className="flex-shrink-0 w-14 h-14 rounded-full bg-green-600 text-white font-black text-xl flex items-center justify-center">3</div>
-                <div className="flex-1">
-                  <h3 className="text-xl font-bold text-white mb-1 group-hover:text-green-400 transition">Step 3: Research using our free Opportunity Hunter tool</h3>
-                  <p className="text-slate-500">Find agencies and contracts by NAICS code and keywords with free searches.</p>
-                  <span className="inline-block mt-2 text-green-500 font-semibold">Try It Free →</span>
-                </div>
-              </Link>
-              <div className="flex justify-center py-1">
-                <span className="text-slate-600">↓</span>
-              </div>
-              {/* Step 4 */}
-              <a
-                href="https://calendly.com/govconedumeet/gcg-beginnerscall"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="flex flex-col sm:flex-row gap-4 sm:gap-6 items-start p-6 rounded-xl bg-slate-900 border border-slate-800 hover:border-green-600/50 transition group block"
-              >
-                <div className="flex-shrink-0 w-14 h-14 rounded-full bg-green-600 text-white font-black text-xl flex items-center justify-center">4</div>
-                <div className="flex-1">
-                  <h3 className="text-xl font-bold text-white mb-1 group-hover:text-green-400 transition">Step 4: Schedule a call</h3>
-                  <p className="text-slate-500">Talk with our team and get clear next steps for your business.</p>
-                  <span className="inline-block mt-2 text-green-500 font-semibold">Book Now →</span>
-                </div>
-              </a>
-            </div>
           </div>
         </div>
       </section>
@@ -214,49 +202,6 @@ export default function Home() {
 
             <Link href="/bootcamp" className="inline-block px-8 py-4 bg-green-600 hover:bg-green-500 text-white rounded-xl font-bold text-lg transition-all">
               Learn How to Get Your Share
-            </Link>
-          </div>
-        </div>
-      </section>
-
-      {/* Video Section */}
-      <section id="training" className="py-20 px-6 bg-slate-900/50">
-        <div className="max-w-6xl mx-auto">
-          <div className="text-center mb-12">
-            <h2 className="text-4xl font-bold text-white mb-4">
-              Free <span className="text-green-500">Training</span> Videos
-            </h2>
-            <p className="text-slate-500 text-lg">Learn from experts who&apos;ve won millions in federal contracts</p>
-          </div>
-
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-            {videoCategories.map((cat, index) => (
-              <Link
-                key={index}
-                href={cat.link}
-                className={`bg-slate-900 border border-slate-800 rounded-xl overflow-hidden block hover:border-${cat.color}-600/50 transition group`}
-              >
-                <div className={`aspect-video bg-gradient-to-br from-${cat.color}-900/40 to-slate-900 flex items-center justify-center relative`}>
-                  <div className="text-center">
-                    <svg className={`w-16 h-16 text-${cat.color}-500 mx-auto mb-2 group-hover:scale-110 transition`} fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                      {cat.color === 'green' && <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="1.5" d="M13 10V3L4 14h7v7l9-11h-7z"/>}
-                      {cat.color === 'blue' && <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="1.5" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"/>}
-                      {cat.color === 'amber' && <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="1.5" d="M9 12l2 2 4-4M7.835 4.697a3.42 3.42 0 001.946-.806 3.42 3.42 0 014.438 0 3.42 3.42 0 001.946.806 3.42 3.42 0 013.138 3.138 3.42 3.42 0 00.806 1.946 3.42 3.42 0 010 4.438 3.42 3.42 0 00-.806 1.946 3.42 3.42 0 01-3.138 3.138 3.42 3.42 0 00-1.946.806 3.42 3.42 0 01-4.438 0 3.42 3.42 0 00-1.946-.806 3.42 3.42 0 01-3.138-3.138 3.42 3.42 0 00-.806-1.946 3.42 3.42 0 010-4.438 3.42 3.42 0 00.806-1.946 3.42 3.42 0 013.138-3.138z"/>}
-                    </svg>
-                    <span className={`text-${cat.color}-500/60 text-sm font-medium`}>{cat.videos} Videos</span>
-                  </div>
-                </div>
-                <div className="p-4">
-                  <h3 className="text-white font-bold mb-1">{cat.title}</h3>
-                  <p className="text-slate-500 text-sm">{cat.desc}</p>
-                </div>
-              </Link>
-            ))}
-          </div>
-
-          <div className="text-center mt-8">
-            <Link href="/resources" className="text-green-500 hover:text-green-400 font-semibold transition">
-              View All 17 Free Videos →
             </Link>
           </div>
         </div>
@@ -303,6 +248,49 @@ export default function Home() {
               </div>
             </div>
           ))}
+        </div>
+      </section>
+
+      {/* Video Section */}
+      <section id="training" className="py-20 px-6 bg-slate-900/50">
+        <div className="max-w-6xl mx-auto">
+          <div className="text-center mb-12">
+            <h2 className="text-4xl font-bold text-white mb-4">
+              Free <span className="text-green-500">Training</span> Videos
+            </h2>
+            <p className="text-slate-500 text-lg">Learn from experts who&apos;ve won millions in federal contracts</p>
+          </div>
+
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+            {videoCategories.map((cat, index) => (
+              <Link
+                key={index}
+                href={cat.link}
+                className={`bg-slate-900 border border-slate-800 rounded-xl overflow-hidden block hover:border-${cat.color}-600/50 transition group`}
+              >
+                <div className={`aspect-video bg-gradient-to-br from-${cat.color}-900/40 to-slate-900 flex items-center justify-center relative`}>
+                  <div className="text-center">
+                    <svg className={`w-16 h-16 text-${cat.color}-500 mx-auto mb-2 group-hover:scale-110 transition`} fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      {cat.color === 'green' && <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="1.5" d="M13 10V3L4 14h7v7l9-11h-7z"/>}
+                      {cat.color === 'blue' && <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="1.5" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"/>}
+                      {cat.color === 'amber' && <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="1.5" d="M9 12l2 2 4-4M7.835 4.697a3.42 3.42 0 001.946-.806 3.42 3.42 0 014.438 0 3.42 3.42 0 001.946.806 3.42 3.42 0 013.138 3.138 3.42 3.42 0 00.806 1.946 3.42 3.42 0 010 4.438 3.42 3.42 0 00-.806 1.946 3.42 3.42 0 01-3.138 3.138 3.42 3.42 0 00-1.946.806 3.42 3.42 0 01-4.438 0 3.42 3.42 0 00-1.946-.806 3.42 3.42 0 01-3.138-3.138 3.42 3.42 0 00-.806-1.946 3.42 3.42 0 010-4.438 3.42 3.42 0 00.806-1.946 3.42 3.42 0 013.138-3.138z"/>}
+                    </svg>
+                    <span className={`text-${cat.color}-500/60 text-sm font-medium`}>{cat.videos} Videos</span>
+                  </div>
+                </div>
+                <div className="p-4">
+                  <h3 className="text-white font-bold mb-1">{cat.title}</h3>
+                  <p className="text-slate-500 text-sm">{cat.desc}</p>
+                </div>
+              </Link>
+            ))}
+          </div>
+
+          <div className="text-center mt-8">
+            <Link href="/resources" className="text-green-500 hover:text-green-400 font-semibold transition">
+              View All 17 Free Videos →
+            </Link>
+          </div>
         </div>
       </section>
 

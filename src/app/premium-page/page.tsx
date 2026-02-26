@@ -193,7 +193,7 @@ export default function PremiumPage() {
               <span className="text-2xl">🎯</span>
             </div>
             <div>
-              <h2 className="text-3xl font-bold text-white">Consulting 1 on 1</h2>
+              <h2 className="text-3xl font-bold text-white">Consulting (one-on-one)</h2>
               <p className="text-slate-400">Hands-on support and guided implementation</p>
             </div>
           </div>
@@ -303,7 +303,7 @@ export default function PremiumPage() {
               <span className="text-2xl">👑</span>
             </div>
             <div>
-              <h2 className="text-3xl font-bold text-white">White Glove Service</h2>
+              <h2 className="text-3xl font-bold text-white">White Glove Service (Done for You)</h2>
               <p className="text-slate-400">Established business seeking done-for-you support</p>
             </div>
           </div>
@@ -393,17 +393,21 @@ export default function PremiumPage() {
       <section className="py-16 px-6">
         <div className="max-w-3xl mx-auto text-center">
           <h2 className="text-3xl font-bold text-white mb-4">
-            Not Sure Which Level?
+            Not Sure Which Option Is Right For You?
           </h2>
           <p className="text-xl text-slate-400 mb-8">
-            Schedule a call with our team to find the right premium resource for your goals.
+            Book a quick strategy call and we&apos;ll help you choose the best path based on your goals, timeline, and current stage.
           </p>
-          <a
-            href="mailto:hello@govconedu.com?subject=Premium%20Resource%20Inquiry"
-            className="inline-block px-8 py-4 bg-green-600 hover:bg-green-500 text-white rounded-xl font-bold text-lg transition-all"
+          <button
+            type="button"
+            disabled
+            className="inline-block px-8 py-4 bg-slate-700 text-slate-300 rounded-xl font-bold text-lg cursor-not-allowed border border-slate-600"
           >
-            Contact Us
-          </a>
+            Schedule Your Selection Call (Coming Soon)
+          </button>
+          <p className="text-slate-500 text-sm mt-3">
+            Calendly link will be added next.
+          </p>
         </div>
       </section>
 

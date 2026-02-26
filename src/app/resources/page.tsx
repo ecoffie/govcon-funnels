@@ -396,43 +396,53 @@ export default function ResourceLibrary() {
           <p className="text-slate-400 text-center mb-8 max-w-2xl mx-auto">
             All our free tools, bootcamps, downloads, and the beginner&apos;s course in one place.
           </p>
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
-            <Link href="/resources/handouts" className="bg-slate-900 border border-green-600/50 rounded-xl p-5 block hover:bg-slate-800 transition">
-              <span className="text-2xl">📅</span>
-              <h3 className="text-lg font-bold text-white mt-2 mb-1">Action Plan Free Download</h3>
-              <p className="text-slate-400 text-sm mb-3">2026 GovCon Action Plan, templates, contact lists, AI prompts.</p>
-              <span className="text-green-500 font-semibold text-sm">Get Free Handouts →</span>
-            </Link>
-            <Link href="/bootcamp" className="bg-slate-900 border border-slate-700 rounded-xl p-5 block hover:bg-slate-800 transition">
-              <span className="text-2xl">🎓</span>
-              <h3 className="text-lg font-bold text-white mt-2 mb-1">January Bootcamp</h3>
-              <p className="text-slate-400 text-sm mb-3">Monthly live training and Q&A. Register free.</p>
-              <span className="text-green-500 font-semibold text-sm">Register Now →</span>
-            </Link>
-            <Link href="/surge" className="bg-slate-900 border border-slate-700 rounded-xl p-5 block hover:bg-slate-800 transition">
-              <span className="text-2xl">🔥</span>
-              <h3 className="text-lg font-bold text-white mt-2 mb-1">Surge Bootcamp</h3>
-              <p className="text-slate-400 text-sm mb-3">Q4 federal spending focus. Access free.</p>
-              <span className="text-green-500 font-semibold text-sm">Access Now →</span>
-            </Link>
-            <Link href="https://funnels.govcongiants.org/proposal-bootcamp" className="bg-slate-900 border border-slate-700 rounded-xl p-5 block hover:bg-slate-800 transition" target="_blank" rel="noopener noreferrer">
-              <span className="text-2xl">📅</span>
-              <h3 className="text-lg font-bold text-white mt-2 mb-1">Bid Bootcamp Downloads</h3>
-              <p className="text-slate-400 text-sm mb-3">Bid forms and event details for the Feb 28 bootcamp.</p>
-              <span className="text-green-500 font-semibold text-sm">Get Bid Forms →</span>
-            </Link>
-            <Link href="/free-course" className="bg-slate-900 border border-slate-700 rounded-xl p-5 block hover:bg-slate-800 transition">
-              <span className="text-2xl">📚</span>
-              <h3 className="text-lg font-bold text-white mt-2 mb-1">Beginner&apos;s Course</h3>
-              <p className="text-slate-400 text-sm mb-3">Full curriculum from SAM.gov to your first contract.</p>
-              <span className="text-green-500 font-semibold text-sm">Start Learning →</span>
-            </Link>
-            <Link href="/opp" className="bg-slate-900 border border-slate-700 rounded-xl p-5 block hover:bg-slate-800 transition">
-              <span className="text-2xl">🎯</span>
-              <h3 className="text-lg font-bold text-white mt-2 mb-1">Opportunity Hunter</h3>
-              <p className="text-slate-400 text-sm mb-3">Find agencies and contracts by NAICS or keyword. Free searches.</p>
-              <span className="text-green-500 font-semibold text-sm">Try It Free →</span>
-            </Link>
+          <div className="space-y-6">
+            <div className="bg-slate-900/70 border-2 border-green-500/70 rounded-2xl p-4 sm:p-5">
+              <p className="inline-flex items-center mb-4 px-3 py-1 rounded-full text-xs font-bold uppercase tracking-wide bg-green-800/80 text-green-100 border border-green-500/60">
+                Beginners Start Here
+              </p>
+              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+                <Link href="/resources/handouts" className="bg-slate-900 border border-green-600/50 rounded-xl p-5 block hover:bg-slate-800 transition">
+                  <span className="text-2xl">📅</span>
+                  <h3 className="text-lg font-bold text-white mt-2 mb-1">Action Plan Free Download</h3>
+                  <p className="text-slate-400 text-sm mb-3">2026 GovCon Action Plan, templates, contact lists, AI prompts.</p>
+                  <span className="text-green-500 font-semibold text-sm">Get Free Handouts →</span>
+                </Link>
+                <Link href="/free-course" className="bg-slate-900 border border-slate-700 rounded-xl p-5 block hover:bg-slate-800 transition">
+                  <span className="text-2xl">📚</span>
+                  <h3 className="text-lg font-bold text-white mt-2 mb-1">Beginner&apos;s Course</h3>
+                  <p className="text-slate-400 text-sm mb-3">Full curriculum from SAM.gov to your first contract.</p>
+                  <span className="text-green-500 font-semibold text-sm">Start Learning →</span>
+                </Link>
+                <Link href="/opp" className="bg-slate-900 border border-slate-700 rounded-xl p-5 block hover:bg-slate-800 transition">
+                  <span className="text-2xl">🎯</span>
+                  <h3 className="text-lg font-bold text-white mt-2 mb-1">Opportunity Hunter</h3>
+                  <p className="text-slate-400 text-sm mb-3">Find agencies and contracts by NAICS or keyword. Free searches.</p>
+                  <span className="text-green-500 font-semibold text-sm">Try It Free →</span>
+                </Link>
+              </div>
+            </div>
+
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+              <Link href="https://funnels.govcongiants.org/proposal-bootcamp" className="bg-slate-900 border border-slate-700 rounded-xl p-5 block hover:bg-slate-800 transition" target="_blank" rel="noopener noreferrer">
+                <span className="text-2xl">📅</span>
+                <h3 className="text-lg font-bold text-white mt-2 mb-1">Bid Bootcamp Downloads</h3>
+                <p className="text-slate-400 text-sm mb-3">Bid forms and event details for the Feb 28 bootcamp.</p>
+                <span className="text-green-500 font-semibold text-sm">Get Bid Forms →</span>
+              </Link>
+              <Link href="/bootcamp" className="bg-slate-900 border border-slate-700 rounded-xl p-5 block hover:bg-slate-800 transition">
+                <span className="text-2xl">🎓</span>
+                <h3 className="text-lg font-bold text-white mt-2 mb-1">January Bootcamp</h3>
+                <p className="text-slate-400 text-sm mb-3">Monthly live training and Q&A. Register free.</p>
+                <span className="text-green-500 font-semibold text-sm">Register Now →</span>
+              </Link>
+              <Link href="/surge" className="bg-slate-900 border border-slate-700 rounded-xl p-5 block hover:bg-slate-800 transition">
+                <span className="text-2xl">🔥</span>
+                <h3 className="text-lg font-bold text-white mt-2 mb-1">Surge Bootcamp</h3>
+                <p className="text-slate-400 text-sm mb-3">Q4 federal spending focus. Access free.</p>
+                <span className="text-green-500 font-semibold text-sm">Access Now →</span>
+              </Link>
+            </div>
           </div>
         </div>
       </section>

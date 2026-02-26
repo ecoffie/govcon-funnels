@@ -19,7 +19,7 @@ const levels = [
   },
   {
     id: 'consulting-101',
-    label: 'Consulting 1 on 1',
+    label: 'Consulting (one-on-one)',
     definition: 'You’re past the basics. You’ve completed training, maybe attended bootcamps, and you’re ready to go deeper. You want lifetime access to materials and a community, or a structured program to get contract-ready.',
     resources: [
       { title: 'Consulting Pack', desc: '20 hours of one-on-one consulting support for strategy, opportunities, and execution.', href: '/premium/consulting-pack', icon: '🧠' },
@@ -28,7 +28,7 @@ const levels = [
   },
   {
     id: 'fractional-bd',
-    label: 'White Glove Service',
+    label: 'White Glove Service (Done for You)',
     definition: 'You’re serious about winning and scaling. You want intensive coaching or hands-on business development support—someone in your corner to help you execute and win contracts.',
     resources: [
       { title: 'White Glove Service', desc: 'Premium fractional business development. Dedicated consultant, flexible retainers.', href: '/premium/white-glove', icon: '🤝', badge: 'RECOMMENDED' },
