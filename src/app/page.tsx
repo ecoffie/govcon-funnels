@@ -91,19 +91,33 @@ export default function Home() {
 
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
             {sharedHomepageContent.freeResources.map((resource, index) => (
+              (() => {
+                const isActionPlanCard = resource.link.includes('proposal-bootcamp');
+                return (
               <Link
                 key={index}
                 href={resource.link}
-                className="bg-slate-900 border border-slate-800 rounded-xl p-6 block hover:border-slate-700 transition"
+                className={`bg-slate-900 rounded-xl p-6 sm:p-7 block transition relative ${
+                  isActionPlanCard
+                    ? 'border-2 border-green-400/90 bg-gradient-to-b from-green-950/30 to-slate-900 shadow-[0_0_0_1px_rgba(74,222,128,0.45),0_0_30px_rgba(34,197,94,0.22)] hover:border-green-300 hover:shadow-[0_0_0_1px_rgba(74,222,128,0.6),0_0_40px_rgba(34,197,94,0.28)]'
+                    : 'border border-slate-800 hover:border-slate-700'
+                }`}
                 {...(resource.link.startsWith("http") ? { target: "_blank", rel: "noopener noreferrer" } : {})}
               >
+                {isActionPlanCard ? (
+                  <p className="inline-flex items-center mb-4 px-3 py-1 rounded-full text-[11px] sm:text-xs font-bold uppercase tracking-wide bg-green-800/70 text-green-100 border border-green-500/60">
+                    Beginners Start Here
+                  </p>
+                ) : null}
                 <div className="w-12 h-12 rounded-lg bg-slate-800 flex items-center justify-center mb-4">
                   <span className="text-2xl">{resource.icon}</span>
                 </div>
-                <h3 className="text-xl font-bold text-white mb-2">{resource.title}</h3>
+                <h3 className={`text-xl font-bold mb-2 ${isActionPlanCard ? 'text-green-100' : 'text-white'}`}>{resource.title}</h3>
                 <p className="text-slate-500 mb-4">{resource.desc}</p>
                 <span className="text-green-500 font-semibold">{resource.cta.replace('->', '→')}</span>
               </Link>
+                );
+              })()
             ))}
           </div>
 

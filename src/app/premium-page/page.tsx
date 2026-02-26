@@ -193,7 +193,7 @@ export default function PremiumPage() {
               <span className="text-2xl">🎯</span>
             </div>
             <div>
-              <h2 className="text-3xl font-bold text-white">Consulting (101)</h2>
+              <h2 className="text-3xl font-bold text-white">Consulting 1 on 1</h2>
               <p className="text-slate-400">Hands-on support and guided implementation</p>
             </div>
           </div>
@@ -303,7 +303,7 @@ export default function PremiumPage() {
               <span className="text-2xl">👑</span>
             </div>
             <div>
-              <h2 className="text-3xl font-bold text-white">Fractional BD (Done for You)</h2>
+              <h2 className="text-3xl font-bold text-white">White Glove Service</h2>
               <p className="text-slate-400">Established business seeking done-for-you support</p>
             </div>
           </div>
