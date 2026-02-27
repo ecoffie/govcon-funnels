@@ -6,7 +6,7 @@ import { getPremiumBySlug, PREMIUM_SLUGS } from '../config';
 type Props = { params: Promise<{ slug: string }> };
 
 export async function generateStaticParams() {
-  return PREMIUM_SLUGS.map((slug) => ({ slug }));
+  return PREMIUM_SLUGS.filter((slug) => slug !== 'pro-member-group').map((slug) => ({ slug }));
 }
 
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
