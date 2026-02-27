@@ -17,7 +17,7 @@ export const PREMIUM_PRODUCTS: PremiumProduct[] = [
     shortTitle: 'Pro Member Group',
     description: 'Ongoing support, community resources, and regular updates and training materials. Join thousands of contractors getting guidance and accountability.',
     price: '$99/month',
-    ctaUrl: 'https://shop.govcongiants.org',
+    ctaUrl: 'https://federalhelpcenter.com/pro',
     ctaText: 'Join Pro →',
     badge: 'RECOMMENDED',
     highlights: [
