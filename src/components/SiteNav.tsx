@@ -110,9 +110,7 @@ export default function SiteNav() {
         </div>
       </div>
       <a
-        href="https://funnels.govcongiants.org/proposal-bootcamp"
-        target="_blank"
-        rel="noopener noreferrer"
+        href="/premium/pro-member-group"
         className="group block border-t border-slate-700 bg-gradient-to-r from-slate-900 via-slate-900 to-slate-800/95 px-4 py-3 transition hover:from-slate-800 hover:to-slate-700/90"
       >
         <div className="max-w-6xl mx-auto flex flex-col md:flex-row items-center justify-between gap-3">
