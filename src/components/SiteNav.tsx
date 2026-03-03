@@ -2,9 +2,44 @@
 
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
+import { useState, useEffect } from 'react';
+
+function getNextSaturday9amET() {
+  const now = new Date();
+  const nyNow = new Date(now.toLocaleString('en-US', { timeZone: 'America/New_York' }));
+  const day = nyNow.getDay(); // 0=Sun,6=Sat
+  const daysUntilSat = (6 - day + 7) % 7 || 7;
+  const target = new Date(nyNow);
+  target.setDate(nyNow.getDate() + daysUntilSat);
+  target.setHours(9, 0, 0, 0);
+  // Convert back to UTC
+  const offset = now.getTime() - nyNow.getTime();
+  return new Date(target.getTime() + offset);
+}
+
+function useCountdown() {
+  const [countdown, setCountdown] = useState({ days: 0, hours: 0, minutes: 0, seconds: 0 });
+  useEffect(() => {
+    function tick() {
+      const diff = getNextSaturday9amET().getTime() - Date.now();
+      if (diff <= 0) { setCountdown({ days: 0, hours: 0, minutes: 0, seconds: 0 }); return; }
+      setCountdown({
+        days: Math.floor(diff / 86400000),
+        hours: Math.floor((diff % 86400000) / 3600000),
+        minutes: Math.floor((diff % 3600000) / 60000),
+        seconds: Math.floor((diff % 60000) / 1000),
+      });
+    }
+    tick();
+    const id = setInterval(tick, 1000);
+    return () => clearInterval(id);
+  }, []);
+  return countdown;
+}
 
 export default function SiteNav() {
   const pathname = usePathname();
+  const countdown = useCountdown();
 
   if (pathname.startsWith('/dashboard') || pathname.startsWith('/internal')) {
     return null;
