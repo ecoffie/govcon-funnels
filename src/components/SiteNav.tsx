@@ -2,44 +2,9 @@
 
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
-import { useState, useEffect } from 'react';
-
-function getNextSaturday9amET() {
-  const now = new Date();
-  const nyNow = new Date(now.toLocaleString('en-US', { timeZone: 'America/New_York' }));
-  const day = nyNow.getDay(); // 0=Sun,6=Sat
-  const daysUntilSat = (6 - day + 7) % 7 || 7;
-  const target = new Date(nyNow);
-  target.setDate(nyNow.getDate() + daysUntilSat);
-  target.setHours(9, 0, 0, 0);
-  // Convert back to UTC
-  const offset = now.getTime() - nyNow.getTime();
-  return new Date(target.getTime() + offset);
-}
-
-function useCountdown() {
-  const [countdown, setCountdown] = useState({ days: 0, hours: 0, minutes: 0, seconds: 0 });
-  useEffect(() => {
-    function tick() {
-      const diff = getNextSaturday9amET().getTime() - Date.now();
-      if (diff <= 0) { setCountdown({ days: 0, hours: 0, minutes: 0, seconds: 0 }); return; }
-      setCountdown({
-        days: Math.floor(diff / 86400000),
-        hours: Math.floor((diff % 86400000) / 3600000),
-        minutes: Math.floor((diff % 3600000) / 60000),
-        seconds: Math.floor((diff % 60000) / 1000),
-      });
-    }
-    tick();
-    const id = setInterval(tick, 1000);
-    return () => clearInterval(id);
-  }, []);
-  return countdown;
-}
 
 export default function SiteNav() {
   const pathname = usePathname();
-  const countdown = useCountdown();
 
   if (pathname.startsWith('/dashboard') || pathname.startsWith('/internal')) {
     return null;
@@ -92,33 +57,6 @@ export default function SiteNav() {
           </nav>
         </div>
       </div>
-      <a
-        href="/premium/pro-member-group"
-        className="group block border-t border-slate-700 bg-gradient-to-r from-slate-900 via-slate-900 to-slate-800/95 px-4 py-3 transition hover:from-slate-800 hover:to-slate-700/90"
-      >
-        <div className="max-w-6xl mx-auto flex flex-col md:flex-row items-center justify-between gap-3">
-          <div className="flex items-center gap-2 text-center md:text-left">
-            <span className="inline-flex items-center rounded-full border border-red-500/40 bg-red-500/10 px-2 py-0.5 text-[10px] font-bold uppercase tracking-wide text-red-300">
-              Live Bootcamp
-            </span>
-            <p className="text-xs sm:text-sm text-slate-200">
-              Join Saturday at <span className="font-semibold text-white">9:00 AM ET</span>. Limited seats available.
-            </p>
-          </div>
-          <div className="flex items-center gap-2">
-            <span className="text-slate-300 text-xs sm:text-sm">Starts in</span>
-            <div className="flex items-center gap-1 sm:gap-1.5 text-white font-black">
-              <span className="rounded-md border border-slate-500/80 bg-slate-950/85 px-2.5 py-1.5 text-base leading-none shadow-sm sm:text-lg">{countdown.days}d</span>
-              <span className="rounded-md border border-slate-500/80 bg-slate-950/85 px-2.5 py-1.5 text-base leading-none shadow-sm sm:text-lg">{countdown.hours}h</span>
-              <span className="rounded-md border border-slate-500/80 bg-slate-950/85 px-2.5 py-1.5 text-base leading-none shadow-sm sm:text-lg">{countdown.minutes}m</span>
-              <span className="rounded-md border border-slate-500/80 bg-slate-950/85 px-2.5 py-1.5 text-base leading-none shadow-sm sm:text-lg">{countdown.seconds}s</span>
-            </div>
-            <span className="text-green-400 text-sm font-semibold hidden sm:inline group-hover:text-green-300">
-              Reserve now →
-            </span>
-          </div>
-        </div>
-      </a>
     </header>
   );
 }
