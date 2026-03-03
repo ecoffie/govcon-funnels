@@ -43,16 +43,10 @@ export default function Home() {
   return (
     <main className="min-h-screen bg-slate-950">
       {/* Hero Section */}
-      <section className="py-20 px-6">
+      <section className="pt-10 pb-12 md:pt-12 md:pb-14 px-6">
         <div className="max-w-6xl mx-auto text-center">
-          {/* Live Badge */}
-          <div className="inline-flex items-center gap-2 bg-red-950 border border-red-800 text-red-500 px-4 py-2 rounded-full text-sm font-bold mb-8">
-            <span className="w-2 h-2 bg-red-500 rounded-full animate-pulse"></span>
-            LIVE NOW
-          </div>
-
           {/* Main Headline */}
-          <h1 className="text-5xl md:text-7xl font-black mb-6 leading-tight">
+          <h1 className="text-5xl md:text-7xl font-black mb-4 leading-tight">
             <span className="text-green-500">$82 BILLION</span><br />
             <span className="text-red-500">UNSPENT</span><br />
             <span className="text-white">FEDERAL MONEY</span>
@@ -62,14 +56,14 @@ export default function Home() {
             Here&apos;s how to get it
           </p>
 
-          <p className="text-lg text-slate-500 mb-10 max-w-3xl mx-auto">
+          <p className="text-lg text-slate-500 mb-8 max-w-3xl mx-auto">
             The government is required to spend billions with small businesses every year.
             We&apos;ll show you exactly how to position your business to win federal contracts.
           </p>
 
-          {/* CTA Button - goes to Free Resources Library */}
-          <div className="flex justify-center mb-12">
-            <Link href="/resources" className="px-8 py-4 bg-green-600 hover:bg-green-500 text-white rounded-xl font-bold text-lg transition-all green-glow">
+          {/* CTA Button - scrolls to Beginners Start Here */}
+          <div className="flex justify-center mb-8">
+            <Link href="#beginners-start-here" className="px-8 py-4 bg-green-600 hover:bg-green-500 text-white rounded-xl font-bold text-lg transition-all green-glow">
               Get Started Free
             </Link>
           </div>
@@ -81,6 +75,7 @@ export default function Home() {
 
       {/* Beginners Start Here */}
       <section id="resources" className="py-20 px-6 bg-slate-900/50">
+        <div id="beginners-start-here" className="scroll-mt-40" />
         <div className="max-w-6xl mx-auto">
           <div className="text-center mb-12">
             <h2 className="text-4xl font-bold text-white mb-4">

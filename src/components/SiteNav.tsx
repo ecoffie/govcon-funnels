@@ -2,67 +2,15 @@
 
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
-import { useEffect, useMemo, useState } from 'react';
-
-interface CountdownParts {
-  days: string;
-  hours: string;
-  minutes: string;
-  seconds: string;
-}
-
-function getNextSaturdayNineAmEtTimestamp(): number {
-  const now = new Date();
-  const etNow = new Date(now.toLocaleString('en-US', { timeZone: 'America/New_York' }));
-  const day = etNow.getDay();
-  const daysUntilSaturday = (6 - day + 7) % 7;
-
-  const targetEt = new Date(etNow);
-  targetEt.setDate(etNow.getDate() + daysUntilSaturday);
-  targetEt.setHours(9, 0, 0, 0);
-
-  if (daysUntilSaturday === 0 && etNow >= targetEt) {
-    targetEt.setDate(targetEt.getDate() + 7);
-  }
-
-  const targetAsUtcString = targetEt.toLocaleString('en-US', { timeZone: 'UTC' });
-  return new Date(targetAsUtcString).getTime();
-}
-
-function getCountdownParts(targetTimestamp: number): CountdownParts {
-  const diffMs = Math.max(0, targetTimestamp - Date.now());
-  const totalSeconds = Math.floor(diffMs / 1000);
-  const days = Math.floor(totalSeconds / 86400);
-  const hours = Math.floor((totalSeconds % 86400) / 3600);
-  const minutes = Math.floor((totalSeconds % 3600) / 60);
-  const seconds = totalSeconds % 60;
-
-  return {
-    days: String(days).padStart(2, '0'),
-    hours: String(hours).padStart(2, '0'),
-    minutes: String(minutes).padStart(2, '0'),
-    seconds: String(seconds).padStart(2, '0'),
-  };
-}
 
 export default function SiteNav() {
   const pathname = usePathname();
-  const [now, setNow] = useState(() => Date.now());
 
   if (pathname.startsWith('/dashboard') || pathname.startsWith('/internal')) {
     return null;
   }
   const isHome = pathname === '/';
   const isEncore = pathname?.startsWith('/encore');
-  const targetTimestamp = useMemo(() => getNextSaturdayNineAmEtTimestamp(), []);
-  const countdown = useMemo(() => getCountdownParts(targetTimestamp), [targetTimestamp, now]);
-
-  useEffect(() => {
-    const timer = window.setInterval(() => {
-      setNow(Date.now());
-    }, 1000);
-    return () => window.clearInterval(timer);
-  }, []);
 
   // Minimal Encore header for /encore pages (white bg, dark text)
   if (isEncore) {
