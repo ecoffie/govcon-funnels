@@ -13,7 +13,8 @@ export async function GET(request: NextRequest) {
       contextParam === 'delivery' || contextParam === 'marketing'
         ? contextParam
         : undefined;
-    const projects = await queryProjects(context);
+    const excludeArchived = searchParams.get('exclude_archived') === 'true';
+    const projects = await queryProjects({ context, excludeArchived });
     return NextResponse.json(projects);
   } catch (err) {
     const message = err instanceof Error ? err.message : 'Database error';
