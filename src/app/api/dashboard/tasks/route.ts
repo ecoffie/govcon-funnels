@@ -4,6 +4,7 @@ import {
   createTask,
   addTaskEvent,
   type TaskContext,
+  type RecurrenceType,
 } from '@/lib/db';
 import {
   notifySlackTaskChange,
@@ -84,6 +85,11 @@ export async function POST(request: NextRequest) {
       Array.isArray(body.tags) ? body.tags.filter((t: unknown) => typeof t === 'string') : [];
     const context: TaskContext =
       body.context === 'delivery' ? 'delivery' : 'marketing';
+    const recurrence: RecurrenceType =
+      typeof body.recurrence === 'string' &&
+      ['daily', 'weekly', 'biweekly', 'monthly'].includes(body.recurrence.toLowerCase())
+        ? (body.recurrence.toLowerCase() as RecurrenceType)
+        : 'none';
     const task = await createTask({
       title,
       description: description || null,
@@ -97,6 +103,7 @@ export async function POST(request: NextRequest) {
       estimate,
       tags,
       context,
+      recurrence,
     });
     await addTaskEvent({
       task_id: task.id,

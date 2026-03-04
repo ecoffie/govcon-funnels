@@ -128,6 +128,7 @@
     .chip.priority-low { border-color: #475569; color: #94a3b8; }
     .chip.priority-medium { border-color: #ca8a04; color: #fde68a; }
     .chip.priority-high { border-color: #ef4444; color: #fca5a5; }
+    .chip.recurring { border-color: #0ea5e9; color: #7dd3fc; font-size: 0.7rem; }
     .project-group { margin-bottom: 0.9rem; }
     .project-group h4 { margin: 0 0 0.4rem 0; color: #86efac; font-size: 0.8rem; letter-spacing: 0.02em; }
     .date-grid-head { display: flex; justify-content: space-between; align-items: center; margin-bottom: 0.6rem; }
@@ -302,6 +303,16 @@
               <select id="new-project"></select>
             </div>
             <div>
+              <label for="new-recurrence">Recurrence</label>
+              <select id="new-recurrence">
+                <option value="none">One-time</option>
+                <option value="daily">Daily</option>
+                <option value="weekly">Weekly</option>
+                <option value="biweekly">Every 2 weeks</option>
+                <option value="monthly">Monthly</option>
+              </select>
+            </div>
+            <div>
               <label for="new-attachment-file">Attachment (image)</label>
               <input type="file" id="new-attachment-file" accept="image/*" />
               <input type="hidden" id="new-attachment-url" />
@@ -363,6 +374,16 @@
             <div class="task-detail-field">
               <label for="detail-due">Due date</label>
               <input type="date" id="detail-due" />
+            </div>
+            <div class="task-detail-field">
+              <label for="detail-recurrence">Recurrence</label>
+              <select id="detail-recurrence">
+                <option value="none">One-time</option>
+                <option value="daily">Daily</option>
+                <option value="weekly">Weekly</option>
+                <option value="biweekly">Every 2 weeks</option>
+                <option value="monthly">Monthly</option>
+              </select>
             </div>
             <div class="task-detail-field full">
               <label for="detail-project">Project</label>
@@ -981,6 +1002,7 @@
       var newDueEl = document.getElementById('new-due');
       var newPriorityEl = document.getElementById('new-priority');
       var newProjectEl = document.getElementById('new-project');
+      var newRecurrenceEl = document.getElementById('new-recurrence');
       var newAttachmentFileEl = document.getElementById('new-attachment-file');
       var newAttachmentUrlEl = document.getElementById('new-attachment-url');
       var newAttachmentPreviewEl = document.getElementById('new-attachment-preview');
@@ -995,6 +1017,7 @@
       var detailPriorityEl = document.getElementById('detail-priority');
       var detailAssigneeEl = document.getElementById('detail-assignee');
       var detailDueEl = document.getElementById('detail-due');
+      var detailRecurrenceEl = document.getElementById('detail-recurrence');
       var detailProjectEl = document.getElementById('detail-project');
       var detailDescriptionEl = document.getElementById('detail-description');
       var detailAttachmentEl = document.getElementById('detail-attachment');
@@ -1149,6 +1172,7 @@
             estimate: t.estimate || '',
             description: t.description || '',
             subtasks: Array.isArray(t.subtasks) ? t.subtasks : [],
+            recurrence: t.recurrence || 'none',
             updated_at: t.updated_at || new Date().toISOString().slice(0, 10)
           };
         });
@@ -1249,6 +1273,7 @@
               project_id: t.project_id || defaultProjectId,
               description: t.description || '',
               attachment_url: t.attachment_url || '',
+              recurrence: t.recurrence || 'none',
               updated_at: (t.updated_at || '').slice(0, 10) || new Date().toISOString().slice(0, 10),
               context: t.context || context
             };
@@ -1265,6 +1290,7 @@
 
       async function apiCreateTask(input) {
         var context = getActiveContext();
+        var rec = (input.recurrence && input.recurrence !== 'none') ? input.recurrence : 'none';
         var payload = {
           title: input.title,
           description: input.description || null,
@@ -1273,6 +1299,7 @@
           priority: input.priority || 'medium',
           project_id: input.project_id || null,
           attachment_url: input.attachment_url || null,
+          recurrence: rec,
           status: 'open',
           context: context
         };
@@ -1297,6 +1324,7 @@
           project_id: task.project_id || '',
           description: task.description || '',
           attachment_url: task.attachment_url || '',
+          recurrence: task.recurrence || 'none',
           updated_at: (task.updated_at || '').slice(0, 10) || new Date().toISOString().slice(0, 10),
           context: task.context || context
         });
@@ -1324,6 +1352,7 @@
           local.project_id = task.project_id || local.project_id;
           local.description = task.description || '';
           local.attachment_url = task.attachment_url || '';
+          local.recurrence = task.recurrence || 'none';
           local.updated_at = (task.updated_at || '').slice(0, 10) || new Date().toISOString().slice(0, 10);
           local.context = task.context || local.context || 'marketing';
         }
@@ -1555,6 +1584,7 @@
               escapeHtml(t.id) +
               '" style="all:unset; cursor:pointer; color:#e2e8f0;"><div class="title-preview">' +
               escapeHtml(t.title) +
+              (t.recurrence && t.recurrence !== 'none' ? ' <span class="chip recurring">↻ ' + escapeHtml(t.recurrence) + '</span>' : '') +
               '</div></button></td>' +
               '<td class="col-status"><span class="chip status-' +
               escapeHtml(t.status) +
@@ -1741,6 +1771,7 @@
           project_id: projectId,
           description: input.description || '',
           attachment_url: input.attachment_url || '',
+          recurrence: input.recurrence || 'none',
           updated_at: new Date().toISOString().slice(0, 10),
           context: context
         };
@@ -1763,6 +1794,7 @@
         renderAssigneeSelects();
         detailAssigneeEl.value = task.assignee || '';
         detailDueEl.value = task.due_date || '';
+        detailRecurrenceEl.value = (task.recurrence && task.recurrence !== 'none') ? task.recurrence : 'none';
         detailProjectEl.value = projectNameById(task.project_id);
         detailDescriptionEl.value = task.description || '';
         detailAttachmentEl.innerHTML = task.attachment_url
@@ -1783,6 +1815,7 @@
         var nextPriority = detailPriorityEl.value;
         var nextAssignee = detailAssigneeEl.value.trim();
         var nextDueDate = detailDueEl.value;
+        var nextRecurrence = (detailRecurrenceEl.value && detailRecurrenceEl.value !== 'none') ? detailRecurrenceEl.value : 'none';
         var desiredProject = detailProjectEl.value.trim();
         var projects = contextProjects();
         var nextProjectId = task.project_id || (projects[0] && projects[0].id) || '';
@@ -1800,7 +1833,8 @@
             assignee: nextAssignee || null,
             due_date: nextDueDate || null,
             project_id: nextProjectId || null,
-            description: nextDescription || null
+            description: nextDescription || null,
+            recurrence: nextRecurrence
           });
         } catch (err) {
           task.title = nextTitle;
@@ -1819,6 +1853,7 @@
         task.due_date = nextDueDate;
         task.project_id = nextProjectId;
         task.description = nextDescription;
+        task.recurrence = nextRecurrence;
         touchTask(task);
         addEvent(task.id, 'Task details updated');
         saveWorkspace();
@@ -1981,6 +2016,7 @@
         if (!newProjectEl.value) { showTasksErr('Please select a project.'); return; }
         showTasksErr('');
         try {
+          var recurrenceVal = (newRecurrenceEl.value && newRecurrenceEl.value !== 'none') ? newRecurrenceEl.value : 'none';
           var payload = {
             title: title,
             assignee: (newAssigneeEl.value || '').trim(),
@@ -1988,7 +2024,8 @@
             priority: newPriorityEl.value,
             project_id: newProjectEl.value,
             description: (newDescriptionEl.value || '').trim(),
-            attachment_url: newAttachmentUrlEl.value || ''
+            attachment_url: newAttachmentUrlEl.value || '',
+            recurrence: recurrenceVal
           };
           try {
             await apiCreateTask(payload);
@@ -1999,6 +2036,7 @@
           newTitleEl.value = '';
           newAssigneeEl.value = '';
           newDueEl.value = '';
+          newRecurrenceEl.value = 'none';
           newDescriptionEl.value = '';
           newAttachmentFileEl.value = '';
           newAttachmentUrlEl.value = '';

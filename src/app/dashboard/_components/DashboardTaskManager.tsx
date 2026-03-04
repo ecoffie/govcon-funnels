@@ -21,6 +21,7 @@ type Task = {
   priority: string | null;
   project_id: string | null;
   context?: ContextType;
+  recurrence?: string;
 };
 
 const managerTitle: Record<ContextType, string> = {
@@ -138,24 +139,25 @@ export default function DashboardTaskManager() {
               <th className="w-36 px-3 py-2">Due</th>
               <th className="w-40 px-3 py-2">Assignee</th>
               <th className="w-28 px-3 py-2">Priority</th>
+              <th className="w-24 px-3 py-2">Repeat</th>
             </tr>
           </thead>
           <tbody>
             {loading ? (
               <tr>
-                <td colSpan={7} className="px-3 py-5 text-slate-400">
+                <td colSpan={8} className="px-3 py-5 text-slate-400">
                   Loading task manager...
                 </td>
               </tr>
             ) : error ? (
               <tr>
-                <td colSpan={7} className="px-3 py-5 text-red-400">
+                <td colSpan={8} className="px-3 py-5 text-red-400">
                   {error}
                 </td>
               </tr>
             ) : tasks.length === 0 ? (
               <tr>
-                <td colSpan={7} className="px-3 py-5 text-slate-400">
+                <td colSpan={8} className="px-3 py-5 text-slate-400">
                   No tasks found for this manager.
                 </td>
               </tr>
@@ -174,6 +176,15 @@ export default function DashboardTaskManager() {
                   <td className="px-3 py-2 text-slate-300">{task.assignee || 'Unassigned'}</td>
                   <td className="px-3 py-2 text-slate-300">
                     {task.priority === 'high' ? 'High' : '-'}
+                  </td>
+                  <td className="w-24 px-3 py-2 text-slate-400">
+                    {task.recurrence && task.recurrence !== 'none' ? (
+                      <span className="rounded-full border border-sky-600/60 bg-sky-500/10 px-2 py-0.5 text-xs text-sky-300">
+                        ↻ {task.recurrence}
+                      </span>
+                    ) : (
+                      '-'
+                    )}
                   </td>
                 </tr>
               ))
