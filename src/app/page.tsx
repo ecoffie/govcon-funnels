@@ -89,7 +89,7 @@ export default function Home() {
           <div className="max-w-4xl mx-auto space-y-0">
             {/* Step 1 */}
             <a
-              href="https://funnels.govcongiants.org/proposal-bootcamp"
+              href="https://govcongiants.org/resources/handouts"
               className="flex flex-col sm:flex-row gap-4 sm:gap-6 items-start p-6 rounded-xl bg-slate-900 border border-slate-800 hover:border-green-600/50 transition group block"
             >
               <div className="flex-shrink-0 w-14 h-14 rounded-full bg-green-600 text-white font-black text-xl flex items-center justify-center">1</div>
