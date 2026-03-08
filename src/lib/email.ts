@@ -133,6 +133,8 @@ export async function sendConfirmationEmail(params: EmailParams & { source: stri
   switch (source) {
     case 'free-handouts':
       return sendFreeHandoutsEmail({ to, name });
+    case 'contract-vehicles-bootcamp':
+      return sendContractVehiclesBootcampEmail({ to, name });
     case 'proposal-bootcamp':
       return sendProposalResourcesEmail({ to, name });
     case 'opp':
@@ -330,6 +332,52 @@ export async function sendBootcampEmail(params: EmailParams): Promise<EmailResul
 ${proCta()}`;
 
   return sendEmail(params.to, `${firstName}, You're Registered for the Bootcamp!`, emailWrapper(content));
+}
+
+/**
+ * Contract vehicles bootcamp confirmation email
+ */
+export async function sendContractVehiclesBootcampEmail(params: EmailParams): Promise<EmailResult> {
+  const firstName = params.name.split(' ')[0] || 'there';
+  const bootcampUrl = 'https://govcongiants.org/contract-vehicles-bootcamp/thank-you';
+
+  const content = `
+<h1 style="color: #ffffff; font-size: 28px; margin: 0 0 20px; text-align: center;">
+  Your Contract Vehicles Bootcamp Access Is Ready!
+</h1>
+
+<p style="color: #94a3b8; font-size: 16px; line-height: 1.6; margin: 0 0 30px;">
+  Hey ${firstName},<br><br>
+  You're in. This bootcamp will help you understand IDIQs, BPAs, Sources Sought, set-asides, and contract types so you can target the right opportunities faster.
+</p>
+
+<table width="100%" cellpadding="0" cellspacing="0">
+  <tr>
+    <td align="center" style="padding: 20px 0;">
+      <a href="${bootcampUrl}" style="display: inline-block; background-color: #4ade80; color: #0f172a; padding: 16px 32px; border-radius: 8px; text-decoration: none; font-weight: 700; font-size: 16px;">
+        Access Bootcamp Details
+      </a>
+    </td>
+  </tr>
+</table>
+
+<div style="background-color: #0f172a; border-radius: 8px; padding: 24px; margin: 30px 0;">
+  <h3 style="color: #ffffff; font-size: 16px; margin: 0 0 16px;">What You'll Cover:</h3>
+  <ul style="color: #94a3b8; font-size: 14px; line-height: 2; margin: 0; padding-left: 20px;">
+    <li>How to evaluate major contract vehicles and pick your best fit</li>
+    <li>When to respond to Sources Sought and RFIs</li>
+    <li>How to align your offer with agency buying patterns</li>
+    <li>How to avoid common mistakes by contract type</li>
+  </ul>
+</div>
+
+${proCta()}`;
+
+  return sendEmail(
+    params.to,
+    `${firstName}, Your Contract Vehicles Bootcamp Access Is Ready!`,
+    emailWrapper(content)
+  );
 }
 
 /**

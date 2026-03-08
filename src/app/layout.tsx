@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 import SiteNav from "@/components/SiteNav";
+import BootcampBanner from "@/components/BootcampBanner";
 import "./globals.css";
 
 const inter = Inter({
@@ -22,6 +23,7 @@ export default function RootLayout({
     <html lang="en">
       <body className={`${inter.variable} antialiased`}>
         <SiteNav />
+        <BootcampBanner />
         {children}
       </body>
     </html>

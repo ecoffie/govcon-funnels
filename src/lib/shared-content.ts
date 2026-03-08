@@ -55,6 +55,10 @@ const activeFunnels: SharedLinkItem[] = [
   { label: 'Free 12-Day Course (free-course)', url: 'https://govcongiants.org/free-course' },
   { label: 'Opportunity Hunter Tool (opp)', url: 'https://govcongiants.org/opp' },
   { label: 'Resource Handouts (handouts)', url: 'https://govcongiants.org/resources/handouts' },
+  {
+    label: 'Contract Vehicles Bootcamp (contract-vehicles-bootcamp)',
+    url: 'https://govcongiants.org/contract-vehicles-bootcamp',
+  },
   { label: 'Feb 28 Bootcamp Alt (feb28-bootcamp)', url: 'https://govcongiants.org/feb-28-bootcamp' },
   { label: 'Premium Plans Overview', url: 'https://govcongiants.org/premium' },
   { label: 'Jan 31 Bootcamp Paid (Stripe)', url: 'https://govcongiants.org/jan-31-bootcamp-paid' },
@@ -285,7 +289,16 @@ export const sharedDashboardContent = {
         note: 'Env var: RESEND_API_KEY',
       },
     ],
-    sourceTags: ['bootcamp', 'surge', 'proposal-bootcamp', 'free-course', 'opp', 'handouts', 'feb28-bootcamp'],
+    sourceTags: [
+      'bootcamp',
+      'surge',
+      'proposal-bootcamp',
+      'free-course',
+      'opp',
+      'handouts',
+      'feb28-bootcamp',
+      'contract-vehicles-bootcamp',
+    ],
     envVars: [
       'GHL_API_KEY - Go High Level API key',
       'GHL_LOCATION_ID - Go High Level location ID',
