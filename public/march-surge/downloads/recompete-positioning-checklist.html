@@ -1,0 +1,388 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Recompete Positioning Checklist | GovCon Giants</title>
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; line-height: 1.6; color: #1a1a2e; background: #f8fafc; }
+
+    /* Header */
+    .header { background: linear-gradient(135deg, #059669 0%, #10b981 100%); color: white; padding: 40px 30px; text-align: center; }
+    .header h1 { font-size: 2rem; font-weight: 800; margin-bottom: 8px; }
+    .header .subtitle { font-size: 1.1rem; opacity: 0.95; }
+    .header .badge { display: inline-block; background: #fbbf24; color: #1a1a2e; padding: 6px 16px; border-radius: 20px; font-size: 0.8rem; font-weight: 700; margin-bottom: 15px; text-transform: uppercase; }
+
+    /* Container */
+    .container { max-width: 900px; margin: 0 auto; padding: 30px 20px; }
+
+    /* Stats Bar */
+    .stats-bar { display: flex; justify-content: center; gap: 40px; background: white; border-radius: 12px; padding: 20px; margin-bottom: 30px; box-shadow: 0 2px 10px rgba(0,0,0,0.06); flex-wrap: wrap; }
+    .stat { text-align: center; }
+    .stat .value { font-size: 1.8rem; font-weight: 800; color: #059669; }
+    .stat .label { font-size: 0.8rem; color: #666; text-transform: uppercase; }
+
+    /* CTA Banner */
+    .cta-banner { background: linear-gradient(135deg, #0B2E1B 0%, #1F7A4D 100%); color: white; border-radius: 12px; padding: 25px 30px; margin-bottom: 30px; display: flex; align-items: center; justify-content: space-between; gap: 20px; flex-wrap: wrap; }
+    .cta-banner h2 { font-size: 1.3rem; font-weight: 700; }
+    .cta-banner p { font-size: 0.9rem; opacity: 0.9; margin-top: 5px; }
+    .cta-btn { display: inline-block; background: #fbbf24; color: #1a1a2e; padding: 12px 30px; border-radius: 30px; font-weight: 700; text-decoration: none; font-size: 0.95rem; white-space: nowrap; transition: all 0.2s; }
+    .cta-btn:hover { transform: translateY(-2px); box-shadow: 0 5px 20px rgba(0,0,0,0.2); }
+
+    /* Phase */
+    .phase { background: white; border-radius: 12px; box-shadow: 0 2px 10px rgba(0,0,0,0.06); margin-bottom: 24px; overflow: hidden; }
+    .phase-header { background: linear-gradient(135deg, #0B2E1B 0%, #1F7A4D 100%); padding: 20px 24px; display: flex; align-items: center; gap: 16px; }
+    .phase-num { width: 48px; height: 48px; background: #fbbf24; color: #1a1a2e; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 20px; font-weight: 800; flex-shrink: 0; }
+    .phase-title { font-size: 1.25rem; font-weight: 700; color: #fff; }
+    .phase-timeline { font-size: 0.85rem; color: #a7f3d0; font-weight: 600; }
+    .phase-body { padding: 24px; }
+
+    /* Section */
+    .section { margin-bottom: 20px; }
+    .section:last-child { margin-bottom: 0; }
+    .section-title { font-size: 0.95rem; font-weight: 700; color: #059669; margin-bottom: 12px; padding-bottom: 8px; border-bottom: 2px solid #f0fdf4; }
+
+    /* Checklist */
+    .checklist { list-style: none; }
+    .checklist li { display: flex; align-items: flex-start; gap: 10px; padding: 8px 0; border-bottom: 1px solid #f1f5f9; color: #334155; font-size: 0.9rem; }
+    .checklist li:last-child { border-bottom: none; }
+    .checkbox { width: 18px; height: 18px; border: 2px solid #059669; border-radius: 4px; flex-shrink: 0; margin-top: 2px; }
+
+    /* Contacts Table */
+    .contacts-table { width: 100%; border-collapse: collapse; margin-top: 12px; }
+    .contacts-table th { background: #0B2E1B; color: white; font-size: 0.75rem; text-transform: uppercase; letter-spacing: 0.5px; padding: 10px 12px; text-align: left; }
+    .contacts-table td { padding: 10px 12px; border-bottom: 1px solid #f0f0f0; color: #666; font-size: 0.85rem; }
+    .contacts-table tr:hover td { background: #f0fdf4; }
+
+    /* Unlock Section */
+    .unlock-section { text-align: center; padding: 40px 20px; background: linear-gradient(180deg, rgba(248,250,252,0) 0%, #f0fdf4 100%); margin-top: -20px; position: relative; }
+    .unlock-section h2 { font-size: 1.8rem; font-weight: 800; color: #0B2E1B; margin-bottom: 10px; }
+    .unlock-section > p { color: #666; font-size: 1rem; margin-bottom: 25px; max-width: 600px; margin-left: auto; margin-right: auto; }
+    .unlock-btn { display: inline-block; background: linear-gradient(135deg, #059669 0%, #10b981 100%); color: white; padding: 16px 50px; border-radius: 50px; font-weight: 700; font-size: 1.1rem; text-decoration: none; transition: all 0.3s; box-shadow: 0 10px 30px rgba(5,150,105,0.3); }
+    .unlock-btn:hover { transform: translateY(-3px); box-shadow: 0 15px 40px rgba(5,150,105,0.4); }
+    .price { font-size: 0.9rem; color: #666; margin-top: 12px; }
+
+    /* Features Grid */
+    .features { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 16px; margin: 25px auto; max-width: 700px; text-align: left; }
+    .feature { background: white; border-radius: 10px; padding: 18px; box-shadow: 0 2px 10px rgba(0,0,0,0.06); }
+    .feature h3 { font-size: 0.9rem; font-weight: 700; color: #0B2E1B; margin-bottom: 4px; }
+    .feature p { font-size: 0.8rem; color: #666; }
+
+    /* Footer */
+    .footer { background: #0B2E1B; color: white; padding: 25px; text-align: center; font-size: 0.85rem; }
+    .footer a { color: #10b981; text-decoration: none; }
+
+    /* Print */
+    @media print {
+      body { background: white; }
+      .cta-banner, .unlock-section, .footer { display: none; }
+      .header { padding: 20px; }
+      .phase-header { -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+      .checkbox { border-color: #333; }
+    }
+    @media (max-width: 768px) {
+      .cta-banner { flex-direction: column; text-align: center; }
+      .stats-bar { gap: 20px; }
+      .header h1 { font-size: 1.5rem; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Header -->
+  <div class="header">
+    <div class="badge">Free Resource &bull; Contract Vehicles Bootcamp</div>
+    <h1>Recompete Positioning Checklist</h1>
+    <p class="subtitle">Your 18-month timeline to position for expiring federal contracts</p>
+  </div>
+
+  <div class="container">
+
+    <!-- Stats Bar -->
+    <div class="stats-bar">
+      <div class="stat">
+        <div class="value">4</div>
+        <div class="label">Phases</div>
+      </div>
+      <div class="stat">
+        <div class="value">50+</div>
+        <div class="label">Action Items</div>
+      </div>
+      <div class="stat">
+        <div class="value">18</div>
+        <div class="label">Month Timeline</div>
+      </div>
+      <div class="stat">
+        <div class="value">5</div>
+        <div class="label">Key Contacts</div>
+      </div>
+    </div>
+
+    <!-- CTA Banner -->
+    <div class="cta-banner">
+      <div>
+        <h2>This checklist works best with the Recompete Tracker</h2>
+        <p>Find the exact contracts to target &mdash; 6,900+ expiring contracts across 36 agencies</p>
+      </div>
+      <a href="https://shop.govcongiants.org/expiring-contracts" class="cta-btn">Get the Tracker &rarr;</a>
+    </div>
+
+    <!-- Phase 1: 0-6 Months -->
+    <div class="phase">
+      <div class="phase-header">
+        <div class="phase-num">1</div>
+        <div>
+          <div class="phase-title">Research &amp; Discovery</div>
+          <div class="phase-timeline">Months 0 &ndash; 6</div>
+        </div>
+      </div>
+      <div class="phase-body">
+        <div class="section">
+          <div class="section-title">Contract Identification</div>
+          <ul class="checklist">
+            <li><div class="checkbox"></div>Identify 10-20 expiring contracts in your NAICS code</li>
+            <li><div class="checkbox"></div>Filter by contract value (your target range)</li>
+            <li><div class="checkbox"></div>Filter by agency (agencies you want to work with)</li>
+            <li><div class="checkbox"></div>Note expiration dates and plan backwards</li>
+          </ul>
+        </div>
+        <div class="section">
+          <div class="section-title">Incumbent Research</div>
+          <ul class="checklist">
+            <li><div class="checkbox"></div>Research current contract holder (prime contractor)</li>
+            <li><div class="checkbox"></div>Identify incumbent&rsquo;s size status (small, large, etc.)</li>
+            <li><div class="checkbox"></div>Research incumbent&rsquo;s past performance on this contract</li>
+            <li><div class="checkbox"></div>Identify incumbent&rsquo;s strengths and weaknesses</li>
+            <li><div class="checkbox"></div>Determine if incumbent is a potential teaming partner</li>
+          </ul>
+        </div>
+        <div class="section">
+          <div class="section-title">Scope Analysis</div>
+          <ul class="checklist">
+            <li><div class="checkbox"></div>Read the original solicitation (if available)</li>
+            <li><div class="checkbox"></div>Review contract modifications and task orders</li>
+            <li><div class="checkbox"></div>Understand the scope of work performed</li>
+            <li><div class="checkbox"></div>Identify any pain points or gaps in performance</li>
+            <li><div class="checkbox"></div>Research agency satisfaction with current contractor</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <!-- Phase 2: 6-12 Months -->
+    <div class="phase">
+      <div class="phase-header">
+        <div class="phase-num">2</div>
+        <div>
+          <div class="phase-title">Positioning &amp; Outreach</div>
+          <div class="phase-timeline">Months 6 &ndash; 12</div>
+        </div>
+      </div>
+      <div class="phase-body">
+        <div class="section">
+          <div class="section-title">Agency Outreach</div>
+          <ul class="checklist">
+            <li><div class="checkbox"></div>Identify the Contracting Officer for this contract</li>
+            <li><div class="checkbox"></div>Identify the Small Business Liaison Officer (SBLO)</li>
+            <li><div class="checkbox"></div>Request a meeting with the SBLO</li>
+            <li><div class="checkbox"></div>Introduce your company and capabilities</li>
+            <li><div class="checkbox"></div>Ask about the recompete timeline</li>
+          </ul>
+        </div>
+        <div class="section">
+          <div class="section-title">Sources Sought Response</div>
+          <ul class="checklist">
+            <li><div class="checkbox"></div>Monitor SAM.gov for Sources Sought notices</li>
+            <li><div class="checkbox"></div>Prepare Sources Sought response template</li>
+            <li><div class="checkbox"></div>Submit response within deadline</li>
+            <li><div class="checkbox"></div>Include capability statement</li>
+            <li><div class="checkbox"></div>Highlight relevant past performance</li>
+          </ul>
+        </div>
+        <div class="section">
+          <div class="section-title">Industry Day Participation</div>
+          <ul class="checklist">
+            <li><div class="checkbox"></div>Monitor for Industry Day announcements</li>
+            <li><div class="checkbox"></div>Register and attend Industry Days</li>
+            <li><div class="checkbox"></div>Prepare questions about the requirement</li>
+            <li><div class="checkbox"></div>Network with other potential bidders</li>
+            <li><div class="checkbox"></div>Follow up with contacts made</li>
+          </ul>
+        </div>
+        <div class="section">
+          <div class="section-title">Teaming Strategy</div>
+          <ul class="checklist">
+            <li><div class="checkbox"></div>Identify potential teaming partners</li>
+            <li><div class="checkbox"></div>Approach incumbent about subcontracting (if appropriate)</li>
+            <li><div class="checkbox"></div>Approach other primes about teaming</li>
+            <li><div class="checkbox"></div>Execute teaming agreements</li>
+            <li><div class="checkbox"></div>Define roles and responsibilities</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <!-- Phase 3: 12-18 Months -->
+    <div class="phase">
+      <div class="phase-header">
+        <div class="phase-num">3</div>
+        <div>
+          <div class="phase-title">Pre-Solicitation Prep</div>
+          <div class="phase-timeline">Months 12 &ndash; 18</div>
+        </div>
+      </div>
+      <div class="phase-body">
+        <div class="section">
+          <div class="section-title">Team Finalization</div>
+          <ul class="checklist">
+            <li><div class="checkbox"></div>Finalize teaming arrangements</li>
+            <li><div class="checkbox"></div>Execute formal teaming agreement</li>
+            <li><div class="checkbox"></div>Assign proposal roles to team members</li>
+            <li><div class="checkbox"></div>Identify key personnel for the contract</li>
+            <li><div class="checkbox"></div>Obtain commitment letters from key personnel</li>
+          </ul>
+        </div>
+        <div class="section">
+          <div class="section-title">Capability Statement Update</div>
+          <ul class="checklist">
+            <li><div class="checkbox"></div>Update capability statement for this specific contract</li>
+            <li><div class="checkbox"></div>Tailor to agency&rsquo;s needs and language</li>
+            <li><div class="checkbox"></div>Include relevant past performance</li>
+            <li><div class="checkbox"></div>Highlight differentiators</li>
+            <li><div class="checkbox"></div>Review and finalize</li>
+          </ul>
+        </div>
+        <div class="section">
+          <div class="section-title">Draft Technical Approach</div>
+          <ul class="checklist">
+            <li><div class="checkbox"></div>Outline your technical approach</li>
+            <li><div class="checkbox"></div>Identify your discriminators (what makes you different)</li>
+            <li><div class="checkbox"></div>Document your management approach</li>
+            <li><div class="checkbox"></div>Prepare staffing plan framework</li>
+            <li><div class="checkbox"></div>Develop transition plan framework</li>
+          </ul>
+        </div>
+        <div class="section">
+          <div class="section-title">Past Performance Preparation</div>
+          <ul class="checklist">
+            <li><div class="checkbox"></div>Identify 3-5 relevant past performance references</li>
+            <li><div class="checkbox"></div>Contact references and confirm participation</li>
+            <li><div class="checkbox"></div>Prepare past performance narratives (STAR format)</li>
+            <li><div class="checkbox"></div>Document metrics and outcomes</li>
+            <li><div class="checkbox"></div>Obtain performance ratings if available</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <!-- Phase 4: After RFP -->
+    <div class="phase">
+      <div class="phase-header">
+        <div class="phase-num">4</div>
+        <div>
+          <div class="phase-title">Proposal &amp; Submission</div>
+          <div class="phase-timeline">After RFP Release</div>
+        </div>
+      </div>
+      <div class="phase-body">
+        <div class="section">
+          <div class="section-title">Compliance Matrix</div>
+          <ul class="checklist">
+            <li><div class="checkbox"></div>Create compliance matrix from RFP requirements</li>
+            <li><div class="checkbox"></div>Map every requirement to your response</li>
+            <li><div class="checkbox"></div>Assign section owners</li>
+            <li><div class="checkbox"></div>Track completion status</li>
+            <li><div class="checkbox"></div>Verify 100% compliance before submission</li>
+          </ul>
+        </div>
+        <div class="section">
+          <div class="section-title">Proposal Development</div>
+          <ul class="checklist">
+            <li><div class="checkbox"></div>Develop detailed technical approach</li>
+            <li><div class="checkbox"></div>Write management approach section</li>
+            <li><div class="checkbox"></div>Complete past performance volume</li>
+            <li><div class="checkbox"></div>Develop pricing (competitive and profitable)</li>
+            <li><div class="checkbox"></div>Include all required certifications</li>
+          </ul>
+        </div>
+        <div class="section">
+          <div class="section-title">Review &amp; Submission</div>
+          <ul class="checklist">
+            <li><div class="checkbox"></div>Conduct internal compliance review</li>
+            <li><div class="checkbox"></div>Conduct internal quality review (Red Team)</li>
+            <li><div class="checkbox"></div>Address all review comments</li>
+            <li><div class="checkbox"></div>Final compliance check</li>
+            <li><div class="checkbox"></div>Submit before deadline (never on deadline day!)</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <!-- Key Contacts -->
+    <div class="phase">
+      <div class="phase-header">
+        <div class="phase-num" style="background: #fff; color: #0B2E1B;">&#9998;</div>
+        <div>
+          <div class="phase-title">Key Contacts to Track</div>
+          <div class="phase-timeline">Fill in as you go</div>
+        </div>
+      </div>
+      <div class="phase-body">
+        <table class="contacts-table">
+          <thead>
+            <tr>
+              <th>Contact</th>
+              <th>Role</th>
+              <th>Email</th>
+              <th>Phone</th>
+              <th>Notes</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr><td>&nbsp;</td><td>Contracting Officer</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td></tr>
+            <tr><td>&nbsp;</td><td>SBLO</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td></tr>
+            <tr><td>&nbsp;</td><td>Program Manager</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td></tr>
+            <tr><td>&nbsp;</td><td>Incumbent SBLO</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td></tr>
+            <tr><td>&nbsp;</td><td>Teaming Partner</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- Unlock Section -->
+  <div class="unlock-section">
+    <h2>Find the Right Contracts to Target</h2>
+    <p>This checklist tells you <em>what to do</em> &mdash; the Recompete Tracker tells you <em>which contracts to do it for</em>.</p>
+    <div class="features">
+      <div class="feature">
+        <h3>6,900+ Expiring Contracts</h3>
+        <p>Across 36 federal agencies with full details</p>
+      </div>
+      <div class="feature">
+        <h3>Filter by NAICS &amp; Agency</h3>
+        <p>Find contracts matching your exact capabilities</p>
+      </div>
+      <div class="feature">
+        <h3>Ceiling Values &amp; Incumbents</h3>
+        <p>Know the contract size and who holds it now</p>
+      </div>
+      <div class="feature">
+        <h3>Expiration Dates</h3>
+        <p>Plan your 18-month positioning timeline</p>
+      </div>
+    </div>
+    <a href="https://shop.govcongiants.org/expiring-contracts" class="unlock-btn">Get the Recompete Tracker &mdash; $397</a>
+    <p class="price">One-time purchase &bull; Instant access &bull; Updated monthly</p>
+  </div>
+
+  <!-- Footer -->
+  <div class="footer">
+    <p><strong>GovCon Giants</strong> &nbsp;|&nbsp; <a href="https://govcongiants.org">govcongiants.org</a> &nbsp;|&nbsp; <a href="https://shop.govcongiants.org">GovCon Shop</a> &nbsp;|&nbsp; <a href="https://guides.govcongiants.org">The Vault</a></p>
+    <p style="margin-top: 8px; opacity: 0.7;">&copy; 2026 GovCon Giants. All rights reserved.</p>
+  </div>
+
+</body>
+</html>

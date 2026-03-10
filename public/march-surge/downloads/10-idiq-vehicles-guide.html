@@ -1,0 +1,538 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>10 IDIQ Vehicles Every Small Business Should Know | GovCon Giants</title>
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; line-height: 1.6; color: #1a1a2e; background: #f8fafc; }
+
+    .header { background: linear-gradient(135deg, #059669 0%, #10b981 100%); color: white; padding: 40px 30px; text-align: center; }
+    .header h1 { font-size: 2rem; font-weight: 800; margin-bottom: 4px; }
+    .header h2 { font-size: 1.2rem; font-weight: 400; opacity: 0.95; margin-bottom: 8px; }
+    .header .subtitle { font-size: 0.95rem; opacity: 0.85; }
+    .header .badge { display: inline-block; background: #fbbf24; color: #1a1a2e; padding: 6px 16px; border-radius: 20px; font-size: 0.8rem; font-weight: 700; margin-bottom: 15px; text-transform: uppercase; }
+
+    .container { max-width: 900px; margin: 0 auto; padding: 30px 20px; }
+
+    .stats-bar { display: flex; justify-content: center; gap: 40px; background: white; border-radius: 12px; padding: 20px; margin-bottom: 30px; box-shadow: 0 2px 10px rgba(0,0,0,0.06); flex-wrap: wrap; }
+    .stat { text-align: center; }
+    .stat .value { font-size: 1.8rem; font-weight: 800; color: #059669; }
+    .stat .label { font-size: 0.8rem; color: #666; text-transform: uppercase; }
+
+    .cta-banner { background: linear-gradient(135deg, #0B2E1B 0%, #1F7A4D 100%); color: white; border-radius: 12px; padding: 25px 30px; margin-bottom: 30px; display: flex; align-items: center; justify-content: space-between; gap: 20px; flex-wrap: wrap; }
+    .cta-banner h3 { font-size: 1.3rem; font-weight: 700; }
+    .cta-banner p { font-size: 0.9rem; opacity: 0.9; margin-top: 5px; }
+    .cta-btn { display: inline-block; background: #fbbf24; color: #1a1a2e; padding: 12px 30px; border-radius: 30px; font-weight: 700; text-decoration: none; font-size: 0.95rem; white-space: nowrap; transition: all 0.2s; }
+    .cta-btn:hover { transform: translateY(-2px); box-shadow: 0 5px 20px rgba(0,0,0,0.2); }
+
+    /* Intro */
+    .intro { background: white; border-radius: 12px; padding: 24px; box-shadow: 0 2px 10px rgba(0,0,0,0.06); margin-bottom: 30px; }
+    .intro h3 { font-size: 1.1rem; font-weight: 700; color: #0B2E1B; margin-bottom: 10px; }
+    .intro p { font-size: 0.9rem; color: #444; margin-bottom: 10px; }
+    .intro p:last-child { margin-bottom: 0; }
+
+    /* Vehicle Card */
+    .vehicle { background: white; border-radius: 12px; box-shadow: 0 2px 10px rgba(0,0,0,0.06); margin-bottom: 24px; overflow: hidden; }
+    .vehicle-header { background: linear-gradient(135deg, #0B2E1B 0%, #1F7A4D 100%); padding: 18px 24px; display: flex; align-items: center; gap: 16px; }
+    .vehicle-num { width: 44px; height: 44px; background: #fbbf24; color: #1a1a2e; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 18px; font-weight: 800; flex-shrink: 0; }
+    .vehicle-name { font-size: 1.15rem; font-weight: 700; color: #fff; }
+    .vehicle-sub { font-size: 0.8rem; color: #a7f3d0; margin-top: 2px; }
+    .vehicle-body { padding: 20px 24px; }
+
+    /* Detail rows */
+    .detail-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 0; }
+    .detail-item { padding: 12px 0; border-bottom: 1px solid #f1f5f9; }
+    .detail-item.full { grid-column: 1 / -1; }
+    .detail-label { font-size: 0.75rem; font-weight: 700; color: #059669; text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 4px; }
+    .detail-value { font-size: 0.85rem; color: #334155; }
+
+    /* Pro Tip */
+    .pro-tip { background: #fef3c7; border: 2px solid #fbbf24; border-radius: 10px; padding: 14px 18px; margin-top: 16px; }
+    .pro-tip strong { color: #92400e; font-size: 0.8rem; text-transform: uppercase; letter-spacing: 0.5px; }
+    .pro-tip p { font-size: 0.85rem; color: #78350f; margin-top: 4px; }
+
+    /* Next Steps */
+    .next-steps { background: white; border-radius: 12px; box-shadow: 0 2px 10px rgba(0,0,0,0.06); padding: 24px; margin-bottom: 30px; }
+    .next-steps h3 { font-size: 1.3rem; font-weight: 800; color: #0B2E1B; margin-bottom: 16px; text-align: center; }
+    .step { display: flex; gap: 14px; padding: 12px 0; border-bottom: 1px solid #f1f5f9; }
+    .step:last-child { border-bottom: none; }
+    .step-num { width: 32px; height: 32px; background: #059669; color: white; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 14px; font-weight: 700; flex-shrink: 0; }
+    .step p { font-size: 0.9rem; color: #334155; }
+    .step a { color: #059669; font-weight: 600; text-decoration: none; }
+    .step a:hover { text-decoration: underline; }
+
+    /* Unlock */
+    .unlock-section { text-align: center; padding: 40px 20px; background: linear-gradient(180deg, rgba(248,250,252,0) 0%, #f0fdf4 100%); }
+    .unlock-section h2 { font-size: 1.8rem; font-weight: 800; color: #0B2E1B; margin-bottom: 10px; }
+    .unlock-section > p { color: #666; font-size: 1rem; margin-bottom: 25px; max-width: 600px; margin-left: auto; margin-right: auto; }
+    .unlock-btn { display: inline-block; background: linear-gradient(135deg, #059669 0%, #10b981 100%); color: white; padding: 16px 50px; border-radius: 50px; font-weight: 700; font-size: 1.1rem; text-decoration: none; transition: all 0.3s; box-shadow: 0 10px 30px rgba(5,150,105,0.3); }
+    .unlock-btn:hover { transform: translateY(-3px); box-shadow: 0 15px 40px rgba(5,150,105,0.4); }
+    .price { font-size: 0.9rem; color: #666; margin-top: 12px; }
+    .features { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 16px; margin: 25px auto; max-width: 700px; text-align: left; }
+    .feature { background: white; border-radius: 10px; padding: 18px; box-shadow: 0 2px 10px rgba(0,0,0,0.06); }
+    .feature h3 { font-size: 0.9rem; font-weight: 700; color: #0B2E1B; margin-bottom: 4px; }
+    .feature p { font-size: 0.8rem; color: #666; }
+
+    .footer { background: #0B2E1B; color: white; padding: 25px; text-align: center; font-size: 0.85rem; }
+    .footer a { color: #10b981; text-decoration: none; }
+
+    @media print {
+      body { background: white; }
+      .cta-banner, .unlock-section, .footer { display: none; }
+      .header { padding: 20px; }
+      .vehicle-header { -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+    }
+    @media (max-width: 768px) {
+      .cta-banner { flex-direction: column; text-align: center; }
+      .stats-bar { gap: 20px; }
+      .header h1 { font-size: 1.5rem; }
+      .detail-grid { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+
+  <div class="header">
+    <div class="badge">Free Guide &bull; Contract Vehicles Bootcamp</div>
+    <h1>10 IDIQ Vehicles</h1>
+    <h2>Every Small Business Should Know</h2>
+    <p class="subtitle">What they are in plain English, who can use them, and how to get on them.</p>
+  </div>
+
+  <div class="container">
+
+    <div class="stats-bar">
+      <div class="stat"><div class="value">10</div><div class="label">Vehicles</div></div>
+      <div class="stat"><div class="value">$367B+</div><div class="label">Combined Ceiling</div></div>
+      <div class="stat"><div class="value">36</div><div class="label">Agencies Served</div></div>
+      <div class="stat"><div class="value">2</div><div class="label">Ways to Participate</div></div>
+    </div>
+
+    <div class="cta-banner">
+      <div>
+        <h3>Want 125+ GovCon templates, guides &amp; tools?</h3>
+        <p>The Vault has proposal templates, capability statements, databases, and more.</p>
+      </div>
+      <a href="https://guides.govcongiants.org" class="cta-btn">Access The Vault &rarr;</a>
+    </div>
+
+    <!-- Intro -->
+    <div class="intro">
+      <h3>What is an IDIQ?</h3>
+      <p>An IDIQ (Indefinite Delivery / Indefinite Quantity) contract is a pre-competed contract vehicle that allows agencies to issue task orders for specific work. Think of it as a <strong>&ldquo;hunting license&rdquo;</strong> &mdash; once you&rsquo;re on the vehicle, you can compete for task orders with a much smaller pool of competitors (typically 5&ndash;10 companies instead of 50&ndash;100).</p>
+      <p>IDIQs have a <strong>ceiling value</strong> (the maximum that can be spent) and an <strong>ordering period</strong> (how long agencies can issue task orders). When the ordering period ends, the agency rebids &mdash; that&rsquo;s your opportunity to get on the next one.</p>
+      <p><strong>Two ways to participate:</strong> (1) Get ON the vehicle yourself by winning a spot during the competition, or (2) Team with a prime who&rsquo;s already on the vehicle as their subcontractor. Most small businesses start with option 2.</p>
+    </div>
+
+    <!-- Vehicle 1: GSA MAS -->
+    <div class="vehicle">
+      <div class="vehicle-header">
+        <div class="vehicle-num">1</div>
+        <div>
+          <div class="vehicle-name">GSA Multiple Award Schedule (MAS)</div>
+          <div class="vehicle-sub">Formerly GSA Schedule, GSA IT Schedule 70, Professional Services Schedule</div>
+        </div>
+      </div>
+      <div class="vehicle-body">
+        <div class="detail-grid">
+          <div class="detail-item full">
+            <div class="detail-label">What It Is</div>
+            <div class="detail-value">The largest and most well-known government-wide contract vehicle. A pre-negotiated pricing agreement that allows any federal agency to buy your products or services at GSA-approved rates through GSA Advantage or eBuy.</div>
+          </div>
+          <div class="detail-item full">
+            <div class="detail-label">Who It&rsquo;s For</div>
+            <div class="detail-value">Any small business that sells products or services the government buys. Categories (SINs) cover IT, professional services, facilities, security, HR, financial, scientific, and more.</div>
+          </div>
+          <div class="detail-item">
+            <div class="detail-label">Ceiling Value</div>
+            <div class="detail-value">No overall ceiling &mdash; each contract has its own ceiling based on sales history.</div>
+          </div>
+          <div class="detail-item">
+            <div class="detail-label">How to Get On</div>
+            <div class="detail-value">Submit an offer through GSA&rsquo;s eOffer system. Timeline: 3&ndash;6 months. GSA charges 0.75% Industrial Funding Fee.</div>
+          </div>
+        </div>
+        <div class="pro-tip">
+          <strong>Pro Tip</strong>
+          <p>Start here. GSA MAS is the most accessible vehicle for small businesses. Once you have a schedule, agencies can buy from you directly. Task orders flow through GSA eBuy.</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Vehicle 2: OASIS+ -->
+    <div class="vehicle">
+      <div class="vehicle-header">
+        <div class="vehicle-num">2</div>
+        <div>
+          <div class="vehicle-name">OASIS+</div>
+          <div class="vehicle-sub">One Acquisition Solution for Integrated Services Plus &bull; Managed by GSA</div>
+        </div>
+      </div>
+      <div class="vehicle-body">
+        <div class="detail-grid">
+          <div class="detail-item full">
+            <div class="detail-label">What It Is</div>
+            <div class="detail-value">A government-wide, multi-agency IDIQ for complex professional services across all domains &mdash; management consulting, scientific, engineering, financial, health, IT, environmental, and more.</div>
+          </div>
+          <div class="detail-item full">
+            <div class="detail-label">Who It&rsquo;s For</div>
+            <div class="detail-value">Service-based businesses. Has specific pools: Small Business, 8(a), HUBZone, SDVOSB, WOSB, and Unrestricted.</div>
+          </div>
+          <div class="detail-item">
+            <div class="detail-label">Ceiling Value</div>
+            <div class="detail-value">$100 billion+ across all pools.</div>
+          </div>
+          <div class="detail-item">
+            <div class="detail-label">How to Get On</div>
+            <div class="detail-value">GSA opens periodic on-ramp windows. Check sam.gov and gsa.gov for announcements.</div>
+          </div>
+        </div>
+        <div class="pro-tip">
+          <strong>Pro Tip</strong>
+          <p>OASIS+ is one of the highest-value vehicles for professional services firms. If you qualify, get on it. If you don&rsquo;t qualify yet, team with a prime who&rsquo;s already on it.</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Vehicle 3: CIO-SP4 -->
+    <div class="vehicle">
+      <div class="vehicle-header">
+        <div class="vehicle-num">3</div>
+        <div>
+          <div class="vehicle-name">CIO-SP4</div>
+          <div class="vehicle-sub">Chief Information Officer &ndash; Solutions and Partners 4 &bull; Managed by NIH NITAAC</div>
+        </div>
+      </div>
+      <div class="vehicle-body">
+        <div class="detail-grid">
+          <div class="detail-item full">
+            <div class="detail-label">What It Is</div>
+            <div class="detail-value">A government-wide IDIQ for IT solutions: cloud computing, cybersecurity, software development, health IT, IT operations, and emerging technologies.</div>
+          </div>
+          <div class="detail-item full">
+            <div class="detail-label">Who It&rsquo;s For</div>
+            <div class="detail-value">IT companies. Has pools for: Small Business, 8(a), HUBZone, SDVOSB, WOSB. Also has a mentor-prot&eacute;g&eacute; joint venture pool.</div>
+          </div>
+          <div class="detail-item">
+            <div class="detail-label">Ceiling Value</div>
+            <div class="detail-value">$50 billion over 10 years.</div>
+          </div>
+          <div class="detail-item">
+            <div class="detail-label">How to Get On</div>
+            <div class="detail-value">Recently awarded. On-ramps may open periodically. Monitor nitaac.nih.gov.</div>
+          </div>
+        </div>
+        <div class="pro-tip">
+          <strong>Pro Tip</strong>
+          <p>If you&rsquo;re in IT, this is one of the most important vehicles. Many primes on CIO-SP4 actively seek small business teaming partners.</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Vehicle 4: Alliant 3 -->
+    <div class="vehicle">
+      <div class="vehicle-header">
+        <div class="vehicle-num">4</div>
+        <div>
+          <div class="vehicle-name">Alliant 3 / Alliant 3 Small Business</div>
+          <div class="vehicle-sub">Managed by GSA</div>
+        </div>
+      </div>
+      <div class="vehicle-body">
+        <div class="detail-grid">
+          <div class="detail-item full">
+            <div class="detail-label">What It Is</div>
+            <div class="detail-value">A government-wide IDIQ for complex IT services: infrastructure, cybersecurity, cloud, application development, systems integration, and managed services.</div>
+          </div>
+          <div class="detail-item full">
+            <div class="detail-label">Who It&rsquo;s For</div>
+            <div class="detail-value">IT companies with significant past performance. Alliant 3 Small Business has lower thresholds but still requires demonstrated IT experience.</div>
+          </div>
+          <div class="detail-item">
+            <div class="detail-label">Ceiling Value</div>
+            <div class="detail-value">$75 billion (estimated) over 10 years.</div>
+          </div>
+          <div class="detail-item">
+            <div class="detail-label">How to Get On</div>
+            <div class="detail-value">Solicitation released. Check gsa.gov/alliant for current status and future on-ramps.</div>
+          </div>
+        </div>
+        <div class="pro-tip">
+          <strong>Pro Tip</strong>
+          <p>Alliant is a high-bar vehicle. If you&rsquo;re not ready yet, identify Alliant holders in your NAICS and approach them for teaming.</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Vehicle 5: SEWP VI -->
+    <div class="vehicle">
+      <div class="vehicle-header">
+        <div class="vehicle-num">5</div>
+        <div>
+          <div class="vehicle-name">SEWP VI</div>
+          <div class="vehicle-sub">Solutions for Enterprise-Wide Procurement VI &bull; Managed by NASA &bull; Pronounced &ldquo;soup&rdquo;</div>
+        </div>
+      </div>
+      <div class="vehicle-body">
+        <div class="detail-grid">
+          <div class="detail-item full">
+            <div class="detail-label">What It Is</div>
+            <div class="detail-value">A government-wide IDIQ for IT products (hardware, software, cloud services) and product-based services. Known for fast ordering &mdash; agencies love it because procurement is streamlined.</div>
+          </div>
+          <div class="detail-item full">
+            <div class="detail-label">Who It&rsquo;s For</div>
+            <div class="detail-value">IT product resellers, OEMs, cloud service providers. Group A (small business) and Group D (all businesses).</div>
+          </div>
+          <div class="detail-item">
+            <div class="detail-label">Ceiling Value</div>
+            <div class="detail-value">$40 billion+ across all groups.</div>
+          </div>
+          <div class="detail-item">
+            <div class="detail-label">How to Get On</div>
+            <div class="detail-value">On-ramps open periodically. Check sewp.nasa.gov. Requires IT product sales experience and manufacturer authorizations.</div>
+          </div>
+        </div>
+        <div class="pro-tip">
+          <strong>Pro Tip</strong>
+          <p>If you sell IT products or cloud services, SEWP is essential. It&rsquo;s one of the fastest ordering vehicles in government.</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Vehicle 6: 8(a) STARS III -->
+    <div class="vehicle">
+      <div class="vehicle-header">
+        <div class="vehicle-num">6</div>
+        <div>
+          <div class="vehicle-name">8(a) STARS III</div>
+          <div class="vehicle-sub">Managed by GSA</div>
+        </div>
+      </div>
+      <div class="vehicle-body">
+        <div class="detail-grid">
+          <div class="detail-item full">
+            <div class="detail-label">What It Is</div>
+            <div class="detail-value">A government-wide IDIQ exclusively for 8(a) certified small businesses, focused on IT services: cloud, cybersecurity, software development, data analytics, and emerging technologies.</div>
+          </div>
+          <div class="detail-item full">
+            <div class="detail-label">Who It&rsquo;s For</div>
+            <div class="detail-value">8(a) certified small businesses ONLY.</div>
+          </div>
+          <div class="detail-item">
+            <div class="detail-label">Ceiling Value</div>
+            <div class="detail-value">$50 billion over 10 years.</div>
+          </div>
+          <div class="detail-item">
+            <div class="detail-label">How to Get On</div>
+            <div class="detail-value">Check gsa.gov for on-ramp announcements. Must have active 8(a) certification.</div>
+          </div>
+        </div>
+        <div class="pro-tip">
+          <strong>Pro Tip</strong>
+          <p>If you&rsquo;re 8(a), get on this vehicle as soon as on-ramps open. The competition pool is limited to 8(a) firms, so win rates are higher. One of the best advantages of 8(a) certification.</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Vehicle 7: VETS 2 -->
+    <div class="vehicle">
+      <div class="vehicle-header">
+        <div class="vehicle-num">7</div>
+        <div>
+          <div class="vehicle-name">VETS 2</div>
+          <div class="vehicle-sub">Managed by GSA</div>
+        </div>
+      </div>
+      <div class="vehicle-body">
+        <div class="detail-grid">
+          <div class="detail-item full">
+            <div class="detail-label">What It Is</div>
+            <div class="detail-value">A government-wide IDIQ exclusively for Service-Disabled Veteran-Owned Small Businesses (SDVOSB), covering IT services: cloud, cybersecurity, systems integration, IT consulting, and managed services.</div>
+          </div>
+          <div class="detail-item full">
+            <div class="detail-label">Who It&rsquo;s For</div>
+            <div class="detail-value">SDVOSB-certified businesses ONLY.</div>
+          </div>
+          <div class="detail-item">
+            <div class="detail-label">Ceiling Value</div>
+            <div class="detail-value">$5 billion over 5 years (with 5-year option).</div>
+          </div>
+          <div class="detail-item">
+            <div class="detail-label">How to Get On</div>
+            <div class="detail-value">Check gsa.gov for on-ramp announcements. Must be verified as SDVOSB through SBA.</div>
+          </div>
+        </div>
+        <div class="pro-tip">
+          <strong>Pro Tip</strong>
+          <p>Similar to 8(a) STARS III but for veterans. Limited competition pool means higher win rates. If you&rsquo;re SDVOSB and in IT, this should be a priority.</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Vehicle 8: HCaTS -->
+    <div class="vehicle">
+      <div class="vehicle-header">
+        <div class="vehicle-num">8</div>
+        <div>
+          <div class="vehicle-name">HCaTS</div>
+          <div class="vehicle-sub">Human Capital and Training Solutions &bull; Managed by GSA</div>
+        </div>
+      </div>
+      <div class="vehicle-body">
+        <div class="detail-grid">
+          <div class="detail-item full">
+            <div class="detail-label">What It Is</div>
+            <div class="detail-value">A government-wide IDIQ for human capital services: training, organizational development, HR consulting, workforce planning, learning management, and leadership development.</div>
+          </div>
+          <div class="detail-item full">
+            <div class="detail-label">Who It&rsquo;s For</div>
+            <div class="detail-value">Companies providing training, HR, and organizational development services. Has Small Business and Unrestricted pools.</div>
+          </div>
+          <div class="detail-item">
+            <div class="detail-label">Ceiling Value</div>
+            <div class="detail-value">$11.5 billion over 10 years.</div>
+          </div>
+          <div class="detail-item">
+            <div class="detail-label">How to Get On</div>
+            <div class="detail-value">Awarded. Monitor gsa.gov for on-ramp opportunities. Requires human capital/training past performance.</div>
+          </div>
+        </div>
+        <div class="pro-tip">
+          <strong>Pro Tip</strong>
+          <p>If you&rsquo;re in training, HR consulting, or organizational development, HCaTS is the primary vehicle. Primes frequently need small business teaming partners for specific training content areas.</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Vehicle 9: Polaris -->
+    <div class="vehicle">
+      <div class="vehicle-header">
+        <div class="vehicle-num">9</div>
+        <div>
+          <div class="vehicle-name">Polaris</div>
+          <div class="vehicle-sub">Small Business GWAC &bull; Managed by GSA</div>
+        </div>
+      </div>
+      <div class="vehicle-body">
+        <div class="detail-grid">
+          <div class="detail-item full">
+            <div class="detail-label">What It Is</div>
+            <div class="detail-value">GSA&rsquo;s newest small business IT GWAC. Covers the full range of IT services and solutions. Designed as a flexible vehicle for emerging technologies and non-traditional IT companies.</div>
+          </div>
+          <div class="detail-item full">
+            <div class="detail-label">Who It&rsquo;s For</div>
+            <div class="detail-value">Small businesses in IT. Has pools for: Small Business (general), SDVOSB, WOSB, and HUBZone. Also includes a mentor-prot&eacute;g&eacute; pool.</div>
+          </div>
+          <div class="detail-item">
+            <div class="detail-label">Ceiling Value</div>
+            <div class="detail-value">$36 billion over 10 years.</div>
+          </div>
+          <div class="detail-item">
+            <div class="detail-label">How to Get On</div>
+            <div class="detail-value">Relatively new. Monitor gsa.gov/polaris for additional on-ramp opportunities.</div>
+          </div>
+        </div>
+        <div class="pro-tip">
+          <strong>Pro Tip</strong>
+          <p>Polaris is specifically designed for small businesses and emerging IT companies. If you missed CIO-SP4 or Alliant, Polaris may be your best path onto a major IT vehicle.</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Vehicle 10: Agency-Specific -->
+    <div class="vehicle">
+      <div class="vehicle-header">
+        <div class="vehicle-num">10</div>
+        <div>
+          <div class="vehicle-name">Agency-Specific IDIQs</div>
+          <div class="vehicle-sub">BPAs, MACs, and Single-Award IDIQs &bull; Managed by individual agencies</div>
+        </div>
+      </div>
+      <div class="vehicle-body">
+        <div class="detail-grid">
+          <div class="detail-item full">
+            <div class="detail-label">What It Is</div>
+            <div class="detail-value">Beyond the government-wide vehicles above, every major agency has its own IDIQs tailored to their mission. Examples: Army&rsquo;s RS3, DHS EAGLE II, VA&rsquo;s T4NG. These are often smaller, more accessible, and have less competition than big GWACs.</div>
+          </div>
+          <div class="detail-item full">
+            <div class="detail-label">Who It&rsquo;s For</div>
+            <div class="detail-value">Varies by vehicle. Many agency-specific IDIQs are set aside for small businesses and have lower past performance thresholds.</div>
+          </div>
+          <div class="detail-item">
+            <div class="detail-label">Ceiling Value</div>
+            <div class="detail-value">Varies widely &mdash; from $50M to $10B+.</div>
+          </div>
+          <div class="detail-item">
+            <div class="detail-label">How to Get On</div>
+            <div class="detail-value">Monitor SAM.gov for solicitations in your NAICS. Check agency OSDBU websites for forecasts.</div>
+          </div>
+        </div>
+        <div class="pro-tip">
+          <strong>Pro Tip</strong>
+          <p>Agency-specific IDIQs are often the BEST entry point for small businesses. Less competition, lower barriers, and you build direct relationships with the agency. Don&rsquo;t overlook these while chasing big GWACs.</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- What to Do Next -->
+    <div class="next-steps">
+      <h3>What to Do Next</h3>
+      <div class="step">
+        <div class="step-num">1</div>
+        <p>Identify which vehicles match your NAICS codes and business certifications.</p>
+      </div>
+      <div class="step">
+        <div class="step-num">2</div>
+        <p>Check if any of these vehicles have open on-ramp opportunities (search SAM.gov and the managing agency&rsquo;s website).</p>
+      </div>
+      <div class="step">
+        <div class="step-num">3</div>
+        <p>For vehicles you&rsquo;re not on yet, find primes who hold those vehicles and approach them for teaming. Use the <a href="https://shop.govcongiants.org">Federal Contractor Database</a> to identify primes and SBLO contacts.</p>
+      </div>
+      <div class="step">
+        <div class="step-num">4</div>
+        <p>Track which IDIQs are expiring in your NAICS &mdash; the <a href="https://shop.govcongiants.org/expiring-contracts">Recompete Tracker</a> has 6,900+ expiring contracts. When an IDIQ expires, the agency rebids it. That&rsquo;s your chance.</p>
+      </div>
+      <div class="step">
+        <div class="step-num">5</div>
+        <p>Start responding to Sources Sought notices for upcoming IDIQs. Less than 5% of contractors respond &mdash; your response can influence the final solicitation.</p>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- Unlock Section -->
+  <div class="unlock-section">
+    <h2>Get 125+ GovCon Templates &amp; Guides</h2>
+    <p>The Vault has proposal templates, capability statements, contract databases, bid forms, and the tools you need to win.</p>
+    <div class="features">
+      <div class="feature">
+        <h3>Proposal Templates</h3>
+        <p>Ready-to-use templates for every contract type</p>
+      </div>
+      <div class="feature">
+        <h3>Capability Statements</h3>
+        <p>Professional templates that agencies actually read</p>
+      </div>
+      <div class="feature">
+        <h3>Contract Databases</h3>
+        <p>Find opportunities, primes, and agency contacts</p>
+      </div>
+      <div class="feature">
+        <h3>Bid &amp; Compliance Tools</h3>
+        <p>Checklists, matrices, and review frameworks</p>
+      </div>
+    </div>
+    <a href="https://guides.govcongiants.org" class="unlock-btn">Access The Vault (Pro)</a>
+    <p class="price">125+ premium resources &bull; Updated regularly &bull; Pro membership</p>
+  </div>
+
+  <div class="footer">
+    <p><strong>GovCon Giants</strong> &nbsp;|&nbsp; <a href="https://govcongiants.org">govcongiants.org</a> &nbsp;|&nbsp; <a href="https://shop.govcongiants.org">GovCon Shop</a> &nbsp;|&nbsp; <a href="https://guides.govcongiants.org">The Vault</a></p>
+    <p style="margin-top: 8px; opacity: 0.7;">&copy; 2026 GovCon Giants. All rights reserved.</p>
+  </div>
+
+</body>
+</html>

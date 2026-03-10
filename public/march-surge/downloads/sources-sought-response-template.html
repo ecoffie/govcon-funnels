@@ -1,0 +1,294 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Sources Sought Response Template | GovCon Giants</title>
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; line-height: 1.6; color: #1a1a2e; background: #f8fafc; }
+
+    .header { background: linear-gradient(135deg, #059669 0%, #10b981 100%); color: white; padding: 40px 30px; text-align: center; }
+    .header h1 { font-size: 2rem; font-weight: 800; margin-bottom: 8px; }
+    .header .subtitle { font-size: 1.1rem; opacity: 0.95; }
+    .header .badge { display: inline-block; background: #fbbf24; color: #1a1a2e; padding: 6px 16px; border-radius: 20px; font-size: 0.8rem; font-weight: 700; margin-bottom: 15px; text-transform: uppercase; }
+
+    .container { max-width: 900px; margin: 0 auto; padding: 30px 20px; }
+
+    .stats-bar { display: flex; justify-content: center; gap: 40px; background: white; border-radius: 12px; padding: 20px; margin-bottom: 30px; box-shadow: 0 2px 10px rgba(0,0,0,0.06); flex-wrap: wrap; }
+    .stat { text-align: center; }
+    .stat .value { font-size: 1.8rem; font-weight: 800; color: #059669; }
+    .stat .label { font-size: 0.8rem; color: #666; text-transform: uppercase; }
+
+    .cta-banner { background: linear-gradient(135deg, #0B2E1B 0%, #1F7A4D 100%); color: white; border-radius: 12px; padding: 25px 30px; margin-bottom: 30px; display: flex; align-items: center; justify-content: space-between; gap: 20px; flex-wrap: wrap; }
+    .cta-banner h2 { font-size: 1.3rem; font-weight: 700; }
+    .cta-banner p { font-size: 0.9rem; opacity: 0.9; margin-top: 5px; }
+    .cta-btn { display: inline-block; background: #fbbf24; color: #1a1a2e; padding: 12px 30px; border-radius: 30px; font-weight: 700; text-decoration: none; font-size: 0.95rem; white-space: nowrap; transition: all 0.2s; }
+    .cta-btn:hover { transform: translateY(-2px); box-shadow: 0 5px 20px rgba(0,0,0,0.2); }
+
+    /* Why Section */
+    .why-box { background: #fef3c7; border: 2px solid #fbbf24; border-radius: 10px; padding: 20px 24px; margin-bottom: 30px; }
+    .why-box h3 { color: #78350f; font-size: 1.1rem; margin-bottom: 8px; }
+    .why-box p { font-size: 0.9rem; color: #92400e; margin-bottom: 8px; }
+    .why-box p:last-child { margin-bottom: 0; }
+    .why-box strong { color: #78350f; }
+
+    /* Section Card */
+    .section-card { background: white; border-radius: 12px; box-shadow: 0 2px 10px rgba(0,0,0,0.06); margin-bottom: 24px; overflow: hidden; }
+    .section-header { background: linear-gradient(135deg, #0B2E1B 0%, #1F7A4D 100%); padding: 16px 24px; display: flex; align-items: center; gap: 14px; }
+    .section-num { width: 36px; height: 36px; background: #fbbf24; color: #1a1a2e; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 16px; font-weight: 800; flex-shrink: 0; }
+    .section-title { font-size: 1.1rem; font-weight: 700; color: #fff; }
+    .section-body { padding: 24px; }
+
+    /* Form Fields */
+    .form-table { width: 100%; border-collapse: collapse; }
+    .form-table td { padding: 10px 12px; border-bottom: 1px solid #f1f5f9; font-size: 0.9rem; }
+    .form-table td:first-child { font-weight: 600; color: #0B2E1B; width: 180px; white-space: nowrap; }
+    .form-table td:last-child { color: #94a3b8; font-style: italic; }
+
+    /* Fill-in fields */
+    .fill-field { background: #fefce8; border: 1px dashed #fbbf24; border-radius: 6px; padding: 8px 12px; color: #92400e; font-style: italic; font-size: 0.85rem; margin-bottom: 8px; }
+
+    /* Subsection */
+    .subsection { margin-bottom: 20px; }
+    .subsection:last-child { margin-bottom: 0; }
+    .subsection h4 { font-size: 0.95rem; font-weight: 700; color: #059669; margin-bottom: 10px; padding-bottom: 6px; border-bottom: 2px solid #f0fdf4; }
+    .subsection p { font-size: 0.9rem; color: #444; margin-bottom: 10px; }
+    .subsection ul { padding-left: 20px; margin-bottom: 10px; }
+    .subsection li { font-size: 0.85rem; color: #444; margin-bottom: 6px; }
+
+    /* Past Performance Table */
+    .pp-table { width: 100%; border-collapse: collapse; margin-bottom: 12px; }
+    .pp-table td { padding: 8px 12px; border-bottom: 1px solid #f1f5f9; font-size: 0.85rem; }
+    .pp-table td:first-child { font-weight: 600; color: #0B2E1B; width: 140px; }
+    .pp-table td:last-child { color: #94a3b8; font-style: italic; }
+
+    /* Tips */
+    .tips-card { background: white; border-radius: 12px; box-shadow: 0 2px 10px rgba(0,0,0,0.06); padding: 24px; margin-bottom: 30px; }
+    .tips-card h3 { font-size: 1.1rem; font-weight: 700; color: #0B2E1B; margin-bottom: 16px; text-align: center; }
+    .tip { display: flex; gap: 12px; padding: 10px 0; border-bottom: 1px solid #f1f5f9; }
+    .tip:last-child { border-bottom: none; }
+    .tip-icon { width: 24px; height: 24px; background: #059669; color: white; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 12px; font-weight: 700; flex-shrink: 0; margin-top: 2px; }
+    .tip p { font-size: 0.9rem; color: #334155; }
+    .tip strong { color: #0B2E1B; }
+
+    /* Unlock */
+    .unlock-section { text-align: center; padding: 40px 20px; background: linear-gradient(180deg, rgba(248,250,252,0) 0%, #f0fdf4 100%); }
+    .unlock-section h2 { font-size: 1.8rem; font-weight: 800; color: #0B2E1B; margin-bottom: 10px; }
+    .unlock-section > p { color: #666; font-size: 1rem; margin-bottom: 25px; max-width: 600px; margin-left: auto; margin-right: auto; }
+    .unlock-btn { display: inline-block; background: linear-gradient(135deg, #059669 0%, #10b981 100%); color: white; padding: 16px 50px; border-radius: 50px; font-weight: 700; font-size: 1.1rem; text-decoration: none; transition: all 0.3s; box-shadow: 0 10px 30px rgba(5,150,105,0.3); }
+    .unlock-btn:hover { transform: translateY(-3px); box-shadow: 0 15px 40px rgba(5,150,105,0.4); }
+    .price { font-size: 0.9rem; color: #666; margin-top: 12px; }
+    .features { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 16px; margin: 25px auto; max-width: 700px; text-align: left; }
+    .feature { background: white; border-radius: 10px; padding: 18px; box-shadow: 0 2px 10px rgba(0,0,0,0.06); }
+    .feature h3 { font-size: 0.9rem; font-weight: 700; color: #0B2E1B; margin-bottom: 4px; }
+    .feature p { font-size: 0.8rem; color: #666; }
+
+    .footer { background: #0B2E1B; color: white; padding: 25px; text-align: center; font-size: 0.85rem; }
+    .footer a { color: #10b981; text-decoration: none; }
+
+    @media print {
+      body { background: white; }
+      .cta-banner, .unlock-section, .footer { display: none; }
+      .header { padding: 20px; }
+      .fill-field { background: #fff; border: 1px solid #ccc; }
+    }
+    @media (max-width: 768px) {
+      .cta-banner { flex-direction: column; text-align: center; }
+      .stats-bar { gap: 20px; }
+      .header h1 { font-size: 1.5rem; }
+      .form-table td:first-child { width: 120px; }
+    }
+  </style>
+</head>
+<body>
+
+  <div class="header">
+    <div class="badge">Free Template &bull; Contract Vehicles Bootcamp</div>
+    <h1>Sources Sought Response Template</h1>
+    <p class="subtitle">Fill-in-the-blank template to respond to Sources Sought &amp; RFI notices</p>
+  </div>
+
+  <div class="container">
+
+    <div class="stats-bar">
+      <div class="stat"><div class="value">&lt;5%</div><div class="label">Response Rate</div></div>
+      <div class="stat"><div class="value">6</div><div class="label">Sections</div></div>
+      <div class="stat"><div class="value">3-5</div><div class="label">Pages Ideal</div></div>
+      <div class="stat"><div class="value">6</div><div class="label">Pro Tips</div></div>
+    </div>
+
+    <div class="cta-banner">
+      <div>
+        <h2>Need more templates like this?</h2>
+        <p>The Vault has 125+ proposal templates, capability statements, and GovCon tools.</p>
+      </div>
+      <a href="https://guides.govcongiants.org" class="cta-btn">Access The Vault &rarr;</a>
+    </div>
+
+    <div class="why-box">
+      <h3>Why Respond to Sources Sought Notices?</h3>
+      <p><strong>Less than 5% of small businesses respond</strong> to Sources Sought (also called RFIs or market research notices). Responding puts you in the top 5% automatically.</p>
+      <p>More importantly, your response can <strong>influence how the agency writes the final solicitation</strong> &mdash; shaping the requirement to favor your capabilities.</p>
+      <p><strong>Where to find them:</strong> SAM.gov &rarr; Contract Opportunities &rarr; filter by Notice Type: &ldquo;Sources Sought&rdquo; or &ldquo;Special Notice&rdquo; &rarr; filter by your NAICS codes.</p>
+    </div>
+
+    <!-- Section 1: Company Information -->
+    <div class="section-card">
+      <div class="section-header">
+        <div class="section-num">1</div>
+        <div class="section-title">Company Information</div>
+      </div>
+      <div class="section-body">
+        <table class="form-table">
+          <tr><td>Company Name</td><td>[Your Company Legal Name]</td></tr>
+          <tr><td>DUNS / UEI Number</td><td>[Your UEI from SAM.gov]</td></tr>
+          <tr><td>CAGE Code</td><td>[Your CAGE Code]</td></tr>
+          <tr><td>Business Size</td><td>[Small Business, 8(a), SDVOSB, WOSB, HUBZone, etc.]</td></tr>
+          <tr><td>NAICS Code(s)</td><td>[Primary NAICS + secondary codes relevant to this notice]</td></tr>
+          <tr><td>Point of Contact</td><td>[Name, Title]</td></tr>
+          <tr><td>Email</td><td>[email@company.com]</td></tr>
+          <tr><td>Phone</td><td>[(xxx) xxx-xxxx]</td></tr>
+          <tr><td>Address</td><td>[Full business address]</td></tr>
+          <tr><td>Website</td><td>[www.yourcompany.com]</td></tr>
+        </table>
+      </div>
+    </div>
+
+    <!-- Section 2: Notice Reference -->
+    <div class="section-card">
+      <div class="section-header">
+        <div class="section-num">2</div>
+        <div class="section-title">Notice Reference</div>
+      </div>
+      <div class="section-body">
+        <table class="form-table">
+          <tr><td>Solicitation Number</td><td>[From the Sources Sought notice on SAM.gov]</td></tr>
+          <tr><td>Title</td><td>[Title of the Sources Sought notice]</td></tr>
+          <tr><td>Agency</td><td>[Issuing agency name]</td></tr>
+          <tr><td>NAICS Code</td><td>[NAICS code listed in the notice]</td></tr>
+          <tr><td>Response Deadline</td><td>[Date and time from the notice]</td></tr>
+        </table>
+      </div>
+    </div>
+
+    <!-- Section 3: Capability Statement -->
+    <div class="section-card">
+      <div class="section-header">
+        <div class="section-num">3</div>
+        <div class="section-title">Capability Statement</div>
+      </div>
+      <div class="section-body">
+        <p style="font-size: 0.85rem; color: #666; margin-bottom: 20px;">Respond to each section below. If the Sources Sought includes specific questions, answer those instead of (or in addition to) these standard sections.</p>
+
+        <div class="subsection">
+          <h4>3.1 Company Overview</h4>
+          <div class="fill-field">[Your Company Name] is a [business size/certifications] small business specializing in [specific capabilities relevant to this notice]. We have been providing [services/products] since [year], with specific expertise in [area directly related to the agency&rsquo;s requirement].</div>
+        </div>
+
+        <div class="subsection">
+          <h4>3.2 Relevant Capabilities</h4>
+          <p>Describe 3&ndash;5 specific capabilities that directly address what the agency described in the notice. Be specific. Reference the exact requirements from the Sources Sought.</p>
+          <div class="fill-field">[Capability 1 &mdash; directly matched to a requirement in the notice]</div>
+          <div class="fill-field">[Capability 2 &mdash; directly matched to a requirement in the notice]</div>
+          <div class="fill-field">[Capability 3 &mdash; directly matched to a requirement in the notice]</div>
+        </div>
+
+        <div class="subsection">
+          <h4>3.3 Relevant Past Performance</h4>
+          <p>Provide 2&ndash;3 examples of similar work. Federal experience preferred, but commercial is acceptable. Focus on similar size, scope, and complexity.</p>
+          <table class="pp-table">
+            <tr><td>Client / Agency</td><td>[Agency or commercial client name]</td></tr>
+            <tr><td>Contract #</td><td>[Contract number if federal, or N/A]</td></tr>
+            <tr><td>Value</td><td>[$X,XXX,XXX]</td></tr>
+            <tr><td>Period</td><td>[Start date &ndash; End date]</td></tr>
+            <tr><td>Description</td><td>[2&ndash;3 sentences. Emphasize similarity to this requirement.]</td></tr>
+            <tr><td>Results</td><td>[Quantifiable: % improvement, $ saved, delivery timeline met, etc.]</td></tr>
+          </table>
+          <p style="font-size: 0.8rem; color: #94a3b8; font-style: italic;">Repeat for Past Performance #2 and #3.</p>
+        </div>
+
+        <div class="subsection">
+          <h4>3.4 Personnel / Staffing</h4>
+          <div class="fill-field">[If the notice asks about staffing, describe key personnel who would support this requirement. Include clearance levels if applicable.]</div>
+        </div>
+
+        <div class="subsection">
+          <h4>3.5 Teaming Arrangements</h4>
+          <div class="fill-field">[If you would team with other firms, describe the arrangement. Otherwise state you intend to perform as prime contractor with [%] self-performance.]</div>
+        </div>
+
+        <div class="subsection">
+          <h4>3.6 Questions for the Agency (Optional but Recommended)</h4>
+          <p>If the notice invites questions, ask 1&ndash;3 thoughtful questions. This shows engagement and can influence the final requirement.</p>
+          <div class="fill-field">[Question about scope, timeline, or evaluation criteria]</div>
+          <div class="fill-field">[Question about set-aside or small business preference]</div>
+          <div class="fill-field">[Question about contract type (FFP, T&amp;M, etc.)]</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Tips -->
+    <div class="tips-card">
+      <h3>Tips for a Strong Response</h3>
+      <div class="tip">
+        <div class="tip-icon">1</div>
+        <p><strong>Keep it to 3&ndash;5 pages.</strong> Sources Sought responses should be concise. The agency is surveying the market, not evaluating proposals.</p>
+      </div>
+      <div class="tip">
+        <div class="tip-icon">2</div>
+        <p><strong>Answer THEIR questions, not yours.</strong> If the notice lists specific questions, answer those exactly. Don&rsquo;t skip any.</p>
+      </div>
+      <div class="tip">
+        <div class="tip-icon">3</div>
+        <p><strong>Reference the notice number and title</strong> on every page.</p>
+      </div>
+      <div class="tip">
+        <div class="tip-icon">4</div>
+        <p><strong>Attach your capability statement</strong> as a separate PDF.</p>
+      </div>
+      <div class="tip">
+        <div class="tip-icon">5</div>
+        <p><strong>Submit before the deadline.</strong> Late responses are usually not accepted.</p>
+      </div>
+      <div class="tip">
+        <div class="tip-icon">6</div>
+        <p><strong>Follow up.</strong> After submitting, email the contracting officer to confirm receipt and offer to discuss your capabilities further.</p>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- Unlock Section -->
+  <div class="unlock-section">
+    <h2>Get 125+ GovCon Templates &amp; Guides</h2>
+    <p>The Vault has proposal templates, capability statements, contract databases, bid forms, and the tools you need to win federal contracts.</p>
+    <div class="features">
+      <div class="feature">
+        <h3>Proposal Templates</h3>
+        <p>Ready-to-use for every contract type</p>
+      </div>
+      <div class="feature">
+        <h3>Capability Statements</h3>
+        <p>Professional templates agencies actually read</p>
+      </div>
+      <div class="feature">
+        <h3>Contract Databases</h3>
+        <p>Find opportunities, primes, and contacts</p>
+      </div>
+      <div class="feature">
+        <h3>Bid &amp; Compliance Tools</h3>
+        <p>Checklists, matrices, and review frameworks</p>
+      </div>
+    </div>
+    <a href="https://guides.govcongiants.org" class="unlock-btn">Access The Vault (Pro)</a>
+    <p class="price">125+ premium resources &bull; Updated regularly &bull; Pro membership</p>
+  </div>
+
+  <div class="footer">
+    <p><strong>GovCon Giants</strong> &nbsp;|&nbsp; <a href="https://govcongiants.org">govcongiants.org</a> &nbsp;|&nbsp; <a href="https://shop.govcongiants.org">GovCon Shop</a> &nbsp;|&nbsp; <a href="https://guides.govcongiants.org">The Vault</a></p>
+    <p style="margin-top: 8px; opacity: 0.7;">&copy; 2026 GovCon Giants. All rights reserved.</p>
+  </div>
+
+</body>
+</html>

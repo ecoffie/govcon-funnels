@@ -1,0 +1,437 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Active IDIQ Vehicles List | GovCon Giants</title>
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; line-height: 1.6; color: #1a1a2e; background: #f8fafc; }
+
+    .header { background: linear-gradient(135deg, #059669 0%, #10b981 100%); color: white; padding: 40px 30px; text-align: center; }
+    .header h1 { font-size: 2rem; font-weight: 800; margin-bottom: 8px; }
+    .header .subtitle { font-size: 1.1rem; opacity: 0.95; }
+    .header .badge { display: inline-block; background: #fbbf24; color: #1a1a2e; padding: 6px 16px; border-radius: 20px; font-size: 0.8rem; font-weight: 700; margin-bottom: 15px; text-transform: uppercase; }
+
+    .container { max-width: 1200px; margin: 0 auto; padding: 30px 20px; }
+
+    .stats-bar { display: flex; justify-content: center; gap: 40px; background: white; border-radius: 12px; padding: 20px; margin-bottom: 30px; box-shadow: 0 2px 10px rgba(0,0,0,0.06); flex-wrap: wrap; }
+    .stat { text-align: center; }
+    .stat .value { font-size: 1.8rem; font-weight: 800; color: #059669; }
+    .stat .label { font-size: 0.8rem; color: #666; text-transform: uppercase; }
+
+    .cta-banner { background: linear-gradient(135deg, #0B2E1B 0%, #1F7A4D 100%); color: white; border-radius: 12px; padding: 25px 30px; margin-bottom: 30px; display: flex; align-items: center; justify-content: space-between; gap: 20px; flex-wrap: wrap; }
+    .cta-banner h2 { font-size: 1.3rem; font-weight: 700; }
+    .cta-banner p { font-size: 0.9rem; opacity: 0.9; margin-top: 5px; }
+    .cta-btn { display: inline-block; background: #fbbf24; color: #1a1a2e; padding: 12px 30px; border-radius: 30px; font-weight: 700; text-decoration: none; font-size: 0.95rem; white-space: nowrap; transition: all 0.2s; }
+    .cta-btn:hover { transform: translateY(-2px); box-shadow: 0 5px 20px rgba(0,0,0,0.2); }
+
+    .note { background: #fef3c7; border: 2px solid #fbbf24; border-radius: 10px; padding: 15px 20px; margin-bottom: 25px; font-size: 0.9rem; color: #92400e; }
+    .note strong { color: #78350f; }
+
+    .table-wrapper { overflow-x: auto; background: white; border-radius: 12px; box-shadow: 0 2px 10px rgba(0,0,0,0.06); margin-bottom: 30px; }
+    table { width: 100%; border-collapse: collapse; font-size: 0.8rem; }
+    thead { background: #0B2E1B; color: white; }
+    th { padding: 12px 10px; text-align: left; font-weight: 600; font-size: 0.7rem; text-transform: uppercase; letter-spacing: 0.5px; white-space: nowrap; }
+    td { padding: 10px; border-bottom: 1px solid #f0f0f0; vertical-align: top; }
+    tr:hover { background: #f0fdf4; }
+    .value-cell { font-weight: 600; color: #059669; white-space: nowrap; }
+    .agency-cell { font-weight: 500; color: #334155; }
+    .naics-cell { font-family: monospace; font-size: 0.75rem; color: #666; }
+    .sb-yes { color: #059669; font-weight: 600; }
+    .sb-no { color: #94a3b8; }
+    .blur-row td { filter: blur(4px); user-select: none; }
+    .vehicle-name { font-weight: 600; color: #0B2E1B; }
+
+    .unlock-section { text-align: center; padding: 40px 20px; background: linear-gradient(180deg, rgba(248,250,252,0) 0%, #f0fdf4 100%); margin-top: -20px; position: relative; }
+    .unlock-section h2 { font-size: 1.8rem; font-weight: 800; color: #0B2E1B; margin-bottom: 10px; }
+    .unlock-section > p { color: #666; font-size: 1rem; margin-bottom: 25px; max-width: 600px; margin-left: auto; margin-right: auto; }
+    .unlock-btn { display: inline-block; background: linear-gradient(135deg, #059669 0%, #10b981 100%); color: white; padding: 16px 50px; border-radius: 50px; font-weight: 700; font-size: 1.1rem; text-decoration: none; transition: all 0.3s; box-shadow: 0 10px 30px rgba(5,150,105,0.3); }
+    .unlock-btn:hover { transform: translateY(-3px); box-shadow: 0 15px 40px rgba(5,150,105,0.4); }
+    .price { font-size: 0.9rem; color: #666; margin-top: 12px; }
+    .features { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 16px; margin: 25px auto; max-width: 700px; text-align: left; }
+    .feature { background: white; border-radius: 10px; padding: 18px; box-shadow: 0 2px 10px rgba(0,0,0,0.06); }
+    .feature h3 { font-size: 0.9rem; font-weight: 700; color: #0B2E1B; margin-bottom: 4px; }
+    .feature p { font-size: 0.8rem; color: #666; }
+
+    .footer { background: #0B2E1B; color: white; padding: 25px; text-align: center; font-size: 0.85rem; }
+    .footer a { color: #10b981; text-decoration: none; }
+
+    @media print {
+      body { background: white; }
+      .cta-banner, .unlock-section, .footer, .blur-row { display: none; }
+      .header { padding: 20px; }
+      table { font-size: 0.7rem; }
+      th, td { padding: 4px 6px; }
+    }
+    @media (max-width: 768px) {
+      .cta-banner { flex-direction: column; text-align: center; }
+      .stats-bar { gap: 20px; }
+      .header h1 { font-size: 1.5rem; }
+    }
+  </style>
+</head>
+<body>
+
+  <div class="header">
+    <div class="badge">Free Sample &bull; 50 of 6,000+ Contracts</div>
+    <h1>Active IDIQ Vehicles List</h1>
+    <p class="subtitle">50 active IDIQ contracts across civilian and defense agencies</p>
+  </div>
+
+  <div class="container">
+
+    <div class="stats-bar">
+      <div class="stat"><div class="value">50</div><div class="label">Vehicles Listed</div></div>
+      <div class="stat"><div class="value">$600B+</div><div class="label">Combined Ceiling</div></div>
+      <div class="stat"><div class="value">20+</div><div class="label">Agencies</div></div>
+      <div class="stat"><div class="value">6,000+</div><div class="label">In Full Tracker</div></div>
+    </div>
+
+    <div class="cta-banner">
+      <div>
+        <h2>Need the full database with 6,000+ expiring contracts?</h2>
+        <p>Filter by NAICS, agency, ceiling value &mdash; $77T+ in expiring IDIQs ready for recompete.</p>
+      </div>
+      <a href="https://shop.govcongiants.org/expiring-contracts" class="cta-btn">Get Full Tracker &rarr;</a>
+    </div>
+
+    <div class="note">
+      <strong>How to use this list:</strong> Find vehicles matching your NAICS codes. Check if on-ramps are open. For vehicles you&rsquo;re not on, find prime holders and approach them for teaming.
+    </div>
+
+    <div class="table-wrapper">
+      <table>
+        <thead>
+          <tr>
+            <th>Vehicle / Contract</th>
+            <th>Agency</th>
+            <th>NAICS</th>
+            <th>Service Area</th>
+            <th>Ceiling</th>
+            <th>Order Period End</th>
+            <th>SB Set-Aside?</th>
+            <th>Notes</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td class="vehicle-name">GSA MAS</td>
+            <td class="agency-cell">GSA</td>
+            <td class="naics-cell">Multiple</td>
+            <td>IT, Professional Svcs, Facilities, Products</td>
+            <td class="value-cell">Per contract</td>
+            <td>5 yr + options</td>
+            <td class="sb-yes">Yes (SB pools)</td>
+            <td>Open enrollment. Apply via eOffer. Most accessible.</td>
+          </tr>
+          <tr>
+            <td class="vehicle-name">OASIS+ (Unrestricted)</td>
+            <td class="agency-cell">GSA</td>
+            <td class="naics-cell">Multiple</td>
+            <td>Complex Professional Services</td>
+            <td class="value-cell">$100B+</td>
+            <td>2034</td>
+            <td class="sb-no">Unrestricted</td>
+            <td>On-ramp windows. gsa.gov/oasis-plus.</td>
+          </tr>
+          <tr>
+            <td class="vehicle-name">OASIS+ (Small Business)</td>
+            <td class="agency-cell">GSA</td>
+            <td class="naics-cell">Multiple</td>
+            <td>Complex Professional Services</td>
+            <td class="value-cell">Part of $100B+</td>
+            <td>2034</td>
+            <td class="sb-yes">Yes (SB only)</td>
+            <td>Small business pool. Periodic on-ramps.</td>
+          </tr>
+          <tr>
+            <td class="vehicle-name">CIO-SP4</td>
+            <td class="agency-cell">NIH NITAAC</td>
+            <td class="naics-cell">541512, 541519</td>
+            <td>IT Solutions, Cloud, Cyber</td>
+            <td class="value-cell">$50B</td>
+            <td>2033</td>
+            <td class="sb-yes">Yes (SB pools)</td>
+            <td>Recently awarded. Team with holders.</td>
+          </tr>
+          <tr>
+            <td class="vehicle-name">Alliant 3</td>
+            <td class="agency-cell">GSA</td>
+            <td class="naics-cell">541512, 541519, 541513</td>
+            <td>Complex IT Services</td>
+            <td class="value-cell">$75B (est.)</td>
+            <td>TBD</td>
+            <td class="sb-yes">Yes (SB version)</td>
+            <td>Check gsa.gov/alliant for status.</td>
+          </tr>
+          <tr>
+            <td class="vehicle-name">Alliant 2 SB</td>
+            <td class="agency-cell">GSA</td>
+            <td class="naics-cell">541512, 541519</td>
+            <td>IT Services</td>
+            <td class="value-cell">$15B</td>
+            <td>2025-2026</td>
+            <td class="sb-yes">Yes (SB only)</td>
+            <td>Expiring soon. Position for Alliant 3 SB.</td>
+          </tr>
+          <tr>
+            <td class="vehicle-name">SEWP V</td>
+            <td class="agency-cell">NASA</td>
+            <td class="naics-cell">541512, 541519, 334111</td>
+            <td>IT Products, Cloud, Hardware</td>
+            <td class="value-cell">$40B+</td>
+            <td>2025</td>
+            <td class="sb-yes">Yes (Group A)</td>
+            <td>Expiring. SEWP VI expected. sewp.nasa.gov.</td>
+          </tr>
+          <tr>
+            <td class="vehicle-name">8(a) STARS III</td>
+            <td class="agency-cell">GSA</td>
+            <td class="naics-cell">541512, 541519</td>
+            <td>IT Services</td>
+            <td class="value-cell">$50B</td>
+            <td>2032</td>
+            <td class="sb-yes">8(a) only</td>
+            <td>Must have 8(a) cert. Check for on-ramps.</td>
+          </tr>
+          <tr>
+            <td class="vehicle-name">VETS 2</td>
+            <td class="agency-cell">GSA</td>
+            <td class="naics-cell">541512, 541519</td>
+            <td>IT Services</td>
+            <td class="value-cell">$5B</td>
+            <td>2029</td>
+            <td class="sb-yes">SDVOSB only</td>
+            <td>Must be SBA-verified SDVOSB.</td>
+          </tr>
+          <tr>
+            <td class="vehicle-name">Polaris</td>
+            <td class="agency-cell">GSA</td>
+            <td class="naics-cell">541512, 541519</td>
+            <td>IT Services &amp; Solutions</td>
+            <td class="value-cell">$36B</td>
+            <td>2033</td>
+            <td class="sb-yes">Yes (SB pools)</td>
+            <td>Newest SB IT vehicle. gsa.gov/polaris.</td>
+          </tr>
+          <tr>
+            <td class="vehicle-name">HCaTS</td>
+            <td class="agency-cell">GSA</td>
+            <td class="naics-cell">611430, 541612, 541618</td>
+            <td>Training, HR, Workforce Dev</td>
+            <td class="value-cell">$11.5B</td>
+            <td>2029</td>
+            <td class="sb-yes">Yes (SB pool)</td>
+            <td>Human capital services.</td>
+          </tr>
+          <tr>
+            <td class="vehicle-name">PACTS III</td>
+            <td class="agency-cell">VA</td>
+            <td class="naics-cell">541512, 541519</td>
+            <td>IT Professional Services</td>
+            <td class="value-cell">$12B</td>
+            <td>2031</td>
+            <td class="sb-yes">Yes (SB pools)</td>
+            <td>VA-specific IT. Team with holders.</td>
+          </tr>
+          <tr>
+            <td class="vehicle-name">T4NG</td>
+            <td class="agency-cell">VA</td>
+            <td class="naics-cell">541512, 541519, 541611</td>
+            <td>IT Modernization, Cloud</td>
+            <td class="value-cell">$22.3B</td>
+            <td>2028</td>
+            <td class="sb-yes">Yes</td>
+            <td>Major VA IT vehicle for modernization.</td>
+          </tr>
+          <tr>
+            <td class="vehicle-name">ITES-3S</td>
+            <td class="agency-cell">Army CHESS</td>
+            <td class="naics-cell">541512, 541519</td>
+            <td>IT Enterprise Solutions</td>
+            <td class="value-cell">$12.1B</td>
+            <td>2028</td>
+            <td class="sb-yes">Yes (SB version)</td>
+            <td>Army IT. chess.army.mil.</td>
+          </tr>
+          <tr>
+            <td class="vehicle-name">RS3</td>
+            <td class="agency-cell">Army</td>
+            <td class="naics-cell">541330, 541512, 541611</td>
+            <td>IT, Engineering, Prof Services</td>
+            <td class="value-cell">$37.4B</td>
+            <td>2027</td>
+            <td class="sb-yes">Yes (SB pool)</td>
+            <td>Large Army services vehicle.</td>
+          </tr>
+          <tr>
+            <td class="vehicle-name">ENCORE III</td>
+            <td class="agency-cell">DISA</td>
+            <td class="naics-cell">541512, 541519</td>
+            <td>IT Services, Cyber, Cloud</td>
+            <td class="value-cell">$17.5B</td>
+            <td>2028</td>
+            <td class="sb-yes">Yes (SB pool)</td>
+            <td>DoD-wide IT through DISA.</td>
+          </tr>
+          <tr>
+            <td class="vehicle-name">SETI</td>
+            <td class="agency-cell">DHS</td>
+            <td class="naics-cell">541512, 541330</td>
+            <td>Systems Engineering, IT, R&amp;D</td>
+            <td class="value-cell">$22B</td>
+            <td>2030</td>
+            <td class="sb-yes">Yes (SB pool)</td>
+            <td>DHS-wide technical services.</td>
+          </tr>
+          <tr>
+            <td class="vehicle-name">SPARC</td>
+            <td class="agency-cell">GSA</td>
+            <td class="naics-cell">541512, 541519</td>
+            <td>Cloud Computing</td>
+            <td class="value-cell">$15B</td>
+            <td>2034</td>
+            <td class="sb-yes">Yes (SB pool)</td>
+            <td>Dedicated cloud vehicle. gsa.gov.</td>
+          </tr>
+          <tr>
+            <td class="vehicle-name">EPASS</td>
+            <td class="agency-cell">GSA/FEDSIM</td>
+            <td class="naics-cell">541611, 541612, 561110</td>
+            <td>Professional, Admin Support</td>
+            <td class="value-cell">$8B</td>
+            <td>2028</td>
+            <td class="sb-yes">Yes (SB pool)</td>
+            <td>Cross-agency admin and business support.</td>
+          </tr>
+          <tr>
+            <td class="vehicle-name">ASTRO</td>
+            <td class="agency-cell">GSA</td>
+            <td class="naics-cell">541715, 541330</td>
+            <td>Space, Satellite, Aerospace</td>
+            <td class="value-cell">$50B</td>
+            <td>2034</td>
+            <td class="sb-yes">Yes (SB pool)</td>
+            <td>New space-related services vehicle.</td>
+          </tr>
+          <!-- Visible rows end here — 20 of 50 shown -->
+
+          <!-- Blurred rows to create curiosity -->
+          <tr class="blur-row">
+            <td>HSSEDI</td>
+            <td>DHS S&amp;T</td>
+            <td>541712, 541715</td>
+            <td>R&amp;D, Scientific, Technical</td>
+            <td>$6B</td>
+            <td>2027</td>
+            <td>Unrestricted</td>
+            <td>Homeland security R&amp;D.</td>
+          </tr>
+          <tr class="blur-row">
+            <td>EAGLE II</td>
+            <td>DHS/ICE</td>
+            <td>541512, 541519</td>
+            <td>IT Services</td>
+            <td>$22B</td>
+            <td>2026</td>
+            <td>Yes (SB pools)</td>
+            <td>Expiring soon. Watch for replacement.</td>
+          </tr>
+          <tr class="blur-row">
+            <td>BMO</td>
+            <td>CBP</td>
+            <td>541611, 541612</td>
+            <td>Prof Services, IT, Consulting</td>
+            <td>$3.5B</td>
+            <td>2027</td>
+            <td>Yes (SB pool)</td>
+            <td>CBP/DHS business operations.</td>
+          </tr>
+          <tr class="blur-row">
+            <td>ProGATE</td>
+            <td>DoD</td>
+            <td>541330, 541512</td>
+            <td>Engineering, Technical</td>
+            <td>$10B</td>
+            <td>2029</td>
+            <td>Yes (SB pool)</td>
+            <td>DoD engineering and technical.</td>
+          </tr>
+          <tr class="blur-row">
+            <td>SeaPort NxG</td>
+            <td>Navy NAVSEA</td>
+            <td>541330, 541712</td>
+            <td>Engineering, Technical, IT</td>
+            <td>$5B+</td>
+            <td>2029</td>
+            <td>Yes (SB set-asides)</td>
+            <td>Navy engineering and technical.</td>
+          </tr>
+          <tr class="blur-row">
+            <td>TABS</td>
+            <td>VA</td>
+            <td>541611, 541612</td>
+            <td>Admin, Business, Management</td>
+            <td>$6B</td>
+            <td>2027</td>
+            <td>Yes (SB pool)</td>
+            <td>VA administrative services.</td>
+          </tr>
+          <tr class="blur-row">
+            <td>DOJ ITSSS</td>
+            <td>DOJ</td>
+            <td>541512, 541519</td>
+            <td>IT, Professional Services</td>
+            <td>$4B</td>
+            <td>2028</td>
+            <td>Yes (SB pools)</td>
+            <td>DOJ IT and professional services.</td>
+          </tr>
+          <tr class="blur-row">
+            <td>Treasury TIPSS</td>
+            <td>Treasury</td>
+            <td>541512, 541519</td>
+            <td>IT Professional Services</td>
+            <td>$3B</td>
+            <td>2028</td>
+            <td>Yes (SB pools)</td>
+            <td>Treasury IT support.</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <div class="unlock-section">
+    <h2>Unlock All 6,000+ Expiring Contracts</h2>
+    <p>This sample shows 20 of 50 vehicles. The full Recompete Tracker has 6,000+ contracts with $77T+ in expiring IDIQs &mdash; filterable by NAICS, agency, and ceiling value.</p>
+    <div class="features">
+      <div class="feature">
+        <h3>6,000+ Contracts</h3>
+        <p>Complete database across 36 agencies</p>
+      </div>
+      <div class="feature">
+        <h3>Filter by NAICS</h3>
+        <p>Find vehicles matching your capabilities</p>
+      </div>
+      <div class="feature">
+        <h3>Ceiling Values &amp; Dates</h3>
+        <p>Know the size and when they expire</p>
+      </div>
+      <div class="feature">
+        <h3>Incumbent Data</h3>
+        <p>See who holds each contract now</p>
+      </div>
+    </div>
+    <a href="https://shop.govcongiants.org/expiring-contracts" class="unlock-btn">Get the Recompete Tracker &mdash; $397</a>
+    <p class="price">One-time purchase &bull; Instant access &bull; Updated monthly</p>
+  </div>
+
+  <div class="footer">
+    <p><strong>GovCon Giants</strong> &nbsp;|&nbsp; <a href="https://govcongiants.org">govcongiants.org</a> &nbsp;|&nbsp; <a href="https://shop.govcongiants.org">GovCon Shop</a> &nbsp;|&nbsp; <a href="https://guides.govcongiants.org">The Vault</a></p>
+    <p style="margin-top: 8px; opacity: 0.7;">&copy; 2026 GovCon Giants. All rights reserved.</p>
+  </div>
+
+</body>
+</html>
