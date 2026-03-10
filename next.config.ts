@@ -6,23 +6,24 @@ const nextConfig: NextConfig = {
       {
         source: "/:path*",
         has: [{ type: "host", value: "guides.govcongiants.org" }],
-        destination: "https://govcongiants.org/vault/:path*",
+        destination: "https://vault.govcongiants.org/:path*",
         permanent: true,
+      },
+      {
+        source: "/vault",
+        destination: "https://vault.govcongiants.org/",
+        permanent: false,
+      },
+      {
+        source: "/vault/:path*",
+        destination: "https://vault.govcongiants.org/:path*",
+        permanent: false,
       },
     ];
   },
   async rewrites() {
     return {
-      beforeFiles: [
-        {
-          source: "/vault",
-          destination: "https://vault.govcongiants.org/",
-        },
-        {
-          source: "/vault/:path*",
-          destination: "https://vault.govcongiants.org/:path*",
-        },
-      ],
+      beforeFiles: [],
       afterFiles: [
         { source: "/dashboard.html", destination: "/api/dashboard-page" },
       ],
