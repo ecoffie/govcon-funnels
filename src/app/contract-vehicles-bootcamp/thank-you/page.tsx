@@ -3,18 +3,27 @@
 import { useEffect, useState } from 'react';
 import Link from 'next/link';
 
+const downloads = [
+  { num: 1, title: 'March 2026 Expiring Contracts List', desc: '100+ contracts expiring Q2-Q3 2026', file: '/march-surge/downloads/march-2026-expiring-contracts.xlsx', label: 'Download Excel' },
+  { num: 2, title: 'Recompete Positioning Checklist', desc: '12-18 month timeline for recompetes', file: '/march-surge/downloads/recompete-positioning-checklist.pdf', label: 'Download PDF' },
+  { num: 3, title: '10 IDIQ Vehicles Guide', desc: 'The most active GWAC/IDIQ vehicles', file: '/march-surge/downloads/10-idiq-vehicles-guide.pdf', label: 'Download PDF' },
+  { num: 4, title: 'Active IDIQ Vehicles List', desc: 'Excel with ceiling values & NAICS', file: '/march-surge/downloads/active-idiq-vehicles-list.xlsx', label: 'Download Excel' },
+  { num: 5, title: 'Sources Sought Response Template', desc: 'Fill-in-the-blank template', file: '/march-surge/downloads/sources-sought-response-template.docx', label: 'Download DOCX' },
+  { num: 6, title: 'Task Order Response Template', desc: 'Framework for IDIQ task orders', file: '/march-surge/downloads/task-order-response-template.docx', label: 'Download DOCX' },
+];
+
 const nextSteps = [
   {
-    title: 'Review the Contract Vehicle Breakdown',
-    desc: 'Start with IDIQs, BPAs, and sources sought so you can prioritize the right paths.',
+    title: 'Download All Resources',
+    desc: 'Save everything to your computer for easy reference before the bootcamp.',
   },
   {
-    title: 'Map Your Offer to Vehicle Fit',
-    desc: 'Identify where your capabilities best match agency buying patterns and contract structure.',
+    title: 'Review the IDIQ Vehicles Guide',
+    desc: 'Understand which vehicles might be relevant for your business and NAICS codes.',
   },
   {
-    title: 'Build Your 30-Day Action Plan',
-    desc: 'Create your first shortlist of opportunities and a response timeline.',
+    title: 'Bring Questions to March 28',
+    desc: 'Write down specific questions about contract vehicles and opportunities you find.',
   },
 ];
 
@@ -55,11 +64,45 @@ export default function ContractVehiclesThankYou() {
           </h1>
 
           <p className="text-xl text-slate-500 mb-10">
-            Your contract vehicles bootcamp access is confirmed. Check your email for the full breakdown and next steps.
+            Download your 6 free resources below. We&apos;ll send event details to your email.
           </p>
 
+          {/* Event Reminder */}
+          <div className="bg-green-900/20 border border-green-700/50 rounded-2xl p-6 mb-10 text-center">
+            <h2 className="text-2xl font-bold text-white mb-2">Mark Your Calendar</h2>
+            <div className="text-green-400 text-lg font-semibold mb-2">March 28, 2026 | 9:00 AM ET | Live on Zoom</div>
+            <p className="text-slate-400">Contract Vehicles Bootcamp - FREE</p>
+            <p className="text-slate-500 text-sm mt-2">We&apos;ll send you the Zoom link before the event.</p>
+          </div>
+
+          {/* Download Grid */}
+          <h2 className="text-2xl font-bold text-white text-center mb-6">Your 6 Free Resources</h2>
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-10">
+            {downloads.map((d) => (
+              <div key={d.num} className="bg-slate-900 border border-slate-800 rounded-xl p-5 flex items-start gap-4">
+                <div className="w-12 h-12 bg-green-900/50 border border-green-700/50 rounded-lg flex items-center justify-center flex-shrink-0">
+                  <span className="text-xl">{d.num}</span>
+                </div>
+                <div className="flex-1">
+                  <h3 className="text-white font-semibold mb-1">{d.title}</h3>
+                  <p className="text-slate-500 text-sm mb-2">{d.desc}</p>
+                  <a
+                    href={d.file}
+                    download
+                    className="inline-flex items-center gap-2 text-green-400 hover:text-green-300 text-sm font-medium transition"
+                  >
+                    <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4"/>
+                    </svg>
+                    {d.label}
+                  </a>
+                </div>
+              </div>
+            ))}
+          </div>
+
           <div className="bg-slate-900 border border-slate-800 rounded-2xl p-8 mb-10 text-left">
-            <h2 className="text-2xl font-bold text-white mb-6 text-center">Your Next Moves</h2>
+            <h2 className="text-2xl font-bold text-white mb-6 text-center">What To Do Before March 28</h2>
             <div className="space-y-5">
               {nextSteps.map((step) => (
                 <div key={step.title} className="bg-slate-950 border border-slate-800 rounded-xl p-5">
