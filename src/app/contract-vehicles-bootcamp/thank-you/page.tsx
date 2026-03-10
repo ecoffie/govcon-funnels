@@ -4,12 +4,12 @@ import { useEffect, useState } from 'react';
 import Link from 'next/link';
 
 const downloads = [
-  { num: 1, title: 'March 2026 Expiring Contracts List', desc: '100+ contracts expiring Q2-Q3 2026', file: '/march-surge/downloads/march-2026-expiring-contracts.xlsx', label: 'Download Excel' },
-  { num: 2, title: 'Recompete Positioning Checklist', desc: '12-18 month timeline for recompetes', file: '/march-surge/downloads/recompete-positioning-checklist.pdf', label: 'Download PDF' },
-  { num: 3, title: '10 IDIQ Vehicles Guide', desc: 'The most active GWAC/IDIQ vehicles', file: '/march-surge/downloads/10-idiq-vehicles-guide.pdf', label: 'Download PDF' },
-  { num: 4, title: 'Active IDIQ Vehicles List', desc: 'Excel with ceiling values & NAICS', file: '/march-surge/downloads/active-idiq-vehicles-list.xlsx', label: 'Download Excel' },
-  { num: 5, title: 'Sources Sought Response Template', desc: 'Fill-in-the-blank template', file: '/march-surge/downloads/sources-sought-response-template.docx', label: 'Download DOCX' },
-  { num: 6, title: 'Task Order Response Template', desc: 'Framework for IDIQ task orders', file: '/march-surge/downloads/task-order-response-template.docx', label: 'Download DOCX' },
+  { num: 1, title: 'March 2026 Expiring Contracts List', desc: '100+ contracts expiring Q2-Q3 2026', file: '/march-surge/downloads/march-2026-expiring-contracts.xlsx', label: 'Download Excel', source: 'Recompete Tracker', sourceDesc: 'Get the full tracker with 6,900+ expiring contracts across 36 agencies', sourceUrl: 'https://shop.govcongiants.org/recompete', sourceLabel: 'Get Full Tracker - $397' },
+  { num: 2, title: 'Recompete Positioning Checklist', desc: '12-18 month timeline for recompetes', file: '/march-surge/downloads/recompete-positioning-checklist.pdf', label: 'Download PDF', source: 'Recompete Tracker', sourceDesc: 'Filter by NAICS, agency, value & track 6,900+ contracts', sourceUrl: 'https://shop.govcongiants.org/recompete', sourceLabel: 'Get Full Tracker - $397' },
+  { num: 3, title: '10 IDIQ Vehicles Guide', desc: 'The most active GWAC/IDIQ vehicles', file: '/march-surge/downloads/10-idiq-vehicles-guide.pdf', label: 'Download PDF', source: 'The Vault', sourceDesc: '125+ premium GovCon templates, proposals & guides', sourceUrl: 'https://guides.govcongiants.org', sourceLabel: 'Access The Vault (Pro)' },
+  { num: 4, title: 'Active IDIQ Vehicles List', desc: 'Excel with ceiling values & NAICS', file: '/march-surge/downloads/active-idiq-vehicles-list.xlsx', label: 'Download Excel', source: 'Recompete Tracker', sourceDesc: 'Full database with ceiling values, ordering agencies & task orders', sourceUrl: 'https://shop.govcongiants.org/recompete', sourceLabel: 'Get Full Tracker - $397' },
+  { num: 5, title: 'Sources Sought Response Template', desc: 'Fill-in-the-blank template', file: '/march-surge/downloads/sources-sought-response-template.docx', label: 'Download DOCX', source: 'The Vault', sourceDesc: '125+ premium templates including proposals, contracts & bid forms', sourceUrl: 'https://guides.govcongiants.org', sourceLabel: 'Access The Vault (Pro)' },
+  { num: 6, title: 'Task Order Response Template', desc: 'Framework for IDIQ task orders', file: '/march-surge/downloads/task-order-response-template.docx', label: 'Download DOCX', source: 'GovCon Shop', sourceDesc: 'Professional proposal templates, databases & contractor tools', sourceUrl: 'https://shop.govcongiants.org', sourceLabel: 'Browse All Products' },
 ];
 
 const nextSteps = [
@@ -79,22 +79,41 @@ export default function ContractVehiclesThankYou() {
           <h2 className="text-2xl font-bold text-white text-center mb-6">Your 6 Free Resources</h2>
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-10">
             {downloads.map((d) => (
-              <div key={d.num} className="bg-slate-900 border border-slate-800 rounded-xl p-5 flex items-start gap-4">
-                <div className="w-12 h-12 bg-green-900/50 border border-green-700/50 rounded-lg flex items-center justify-center flex-shrink-0">
-                  <span className="text-xl">{d.num}</span>
+              <div key={d.num} className="bg-slate-900 border border-slate-800 rounded-xl p-5">
+                <div className="flex items-start gap-4 mb-3">
+                  <div className="w-12 h-12 bg-green-900/50 border border-green-700/50 rounded-lg flex items-center justify-center flex-shrink-0">
+                    <span className="text-xl">{d.num}</span>
+                  </div>
+                  <div className="flex-1">
+                    <h3 className="text-white font-semibold mb-1">{d.title}</h3>
+                    <p className="text-slate-500 text-sm mb-2">{d.desc}</p>
+                    <a
+                      href={d.file}
+                      download
+                      className="inline-flex items-center gap-2 text-green-400 hover:text-green-300 text-sm font-medium transition"
+                    >
+                      <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4"/>
+                      </svg>
+                      {d.label}
+                    </a>
+                  </div>
                 </div>
-                <div className="flex-1">
-                  <h3 className="text-white font-semibold mb-1">{d.title}</h3>
-                  <p className="text-slate-500 text-sm mb-2">{d.desc}</p>
+                <div className="bg-slate-800/50 border border-slate-700/50 rounded-lg p-3 mt-2">
+                  <div className="flex items-center gap-2 mb-1">
+                    <span className="text-amber-400 text-xs font-semibold uppercase tracking-wide">From: {d.source}</span>
+                  </div>
+                  <p className="text-slate-400 text-xs mb-2">{d.sourceDesc}</p>
                   <a
-                    href={d.file}
-                    download
-                    className="inline-flex items-center gap-2 text-green-400 hover:text-green-300 text-sm font-medium transition"
+                    href={d.sourceUrl}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="inline-flex items-center gap-1 text-amber-400 hover:text-amber-300 text-xs font-semibold transition"
                   >
-                    <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4"/>
+                    {d.sourceLabel}
+                    <svg className="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"/>
                     </svg>
-                    {d.label}
                   </a>
                 </div>
               </div>
