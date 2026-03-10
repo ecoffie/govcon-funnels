@@ -89,7 +89,8 @@ export default function ContractVehiclesThankYou() {
                     <p className="text-slate-500 text-sm mb-2">{d.desc}</p>
                     <a
                       href={d.file}
-                      download
+                      target="_blank"
+                      rel="noopener noreferrer"
                       className="inline-flex items-center gap-2 text-green-400 hover:text-green-300 text-sm font-medium transition"
                     >
                       <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
