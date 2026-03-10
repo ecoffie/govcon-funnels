@@ -21,6 +21,23 @@ const nextConfig: NextConfig = {
       },
     ];
   },
+  async headers() {
+    return [
+      {
+        source: "/march-surge/downloads/:path*.html",
+        headers: [
+          {
+            key: "Content-Disposition",
+            value: "inline",
+          },
+          {
+            key: "Content-Type",
+            value: "text/html; charset=utf-8",
+          },
+        ],
+      },
+    ];
+  },
   async rewrites() {
     return {
       beforeFiles: [],
