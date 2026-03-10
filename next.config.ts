@@ -16,11 +16,11 @@ const nextConfig: NextConfig = {
       beforeFiles: [
         {
           source: "/vault",
-          destination: "https://govcon-resources.vercel.app/vault",
+          destination: "https://vault.govcongiants.org/",
         },
         {
           source: "/vault/:path*",
-          destination: "https://govcon-resources.vercel.app/vault/:path*",
+          destination: "https://vault.govcongiants.org/:path*",
         },
       ],
       afterFiles: [
