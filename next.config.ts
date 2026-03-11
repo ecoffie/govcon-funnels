@@ -40,7 +40,9 @@ const nextConfig: NextConfig = {
   },
   async rewrites() {
     return {
-      beforeFiles: [],
+      beforeFiles: [
+        { source: "/quiz", destination: "/quiz/index.html" },
+      ],
       afterFiles: [
         { source: "/dashboard.html", destination: "/api/dashboard-page" },
       ],
