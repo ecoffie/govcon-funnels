@@ -1,0 +1,1322 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>GovCon BD Foundation Certificate | GovConEdu LLC</title>
+    <meta name="description" content="Train your team to recognize and escalate growth opportunities. 4-week employer-paid upskilling program for GovCon business development. $3,999 per employee, IRS Section 127 eligible.">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --dark-green: #1a4d2e;
+            --gold: #d4af37;
+            --medium-green: #2d5016;
+            --light-green: #90c695;
+            --dark-gray: #333333;
+            --medium-gray: #666666;
+            --light-gray: #f5f5f5;
+            --white: #ffffff;
+            --error-red: #c92a2a;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+            line-height: 1.6;
+            color: var(--dark-gray);
+            background: var(--white);
+        }
+
+        /* Promo Banner */
+        .promo-banner {
+            background: var(--dark-green);
+            color: var(--white);
+            text-align: center;
+            padding: 12px 20px;
+            font-size: 0.95em;
+        }
+
+        .promo-banner a {
+            color: var(--gold);
+            text-decoration: underline;
+            font-weight: 600;
+        }
+
+        .promo-banner .close-btn {
+            float: right;
+            background: none;
+            border: none;
+            color: var(--white);
+            cursor: pointer;
+            font-size: 1.2em;
+        }
+
+        /* Header */
+        header {
+            background: var(--white);
+            border-bottom: 1px solid #e0e0e0;
+            padding: 15px 0;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        .header-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-size: 1.5em;
+            font-weight: 700;
+            color: var(--dark-green);
+        }
+
+        .logo span {
+            color: var(--gold);
+        }
+
+        nav ul {
+            display: flex;
+            list-style: none;
+            gap: 30px;
+        }
+
+        nav a {
+            text-decoration: none;
+            color: var(--dark-gray);
+            font-weight: 500;
+            transition: color 0.3s;
+        }
+
+        nav a:hover {
+            color: var(--dark-green);
+        }
+
+        .btn-enroll {
+            background: var(--dark-green);
+            color: var(--white);
+            padding: 10px 24px;
+            border-radius: 5px;
+            text-decoration: none;
+            font-weight: 600;
+            transition: background 0.3s;
+        }
+
+        .btn-enroll:hover {
+            background: var(--medium-green);
+        }
+
+        /* Hero Section */
+        .hero {
+            background: linear-gradient(135deg, var(--dark-green) 0%, var(--medium-green) 100%);
+            color: var(--white);
+            padding: 60px 0;
+        }
+
+        .hero-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+            display: grid;
+            grid-template-columns: 1fr 300px;
+            gap: 60px;
+            align-items: center;
+        }
+
+        .hero h1 {
+            font-size: 2.8em;
+            margin-bottom: 10px;
+            line-height: 1.2;
+        }
+
+        .hero .subtitle {
+            font-size: 1.3em;
+            opacity: 0.95;
+            margin-bottom: 20px;
+        }
+
+        .hero .tagline {
+            font-size: 1.1em;
+            opacity: 0.9;
+            margin-bottom: 30px;
+            max-width: 600px;
+        }
+
+        .badge-container {
+            text-align: center;
+        }
+
+        .cert-badge {
+            width: 220px;
+            height: 220px;
+            background: var(--white);
+            border-radius: 50%;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+            border: 4px solid var(--gold);
+        }
+
+        .cert-badge .icon {
+            font-size: 3em;
+            margin-bottom: 10px;
+        }
+
+        .cert-badge .badge-title {
+            color: var(--dark-green);
+            font-weight: 700;
+            font-size: 1em;
+            text-align: center;
+            padding: 0 15px;
+        }
+
+        .cert-badge .badge-subtitle {
+            color: var(--medium-gray);
+            font-size: 0.8em;
+        }
+
+        /* Tab Navigation */
+        .tab-nav {
+            background: var(--dark-gray);
+            position: sticky;
+            top: 60px;
+            z-index: 99;
+        }
+
+        .tab-nav-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+        }
+
+        .tab-btn {
+            flex: 1;
+            padding: 18px 30px;
+            background: none;
+            border: none;
+            color: var(--white);
+            font-size: 1em;
+            font-weight: 500;
+            cursor: pointer;
+            transition: background 0.3s;
+            border-bottom: 3px solid transparent;
+        }
+
+        .tab-btn:hover {
+            background: rgba(255,255,255,0.1);
+        }
+
+        .tab-btn.active {
+            border-bottom-color: var(--gold);
+        }
+
+        /* Tab Content */
+        .tab-content {
+            display: none;
+            padding: 50px 0;
+        }
+
+        .tab-content.active {
+            display: block;
+        }
+
+        .content-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+            display: grid;
+            grid-template-columns: 1fr 350px;
+            gap: 50px;
+        }
+
+        .main-content h2 {
+            font-size: 2em;
+            color: var(--dark-green);
+            margin-bottom: 25px;
+        }
+
+        .main-content h3 {
+            font-size: 1.4em;
+            color: var(--dark-gray);
+            margin: 30px 0 15px;
+        }
+
+        /* Skills List */
+        .skills-list {
+            list-style: none;
+        }
+
+        .skills-list li {
+            display: flex;
+            align-items: flex-start;
+            gap: 15px;
+            margin-bottom: 18px;
+            font-size: 1.05em;
+        }
+
+        .skills-list .check {
+            color: var(--dark-green);
+            font-size: 1.2em;
+            flex-shrink: 0;
+            margin-top: 2px;
+        }
+
+        /* Sidebar */
+        .sidebar {
+            position: sticky;
+            top: 140px;
+        }
+
+        .sidebar-card {
+            background: var(--light-gray);
+            border-radius: 8px;
+            padding: 30px;
+            margin-bottom: 25px;
+        }
+
+        .sidebar-card .label {
+            color: var(--gold);
+            font-weight: 600;
+            font-size: 0.85em;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-bottom: 10px;
+        }
+
+        .sidebar-card h3 {
+            color: var(--dark-gray);
+            font-size: 1.3em;
+            margin-bottom: 15px;
+        }
+
+        .sidebar-card p {
+            color: var(--medium-gray);
+            margin-bottom: 20px;
+        }
+
+        .btn-primary {
+            display: inline-block;
+            background: var(--dark-green);
+            color: var(--white);
+            padding: 12px 28px;
+            border-radius: 5px;
+            text-decoration: none;
+            font-weight: 600;
+            border: none;
+            cursor: pointer;
+            transition: background 0.3s;
+            width: 100%;
+            text-align: center;
+        }
+
+        .btn-primary:hover {
+            background: var(--medium-green);
+        }
+
+        .btn-secondary {
+            display: inline-block;
+            background: var(--white);
+            color: var(--dark-green);
+            padding: 12px 28px;
+            border-radius: 5px;
+            text-decoration: none;
+            font-weight: 600;
+            border: 2px solid var(--dark-green);
+            cursor: pointer;
+            transition: all 0.3s;
+            width: 100%;
+            text-align: center;
+            margin-top: 10px;
+        }
+
+        .btn-secondary:hover {
+            background: var(--dark-green);
+            color: var(--white);
+        }
+
+        /* Email Form */
+        .email-form input[type="email"] {
+            width: 100%;
+            padding: 12px 15px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            font-size: 1em;
+            margin-bottom: 10px;
+        }
+
+        /* Domain Cards */
+        .domain-section {
+            background: var(--light-gray);
+            padding: 50px 0;
+        }
+
+        .domain-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 25px;
+            margin-top: 30px;
+        }
+
+        .domain-card {
+            background: var(--white);
+            border-radius: 8px;
+            padding: 25px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.08);
+            border-left: 4px solid var(--dark-green);
+        }
+
+        .domain-card .weight {
+            background: var(--gold);
+            color: var(--dark-gray);
+            font-weight: 700;
+            padding: 4px 10px;
+            border-radius: 3px;
+            font-size: 0.85em;
+            display: inline-block;
+            margin-bottom: 10px;
+        }
+
+        .domain-card h4 {
+            color: var(--dark-green);
+            font-size: 1.1em;
+            margin-bottom: 10px;
+        }
+
+        .domain-card p {
+            color: var(--medium-gray);
+            font-size: 0.95em;
+        }
+
+        /* Program Details */
+        .program-details {
+            background: var(--white);
+            padding: 50px 0;
+        }
+
+        .details-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 30px;
+            margin-top: 30px;
+        }
+
+        .detail-item {
+            text-align: center;
+            padding: 30px 20px;
+            background: var(--light-gray);
+            border-radius: 8px;
+        }
+
+        .detail-item .icon {
+            font-size: 2.5em;
+            margin-bottom: 15px;
+        }
+
+        .detail-item .value {
+            font-size: 1.8em;
+            font-weight: 700;
+            color: var(--dark-green);
+            margin-bottom: 5px;
+        }
+
+        .detail-item .label {
+            color: var(--medium-gray);
+            font-size: 0.95em;
+        }
+
+        /* Career Path */
+        .career-path {
+            background: var(--light-gray);
+            padding: 50px 0;
+        }
+
+        .career-diagram {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 20px;
+            margin-top: 40px;
+            flex-wrap: wrap;
+        }
+
+        .career-stage {
+            text-align: center;
+        }
+
+        .career-box {
+            padding: 20px 25px;
+            border-radius: 8px;
+            min-width: 180px;
+        }
+
+        .career-box.entry {
+            background: var(--white);
+            border: 2px solid #ddd;
+        }
+
+        .career-box.current {
+            background: linear-gradient(135deg, var(--dark-green) 0%, var(--medium-green) 100%);
+            color: var(--white);
+            min-width: 280px;
+            padding: 30px;
+        }
+
+        .career-box.current h4 {
+            font-size: 1.3em;
+            margin-bottom: 15px;
+        }
+
+        .career-box.current .similar-titles {
+            font-size: 0.9em;
+            opacity: 0.9;
+        }
+
+        .career-box.advanced {
+            background: var(--white);
+            border: 2px solid var(--gold);
+        }
+
+        .career-arrow {
+            font-size: 2em;
+            color: var(--gold);
+        }
+
+        .entry-points {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+
+        .leads-to {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+
+        /* Role Cards */
+        .role-card {
+            background: var(--white);
+            border-radius: 8px;
+            padding: 20px;
+            margin-bottom: 15px;
+            border: 1px solid #e0e0e0;
+        }
+
+        .role-card h4 {
+            color: var(--dark-green);
+            margin-bottom: 8px;
+        }
+
+        .role-card .salary {
+            color: var(--gold);
+            font-weight: 700;
+            font-size: 1.1em;
+        }
+
+        .role-card p {
+            color: var(--medium-gray);
+            font-size: 0.9em;
+            margin-top: 8px;
+        }
+
+        .btn-explore {
+            display: inline-block;
+            background: var(--dark-green);
+            color: var(--white);
+            padding: 8px 20px;
+            border-radius: 5px;
+            text-decoration: none;
+            font-size: 0.9em;
+            margin-top: 10px;
+        }
+
+        /* Pricing Section */
+        .pricing-section {
+            background: var(--white);
+            padding: 60px 0;
+            text-align: center;
+        }
+
+        .pricing-card {
+            max-width: 500px;
+            margin: 30px auto;
+            background: var(--light-gray);
+            border-radius: 12px;
+            padding: 40px;
+            border: 3px solid var(--dark-green);
+        }
+
+        .pricing-card .price {
+            font-size: 3.5em;
+            font-weight: 700;
+            color: var(--dark-green);
+        }
+
+        .pricing-card .per {
+            color: var(--medium-gray);
+            font-size: 1.1em;
+            margin-bottom: 20px;
+        }
+
+        .pricing-card .tax-benefit {
+            background: var(--gold);
+            color: var(--dark-gray);
+            padding: 10px 20px;
+            border-radius: 5px;
+            display: inline-block;
+            font-weight: 600;
+            margin-bottom: 25px;
+        }
+
+        .pricing-features {
+            list-style: none;
+            text-align: left;
+            margin: 25px 0;
+        }
+
+        .pricing-features li {
+            padding: 10px 0;
+            border-bottom: 1px solid #ddd;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .pricing-features li:last-child {
+            border-bottom: none;
+        }
+
+        .pricing-features .check {
+            color: var(--dark-green);
+            font-weight: bold;
+        }
+
+        /* Who Should Attend */
+        .who-section {
+            background: var(--light-gray);
+            padding: 50px 0;
+        }
+
+        .who-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 25px;
+            margin-top: 30px;
+        }
+
+        .who-card {
+            background: var(--white);
+            padding: 25px;
+            border-radius: 8px;
+            text-align: center;
+        }
+
+        .who-card .icon {
+            font-size: 2.5em;
+            margin-bottom: 15px;
+        }
+
+        .who-card h4 {
+            color: var(--dark-green);
+            margin-bottom: 10px;
+        }
+
+        /* CTA Section */
+        .cta-section {
+            background: linear-gradient(135deg, var(--dark-green) 0%, var(--medium-green) 100%);
+            color: var(--white);
+            padding: 60px 0;
+            text-align: center;
+        }
+
+        .cta-section h2 {
+            font-size: 2.2em;
+            margin-bottom: 15px;
+        }
+
+        .cta-section p {
+            font-size: 1.2em;
+            opacity: 0.9;
+            margin-bottom: 30px;
+            max-width: 600px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .cta-buttons {
+            display: flex;
+            gap: 20px;
+            justify-content: center;
+        }
+
+        .btn-gold {
+            background: var(--gold);
+            color: var(--dark-gray);
+            padding: 15px 35px;
+            border-radius: 5px;
+            text-decoration: none;
+            font-weight: 700;
+            font-size: 1.1em;
+            transition: transform 0.3s;
+        }
+
+        .btn-gold:hover {
+            transform: translateY(-2px);
+        }
+
+        .btn-outline {
+            background: transparent;
+            color: var(--white);
+            padding: 15px 35px;
+            border-radius: 5px;
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 1.1em;
+            border: 2px solid var(--white);
+            transition: all 0.3s;
+        }
+
+        .btn-outline:hover {
+            background: var(--white);
+            color: var(--dark-green);
+        }
+
+        /* Footer */
+        footer {
+            background: var(--dark-gray);
+            color: var(--white);
+            padding: 50px 0 30px;
+        }
+
+        .footer-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+            display: grid;
+            grid-template-columns: 2fr 1fr 1fr 1fr;
+            gap: 40px;
+        }
+
+        .footer-brand .logo {
+            color: var(--white);
+            font-size: 1.5em;
+            margin-bottom: 15px;
+        }
+
+        .footer-brand p {
+            color: #aaa;
+            font-size: 0.95em;
+        }
+
+        footer h4 {
+            margin-bottom: 20px;
+            font-size: 1.1em;
+        }
+
+        footer ul {
+            list-style: none;
+        }
+
+        footer ul li {
+            margin-bottom: 10px;
+        }
+
+        footer a {
+            color: #aaa;
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+
+        footer a:hover {
+            color: var(--gold);
+        }
+
+        .footer-bottom {
+            max-width: 1200px;
+            margin: 40px auto 0;
+            padding: 20px 20px 0;
+            border-top: 1px solid #555;
+            display: flex;
+            justify-content: space-between;
+            color: #aaa;
+            font-size: 0.9em;
+        }
+
+        .social-links {
+            display: flex;
+            gap: 15px;
+        }
+
+        .social-links a {
+            font-size: 1.2em;
+        }
+
+        /* Responsive */
+        @media (max-width: 992px) {
+            .hero-container {
+                grid-template-columns: 1fr;
+                text-align: center;
+            }
+
+            .content-container {
+                grid-template-columns: 1fr;
+            }
+
+            .sidebar {
+                position: static;
+            }
+
+            .domain-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .details-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .who-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .footer-container {
+                grid-template-columns: 1fr 1fr;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .header-container {
+                flex-direction: column;
+                gap: 15px;
+            }
+
+            nav ul {
+                gap: 15px;
+                flex-wrap: wrap;
+                justify-content: center;
+            }
+
+            .hero h1 {
+                font-size: 2em;
+            }
+
+            .tab-nav-container {
+                flex-wrap: wrap;
+            }
+
+            .tab-btn {
+                flex: 1 1 50%;
+                padding: 15px;
+            }
+
+            .domain-grid,
+            .details-grid,
+            .who-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .career-diagram {
+                flex-direction: column;
+            }
+
+            .career-arrow {
+                transform: rotate(90deg);
+            }
+
+            .cta-buttons {
+                flex-direction: column;
+                align-items: center;
+            }
+
+            .footer-container {
+                grid-template-columns: 1fr;
+                text-align: center;
+            }
+
+            .footer-bottom {
+                flex-direction: column;
+                gap: 15px;
+                text-align: center;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Promo Banner -->
+    <div class="promo-banner">
+        <button class="close-btn" onclick="this.parentElement.style.display='none'">×</button>
+        IRS Section 127: Employers can provide up to $5,250/year tax-free for employee education.
+        <a href="#pricing">See how it works →</a>
+    </div>
+
+    <!-- Header -->
+    <header>
+        <div class="header-container">
+            <div class="logo">GovCon<span>Edu</span></div>
+            <nav>
+                <ul>
+                    <li><a href="#overview">Overview</a></li>
+                    <li><a href="#domains">Curriculum</a></li>
+                    <li><a href="#career-path">Career Path</a></li>
+                    <li><a href="#pricing">Pricing</a></li>
+                    <li><a href="#" class="btn-enroll">Enroll Now</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="hero-container">
+            <div class="hero-content">
+                <h1>GovCon BD Foundation Certificate</h1>
+                <p class="subtitle">Turn Your Team Into Growth Drivers</p>
+                <p class="tagline">Your operations, program, and delivery staff already talk to government customers every day. Teach them to recognize and escalate growth opportunities—and watch your pipeline grow.</p>
+            </div>
+            <div class="badge-container">
+                <div class="cert-badge">
+                    <div class="icon">🎓</div>
+                    <div class="badge-title">GovCon BD Foundation</div>
+                    <div class="badge-subtitle">Certificate of Completion</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Tab Navigation -->
+    <nav class="tab-nav">
+        <div class="tab-nav-container">
+            <button class="tab-btn active" onclick="showTab('overview')">Overview</button>
+            <button class="tab-btn" onclick="showTab('enroll')">Enroll Now</button>
+            <button class="tab-btn" onclick="showTab('career')">Career Path</button>
+            <button class="tab-btn" onclick="showTab('resources')">Resources</button>
+        </div>
+    </nav>
+
+    <!-- Overview Tab -->
+    <section id="overview" class="tab-content active">
+        <div class="content-container">
+            <div class="main-content">
+                <h2>Skills Learned</h2>
+                <ul class="skills-list">
+                    <li>
+                        <span class="check">✓</span>
+                        <span>Navigate federal market research tools (SAM.gov, USAspending, DSBS) to identify agency spending patterns, contract opportunities, and competitive intelligence.</span>
+                    </li>
+                    <li>
+                        <span class="check">✓</span>
+                        <span>Discover and qualify federal opportunities using SAM.gov, understanding RFPs, RFQs, RFIs, and Sources Sought notices.</span>
+                    </li>
+                    <li>
+                        <span class="check">✓</span>
+                        <span>Engage government customers appropriately through OSDBUs, industry days, and capability briefings while maintaining procurement integrity.</span>
+                    </li>
+                    <li>
+                        <span class="check">✓</span>
+                        <span>Understand the BD/Capture lifecycle, pipeline management, and teaming strategies to support growth initiatives.</span>
+                    </li>
+                    <li>
+                        <span class="check">✓</span>
+                        <span>Develop competitive positioning including win themes, discriminators, and ghosting strategies to strengthen proposals.</span>
+                    </li>
+                    <li>
+                        <span class="check">✓</span>
+                        <span>Support proposal development by building compliance matrices, gathering content, and understanding evaluation factors.</span>
+                    </li>
+                    <li>
+                        <span class="check">✓</span>
+                        <span>Assess contracting readiness including certifications, registrations, and FAR basics to ensure compliance.</span>
+                    </li>
+                </ul>
+
+                <h3>Who Should Attend</h3>
+                <p>This program is designed for non-BD employees who interact with government customers and want to contribute to company growth:</p>
+                <ul class="skills-list" style="margin-top: 15px;">
+                    <li><span class="check">✓</span><span>Program Managers on federal contracts</span></li>
+                    <li><span class="check">✓</span><span>Operations and delivery staff</span></li>
+                    <li><span class="check">✓</span><span>Technical staff with customer contact</span></li>
+                    <li><span class="check">✓</span><span>Contracts and finance professionals</span></li>
+                    <li><span class="check">✓</span><span>New hires joining GovCon companies</span></li>
+                </ul>
+            </div>
+
+            <aside class="sidebar">
+                <div class="sidebar-card">
+                    <div class="label">Stay Informed</div>
+                    <h3>Advance Your GovCon Career</h3>
+                    <p>Get updates, insights, and resources to support your learning journey and career growth.</p>
+                    <form class="email-form" action="#" method="post">
+                        <input type="email" placeholder="Enter your email" required>
+                        <button type="submit" class="btn-primary">Sign Up Now</button>
+                    </form>
+                </div>
+
+                <div class="sidebar-card">
+                    <div class="label">Ready to Start?</div>
+                    <h3>Schedule a Consultation</h3>
+                    <p>Talk to our team about enrolling your employees in the next cohort.</p>
+                    <a href="#" class="btn-primary">Schedule Call</a>
+                    <a href="materials/curriculum-overview.pdf" target="_blank" class="btn-secondary">Download Overview</a>
+                </div>
+            </aside>
+        </div>
+    </section>
+
+    <!-- Domain Section -->
+    <section id="domains" class="domain-section">
+        <div class="content-container" style="display: block;">
+            <h2 style="text-align: center; color: var(--dark-green); font-size: 2em; margin-bottom: 15px;">Curriculum Domains</h2>
+            <p style="text-align: center; color: var(--medium-gray); max-width: 700px; margin: 0 auto;">Domain weights derived from Job Task Analysis of 45+ job postings across BD Manager, Capture Manager, and Market Research Analyst roles. Aligned with NCMA CMBOK and PMI CAPM standards.</p>
+
+            <div class="domain-grid">
+                <div class="domain-card">
+                    <span class="weight">23%</span>
+                    <h4>D1: Market & Buyer Intelligence</h4>
+                    <p>Federal market research, agency spending analysis, incumbent research, NAICS/PSC codes</p>
+                </div>
+                <div class="domain-card">
+                    <span class="weight">22%</span>
+                    <h4>D3: BD & Capture Fundamentals</h4>
+                    <p>BD lifecycle, pipeline stages, teaming strategies, partner identification</p>
+                </div>
+                <div class="domain-card">
+                    <span class="weight">20%</span>
+                    <h4>D2: Customer Engagement</h4>
+                    <p>Opportunity discovery, OSDBU outreach, industry days, relationship building</p>
+                </div>
+                <div class="domain-card">
+                    <span class="weight">13%</span>
+                    <h4>D4: Proposal Support</h4>
+                    <p>Compliance matrices, evaluation factors, RFP structure, content development</p>
+                </div>
+                <div class="domain-card">
+                    <span class="weight">12%</span>
+                    <h4>D5: Compliance & Risk</h4>
+                    <p>FAR basics, certifications, registrations, procurement integrity</p>
+                </div>
+                <div class="domain-card">
+                    <span class="weight">10%</span>
+                    <h4>D6: Execution & Metrics</h4>
+                    <p>Internal handoffs, growth metrics, BD team coordination, reporting</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Program Details -->
+    <section class="program-details">
+        <div class="content-container" style="display: block;">
+            <h2 style="text-align: center; color: var(--dark-green); font-size: 2em; margin-bottom: 10px;">Program Details</h2>
+
+            <div class="details-grid">
+                <div class="detail-item">
+                    <div class="icon">📅</div>
+                    <div class="value">4 Weeks</div>
+                    <div class="label">Program Duration</div>
+                </div>
+                <div class="detail-item">
+                    <div class="icon">👥</div>
+                    <div class="value">8 Sessions</div>
+                    <div class="label">Live Instructor-Led</div>
+                </div>
+                <div class="detail-item">
+                    <div class="icon">🛠️</div>
+                    <div class="value">Free Tools</div>
+                    <div class="label">SAM.gov, USAspending, DSBS</div>
+                </div>
+                <div class="detail-item">
+                    <div class="icon">📜</div>
+                    <div class="value">Certificate</div>
+                    <div class="label">Completion-Based</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Career Path Tab -->
+    <section id="career-path" class="tab-content career-path">
+        <div class="content-container">
+            <div class="main-content">
+                <h2>Career Path</h2>
+                <p>This program prepares employees to support—and eventually transition into—GovCon business development roles.</p>
+
+                <div class="career-diagram">
+                    <div class="career-stage entry-points">
+                        <div class="career-box entry">Program Manager</div>
+                        <div class="career-box entry">Operations Staff</div>
+                        <div class="career-box entry">Delivery Lead</div>
+                        <div class="career-box entry">Contracts Specialist</div>
+                    </div>
+
+                    <div class="career-arrow">→</div>
+
+                    <div class="career-stage">
+                        <div class="career-box current">
+                            <h4>BD Support Professional</h4>
+                            <div class="similar-titles">
+                                <strong>Similar Titles:</strong><br>
+                                Growth Coordinator<br>
+                                Capture Support<br>
+                                Market Research Analyst<br>
+                                BD Analyst
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="career-arrow">→</div>
+
+                    <div class="career-stage leads-to">
+                        <div class="career-box advanced">BD Manager</div>
+                        <div class="career-box advanced">Capture Manager</div>
+                        <div class="career-box advanced">Proposal Manager</div>
+                    </div>
+                </div>
+            </div>
+
+            <aside class="sidebar">
+                <div class="label" style="color: var(--gold); font-weight: 600; margin-bottom: 15px;">DISCOVER RELATED ROLES</div>
+
+                <div class="role-card">
+                    <h4>Business Development Manager</h4>
+                    <div class="salary">$85K – $130K</div>
+                    <p>Opportunity identification, market research, teaming, customer relationships</p>
+                    <a href="#" class="btn-explore">Explore</a>
+                </div>
+
+                <div class="role-card">
+                    <h4>Capture Manager</h4>
+                    <div class="salary">$95K – $145K</div>
+                    <p>Agency spend analysis, capture plans, competitive positioning, win strategies</p>
+                    <a href="#" class="btn-explore">Explore</a>
+                </div>
+
+                <div class="role-card">
+                    <h4>Market Research Analyst</h4>
+                    <div class="salary">$80K – $135K</div>
+                    <p>Market intelligence, spending patterns, set-aside analysis, opportunity research</p>
+                    <a href="#" class="btn-explore">Explore</a>
+                </div>
+            </aside>
+        </div>
+    </section>
+
+    <!-- Enroll Tab / Pricing -->
+    <section id="enroll" class="tab-content">
+        <div class="pricing-section" style="padding-top: 0;">
+            <h2 style="color: var(--dark-green); font-size: 2em;">Invest in Your Team's Growth</h2>
+            <p style="color: var(--medium-gray); max-width: 600px; margin: 15px auto 0;">One missed opportunity costs more than training your entire team. Equip your employees to recognize and escalate growth signals.</p>
+
+            <div class="pricing-card">
+                <div class="price">$3,999</div>
+                <div class="per">per employee</div>
+                <div class="tax-benefit">✓ IRS Section 127 Eligible — Up to $5,250 Tax-Free</div>
+
+                <ul class="pricing-features">
+                    <li><span class="check">✓</span> 4-week live instructor-led program</li>
+                    <li><span class="check">✓</span> 8 interactive sessions (2 per week)</li>
+                    <li><span class="check">✓</span> Hands-on exercises with free public tools</li>
+                    <li><span class="check">✓</span> Certificate of Completion for HR records</li>
+                    <li><span class="check">✓</span> Manager support materials included</li>
+                    <li><span class="check">✓</span> Cohort format (5-20 employees)</li>
+                    <li><span class="check">✓</span> Enterprise pricing available (20+)</li>
+                </ul>
+
+                <a href="#" class="btn-primary" style="font-size: 1.1em; padding: 15px;">Schedule Consultation</a>
+                <a href="materials/curriculum-overview.pdf" target="_blank" class="btn-secondary">Download Program Overview</a>
+            </div>
+
+            <div style="max-width: 700px; margin: 40px auto 0; text-align: left; background: var(--light-gray); padding: 25px; border-radius: 8px;">
+                <h3 style="color: var(--dark-green); margin-bottom: 15px;">💰 ROI: One Win Pays for Everything</h3>
+                <p style="color: var(--medium-gray);">Average federal contract value: <strong>$2M - $10M</strong>. If better-trained employees help win just one additional contract per year, that's <strong>50x - 250x ROI</strong> on training investment.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Resources Tab -->
+    <section id="resources" class="tab-content">
+        <div class="content-container">
+            <div class="main-content">
+                <h2>Program Resources</h2>
+                <p>Everything you need to evaluate and implement the GovCon BD Foundation program.</p>
+
+                <h3>For Employers</h3>
+                <ul class="skills-list">
+                    <li><span class="check">📄</span><span><a href="materials/curriculum-overview.pdf" target="_blank">Program Overview (PDF)</a> — Complete program details, curriculum, and outcomes</span></li>
+                    <li><span class="check">📊</span><span><a href="roi-calculator.html">ROI Calculator</a> — Calculate the return on your training investment</span></li>
+                    <li><span class="check">📋</span><span><a href="materials/irs-section-127-guide.pdf" target="_blank">IRS Section 127 Guide</a> — Tax benefit documentation for HR</span></li>
+                    <li><span class="check">👔</span><span><a href="materials/employer-manager-pack.pdf" target="_blank">Manager Support Pack</a> — Help managers support enrolled employees</span></li>
+                </ul>
+
+                <h3>For Employees</h3>
+                <ul class="skills-list">
+                    <li><span class="check">📖</span><span><a href="materials/candidate-handbook.pdf" target="_blank">Candidate Handbook</a> — What to expect during the program</span></li>
+                    <li><span class="check">📝</span><span><a href="materials/opportunity-observation-log.pdf" target="_blank">Sample Workbook</a> — Preview the hands-on exercises</span></li>
+                    <li><span class="check">🔤</span><span><a href="materials/contracting-glossary.pdf" target="_blank">GovCon Glossary</a> — Essential contracting terminology</span></li>
+                </ul>
+
+                <h3>Free Tools Used in Program</h3>
+                <ul class="skills-list">
+                    <li><span class="check">🔗</span><span><a href="https://sam.gov" target="_blank">SAM.gov</a> — Opportunity search, entity registration, contract data</span></li>
+                    <li><span class="check">🔗</span><span><a href="https://usaspending.gov" target="_blank">USAspending.gov</a> — Federal spending data, agency budgets</span></li>
+                    <li><span class="check">🔗</span><span><a href="https://dsbs.sba.gov" target="_blank">DSBS</a> — Small business contractor search</span></li>
+                </ul>
+            </div>
+
+            <aside class="sidebar">
+                <div class="sidebar-card">
+                    <div class="label">Stay Informed</div>
+                    <h3>Get GovCon Insights</h3>
+                    <p>Join our newsletter for tips, resources, and program updates.</p>
+                    <form class="email-form" action="#" method="post">
+                        <input type="email" placeholder="Enter your email" required>
+                        <button type="submit" class="btn-primary">Sign Up Now</button>
+                    </form>
+                </div>
+            </aside>
+        </div>
+    </section>
+
+    <!-- Who Should Attend -->
+    <section class="who-section">
+        <div class="content-container" style="display: block;">
+            <h2 style="text-align: center; color: var(--dark-green); font-size: 2em; margin-bottom: 10px;">Who Should Attend</h2>
+            <p style="text-align: center; color: var(--medium-gray); max-width: 600px; margin: 0 auto;">This program is designed for employees who interact with government customers but haven't had formal BD training.</p>
+
+            <div class="who-grid">
+                <div class="who-card">
+                    <div class="icon">👨‍💼</div>
+                    <h4>Program Managers</h4>
+                    <p>Already talking to customers daily—learn to recognize growth signals</p>
+                </div>
+                <div class="who-card">
+                    <div class="icon">⚙️</div>
+                    <h4>Operations Staff</h4>
+                    <p>Support BD with customer intel and operational insights</p>
+                </div>
+                <div class="who-card">
+                    <div class="icon">💻</div>
+                    <h4>Technical Staff</h4>
+                    <p>Translate technical knowledge into competitive advantages</p>
+                </div>
+                <div class="who-card">
+                    <div class="icon">📑</div>
+                    <h4>Contracts Professionals</h4>
+                    <p>Understand how contracts become opportunities</p>
+                </div>
+                <div class="who-card">
+                    <div class="icon">🆕</div>
+                    <h4>New GovCon Hires</h4>
+                    <p>Get up to speed on federal market fundamentals fast</p>
+                </div>
+                <div class="who-card">
+                    <div class="icon">📈</div>
+                    <h4>Aspiring BD Professionals</h4>
+                    <p>Build foundation skills for a BD/Capture career</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- CTA Section -->
+    <section class="cta-section">
+        <div class="content-container" style="display: block;">
+            <h2>Ready to Transform Your Team?</h2>
+            <p>Schedule a consultation to discuss enrolling your employees in the next cohort.</p>
+            <div class="cta-buttons">
+                <a href="#" class="btn-gold">Schedule Consultation</a>
+                <a href="materials/curriculum-overview.pdf" target="_blank" class="btn-outline">Download Program Overview</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="footer-container">
+            <div class="footer-brand">
+                <div class="logo">GovCon<span style="color: var(--gold);">Edu</span></div>
+                <p>Helping GovCon companies build winning teams through practical, employer-focused training.</p>
+            </div>
+            <div>
+                <h4>Programs</h4>
+                <ul>
+                    <li><a href="#">30-Day Foundation</a></li>
+                    <li><a href="#">60-Day Practitioner</a></li>
+                    <li><a href="#">90-Day Professional</a></li>
+                </ul>
+            </div>
+            <div>
+                <h4>Resources</h4>
+                <ul>
+                    <li><a href="materials/curriculum-overview.pdf" target="_blank">Program Overview</a></li>
+                    <li><a href="materials/irs-section-127-guide.pdf" target="_blank">IRS Section 127 Guide</a></li>
+                    <li><a href="roi-calculator.html">ROI Calculator</a></li>
+                </ul>
+            </div>
+            <div>
+                <h4>Company</h4>
+                <ul>
+                    <li><a href="#">About Us</a></li>
+                    <li><a href="#">Contact</a></li>
+                    <li><a href="#">Privacy Policy</a></li>
+                </ul>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>© 2026 GovConEdu LLC. All rights reserved.</p>
+            <div class="social-links">
+                <a href="#">LinkedIn</a>
+                <a href="#">Twitter</a>
+                <a href="#">YouTube</a>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        function showTab(tabId) {
+            // Hide all tab contents
+            document.querySelectorAll('.tab-content').forEach(tab => {
+                tab.classList.remove('active');
+            });
+
+            // Remove active from all buttons
+            document.querySelectorAll('.tab-btn').forEach(btn => {
+                btn.classList.remove('active');
+            });
+
+            // Show selected tab
+            document.getElementById(tabId).classList.add('active');
+
+            // Add active to clicked button
+            event.target.classList.add('active');
+
+            // Scroll to tab content
+            document.getElementById(tabId).scrollIntoView({ behavior: 'smooth', block: 'start' });
+        }
+
+        // Smooth scroll for anchor links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function(e) {
+                const href = this.getAttribute('href');
+                if (href !== '#') {
+                    e.preventDefault();
+                    const target = document.querySelector(href);
+                    if (target) {
+                        target.scrollIntoView({ behavior: 'smooth' });
+                    }
+                }
+            });
+        });
+    </script>
+</body>
+</html>

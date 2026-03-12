@@ -1,0 +1,940 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Module 1.2: Buyer
+Intelligence Basics | GovCon BD Upskilling</title>
+  
+<style>
+  * {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+  }
+
+  body {
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+    line-height: 1.7;
+    color: #333333;
+    background: #fff;
+    max-width: 900px;
+    margin: 0 auto;
+    padding: 40px 30px;
+  }
+
+  h1 {
+    color: #1a4d2e;
+    font-size: 2.2em;
+    margin-bottom: 10px;
+    border-bottom: 3px solid #d4af37;
+    padding-bottom: 15px;
+  }
+
+  h2 {
+    color: #1a4d2e;
+    font-size: 1.6em;
+    margin-top: 35px;
+    margin-bottom: 15px;
+    border-left: 4px solid #d4af37;
+    padding-left: 15px;
+  }
+
+  h3 {
+    color: #2d5016;
+    font-size: 1.3em;
+    margin-top: 25px;
+    margin-bottom: 10px;
+  }
+
+  h4 {
+    color: #333333;
+    font-size: 1.1em;
+    margin-top: 20px;
+    margin-bottom: 8px;
+  }
+
+  p {
+    margin-bottom: 15px;
+  }
+
+  ul, ol {
+    margin-bottom: 15px;
+    padding-left: 25px;
+  }
+
+  li {
+    margin-bottom: 8px;
+  }
+
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 20px 0;
+    font-size: 0.95em;
+  }
+
+  th {
+    background: #1a4d2e;
+    color: white;
+    padding: 12px 15px;
+    text-align: left;
+    font-weight: 600;
+  }
+
+  td {
+    padding: 12px 15px;
+    border-bottom: 1px solid #ddd;
+  }
+
+  tr:nth-child(even) {
+    background: #f5f5f5;
+  }
+
+  code {
+    background: #f5f5f5;
+    padding: 2px 6px;
+    border-radius: 3px;
+    font-family: 'Monaco', 'Consolas', monospace;
+    font-size: 0.9em;
+  }
+
+  pre {
+    background: #f5f5f5;
+    padding: 15px;
+    border-radius: 5px;
+    overflow-x: auto;
+    margin: 15px 0;
+  }
+
+  pre code {
+    background: none;
+    padding: 0;
+  }
+
+  blockquote {
+    border-left: 4px solid #d4af37;
+    padding-left: 20px;
+    margin: 20px 0;
+    color: #555;
+    font-style: italic;
+  }
+
+  a {
+    color: #1a4d2e;
+    text-decoration: none;
+  }
+
+  a:hover {
+    color: #d4af37;
+    text-decoration: underline;
+  }
+
+  hr {
+    border: none;
+    border-top: 2px solid #eee;
+    margin: 30px 0;
+  }
+
+  .header-banner {
+    background: #1a4d2e;
+    color: white;
+    padding: 20px 30px;
+    margin: -40px -30px 30px -30px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  .header-banner .logo {
+    font-size: 1.3em;
+    font-weight: 700;
+  }
+
+  .header-banner .logo span {
+    color: #d4af37;
+  }
+
+  .header-banner .program {
+    font-size: 0.9em;
+    color: #90c695;
+  }
+
+  .footer {
+    margin-top: 50px;
+    padding-top: 20px;
+    border-top: 2px solid #eee;
+    text-align: center;
+    color: #888;
+    font-size: 0.9em;
+  }
+
+  /* Print styles */
+  @media print {
+    body {
+      padding: 20px;
+    }
+
+    .header-banner {
+      margin: -20px -20px 20px -20px;
+    }
+
+    h2 {
+      page-break-after: avoid;
+    }
+
+    table, pre {
+      page-break-inside: avoid;
+    }
+  }
+</style>
+
+</head>
+<body>
+  <div class="header-banner">
+    <div class="logo">GovCon <span>Giants</span></div>
+    <div class="program">30-Day Foundation Program | Module</div>
+  </div>
+
+  <h1 id="module-1.2-buyer-intelligence-basics">Module 1.2: Buyer
+Intelligence Basics</h1>
+<h2 id="module-header">Module Header</h2>
+<table>
+<colgroup>
+<col style="width: 61%" />
+<col style="width: 38%" />
+</colgroup>
+<thead>
+<tr>
+<th>Attribute</th>
+<th>Value</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Module Number</strong></td>
+<td>1.2</td>
+</tr>
+<tr>
+<td><strong>Title</strong></td>
+<td>Buyer Intelligence Basics</td>
+</tr>
+<tr>
+<td><strong>Domain</strong></td>
+<td>D1 - GovCon Market and Buyer Intelligence (23%)</td>
+</tr>
+<tr>
+<td><strong>Time Estimate</strong></td>
+<td>45-60 minutes instruction + 45-60 minutes exercise</td>
+</tr>
+<tr>
+<td><strong>Free Tools Used</strong></td>
+<td>SAM.gov Contract Data, USAspending.gov, AI
+(ChatGPT/Claude/Gemini)</td>
+</tr>
+<tr>
+<td><strong>Deliverable</strong></td>
+<td>Agency Research Report</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2 id="learning-objectives">Learning Objectives</h2>
+<p>By the end of this module, learners will be able to:</p>
+<ol type="1">
+<li><strong>Navigate</strong> SAM.gov Contract Data to research
+historical contract awards and agency spending</li>
+<li><strong>Identify</strong> key buyers within target agencies using
+spending data</li>
+<li><strong>Analyze</strong> spending patterns by NAICS code and
+product/service category</li>
+<li><strong>Research</strong> incumbent contractors and their contract
+history</li>
+<li><strong>Document</strong> agency intelligence in a structured
+research report</li>
+</ol>
+<hr />
+<h2 id="required-readingviewing">Required Reading/Viewing</h2>
+<h3 id="official-government-resources-free">Official Government
+Resources (Free)</h3>
+<ol type="1">
+<li><strong>SAM.gov Contract Data</strong> - Contract Award Search
+<ul>
+<li>URL: https://sam.gov/content/contract-data</li>
+<li>Focus: Searching federal contract awards and historical data</li>
+<li>Note: Requires free SAM.gov account to access</li>
+</ul></li>
+<li><strong>SAM.gov Contract Data Help</strong>
+<ul>
+<li>URL: https://sam.gov/help/contract-data</li>
+<li>Focus: Navigation and search functions</li>
+</ul></li>
+<li><strong>USAspending.gov</strong> - “Agency Profiles”
+<ul>
+<li>URL: https://www.usaspending.gov</li>
+<li>Focus: Agency-level spending analysis (no account required)</li>
+</ul></li>
+</ol>
+<hr />
+<h2 id="lesson-content">Lesson Content</h2>
+<h3 id="why-buyer-intelligence-matters">1. Why Buyer Intelligence
+Matters</h3>
+<p>Buyer intelligence is the foundation of effective business
+development. Understanding who buys what, from whom, and for how much
+allows you to:</p>
+<ul>
+<li><strong>Target the right opportunities</strong> - Focus on agencies
+that actually buy what you sell</li>
+<li><strong>Position competitively</strong> - Know who you’re competing
+against</li>
+<li><strong>Time your outreach</strong> - Understand when contracts are
+expiring</li>
+<li><strong>Build relationships</strong> - Identify the right
+contacts</li>
+</ul>
+<p><strong>Your Role</strong>: Even if you’re not in BD, recognizing
+buyer patterns helps you support growth efforts and spot opportunities
+in your day-to-day work.</p>
+<h3 id="introduction-to-sam.gov-contract-data">2. Introduction to
+SAM.gov Contract Data</h3>
+<p><strong>SAM.gov Contract Data</strong> is now the official source for
+federal contract award information. (Note: This functionality was
+previously on FPDS.gov, which was retired in February 2026.)</p>
+<p><strong>What SAM.gov Contract Data Contains</strong>: - Contract
+award details (who won, how much, when) - Contracting agency and office
+- NAICS codes and PSC codes - Contract type (FFP, T&amp;M, IDIQ, etc.) -
+Small business designations - Period of performance</p>
+<p><strong>What It Does NOT Contain</strong>: - Future opportunities
+(use SAM.gov Contract Opportunities for that) - Classified contracts -
+Grants or cooperative agreements</p>
+<h3 id="navigating-sam.gov-contract-data">3. Navigating SAM.gov Contract
+Data</h3>
+<p><strong>Accessing Contract Data</strong>: 1. Go to https://sam.gov 2.
+Create a free account (required to search contract data) 3. Click
+“Contract Data” in the main navigation 4. Select “Contract Award Search”
+to find awards</p>
+<p><strong>Key Search Fields</strong>:</p>
+<table>
+<colgroup>
+<col style="width: 23%" />
+<col style="width: 46%" />
+<col style="width: 30%" />
+</colgroup>
+<thead>
+<tr>
+<th>Field</th>
+<th>What It Does</th>
+<th>Example</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Vendor Name</strong></td>
+<td>Find contracts awarded to a specific company</td>
+<td>“Booz Allen”</td>
+</tr>
+<tr>
+<td><strong>Contracting Agency</strong></td>
+<td>Filter by agency</td>
+<td>“Department of Veterans Affairs”</td>
+</tr>
+<tr>
+<td><strong>NAICS Code</strong></td>
+<td>Filter by industry classification</td>
+<td>“541512” (Computer Systems Design)</td>
+</tr>
+<tr>
+<td><strong>PSC Code</strong></td>
+<td>Filter by product/service category</td>
+<td>“D302” (IT Systems Development)</td>
+</tr>
+<tr>
+<td><strong>Date Range</strong></td>
+<td>Limit to specific fiscal years</td>
+<td>FY2024-FY2025</td>
+</tr>
+<tr>
+<td><strong>Award Amount</strong></td>
+<td>Filter by contract size</td>
+<td>“$1M to $10M”</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Tip</strong>: If you don’t have a SAM.gov account yet,
+USAspending.gov provides similar data without requiring an account,
+though SAM.gov offers more granular search capabilities.</p>
+<h3 id="understanding-naics-and-psc-codes">4. Understanding NAICS and
+PSC Codes</h3>
+<p><strong>NAICS Codes</strong> (North American Industry Classification
+System): - 6-digit codes classifying businesses by industry - Used for
+size standard determination - Example: 541512 = Computer Systems Design
+Services</p>
+<p><strong>PSC Codes</strong> (Product Service Codes): - 4-character
+codes describing what the government bought - More specific than NAICS -
+Example: D302 = IT and Telecom - Systems Development</p>
+<p><strong>Why Both Matter</strong>: - NAICS tells you what industry the
+contractor is in - PSC tells you what specific service/product was
+purchased - Use both to find relevant opportunities</p>
+<h3 id="researching-agency-spending-patterns">5. Researching Agency
+Spending Patterns</h3>
+<p><strong>Key Questions to Answer</strong>:</p>
+<ol type="1">
+<li><strong>How much does this agency spend?</strong>
+<ul>
+<li>Total contract dollars annually</li>
+<li>Trend over past 3-5 years</li>
+</ul></li>
+<li><strong>What do they buy?</strong>
+<ul>
+<li>Top PSC codes</li>
+<li>Top NAICS codes</li>
+</ul></li>
+<li><strong>Who do they buy from?</strong>
+<ul>
+<li>Top contractors by award value</li>
+<li>Small business vs. large business split</li>
+</ul></li>
+<li><strong>How do they buy?</strong>
+<ul>
+<li>Contract vehicles used (GSA, agency IDIQ, standalone)</li>
+<li>Competition type (full &amp; open, set-aside, sole source)</li>
+</ul></li>
+<li><strong>When do contracts expire?</strong>
+<ul>
+<li>Recompete opportunities</li>
+<li>Option year timing</li>
+</ul></li>
+</ol>
+<h3 id="incumbent-research">6. Incumbent Research</h3>
+<p><strong>Why Research Incumbents</strong>: - Understand current
+performance expectations - Identify potential teaming partners - Assess
+competitive landscape - Find recompete opportunities</p>
+<p><strong>What to Look For</strong>:</p>
+<table>
+<thead>
+<tr>
+<th>Data Point</th>
+<th>Where to Find</th>
+<th>Why It Matters</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Contract value</td>
+<td>SAM.gov Contract Data</td>
+<td>Size of opportunity</td>
+</tr>
+<tr>
+<td>Period of performance</td>
+<td>SAM.gov Contract Data</td>
+<td>When it expires</td>
+</tr>
+<tr>
+<td>Contract type</td>
+<td>SAM.gov Contract Data</td>
+<td>Risk profile</td>
+</tr>
+<tr>
+<td>Past modifications</td>
+<td>SAM.gov Contract Data</td>
+<td>Scope changes, issues</td>
+</tr>
+<tr>
+<td>Other agency work</td>
+<td>SAM.gov Contract Data</td>
+<td>Incumbent’s breadth</td>
+</tr>
+<tr>
+<td>Company size</td>
+<td>DSBS, SAM.gov</td>
+<td>Teaming considerations</td>
+</tr>
+</tbody>
+</table>
+<h3 id="using-usaspending-for-agency-analysis">7. Using USAspending for
+Agency Analysis</h3>
+<p><strong>USAspending.gov</strong> provides a more user-friendly view
+of spending data.</p>
+<p><strong>Key Features</strong>:</p>
+<ol type="1">
+<li><strong>Agency Profiles</strong>: Overview of each agency’s
+spending</li>
+<li><strong>Recipient Profiles</strong>: See all awards to a specific
+contractor</li>
+<li><strong>Spending Explorer</strong>: Drill down by category,
+location, time</li>
+<li><strong>Award Search</strong>: Find specific contracts</li>
+</ol>
+<p><strong>When to Use Each Tool</strong>:</p>
+<table>
+<thead>
+<tr>
+<th>Task</th>
+<th>Best Tool</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Agency overview</td>
+<td>USAspending</td>
+</tr>
+<tr>
+<td>Specific contract details</td>
+<td>SAM.gov Contract Data</td>
+</tr>
+<tr>
+<td>Contractor research</td>
+<td>Both</td>
+</tr>
+<tr>
+<td>Historical trends</td>
+<td>USAspending</td>
+</tr>
+<tr>
+<td>Detailed award data</td>
+<td>SAM.gov Contract Data</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2 id="ai-accelerator-using-ai-for-buyer-intelligence">AI Accelerator:
+Using AI for Buyer Intelligence</h2>
+<p>AI tools can help you analyze SAM.gov contract data, research
+incumbents, and synthesize buyer intelligence faster. Use these prompts
+to accelerate your research.</p>
+<h3 id="prompt-1-analyze-contract-award-data">Prompt 1: Analyze Contract
+Award Data</h3>
+<p><strong>Use When</strong>: You’ve exported SAM.gov contract data and
+need help making sense of it.</p>
+<pre><code>I pulled the following contract award data from SAM.gov for [AGENCY NAME]:
+
+[PASTE YOUR CONTRACT DATA - contractor names, award amounts, dates, NAICS codes]
+
+Please analyze this data and tell me:
+1. Who are the dominant contractors and what&#39;s their market share?
+2. What patterns do you see in contract types (FFP vs T&amp;M vs CPFF)?
+3. Are there any contractors that appear to be growing or declining?
+4. What&#39;s the average contract size and duration?
+5. Any insights for a company trying to enter this market?</code></pre>
+<h3 id="prompt-2-incumbent-contractor-profile">Prompt 2: Incumbent
+Contractor Profile</h3>
+<p><strong>Use When</strong>: You need to research a specific competitor
+or incumbent.</p>
+<pre><code>I&#39;m researching [COMPETITOR NAME], a federal contractor. Based on general
+knowledge about government contracting, help me build an intel profile:
+
+1. What should I look for in SAM.gov Contract Data to understand their contract portfolio?
+2. What are typical strengths of established incumbents?
+3. What vulnerabilities might a long-term incumbent have?
+4. How can I find out about their subcontracting relationships?
+5. What questions should I be asking about this competitor?
+
+Note: I&#39;ll verify all specific data against official sources.</code></pre>
+<h3 id="prompt-3-naicspsc-code-research">Prompt 3: NAICS/PSC Code
+Research</h3>
+<p><strong>Use When</strong>: You need to understand which codes are
+relevant to your services.</p>
+<pre><code>Our company provides [DESCRIBE YOUR SERVICES - e.g., &quot;IT helpdesk support
+and cybersecurity services to federal agencies&quot;].
+
+Help me identify:
+1. The most relevant NAICS codes for our services
+2. The most relevant PSC codes we should be tracking
+3. Which codes typically have small business set-asides
+4. Any related codes we might be missing
+5. How to search SAM.gov Contract Data using these codes effectively</code></pre>
+<h3 id="prompt-4-summarize-agency-buyer-profile">Prompt 4: Summarize
+Agency Buyer Profile</h3>
+<p><strong>Use When</strong>: You need to create a briefing on an
+agency’s buying patterns.</p>
+<pre><code>I&#39;ve researched [AGENCY NAME] and found the following data:
+
+- Total spending: [AMOUNT]
+- Top contractors: [LIST]
+- Top PSC codes: [LIST]
+- Small business percentage: [PERCENTAGE]
+- Key contracting offices: [LIST]
+
+Please help me create a 1-page executive briefing that:
+1. Summarizes the agency&#39;s procurement profile
+2. Identifies opportunities for a company offering [YOUR SERVICES]
+3. Highlights potential challenges or barriers to entry
+4. Recommends 3 specific next steps for pursuing this agency</code></pre>
+<h3 id="prompt-5-contract-recompete-analysis">Prompt 5: Contract
+Recompete Analysis</h3>
+<p><strong>Use When</strong>: You’ve identified a contract that’s
+expiring and want to analyze the opportunity.</p>
+<pre><code>I found a contract in SAM.gov Contract Data that&#39;s expiring soon:
+
+- Contract Number: [NUMBER]
+- Incumbent: [COMPANY]
+- Original Value: [AMOUNT]
+- Period of Performance: [DATES]
+- Contract Type: [TYPE]
+- NAICS: [CODE]
+- Agency: [NAME]
+
+Help me think through:
+1. What does this contract scope likely include?
+2. What questions should I research before pursuing?
+3. What might the incumbent&#39;s advantages be?
+4. How should we position against the incumbent?
+5. What&#39;s a realistic timeline for engaging on the recompete?</code></pre>
+<h3 id="pro-tips-for-ai-assisted-buyer-intelligence">Pro Tips for
+AI-Assisted Buyer Intelligence</h3>
+<table>
+<colgroup>
+<col style="width: 36%" />
+<col style="width: 63%" />
+</colgroup>
+<thead>
+<tr>
+<th>Do</th>
+<th>Don’t</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Export SAM.gov contract data and paste into AI for analysis</td>
+<td>Ask AI for current contract values (verify in SAM.gov)</td>
+</tr>
+<tr>
+<td>Use AI to identify patterns in large datasets</td>
+<td>Rely on AI for competitor revenue figures</td>
+</tr>
+<tr>
+<td>Ask AI to help structure your research approach</td>
+<td>Skip verification against official sources</td>
+</tr>
+<tr>
+<td>Use AI to draft briefings from your research</td>
+<td>Present AI analysis as verified intelligence</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Remember</strong>: AI helps you work faster, but SAM.gov
+Contract Data and USAspending are your authoritative sources. Always
+verify before sharing intelligence with your team.</p>
+<hr />
+<h2 id="applied-exercise-agency-research-report">Applied Exercise:
+Agency Research Report</h2>
+<p><strong>Scenario</strong>: Your company is considering pursuing
+opportunities with a specific federal agency. Your manager asks you to
+research the agency’s spending patterns and identify potential
+opportunities.</p>
+<p><strong>Instructions</strong>:</p>
+<h3 id="part-1-select-your-target-agency">Part 1: Select Your Target
+Agency</h3>
+<p>Choose ONE agency from this list (or select one relevant to your
+company): - Department of Veterans Affairs (VA) - Department of Homeland
+Security (DHS) - Department of Health and Human Services (HHS) - General
+Services Administration (GSA) - Department of Energy (DOE)</p>
+<h3 id="part-2-research-using-sam.gov-contract-data">Part 2: Research
+Using SAM.gov Contract Data</h3>
+<ol type="1">
+<li>Go to https://sam.gov and log in (free account required)</li>
+<li>Navigate to Contract Data → Contract Award Search</li>
+<li>Filter by your selected agency</li>
+<li>Set date range to most recent 2 fiscal years</li>
+<li>Document:
+<ul>
+<li>Total contract spending</li>
+<li>Top 5 contractors</li>
+<li>Top 5 PSC codes</li>
+<li>Top 5 NAICS codes</li>
+</ul></li>
+</ol>
+<h3 id="part-3-research-using-usaspending">Part 3: Research Using
+USAspending</h3>
+<ol type="1">
+<li>Go to https://www.usaspending.gov</li>
+<li>Navigate to your agency’s profile</li>
+<li>Document:
+<ul>
+<li>Year-over-year spending trend</li>
+<li>Small business percentage</li>
+<li>Top contracting offices</li>
+</ul></li>
+</ol>
+<h3 id="part-4-complete-the-agency-research-report">Part 4: Complete the
+Agency Research Report</h3>
+<p>Use the template below to document your findings.</p>
+<p><strong>Time</strong>: 45-60 minutes</p>
+<hr />
+<h2 id="work-artifact-template-agency-research-report">Work Artifact
+Template: Agency Research Report</h2>
+<p><em>(Use the full template in
+<code>/materials/learner-workbook/agency-research-template.md</code>)</em></p>
+<h3 id="quick-summary-section">Quick Summary Section</h3>
+<p><strong>Your Name</strong>: _________________________
+<strong>Date</strong>: _________________________ <strong>Target
+Agency</strong>: _________________________</p>
+<h3 id="key-findings">Key Findings</h3>
+<table>
+<thead>
+<tr>
+<th>Metric</th>
+<th>Value</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Total Annual Contract Spending</td>
+<td>$</td>
+</tr>
+<tr>
+<td>Year-over-Year Change</td>
+<td>%</td>
+</tr>
+<tr>
+<td>Small Business Share</td>
+<td>%</td>
+</tr>
+<tr>
+<td>Top Contractor</td>
+<td></td>
+</tr>
+<tr>
+<td>Top PSC Code</td>
+<td></td>
+</tr>
+<tr>
+<td>Top NAICS Code</td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<h3 id="top-5-contractors">Top 5 Contractors</h3>
+<table>
+<thead>
+<tr>
+<th>Rank</th>
+<th>Contractor Name</th>
+<th>Award Value</th>
+<th>Business Size</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>1</td>
+<td></td>
+<td>$</td>
+<td></td>
+</tr>
+<tr>
+<td>2</td>
+<td></td>
+<td>$</td>
+<td></td>
+</tr>
+<tr>
+<td>3</td>
+<td></td>
+<td>$</td>
+<td></td>
+</tr>
+<tr>
+<td>4</td>
+<td></td>
+<td>$</td>
+<td></td>
+</tr>
+<tr>
+<td>5</td>
+<td></td>
+<td>$</td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<h3 id="relevance-assessment">Relevance Assessment</h3>
+<p><strong>Does this agency buy what we sell?</strong> [ ] Yes - Strong
+fit [ ] Maybe - Partial fit [ ] No - Poor fit</p>
+<p><strong>Evidence</strong>:
+_________________________________________________________________</p>
+<h3 id="recommended-next-steps">Recommended Next Steps</h3>
+<ol type="1">
+<li><hr /></li>
+<li><hr /></li>
+<li><hr /></li>
+</ol>
+<hr />
+<h2 id="knowledge-check-self-assessment">Knowledge Check
+(Self-Assessment)</h2>
+<p><strong>Purpose</strong>: These questions help reinforce your
+learning. They are NOT graded—use them to confirm your
+understanding.</p>
+<h3 id="question-1-application">Question 1 (Application)</h3>
+<p>You want to find all IT services contracts awarded by the VA in
+FY2025. Which SAM.gov Contract Data search fields would you use?</p>
+<ol type="A">
+<li>Vendor Name and Award Amount</li>
+<li>Contracting Agency, NAICS Code, and Date Range</li>
+<li>PSC Code only</li>
+<li>Contract Type and Place of Performance</li>
+</ol>
+<p><strong>Answer</strong>: B - You’d filter by Contracting Agency (VA),
+NAICS Code (541512 or similar IT code), and Date Range (FY2025).</p>
+<hr />
+<h3 id="question-2-recall">Question 2 (Recall)</h3>
+<p>What is the difference between NAICS codes and PSC codes?</p>
+<ol type="A">
+<li>NAICS codes are for products, PSC codes are for services</li>
+<li>NAICS codes classify the contractor’s industry, PSC codes describe
+what was purchased</li>
+<li>NAICS codes are used by DoD only, PSC codes are government-wide</li>
+<li>There is no difference; they are interchangeable</li>
+</ol>
+<p><strong>Answer</strong>: B - NAICS classifies the business/industry;
+PSC describes the specific product or service purchased.</p>
+<hr />
+<h3 id="question-3-scenario">Question 3 (Scenario)</h3>
+<p>Your company wants to pursue a VA contract currently held by a
+competitor. Using SAM.gov Contract Data, you discover the contract
+expires in 6 months with no remaining options. What does this tell
+you?</p>
+<ol type="A">
+<li>The contract will automatically renew</li>
+<li>A recompete opportunity is likely coming soon</li>
+<li>The incumbent will definitely win again</li>
+<li>The VA no longer needs this service</li>
+</ol>
+<p><strong>Answer</strong>: B - An expiring contract with no options
+typically means the agency will need to recompete or issue a new
+solicitation.</p>
+<hr />
+<h3 id="question-4-application">Question 4 (Application)</h3>
+<p>You’re researching agency spending trends. Which tool provides the
+easiest view of year-over-year spending changes?</p>
+<ol type="A">
+<li>SAM.gov Contract Data</li>
+<li>SAM.gov</li>
+<li>USAspending.gov Agency Profiles</li>
+<li>DSBS</li>
+</ol>
+<p><strong>Answer</strong>: C - USAspending Agency Profiles provide
+visual spending trends over time.</p>
+<hr />
+<h3 id="question-5-recall">Question 5 (Recall)</h3>
+<p>What is the minimum contract value typically reported in SAM.gov
+Contract Data?</p>
+<ol type="A">
+<li>$1,000</li>
+<li>$10,000</li>
+<li>$25,000</li>
+<li>$100,000</li>
+</ol>
+<p><strong>Answer</strong>: B - Contract actions over $10,000 are
+reported in SAM.gov Contract Data (with some exceptions).</p>
+<hr />
+<h3 id="question-6-scenario">Question 6 (Scenario)</h3>
+<p>You find that an agency’s top contractor holds 40% of all contract
+dollars, with the next largest at 8%. What does this suggest?</p>
+<ol type="A">
+<li>The agency has a healthy competitive environment</li>
+<li>There may be a dominant incumbent with strong relationships</li>
+<li>Small businesses are well represented</li>
+<li>The agency prefers sole-source contracts</li>
+</ol>
+<p><strong>Answer</strong>: B - A single contractor holding 40% suggests
+concentration, which could indicate strong incumbent advantage or
+limited competition.</p>
+<hr />
+<h2 id="manager-discussion-prompts">Manager Discussion Prompts</h2>
+<p>Use these questions for your check-in with your manager:</p>
+<ol type="1">
+<li><p><strong>Current Context</strong>: “Which agencies are we
+currently targeting or working with? How do we track their spending
+patterns?”</p></li>
+<li><p><strong>Application</strong>: “Are there specific competitors we
+should be researching? How can I contribute to our competitive
+intelligence?”</p></li>
+<li><p><strong>Career Development</strong>: “What agency research skills
+would be most valuable for me to develop further?”</p></li>
+</ol>
+<hr />
+<h2 id="completion-criteria">Completion Criteria</h2>
+<p>To complete this module:</p>
+<ul class="task-list">
+<li><label><input type="checkbox" />Read all required materials
+(approximately 30 minutes)</label></li>
+<li><label><input type="checkbox" />Complete the lesson content review
+(30-45 minutes)</label></li>
+<li><label><input type="checkbox" />Finish the Applied Exercise using
+SAM.gov Contract Data and USAspending</label></li>
+<li><label><input type="checkbox" />Submit a completed Agency Research
+Report</label></li>
+<li><label><input type="checkbox" />Review the Knowledge Check questions
+(self-assessment)</label></li>
+<li><label><input type="checkbox" />Participate in manager discussion
+(or document self-reflection)</label></li>
+</ul>
+<p><strong>Estimated Total Time</strong>: 2-3 hours</p>
+<p><strong>Note</strong>: There is no pass/fail grade. Complete the
+activities to receive credit for this module.</p>
+<hr />
+<h2 id="additional-resources">Additional Resources</h2>
+<h3 id="free-tools-for-deeper-research">Free Tools for Deeper
+Research</h3>
+<table style="width:100%;">
+<colgroup>
+<col style="width: 28%" />
+<col style="width: 23%" />
+<col style="width: 47%" />
+</colgroup>
+<thead>
+<tr>
+<th>Tool</th>
+<th>URL</th>
+<th>Use Case</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>SAM.gov Contract Data</td>
+<td>sam.gov/content/contract-data</td>
+<td>Detailed contract data</td>
+</tr>
+<tr>
+<td>USAspending</td>
+<td>usaspending.gov</td>
+<td>Agency spending overview</td>
+</tr>
+<tr>
+<td>DSBS</td>
+<td>dsbs.sba.gov</td>
+<td>Contractor research</td>
+</tr>
+<tr>
+<td>SAM.gov Entity Search</td>
+<td>sam.gov</td>
+<td>Verify contractor status</td>
+</tr>
+</tbody>
+</table>
+<h3 id="key-terms">Key Terms</h3>
+<ul>
+<li><strong>SAM.gov Contract Data</strong>: The official federal
+contract award database (replaced FPDS.gov in Feb 2026)</li>
+<li><strong>NAICS Code</strong>: North American Industry Classification
+System - classifies businesses by industry</li>
+<li><strong>PSC Code</strong>: Product Service Code - describes what was
+purchased</li>
+<li><strong>Incumbent</strong>: Current contractor performing work on a
+contract</li>
+<li><strong>Recompete</strong>: Follow-on competition when a contract
+expires</li>
+<li><strong>Contracting Office</strong>: Government office responsible
+for procurement</li>
+</ul>
+<hr />
+<p><em>Module 1.2 | Domain D1 (23%) | GovCon BD Upskilling Program</em>
+<em>Last Updated: March 2026</em></p>
+
+
+  <div class="footer">
+    <p>GovCon BD Upskilling Program | GovCon Giants</p>
+    <p>© 2026 GovConEdu LLC. All Rights Reserved</p>
+  </div>
+</body>
+</html>

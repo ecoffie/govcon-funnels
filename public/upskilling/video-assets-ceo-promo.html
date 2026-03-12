@@ -1,0 +1,1180 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>CEO Promo Video — Production Assets</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap');
+
+  :root {
+    --green: #1B5E20;
+    --green-light: #2E7D32;
+    --green-dark: #0D3B12;
+    --gold: #FFD700;
+    --gold-soft: #FFC107;
+    --white: #FFFFFF;
+    --off-white: #F5F5F0;
+    --charcoal: #1A1A1A;
+    --gray: #6B7280;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    font-family: 'Plus Jakarta Sans', system-ui, sans-serif;
+    background: var(--off-white);
+    color: var(--charcoal);
+    line-height: 1.5;
+  }
+
+  /* ─── Page Layout ─── */
+  .page-header {
+    background: var(--green-dark);
+    color: var(--white);
+    padding: 40px;
+    text-align: center;
+  }
+  .page-header h1 { font-size: 28px; font-weight: 800; }
+  .page-header p { color: rgba(255,255,255,0.7); margin-top: 8px; font-size: 15px; }
+
+  .controls {
+    display: flex;
+    justify-content: center;
+    gap: 12px;
+    padding: 24px 40px;
+    background: #fff;
+    border-bottom: 1px solid #e5e7eb;
+    position: sticky;
+    top: 0;
+    z-index: 100;
+  }
+  .controls button {
+    font-family: inherit;
+    font-size: 14px;
+    font-weight: 600;
+    padding: 10px 20px;
+    border: 2px solid var(--green);
+    background: #fff;
+    color: var(--green);
+    border-radius: 8px;
+    cursor: pointer;
+    transition: all 0.2s;
+  }
+  .controls button.active,
+  .controls button:hover {
+    background: var(--green);
+    color: var(--white);
+  }
+
+  .container { max-width: 1200px; margin: 0 auto; padding: 40px; }
+
+  /* ─── Section Headers ─── */
+  .section-label {
+    font-size: 13px;
+    font-weight: 700;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--green);
+    margin-bottom: 8px;
+  }
+  .section-title {
+    font-size: 22px;
+    font-weight: 800;
+    color: var(--charcoal);
+    margin-bottom: 24px;
+  }
+
+  /* ─── Scene Card ─── */
+  .scene-card {
+    background: #fff;
+    border-radius: 16px;
+    overflow: hidden;
+    margin-bottom: 32px;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.06), 0 4px 12px rgba(0,0,0,0.04);
+  }
+  .scene-header {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    padding: 20px 24px;
+    background: var(--green-dark);
+    color: var(--white);
+  }
+  .scene-number {
+    width: 40px;
+    height: 40px;
+    border-radius: 10px;
+    background: var(--gold);
+    color: var(--green-dark);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 800;
+    font-size: 18px;
+    flex-shrink: 0;
+  }
+  .scene-meta { flex: 1; }
+  .scene-meta h3 { font-size: 16px; font-weight: 700; }
+  .scene-meta .timing {
+    font-size: 13px;
+    color: rgba(255,255,255,0.65);
+    font-weight: 500;
+    margin-top: 2px;
+  }
+
+  .scene-body { padding: 24px; }
+  .scene-body .row {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 24px;
+  }
+
+  .scene-body label {
+    display: block;
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    color: var(--gray);
+    margin-bottom: 6px;
+  }
+  .scene-body .voiceover {
+    font-size: 15px;
+    line-height: 1.7;
+    color: var(--charcoal);
+    padding: 16px;
+    background: #F9FAFB;
+    border-radius: 10px;
+    border-left: 3px solid var(--green);
+  }
+  .scene-body .visual-direction {
+    font-size: 14px;
+    color: #4B5563;
+    padding: 16px;
+    background: #FFFBEB;
+    border-radius: 10px;
+    border-left: 3px solid var(--gold);
+  }
+  .scene-body .broll-prompt {
+    margin-top: 16px;
+    font-size: 13px;
+    color: #6B7280;
+    padding: 12px 16px;
+    background: #F3F4F6;
+    border-radius: 8px;
+    font-family: 'SF Mono', 'Fira Code', monospace;
+    line-height: 1.6;
+    white-space: pre-wrap;
+  }
+
+  /* ─── Overlay Preview (16:9) ─── */
+  .overlay-preview {
+    margin-top: 20px;
+    position: relative;
+    width: 100%;
+    aspect-ratio: 16/9;
+    border-radius: 12px;
+    overflow: hidden;
+    background: var(--green-dark);
+  }
+  .overlay-preview .bg-gradient {
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(135deg, var(--green-dark) 0%, var(--green) 100%);
+    opacity: 0.95;
+  }
+  .overlay-preview .content {
+    position: relative;
+    z-index: 1;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding: 40px 48px;
+  }
+
+  /* On-screen text styles */
+  .ost-bar {
+    display: inline-block;
+    background: rgba(0,0,0,0.5);
+    backdrop-filter: blur(8px);
+    border-left: 4px solid var(--gold);
+    padding: 12px 24px;
+    border-radius: 0 8px 8px 0;
+    max-width: 70%;
+  }
+  .ost-bar .text {
+    color: var(--white);
+    font-size: 20px;
+    font-weight: 700;
+    line-height: 1.4;
+  }
+  .ost-bar .subtext {
+    color: rgba(255,255,255,0.7);
+    font-size: 13px;
+    font-weight: 500;
+    margin-top: 4px;
+  }
+
+  /* Lower third */
+  .lower-third {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    padding: 16px 48px;
+    background: linear-gradient(transparent, rgba(0,0,0,0.7));
+  }
+  .lower-third .name {
+    color: var(--gold);
+    font-size: 15px;
+    font-weight: 700;
+  }
+  .lower-third .title {
+    color: rgba(255,255,255,0.8);
+    font-size: 12px;
+    font-weight: 500;
+  }
+
+  /* Stat callout */
+  .stat-row {
+    display: flex;
+    gap: 24px;
+    margin-top: 16px;
+  }
+  .stat-box {
+    background: rgba(255,255,255,0.1);
+    border: 1px solid rgba(255,215,0,0.3);
+    border-radius: 10px;
+    padding: 16px 24px;
+    text-align: center;
+  }
+  .stat-box .number {
+    color: var(--gold);
+    font-size: 28px;
+    font-weight: 800;
+  }
+  .stat-box .label {
+    color: rgba(255,255,255,0.7);
+    font-size: 11px;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    margin-top: 4px;
+  }
+
+  /* End card */
+  .end-card {
+    position: relative;
+    width: 100%;
+    aspect-ratio: 16/9;
+    border-radius: 12px;
+    overflow: hidden;
+    background: var(--green-dark);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    padding: 48px;
+  }
+  .end-card .logo-mark {
+    width: 64px;
+    height: 64px;
+    border-radius: 16px;
+    background: var(--gold);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 28px;
+    font-weight: 800;
+    color: var(--green-dark);
+    margin-bottom: 24px;
+  }
+  .end-card .headline {
+    color: var(--gold);
+    font-size: 32px;
+    font-weight: 800;
+    line-height: 1.3;
+    max-width: 600px;
+  }
+  .end-card .sub {
+    color: rgba(255,255,255,0.7);
+    font-size: 16px;
+    font-weight: 500;
+    margin-top: 12px;
+  }
+  .end-card .cta-pill {
+    display: inline-block;
+    margin-top: 24px;
+    padding: 14px 36px;
+    background: var(--gold);
+    color: var(--green-dark);
+    font-size: 16px;
+    font-weight: 700;
+    border-radius: 50px;
+  }
+  .end-card .footer-line {
+    position: absolute;
+    bottom: 24px;
+    color: rgba(255,255,255,0.4);
+    font-size: 12px;
+    font-weight: 500;
+  }
+
+  /* Flow diagram */
+  .flow-row {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-top: 16px;
+  }
+  .flow-step {
+    background: rgba(255,255,255,0.12);
+    border: 1px solid rgba(255,215,0,0.25);
+    border-radius: 10px;
+    padding: 12px 20px;
+    color: var(--white);
+    font-size: 14px;
+    font-weight: 600;
+    text-align: center;
+    flex: 1;
+  }
+  .flow-step.highlight {
+    background: rgba(255,215,0,0.15);
+    border-color: var(--gold);
+    color: var(--gold);
+  }
+  .flow-arrow {
+    color: var(--gold);
+    font-size: 20px;
+    flex-shrink: 0;
+  }
+
+  /* ─── Teleprompter ─── */
+  .teleprompter-section { margin-top: 48px; }
+  .teleprompter {
+    background: #111;
+    color: #fff;
+    border-radius: 16px;
+    padding: 40px 48px;
+    font-size: 22px;
+    line-height: 2;
+    font-weight: 500;
+    max-width: 800px;
+    margin: 0 auto;
+  }
+  .teleprompter .pause {
+    display: block;
+    height: 24px;
+  }
+  .teleprompter .emphasis {
+    color: var(--gold);
+    font-weight: 700;
+  }
+
+  /* ─── Version tabs ─── */
+  .version { display: none; }
+  .version.active { display: block; }
+
+  /* ─── Checklist ─── */
+  .checklist {
+    background: #fff;
+    border-radius: 16px;
+    padding: 24px 32px;
+    margin-top: 32px;
+  }
+  .checklist h3 {
+    font-size: 16px;
+    font-weight: 700;
+    margin-bottom: 16px;
+  }
+  .checklist label {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 8px 0;
+    font-size: 14px;
+    color: #374151;
+    cursor: pointer;
+  }
+  .checklist input[type="checkbox"] {
+    width: 18px;
+    height: 18px;
+    accent-color: var(--green);
+  }
+
+  @media print {
+    .controls { display: none; }
+    .scene-card { break-inside: avoid; }
+    .overlay-preview { break-inside: avoid; }
+  }
+</style>
+</head>
+<body>
+
+<div class="page-header">
+  <h1>CEO Promo Video — Production Kit</h1>
+  <p>GovCon BD & Capture Upskilling Certification &middot; Dark Green + Gold &middot; 90 / 60 / 30s cuts</p>
+</div>
+
+<div class="controls">
+  <button class="active" onclick="showVersion('90')">90-Second</button>
+  <button onclick="showVersion('60')">60-Second</button>
+  <button onclick="showVersion('30')">30-Second Ad</button>
+  <button onclick="showVersion('endcards')">End Cards</button>
+  <button onclick="showVersion('teleprompter')">Teleprompter</button>
+  <button onclick="showVersion('checklist')">Production Checklist</button>
+</div>
+
+<!-- ════════════════════════════════════════════════ -->
+<!-- 90-SECOND VERSION                                -->
+<!-- ════════════════════════════════════════════════ -->
+<div class="version active" id="v-90">
+<div class="container">
+  <div class="section-label">Primary Cut</div>
+  <div class="section-title">90-Second CEO Promo — 7 Scenes</div>
+
+  <!-- Scene 1 -->
+  <div class="scene-card">
+    <div class="scene-header">
+      <div class="scene-number">1</div>
+      <div class="scene-meta">
+        <h3>The CEO Problem</h3>
+        <div class="timing">0:00 – 0:12 &middot; 12 seconds</div>
+      </div>
+    </div>
+    <div class="scene-body">
+      <div class="row">
+        <div>
+          <label>Voiceover</label>
+          <div class="voiceover">Most GovCon firms have talented people managing customer relationships, but only a small group is trained to recognize growth opportunities.</div>
+        </div>
+        <div>
+          <label>Visual Direction</label>
+          <div class="visual-direction">Talking head in modern office. Eric to camera, confident and calm. Cut to B-roll of ops manager in customer meeting looking engaged but uncertain.</div>
+        </div>
+      </div>
+      <div class="overlay-preview">
+        <div class="bg-gradient"></div>
+        <div class="content">
+          <div class="ost-bar">
+            <div class="text">Delivery teams hear customer needs every day.</div>
+          </div>
+          <div class="lower-third">
+            <div class="name">Eric Coffie</div>
+            <div class="title">CEO, GovCon Giants</div>
+          </div>
+        </div>
+      </div>
+      <div class="broll-prompt">Nano Banana: A professional Black male operations manager in a modern government office, sitting in a meeting with a government customer across a conference table. He's listening and taking notes but looks uncertain. Clean corporate lighting, shallow depth of field. Realistic, cinematic, 4K.</div>
+    </div>
+  </div>
+
+  <!-- Scene 2 -->
+  <div class="scene-card">
+    <div class="scene-header">
+      <div class="scene-number">2</div>
+      <div class="scene-meta">
+        <h3>The Practical Move</h3>
+        <div class="timing">0:12 – 0:24 &middot; 12 seconds</div>
+      </div>
+    </div>
+    <div class="scene-body">
+      <div class="row">
+        <div>
+          <label>Voiceover</label>
+          <div class="voiceover">Now imagine a CEO upskills five customer-facing employees in practical business development and capture fundamentals.</div>
+        </div>
+        <div>
+          <label>Visual Direction</label>
+          <div class="visual-direction">CEO at whiteboard selecting 5 team members. Green marker circling headshots. Then cut to training session with engaged learners.</div>
+        </div>
+      </div>
+      <div class="overlay-preview">
+        <div class="bg-gradient"></div>
+        <div class="content">
+          <div class="ost-bar">
+            <div class="text">Upskill 5 team members</div>
+            <div class="subtext">BD & Capture Fundamentals &middot; 30-Day Program</div>
+          </div>
+        </div>
+      </div>
+      <div class="broll-prompt">Nano Banana: A CEO in a modern office standing at a whiteboard, selecting five team member headshots pinned to the board. He circles them with a green marker. Professional corporate setting, warm lighting, realistic style. 4K cinematic.</div>
+    </div>
+  </div>
+
+  <!-- Scene 3 -->
+  <div class="scene-card">
+    <div class="scene-header">
+      <div class="scene-number">3</div>
+      <div class="scene-meta">
+        <h3>Skill Application</h3>
+        <div class="timing">0:24 – 0:38 &middot; 14 seconds</div>
+      </div>
+    </div>
+    <div class="scene-body">
+      <div class="row">
+        <div>
+          <label>Voiceover</label>
+          <div class="voiceover">They learn how to ask better questions, spot expansion signals, and communicate opportunities back to BD and capture teams.</div>
+        </div>
+        <div>
+          <label>Visual Direction</label>
+          <div class="visual-direction">Employees in customer meeting asking strategic questions. One takes notes, another sends a quick message to BD team on laptop. Confident body language.</div>
+        </div>
+      </div>
+      <div class="overlay-preview">
+        <div class="bg-gradient"></div>
+        <div class="content">
+          <div class="flow-row">
+            <div class="flow-step">Spot Signals</div>
+            <div class="flow-arrow">→</div>
+            <div class="flow-step">Qualify</div>
+            <div class="flow-arrow">→</div>
+            <div class="flow-step highlight">Escalate to BD</div>
+          </div>
+        </div>
+      </div>
+      <div class="broll-prompt">Nano Banana: A diverse team of professionals in a government customer meeting. One team member confidently asks a question while others take notes. Conference room with American flag in background. Professional, realistic, natural body language. 4K cinematic.</div>
+    </div>
+  </div>
+
+  <!-- Scene 4 -->
+  <div class="scene-card">
+    <div class="scene-header">
+      <div class="scene-number">4</div>
+      <div class="scene-meta">
+        <h3>Opportunity Pathways</h3>
+        <div class="timing">0:38 – 0:52 &middot; 14 seconds</div>
+      </div>
+    </div>
+    <div class="scene-body">
+      <div class="row">
+        <div>
+          <label>Voiceover</label>
+          <div class="voiceover">Agencies have multiple pathways to award additional work — from scope expansions to follow-on actions and other compliant acquisition routes.</div>
+        </div>
+        <div>
+          <label>Visual Direction</label>
+          <div class="visual-direction">Animated flowchart of contract expansion paths. Laptop screen showing pipeline dashboard. Dark green + gold UI elements.</div>
+        </div>
+      </div>
+      <div class="overlay-preview">
+        <div class="bg-gradient"></div>
+        <div class="content">
+          <div class="ost-bar">
+            <div class="text">Multiple pathways to award</div>
+          </div>
+          <div class="flow-row" style="margin-top: 24px;">
+            <div class="flow-step">Scope Expansion</div>
+            <div class="flow-step">Option Years</div>
+            <div class="flow-step">Follow-On</div>
+            <div class="flow-step highlight">New Awards</div>
+          </div>
+          <div style="margin-top: 16px; padding: 8px 16px; background: rgba(255,255,255,0.08); border-radius: 6px; font-size: 11px; color: rgba(255,255,255,0.5);">
+            For educational purposes only. Consult contracts/legal experts.
+          </div>
+        </div>
+      </div>
+      <div class="broll-prompt">Nano Banana: Close-up of a laptop screen showing a pipeline dashboard with green progress bars and contract expansion flowchart. Dark green and gold accent colors on the UI. Clean, modern data visualization. Hands typing on keyboard. 4K realistic.</div>
+    </div>
+  </div>
+
+  <!-- Scene 5 -->
+  <div class="scene-card">
+    <div class="scene-header">
+      <div class="scene-number">5</div>
+      <div class="scene-meta">
+        <h3>Business Result</h3>
+        <div class="timing">0:52 – 1:05 &middot; 13 seconds</div>
+      </div>
+    </div>
+    <div class="scene-body">
+      <div class="row">
+        <div>
+          <label>Voiceover</label>
+          <div class="voiceover">The result can be meaningful: more qualified opportunities, stronger account growth, and better retention through career development.</div>
+        </div>
+        <div>
+          <label>Visual Direction</label>
+          <div class="visual-direction">Dashboard overlay with revenue uplift indicators. Team retention icon. Pipeline health metrics. Split with team celebrating a win.</div>
+        </div>
+      </div>
+      <div class="overlay-preview">
+        <div class="bg-gradient"></div>
+        <div class="content">
+          <div class="ost-bar" style="margin-bottom: 24px;">
+            <div class="text">Revenue support + retention impact</div>
+          </div>
+          <div class="stat-row">
+            <div class="stat-box">
+              <div class="number">5</div>
+              <div class="label">Employees Trained</div>
+            </div>
+            <div class="stat-box">
+              <div class="number">↑</div>
+              <div class="label">Pipeline Growth</div>
+            </div>
+            <div class="stat-box">
+              <div class="number">↑</div>
+              <div class="label">Account Retention</div>
+            </div>
+            <div class="stat-box">
+              <div class="number">$0</div>
+              <div class="label">Net Tax Cost*</div>
+            </div>
+          </div>
+          <div style="margin-top: 12px; font-size: 11px; color: rgba(255,255,255,0.4);">
+            *Under IRS Section 127 — up to $5,250/yr tax-free educational assistance
+          </div>
+        </div>
+      </div>
+      <div class="broll-prompt">Nano Banana: Split screen style: left side shows a revenue chart trending upward with green bars, right side shows a diverse team celebrating a contract win in a modern office. Professional, corporate, warm lighting. Dark green and gold color accents. 4K cinematic.</div>
+    </div>
+  </div>
+
+  <!-- Scene 6 -->
+  <div class="scene-card">
+    <div class="scene-header">
+      <div class="scene-number">6</div>
+      <div class="scene-meta">
+        <h3>Organizational Advantage</h3>
+        <div class="timing">1:05 – 1:18 &middot; 13 seconds</div>
+      </div>
+    </div>
+    <div class="scene-body">
+      <div class="row">
+        <div>
+          <label>Voiceover</label>
+          <div class="voiceover">When delivery and growth teams share a common language, your company moves faster and responds smarter.</div>
+        </div>
+        <div>
+          <label>Visual Direction</label>
+          <div class="visual-direction">Internal team huddle in glass conference room. Ops, PM, and BD standing around table reviewing a capture plan. Collaborative energy.</div>
+        </div>
+      </div>
+      <div class="overlay-preview">
+        <div class="bg-gradient"></div>
+        <div class="content" style="align-items: center; text-align: center;">
+          <div style="color: var(--gold); font-size: 28px; font-weight: 800; line-height: 1.3;">One team.<br>One growth language.</div>
+          <div class="flow-row" style="margin-top: 24px; justify-content: center;">
+            <div class="flow-step">Operations</div>
+            <div class="flow-step">Program Mgmt</div>
+            <div class="flow-step">BD / Capture</div>
+          </div>
+        </div>
+      </div>
+      <div class="broll-prompt">Nano Banana: An internal team huddle in a glass-walled conference room. Five professionals — operations, program management, and BD — standing around a table reviewing a capture plan together. Collaborative energy, natural gestures. Modern corporate office. 4K cinematic realistic.</div>
+    </div>
+  </div>
+
+  <!-- Scene 7 -->
+  <div class="scene-card">
+    <div class="scene-header">
+      <div class="scene-number">7</div>
+      <div class="scene-meta">
+        <h3>CTA — Close</h3>
+        <div class="timing">1:18 – 1:30 &middot; 12 seconds</div>
+      </div>
+    </div>
+    <div class="scene-body">
+      <div class="row">
+        <div>
+          <label>Voiceover</label>
+          <div class="voiceover">Start with a five-person pilot cohort and measure the impact in 90 days.</div>
+        </div>
+        <div>
+          <label>Visual Direction</label>
+          <div class="visual-direction">Talking head close-out (Eric to camera, confident nod). Then transition to clean end card with CTA.</div>
+        </div>
+      </div>
+      <div class="end-card">
+        <div class="logo-mark">GG</div>
+        <div class="headline">Start Your 5-Person<br>Pilot Cohort</div>
+        <div class="sub">GovCon BD & Capture Upskilling Certification</div>
+        <div class="cta-pill">Enroll Your Team →</div>
+        <div class="footer-line">govcongiants.org &middot; Powered by GovConEdu LLC</div>
+      </div>
+      <div class="broll-prompt">Nano Banana: Clean end card animation on dark green background. Gold text fades in: "Start Your 5-Person Pilot Cohort" with a subtle glow effect. Below it, smaller white text: "GovCon BD & Capture Upskilling Certification". Professional, minimal, elegant. 4K.</div>
+    </div>
+  </div>
+
+</div>
+</div>
+
+<!-- ════════════════════════════════════════════════ -->
+<!-- 60-SECOND VERSION                                -->
+<!-- ════════════════════════════════════════════════ -->
+<div class="version" id="v-60">
+<div class="container">
+  <div class="section-label">Alternate Cut</div>
+  <div class="section-title">60-Second CEO Promo — 5 Scenes</div>
+
+  <div class="scene-card">
+    <div class="scene-header">
+      <div class="scene-number">1</div>
+      <div class="scene-meta"><h3>The Gap</h3><div class="timing">0:00 – 0:12</div></div>
+    </div>
+    <div class="scene-body">
+      <div class="row">
+        <div>
+          <label>Voiceover</label>
+          <div class="voiceover">If you're a GovCon CEO, here's a growth play you're probably missing. Your delivery and program teams talk to customers every day — but they were never trained to spot BD opportunities.</div>
+        </div>
+        <div>
+          <label>Visual Direction</label>
+          <div class="visual-direction">Program manager on phone call with customer. Engaged but missing signals on screen. Cut to Eric talking head.</div>
+        </div>
+      </div>
+      <div class="overlay-preview">
+        <div class="bg-gradient"></div>
+        <div class="content">
+          <div class="ost-bar">
+            <div class="text">Your teams talk to customers every day.</div>
+            <div class="subtext">But were never trained to spot growth opportunities.</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="scene-card">
+    <div class="scene-header">
+      <div class="scene-number">2</div>
+      <div class="scene-meta"><h3>Upskill Five</h3><div class="timing">0:12 – 0:24</div></div>
+    </div>
+    <div class="scene-body">
+      <div class="row">
+        <div>
+          <label>Voiceover</label>
+          <div class="voiceover">Take five customer-facing employees. Upskill them in business development and capture fundamentals.</div>
+        </div>
+        <div>
+          <label>Visual Direction</label>
+          <div class="visual-direction">Training session. Instructor with "BD & Capture Fundamentals" on screen. Engaged learners.</div>
+        </div>
+      </div>
+      <div class="overlay-preview">
+        <div class="bg-gradient"></div>
+        <div class="content">
+          <div class="ost-bar">
+            <div class="text">Upskill 5 customer-facing employees</div>
+            <div class="subtext">BD & Capture Fundamentals &middot; 30-Day Program</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="scene-card">
+    <div class="scene-header">
+      <div class="scene-number">3</div>
+      <div class="scene-meta"><h3>Spot and Route</h3><div class="timing">0:24 – 0:38</div></div>
+    </div>
+    <div class="scene-body">
+      <div class="row">
+        <div>
+          <label>Voiceover</label>
+          <div class="voiceover">Now they know how to ask better questions, recognize expansion signals, and route qualified opportunities back to your growth team.</div>
+        </div>
+        <div>
+          <label>Visual Direction</label>
+          <div class="visual-direction">Team member in customer meeting takes note, sends message to BD team on laptop. Split between conversation and internal action.</div>
+        </div>
+      </div>
+      <div class="overlay-preview">
+        <div class="bg-gradient"></div>
+        <div class="content">
+          <div class="flow-row">
+            <div class="flow-step">Ask Better Questions</div>
+            <div class="flow-arrow">→</div>
+            <div class="flow-step">Recognize Signals</div>
+            <div class="flow-arrow">→</div>
+            <div class="flow-step highlight">Route to Growth Team</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="scene-card">
+    <div class="scene-header">
+      <div class="scene-number">4</div>
+      <div class="scene-meta"><h3>Win More</h3><div class="timing">0:38 – 0:50</div></div>
+    </div>
+    <div class="scene-body">
+      <div class="row">
+        <div>
+          <label>Voiceover</label>
+          <div class="voiceover">Agencies have multiple compliant pathways to award additional work. Your people just need to know how to find them. When delivery and growth teams share one language, your company moves faster, wins more, and retains top talent.</div>
+        </div>
+        <div>
+          <label>Visual Direction</label>
+          <div class="visual-direction">War room with pipeline board. Team moves opportunity cards from "identified" to "won". Green and gold accents. Energetic, collaborative.</div>
+        </div>
+      </div>
+      <div class="overlay-preview">
+        <div class="bg-gradient"></div>
+        <div class="content">
+          <div class="stat-row">
+            <div class="stat-box">
+              <div class="number">↑</div>
+              <div class="label">Win Rate</div>
+            </div>
+            <div class="stat-box">
+              <div class="number">↑</div>
+              <div class="label">Pipeline</div>
+            </div>
+            <div class="stat-box">
+              <div class="number">↑</div>
+              <div class="label">Retention</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="scene-card">
+    <div class="scene-header">
+      <div class="scene-number">5</div>
+      <div class="scene-meta"><h3>CTA</h3><div class="timing">0:50 – 1:00</div></div>
+    </div>
+    <div class="scene-body">
+      <div class="row">
+        <div>
+          <label>Voiceover</label>
+          <div class="voiceover">Start with a five-person pilot cohort. Measure the impact in 90 days.</div>
+        </div>
+        <div>
+          <label>Visual Direction</label>
+          <div class="visual-direction">Eric to camera, confident close. Transition to end card.</div>
+        </div>
+      </div>
+      <div class="end-card">
+        <div class="logo-mark">GG</div>
+        <div class="headline">Start Your 5-Person<br>Pilot Cohort</div>
+        <div class="sub">Measure the impact in 90 days.</div>
+        <div class="cta-pill">Enroll Your Team →</div>
+        <div class="footer-line">govcongiants.org</div>
+      </div>
+    </div>
+  </div>
+
+</div>
+</div>
+
+<!-- ════════════════════════════════════════════════ -->
+<!-- 30-SECOND AD                                     -->
+<!-- ════════════════════════════════════════════════ -->
+<div class="version" id="v-30">
+<div class="container">
+  <div class="section-label">Social Ad Cut</div>
+  <div class="section-title">30-Second Ad — 3 Scenes</div>
+
+  <div class="scene-card">
+    <div class="scene-header">
+      <div class="scene-number">1</div>
+      <div class="scene-meta"><h3>Hook</h3><div class="timing">0:00 – 0:10</div></div>
+    </div>
+    <div class="scene-body">
+      <div class="row">
+        <div>
+          <label>Voiceover</label>
+          <div class="voiceover">What if five non-sales employees could help grow your GovCon contracts? Your customer-facing teams hear real needs every day — they just need the skills to act on them.</div>
+        </div>
+        <div>
+          <label>Visual Direction</label>
+          <div class="visual-direction">Close-up of 5 employee badges on conference table. Hand places gold "BD Certified" sticker on each. Fast-paced, dynamic.</div>
+        </div>
+      </div>
+      <div class="overlay-preview">
+        <div class="bg-gradient"></div>
+        <div class="content" style="align-items: center; text-align: center;">
+          <div style="color: var(--gold); font-size: 26px; font-weight: 800; line-height: 1.3;">What if 5 non-sales employees<br>could help grow your contracts?</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="scene-card">
+    <div class="scene-header">
+      <div class="scene-number">2</div>
+      <div class="scene-meta"><h3>Action Montage</h3><div class="timing">0:10 – 0:22</div></div>
+    </div>
+    <div class="scene-body">
+      <div class="row">
+        <div>
+          <label>Voiceover</label>
+          <div class="voiceover">Upskill five employees in BD and capture fundamentals. They spot opportunities. They route them to your growth team. You win more work.</div>
+        </div>
+        <div>
+          <label>Visual Direction</label>
+          <div class="visual-direction">Quick montage: customer meeting → typing opportunity alert → BD manager reviewing and smiling. Fast cuts, corporate settings.</div>
+        </div>
+      </div>
+      <div class="overlay-preview">
+        <div class="bg-gradient"></div>
+        <div class="content">
+          <div class="flow-row">
+            <div class="flow-step">Train</div>
+            <div class="flow-arrow">→</div>
+            <div class="flow-step">Spot</div>
+            <div class="flow-arrow">→</div>
+            <div class="flow-step">Route</div>
+            <div class="flow-arrow">→</div>
+            <div class="flow-step highlight">Win</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="scene-card">
+    <div class="scene-header">
+      <div class="scene-number">3</div>
+      <div class="scene-meta"><h3>CTA</h3><div class="timing">0:22 – 0:30</div></div>
+    </div>
+    <div class="scene-body">
+      <div class="row">
+        <div>
+          <label>Voiceover</label>
+          <div class="voiceover">Start your five-person pilot cohort today.</div>
+        </div>
+        <div>
+          <label>Visual Direction</label>
+          <div class="visual-direction">End card with CTA. Bold, clean, minimal.</div>
+        </div>
+      </div>
+      <div class="end-card">
+        <div class="logo-mark">GG</div>
+        <div class="headline">Start Your Pilot Cohort</div>
+        <div class="cta-pill">5 Employees &middot; 30 Days &middot; $3,999 each</div>
+        <div class="footer-line">govcongiants.org &middot; IRS Section 127 Eligible</div>
+      </div>
+    </div>
+  </div>
+
+</div>
+</div>
+
+<!-- ════════════════════════════════════════════════ -->
+<!-- END CARDS                                        -->
+<!-- ════════════════════════════════════════════════ -->
+<div class="version" id="v-endcards">
+<div class="container">
+  <div class="section-label">Exportable Assets</div>
+  <div class="section-title">End Cards — Screenshot at 1920×1080</div>
+
+  <div style="margin-bottom: 32px;">
+    <p style="font-size: 14px; color: var(--gray); margin-bottom: 16px;">Right-click → "Save image as" or screenshot these at full size for your video editor.</p>
+  </div>
+
+  <!-- End Card Option A -->
+  <div style="margin-bottom: 40px;">
+    <label style="font-size: 11px; font-weight: 700; letter-spacing: 0.06em; text-transform: uppercase; color: var(--gray); margin-bottom: 8px; display: block;">Option A — Primary</label>
+    <div class="end-card">
+      <div class="logo-mark">GG</div>
+      <div class="headline">Start Your 5-Person<br>Pilot Cohort</div>
+      <div class="sub">GovCon BD & Capture Upskilling Certification</div>
+      <div class="cta-pill">Enroll Your Team →</div>
+      <div class="footer-line">govcongiants.org &middot; Powered by GovConEdu LLC</div>
+    </div>
+  </div>
+
+  <!-- End Card Option B -->
+  <div style="margin-bottom: 40px;">
+    <label style="font-size: 11px; font-weight: 700; letter-spacing: 0.06em; text-transform: uppercase; color: var(--gray); margin-bottom: 8px; display: block;">Option B — Revenue Focus</label>
+    <div class="end-card">
+      <div class="logo-mark">GG</div>
+      <div class="headline">Turn Customer Proximity<br>Into Growth</div>
+      <div class="sub">Upskill delivery teams. Strengthen capture. Grow revenue.</div>
+      <div class="cta-pill">Launch a Pilot Cohort →</div>
+      <div class="footer-line">govcongiants.org &middot; IRS Section 127 Eligible</div>
+    </div>
+  </div>
+
+  <!-- End Card Option C -->
+  <div style="margin-bottom: 40px;">
+    <label style="font-size: 11px; font-weight: 700; letter-spacing: 0.06em; text-transform: uppercase; color: var(--gray); margin-bottom: 8px; display: block;">Option C — Tax Angle</label>
+    <div class="end-card">
+      <div class="logo-mark">GG</div>
+      <div class="headline">$3,999 per employee<br><span style="font-size: 22px; color: rgba(255,255,255,0.7);">Covered under IRS Section 127</span></div>
+      <div class="sub">Up to $5,250/year in tax-free educational assistance</div>
+      <div class="cta-pill">Start Your 5-Person Cohort →</div>
+      <div class="footer-line">govcongiants.org &middot; For educational purposes only</div>
+    </div>
+  </div>
+
+  <!-- Lower Third -->
+  <div style="margin-bottom: 40px;">
+    <label style="font-size: 11px; font-weight: 700; letter-spacing: 0.06em; text-transform: uppercase; color: var(--gray); margin-bottom: 8px; display: block;">Lower Third — Speaker ID</label>
+    <div style="position: relative; width: 100%; aspect-ratio: 16/9; border-radius: 12px; overflow: hidden; background: transparent; border: 2px dashed #d1d5db;">
+      <div class="lower-third" style="background: linear-gradient(transparent, rgba(0,0,0,0.8));">
+        <div class="name">Eric Coffie</div>
+        <div class="title">CEO, GovCon Giants &middot; GovConEdu LLC</div>
+      </div>
+    </div>
+  </div>
+
+</div>
+</div>
+
+<!-- ════════════════════════════════════════════════ -->
+<!-- TELEPROMPTER                                     -->
+<!-- ════════════════════════════════════════════════ -->
+<div class="version" id="v-teleprompter">
+<div class="container teleprompter-section">
+  <div class="section-label">Recording Aid</div>
+  <div class="section-title">Teleprompter Scripts</div>
+
+  <div style="margin-bottom: 24px;">
+    <label style="font-size: 11px; font-weight: 700; letter-spacing: 0.06em; text-transform: uppercase; color: var(--gray); margin-bottom: 8px; display: block;">90-Second Script</label>
+  </div>
+  <div class="teleprompter">
+    If you're a GovCon CEO, here's a <span class="emphasis">practical growth play</span> most companies overlook.
+    <span class="pause"></span>
+    Your operations and program teams talk to customers every day.
+    They hear real needs in real time.
+    But most of them were never trained to recognize <span class="emphasis">business development or capture signals</span>.
+    <span class="pause"></span>
+    Now imagine you select <span class="emphasis">five customer-facing employees</span> and upskill them in BD and capture fundamentals.
+    Not to replace your sales team — but to <span class="emphasis">strengthen it</span>.
+    <span class="pause"></span>
+    They learn how to ask better questions, identify expansion opportunities, and route qualified insights to your growth team.
+    <span class="pause"></span>
+    In many agencies, there are <span class="emphasis">multiple compliant pathways</span> to award additional work — including add-ons and follow-on opportunities.
+    <span class="pause"></span>
+    When your customer-facing staff and growth team share <span class="emphasis">one language</span>, you get better account intelligence, stronger opportunity visibility, and faster internal action.
+    <span class="pause"></span>
+    The business impact can be significant — improved revenue potential, better retention, and clear performance incentives tied to growth contribution.
+    <span class="pause"></span>
+    <span class="emphasis">Start with a five-person pilot cohort.</span>
+    Measure results over 90 days.
+    Then scale what works.
+  </div>
+
+  <div style="margin: 40px 0 24px;">
+    <label style="font-size: 11px; font-weight: 700; letter-spacing: 0.06em; text-transform: uppercase; color: var(--gray); margin-bottom: 8px; display: block;">60-Second Script</label>
+  </div>
+  <div class="teleprompter">
+    If you're a GovCon CEO, here's a <span class="emphasis">growth play</span> you're probably missing.
+    <span class="pause"></span>
+    Your delivery and program teams talk to customers every day — but they were never trained to <span class="emphasis">spot BD opportunities</span>.
+    <span class="pause"></span>
+    Take <span class="emphasis">five customer-facing employees</span>. Upskill them in business development and capture fundamentals.
+    <span class="pause"></span>
+    Now they know how to ask better questions, recognize expansion signals, and route qualified opportunities back to your growth team.
+    <span class="pause"></span>
+    Agencies have <span class="emphasis">multiple compliant pathways</span> to award additional work. Your people just need to know how to find them.
+    <span class="pause"></span>
+    When delivery and growth teams share one language, your company <span class="emphasis">moves faster, wins more, and retains top talent</span>.
+    <span class="pause"></span>
+    <span class="emphasis">Start with a five-person pilot cohort.</span> Measure the impact in 90 days.
+  </div>
+
+  <div style="margin: 40px 0 24px;">
+    <label style="font-size: 11px; font-weight: 700; letter-spacing: 0.06em; text-transform: uppercase; color: var(--gray); margin-bottom: 8px; display: block;">30-Second Script</label>
+  </div>
+  <div class="teleprompter">
+    <span class="emphasis">What if five non-sales employees could help grow your GovCon contracts?</span>
+    <span class="pause"></span>
+    Your customer-facing teams hear real needs every day — they just need the skills to act on them.
+    <span class="pause"></span>
+    Upskill five employees in BD and capture fundamentals. They spot opportunities. They route them to your growth team. <span class="emphasis">You win more work.</span>
+    <span class="pause"></span>
+    <span class="emphasis">Start your five-person pilot cohort today.</span>
+  </div>
+
+</div>
+</div>
+
+<!-- ════════════════════════════════════════════════ -->
+<!-- CHECKLIST                                        -->
+<!-- ════════════════════════════════════════════════ -->
+<div class="version" id="v-checklist">
+<div class="container">
+  <div class="section-label">Production</div>
+  <div class="section-title">Video Production Checklist</div>
+
+  <div class="checklist">
+    <h3>Pre-Production</h3>
+    <label><input type="checkbox"> Review 90s, 60s, and 30s scripts</label>
+    <label><input type="checkbox"> Practice teleprompter read (target: natural, no rush)</label>
+    <label><input type="checkbox"> Set up recording space (clean background, good lighting)</label>
+    <label><input type="checkbox"> Test audio (lapel mic or shotgun, no room echo)</label>
+    <label><input type="checkbox"> Wardrobe: professional, solid colors (no busy patterns)</label>
+  </div>
+
+  <div class="checklist">
+    <h3>Recording — Talking Head</h3>
+    <label><input type="checkbox"> Record 90-second script (2-3 takes minimum)</label>
+    <label><input type="checkbox"> Record 60-second script (2-3 takes)</label>
+    <label><input type="checkbox"> Record 30-second script (3-4 takes — tighter timing)</label>
+    <label><input type="checkbox"> Record pickup shots: confident nod, hand gestures, thinking pause</label>
+    <label><input type="checkbox"> Record "five" hand gesture (for "5 employees" emphasis)</label>
+  </div>
+
+  <div class="checklist">
+    <h3>B-Roll Generation (Nano Banana / AI)</h3>
+    <label><input type="checkbox"> Generate Scene 1 B-roll: ops manager in meeting</label>
+    <label><input type="checkbox"> Generate Scene 2 B-roll: CEO at whiteboard selecting team</label>
+    <label><input type="checkbox"> Generate Scene 3 B-roll: team in customer meeting</label>
+    <label><input type="checkbox"> Generate Scene 4 B-roll: pipeline dashboard</label>
+    <label><input type="checkbox"> Generate Scene 5 B-roll: revenue chart + team celebration</label>
+    <label><input type="checkbox"> Generate Scene 6 B-roll: internal team huddle</label>
+    <label><input type="checkbox"> Generate Scene 7: end card animation</label>
+    <label><input type="checkbox"> Generate 60s and 30s specific clips</label>
+  </div>
+
+  <div class="checklist">
+    <h3>Post-Production (CapCut / Descript)</h3>
+    <label><input type="checkbox"> Import voiceover + B-roll clips</label>
+    <label><input type="checkbox"> Layer B-roll over voiceover matching timestamps</label>
+    <label><input type="checkbox"> Add on-screen text overlays (screenshot from this kit)</label>
+    <label><input type="checkbox"> Add lower third (Eric Coffie / CEO, GovCon Giants)</label>
+    <label><input type="checkbox"> Add end card (last 8-12 seconds)</label>
+    <label><input type="checkbox"> Color grade: slight warm tone, professional look</label>
+    <label><input type="checkbox"> Audio: normalize levels, light compression, no background music on VO</label>
+    <label><input type="checkbox"> Optional: subtle background music (corporate, minimal)</label>
+  </div>
+
+  <div class="checklist">
+    <h3>Export</h3>
+    <label><input type="checkbox"> 90s — 16:9 landscape (YouTube / LinkedIn)</label>
+    <label><input type="checkbox"> 90s — 9:16 vertical (Reels / Shorts / TikTok)</label>
+    <label><input type="checkbox"> 60s — 16:9 landscape</label>
+    <label><input type="checkbox"> 60s — 9:16 vertical</label>
+    <label><input type="checkbox"> 30s — 16:9 landscape</label>
+    <label><input type="checkbox"> 30s — 9:16 vertical</label>
+    <label><input type="checkbox"> Thumbnail frame (grab from Scene 1 or Scene 7)</label>
+  </div>
+
+  <div class="checklist">
+    <h3>Quality Check Before Publishing</h3>
+    <label><input type="checkbox"> Claims are realistic — no guarantees</label>
+    <label><input type="checkbox"> Legal/tax language framed as education only</label>
+    <label><input type="checkbox"> CTA is clear and singular</label>
+    <label><input type="checkbox"> Visuals match brand (dark green + gold)</label>
+    <label><input type="checkbox"> Audio pacing is executive-friendly and concise</label>
+    <label><input type="checkbox"> Compliance disclaimer visible in Scene 4</label>
+    <label><input type="checkbox"> No copyrighted music / visuals</label>
+  </div>
+
+</div>
+</div>
+
+<script>
+function showVersion(id) {
+  document.querySelectorAll('.version').forEach(v => v.classList.remove('active'));
+  document.querySelectorAll('.controls button').forEach(b => b.classList.remove('active'));
+  document.getElementById('v-' + id).classList.add('active');
+  event.target.classList.add('active');
+  window.scrollTo({ top: 200, behavior: 'smooth' });
+}
+</script>
+
+</body>
+</html>

@@ -1,0 +1,1501 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Module 4.1: Proposal Support
+Basics | GovCon BD Upskilling</title>
+  
+<style>
+  * {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+  }
+
+  body {
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+    line-height: 1.7;
+    color: #333333;
+    background: #fff;
+    max-width: 900px;
+    margin: 0 auto;
+    padding: 40px 30px;
+  }
+
+  h1 {
+    color: #1a4d2e;
+    font-size: 2.2em;
+    margin-bottom: 10px;
+    border-bottom: 3px solid #d4af37;
+    padding-bottom: 15px;
+  }
+
+  h2 {
+    color: #1a4d2e;
+    font-size: 1.6em;
+    margin-top: 35px;
+    margin-bottom: 15px;
+    border-left: 4px solid #d4af37;
+    padding-left: 15px;
+  }
+
+  h3 {
+    color: #2d5016;
+    font-size: 1.3em;
+    margin-top: 25px;
+    margin-bottom: 10px;
+  }
+
+  h4 {
+    color: #333333;
+    font-size: 1.1em;
+    margin-top: 20px;
+    margin-bottom: 8px;
+  }
+
+  p {
+    margin-bottom: 15px;
+  }
+
+  ul, ol {
+    margin-bottom: 15px;
+    padding-left: 25px;
+  }
+
+  li {
+    margin-bottom: 8px;
+  }
+
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 20px 0;
+    font-size: 0.95em;
+  }
+
+  th {
+    background: #1a4d2e;
+    color: white;
+    padding: 12px 15px;
+    text-align: left;
+    font-weight: 600;
+  }
+
+  td {
+    padding: 12px 15px;
+    border-bottom: 1px solid #ddd;
+  }
+
+  tr:nth-child(even) {
+    background: #f5f5f5;
+  }
+
+  code {
+    background: #f5f5f5;
+    padding: 2px 6px;
+    border-radius: 3px;
+    font-family: 'Monaco', 'Consolas', monospace;
+    font-size: 0.9em;
+  }
+
+  pre {
+    background: #f5f5f5;
+    padding: 15px;
+    border-radius: 5px;
+    overflow-x: auto;
+    margin: 15px 0;
+  }
+
+  pre code {
+    background: none;
+    padding: 0;
+  }
+
+  blockquote {
+    border-left: 4px solid #d4af37;
+    padding-left: 20px;
+    margin: 20px 0;
+    color: #555;
+    font-style: italic;
+  }
+
+  a {
+    color: #1a4d2e;
+    text-decoration: none;
+  }
+
+  a:hover {
+    color: #d4af37;
+    text-decoration: underline;
+  }
+
+  hr {
+    border: none;
+    border-top: 2px solid #eee;
+    margin: 30px 0;
+  }
+
+  .header-banner {
+    background: #1a4d2e;
+    color: white;
+    padding: 20px 30px;
+    margin: -40px -30px 30px -30px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  .header-banner .logo {
+    font-size: 1.3em;
+    font-weight: 700;
+  }
+
+  .header-banner .logo span {
+    color: #d4af37;
+  }
+
+  .header-banner .program {
+    font-size: 0.9em;
+    color: #90c695;
+  }
+
+  .footer {
+    margin-top: 50px;
+    padding-top: 20px;
+    border-top: 2px solid #eee;
+    text-align: center;
+    color: #888;
+    font-size: 0.9em;
+  }
+
+  /* Print styles */
+  @media print {
+    body {
+      padding: 20px;
+    }
+
+    .header-banner {
+      margin: -20px -20px 20px -20px;
+    }
+
+    h2 {
+      page-break-after: avoid;
+    }
+
+    table, pre {
+      page-break-inside: avoid;
+    }
+  }
+</style>
+
+</head>
+<body>
+  <div class="header-banner">
+    <div class="logo">GovCon <span>Giants</span></div>
+    <div class="program">30-Day Foundation Program | Module</div>
+  </div>
+
+  <h1 id="module-4.1-proposal-support-basics">Module 4.1: Proposal Support
+Basics</h1>
+<h2 id="module-header">Module Header</h2>
+<table>
+<colgroup>
+<col style="width: 61%" />
+<col style="width: 38%" />
+</colgroup>
+<thead>
+<tr>
+<th>Attribute</th>
+<th>Value</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Module Number</strong></td>
+<td>4.1</td>
+</tr>
+<tr>
+<td><strong>Title</strong></td>
+<td>Proposal Support Basics</td>
+</tr>
+<tr>
+<td><strong>Domain</strong></td>
+<td>D4 - Proposal and Pre-Positioning Support (13%)</td>
+</tr>
+<tr>
+<td><strong>Time Estimate</strong></td>
+<td>45-60 minutes instruction + 45-60 minutes exercise</td>
+</tr>
+<tr>
+<td><strong>Free Tools Used</strong></td>
+<td>SAM.gov (solicitation documents), AI (ChatGPT/Claude/Gemini)</td>
+</tr>
+<tr>
+<td><strong>Deliverable</strong></td>
+<td>Sample Compliance Matrix</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2 id="learning-objectives">Learning Objectives</h2>
+<p>By the end of this module, learners will be able to:</p>
+<ol type="1">
+<li><strong>Explain</strong> the proposal development process and key
+roles involved</li>
+<li><strong>Read</strong> and interpret RFP instructions and evaluation
+criteria</li>
+<li><strong>Build</strong> a compliance matrix mapping RFP requirements
+to proposal sections</li>
+<li><strong>Identify</strong> common proposal volumes and their
+purposes</li>
+<li><strong>Contribute</strong> effectively to proposal efforts in a
+supporting role</li>
+</ol>
+<hr />
+<h2 id="required-readingviewing">Required Reading/Viewing</h2>
+<h3 id="official-government-resources-free">Official Government
+Resources (Free)</h3>
+<ol type="1">
+<li><strong>SAM.gov</strong> - Sample Solicitation Documents
+<ul>
+<li>URL: https://sam.gov/content/opportunities</li>
+<li>Focus: Download and review actual RFPs to understand structure</li>
+</ul></li>
+<li><strong>FAR Part 15</strong> - Contracting by Negotiation
+<ul>
+<li>URL: https://www.acquisition.gov/far/part-15</li>
+<li>Focus: Section 15.3 (Source Selection) and 15.4 (Proposal
+Preparation)</li>
+</ul></li>
+<li><strong>GSA Schedules Solicitation</strong> - Example of Proposal
+Requirements
+<ul>
+<li>URL:
+https://www.gsa.gov/buy-through-us/purchasing-programs/gsa-multiple-award-schedule</li>
+<li>Focus: Understanding proposal structure</li>
+</ul></li>
+</ol>
+<hr />
+<h2 id="lesson-content">Lesson Content</h2>
+<h3 id="the-proposal-development-process">1. The Proposal Development
+Process</h3>
+<p>Proposal development is a structured process that transforms capture
+intelligence and solution designs into a compliant, compelling
+response.</p>
+<p><strong>Typical Proposal Timeline</strong> (30-day example):</p>
+<table>
+<colgroup>
+<col style="width: 28%" />
+<col style="width: 24%" />
+<col style="width: 48%" />
+</colgroup>
+<thead>
+<tr>
+<th>Phase</th>
+<th>Days</th>
+<th>Activities</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Pre-Proposal</strong></td>
+<td>Before RFP</td>
+<td>Capture activities, solution development, draft content</td>
+</tr>
+<tr>
+<td><strong>RFP Analysis</strong></td>
+<td>1-3</td>
+<td>Compliance matrix, kickoff, assignments</td>
+</tr>
+<tr>
+<td><strong>Writing</strong></td>
+<td>4-15</td>
+<td>Draft content, graphics, data calls</td>
+</tr>
+<tr>
+<td><strong>Pink Team Review</strong></td>
+<td>16-18</td>
+<td>First major review (outline/early draft)</td>
+</tr>
+<tr>
+<td><strong>Revisions</strong></td>
+<td>19-22</td>
+<td>Incorporate feedback, refine</td>
+</tr>
+<tr>
+<td><strong>Red Team Review</strong></td>
+<td>23-25</td>
+<td>Near-final review</td>
+</tr>
+<tr>
+<td><strong>Final Revisions</strong></td>
+<td>26-28</td>
+<td>Final polishing</td>
+</tr>
+<tr>
+<td><strong>Production</strong></td>
+<td>29-30</td>
+<td>Format, page check, submit</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Key Principle</strong>: The better the capture work, the
+easier the proposal. Most “proposal problems” are really “capture
+problems.”</p>
+<h3 id="proposal-team-roles">2. Proposal Team Roles</h3>
+<table>
+<colgroup>
+<col style="width: 25%" />
+<col style="width: 75%" />
+</colgroup>
+<thead>
+<tr>
+<th>Role</th>
+<th>Responsibilities</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Capture Manager</strong></td>
+<td>Leads pre-proposal; transitions to proposal; owns win strategy</td>
+</tr>
+<tr>
+<td><strong>Proposal Manager</strong></td>
+<td>Runs the proposal process; schedule, compliance, production</td>
+</tr>
+<tr>
+<td><strong>Volume Leads</strong></td>
+<td>Own specific volumes (technical, management, past performance)</td>
+</tr>
+<tr>
+<td><strong>Writers/Contributors</strong></td>
+<td>Draft proposal content</td>
+</tr>
+<tr>
+<td><strong>Subject Matter Experts (SMEs)</strong></td>
+<td>Provide technical accuracy and detail</td>
+</tr>
+<tr>
+<td><strong>Reviewers</strong></td>
+<td>Evaluate drafts against RFP and win strategy</td>
+</tr>
+<tr>
+<td><strong>Pricing Lead</strong></td>
+<td>Develops cost/price volume</td>
+</tr>
+<tr>
+<td><strong>Contracts</strong></td>
+<td>Reviews terms, reps/certs, ensures compliance</td>
+</tr>
+<tr>
+<td><strong>Graphics</strong></td>
+<td>Creates visuals, charts, diagrams</td>
+</tr>
+<tr>
+<td><strong>Production</strong></td>
+<td>Final formatting, assembly, submission</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Your Role</strong>: Even if you’re not a dedicated proposal
+professional, you may be asked to: - Provide technical input or data -
+Review sections for accuracy - Gather past performance information -
+Support data calls (staffing, resumes, etc.) - Help with final
+production</p>
+<h3 id="understanding-rfp-structure">3. Understanding RFP Structure</h3>
+<p>A typical RFP contains several key sections:</p>
+<table>
+<colgroup>
+<col style="width: 20%" />
+<col style="width: 41%" />
+<col style="width: 37%" />
+</colgroup>
+<thead>
+<tr>
+<th>Section</th>
+<th>What It Contains</th>
+<th>Why It Matters</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Section A</strong></td>
+<td>Solicitation form (SF 33 or SF 1449)</td>
+<td>Basic contract info</td>
+</tr>
+<tr>
+<td><strong>Section B</strong></td>
+<td>Supplies/Services and Prices</td>
+<td>What you’re bidding on</td>
+</tr>
+<tr>
+<td><strong>Section C</strong></td>
+<td>Statement of Work (SOW) or PWS</td>
+<td>Technical requirements</td>
+</tr>
+<tr>
+<td><strong>Section L</strong></td>
+<td>Instructions to Offerors</td>
+<td>How to prepare your proposal</td>
+</tr>
+<tr>
+<td><strong>Section M</strong></td>
+<td>Evaluation Factors</td>
+<td>How you’ll be scored</td>
+</tr>
+<tr>
+<td><strong>Attachments</strong></td>
+<td>CLINs, data requirements, templates</td>
+<td>Supporting documents</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Critical Sections for Proposal Compliance</strong>:</p>
+<ul>
+<li><strong>Section L</strong>: Tells you exactly what to submit, format
+requirements, page limits</li>
+<li><strong>Section M</strong>: Tells you how you’ll be evaluated and
+what matters most</li>
+</ul>
+<p><strong>Example Section L Instructions</strong>: &gt; “The Technical
+Volume shall not exceed 50 pages. Use 12-point Times New Roman font with
+1-inch margins. Include a staffing plan, technical approach, and
+transition plan…”</p>
+<p><strong>Example Section M Evaluation Factors</strong>: &gt;
+“Technical Approach (40%), Past Performance (30%), Price (30%).
+Technical and Past Performance are approximately equal and significantly
+more important than price.”</p>
+<h3 id="building-a-compliance-matrix">4. Building a Compliance
+Matrix</h3>
+<p>The <strong>compliance matrix</strong> is the backbone of proposal
+development. It maps every RFP requirement to your proposal
+response.</p>
+<p><strong>Why It Matters</strong>: - Ensures nothing is missed -
+Assigns responsibility for each requirement - Tracks compliance status -
+Guides evaluators to your responses</p>
+<p><strong>Basic Compliance Matrix Structure</strong>:</p>
+<table>
+<colgroup>
+<col style="width: 13%" />
+<col style="width: 20%" />
+<col style="width: 27%" />
+<col style="width: 9%" />
+<col style="width: 18%" />
+<col style="width: 10%" />
+</colgroup>
+<thead>
+<tr>
+<th>RFP Ref</th>
+<th>Requirement</th>
+<th>Proposal Section</th>
+<th>Page</th>
+<th>Compliant?</th>
+<th>Owner</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>L.4.1</td>
+<td>Provide staffing plan</td>
+<td>Vol 1, Sec 3.1</td>
+<td>12-15</td>
+<td>✓</td>
+<td>J. Smith</td>
+</tr>
+<tr>
+<td>L.4.2</td>
+<td>Include org chart</td>
+<td>Vol 1, Sec 3.2</td>
+<td>16</td>
+<td>✓</td>
+<td>J. Smith</td>
+</tr>
+<tr>
+<td>C.3.1</td>
+<td>24x7 support capability</td>
+<td>Vol 1, Sec 2.3</td>
+<td>8-9</td>
+<td>✓</td>
+<td>T. Jones</td>
+</tr>
+<tr>
+<td>M.1</td>
+<td>Technical Approach</td>
+<td>Vol 1, Sec 2</td>
+<td>5-20</td>
+<td>✓</td>
+<td>Lead</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Building a Compliance Matrix Step-by-Step</strong>:</p>
+<ol type="1">
+<li><strong>Read Section L completely</strong> - Extract every
+instruction</li>
+<li><strong>Read Section M completely</strong> - Note all evaluation
+factors</li>
+<li><strong>Read Section C (SOW/PWS)</strong> - Identify all
+requirements</li>
+<li><strong>Create requirement rows</strong> - One row per
+requirement</li>
+<li><strong>Map to proposal sections</strong> - Where will you address
+each?</li>
+<li><strong>Assign owners</strong> - Who’s responsible?</li>
+<li><strong>Track completion</strong> - Update as proposal develops</li>
+</ol>
+<h3 id="common-proposal-volumes">5. Common Proposal Volumes</h3>
+<p>Most proposals have separate volumes for different content:</p>
+<table>
+<colgroup>
+<col style="width: 25%" />
+<col style="width: 28%" />
+<col style="width: 46%" />
+</colgroup>
+<thead>
+<tr>
+<th>Volume</th>
+<th>Content</th>
+<th>Typical Focus</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Volume I: Technical</strong></td>
+<td>Technical approach, solution, staffing, management</td>
+<td>How you’ll do the work</td>
+</tr>
+<tr>
+<td><strong>Volume II: Past Performance</strong></td>
+<td>Relevant experience, references</td>
+<td>Proof you can do it</td>
+</tr>
+<tr>
+<td><strong>Volume III: Price/Cost</strong></td>
+<td>Pricing, cost breakdown</td>
+<td>What it will cost</td>
+</tr>
+<tr>
+<td><strong>Volume IV: Administrative</strong></td>
+<td>Reps/certs, subcontracting plan</td>
+<td>Compliance documents</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Technical Volume Key Sections</strong>: - Technical Approach:
+How you’ll accomplish the work - Management Approach: How you’ll manage
+the contract - Staffing Plan: Who will do the work - Transition Plan:
+How you’ll start up smoothly - Quality Control: How you’ll ensure
+quality</p>
+<p><strong>Past Performance Key Elements</strong>: - Contract name and
+number - Customer contact information - Relevance to current requirement
+- Contract value and period - Description of work performed -
+Performance outcomes/metrics</p>
+<h3 id="evaluation-factors-and-what-evaluators-look-for">6. Evaluation
+Factors and What Evaluators Look For</h3>
+<p>Understanding evaluation factors helps you prioritize your proposal
+content.</p>
+<p><strong>Typical Evaluation Factor Structure</strong>:</p>
+<table>
+<colgroup>
+<col style="width: 21%" />
+<col style="width: 21%" />
+<col style="width: 57%" />
+</colgroup>
+<thead>
+<tr>
+<th>Factor</th>
+<th>Weight</th>
+<th>What Evaluators Assess</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Technical/Management</strong></td>
+<td>40-50%</td>
+<td>Solution quality, understanding, approach</td>
+</tr>
+<tr>
+<td><strong>Past Performance</strong></td>
+<td>25-35%</td>
+<td>Relevant experience, performance quality</td>
+</tr>
+<tr>
+<td><strong>Price</strong></td>
+<td>15-30%</td>
+<td>Cost realism, competitiveness</td>
+</tr>
+<tr>
+<td><strong>Small Business</strong></td>
+<td>5-15%</td>
+<td>Subcontracting plan (large business only)</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Evaluation Ratings</strong> (Common Scale):</p>
+<table>
+<thead>
+<tr>
+<th>Rating</th>
+<th>Definition</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Outstanding</strong></td>
+<td>Exceptional; significantly exceeds requirements</td>
+</tr>
+<tr>
+<td><strong>Good</strong></td>
+<td>Meets and occasionally exceeds requirements</td>
+</tr>
+<tr>
+<td><strong>Acceptable</strong></td>
+<td>Meets minimum requirements</td>
+</tr>
+<tr>
+<td><strong>Marginal</strong></td>
+<td>Fails to meet some requirements</td>
+</tr>
+<tr>
+<td><strong>Unacceptable</strong></td>
+<td>Fails to meet requirements; not awardable</td>
+</tr>
+</tbody>
+</table>
+<p><strong>What Makes a Proposal “Outstanding”</strong>: - Clear
+compliance with all requirements - Specific, relevant past performance -
+Concrete proof points, not generalities - Thoughtful understanding of
+customer’s challenges - Innovative approaches that add value - Strong,
+relevant team</p>
+<h3 id="supporting-proposals-common-tasks">7. Supporting Proposals:
+Common Tasks</h3>
+<p>When asked to support a proposal, you may be assigned to:</p>
+<p><strong>Data Calls</strong>: Provide specific information - Resume
+updates - Past performance narratives - Technical specifications -
+Pricing inputs - Certifications/licenses</p>
+<p><strong>Content Review</strong>: Check sections for accuracy -
+Technical accuracy - Company information correctness - Consistency with
+company capabilities - Grammar and clarity</p>
+<p><strong>Research Support</strong>: - Incumbent research (SAM.gov
+Contract Data) - Customer intel gathering - Competitive analysis support
+- Regulation/policy research</p>
+<p><strong>Production Support</strong>: - Formatting documents -
+Checking page counts - Assembling final package - Quality control
+checks</p>
+<h3 id="proposal-dos-and-donts">8. Proposal Dos and Don’ts</h3>
+<p><strong>Do</strong>: - Read the RFP carefully before starting -
+Follow all instructions exactly (page limits, fonts, format) - Be
+specific with examples and proof points - Address every requirement
+explicitly - Use clear, direct language - Highlight your discriminators
+and win themes - Meet all deadlines (internal and external)</p>
+<p><strong>Don’t</strong>: - Submit generic boilerplate content - Miss
+page limits or format requirements - Make claims you can’t prove -
+Criticize competitors by name - Assume evaluators know your company -
+Wait until the last minute - Ignore evaluation criteria weighting</p>
+<hr />
+<h2 id="ai-accelerator-using-ai-for-proposal-support">AI Accelerator:
+Using AI for Proposal Support</h2>
+<p>AI tools can dramatically accelerate proposal development—from RFP
+analysis to content drafting. Use these prompts to support proposal
+efforts effectively.</p>
+<h3 id="prompt-1-analyze-rfp-requirements">Prompt 1: Analyze RFP
+Requirements</h3>
+<p><strong>Use When</strong>: You need to quickly understand what an RFP
+requires.</p>
+<pre><code>Analyze this RFP section and extract all requirements:
+
+[PASTE SECTION L OR SECTION C TEXT]
+
+Provide:
+1. Explicit requirements (stated directly)
+2. Implicit requirements (implied but not stated)
+3. Compliance items (specific deliverables or formats required)
+4. Potential ambiguities or questions to ask
+5. Any unusual or non-standard requirements
+
+Format as a requirements checklist I can use for compliance tracking.</code></pre>
+<h3 id="prompt-2-summarize-evaluation-criteria">Prompt 2: Summarize
+Evaluation Criteria</h3>
+<p><strong>Use When</strong>: You need to understand how the proposal
+will be scored.</p>
+<pre><code>Analyze this Section M (Evaluation Factors):
+
+[PASTE SECTION M TEXT]
+
+Help me understand:
+1. What are the evaluation factors and their weights?
+2. What does &quot;Outstanding&quot; look like for each factor?
+3. What are the discriminating factors (where we can win or lose)?
+4. What&#39;s the relationship between price and technical?
+5. What should we emphasize most in our response?
+
+Create a scoring guide for our proposal team.</code></pre>
+<h3 id="prompt-3-build-initial-compliance-matrix">Prompt 3: Build
+Initial Compliance Matrix</h3>
+<p><strong>Use When</strong>: You need to start a compliance matrix
+quickly.</p>
+<pre><code>Create a compliance matrix from this RFP section:
+
+[PASTE SECTION L INSTRUCTIONS]
+
+Format as a table with columns:
+- RFP Reference (section number)
+- Requirement Description
+- Proposed Response Location
+- Compliance Status (TBD)
+- Assigned Owner (TBD)
+- Notes
+
+Include every requirement, including formatting and page limits.</code></pre>
+<h3 id="prompt-4-draft-proposal-section-outline">Prompt 4: Draft
+Proposal Section Outline</h3>
+<p><strong>Use When</strong>: You need to structure a proposal section
+before writing.</p>
+<pre><code>Help me outline a proposal section for:
+
+RFP Requirement: [PASTE SPECIFIC REQUIREMENT]
+Evaluation Factor: [WHICH FACTOR THIS ADDRESSES]
+Page Limit: [IF APPLICABLE]
+
+Our approach: [BRIEF DESCRIPTION OF OUR SOLUTION]
+Key proof points: [RELEVANT EXPERIENCE]
+Win theme to emphasize: [THEME]
+
+Create an outline that:
+1. Addresses all requirements explicitly
+2. Leads with our strength/discriminator
+3. Includes proof points and evidence
+4. Follows a logical flow
+5. Can be expanded into full narrative</code></pre>
+<h3 id="prompt-5-draft-past-performance-narrative">Prompt 5: Draft Past
+Performance Narrative</h3>
+<p><strong>Use When</strong>: You need to write a past performance
+citation.</p>
+<pre><code>Help me draft a past performance narrative:
+
+Contract Information:
+- Contract Name: [NAME]
+- Customer: [AGENCY]
+- Contract Number: [NUMBER]
+- Value: [AMOUNT]
+- Period: [DATES]
+- Your Role: [PRIME/SUB]
+
+Work Performed:
+- [DESCRIBE THE WORK]
+
+Relevance to Current Opportunity:
+- Similar scope: [HOW]
+- Similar size: [HOW]
+- Similar complexity: [HOW]
+
+Results/Outcomes:
+- [QUANTIFIED ACHIEVEMENTS]
+
+Draft a past performance narrative that:
+1. Clearly shows relevance to the current RFP
+2. Emphasizes successful outcomes with metrics
+3. Demonstrates our capabilities
+4. Fits in [X] words/page limit</code></pre>
+<h3 id="prompt-6-review-draft-for-compliance">Prompt 6: Review Draft for
+Compliance</h3>
+<p><strong>Use When</strong>: You want to check if a draft section meets
+requirements.</p>
+<pre><code>Review this draft proposal section against the RFP requirement:
+
+RFP Requirement:
+[PASTE THE REQUIREMENT]
+
+Our Draft:
+[PASTE YOUR DRAFT CONTENT]
+
+Check for:
+1. Does it address all parts of the requirement?
+2. Are there any compliance gaps?
+3. Is the response clear and direct?
+4. Are claims supported with evidence?
+5. Does it emphasize our strengths?
+6. What&#39;s missing or could be improved?
+
+Provide specific recommendations for strengthening this section.</code></pre>
+<h3 id="prompt-7-improve-proposal-language">Prompt 7: Improve Proposal
+Language</h3>
+<p><strong>Use When</strong>: You have draft content that needs
+strengthening.</p>
+<pre><code>Improve this proposal content to be more compelling:
+
+Original:
+[PASTE YOUR DRAFT TEXT]
+
+Requirements:
+- Make it more specific (add details)
+- Strengthen weak claims with proof
+- Remove vague language (&quot;various,&quot; &quot;many,&quot; &quot;significant&quot;)
+- Add action verbs and active voice
+- Emphasize benefits to the customer
+- Keep the same approximate length
+
+Provide the improved version and explain key changes made.</code></pre>
+<h3 id="pro-tips-for-ai-assisted-proposal-support">Pro Tips for
+AI-Assisted Proposal Support</h3>
+<table>
+<colgroup>
+<col style="width: 36%" />
+<col style="width: 63%" />
+</colgroup>
+<thead>
+<tr>
+<th>Do</th>
+<th>Don’t</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Use AI to extract requirements from RFPs</td>
+<td>Submit AI-generated content without review</td>
+</tr>
+<tr>
+<td>Get AI help outlining proposal sections</td>
+<td>Let AI access actual proposal files</td>
+</tr>
+<tr>
+<td>Draft past performance narratives with AI</td>
+<td>Use AI for pricing or cost volumes</td>
+</tr>
+<tr>
+<td>Check compliance with AI assistance</td>
+<td>Share proprietary win strategies with AI</td>
+</tr>
+<tr>
+<td>Improve language and clarity with AI</td>
+<td>Skip human review of AI-generated content</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Remember</strong>: AI accelerates proposal work but doesn’t
+replace expertise. Always have subject matter experts review AI-assisted
+content, and never submit AI output without thorough human review.</p>
+<h3 id="ai-proposal-workflow">AI Proposal Workflow</h3>
+<ol type="1">
+<li><strong>RFP Analysis</strong>: Use AI to extract requirements →
+Human verifies</li>
+<li><strong>Compliance Matrix</strong>: AI builds initial matrix → Human
+validates</li>
+<li><strong>Outline</strong>: AI creates structure → Human refines</li>
+<li><strong>Draft</strong>: AI generates first draft → Human rewrites
+substantially</li>
+<li><strong>Improve</strong>: AI enhances language → Human reviews and
+approves</li>
+<li><strong>Review</strong>: AI checks compliance → Human makes final
+call</li>
+</ol>
+<hr />
+<h2 id="applied-exercise-build-a-compliance-matrix">Applied Exercise:
+Build a Compliance Matrix</h2>
+<p><strong>Scenario</strong>: Your company is responding to an RFP. Your
+manager asks you to build the initial compliance matrix from Section
+L.</p>
+<p><strong>Instructions</strong>:</p>
+<h3 id="part-1-find-an-rfp">Part 1: Find an RFP</h3>
+<ol type="1">
+<li>Go to SAM.gov</li>
+<li>Search for a solicitation in your NAICS code (or use “IT
+services”)</li>
+<li>Download the solicitation documents</li>
+<li>Locate Section L (Instructions to Offerors)</li>
+</ol>
+<h3 id="part-2-extract-requirements">Part 2: Extract Requirements</h3>
+<p>Read Section L and list every requirement, including: - Volume
+requirements - Page limits - Format requirements - Content requirements
+- Submission instructions</p>
+<h3 id="part-3-build-the-compliance-matrix">Part 3: Build the Compliance
+Matrix</h3>
+<p>Use the template below to create a compliance matrix with at least 15
+requirements.</p>
+<p><strong>Time</strong>: 45-60 minutes</p>
+<hr />
+<h2 id="work-artifact-template-compliance-matrix">Work Artifact
+Template: Compliance Matrix</h2>
+<h3 id="header">Header</h3>
+<p><strong>Your Name</strong>: _________________________
+<strong>Date</strong>: _________________________ <strong>Solicitation
+Number</strong>: _________________________ <strong>Solicitation
+Title</strong>: _________________________ <strong>Response
+Deadline</strong>: _________________________</p>
+<hr />
+<h3 id="section-1-rfp-overview">Section 1: RFP Overview</h3>
+<table>
+<thead>
+<tr>
+<th>Item</th>
+<th>Information</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Agency</td>
+<td></td>
+</tr>
+<tr>
+<td>Contract Type</td>
+<td></td>
+</tr>
+<tr>
+<td>Estimated Value</td>
+<td></td>
+</tr>
+<tr>
+<td>Set-Aside</td>
+<td></td>
+</tr>
+<tr>
+<td>NAICS Code</td>
+<td></td>
+</tr>
+<tr>
+<td>Evaluation Approach</td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h3 id="section-2-evaluation-factors-summary">Section 2: Evaluation
+Factors Summary</h3>
+<table>
+<thead>
+<tr>
+<th>Factor</th>
+<th>Weight</th>
+<th>Key Assessment Criteria</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td></td>
+<td>%</td>
+<td></td>
+</tr>
+<tr>
+<td></td>
+<td>%</td>
+<td></td>
+</tr>
+<tr>
+<td></td>
+<td>%</td>
+<td></td>
+</tr>
+<tr>
+<td></td>
+<td>%</td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h3 id="section-3-format-requirements">Section 3: Format
+Requirements</h3>
+<table>
+<thead>
+<tr>
+<th>Requirement</th>
+<th>Specification</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Page Limit (Technical)</td>
+<td></td>
+</tr>
+<tr>
+<td>Page Limit (Past Performance)</td>
+<td></td>
+</tr>
+<tr>
+<td>Font</td>
+<td></td>
+</tr>
+<tr>
+<td>Margins</td>
+<td></td>
+</tr>
+<tr>
+<td>Line Spacing</td>
+<td></td>
+</tr>
+<tr>
+<td>Submission Method</td>
+<td></td>
+</tr>
+<tr>
+<td>Number of Copies</td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h3 id="section-4-compliance-matrix">Section 4: Compliance Matrix</h3>
+<table>
+<colgroup>
+<col style="width: 4%" />
+<col style="width: 12%" />
+<col style="width: 33%" />
+<col style="width: 12%" />
+<col style="width: 16%" />
+<col style="width: 9%" />
+<col style="width: 9%" />
+</colgroup>
+<thead>
+<tr>
+<th>#</th>
+<th>RFP Ref</th>
+<th>Requirement Description</th>
+<th>Vol/Sec</th>
+<th>Compliant?</th>
+<th>Owner</th>
+<th>Notes</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>1</td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>2</td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>3</td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>4</td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>5</td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>6</td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>7</td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>8</td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>9</td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>10</td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>11</td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>12</td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>13</td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>14</td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>15</td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h3 id="section-5-key-compliance-risks">Section 5: Key Compliance
+Risks</h3>
+<table>
+<thead>
+<tr>
+<th>Risk</th>
+<th>Impact</th>
+<th>Mitigation</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h3 id="section-6-questions-for-proposal-team">Section 6: Questions for
+Proposal Team</h3>
+<p>List questions that arose from your RFP review:</p>
+<ol type="1">
+<li><hr /></li>
+<li><hr /></li>
+<li><hr /></li>
+</ol>
+<hr />
+<h2 id="knowledge-check-self-assessment">Knowledge Check
+(Self-Assessment)</h2>
+<p><strong>Purpose</strong>: These questions help reinforce your
+learning. They are NOT graded.</p>
+<h3 id="question-1-recall">Question 1 (Recall)</h3>
+<p>What section of an RFP contains the instructions for how to prepare
+your proposal?</p>
+<ol type="A">
+<li>Section A</li>
+<li>Section C</li>
+<li>Section L</li>
+<li>Section M</li>
+</ol>
+<p><strong>Answer</strong>: C - Section L contains “Instructions to
+Offerors” that specify format, page limits, and submission
+requirements.</p>
+<hr />
+<h3 id="question-2-application">Question 2 (Application)</h3>
+<p>The RFP states: “Technical Volume shall not exceed 50 pages using
+12-point font.” Your draft is 55 pages. What should you do?</p>
+<ol type="A">
+<li>Submit it anyway—evaluators will understand</li>
+<li>Use a smaller font to fit more content</li>
+<li>Edit content to meet the 50-page limit exactly</li>
+<li>Add an appendix for the extra pages</li>
+</ol>
+<p><strong>Answer</strong>: C - Page limits are strict compliance
+requirements. Exceeding them can result in pages being ignored or your
+proposal being rejected.</p>
+<hr />
+<h3 id="question-3-recall">Question 3 (Recall)</h3>
+<p>What is the purpose of a compliance matrix?</p>
+<ol type="A">
+<li>To track project milestones after award</li>
+<li>To map every RFP requirement to your proposal response</li>
+<li>To calculate your price</li>
+<li>To evaluate competitors</li>
+</ol>
+<p><strong>Answer</strong>: B - The compliance matrix ensures every RFP
+requirement is addressed and shows where each response appears in your
+proposal.</p>
+<hr />
+<h3 id="question-4-scenario">Question 4 (Scenario)</h3>
+<p>You’re supporting a proposal and asked to provide a past performance
+narrative. What information should you include?</p>
+<ol type="A">
+<li>Just the contract number</li>
+<li>Contract name, value, customer contact, relevance, work description,
+and outcomes</li>
+<li>A general description of your company</li>
+<li>Competitor comparison</li>
+</ol>
+<p><strong>Answer</strong>: B - Past performance narratives need
+specific details: contract information, customer contact, relevance to
+current opportunity, description of work, and measurable outcomes.</p>
+<hr />
+<h3 id="question-5-application">Question 5 (Application)</h3>
+<p>The evaluation factors state: “Technical (40%), Past Performance
+(30%), Price (30%). Technical and Past Performance are significantly
+more important than Price.” What does this tell you?</p>
+<ol type="A">
+<li>Price is the most important factor</li>
+<li>Focus your strongest effort on Technical and Past Performance</li>
+<li>All factors are weighted equally</li>
+<li>You should submit the lowest price possible</li>
+</ol>
+<p><strong>Answer</strong>: B - When non-price factors outweigh price,
+the government may pay more for a superior technical/past performance
+proposal. Focus on strength there.</p>
+<hr />
+<h3 id="question-6-recall">Question 6 (Recall)</h3>
+<p>What is a “Pink Team” review?</p>
+<ol type="A">
+<li>Final review before submission</li>
+<li>Early review of proposal outline or initial draft</li>
+<li>Customer review of your proposal</li>
+<li>Competitor analysis review</li>
+</ol>
+<p><strong>Answer</strong>: B - Pink Team is typically the first major
+review, focused on outline completeness, compliance, and early draft
+content. Red Team is the near-final review.</p>
+<hr />
+<h2 id="manager-discussion-prompts">Manager Discussion Prompts</h2>
+<p>Use these questions for your check-in with your manager:</p>
+<ol type="1">
+<li><p><strong>Current Context</strong>: “How does our company manage
+proposals? Is there a proposal team or coordinator I should connect
+with?”</p></li>
+<li><p><strong>Application</strong>: “Are there upcoming proposals I
+could support? What kind of input is typically needed from my
+role?”</p></li>
+<li><p><strong>Career Development</strong>: “What proposal skills would
+be most valuable for me to develop? Are there proposal reviews I could
+observe?”</p></li>
+</ol>
+<hr />
+<h2 id="completion-criteria">Completion Criteria</h2>
+<p>To complete this module:</p>
+<ul class="task-list">
+<li><label><input type="checkbox" />Read all required materials
+(approximately 20 minutes)</label></li>
+<li><label><input type="checkbox" />Complete the lesson content review
+(30-45 minutes)</label></li>
+<li><label><input type="checkbox" />Finish the Applied Exercise
+(download an RFP and build compliance matrix)</label></li>
+<li><label><input type="checkbox" />Submit a Compliance Matrix with at
+least 15 requirements mapped</label></li>
+<li><label><input type="checkbox" />Review the Knowledge Check questions
+(self-assessment)</label></li>
+<li><label><input type="checkbox" />Participate in manager discussion
+(or document self-reflection)</label></li>
+</ul>
+<p><strong>Estimated Total Time</strong>: 2-3 hours</p>
+<p><strong>Note</strong>: There is no pass/fail grade. Complete the
+activities to receive credit for this module.</p>
+<hr />
+<h2 id="additional-resources">Additional Resources</h2>
+<h3 id="proposal-terminology-glossary">Proposal Terminology
+Glossary</h3>
+<table>
+<colgroup>
+<col style="width: 33%" />
+<col style="width: 66%" />
+</colgroup>
+<thead>
+<tr>
+<th>Term</th>
+<th>Definition</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Section L</strong></td>
+<td>Instructions to Offerors—how to prepare your proposal</td>
+</tr>
+<tr>
+<td><strong>Section M</strong></td>
+<td>Evaluation Factors—how you’ll be scored</td>
+</tr>
+<tr>
+<td><strong>SOW/PWS</strong></td>
+<td>Statement of Work / Performance Work Statement—the requirements</td>
+</tr>
+<tr>
+<td><strong>Compliance Matrix</strong></td>
+<td>Document mapping RFP requirements to proposal sections</td>
+</tr>
+<tr>
+<td><strong>Pink Team</strong></td>
+<td>Early proposal review (outline/initial draft)</td>
+</tr>
+<tr>
+<td><strong>Red Team</strong></td>
+<td>Near-final proposal review</td>
+</tr>
+<tr>
+<td><strong>Gold Team</strong></td>
+<td>Final executive review before submission</td>
+</tr>
+<tr>
+<td><strong>Orals</strong></td>
+<td>Verbal presentation to evaluation team (some procurements)</td>
+</tr>
+<tr>
+<td><strong>BAFO</strong></td>
+<td>Best and Final Offer—revised proposal after discussions</td>
+</tr>
+<tr>
+<td><strong>Data Call</strong></td>
+<td>Request for specific information from team members</td>
+</tr>
+<tr>
+<td><strong>Win Theme</strong></td>
+<td>Key message about why you should be selected</td>
+</tr>
+</tbody>
+</table>
+<h3 id="key-rfp-sections-reference">Key RFP Sections Reference</h3>
+<table>
+<thead>
+<tr>
+<th>Section</th>
+<th>Title</th>
+<th>Content</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>A</td>
+<td>Solicitation/Contract Form</td>
+<td>Basic information</td>
+</tr>
+<tr>
+<td>B</td>
+<td>Supplies or Services</td>
+<td>What’s being purchased</td>
+</tr>
+<tr>
+<td>C</td>
+<td>Description/Specs</td>
+<td>Technical requirements (SOW/PWS)</td>
+</tr>
+<tr>
+<td>D</td>
+<td>Packaging and Marking</td>
+<td>Delivery requirements</td>
+</tr>
+<tr>
+<td>E</td>
+<td>Inspection and Acceptance</td>
+<td>Quality standards</td>
+</tr>
+<tr>
+<td>F</td>
+<td>Deliveries or Performance</td>
+<td>Schedule</td>
+</tr>
+<tr>
+<td>G</td>
+<td>Contract Administration</td>
+<td>Administrative matters</td>
+</tr>
+<tr>
+<td>H</td>
+<td>Special Contract Requirements</td>
+<td>Special clauses</td>
+</tr>
+<tr>
+<td>I</td>
+<td>Contract Clauses</td>
+<td>FAR/DFARS clauses</td>
+</tr>
+<tr>
+<td>J</td>
+<td>Attachments</td>
+<td>Supporting documents</td>
+</tr>
+<tr>
+<td>K</td>
+<td>Representations and Certifications</td>
+<td>Reps and certs</td>
+</tr>
+<tr>
+<td>L</td>
+<td>Instructions to Offerors</td>
+<td>Proposal preparation instructions</td>
+</tr>
+<tr>
+<td>M</td>
+<td>Evaluation Factors</td>
+<td>How proposals will be evaluated</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<p><em>Module 4.1 | Domain D4 (13%) | GovCon BD Upskilling Program</em>
+<em>Last Updated: March 2026</em></p>
+
+
+  <div class="footer">
+    <p>GovCon BD Upskilling Program | GovCon Giants</p>
+    <p>© 2026 GovConEdu LLC. All Rights Reserved</p>
+  </div>
+</body>
+</html>

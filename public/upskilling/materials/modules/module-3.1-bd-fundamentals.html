@@ -1,0 +1,1436 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Module 3.1: BD Process
+Fundamentals | GovCon BD Upskilling</title>
+  
+<style>
+  * {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+  }
+
+  body {
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+    line-height: 1.7;
+    color: #333333;
+    background: #fff;
+    max-width: 900px;
+    margin: 0 auto;
+    padding: 40px 30px;
+  }
+
+  h1 {
+    color: #1a4d2e;
+    font-size: 2.2em;
+    margin-bottom: 10px;
+    border-bottom: 3px solid #d4af37;
+    padding-bottom: 15px;
+  }
+
+  h2 {
+    color: #1a4d2e;
+    font-size: 1.6em;
+    margin-top: 35px;
+    margin-bottom: 15px;
+    border-left: 4px solid #d4af37;
+    padding-left: 15px;
+  }
+
+  h3 {
+    color: #2d5016;
+    font-size: 1.3em;
+    margin-top: 25px;
+    margin-bottom: 10px;
+  }
+
+  h4 {
+    color: #333333;
+    font-size: 1.1em;
+    margin-top: 20px;
+    margin-bottom: 8px;
+  }
+
+  p {
+    margin-bottom: 15px;
+  }
+
+  ul, ol {
+    margin-bottom: 15px;
+    padding-left: 25px;
+  }
+
+  li {
+    margin-bottom: 8px;
+  }
+
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 20px 0;
+    font-size: 0.95em;
+  }
+
+  th {
+    background: #1a4d2e;
+    color: white;
+    padding: 12px 15px;
+    text-align: left;
+    font-weight: 600;
+  }
+
+  td {
+    padding: 12px 15px;
+    border-bottom: 1px solid #ddd;
+  }
+
+  tr:nth-child(even) {
+    background: #f5f5f5;
+  }
+
+  code {
+    background: #f5f5f5;
+    padding: 2px 6px;
+    border-radius: 3px;
+    font-family: 'Monaco', 'Consolas', monospace;
+    font-size: 0.9em;
+  }
+
+  pre {
+    background: #f5f5f5;
+    padding: 15px;
+    border-radius: 5px;
+    overflow-x: auto;
+    margin: 15px 0;
+  }
+
+  pre code {
+    background: none;
+    padding: 0;
+  }
+
+  blockquote {
+    border-left: 4px solid #d4af37;
+    padding-left: 20px;
+    margin: 20px 0;
+    color: #555;
+    font-style: italic;
+  }
+
+  a {
+    color: #1a4d2e;
+    text-decoration: none;
+  }
+
+  a:hover {
+    color: #d4af37;
+    text-decoration: underline;
+  }
+
+  hr {
+    border: none;
+    border-top: 2px solid #eee;
+    margin: 30px 0;
+  }
+
+  .header-banner {
+    background: #1a4d2e;
+    color: white;
+    padding: 20px 30px;
+    margin: -40px -30px 30px -30px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  .header-banner .logo {
+    font-size: 1.3em;
+    font-weight: 700;
+  }
+
+  .header-banner .logo span {
+    color: #d4af37;
+  }
+
+  .header-banner .program {
+    font-size: 0.9em;
+    color: #90c695;
+  }
+
+  .footer {
+    margin-top: 50px;
+    padding-top: 20px;
+    border-top: 2px solid #eee;
+    text-align: center;
+    color: #888;
+    font-size: 0.9em;
+  }
+
+  /* Print styles */
+  @media print {
+    body {
+      padding: 20px;
+    }
+
+    .header-banner {
+      margin: -20px -20px 20px -20px;
+    }
+
+    h2 {
+      page-break-after: avoid;
+    }
+
+    table, pre {
+      page-break-inside: avoid;
+    }
+  }
+</style>
+
+</head>
+<body>
+  <div class="header-banner">
+    <div class="logo">GovCon <span>Giants</span></div>
+    <div class="program">30-Day Foundation Program | Module</div>
+  </div>
+
+  <h1 id="module-3.1-bd-process-fundamentals">Module 3.1: BD Process
+Fundamentals</h1>
+<h2 id="module-header">Module Header</h2>
+<table>
+<colgroup>
+<col style="width: 61%" />
+<col style="width: 38%" />
+</colgroup>
+<thead>
+<tr>
+<th>Attribute</th>
+<th>Value</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Module Number</strong></td>
+<td>3.1</td>
+</tr>
+<tr>
+<td><strong>Title</strong></td>
+<td>BD Process Fundamentals</td>
+</tr>
+<tr>
+<td><strong>Domain</strong></td>
+<td>D3 - BD and Capture Fundamentals (22%)</td>
+</tr>
+<tr>
+<td><strong>Time Estimate</strong></td>
+<td>45-60 minutes instruction + 45-60 minutes exercise</td>
+</tr>
+<tr>
+<td><strong>Free Tools Used</strong></td>
+<td>DSBS (Dynamic Small Business Search), AI
+(ChatGPT/Claude/Gemini)</td>
+</tr>
+<tr>
+<td><strong>Deliverable</strong></td>
+<td>BD Process Map</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2 id="learning-objectives">Learning Objectives</h2>
+<p>By the end of this module, learners will be able to:</p>
+<ol type="1">
+<li><strong>Describe</strong> the BD lifecycle and how opportunities
+move from identification to award</li>
+<li><strong>Distinguish</strong> between BD, capture, and proposal
+phases</li>
+<li><strong>Identify</strong> key pipeline stages and gate review
+criteria</li>
+<li><strong>Explain</strong> the role of teaming and why it matters in
+GovCon</li>
+<li><strong>Use</strong> DSBS to identify potential teaming
+partners</li>
+</ol>
+<hr />
+<h2 id="required-readingviewing">Required Reading/Viewing</h2>
+<h3 id="official-government-resources-free">Official Government
+Resources (Free)</h3>
+<ol type="1">
+<li><strong>SBA.gov</strong> - “Teaming and Joint Ventures”
+<ul>
+<li>URL:
+https://www.sba.gov/federal-contracting/contracting-assistance-programs/joint-ventures</li>
+<li>Focus: Small business teaming arrangements</li>
+</ul></li>
+<li><strong>DSBS (Dynamic Small Business Search)</strong>
+<ul>
+<li>URL: https://dsbs.sba.gov</li>
+<li>Focus: Finding small business partners</li>
+</ul></li>
+<li><strong>SAM.gov Entity Search</strong>
+<ul>
+<li>URL: https://sam.gov/content/entity-registration</li>
+<li>Focus: Verifying contractor registrations</li>
+</ul></li>
+</ol>
+<hr />
+<h2 id="lesson-content">Lesson Content</h2>
+<h3 id="the-bd-lifecycle-big-picture">1. The BD Lifecycle: Big
+Picture</h3>
+<p>Business Development in GovCon is a structured process that
+transforms market intelligence into contract awards. Understanding this
+lifecycle helps everyone in the company contribute effectively.</p>
+<p><strong>The Three Phases</strong>:</p>
+<table>
+<colgroup>
+<col style="width: 14%" />
+<col style="width: 14%" />
+<col style="width: 37%" />
+<col style="width: 33%" />
+</colgroup>
+<thead>
+<tr>
+<th>Phase</th>
+<th>Focus</th>
+<th>Typical Duration</th>
+<th>Key Activities</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>BD Phase</strong></td>
+<td>Finding &amp; qualifying opportunities</td>
+<td>Ongoing/Long-term</td>
+<td>Market research, pipeline building, customer engagement</td>
+</tr>
+<tr>
+<td><strong>Capture Phase</strong></td>
+<td>Positioning to win a specific opportunity</td>
+<td>6-18 months before RFP</td>
+<td>Solution development, teaming, customer shaping</td>
+</tr>
+<tr>
+<td><strong>Proposal Phase</strong></td>
+<td>Responding to solicitation</td>
+<td>30-90 days (typical)</td>
+<td>Writing, compliance, pricing, submission</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Key Insight</strong>: Most companies that win do the work in
+BD and Capture—long before the proposal phase begins.</p>
+<h3 id="bd-phase-finding-and-qualifying-opportunities">2. BD Phase:
+Finding and Qualifying Opportunities</h3>
+<p>The BD phase is about building a healthy pipeline of qualified
+opportunities.</p>
+<p><strong>Core BD Activities</strong>:</p>
+<table>
+<colgroup>
+<col style="width: 32%" />
+<col style="width: 41%" />
+<col style="width: 25%" />
+</colgroup>
+<thead>
+<tr>
+<th>Activity</th>
+<th>Description</th>
+<th>Output</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Market Research</strong></td>
+<td>Understanding agency spending, trends, competitors</td>
+<td>Market assessments</td>
+</tr>
+<tr>
+<td><strong>Opportunity Identification</strong></td>
+<td>Finding relevant solicitations and forecasts</td>
+<td>Opportunity log</td>
+</tr>
+<tr>
+<td><strong>Qualification</strong></td>
+<td>Deciding which opportunities to pursue</td>
+<td>Bid/no-bid decisions</td>
+</tr>
+<tr>
+<td><strong>Customer Engagement</strong></td>
+<td>Building relationships with buyers</td>
+<td>Meeting notes, contacts</td>
+</tr>
+<tr>
+<td><strong>Pipeline Management</strong></td>
+<td>Tracking opportunities through stages</td>
+<td>Pipeline reports</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Pipeline Stages (Typical)</strong>:</p>
+<table>
+<colgroup>
+<col style="width: 21%" />
+<col style="width: 40%" />
+<col style="width: 37%" />
+</colgroup>
+<thead>
+<tr>
+<th>Stage</th>
+<th>Description</th>
+<th>Activities</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Identified</strong></td>
+<td>Opportunity found via SAM.gov, forecast, or intel</td>
+<td>Initial research</td>
+</tr>
+<tr>
+<td><strong>Qualified</strong></td>
+<td>Passes initial go/no-go criteria</td>
+<td>Opportunity assessment</td>
+</tr>
+<tr>
+<td><strong>Pursuing</strong></td>
+<td>Active BD activities underway</td>
+<td>Customer engagement, research</td>
+</tr>
+<tr>
+<td><strong>Capture</strong></td>
+<td>Dedicated capture effort initiated</td>
+<td>Capture plan, solution development</td>
+</tr>
+<tr>
+<td><strong>Proposal</strong></td>
+<td>RFP released, proposal in progress</td>
+<td>Writing, reviews, submission</td>
+</tr>
+<tr>
+<td><strong>Submitted</strong></td>
+<td>Proposal submitted, awaiting decision</td>
+<td>Q&amp;A, orals prep (if applicable)</td>
+</tr>
+<tr>
+<td><strong>Won/Lost</strong></td>
+<td>Contract awarded or lost</td>
+<td>Lessons learned, debrief</td>
+</tr>
+</tbody>
+</table>
+<h3 id="capture-phase-positioning-to-win">3. Capture Phase: Positioning
+to Win</h3>
+<p>Capture is the intensive effort to position your company to win a
+specific, identified opportunity.</p>
+<p><strong>When Capture Begins</strong>: Typically when an opportunity
+is qualified and large/strategic enough to warrant dedicated
+resources.</p>
+<p><strong>Core Capture Activities</strong>:</p>
+<table>
+<colgroup>
+<col style="width: 31%" />
+<col style="width: 28%" />
+<col style="width: 40%" />
+</colgroup>
+<thead>
+<tr>
+<th>Activity</th>
+<th>Purpose</th>
+<th>Deliverable</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Capture Planning</strong></td>
+<td>Define win strategy</td>
+<td>Capture plan</td>
+</tr>
+<tr>
+<td><strong>Customer Engagement</strong></td>
+<td>Understand requirements and decision-makers</td>
+<td>Call reports, intel</td>
+</tr>
+<tr>
+<td><strong>Competitive Analysis</strong></td>
+<td>Know your competitors and their strategies</td>
+<td>Competitive assessment</td>
+</tr>
+<tr>
+<td><strong>Solution Development</strong></td>
+<td>Design a winning technical approach</td>
+<td>Solution brief</td>
+</tr>
+<tr>
+<td><strong>Teaming</strong></td>
+<td>Assemble the right team</td>
+<td>Teaming agreements</td>
+</tr>
+<tr>
+<td><strong>Price-to-Win</strong></td>
+<td>Estimate competitive pricing</td>
+<td>PTW analysis</td>
+</tr>
+<tr>
+<td><strong>Win Theme Development</strong></td>
+<td>Craft compelling messages</td>
+<td>Win themes, discriminators</td>
+</tr>
+</tbody>
+</table>
+<p><strong>The Capture Manager Role</strong>: A capture manager is
+responsible for orchestrating all these activities and leading the team
+to a winning position before the RFP drops.</p>
+<h3 id="proposal-phase-responding-to-win">4. Proposal Phase: Responding
+to Win</h3>
+<p>The proposal phase begins when the solicitation is released and ends
+at submission.</p>
+<p><strong>Typical Proposal Timeline</strong>:</p>
+<table>
+<thead>
+<tr>
+<th>Day</th>
+<th>Activity</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Day 1-3</td>
+<td>RFP analysis, compliance matrix, kickoff</td>
+</tr>
+<tr>
+<td>Day 4-14</td>
+<td>Writing, content development</td>
+</tr>
+<tr>
+<td>Day 15-21</td>
+<td>Reviews (Pink Team, Red Team)</td>
+</tr>
+<tr>
+<td>Day 22-28</td>
+<td>Revisions, final reviews</td>
+</tr>
+<tr>
+<td>Day 29-30</td>
+<td>Production, final QC, submission</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Note</strong>: Timelines vary significantly based on
+opportunity size and complexity.</p>
+<p><strong>Key Proposal Activities</strong>:</p>
+<ul>
+<li><strong>Compliance Matrix</strong>: Mapping RFP requirements to
+proposal sections</li>
+<li><strong>Technical Writing</strong>: Describing your solution and
+approach</li>
+<li><strong>Past Performance</strong>: Documenting relevant
+experience</li>
+<li><strong>Pricing</strong>: Developing competitive and compliant
+pricing</li>
+<li><strong>Reviews</strong>: Pink Team (outline/initial), Red Team
+(near-final)</li>
+<li><strong>Production</strong>: Formatting, page checks,
+submission</li>
+</ul>
+<h3 id="gate-reviews-gono-go-decisions">5. Gate Reviews: Go/No-Go
+Decisions</h3>
+<p>Gate reviews are formal decision points where leadership decides
+whether to continue pursuing an opportunity.</p>
+<p><strong>Common Gate Review Points</strong>:</p>
+<table>
+<colgroup>
+<col style="width: 22%" />
+<col style="width: 22%" />
+<col style="width: 55%" />
+</colgroup>
+<thead>
+<tr>
+<th>Gate</th>
+<th>When</th>
+<th>Key Questions</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Pursue Gate</strong></td>
+<td>After identification</td>
+<td>Is this worth BD resources?</td>
+</tr>
+<tr>
+<td><strong>Capture Gate</strong></td>
+<td>Before capture investment</td>
+<td>Can we win? Should we invest?</td>
+</tr>
+<tr>
+<td><strong>Bid Gate</strong></td>
+<td>After RFP release</td>
+<td>Final decision to submit</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Typical Go/No-Go Criteria</strong>:</p>
+<table>
+<colgroup>
+<col style="width: 15%" />
+<col style="width: 23%" />
+<col style="width: 35%" />
+<col style="width: 25%" />
+</colgroup>
+<thead>
+<tr>
+<th>Factor</th>
+<th>Green (Go)</th>
+<th>Yellow (Caution)</th>
+<th>Red (No-Go)</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Capability Match</strong></td>
+<td>Direct experience</td>
+<td>Adjacent experience</td>
+<td>No experience</td>
+</tr>
+<tr>
+<td><strong>Customer Relationship</strong></td>
+<td>Known buyer</td>
+<td>Some contact</td>
+<td>No relationship</td>
+</tr>
+<tr>
+<td><strong>Competitive Position</strong></td>
+<td>Incumbent or strong</td>
+<td>Competitive</td>
+<td>Longshot</td>
+</tr>
+<tr>
+<td><strong>Past Performance</strong></td>
+<td>3+ relevant refs</td>
+<td>1-2 refs</td>
+<td>None</td>
+</tr>
+<tr>
+<td><strong>Price Competitiveness</strong></td>
+<td>Can win on price</td>
+<td>Need to be creative</td>
+<td>Can’t compete</td>
+</tr>
+<tr>
+<td><strong>Resources</strong></td>
+<td>Team available</td>
+<td>Stretched</td>
+<td>Not available</td>
+</tr>
+<tr>
+<td><strong>Set-Aside</strong></td>
+<td>We qualify</td>
+<td>Need partner</td>
+<td>Don’t qualify</td>
+</tr>
+</tbody>
+</table>
+<h3 id="teaming-why-it-matters">6. Teaming: Why It Matters</h3>
+<p>Most GovCon opportunities are won by teams, not individual companies.
+Teaming allows you to:</p>
+<ul>
+<li><strong>Fill capability gaps</strong> - Bring skills you don’t have
+in-house</li>
+<li><strong>Meet set-aside requirements</strong> - Partner with
+qualified small businesses</li>
+<li><strong>Strengthen past performance</strong> - Leverage partner
+experience</li>
+<li><strong>Increase geographic coverage</strong> - Add local
+presence</li>
+<li><strong>Reduce risk</strong> - Share workload and
+responsibility</li>
+</ul>
+<p><strong>Teaming Structures</strong>:</p>
+<table>
+<colgroup>
+<col style="width: 30%" />
+<col style="width: 33%" />
+<col style="width: 36%" />
+</colgroup>
+<thead>
+<tr>
+<th>Structure</th>
+<th>What It Is</th>
+<th>When to Use</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Prime/Sub</strong></td>
+<td>One company leads, others support</td>
+<td>Most common; clear roles</td>
+</tr>
+<tr>
+<td><strong>Joint Venture (JV)</strong></td>
+<td>New entity formed by two+ companies</td>
+<td>Large, long-term opportunities</td>
+</tr>
+<tr>
+<td><strong>Mentor-Protégé</strong></td>
+<td>SBA program pairing large/small businesses</td>
+<td>Structured development relationships</td>
+</tr>
+<tr>
+<td><strong>CTA (Contractor Team Arrangement)</strong></td>
+<td>Multiple primes coordinating</td>
+<td>Multiple award IDIQs</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Finding Teaming Partners with DSBS</strong>:</p>
+<p>The <strong>Dynamic Small Business Search (DSBS)</strong> at
+dsbs.sba.gov helps you find small business partners by: - Certification
+type (8(a), HUBZone, WOSB, SDVOSB) - NAICS code - Geographic location -
+Keywords</p>
+<p><strong>Teaming Partner Evaluation Criteria</strong>:</p>
+<table>
+<thead>
+<tr>
+<th>Factor</th>
+<th>What to Look For</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Capability</strong></td>
+<td>Do they do what we need?</td>
+</tr>
+<tr>
+<td><strong>Past Performance</strong></td>
+<td>Do they have relevant experience?</td>
+</tr>
+<tr>
+<td><strong>Certifications</strong></td>
+<td>Do they have needed set-aside status?</td>
+</tr>
+<tr>
+<td><strong>Reputation</strong></td>
+<td>Are they reliable? Good to work with?</td>
+</tr>
+<tr>
+<td><strong>Financial Stability</strong></td>
+<td>Can they perform without risk?</td>
+</tr>
+<tr>
+<td><strong>Culture Fit</strong></td>
+<td>Will they work well with our team?</td>
+</tr>
+</tbody>
+</table>
+<h3 id="your-role-in-bdcapture">7. Your Role in BD/Capture</h3>
+<p>Even if you’re not in a formal BD or Capture role, you contribute to
+the process:</p>
+<p><strong>How Non-BD Staff Support Growth</strong>:</p>
+<table>
+<colgroup>
+<col style="width: 44%" />
+<col style="width: 56%" />
+</colgroup>
+<thead>
+<tr>
+<th>Your Role</th>
+<th>How You Help</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Program/Project Staff</strong></td>
+<td>Identify recompete opportunities; provide past performance data</td>
+</tr>
+<tr>
+<td><strong>Operations</strong></td>
+<td>Spot delivery gaps competitors have; suggest improvements</td>
+</tr>
+<tr>
+<td><strong>Technical Staff</strong></td>
+<td>Contribute to solution development; support proposals</td>
+</tr>
+<tr>
+<td><strong>Finance</strong></td>
+<td>Support pricing; provide cost data</td>
+</tr>
+<tr>
+<td><strong>Contracts</strong></td>
+<td>Review teaming agreements; ensure compliance</td>
+</tr>
+<tr>
+<td><strong>HR</strong></td>
+<td>Support staffing plans; identify key personnel</td>
+</tr>
+</tbody>
+</table>
+<p><strong>The “Everyone Sells” Mentality</strong>: In the best GovCon
+companies, every employee understands that growth enables their job
+security and advancement.</p>
+<hr />
+<h2 id="ai-accelerator-using-ai-for-bd-process-support">AI Accelerator:
+Using AI for BD Process Support</h2>
+<p>AI tools can help you manage pipelines, evaluate teaming partners,
+and support capture activities. Use these prompts to work more
+effectively.</p>
+<h3 id="prompt-1-develop-gono-go-criteria">Prompt 1: Develop Go/No-Go
+Criteria</h3>
+<p><strong>Use When</strong>: You need to create or refine qualification
+criteria for your company.</p>
+<pre><code>Help me develop go/no-go criteria for a company with these characteristics:
+
+- Size: [SMALL/LARGE BUSINESS]
+- Certifications: [YOUR CERTS]
+- Core capabilities: [YOUR SERVICES]
+- Target agencies: [AGENCIES]
+- Typical contract size: [RANGE]
+- Current capacity: [AVAILABLE RESOURCES]
+
+Create a scoring matrix with:
+1. Must-have criteria (deal breakers if not met)
+2. Important criteria (strongly preferred)
+3. Nice-to-have criteria (bonus points)
+4. Red flags that should trigger no-go
+5. Suggested scoring weights for each factor</code></pre>
+<h3 id="prompt-2-evaluate-teaming-partner-fit">Prompt 2: Evaluate
+Teaming Partner Fit</h3>
+<p><strong>Use When</strong>: You’ve found a potential partner and need
+to assess fit.</p>
+<pre><code>We&#39;re evaluating a potential teaming partner for a [AGENCY] opportunity:
+
+Our Company:
+- Capabilities: [YOUR SERVICES]
+- Certifications: [YOUR CERTS]
+- Gap we need to fill: [WHAT WE NEED]
+
+Potential Partner (from DSBS research):
+- Name: [COMPANY]
+- Capabilities: [THEIR SERVICES]
+- Certifications: [THEIR CERTS]
+- Size: [SMALL/LARGE]
+- Location: [WHERE]
+
+Help me evaluate:
+1. Capability complementarity (do they fill our gaps?)
+2. Certification value (do they help with set-asides?)
+3. Potential conflicts (could they also compete against us?)
+4. Questions to ask in initial teaming discussions
+5. Red flags to watch for</code></pre>
+<h3 id="prompt-3-draft-teaming-outreach-message">Prompt 3: Draft Teaming
+Outreach Message</h3>
+<p><strong>Use When</strong>: You want to reach out to a potential
+teaming partner.</p>
+<pre><code>I want to reach out to [COMPANY NAME] about potential teaming.
+
+Context:
+- Opportunity: [BRIEF DESCRIPTION]
+- Agency: [AGENCY]
+- Why we need a partner: [GAP TO FILL]
+- What we bring: [OUR VALUE]
+- How we found them: [DSBS, referral, etc.]
+
+Draft a brief, professional outreach email that:
+1. Introduces our company concisely
+2. Explains why we&#39;re reaching out (specific opportunity or general)
+3. Highlights potential mutual benefit
+4. Requests a brief call to explore fit
+5. Sounds professional but not overly formal
+
+Keep it under 150 words.</code></pre>
+<h3 id="prompt-4-create-pipeline-status-summary">Prompt 4: Create
+Pipeline Status Summary</h3>
+<p><strong>Use When</strong>: You need to brief leadership on pipeline
+health.</p>
+<pre><code>Help me create a pipeline status briefing from this data:
+
+[PASTE YOUR PIPELINE DATA - opportunities, stages, values, probabilities]
+
+Create a summary that includes:
+1. Total pipeline value and weighted value
+2. Distribution across stages (are opportunities bunching?)
+3. Near-term opportunities (decisions expected in 30/60/90 days)
+4. Pipeline health assessment (is it growing, shrinking, aging?)
+5. Recommendations for BD focus areas
+6. Risks or concerns to flag
+
+Format as a 1-page executive briefing.</code></pre>
+<h3 id="prompt-5-prepare-for-capture-kickoff">Prompt 5: Prepare for
+Capture Kickoff</h3>
+<p><strong>Use When</strong>: You’re transitioning an opportunity from
+BD to active capture.</p>
+<pre><code>We&#39;re kicking off capture for this opportunity:
+
+- Opportunity: [TITLE]
+- Agency: [AGENCY]
+- Estimated Value: [AMOUNT]
+- Expected RFP: [DATE]
+- Competition: [KNOWN COMPETITORS]
+- Our position: [INCUMBENT/CHALLENGER/NEW]
+
+Help me prepare a capture kickoff agenda:
+1. Key questions the team needs to answer
+2. Initial win theme hypotheses to test
+3. Customer intelligence gaps to fill
+4. Competitive research priorities
+5. Teaming decisions to make
+6. First 30-day capture milestones</code></pre>
+<h3 id="pro-tips-for-ai-assisted-bd">Pro Tips for AI-Assisted BD</h3>
+<table>
+<colgroup>
+<col style="width: 36%" />
+<col style="width: 63%" />
+</colgroup>
+<thead>
+<tr>
+<th>Do</th>
+<th>Don’t</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Use AI to draft teaming outreach emails</td>
+<td>Send AI-drafted emails without personalization</td>
+</tr>
+<tr>
+<td>Get AI help structuring go/no-go criteria</td>
+<td>Let AI make final bid decisions</td>
+</tr>
+<tr>
+<td>Use AI to summarize pipeline data</td>
+<td>Share confidential pipeline data with AI</td>
+</tr>
+<tr>
+<td>Draft capture kickoff agendas with AI</td>
+<td>Skip human judgment on teaming decisions</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Remember</strong>: BD is relationship-driven. AI helps with
+process and analysis, but winning is about people and positioning.</p>
+<hr />
+<h2 id="applied-exercise-map-the-bd-process">Applied Exercise: Map the
+BD Process</h2>
+<p><strong>Scenario</strong>: Your company wants to ensure all employees
+understand how opportunities flow from identification to award. Your
+manager asks you to create a visual BD process map.</p>
+<p><strong>Instructions</strong>:</p>
+<h3 id="part-1-map-the-phases">Part 1: Map the Phases</h3>
+<p>Create a visual representation of the BD lifecycle: 1. Identify the
+three main phases (BD, Capture, Proposal) 2. List 3-4 key activities
+under each phase 3. Identify the handoff points between phases</p>
+<h3 id="part-2-research-teaming-partners">Part 2: Research Teaming
+Partners</h3>
+<ol type="1">
+<li>Go to DSBS (dsbs.sba.gov)</li>
+<li>Search for small businesses in a NAICS code relevant to your
+company</li>
+<li>Identify 3 potential teaming partners</li>
+<li>Document their capabilities and certifications</li>
+</ol>
+<h3 id="part-3-complete-the-bd-process-map-template">Part 3: Complete
+the BD Process Map Template</h3>
+<p>Use the template below to document: - Phase activities - Gate review
+criteria - Potential teaming partners</p>
+<p><strong>Time</strong>: 45-60 minutes</p>
+<hr />
+<h2 id="work-artifact-template-bd-process-map">Work Artifact Template:
+BD Process Map</h2>
+<h3 id="header">Header</h3>
+<p><strong>Your Name</strong>: _________________________
+<strong>Date</strong>: _________________________ <strong>Company
+Context</strong>: _________________________</p>
+<hr />
+<h3 id="section-1-bd-lifecycle-phases">Section 1: BD Lifecycle
+Phases</h3>
+<h4 id="phase-1-business-development">Phase 1: Business Development</h4>
+<table>
+<thead>
+<tr>
+<th>Stage</th>
+<th>Key Activities</th>
+<th>Outputs</th>
+<th>Who’s Involved</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Identified</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>Qualified</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>Pursuing</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<h4 id="phase-2-capture">Phase 2: Capture</h4>
+<table>
+<thead>
+<tr>
+<th>Stage</th>
+<th>Key Activities</th>
+<th>Outputs</th>
+<th>Who’s Involved</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Capture Initiated</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>Solution Development</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>Pre-Proposal</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<h4 id="phase-3-proposal">Phase 3: Proposal</h4>
+<table>
+<thead>
+<tr>
+<th>Stage</th>
+<th>Key Activities</th>
+<th>Outputs</th>
+<th>Who’s Involved</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>RFP Analysis</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>Writing</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>Review/Submit</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h3 id="section-2-gate-review-criteria">Section 2: Gate Review
+Criteria</h3>
+<p><strong>Pursue Gate (BD → Active Pursuit)</strong></p>
+<table>
+<thead>
+<tr>
+<th>Criterion</th>
+<th>Must Have (Go)</th>
+<th>Nice to Have</th>
+<th>Deal Breaker (No-Go)</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Capability</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>Customer</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>Competition</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<p><strong>Capture Gate (Pursuit → Capture Investment)</strong></p>
+<table>
+<thead>
+<tr>
+<th>Criterion</th>
+<th>Must Have (Go)</th>
+<th>Nice to Have</th>
+<th>Deal Breaker (No-Go)</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Win Probability</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>Resources</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>Strategic Fit</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<p><strong>Bid Gate (Capture → Proposal)</strong></p>
+<table>
+<thead>
+<tr>
+<th>Criterion</th>
+<th>Must Have (Go)</th>
+<th>Nice to Have</th>
+<th>Deal Breaker (No-Go)</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Compliant</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>Competitive</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>Resourced</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h3 id="section-3-potential-teaming-partners-from-dsbs-research">Section
+3: Potential Teaming Partners (from DSBS Research)</h3>
+<h4 id="partner-1">Partner 1</h4>
+<table>
+<thead>
+<tr>
+<th>Field</th>
+<th>Information</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Company Name</td>
+<td></td>
+</tr>
+<tr>
+<td>Certifications</td>
+<td></td>
+</tr>
+<tr>
+<td>NAICS Codes</td>
+<td></td>
+</tr>
+<tr>
+<td>Capabilities</td>
+<td></td>
+</tr>
+<tr>
+<td>Location</td>
+<td></td>
+</tr>
+<tr>
+<td>Why a Good Fit</td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<h4 id="partner-2">Partner 2</h4>
+<table>
+<thead>
+<tr>
+<th>Field</th>
+<th>Information</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Company Name</td>
+<td></td>
+</tr>
+<tr>
+<td>Certifications</td>
+<td></td>
+</tr>
+<tr>
+<td>NAICS Codes</td>
+<td></td>
+</tr>
+<tr>
+<td>Capabilities</td>
+<td></td>
+</tr>
+<tr>
+<td>Location</td>
+<td></td>
+</tr>
+<tr>
+<td>Why a Good Fit</td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<h4 id="partner-3">Partner 3</h4>
+<table>
+<thead>
+<tr>
+<th>Field</th>
+<th>Information</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Company Name</td>
+<td></td>
+</tr>
+<tr>
+<td>Certifications</td>
+<td></td>
+</tr>
+<tr>
+<td>NAICS Codes</td>
+<td></td>
+</tr>
+<tr>
+<td>Capabilities</td>
+<td></td>
+</tr>
+<tr>
+<td>Location</td>
+<td></td>
+</tr>
+<tr>
+<td>Why a Good Fit</td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h3 id="section-4-process-map-diagram">Section 4: Process Map
+Diagram</h3>
+<p><em>(Draw or describe the flow from Opportunity Identified →
+Award)</em></p>
+<pre><code>[Identified] → [Qualified] → [Pursuing] → [Capture] → [Proposal] → [Submitted] → [Won/Lost]
+     ↓              ↓             ↓           ↓            ↓
+  Pursue Gate   Capture Gate   Bid Gate   Reviews    Submission</code></pre>
+<hr />
+<h2 id="knowledge-check-self-assessment">Knowledge Check
+(Self-Assessment)</h2>
+<p><strong>Purpose</strong>: These questions help reinforce your
+learning. They are NOT graded.</p>
+<h3 id="question-1-recall">Question 1 (Recall)</h3>
+<p>What are the three main phases of the GovCon BD lifecycle?</p>
+<ol type="A">
+<li>Marketing, Sales, Delivery</li>
+<li>BD, Capture, Proposal</li>
+<li>Research, Writing, Submission</li>
+<li>Planning, Execution, Closeout</li>
+</ol>
+<p><strong>Answer</strong>: B - BD (finding/qualifying opportunities),
+Capture (positioning to win), and Proposal (responding to
+solicitation).</p>
+<hr />
+<h3 id="question-2-application">Question 2 (Application)</h3>
+<p>Your company identifies a large opportunity 18 months before the
+expected RFP release. What phase should you be in?</p>
+<ol type="A">
+<li>Proposal phase—start writing now</li>
+<li>BD/Capture phase—engage the customer and develop your solution</li>
+<li>Wait until the RFP is released</li>
+<li>Submission phase—prepare your documents</li>
+</ol>
+<p><strong>Answer</strong>: B - With 18 months lead time, you should be
+in active BD or early Capture, engaging the customer and positioning to
+win.</p>
+<hr />
+<h3 id="question-3-scenario">Question 3 (Scenario)</h3>
+<p>At a Capture Gate review, your team notes: strong capability match,
+good customer relationship, but the incumbent has held the contract for
+10 years and the customer seems satisfied. What should this tell
+you?</p>
+<ol type="A">
+<li>Automatic no-go—incumbents always win</li>
+<li>Proceed with caution—need a strong discriminator strategy to unseat
+the incumbent</li>
+<li>Full go—customer relationships don’t matter</li>
+<li>Ignore competitive analysis</li>
+</ol>
+<p><strong>Answer</strong>: B - Long-term incumbents have advantages,
+but they can be unseated. You need a clear strategy for why you’re a
+better choice.</p>
+<hr />
+<h3 id="question-4-recall">Question 4 (Recall)</h3>
+<p>What tool would you use to find small business teaming partners by
+certification and NAICS code?</p>
+<ol type="A">
+<li>SAM.gov</li>
+<li>SAM.gov Contract Data</li>
+<li>DSBS (Dynamic Small Business Search)</li>
+<li>USAspending</li>
+</ol>
+<p><strong>Answer</strong>: C - DSBS is specifically designed to search
+for small businesses by certification, NAICS code, location, and
+capabilities.</p>
+<hr />
+<h3 id="question-5-application">Question 5 (Application)</h3>
+<p>Your company is a large business pursuing a Total Small Business
+Set-Aside. What’s your only path to winning?</p>
+<ol type="A">
+<li>Request the set-aside be removed</li>
+<li>Team with a qualified small business who primes, with your company
+as subcontractor</li>
+<li>Submit anyway and hope they waive the requirement</li>
+<li>Large businesses cannot participate in set-asides at all</li>
+</ol>
+<p><strong>Answer</strong>: B - You can support a small business prime
+as a subcontractor, bringing your capabilities while meeting set-aside
+requirements.</p>
+<hr />
+<h3 id="question-6-scenario">Question 6 (Scenario)</h3>
+<p>A program manager on your delivery team mentions the customer has
+been complaining about slow response times from the current vendor. How
+should this intelligence be used?</p>
+<ol type="A">
+<li>Ignore it—delivery staff shouldn’t be involved in BD</li>
+<li>Share it with BD/Capture team as competitive intelligence for the
+recompete</li>
+<li>Immediately contact the contracting officer</li>
+<li>Post about it publicly</li>
+</ol>
+<p><strong>Answer</strong>: B - This is valuable competitive
+intelligence. When the contract recompetes, your team can emphasize
+responsiveness as a discriminator.</p>
+<hr />
+<h2 id="manager-discussion-prompts">Manager Discussion Prompts</h2>
+<p>Use these questions for your check-in with your manager:</p>
+<ol type="1">
+<li><p><strong>Current Context</strong>: “How does our company manage
+the BD pipeline? What stages do we use to track opportunities?”</p></li>
+<li><p><strong>Application</strong>: “Are there opportunities in capture
+right now where I could contribute? What do you need from my role to
+support BD efforts?”</p></li>
+<li><p><strong>Career Development</strong>: “What would help me
+understand our BD/Capture process better? Are there internal trainings
+or meetings I could attend?”</p></li>
+</ol>
+<hr />
+<h2 id="completion-criteria">Completion Criteria</h2>
+<p>To complete this module:</p>
+<ul class="task-list">
+<li><label><input type="checkbox" />Read all required materials
+(approximately 20 minutes)</label></li>
+<li><label><input type="checkbox" />Complete the lesson content review
+(30-45 minutes)</label></li>
+<li><label><input type="checkbox" />Finish the Applied Exercise (process
+mapping and DSBS research)</label></li>
+<li><label><input type="checkbox" />Submit a BD Process Map with at
+least 3 teaming partners identified</label></li>
+<li><label><input type="checkbox" />Review the Knowledge Check questions
+(self-assessment)</label></li>
+<li><label><input type="checkbox" />Participate in manager discussion
+(or document self-reflection)</label></li>
+</ul>
+<p><strong>Estimated Total Time</strong>: 2-3 hours</p>
+<p><strong>Note</strong>: There is no pass/fail grade. Complete the
+activities to receive credit for this module.</p>
+<hr />
+<h2 id="additional-resources">Additional Resources</h2>
+<h3 id="free-tools-referenced">Free Tools Referenced</h3>
+<table style="width:100%;">
+<colgroup>
+<col style="width: 28%" />
+<col style="width: 23%" />
+<col style="width: 47%" />
+</colgroup>
+<thead>
+<tr>
+<th>Tool</th>
+<th>URL</th>
+<th>Use Case</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>DSBS</td>
+<td>dsbs.sba.gov</td>
+<td>Find small business partners</td>
+</tr>
+<tr>
+<td>SAM.gov</td>
+<td>sam.gov</td>
+<td>Verify registrations, find opportunities</td>
+</tr>
+<tr>
+<td>SAM.gov Contract Data</td>
+<td>sam.gov/content/contract-data</td>
+<td>Research competitor awards</td>
+</tr>
+</tbody>
+</table>
+<h3 id="key-terms">Key Terms</h3>
+<ul>
+<li><strong>BD (Business Development)</strong>: Activities to identify,
+qualify, and pursue opportunities</li>
+<li><strong>Capture</strong>: Focused effort to position for a specific
+opportunity</li>
+<li><strong>Pipeline</strong>: The collection of opportunities being
+tracked and pursued</li>
+<li><strong>Gate Review</strong>: Formal go/no-go decision point</li>
+<li><strong>Teaming</strong>: Partnering with other companies to pursue
+an opportunity</li>
+<li><strong>Prime</strong>: The lead contractor holding the government
+contract</li>
+<li><strong>Subcontractor</strong>: Company supporting the prime under a
+subcontract</li>
+<li><strong>Joint Venture</strong>: New legal entity formed by two or
+more companies</li>
+<li><strong>Win Themes</strong>: Key messages about why you should be
+selected</li>
+<li><strong>Discriminators</strong>: Factors that differentiate you from
+competitors</li>
+</ul>
+<hr />
+<p><em>Module 3.1 | Domain D3 (22%) | GovCon BD Upskilling Program</em>
+<em>Last Updated: March 2026</em></p>
+
+
+  <div class="footer">
+    <p>GovCon BD Upskilling Program | GovCon Giants</p>
+    <p>© 2026 GovConEdu LLC. All Rights Reserved</p>
+  </div>
+</body>
+</html>
