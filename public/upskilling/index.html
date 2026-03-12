@@ -857,7 +857,7 @@
     <div class="promo-banner">
         <button class="close-btn" onclick="this.parentElement.style.display='none'">×</button>
         IRS Section 127: Employers can provide up to $5,250/year tax-free for employee education.
-        <a href="#pricing">See how it works →</a>
+        <a href="#enroll" onclick="showTab('enroll')">See how it works →</a>
     </div>
 
     <!-- Header -->
@@ -866,11 +866,11 @@
             <div class="logo">GovCon<span>Edu</span></div>
             <nav>
                 <ul>
-                    <li><a href="#overview">Overview</a></li>
-                    <li><a href="#domains">Curriculum</a></li>
-                    <li><a href="#career-path">Career Path</a></li>
-                    <li><a href="#pricing">Pricing</a></li>
-                    <li><a href="#" class="btn-enroll">Enroll Now</a></li>
+                    <li><a href="#overview" onclick="showTab('overview')">Overview</a></li>
+                    <li><a href="#overview" onclick="showTab('overview')">Curriculum</a></li>
+                    <li><a href="#career-path" onclick="showTab('career-path')">Career Path</a></li>
+                    <li><a href="#enroll" onclick="showTab('enroll')">Pricing</a></li>
+                    <li><a href="#enroll" onclick="showTab('enroll')" class="btn-enroll">Enroll Now</a></li>
                 </ul>
             </nav>
         </div>
@@ -899,7 +899,7 @@
         <div class="tab-nav-container">
             <button class="tab-btn active" onclick="showTab('overview')">Overview</button>
             <button class="tab-btn" onclick="showTab('enroll')">Enroll Now</button>
-            <button class="tab-btn" onclick="showTab('career')">Career Path</button>
+            <button class="tab-btn" onclick="showTab('career-path')">Career Path</button>
             <button class="tab-btn" onclick="showTab('resources')">Resources</button>
         </div>
     </nav>
@@ -1169,7 +1169,7 @@
                 <ul class="skills-list">
                     <li><span class="check">🔗</span><span><a href="https://sam.gov" target="_blank">SAM.gov</a> — Opportunity search, entity registration, contract data</span></li>
                     <li><span class="check">🔗</span><span><a href="https://usaspending.gov" target="_blank">USAspending.gov</a> — Federal spending data, agency budgets</span></li>
-                    <li><span class="check">🔗</span><span><a href="https://dsbs.sba.gov" target="_blank">DSBS</a> — Small business contractor search</span></li>
+                    <li><span class="check">🔗</span><span><a href="https://search.certifications.sba.gov" target="_blank">SBA Small Business Search</a> — Small business contractor search</span></li>
                 </ul>
             </div>
 
@@ -1295,13 +1295,19 @@
             });
 
             // Show selected tab
-            document.getElementById(tabId).classList.add('active');
+            var tab = document.getElementById(tabId);
+            if (tab) tab.classList.add('active');
 
-            // Add active to clicked button
-            event.target.classList.add('active');
+            // Add active to matching tab button
+            document.querySelectorAll('.tab-btn').forEach(btn => {
+                if (btn.textContent.trim().toLowerCase().replace(/\s+/g, '-') === tabId ||
+                    btn.onclick.toString().includes("'" + tabId + "'")) {
+                    btn.classList.add('active');
+                }
+            });
 
             // Scroll to tab content
-            document.getElementById(tabId).scrollIntoView({ behavior: 'smooth', block: 'start' });
+            if (tab) tab.scrollIntoView({ behavior: 'smooth', block: 'start' });
         }
 
         // Smooth scroll for anchor links
