@@ -1,0 +1,13 @@
+# GovCon Giants - govcongiants.org
+User-agent: *
+Allow: /
+
+# Block internal/admin routes
+Disallow: /dashboard
+Disallow: /dashboard/
+Disallow: /internal
+Disallow: /internal/
+Disallow: /api/
+
+# Sitemap
+Sitemap: https://govcongiants.org/sitemap.xml

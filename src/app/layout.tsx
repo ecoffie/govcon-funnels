@@ -2,6 +2,8 @@ import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 import SiteNav from "@/components/SiteNav";
 import BootcampBanner from "@/components/BootcampBanner";
+import JsonLd from "@/components/JsonLd";
+import { organizationJsonLd } from "@/lib/seo";
 import "./globals.css";
 
 const inter = Inter({
@@ -10,8 +12,20 @@ const inter = Inter({
 });
 
 export const metadata: Metadata = {
-  title: "GovCon Giants - Learn Government Contracting",
+  title: {
+    default: "GovCon Giants - Learn Government Contracting",
+    template: "%s | GovCon Giants",
+  },
   description: "Free resources to help you win federal contracts. Join thousands of entrepreneurs breaking into the $700+ billion federal marketplace.",
+  metadataBase: new URL("https://govcongiants.org"),
+  openGraph: {
+    siteName: "GovCon Giants",
+    type: "website",
+    locale: "en_US",
+  },
+  twitter: {
+    card: "summary_large_image",
+  },
 };
 
 export default function RootLayout({
@@ -22,6 +36,7 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className={`${inter.variable} antialiased`}>
+        <JsonLd data={organizationJsonLd()} />
         <SiteNav />
         <BootcampBanner />
         {children}

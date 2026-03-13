@@ -1,12 +1,13 @@
-import { Metadata } from 'next';
 import Link from 'next/link';
 import LeadForm from '@/components/LeadForm';
+import { generateSeo } from '@/lib/seo';
 
-export const metadata: Metadata = {
-  title: 'Contract Vehicles Bootcamp | GovCon Giants',
-  description:
-    'Free live bootcamp on March 28, 2026 at 9:00 AM ET on Zoom. Learn IDIQs, BPAs, Sources Sought, set-asides, and major contract types.',
-};
+export const metadata = generateSeo({
+  title: 'Contract Vehicles Bootcamp - IDIQs, BPAs & Set-Asides',
+  description: 'Free live bootcamp: Learn IDIQs, BPAs, Sources Sought, set-asides, and major federal contract types. Live on Zoom.',
+  path: '/contract-vehicles-bootcamp',
+  keywords: ['IDIQ contracts', 'BPA government', 'contract vehicles', 'federal set-asides', 'government contracting bootcamp'],
+});
 
 const contractVehicles = [
   {

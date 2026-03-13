@@ -1,10 +1,12 @@
-import type { Metadata } from "next";
 import Link from "next/link";
+import { generateSeo } from "@/lib/seo";
 
-export const metadata: Metadata = {
-  title: "Terms of Service | GovCon Giants",
+export const metadata = generateSeo({
+  title: "Terms of Service",
   description: "Terms of Service for GovCon Giants products and services.",
-};
+  path: "/terms",
+  noIndex: true,
+});
 
 export default function TermsPage() {
   return (

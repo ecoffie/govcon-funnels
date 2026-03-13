@@ -1,10 +1,12 @@
-import { Metadata } from 'next';
 import LeadForm from '@/components/LeadForm';
+import { generateSeo } from '@/lib/seo';
 
-export const metadata: Metadata = {
-  title: 'Free 12-Day Government Contracting Course | GovCon Giants',
+export const metadata = generateSeo({
+  title: 'Free 12-Day Government Contracting Course',
   description: 'Learn government contracting from scratch. Join thousands of entrepreneurs who have used this free course to break into the $700+ billion federal marketplace.',
-};
+  path: '/free-course',
+  keywords: ['free government contracting course', 'learn government contracting', 'govcon training free', 'federal contracting course'],
+});
 
 const courseModules = [
   { day: 1, title: "Is This the Right Decision for Me?", desc: "Assess if government contracting fits your business goals" },

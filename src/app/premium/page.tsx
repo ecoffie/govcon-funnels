@@ -1,10 +1,12 @@
-import { Metadata } from 'next';
 import Link from 'next/link';
+import { generateSeo } from '@/lib/seo';
 
-export const metadata: Metadata = {
-  title: 'Premium Resources | GovCon Giants',
-  description: 'Take the next step with premium training, consulting, and done-for-you support.',
-};
+export const metadata = generateSeo({
+  title: 'Premium GovCon Resources',
+  description: 'Take the next step with premium training, consulting, and done-for-you support to win federal contracts.',
+  path: '/premium',
+  keywords: ['govcon premium training', 'government contracting consulting', 'federal contract support'],
+});
 
 const levels = [
   {

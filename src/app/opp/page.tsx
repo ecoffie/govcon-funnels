@@ -1,10 +1,12 @@
-import { Metadata } from 'next';
 import LeadForm from '@/components/LeadForm';
+import { generateSeo } from '@/lib/seo';
 
-export const metadata: Metadata = {
-  title: 'GovCon Opportunity Finder - Find Agencies That Buy What You Sell | GovCon Giants',
+export const metadata = generateSeo({
+  title: 'Opportunity Hunter - Find Government Contract Opportunities',
   description: 'Discover which federal agencies buy what you sell. AI-powered analysis of $700B+ in federal spending to find your perfect matches.',
-};
+  path: '/opp',
+  keywords: ['find government contracts', 'federal contract opportunities', 'SAM.gov opportunity search', 'government contract search tool'],
+});
 
 const agencies = [
   "DoD", "GSA", "VA", "DHS", "HHS", "NASA", "DOE", "USDA"

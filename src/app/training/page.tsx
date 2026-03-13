@@ -1,10 +1,12 @@
-import { Metadata } from 'next';
 import Link from 'next/link';
+import { generateSeo } from '@/lib/seo';
 
-export const metadata: Metadata = {
-  title: 'GovCon Bootcamps & Training | GovCon Giants',
+export const metadata = generateSeo({
+  title: 'GovCon Bootcamps & Training',
   description: 'Live bootcamps and training to help you win federal contracts. January Bootcamp, Surge Bootcamp, Bid Bootcamp, and more.',
-};
+  path: '/training',
+  keywords: ['government contracting training', 'govcon bootcamp', 'federal contracting classes', 'small business training'],
+});
 
 export default function TrainingPage() {
   return (

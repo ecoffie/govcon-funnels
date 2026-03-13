@@ -1,10 +1,12 @@
-import type { Metadata } from "next";
 import Link from "next/link";
+import { generateSeo } from "@/lib/seo";
 
-export const metadata: Metadata = {
-  title: "Privacy Policy | GovCon Giants",
-  description: "Privacy Policy for GovCon Giants - how we collect, use, and protect your information.",
-};
+export const metadata = generateSeo({
+  title: "Privacy Policy",
+  description: "Privacy Policy for GovCon Giants — how we collect, use, and protect your information.",
+  path: "/privacy-policy",
+  noIndex: true,
+});
 
 export default function PrivacyPolicyPage() {
   return (

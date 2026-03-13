@@ -1,10 +1,12 @@
-import { Metadata } from 'next';
 import LeadForm from '@/components/LeadForm';
+import { generateSeo } from '@/lib/seo';
 
-export const metadata: Metadata = {
-  title: 'February 2026 GovCon Bootcamp - Win Federal Contracts | GovCon Giants',
-  description: 'Full-Day Intensive: Win Federal Contracts in Q1 2026. Get personalized agency lists, 5+ opportunities, and your 90-day plan.',
-};
+export const metadata = generateSeo({
+  title: 'GovCon Bootcamp - Win Federal Contracts',
+  description: 'Full-Day Intensive: Win Federal Contracts in 2026. Get personalized agency lists, 5+ opportunities, and your 90-day plan.',
+  path: '/bootcamp',
+  keywords: ['government contracting bootcamp', 'govcon bootcamp', 'win federal contracts training', 'small business federal contracts'],
+});
 
 const stats = [
   { value: "$82.8B+", label: "Unobligated Balances", desc: "Must be spent by agencies" },

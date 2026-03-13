@@ -1,12 +1,22 @@
 import Link from 'next/link';
-import { Metadata } from 'next';
 import StatsCounter from '@/components/StatsCounter';
 import { sharedHomepageContent } from '@/lib/shared-content';
+import { generateSeo } from '@/lib/seo';
 
-export const metadata: Metadata = {
+export const metadata = generateSeo({
   title: 'GovCon Giants - Win Federal Contracts | $82 Billion Unspent',
   description: 'The government is required to spend billions with small businesses every year. Learn how to position your business to win federal contracts.',
-};
+  path: '/',
+  keywords: [
+    'government contracting',
+    'federal contracts',
+    'small business government contracts',
+    'govcon',
+    'win federal contracts',
+    'SAM.gov',
+    'government contracting for beginners',
+  ],
+});
 
 const stats = [
   { value: "$750B+", label: "Annual Federal Spending", numericValue: 750, prefix: "$", suffix: "B+" },
@@ -309,35 +319,64 @@ export default function Home() {
       </section>
 
       {/* Footer */}
-      <footer className="py-12 px-6 border-t border-slate-800">
+      <footer className="py-16 px-6 border-t border-slate-800">
         <div className="max-w-6xl mx-auto">
-          <div className="flex flex-col items-center gap-8">
-            <div className="flex items-center gap-1">
-              <span className="text-2xl font-bold text-white">GovCon</span>
-              <span className="text-2xl font-bold text-green-500">Giants</span>
-            </div>
-
-            {/* Contact Info */}
-            <div className="flex flex-col sm:flex-row items-center gap-6 text-center">
-              <div className="flex items-center gap-2">
-                <span className="text-green-500">📞</span>
-                <span className="text-slate-400">Call or Text:</span>
-                <a href="tel:7864770477" className="text-white font-semibold hover:text-green-500 transition">786-477-0477</a>
+          <div className="grid grid-cols-1 md:grid-cols-4 gap-10 mb-12">
+            {/* Brand */}
+            <div>
+              <div className="flex items-center gap-1 mb-4">
+                <span className="text-2xl font-bold text-white">GovCon</span>
+                <span className="text-2xl font-bold text-green-500">Giants</span>
               </div>
-              <div className="flex items-center gap-2">
-                <span className="text-green-500">✉️</span>
-                <span className="text-slate-400">Email:</span>
-                <a href="mailto:hello@govconedu.com" className="text-white font-semibold hover:text-green-500 transition">hello@govconedu.com</a>
+              <p className="text-slate-500 text-sm mb-4">
+                Helping small businesses win federal government contracts.
+              </p>
+              <div className="space-y-2 text-sm">
+                <a href="tel:7864770477" className="text-slate-400 hover:text-white transition block">786-477-0477</a>
+                <a href="mailto:hello@govconedu.com" className="text-slate-400 hover:text-white transition block">hello@govconedu.com</a>
               </div>
             </div>
 
-            <div className="flex items-center gap-6 text-slate-500">
-              <Link href="/resources" className="hover:text-white transition">Resources</Link>
-              <Link href="/training" className="hover:text-white transition">Training</Link>
-              <Link href="/premium-page" className="hover:text-white transition">Premium</Link>
-              <Link href="https://govcongiants.com" className="hover:text-white transition">Contact</Link>
+            {/* Learn (Guides) */}
+            <div>
+              <h3 className="text-white font-bold mb-4">Learn</h3>
+              <ul className="space-y-2 text-sm">
+                <li><Link href="/guides/government-contracting-for-beginners" className="text-slate-500 hover:text-white transition">GovCon for Beginners</Link></li>
+                <li><Link href="/guides/sam-gov-registration" className="text-slate-500 hover:text-white transition">SAM.gov Registration</Link></li>
+                <li><Link href="/guides/capability-statement" className="text-slate-500 hover:text-white transition">Capability Statements</Link></li>
+                <li><Link href="/guides/sba-certifications" className="text-slate-500 hover:text-white transition">SBA Certifications</Link></li>
+                <li><Link href="/guides/finding-government-contracts" className="text-slate-500 hover:text-white transition">Finding Contracts</Link></li>
+                <li><Link href="/guides/proposal-writing" className="text-slate-500 hover:text-white transition">Proposal Writing</Link></li>
+                <li><Link href="/guides" className="text-green-500 hover:text-green-400 transition font-medium">All Guides →</Link></li>
+              </ul>
             </div>
 
+            {/* Products */}
+            <div>
+              <h3 className="text-white font-bold mb-4">Products</h3>
+              <ul className="space-y-2 text-sm">
+                <li><Link href="/free-course" className="text-slate-500 hover:text-white transition">Free Course</Link></li>
+                <li><Link href="/resources" className="text-slate-500 hover:text-white transition">Resources</Link></li>
+                <li><Link href="/tools" className="text-slate-500 hover:text-white transition">Tools</Link></li>
+                <li><Link href="/premium-page" className="text-slate-500 hover:text-white transition">Premium</Link></li>
+                <li><Link href="/consulting" className="text-slate-500 hover:text-white transition">Consulting</Link></li>
+                <li><Link href="/upskilling" className="text-slate-500 hover:text-white transition">BD Training</Link></li>
+              </ul>
+            </div>
+
+            {/* Company */}
+            <div>
+              <h3 className="text-white font-bold mb-4">Company</h3>
+              <ul className="space-y-2 text-sm">
+                <li><Link href="/training" className="text-slate-500 hover:text-white transition">Training</Link></li>
+                <li><Link href="https://govcongiants.com" className="text-slate-500 hover:text-white transition">Contact</Link></li>
+                <li><Link href="/privacy-policy" className="text-slate-500 hover:text-white transition">Privacy Policy</Link></li>
+                <li><Link href="/terms" className="text-slate-500 hover:text-white transition">Terms of Service</Link></li>
+              </ul>
+            </div>
+          </div>
+
+          <div className="border-t border-slate-800 pt-8 text-center">
             <p className="text-slate-600 text-sm">
               © 2026 GovCon Giants. All rights reserved.
             </p>

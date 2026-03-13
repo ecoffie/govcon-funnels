@@ -1,11 +1,13 @@
-import { Metadata } from 'next';
 import Link from 'next/link';
 import LeadForm from '@/components/LeadForm';
+import { generateSeo } from '@/lib/seo';
 
-export const metadata: Metadata = {
-  title: 'Free GovCon Handouts & Templates | GovCon Giants',
+export const metadata = generateSeo({
+  title: 'Free GovCon Handouts & Templates',
   description: 'Get free access to our complete collection of templates, contact lists, AI prompts, and downloadable resources for government contracting.',
-};
+  path: '/resources/handouts',
+  keywords: ['government contracting templates', 'capability statement template', 'govcon resources free', 'SBLO contact list'],
+});
 
 const handouts = [
   { icon: "📄", title: "GovCon Guides & Templates", desc: "SAM Registration Guide, SBLO Email Templates, Proposal Checklists" },
