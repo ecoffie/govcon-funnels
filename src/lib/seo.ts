@@ -149,4 +149,31 @@ export function courseJsonLd({
   };
 }
 
+export function serviceJsonLd({
+  name,
+  description,
+  url,
+}: {
+  name: string;
+  description: string;
+  url: string;
+}) {
+  return {
+    '@context': 'https://schema.org',
+    '@type': 'Service',
+    name,
+    description,
+    url,
+    provider: {
+      '@type': 'Organization',
+      name: SITE_NAME,
+      url: SITE_URL,
+    },
+    areaServed: {
+      '@type': 'Country',
+      name: 'United States',
+    },
+  };
+}
+
 export { SITE_URL, SITE_NAME };

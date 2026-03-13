@@ -8,6 +8,7 @@ export const guide: GuideData = {
     'Complete step-by-step guide to SAM.gov registration for government contracting. Learn about UEI numbers, CAGE codes, entity validation, and how to avoid common registration mistakes.',
   keywords: [
     'SAM.gov registration',
+    'sam.gov registration step by step',
     'SAM registration',
     'system for award management',
     'UEI number',
@@ -15,6 +16,8 @@ export const guide: GuideData = {
     'SAM.gov registration for small business',
     'CAGE code',
     'government contractor registration',
+    'sam.gov login',
+    'sam registration help',
   ],
   heroSubtitle:
     'SAM.gov registration is free and mandatory for every federal contractor. This guide walks you through every step so you can get registered correctly the first time.',
@@ -127,6 +130,24 @@ export const guide: GuideData = {
       `,
     },
     {
+      heading: 'Troubleshooting Common SAM.gov Issues',
+      content: `
+        <p>If you hit a roadblock during registration or renewal, here are the most common issues and their fixes:</p>
+        <p><strong>"Entity not found" during validation</strong></p>
+        <p>This usually means your business name or EIN does not match IRS records exactly. Request an IRS Letter 147C (call 1-800-829-4933) to confirm your exact legal name and EIN. Use that exact name — including punctuation, capitalization, and suffixes like "LLC" — in SAM.gov.</p>
+        <p><strong>"CAGE code assignment pending" for weeks</strong></p>
+        <p>CAGE codes are assigned by the DLA, which processes them separately. If your SAM registration is active but you still lack a CAGE code after 3 weeks, contact the DLA CAGE Program Office at cage@dla.mil. For more on CAGE codes, see our <a href="/guides/cage-code">complete CAGE code guide</a>.</p>
+        <p><strong>Cannot log in / Login.gov issues</strong></p>
+        <p>SAM.gov uses Login.gov for authentication. If you cannot log in, go to <a href="https://login.gov" target="_blank" rel="noopener">login.gov</a> directly to reset your password or reconfigure multi-factor authentication. SAM.gov support cannot help with Login.gov account issues.</p>
+        <p><strong>Registration stuck on "Submitted" status</strong></p>
+        <p>After 10+ business days with no progress, contact the Federal Service Desk at <a href="https://www.fsd.gov" target="_blank" rel="noopener">fsd.gov</a> or call 1-866-606-8220. Have your UEI ready. Common causes: IRS TIN matching delays, DLA CAGE processing backlog, or incomplete information that was not flagged.</p>
+        <p><strong>EFT/banking validation failure</strong></p>
+        <p>Ensure your bank account is set up to receive ACH (Automated Clearing House) transactions from the U.S. government. Some banks require you to specifically authorize government ACH payments. Contact your bank to verify your routing number format for government payments.</p>
+        <p><strong>Renewal shows different information than expected</strong></p>
+        <p>If your business has undergone changes (name change, address change, new ownership), you may need to update your IRS records first and then renew SAM.gov with the corrected information. SAM validates against IRS data on every renewal.</p>
+      `,
+    },
+    {
       heading: 'What You Can Do on SAM.gov Beyond Registration',
       content: `
         <p>Many new contractors think of SAM.gov only as a registration portal, but it is actually the central hub for much of the federal procurement ecosystem. Here are the key features available to you:</p>
@@ -184,8 +205,8 @@ export const guide: GuideData = {
   },
   relatedGuides: [
     'government-contracting-for-beginners',
+    'cage-code',
     'capability-statement',
-    'sba-certifications',
   ],
   publishedDate: '2026-03-13',
 };

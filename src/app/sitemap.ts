@@ -5,12 +5,19 @@ const SITE_URL = 'https://govcongiants.org';
 const guidesSlugs = [
   'government-contracting-for-beginners',
   'sam-gov-registration',
+  'cage-code',
   'capability-statement',
   'sba-certifications',
+  '8a-certification',
+  'vosb-certification',
+  'hubzone-certification',
+  'wosb-certification',
   'finding-government-contracts',
   'proposal-writing',
   'subcontracting-and-teaming',
   'federal-market-research',
+  'gsa-schedule',
+  'ai-government-contracting',
 ];
 
 export default function sitemap(): MetadataRoute.Sitemap {
@@ -29,6 +36,9 @@ export default function sitemap(): MetadataRoute.Sitemap {
     { url: `${SITE_URL}/opp`, lastModified: now, changeFrequency: 'monthly', priority: 0.8 },
     { url: `${SITE_URL}/tools`, lastModified: now, changeFrequency: 'monthly', priority: 0.8 },
     { url: `${SITE_URL}/consulting`, lastModified: now, changeFrequency: 'monthly', priority: 0.8 },
+    { url: `${SITE_URL}/government-contract-help`, lastModified: now, changeFrequency: 'monthly', priority: 0.8 },
+    { url: `${SITE_URL}/proposal-writing-services`, lastModified: now, changeFrequency: 'monthly', priority: 0.8 },
+    { url: `${SITE_URL}/glossary`, lastModified: now, changeFrequency: 'monthly', priority: 0.7 },
     { url: `${SITE_URL}/upskilling`, lastModified: now, changeFrequency: 'monthly', priority: 0.7 },
     { url: `${SITE_URL}/privacy-policy`, lastModified: now, changeFrequency: 'yearly', priority: 0.2 },
     { url: `${SITE_URL}/terms`, lastModified: now, changeFrequency: 'yearly', priority: 0.2 },

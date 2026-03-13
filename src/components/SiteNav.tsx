@@ -75,12 +75,13 @@ export default function SiteNav() {
                   {[
                     { href: '/guides/government-contracting-for-beginners', label: 'GovCon for Beginners' },
                     { href: '/guides/sam-gov-registration', label: 'SAM.gov Registration' },
+                    { href: '/guides/cage-code', label: 'CAGE Code Guide' },
                     { href: '/guides/capability-statement', label: 'Capability Statements' },
                     { href: '/guides/sba-certifications', label: 'SBA Certifications' },
                     { href: '/guides/finding-government-contracts', label: 'Finding Contracts' },
                     { href: '/guides/proposal-writing', label: 'Proposal Writing' },
-                    { href: '/guides/subcontracting-and-teaming', label: 'Subcontracting & Teaming' },
-                    { href: '/guides/federal-market-research', label: 'Federal Market Research' },
+                    { href: '/guides/gsa-schedule', label: 'GSA Schedule' },
+                    { href: '/glossary', label: 'GovCon Glossary' },
                   ].map((item) => (
                     <Link
                       key={item.href}

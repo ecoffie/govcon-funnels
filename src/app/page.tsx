@@ -343,10 +343,11 @@ export default function Home() {
               <ul className="space-y-2 text-sm">
                 <li><Link href="/guides/government-contracting-for-beginners" className="text-slate-500 hover:text-white transition">GovCon for Beginners</Link></li>
                 <li><Link href="/guides/sam-gov-registration" className="text-slate-500 hover:text-white transition">SAM.gov Registration</Link></li>
-                <li><Link href="/guides/capability-statement" className="text-slate-500 hover:text-white transition">Capability Statements</Link></li>
+                <li><Link href="/guides/cage-code" className="text-slate-500 hover:text-white transition">CAGE Code Guide</Link></li>
                 <li><Link href="/guides/sba-certifications" className="text-slate-500 hover:text-white transition">SBA Certifications</Link></li>
-                <li><Link href="/guides/finding-government-contracts" className="text-slate-500 hover:text-white transition">Finding Contracts</Link></li>
+                <li><Link href="/guides/gsa-schedule" className="text-slate-500 hover:text-white transition">GSA Schedule</Link></li>
                 <li><Link href="/guides/proposal-writing" className="text-slate-500 hover:text-white transition">Proposal Writing</Link></li>
+                <li><Link href="/glossary" className="text-slate-500 hover:text-white transition">GovCon Glossary</Link></li>
                 <li><Link href="/guides" className="text-green-500 hover:text-green-400 transition font-medium">All Guides →</Link></li>
               </ul>
             </div>

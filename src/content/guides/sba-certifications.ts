@@ -27,10 +27,10 @@ export const guide: GuideData = {
         <p>The U.S. Small Business Administration (SBA) administers several certification programs designed to help specific categories of small businesses compete in the federal marketplace. These are not just labels — they unlock <strong>real, measurable advantages</strong> including access to set-aside contracts, sole-source awards, price evaluation preferences, and mentorship programs.</p>
         <p>The major SBA certification programs are:</p>
         <ul>
-          <li><strong>8(a) Business Development Program</strong> — for socially and economically disadvantaged small businesses</li>
-          <li><strong>Service-Disabled Veteran-Owned Small Business (SDVOSB)</strong> — for businesses owned by service-disabled veterans</li>
-          <li><strong>HUBZone</strong> — for businesses in Historically Underutilized Business Zones</li>
-          <li><strong>Women-Owned Small Business (WOSB) / Economically Disadvantaged WOSB (EDWOSB)</strong> — for women-owned firms in underrepresented industries</li>
+          <li><strong><a href="/guides/8a-certification">8(a) Business Development Program</a></strong> — for socially and economically disadvantaged small businesses</li>
+          <li><strong><a href="/guides/vosb-certification">Service-Disabled Veteran-Owned Small Business (SDVOSB)</a></strong> — for businesses owned by service-disabled veterans</li>
+          <li><strong><a href="/guides/hubzone-certification">HUBZone</a></strong> — for businesses in Historically Underutilized Business Zones</li>
+          <li><strong><a href="/guides/wosb-certification">Women-Owned Small Business (WOSB) / Economically Disadvantaged WOSB (EDWOSB)</a></strong> — for women-owned firms in underrepresented industries</li>
         </ul>
         <p>Each program has different eligibility requirements, benefits, and application processes. Some businesses qualify for multiple certifications and can "stack" them for maximum advantage. For example, a service-disabled veteran who owns a business in a HUBZone area could hold both SDVOSB and HUBZone certifications simultaneously.</p>
         <p>All SBA certifications are managed through the SBA's certification portal at <a href="https://certify.sba.gov" target="_blank" rel="noopener">certify.sba.gov</a>. The application process is free, though it requires substantial documentation. Processing times vary by program but generally range from <strong>60 to 90 days</strong>.</p>

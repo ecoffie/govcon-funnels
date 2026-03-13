@@ -23,6 +23,10 @@ const guideDescriptions: Record<string, { icon: string; shortDesc: string }> = {
     icon: '📋',
     shortDesc: 'Step-by-step walkthrough of the SAM.gov registration process.',
   },
+  'cage-code': {
+    icon: '🔑',
+    shortDesc: 'What a CAGE code is, how to get one, and how to look one up.',
+  },
   'capability-statement': {
     icon: '📄',
     shortDesc: 'How to create a capability statement that gets you noticed.',
@@ -30,6 +34,22 @@ const guideDescriptions: Record<string, { icon: string; shortDesc: string }> = {
   'sba-certifications': {
     icon: '🏅',
     shortDesc: '8(a), SDVOSB, HUBZone, and WOSB certifications explained.',
+  },
+  '8a-certification': {
+    icon: '⭐',
+    shortDesc: 'Deep-dive into the most powerful SBA certification program.',
+  },
+  'vosb-certification': {
+    icon: '🎖️',
+    shortDesc: 'VOSB and SDVOSB certification for veteran-owned businesses.',
+  },
+  'hubzone-certification': {
+    icon: '📍',
+    shortDesc: 'HUBZone requirements, map tool, and 10% price preference.',
+  },
+  'wosb-certification': {
+    icon: '👩‍💼',
+    shortDesc: 'WOSB and EDWOSB certification for women-owned businesses.',
   },
   'finding-government-contracts': {
     icon: '🔍',
@@ -46,6 +66,14 @@ const guideDescriptions: Record<string, { icon: string; shortDesc: string }> = {
   'federal-market-research': {
     icon: '📊',
     shortDesc: 'Analyze federal spending data to find your best opportunities.',
+  },
+  'gsa-schedule': {
+    icon: '📑',
+    shortDesc: 'How to get on a GSA Schedule and win task order work.',
+  },
+  'ai-government-contracting': {
+    icon: '🤖',
+    shortDesc: 'How AI tools are transforming government contracting.',
   },
 };
 
