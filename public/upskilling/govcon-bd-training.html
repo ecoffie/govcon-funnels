@@ -1,0 +1,980 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>GovCon Business Development Training | 4-Week BD Foundation Program | GovConEdu</title>
+    <meta name="description" content="GovCon business development training for your entire team. 4-week employer-paid program teaching opportunity identification, capture management, and proposal support. $3,999 per employee, IRS Section 127 eligible.">
+    <link rel="canonical" href="https://govcongiants.org/upskilling/govcon-bd-training.html">
+
+    <!-- Open Graph -->
+    <meta property="og:title" content="GovCon Business Development Training | 4-Week BD Foundation Program">
+    <meta property="og:description" content="Train non-BD staff to recognize opportunities, support capture, and grow your pipeline — without hiring. 4-week employer-paid GovCon BD training program.">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://govcongiants.org/upskilling/govcon-bd-training.html">
+
+    <!-- JSON-LD Structured Data -->
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "Course",
+        "name": "GovCon Business Development Training — BD Foundation Program",
+        "description": "A 4-week employer-paid program that teaches non-BD staff to recognize opportunities, support capture, and grow your government contracting pipeline.",
+        "provider": {
+            "@type": "Organization",
+            "name": "GovConEdu LLC",
+            "url": "https://govcongiants.org"
+        },
+        "offers": {
+            "@type": "Offer",
+            "price": "3999",
+            "priceCurrency": "USD",
+            "availability": "https://schema.org/InStock"
+        },
+        "hasCourseInstance": {
+            "@type": "CourseInstance",
+            "courseMode": "blended",
+            "duration": "P4W",
+            "instructor": {
+                "@type": "Organization",
+                "name": "GovConEdu LLC"
+            }
+        },
+        "educationalLevel": "Professional",
+        "about": [
+            "Government Contracting",
+            "Business Development",
+            "Capture Management",
+            "Proposal Support"
+        ]
+    }
+    </script>
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --dark-green: #1a4d2e;
+            --gold: #d4af37;
+            --medium-green: #2d5016;
+            --light-green: #90c695;
+            --dark-gray: #333333;
+            --medium-gray: #666666;
+            --light-gray: #f5f5f5;
+            --white: #ffffff;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+            line-height: 1.6;
+            color: var(--dark-gray);
+            background: var(--white);
+        }
+
+        /* Header */
+        header {
+            background: var(--white);
+            border-bottom: 1px solid #e0e0e0;
+            padding: 15px 0;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        .header-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-size: 1.5em;
+            font-weight: 700;
+            color: var(--dark-green);
+            text-decoration: none;
+        }
+
+        .logo span {
+            color: var(--gold);
+        }
+
+        nav ul {
+            display: flex;
+            list-style: none;
+            gap: 30px;
+            align-items: center;
+        }
+
+        nav a {
+            text-decoration: none;
+            color: var(--dark-gray);
+            font-weight: 500;
+            transition: color 0.3s;
+        }
+
+        nav a:hover {
+            color: var(--dark-green);
+        }
+
+        .btn-enroll {
+            background: var(--dark-green);
+            color: var(--white) !important;
+            padding: 10px 24px;
+            border-radius: 5px;
+            text-decoration: none;
+            font-weight: 600;
+            transition: background 0.3s;
+        }
+
+        .btn-enroll:hover {
+            background: var(--medium-green);
+        }
+
+        /* Hero Section */
+        .hero {
+            background: linear-gradient(135deg, var(--dark-green) 0%, var(--medium-green) 100%);
+            color: var(--white);
+            padding: 80px 0;
+        }
+
+        .hero-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+            text-align: center;
+        }
+
+        .hero h1 {
+            font-size: 2.8em;
+            margin-bottom: 20px;
+            line-height: 1.2;
+        }
+
+        .hero .subtitle {
+            font-size: 1.3em;
+            opacity: 0.95;
+            margin-bottom: 40px;
+            max-width: 700px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .hero-buttons {
+            display: flex;
+            gap: 20px;
+            justify-content: center;
+        }
+
+        .btn-gold {
+            background: var(--gold);
+            color: var(--dark-gray);
+            padding: 15px 35px;
+            border-radius: 5px;
+            text-decoration: none;
+            font-weight: 700;
+            font-size: 1.1em;
+            transition: transform 0.3s;
+            display: inline-block;
+        }
+
+        .btn-gold:hover {
+            transform: translateY(-2px);
+        }
+
+        .btn-outline {
+            background: transparent;
+            color: var(--white);
+            padding: 15px 35px;
+            border-radius: 5px;
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 1.1em;
+            border: 2px solid var(--white);
+            transition: all 0.3s;
+            display: inline-block;
+        }
+
+        .btn-outline:hover {
+            background: var(--white);
+            color: var(--dark-green);
+        }
+
+        /* Section Shared Styles */
+        .section-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        .section-title {
+            font-size: 2em;
+            color: var(--dark-green);
+            margin-bottom: 15px;
+        }
+
+        .section-subtitle {
+            color: var(--medium-gray);
+            font-size: 1.1em;
+            max-width: 700px;
+        }
+
+        /* Problem Section */
+        .problem-section {
+            background: var(--white);
+            padding: 60px 0;
+        }
+
+        .problem-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 50px;
+            margin-top: 40px;
+            align-items: start;
+        }
+
+        .problem-text p {
+            color: var(--medium-gray);
+            font-size: 1.05em;
+            margin-bottom: 20px;
+            line-height: 1.7;
+        }
+
+        .stat-cards {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+        }
+
+        .stat-card {
+            background: var(--light-gray);
+            border-radius: 8px;
+            padding: 25px;
+            text-align: center;
+            border-top: 3px solid var(--dark-green);
+        }
+
+        .stat-card .number {
+            font-size: 2.2em;
+            font-weight: 700;
+            color: var(--dark-green);
+            line-height: 1;
+            margin-bottom: 8px;
+        }
+
+        .stat-card .label {
+            color: var(--medium-gray);
+            font-size: 0.9em;
+        }
+
+        /* Solution Section */
+        .solution-section {
+            background: var(--light-gray);
+            padding: 60px 0;
+        }
+
+        .skills-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 20px;
+            margin-top: 40px;
+        }
+
+        .skill-item {
+            display: flex;
+            align-items: flex-start;
+            gap: 15px;
+            background: var(--white);
+            padding: 20px 25px;
+            border-radius: 8px;
+        }
+
+        .skill-item .check {
+            color: var(--dark-green);
+            font-size: 1.3em;
+            flex-shrink: 0;
+            margin-top: 2px;
+        }
+
+        .skill-item h4 {
+            color: var(--dark-gray);
+            font-size: 1.05em;
+            margin-bottom: 4px;
+        }
+
+        .skill-item p {
+            color: var(--medium-gray);
+            font-size: 0.93em;
+        }
+
+        /* Who Section */
+        .who-section {
+            background: var(--white);
+            padding: 60px 0;
+        }
+
+        .who-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 25px;
+            margin-top: 40px;
+        }
+
+        .who-card {
+            background: var(--light-gray);
+            padding: 30px 25px;
+            border-radius: 8px;
+            text-align: center;
+        }
+
+        .who-card .icon {
+            font-size: 2.5em;
+            margin-bottom: 15px;
+        }
+
+        .who-card h4 {
+            color: var(--dark-green);
+            margin-bottom: 10px;
+            font-size: 1.1em;
+        }
+
+        .who-card p {
+            color: var(--medium-gray);
+            font-size: 0.95em;
+        }
+
+        /* Program Details */
+        .details-section {
+            background: var(--light-gray);
+            padding: 60px 0;
+        }
+
+        .details-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 30px;
+            margin-top: 40px;
+        }
+
+        .detail-item {
+            text-align: center;
+            padding: 30px 20px;
+            background: var(--white);
+            border-radius: 8px;
+        }
+
+        .detail-item .icon {
+            font-size: 2.5em;
+            margin-bottom: 15px;
+        }
+
+        .detail-item .value {
+            font-size: 1.8em;
+            font-weight: 700;
+            color: var(--dark-green);
+            margin-bottom: 5px;
+        }
+
+        .detail-item .label {
+            color: var(--medium-gray);
+            font-size: 0.95em;
+        }
+
+        /* Pricing Section */
+        .pricing-section {
+            background: var(--white);
+            padding: 60px 0;
+            text-align: center;
+        }
+
+        .pricing-card {
+            max-width: 550px;
+            margin: 40px auto;
+            background: var(--light-gray);
+            border-radius: 12px;
+            padding: 40px;
+            border: 3px solid var(--dark-green);
+        }
+
+        .pricing-card .price {
+            font-size: 3.5em;
+            font-weight: 700;
+            color: var(--dark-green);
+        }
+
+        .pricing-card .per {
+            color: var(--medium-gray);
+            font-size: 1.1em;
+            margin-bottom: 20px;
+        }
+
+        .pricing-card .tax-benefit {
+            background: var(--gold);
+            color: var(--dark-gray);
+            padding: 10px 20px;
+            border-radius: 5px;
+            display: inline-block;
+            font-weight: 600;
+            margin-bottom: 25px;
+        }
+
+        .pricing-features {
+            list-style: none;
+            text-align: left;
+            margin: 25px 0;
+        }
+
+        .pricing-features li {
+            padding: 10px 0;
+            border-bottom: 1px solid #ddd;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .pricing-features li:last-child {
+            border-bottom: none;
+        }
+
+        .pricing-features .check {
+            color: var(--dark-green);
+            font-weight: bold;
+        }
+
+        .roi-comparison {
+            background: var(--white);
+            border-radius: 8px;
+            padding: 25px;
+            margin-top: 30px;
+            border: 2px solid var(--gold);
+        }
+
+        .roi-comparison h4 {
+            color: var(--dark-green);
+            margin-bottom: 15px;
+            font-size: 1.1em;
+        }
+
+        .roi-row {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 10px 0;
+        }
+
+        .roi-row.highlight {
+            border-top: 2px solid var(--dark-green);
+            padding-top: 15px;
+            margin-top: 5px;
+        }
+
+        .roi-row .label {
+            color: var(--medium-gray);
+            font-size: 0.95em;
+        }
+
+        .roi-row .amount {
+            font-weight: 700;
+            font-size: 1.1em;
+            color: var(--dark-green);
+        }
+
+        .roi-row.highlight .amount {
+            color: var(--dark-green);
+            font-size: 1.3em;
+        }
+
+        .btn-primary {
+            display: inline-block;
+            background: var(--dark-green);
+            color: var(--white);
+            padding: 15px 35px;
+            border-radius: 5px;
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 1.1em;
+            border: none;
+            cursor: pointer;
+            transition: background 0.3s;
+        }
+
+        .btn-primary:hover {
+            background: var(--medium-green);
+        }
+
+        /* CTA Section */
+        .cta-section {
+            background: linear-gradient(135deg, var(--dark-green) 0%, var(--medium-green) 100%);
+            color: var(--white);
+            padding: 60px 0;
+            text-align: center;
+        }
+
+        .cta-section h2 {
+            font-size: 2.2em;
+            margin-bottom: 15px;
+        }
+
+        .cta-section p {
+            font-size: 1.2em;
+            opacity: 0.9;
+            margin-bottom: 30px;
+            max-width: 600px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .cta-buttons {
+            display: flex;
+            gap: 20px;
+            justify-content: center;
+        }
+
+        /* Footer */
+        footer {
+            background: var(--dark-gray);
+            color: var(--white);
+            padding: 50px 0 30px;
+        }
+
+        .footer-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+            display: grid;
+            grid-template-columns: 2fr 1fr 1fr 1fr;
+            gap: 40px;
+        }
+
+        .footer-brand .logo {
+            color: var(--white);
+            font-size: 1.5em;
+            margin-bottom: 15px;
+        }
+
+        .footer-brand p {
+            color: #aaa;
+            font-size: 0.95em;
+        }
+
+        footer h4 {
+            margin-bottom: 20px;
+            font-size: 1.1em;
+        }
+
+        footer ul {
+            list-style: none;
+        }
+
+        footer ul li {
+            margin-bottom: 10px;
+        }
+
+        footer a {
+            color: #aaa;
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+
+        footer a:hover {
+            color: var(--gold);
+        }
+
+        .footer-bottom {
+            max-width: 1200px;
+            margin: 40px auto 0;
+            padding: 20px 20px 0;
+            border-top: 1px solid #555;
+            display: flex;
+            justify-content: space-between;
+            color: #aaa;
+            font-size: 0.9em;
+        }
+
+        .social-links {
+            display: flex;
+            gap: 15px;
+        }
+
+        .social-links a {
+            font-size: 1.2em;
+        }
+
+        /* Responsive */
+        @media (max-width: 992px) {
+            .problem-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .skills-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .who-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .details-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .footer-container {
+                grid-template-columns: 1fr 1fr;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .header-container {
+                flex-direction: column;
+                gap: 15px;
+            }
+
+            nav ul {
+                gap: 15px;
+                flex-wrap: wrap;
+                justify-content: center;
+            }
+
+            .hero h1 {
+                font-size: 2em;
+            }
+
+            .hero-buttons {
+                flex-direction: column;
+                align-items: center;
+            }
+
+            .stat-cards {
+                grid-template-columns: 1fr;
+            }
+
+            .who-grid,
+            .details-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .cta-buttons {
+                flex-direction: column;
+                align-items: center;
+            }
+
+            .footer-container {
+                grid-template-columns: 1fr;
+                text-align: center;
+            }
+
+            .footer-bottom {
+                flex-direction: column;
+                gap: 15px;
+                text-align: center;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header>
+        <div class="header-container">
+            <a href="/upskilling/" class="logo">GovCon<span>Edu</span></a>
+            <nav>
+                <ul>
+                    <li><a href="/upskilling/">Program Overview</a></li>
+                    <li><a href="#skills">What You Learn</a></li>
+                    <li><a href="#pricing">Pricing</a></li>
+                    <li><a href="https://calendly.com/govconedumeet/discovery-call" target="_blank" class="btn-enroll">Enroll Now</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="hero-container">
+            <h1>GovCon Business Development Training for Your Entire Team</h1>
+            <p class="subtitle">A 4-week employer-paid program that teaches non-BD staff to recognize opportunities, support capture, and grow your pipeline — without hiring.</p>
+            <div class="hero-buttons">
+                <a href="https://calendly.com/govconedumeet/discovery-call" target="_blank" class="btn-gold">Schedule Discovery Call</a>
+                <a href="#details" class="btn-outline">View Program Details</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Problem Section -->
+    <section class="problem-section">
+        <div class="section-container">
+            <h2 class="section-title">The BD Gap in Government Contracting</h2>
+            <p class="section-subtitle">Most GovCon firms depend on a handful of people to drive all new business — while delivery teams sit on untapped intelligence every day.</p>
+
+            <div class="problem-grid">
+                <div class="problem-text">
+                    <p>In a typical government contracting company, business development falls on one or two people. Meanwhile, program managers, technical leads, and operations staff interact with government customers daily — hearing about upcoming requirements, budget shifts, and pain points before they ever hit SAM.gov.</p>
+                    <p>This intelligence gap costs firms real revenue. Opportunities go unnoticed because the people closest to the customer aren't trained to recognize or escalate them. Competitors with broader BD awareness consistently win recompetes and capture new work.</p>
+                    <p>Hiring a dedicated BD professional costs $130,000+ per year. Training your existing team to support business development costs a fraction of that — and starts producing results in weeks, not months.</p>
+                </div>
+                <div class="stat-cards">
+                    <div class="stat-card">
+                        <div class="number">73%</div>
+                        <div class="label">of contract wins start with informal customer relationships</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="number">1-2</div>
+                        <div class="label">people typically own BD at most small GovCon firms</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="number">$130K+</div>
+                        <div class="label">average cost of a new BD hire (salary + benefits)</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="number">4 weeks</div>
+                        <div class="label">to train your current team on BD fundamentals</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Solution Section -->
+    <section id="skills" class="solution-section">
+        <div class="section-container">
+            <h2 class="section-title">What Your Team Will Learn</h2>
+            <p class="section-subtitle">Practical government contracting business development skills your team can apply immediately — using free, publicly available tools.</p>
+
+            <div class="skills-grid">
+                <div class="skill-item">
+                    <span class="check">&#10003;</span>
+                    <div>
+                        <h4>Opportunity Identification on Active Contracts</h4>
+                        <p>Recognize growth signals, follow-on needs, and recompete indicators during day-to-day work.</p>
+                    </div>
+                </div>
+                <div class="skill-item">
+                    <span class="check">&#10003;</span>
+                    <div>
+                        <h4>SAM.gov and USAspending Research</h4>
+                        <p>Search and analyze federal opportunities, contract data, and agency spending patterns.</p>
+                    </div>
+                </div>
+                <div class="skill-item">
+                    <span class="check">&#10003;</span>
+                    <div>
+                        <h4>RFP Reading and Assessment Basics</h4>
+                        <p>Break down solicitations, understand evaluation criteria, and conduct initial bid/no-bid analysis.</p>
+                    </div>
+                </div>
+                <div class="skill-item">
+                    <span class="check">&#10003;</span>
+                    <div>
+                        <h4>Capture Management Fundamentals</h4>
+                        <p>Learn how capture processes work, from opportunity identification through proposal kickoff.</p>
+                    </div>
+                </div>
+                <div class="skill-item">
+                    <span class="check">&#10003;</span>
+                    <div>
+                        <h4>Competitive Positioning Analysis</h4>
+                        <p>Assess competitive landscapes, identify differentiators, and evaluate win probability.</p>
+                    </div>
+                </div>
+                <div class="skill-item">
+                    <span class="check">&#10003;</span>
+                    <div>
+                        <h4>Proposal Support Skills</h4>
+                        <p>Contribute to proposals with compliant content, past performance narratives, and technical volumes.</p>
+                    </div>
+                </div>
+                <div class="skill-item">
+                    <span class="check">&#10003;</span>
+                    <div>
+                        <h4>Customer Engagement for BD</h4>
+                        <p>Have productive conversations with government customers that surface intelligence without crossing lines.</p>
+                    </div>
+                </div>
+                <div class="skill-item">
+                    <span class="check">&#10003;</span>
+                    <div>
+                        <h4>AI Tools for GovCon Research</h4>
+                        <p>Use AI-powered tools to accelerate market research, analyze solicitations, and track competitors.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Who Should Attend Section -->
+    <section class="who-section">
+        <div class="section-container">
+            <h2 class="section-title" style="text-align: center;">Who Should Attend</h2>
+            <p class="section-subtitle" style="text-align: center; margin: 0 auto 10px;">This program is designed for employees who interact with government customers but haven't had formal BD training.</p>
+
+            <div class="who-grid">
+                <div class="who-card">
+                    <div class="icon">&#128104;&#8205;&#128188;</div>
+                    <h4>Program Managers</h4>
+                    <p>Already talking to customers daily — learn to recognize growth signals and escalate opportunities.</p>
+                </div>
+                <div class="who-card">
+                    <div class="icon">&#9881;&#65039;</div>
+                    <h4>Operations Staff</h4>
+                    <p>Support BD with customer intel, operational insights, and on-the-ground market awareness.</p>
+                </div>
+                <div class="who-card">
+                    <div class="icon">&#128187;</div>
+                    <h4>Technical Leads</h4>
+                    <p>Translate deep technical knowledge into competitive advantages and solution differentiation.</p>
+                </div>
+                <div class="who-card">
+                    <div class="icon">&#128209;</div>
+                    <h4>Contract Specialists</h4>
+                    <p>Understand how existing contracts become pipelines for future opportunities.</p>
+                </div>
+                <div class="who-card">
+                    <div class="icon">&#127775;</div>
+                    <h4>New Hires</h4>
+                    <p>Get up to speed on federal market fundamentals and contribute to growth from day one.</p>
+                </div>
+                <div class="who-card">
+                    <div class="icon">&#128200;</div>
+                    <h4>Aspiring BD Professionals</h4>
+                    <p>Build the foundation skills needed to transition into a business development or capture career.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Program Details Section -->
+    <section id="details" class="details-section">
+        <div class="section-container">
+            <h2 class="section-title" style="text-align: center;">Program at a Glance</h2>
+            <p class="section-subtitle" style="text-align: center; margin: 0 auto;">Everything your team needs to start contributing to business development in 30 days.</p>
+
+            <div class="details-grid">
+                <div class="detail-item">
+                    <div class="icon">&#128197;</div>
+                    <div class="value">4 Weeks</div>
+                    <div class="label">Program Duration</div>
+                </div>
+                <div class="detail-item">
+                    <div class="icon">&#127909;</div>
+                    <div class="value">8 Sessions</div>
+                    <div class="label">Live Instructor-Led</div>
+                </div>
+                <div class="detail-item">
+                    <div class="icon">&#128295;</div>
+                    <div class="value">Free Tools</div>
+                    <div class="label">SAM.gov, USAspending, SBA Search</div>
+                </div>
+                <div class="detail-item">
+                    <div class="icon">&#127891;</div>
+                    <div class="value">Certificate</div>
+                    <div class="label">GovCon BD Foundation</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Pricing Section -->
+    <section id="pricing" class="pricing-section">
+        <div class="section-container">
+            <h2 class="section-title" style="text-align: center;">Invest in Your Team's Growth</h2>
+            <p class="section-subtitle" style="text-align: center; margin: 0 auto;">A fraction of the cost of a new hire — with compounding returns across your entire organization.</p>
+
+            <div class="pricing-card">
+                <div class="price">$3,999</div>
+                <div class="per">per employee</div>
+                <div class="tax-benefit">IRS Section 127 Eligible — Up to $5,250 Tax-Free</div>
+
+                <ul class="pricing-features">
+                    <li><span class="check">&#10003;</span> 8 live instructor-led sessions over 4 weeks</li>
+                    <li><span class="check">&#10003;</span> Hands-on exercises with real federal data</li>
+                    <li><span class="check">&#10003;</span> GovCon BD Foundation Certificate of Completion</li>
+                    <li><span class="check">&#10003;</span> Opportunity Observation Log workbook</li>
+                    <li><span class="check">&#10003;</span> Manager Support Pack for supervisors</li>
+                    <li><span class="check">&#10003;</span> IRS Section 127 documentation for HR</li>
+                    <li><span class="check">&#10003;</span> 30 days of post-program email support</li>
+                    <li><span class="check">&#10003;</span> Group discounts available (3+ employees)</li>
+                </ul>
+
+                <a href="https://calendly.com/govconedumeet/discovery-call" target="_blank" class="btn-primary" style="width: 100%; text-align: center; display: block; padding: 15px;">Schedule Discovery Call</a>
+
+                <div class="roi-comparison">
+                    <h4>Training vs. Hiring: The Math</h4>
+                    <div class="roi-row">
+                        <span class="label">New BD hire (salary + benefits)</span>
+                        <span class="amount">$130,000/yr</span>
+                    </div>
+                    <div class="roi-row">
+                        <span class="label">GovCon BD Training (per employee)</span>
+                        <span class="amount">$3,999</span>
+                    </div>
+                    <div class="roi-row highlight">
+                        <span class="label">Train 5 employees for less than</span>
+                        <span class="amount">$20,000</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- CTA Section -->
+    <section class="cta-section">
+        <div class="section-container">
+            <h2>Ready to Upskill Your Team?</h2>
+            <p>Schedule a free consultation to discuss enrolling your employees in the next GovCon business development training cohort.</p>
+            <div class="cta-buttons">
+                <a href="https://calendly.com/govconedumeet/discovery-call" target="_blank" class="btn-gold">Schedule Consultation</a>
+                <a href="/upskilling/" class="btn-outline">Learn More About the Program</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="footer-container">
+            <div class="footer-brand">
+                <div class="logo">GovCon<span style="color: var(--gold);">Edu</span></div>
+                <p>Helping GovCon companies build winning teams through practical, employer-focused training.</p>
+            </div>
+            <div>
+                <h4>Programs</h4>
+                <ul>
+                    <li><a href="/upskilling/">BD Foundation Certificate</a></li>
+                    <li><a href="/upskilling/govcon-bd-training.html">GovCon BD Training</a></li>
+                    <li><a href="/upskilling/section-127-training.html">Section 127 Training</a></li>
+                    <li><a href="/upskilling/capture-management-training.html">Capture Management</a></li>
+                    <li><a href="/upskilling/roi-calculator.html">ROI Calculator</a></li>
+                </ul>
+            </div>
+            <div>
+                <h4>Resources</h4>
+                <ul>
+                    <li><a href="/upskilling/materials/curriculum-overview.pdf" target="_blank">Program Overview</a></li>
+                    <li><a href="/upskilling/materials/irs-section-127-guide.pdf" target="_blank">IRS Section 127 Guide</a></li>
+                    <li><a href="/upskilling/roi-calculator.html">ROI Calculator</a></li>
+                </ul>
+            </div>
+            <div>
+                <h4>Company</h4>
+                <ul>
+                    <li><a href="https://govcongiants.org" target="_blank">About Us</a></li>
+                    <li><a href="https://calendly.com/govconedumeet/discovery-call" target="_blank">Contact</a></li>
+                    <li><a href="https://govcongiants.org/privacy" target="_blank">Privacy Policy</a></li>
+                </ul>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>&copy; 2026 GovConEdu LLC. All rights reserved.</p>
+            <div class="social-links">
+                <a href="https://www.linkedin.com/company/govcon-giants" target="_blank">LinkedIn</a>
+                <a href="https://twitter.com/govcongiants" target="_blank">Twitter</a>
+                <a href="https://www.youtube.com/@govcongiants" target="_blank">YouTube</a>
+            </div>
+        </div>
+    </footer>
+</body>
+</html>
