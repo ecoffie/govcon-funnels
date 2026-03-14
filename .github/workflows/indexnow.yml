@@ -1,0 +1,32 @@
+name: IndexNow - Notify Search Engines
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - 'src/app/**/page.tsx'
+      - 'src/content/**'
+      - 'public/**/*.html'
+  workflow_dispatch:  # Allow manual trigger
+
+jobs:
+  indexnow:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Wait for Vercel deployment
+        run: sleep 60
+
+      - name: Submit all URLs to IndexNow
+        run: |
+          response=$(curl -s -X POST https://govcongiants.org/api/indexnow \
+            -H "Content-Type: application/json" \
+            -d '{"all": true}')
+          echo "IndexNow Response: $response"
+
+          # Check if submission was successful
+          if echo "$response" | grep -q '"success":true'; then
+            echo "✅ Successfully submitted URLs to IndexNow"
+          else
+            echo "⚠️ IndexNow submission may have failed"
+            echo "$response"
+          fi
