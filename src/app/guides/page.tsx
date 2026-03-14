@@ -1,6 +1,7 @@
 import Link from 'next/link';
 import { allGuides } from '@/content/guides';
-import { generateSeo } from '@/lib/seo';
+import { generateSeo, itemListJsonLd, SITE_URL } from '@/lib/seo';
+import JsonLd from '@/components/JsonLd';
 
 export const metadata = generateSeo({
   title: 'Government Contracting Guides',
@@ -78,8 +79,15 @@ const guideDescriptions: Record<string, { icon: string; shortDesc: string }> = {
 };
 
 export default function GuidesIndex() {
+  const guidesListJsonLd = itemListJsonLd({
+    name: 'Government Contracting Guides',
+    description: 'Free comprehensive guides on government contracting for small businesses.',
+    items: allGuides.map((g) => ({ name: g.title, url: `/guides/${g.slug}` })),
+  });
+
   return (
     <main className="min-h-screen bg-slate-950">
+      <JsonLd data={guidesListJsonLd} />
       <section className="pt-16 pb-12 px-6">
         <div className="max-w-4xl mx-auto text-center">
           <h1 className="text-4xl md:text-5xl font-bold text-white mb-4">

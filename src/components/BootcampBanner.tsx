@@ -17,7 +17,8 @@ function formatCountdown(msRemaining: number) {
 
 export default function BootcampBanner() {
   const pathname = usePathname();
-  const [now, setNow] = useState(Date.now());
+  const [mounted, setMounted] = useState(false);
+  const [now, setNow] = useState(0);
 
   const shouldHide = useMemo(() => {
     return (
@@ -28,11 +29,13 @@ export default function BootcampBanner() {
   }, [pathname]);
 
   useEffect(() => {
+    setNow(Date.now());
+    setMounted(true);
     const timer = setInterval(() => setNow(Date.now()), 1000);
     return () => clearInterval(timer);
   }, []);
 
-  if (shouldHide) {
+  if (shouldHide || !mounted) {
     return null;
   }
 

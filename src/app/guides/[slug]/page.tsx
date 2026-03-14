@@ -2,7 +2,7 @@ import { notFound } from 'next/navigation';
 import Link from 'next/link';
 import type { Metadata } from 'next';
 import { allGuides, getGuideBySlug } from '@/content/guides';
-import { generateSeo, articleJsonLd, faqJsonLd } from '@/lib/seo';
+import { generateSeo, articleJsonLd, faqJsonLd, breadcrumbJsonLd } from '@/lib/seo';
 import JsonLd from '@/components/JsonLd';
 
 type Props = { params: Promise<{ slug: string }> };
@@ -35,6 +35,12 @@ export default async function GuidePage({ params }: Props) {
     .map((s) => allGuides.find((g) => g.slug === s))
     .filter(Boolean);
 
+  const breadcrumbs = [
+    { name: 'Home', url: '/' },
+    { name: 'Guides', url: '/guides' },
+    { name: guide.title, url: `/guides/${guide.slug}` },
+  ];
+
   return (
     <main className="min-h-screen bg-slate-950">
       <JsonLd data={articleJsonLd({
@@ -44,6 +50,7 @@ export default async function GuidePage({ params }: Props) {
         publishedTime: guide.publishedDate,
       })} />
       <JsonLd data={faqJsonLd(guide.faqs)} />
+      <JsonLd data={breadcrumbJsonLd(breadcrumbs)} />
 
       {/* Hero */}
       <section className="pt-16 pb-12 px-6">

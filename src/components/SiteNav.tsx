@@ -95,6 +95,9 @@ export default function SiteNav() {
                 </div>
               )}
             </div>
+            <Link href="/blog" className="text-slate-400 hover:text-white transition">
+              Blog
+            </Link>
             <Link href="/tools" className="text-slate-400 hover:text-white transition">
               Tools
             </Link>
