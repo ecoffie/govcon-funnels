@@ -1,0 +1,31 @@
+name: SEO Health Check
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+
+jobs:
+  seo-check:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Wait for Vercel deployment
+        if: github.event_name == 'push'
+        run: sleep 90
+
+      - name: Run SEO Health Check
+        run: |
+          chmod +x scripts/seo-health-check.sh
+          bash scripts/seo-health-check.sh
+
+      - name: Check for failures
+        run: |
+          # Re-run and capture exit code
+          chmod +x scripts/seo-health-check.sh
+          if ! bash scripts/seo-health-check.sh; then
+            echo "::error::SEO Health Check failed! Check the logs above."
+            exit 1
+          fi
