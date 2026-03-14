@@ -24,12 +24,12 @@
 ## Month 1: Deploy + Index + Quick Wins (Mar 14 – Apr 13)
 
 ### Week 1 (Mar 14-20): Deploy Everything
-- [ ] Push all new content to git and deploy to Vercel
-- [ ] Verify all 18 new URLs return 200 (run `scripts/seo-health-check.sh`)
-- [ ] Verify sitemap.xml includes all 30+ URLs
-- [ ] Submit updated sitemap to Google Search Console
-- [ ] Submit updated sitemap to Bing Webmaster Tools
-- [ ] Request indexing for top 5 priority pages in GSC:
+- [x] Push all new content to git and deploy to Vercel ✅ Mar 14
+- [x] Verify all 18 new URLs return 200 (run `scripts/seo-health-check.sh`) ✅ 44/44 passed
+- [x] Verify sitemap.xml includes all 30+ URLs ✅ 37 URLs
+- [x] Submit updated sitemap to Google Search Console ✅ Mar 14
+- [x] Submit updated sitemap to Bing Webmaster Tools ✅ Mar 14
+- [x] Request indexing for top 5 priority pages in GSC: ✅ Mar 14
   1. /guides/cage-code (9,900/mo, difficulty 8)
   2. /government-contract-help ($31.70 CPC)
   3. /proposal-writing-services ($14.15 CPC)
