@@ -154,6 +154,43 @@ export default function Home() {
         </div>
       </section>
 
+      {/* Popular Guides - SEO Internal Links */}
+      <section className="py-16 px-6">
+        <div className="max-w-6xl mx-auto">
+          <div className="text-center mb-10">
+            <h2 className="text-3xl font-bold text-white mb-3">
+              Popular <span className="text-green-500">Guides</span>
+            </h2>
+            <p className="text-slate-500">Essential reading for government contractors</p>
+          </div>
+
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
+            <Link href="/guides/cage-code" className="bg-slate-900 border border-slate-800 rounded-lg p-4 hover:border-green-600/50 transition group">
+              <h3 className="text-white font-semibold group-hover:text-green-400 transition mb-1">CAGE Code Guide</h3>
+              <p className="text-slate-500 text-sm">Get your 5-character ID for federal contracting</p>
+            </Link>
+            <Link href="/guides/sam-gov-registration" className="bg-slate-900 border border-slate-800 rounded-lg p-4 hover:border-green-600/50 transition group">
+              <h3 className="text-white font-semibold group-hover:text-green-400 transition mb-1">SAM.gov Registration</h3>
+              <p className="text-slate-500 text-sm">Step-by-step registration walkthrough</p>
+            </Link>
+            <Link href="/guides/sba-certifications" className="bg-slate-900 border border-slate-800 rounded-lg p-4 hover:border-green-600/50 transition group">
+              <h3 className="text-white font-semibold group-hover:text-green-400 transition mb-1">SBA Certifications</h3>
+              <p className="text-slate-500 text-sm">8(a), HUBZone, WOSB, SDVOSB explained</p>
+            </Link>
+            <Link href="/glossary" className="bg-slate-900 border border-slate-800 rounded-lg p-4 hover:border-green-600/50 transition group">
+              <h3 className="text-white font-semibold group-hover:text-green-400 transition mb-1">GovCon Glossary</h3>
+              <p className="text-slate-500 text-sm">45+ terms every contractor should know</p>
+            </Link>
+          </div>
+
+          <div className="text-center mt-6">
+            <Link href="/guides" className="text-green-500 hover:text-green-400 font-semibold">
+              View All 15 Guides →
+            </Link>
+          </div>
+        </div>
+      </section>
+
       {/* Free Resources to Get Started - 3 cards */}
       <section className="py-20 px-6 bg-slate-900/50">
         <div className="max-w-6xl mx-auto">

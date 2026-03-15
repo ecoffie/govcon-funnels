@@ -35,6 +35,25 @@ export const guide: GuideData = {
         <p>Each program has different eligibility requirements, benefits, and application processes. Some businesses qualify for multiple certifications and can "stack" them for maximum advantage. For example, a service-disabled veteran who owns a business in a HUBZone area could hold both SDVOSB and HUBZone certifications simultaneously.</p>
         <p>All SBA certifications are managed through the SBA's certification portal at <a href="https://certify.sba.gov" target="_blank" rel="noopener">certify.sba.gov</a>. The application process is free, though it requires substantial documentation. Processing times vary by program but generally range from <strong>60 to 90 days</strong>.</p>
         <p>It is important to understand that these certifications are not shortcuts — they are <strong>access points</strong>. You still need to deliver quality work, write competitive proposals, and build relationships. But certification can dramatically increase the number of opportunities available to you and reduce the competition you face on each one.</p>
+        <h3>Quick Comparison: SBA Certifications at a Glance</h3>
+        <div class="overflow-x-auto my-6">
+          <table class="w-full text-left border-collapse text-sm">
+            <thead>
+              <tr class="bg-slate-800">
+                <th class="p-3 text-white font-bold border border-slate-700">Certification</th>
+                <th class="p-3 text-white font-bold border border-slate-700">Key Eligibility</th>
+                <th class="p-3 text-white font-bold border border-slate-700">Set-Aside $</th>
+                <th class="p-3 text-white font-bold border border-slate-700">Duration</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr><td class="p-3 border border-slate-700"><strong class="text-green-500">8(a)</strong></td><td class="p-3 border border-slate-700">Socially/economically disadvantaged (51%+)</td><td class="p-3 border border-slate-700">$30B+/year</td><td class="p-3 border border-slate-700">9 years</td></tr>
+              <tr><td class="p-3 border border-slate-700"><strong class="text-amber-500">SDVOSB</strong></td><td class="p-3 border border-slate-700">Service-disabled veteran owned (51%+)</td><td class="p-3 border border-slate-700">$25B+/year</td><td class="p-3 border border-slate-700">3 years</td></tr>
+              <tr><td class="p-3 border border-slate-700"><strong class="text-blue-500">HUBZone</strong></td><td class="p-3 border border-slate-700">Office + 35% employees in HUBZone</td><td class="p-3 border border-slate-700">$4B+/year</td><td class="p-3 border border-slate-700">3 years</td></tr>
+              <tr><td class="p-3 border border-slate-700"><strong class="text-purple-500">WOSB/EDWOSB</strong></td><td class="p-3 border border-slate-700">Women-owned (51%+)</td><td class="p-3 border border-slate-700">$5B+/year</td><td class="p-3 border border-slate-700">3 years</td></tr>
+            </tbody>
+          </table>
+        </div>
       `,
     },
     {

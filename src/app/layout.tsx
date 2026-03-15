@@ -3,6 +3,7 @@ import Script from "next/script";
 import { Inter } from "next/font/google";
 import SiteNav from "@/components/SiteNav";
 import BootcampBanner from "@/components/BootcampBanner";
+import ExitIntentPopup from "@/components/ExitIntentPopup";
 import JsonLd from "@/components/JsonLd";
 import { organizationJsonLd } from "@/lib/seo";
 import "./globals.css";
@@ -60,6 +61,7 @@ export default function RootLayout({
         <JsonLd data={organizationJsonLd()} />
         <SiteNav />
         <BootcampBanner />
+        <ExitIntentPopup />
         {children}
       </body>
     </html>
