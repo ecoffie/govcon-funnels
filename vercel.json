@@ -1,6 +1,11 @@
 {
   "redirects": [
     {
+      "source": "/cvb",
+      "destination": "/contract-vehicles-bootcamp",
+      "permanent": false
+    },
+    {
       "source": "/2-upsell.html",
       "destination": "/proposal-bootcamp/2-upsell.html",
       "permanent": false
