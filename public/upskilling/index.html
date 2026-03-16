@@ -1419,6 +1419,56 @@
                 }
             });
         });
+
+        // Email signup form handling
+        document.querySelectorAll('.email-form').forEach(form => {
+            form.addEventListener('submit', async function(e) {
+                e.preventDefault();
+                const emailInput = this.querySelector('input[type="email"]');
+                const submitBtn = this.querySelector('button[type="submit"]');
+                const email = emailInput.value.trim();
+
+                if (!email) return;
+
+                // Disable form during submission
+                submitBtn.disabled = true;
+                submitBtn.textContent = 'Signing up...';
+
+                try {
+                    const response = await fetch('/api/lead', {
+                        method: 'POST',
+                        headers: { 'Content-Type': 'application/json' },
+                        body: JSON.stringify({
+                            email: email,
+                            source: 'upskilling-newsletter',
+                            tags: ['upskilling', 'newsletter']
+                        })
+                    });
+
+                    if (response.ok) {
+                        emailInput.value = '';
+                        submitBtn.textContent = 'Subscribed!';
+                        submitBtn.style.background = '#10b981';
+                        setTimeout(() => {
+                            submitBtn.textContent = 'Sign Up Now';
+                            submitBtn.style.background = '';
+                            submitBtn.disabled = false;
+                        }, 3000);
+                    } else {
+                        throw new Error('Signup failed');
+                    }
+                } catch (error) {
+                    console.error('Signup error:', error);
+                    submitBtn.textContent = 'Try Again';
+                    submitBtn.style.background = '#ef4444';
+                    setTimeout(() => {
+                        submitBtn.textContent = 'Sign Up Now';
+                        submitBtn.style.background = '';
+                        submitBtn.disabled = false;
+                    }, 3000);
+                }
+            });
+        });
     </script>
 </body>
 </html>

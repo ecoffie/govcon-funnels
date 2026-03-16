@@ -19,6 +19,11 @@ const nextConfig: NextConfig = {
         destination: "https://vault.govcongiants.org/:path*",
         permanent: false,
       },
+      {
+        source: "/privacy",
+        destination: "/privacy-policy",
+        permanent: true,
+      },
     ];
   },
   async headers() {
