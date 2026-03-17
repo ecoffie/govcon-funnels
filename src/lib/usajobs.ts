@@ -3,19 +3,9 @@ import { categorizeJob } from './job-categories';
 
 const USAJOBS_API_BASE = 'https://data.usajobs.gov/api/search';
 
-// BD-related keywords to search for relevant jobs
-const BD_SEARCH_KEYWORDS = [
-  'business development',
-  'capture manager',
-  'proposal manager',
-  'proposal coordinator',
-  'pricing analyst',
-  'contract specialist',
-  'contracts administrator',
-  'capture',
-  'proposal',
-  'BD',
-];
+// Default search keyword - USAJobs doesn't support OR syntax well
+// Use a broad term that captures BD-related roles
+const DEFAULT_SEARCH_KEYWORD = 'contract';
 
 interface USAJobsClientOptions {
   apiKey?: string;
@@ -106,8 +96,8 @@ export async function searchUSAJobs(params: JobSearchParams = {}): Promise<{
   if (params.keyword) {
     searchParams.set('Keyword', params.keyword);
   } else {
-    // Default to BD-related keywords
-    searchParams.set('Keyword', BD_SEARCH_KEYWORDS.join(' OR '));
+    // Default to broad contract-related search
+    searchParams.set('Keyword', DEFAULT_SEARCH_KEYWORD);
   }
 
   if (params.location) {
