@@ -283,7 +283,7 @@ export default async function JobPage({ params }: JobPageProps) {
                       href="/upskilling"
                       className="block w-full px-6 py-3 bg-green-600 hover:bg-green-500 text-white text-center font-bold rounded-lg transition-colors"
                     >
-                      Get Certified - $997
+                      Learn About BD Training
                     </Link>
                     <Link
                       href="/free-course"

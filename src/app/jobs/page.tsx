@@ -124,14 +124,14 @@ export default async function JobsPage() {
             Want to Land These <span className="text-green-500">High-Paying Roles</span>?
           </h2>
           <p className="text-xl text-slate-400 mb-8 max-w-2xl mx-auto">
-            Our 30-Day BD Certification program teaches you the exact skills employers are looking for. Graduates are landing $80K-$300K+ roles.
+            Our BD training programs teach you the exact skills employers are looking for. Graduates are landing $80K-$300K+ roles.
           </p>
           <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
             <Link
               href="/upskilling"
               className="px-8 py-4 bg-green-600 hover:bg-green-500 text-white font-bold rounded-lg transition-colors"
             >
-              Get Certified - $997
+              Learn About BD Training
             </Link>
             <Link
               href="/free-course"
