@@ -173,19 +173,38 @@ export default function Home() {
               <h3 className="text-white font-semibold group-hover:text-green-400 transition mb-1">SAM.gov Registration</h3>
               <p className="text-slate-500 text-sm">Step-by-step registration walkthrough</p>
             </Link>
+            <Link href="/guides/8a-certification" className="bg-slate-900 border border-slate-800 rounded-lg p-4 hover:border-green-600/50 transition group">
+              <h3 className="text-white font-semibold group-hover:text-green-400 transition mb-1">8(a) Certification</h3>
+              <p className="text-slate-500 text-sm">Sole-source contracts up to $4.5M</p>
+            </Link>
+            <Link href="/guides/gsa-schedule" className="bg-slate-900 border border-slate-800 rounded-lg p-4 hover:border-green-600/50 transition group">
+              <h3 className="text-white font-semibold group-hover:text-green-400 transition mb-1">GSA Schedule</h3>
+              <p className="text-slate-500 text-sm">Pre-approved vendor access to agencies</p>
+            </Link>
+          </div>
+
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 mt-4">
             <Link href="/guides/sba-certifications" className="bg-slate-900 border border-slate-800 rounded-lg p-4 hover:border-green-600/50 transition group">
               <h3 className="text-white font-semibold group-hover:text-green-400 transition mb-1">SBA Certifications</h3>
-              <p className="text-slate-500 text-sm">8(a), HUBZone, WOSB, SDVOSB explained</p>
+              <p className="text-slate-500 text-sm">HUBZone, WOSB, SDVOSB explained</p>
             </Link>
             <Link href="/glossary" className="bg-slate-900 border border-slate-800 rounded-lg p-4 hover:border-green-600/50 transition group">
               <h3 className="text-white font-semibold group-hover:text-green-400 transition mb-1">GovCon Glossary</h3>
               <p className="text-slate-500 text-sm">45+ terms every contractor should know</p>
             </Link>
+            <Link href="/government-contract-help" className="bg-slate-900 border border-slate-800 rounded-lg p-4 hover:border-green-600/50 transition group">
+              <h3 className="text-white font-semibold group-hover:text-green-400 transition mb-1">Get Expert Help</h3>
+              <p className="text-slate-500 text-sm">Professional contract consulting services</p>
+            </Link>
+            <Link href="/proposal-writing-services" className="bg-slate-900 border border-slate-800 rounded-lg p-4 hover:border-green-600/50 transition group">
+              <h3 className="text-white font-semibold group-hover:text-green-400 transition mb-1">Proposal Writing</h3>
+              <p className="text-slate-500 text-sm">Professional proposal development</p>
+            </Link>
           </div>
 
           <div className="text-center mt-6">
             <Link href="/guides" className="text-green-500 hover:text-green-400 font-semibold">
-              View All 15 Guides →
+              View All 16 Guides →
             </Link>
           </div>
         </div>

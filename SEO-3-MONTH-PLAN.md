@@ -37,18 +37,33 @@
   5. /guides/gsa-schedule (110K broad volume)
 
 ### Week 2 (Mar 21-27): Index Verification
-- [ ] Check GSC for indexing status of all new pages
-- [ ] Fix any crawl errors or indexing issues
-- [ ] Verify JSON-LD validates (test with Google Rich Results Test)
-  - Article + FAQPage on each guide
-  - Service on /government-contract-help and /proposal-writing-services
-  - DefinedTermSet on /glossary
-- [ ] Set up Google Search Console performance tracking for target keywords
+- [x] Check GSC for indexing status of all new pages ✅ Mar 17
+  - /guides/cage-code: INDEXED (Breadcrumbs + FAQ enhancements)
+  - /government-contract-help: INDEXED (FAQ enhancement)
+  - /glossary: INDEXED
+  - /guides/gsa-schedule: INDEXED (Breadcrumbs)
+  - /proposal-writing-services: Discovered, not indexed → Requested indexing Mar 17
+- [x] Fix any crawl errors or indexing issues ✅ No errors found
+- [x] Verify JSON-LD validates (test with Google Rich Results Test) ✅ Mar 17
+  - Article + FAQPage on each guide ✅
+  - Service on /government-contract-help and /proposal-writing-services ✅
+  - DefinedTermSet on /glossary ✅
+- [x] Set up Google Search Console performance tracking for target keywords ✅ Mar 17
+
+#### Week 2 Performance Snapshot (Mar 17, 2026)
+| Metric | Value | Month 1 Target | Status |
+|--------|-------|----------------|--------|
+| Total Clicks | 19 | 20+ | 95% of target |
+| Total Impressions | 360 | 500+ | 72% of target |
+| Average CTR | 5.3% | >3% | EXCEEDING |
+| Average Position | 8.9 | Top 10 | ON TARGET |
 
 ### Week 3 (Mar 28 – Apr 3): Content Optimization Round 1
 - [ ] Review GSC data — which pages are getting impressions but low CTR?
 - [ ] Optimize meta titles/descriptions for pages with impressions but <3% CTR
-- [ ] Add internal links from homepage to top 3 new guides
+- [x] Add internal links from homepage to top 3 new guides ✅ Mar 17 (done early)
+  - Added: 8(a) Certification, GSA Schedule, Government Contract Help, Proposal Writing
+  - Homepage now links to 8 guides (up from 4)
 - [ ] Share CAGE code guide on social channels (highest volume keyword)
 - [ ] Share glossary as a resource on LinkedIn
 
