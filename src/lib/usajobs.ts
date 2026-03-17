@@ -132,6 +132,8 @@ export async function searchUSAJobs(params: JobSearchParams = {}): Promise<{
   const url = `${USAJOBS_API_BASE}?${searchParams.toString()}`;
 
   try {
+    console.log('Fetching USAJobs:', url);
+
     const response = await fetch(url, {
       headers: {
         'Authorization-Key': apiKey,
@@ -141,11 +143,17 @@ export async function searchUSAJobs(params: JobSearchParams = {}): Promise<{
       next: { revalidate: 3600 }, // Cache for 1 hour
     });
 
+    console.log('USAJobs response status:', response.status);
+
     if (!response.ok) {
+      const errorText = await response.text();
+      console.error('USAJobs API error response:', errorText);
       throw new Error(`USAJobs API error: ${response.status}`);
     }
 
     const data: USAJobsSearchResult = await response.json();
+    console.log('USAJobs result count:', data.SearchResult?.SearchResultCount);
+
     const jobs = data.SearchResult.SearchResultItems.map(transformJob);
 
     // Apply category filter if specified
