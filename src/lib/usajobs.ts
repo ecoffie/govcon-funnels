@@ -140,7 +140,7 @@ export async function searchUSAJobs(params: JobSearchParams = {}): Promise<{
         'User-Agent': email || 'hello@govconedu.com',
         'Host': 'data.usajobs.gov',
       },
-      next: { revalidate: 3600 }, // Cache for 1 hour
+      cache: 'no-store', // Don't cache - fetch fresh each time
     });
 
     console.log('USAJobs response status:', response.status);
@@ -193,7 +193,7 @@ export async function getJob(id: string): Promise<Job | null> {
         'User-Agent': email || 'hello@govconedu.com',
         'Host': 'data.usajobs.gov',
       },
-      next: { revalidate: 3600 },
+      cache: 'no-store',
     });
 
     if (!response.ok) {
