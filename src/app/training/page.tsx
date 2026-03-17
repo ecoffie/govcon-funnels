@@ -2,10 +2,10 @@ import Link from 'next/link';
 import { generateSeo } from '@/lib/seo';
 
 export const metadata = generateSeo({
-  title: 'GovCon Bootcamps & Training',
-  description: 'Live bootcamps and training to help you win federal contracts. January Bootcamp, Surge Bootcamp, Bid Bootcamp, and more.',
+  title: 'Government Contracting Training | Live Bootcamps & Courses',
+  description: 'Live government contracting bootcamps and training courses. Learn to win federal contracts from experts who\'ve won $2B+. Next bootcamp starting soon.',
   path: '/training',
-  keywords: ['government contracting training', 'govcon bootcamp', 'federal contracting classes', 'small business training'],
+  keywords: ['government contracting training', 'govcon bootcamp', 'federal contracting classes', 'small business government contract training'],
 });
 
 export default function TrainingPage() {
