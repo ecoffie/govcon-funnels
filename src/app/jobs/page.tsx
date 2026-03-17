@@ -5,6 +5,9 @@ import { searchUSAJobs } from '@/lib/usajobs';
 import { getDisplayCategories } from '@/lib/job-categories';
 import JobListClient from './JobListClient';
 
+// Force dynamic rendering so env vars are available at runtime
+export const dynamic = 'force-dynamic';
+
 export const metadata = generateSeo({
   title: 'GovCon Jobs | $80K-$500K Government Contracting Careers',
   description: 'Find high-paying government contracting jobs in business development, capture management, and proposals. Salaries from $80K to $500K+. Get certified and land your dream role.',

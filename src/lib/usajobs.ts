@@ -92,6 +92,9 @@ export async function searchUSAJobs(params: JobSearchParams = {}): Promise<{
 }> {
   const { apiKey, email } = getCredentials();
 
+  // Log for debugging
+  console.log('USAJobs API - apiKey exists:', !!apiKey, 'email:', email);
+
   if (!apiKey) {
     console.warn('USAJOBS_API_KEY not set, returning mock data');
     return { jobs: getMockJobs(), total: getMockJobs().length };
@@ -156,7 +159,9 @@ export async function searchUSAJobs(params: JobSearchParams = {}): Promise<{
     };
   } catch (error) {
     console.error('USAJobs API error:', error);
-    return { jobs: getMockJobs(), total: getMockJobs().length };
+    // Return mock data on error so the page still works
+    const mockJobs = getMockJobs();
+    return { jobs: mockJobs, total: mockJobs.length };
   }
 }
 
