@@ -184,6 +184,10 @@ export default function Home() {
           </div>
 
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 mt-4">
+            <Link href="/jobs" className="bg-gradient-to-br from-green-900/30 to-slate-900 border border-green-600/30 rounded-lg p-4 hover:border-green-500/50 transition group">
+              <h3 className="text-green-400 font-semibold group-hover:text-green-300 transition mb-1">GovCon Jobs</h3>
+              <p className="text-slate-400 text-sm">$80K-$500K BD & Capture careers</p>
+            </Link>
             <Link href="/guides/sba-certifications" className="bg-slate-900 border border-slate-800 rounded-lg p-4 hover:border-green-600/50 transition group">
               <h3 className="text-white font-semibold group-hover:text-green-400 transition mb-1">SBA Certifications</h3>
               <p className="text-slate-500 text-sm">HUBZone, WOSB, SDVOSB explained</p>
@@ -195,10 +199,6 @@ export default function Home() {
             <Link href="/government-contract-help" className="bg-slate-900 border border-slate-800 rounded-lg p-4 hover:border-green-600/50 transition group">
               <h3 className="text-white font-semibold group-hover:text-green-400 transition mb-1">Get Expert Help</h3>
               <p className="text-slate-500 text-sm">Professional contract consulting services</p>
-            </Link>
-            <Link href="/proposal-writing-services" className="bg-slate-900 border border-slate-800 rounded-lg p-4 hover:border-green-600/50 transition group">
-              <h3 className="text-white font-semibold group-hover:text-green-400 transition mb-1">Proposal Writing</h3>
-              <p className="text-slate-500 text-sm">Professional proposal development</p>
             </Link>
           </div>
 
@@ -412,6 +412,7 @@ export default function Home() {
             <div>
               <h3 className="text-white font-bold mb-4">Products</h3>
               <ul className="space-y-2 text-sm">
+                <li><Link href="/jobs" className="text-green-500 hover:text-green-400 transition font-medium">GovCon Jobs</Link></li>
                 <li><Link href="/free-course" className="text-slate-500 hover:text-white transition">Free Course</Link></li>
                 <li><Link href="/resources" className="text-slate-500 hover:text-white transition">Resources</Link></li>
                 <li><Link href="/tools" className="text-slate-500 hover:text-white transition">Tools</Link></li>
