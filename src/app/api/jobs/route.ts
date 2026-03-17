@@ -2,7 +2,12 @@ import { NextRequest, NextResponse } from 'next/server';
 import { searchUSAJobs } from '@/lib/usajobs';
 import type { JobCategory, JobSearchParams } from '@/types/job';
 
+// Force dynamic
+export const dynamic = 'force-dynamic';
+
 export async function GET(request: NextRequest) {
+  // Debug: log env var status
+  console.log('API /jobs - USAJOBS_API_KEY exists:', !!process.env.USAJOBS_API_KEY);
   const { searchParams } = new URL(request.url);
 
   const params: JobSearchParams = {
