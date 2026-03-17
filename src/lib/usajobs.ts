@@ -3,9 +3,15 @@ import { categorizeJob } from './job-categories';
 
 const USAJOBS_API_BASE = 'https://data.usajobs.gov/api/search';
 
-// Default search keyword - USAJobs doesn't support OR syntax well
-// Use a broad term that captures BD-related roles
-const DEFAULT_SEARCH_KEYWORD = 'contract';
+// Multiple search terms to cover BD-related roles
+// USAJobs doesn't support OR syntax, so we'll run multiple searches
+const BD_SEARCH_TERMS = [
+  'contract specialist',
+  'capture manager',
+  'proposal',
+  'business development',
+  'acquisition',
+];
 
 interface USAJobsClientOptions {
   apiKey?: string;
@@ -75,89 +81,116 @@ function transformJob(item: USAJobsItem): Job {
   };
 }
 
-// Search USAJobs API
+// Helper to fetch a single search term
+async function fetchUSAJobsSearch(
+  keyword: string,
+  params: JobSearchParams,
+  apiKey: string,
+  email: string
+): Promise<{ jobs: Job[]; total: number }> {
+  const searchParams = new URLSearchParams();
+  searchParams.set('Keyword', keyword);
+
+  if (params.location) {
+    searchParams.set('LocationName', params.location);
+  }
+  if (params.salaryMin) {
+    searchParams.set('RemunerationMinimumAmount', params.salaryMin.toString());
+  }
+
+  const page = params.page || 1;
+  const limit = params.limit || 25;
+  searchParams.set('Page', page.toString());
+  searchParams.set('ResultsPerPage', limit.toString());
+  searchParams.set('SortField', 'PublicationStartDate');
+  searchParams.set('SortDirection', 'Desc');
+
+  const url = `${USAJOBS_API_BASE}?${searchParams.toString()}`;
+
+  const response = await fetch(url, {
+    headers: {
+      'Authorization-Key': apiKey,
+      'User-Agent': email,
+      'Host': 'data.usajobs.gov',
+    },
+    cache: 'no-store',
+  });
+
+  if (!response.ok) {
+    throw new Error(`USAJobs API error: ${response.status}`);
+  }
+
+  const data: USAJobsSearchResult = await response.json();
+  const jobs = data.SearchResult.SearchResultItems.map(transformJob);
+
+  return {
+    jobs,
+    total: data.SearchResult.SearchResultCountAll,
+  };
+}
+
+// Search USAJobs API - runs multiple searches for better BD coverage
 export async function searchUSAJobs(params: JobSearchParams = {}): Promise<{
   jobs: Job[];
   total: number;
 }> {
   const { apiKey, email } = getCredentials();
 
-  // Log for debugging
-  console.log('USAJobs API - apiKey exists:', !!apiKey, 'email:', email);
-
   if (!apiKey) {
     console.warn('USAJOBS_API_KEY not set, returning mock data');
     return { jobs: getMockJobs(), total: getMockJobs().length };
   }
 
-  const searchParams = new URLSearchParams();
-
-  // Build search query
-  if (params.keyword) {
-    searchParams.set('Keyword', params.keyword);
-  } else {
-    // Default to broad contract-related search
-    searchParams.set('Keyword', DEFAULT_SEARCH_KEYWORD);
-  }
-
-  if (params.location) {
-    searchParams.set('LocationName', params.location);
-  }
-
-  // Salary filters
-  if (params.salaryMin) {
-    searchParams.set('RemunerationMinimumAmount', params.salaryMin.toString());
-  }
-
-  // Pagination
-  const page = params.page || 1;
-  const limit = params.limit || 25;
-  searchParams.set('Page', page.toString());
-  searchParams.set('ResultsPerPage', limit.toString());
-
-  // Sort by date
-  searchParams.set('SortField', 'PublicationStartDate');
-  searchParams.set('SortDirection', 'Desc');
-
-  const url = `${USAJOBS_API_BASE}?${searchParams.toString()}`;
-
   try {
-    console.log('Fetching USAJobs:', url);
-
-    const response = await fetch(url, {
-      headers: {
-        'Authorization-Key': apiKey,
-        'User-Agent': email || 'hello@govconedu.com',
-        'Host': 'data.usajobs.gov',
-      },
-      cache: 'no-store', // Don't cache - fetch fresh each time
-    });
-
-    console.log('USAJobs response status:', response.status);
-
-    if (!response.ok) {
-      const errorText = await response.text();
-      console.error('USAJobs API error response:', errorText);
-      throw new Error(`USAJobs API error: ${response.status}`);
+    // If user specified a keyword, just search that
+    if (params.keyword) {
+      const result = await fetchUSAJobsSearch(params.keyword, params, apiKey, email || 'hello@govconedu.com');
+      const filteredJobs = params.category
+        ? result.jobs.filter(j => j.category === params.category)
+        : result.jobs;
+      return { jobs: filteredJobs, total: result.total };
     }
 
-    const data: USAJobsSearchResult = await response.json();
-    console.log('USAJobs result count:', data.SearchResult?.SearchResultCount);
+    // Otherwise, run multiple searches in parallel for BD-related terms
+    const searches = BD_SEARCH_TERMS.map(term =>
+      fetchUSAJobsSearch(term, { ...params, limit: 10 }, apiKey, email || 'hello@govconedu.com')
+    );
 
-    const jobs = data.SearchResult.SearchResultItems.map(transformJob);
+    const results = await Promise.all(searches);
+
+    // Combine and deduplicate jobs by ID
+    const jobMap = new Map<string, Job>();
+    let totalEstimate = 0;
+
+    for (const result of results) {
+      totalEstimate += result.total;
+      for (const job of result.jobs) {
+        if (!jobMap.has(job.id)) {
+          jobMap.set(job.id, job);
+        }
+      }
+    }
+
+    let jobs = Array.from(jobMap.values());
+
+    // Sort by posted date (newest first)
+    jobs.sort((a, b) => new Date(b.posted_date).getTime() - new Date(a.posted_date).getTime());
 
     // Apply category filter if specified
-    const filteredJobs = params.category
-      ? jobs.filter(j => j.category === params.category)
-      : jobs;
+    if (params.category) {
+      jobs = jobs.filter(j => j.category === params.category);
+    }
+
+    // Limit results
+    const limit = params.limit || 25;
+    jobs = jobs.slice(0, limit);
 
     return {
-      jobs: filteredJobs,
-      total: data.SearchResult.SearchResultCountAll,
+      jobs,
+      total: totalEstimate,
     };
   } catch (error) {
     console.error('USAJobs API error:', error);
-    // Return mock data on error so the page still works
     const mockJobs = getMockJobs();
     return { jobs: mockJobs, total: mockJobs.length };
   }
