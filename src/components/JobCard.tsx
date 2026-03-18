@@ -22,7 +22,7 @@ export default function JobCard({ job, featured = false }: JobCardProps) {
 
   return (
     <Link
-      href={`/jobs/${job.id}`}
+      href={`/jobs/view/${job.id}`}
       className={`block bg-slate-900 border rounded-xl p-6 hover:border-green-500/50 transition-all hover:translate-y-[-2px] ${
         featured ? 'border-green-500/30 ring-1 ring-green-500/20' : 'border-slate-800'
       }`}

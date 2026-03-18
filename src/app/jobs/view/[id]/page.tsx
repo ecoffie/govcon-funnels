@@ -343,7 +343,7 @@ export default async function JobPage({ params }: JobPageProps) {
               {otherJobs.map((otherJob) => (
                 <Link
                   key={otherJob.id}
-                  href={`/jobs/${otherJob.id}`}
+                  href={`/jobs/view/${otherJob.id}`}
                   className="bg-slate-900 border border-slate-800 rounded-xl p-4 hover:border-green-500/50 transition-colors"
                 >
                   <h3 className="font-semibold text-white mb-1 line-clamp-1">{otherJob.title}</h3>
