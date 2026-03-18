@@ -24,8 +24,25 @@ export interface GuideData {
     buttonHref: string;
   };
   relatedGuides: string[];
+  relatedJobs?: string[]; // Job category slugs for internal linking
   publishedDate: string;
 }
+
+// Map guides to relevant job categories for internal linking
+export const GUIDE_JOB_MAPPING: Record<string, string[]> = {
+  'proposal-writing': ['proposal-manager', 'proposal-coordinator', 'pricing-analyst'],
+  'finding-government-contracts': ['bd-manager', 'capture-manager', 'bd-consultant'],
+  'federal-market-research': ['capture-manager', 'bd-manager', 'pricing-analyst'],
+  'capability-statement': ['bd-manager', 'proposal-coordinator', 'capture-manager'],
+  'subcontracting-and-teaming': ['bd-manager', 'capture-manager', 'contracts-administrator'],
+  'government-contracting-for-beginners': ['bd-manager', 'proposal-coordinator', 'contracts-administrator'],
+  'gsa-schedule': ['contracts-administrator', 'bd-manager', 'pricing-analyst'],
+  'sam-gov-registration': ['contracts-administrator', 'bd-manager'],
+  'cage-code': ['contracts-administrator'],
+  'sba-certifications': ['bd-manager', 'capture-manager'],
+  '8a-certification': ['bd-manager', 'capture-manager'],
+  'ai-government-contracting': ['proposal-manager', 'capture-manager', 'bd-consultant'],
+};
 
 // Import all guides
 import { guide as governmentContractingForBeginners } from './government-contracting-for-beginners';

@@ -19,8 +19,10 @@ export interface BlogPost {
 import { post as wishIKnew } from './10-things-wish-i-knew';
 import { post as whichCertification } from './which-sba-certification';
 import { post as samSearchTricks } from './sam-gov-search-tricks';
+import { post as bdJobsGuide } from './9-govcon-bd-jobs-150k';
 
 export const allPosts: BlogPost[] = [
+  bdJobsGuide,
   wishIKnew,
   whichCertification,
   samSearchTricks,

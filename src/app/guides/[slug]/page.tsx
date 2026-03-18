@@ -1,8 +1,10 @@
 import { notFound } from 'next/navigation';
 import Link from 'next/link';
 import type { Metadata } from 'next';
-import { allGuides, getGuideBySlug } from '@/content/guides';
+import { allGuides, getGuideBySlug, GUIDE_JOB_MAPPING } from '@/content/guides';
 import { generateSeo, articleJsonLd, faqJsonLd, breadcrumbJsonLd } from '@/lib/seo';
+import { JOB_CATEGORIES } from '@/lib/job-categories';
+import type { JobCategory } from '@/types/job';
 import JsonLd from '@/components/JsonLd';
 
 type Props = { params: Promise<{ slug: string }> };
@@ -33,6 +35,12 @@ export default async function GuidePage({ params }: Props) {
 
   const relatedGuides = guide.relatedGuides
     .map((s) => allGuides.find((g) => g.slug === s))
+    .filter(Boolean);
+
+  // Get related jobs for this guide
+  const relatedJobSlugs = GUIDE_JOB_MAPPING[guide.slug] || [];
+  const relatedJobs = relatedJobSlugs
+    .map((slug) => JOB_CATEGORIES[slug as JobCategory])
     .filter(Boolean);
 
   const breadcrumbs = [
@@ -135,6 +143,36 @@ export default async function GuidePage({ params }: Props) {
               {guide.cta.buttonText}
             </Link>
           </section>
+
+          {/* Related Jobs */}
+          {relatedJobs.length > 0 && (
+            <section className="bg-slate-900 border border-slate-800 rounded-2xl p-8">
+              <div className="flex items-center gap-3 mb-6">
+                <div className="w-10 h-10 rounded-full bg-green-500/20 flex items-center justify-center">
+                  <svg className="w-5 h-5 text-green-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M21 13.255A23.931 23.931 0 0112 15c-3.183 0-6.22-.62-9-1.745M16 6V4a2 2 0 00-2-2h-4a2 2 0 00-2 2v2m4 6h.01M5 20h14a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
+                  </svg>
+                </div>
+                <div>
+                  <h2 className="text-xl font-bold text-white">Related GovCon Jobs</h2>
+                  <p className="text-slate-400 text-sm">High-paying roles that use these skills</p>
+                </div>
+              </div>
+              <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+                {relatedJobs.map((job) => (
+                  <Link
+                    key={job.slug}
+                    href={`/jobs/${job.slug}`}
+                    className="bg-slate-800 hover:bg-slate-700 border border-slate-700 hover:border-green-500/50 rounded-xl p-4 transition-all"
+                  >
+                    <h3 className="text-white font-semibold mb-1">{job.name}</h3>
+                    <p className="text-green-400 text-sm font-medium mb-2">{job.salaryRange}</p>
+                    <span className="text-slate-400 text-sm">View Jobs →</span>
+                  </Link>
+                ))}
+              </div>
+            </section>
+          )}
 
           {/* Related Guides */}
           {relatedGuides.length > 0 && (

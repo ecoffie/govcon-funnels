@@ -123,7 +123,7 @@ export default async function JobPage({ params }: JobPageProps) {
             {job.category !== 'other' && (
               <>
                 <span className="text-slate-600">/</span>
-                <Link href={`/jobs?category=${job.category}`} className="text-slate-400 hover:text-green-400">
+                <Link href={`/jobs/${job.category}`} className="text-slate-400 hover:text-green-400">
                   {categoryInfo.name}
                 </Link>
               </>
@@ -328,7 +328,17 @@ export default async function JobPage({ params }: JobPageProps) {
       {otherJobs.length > 0 && (
         <section className="py-12 px-6 bg-slate-900/50 border-t border-slate-800">
           <div className="max-w-4xl mx-auto">
-            <h2 className="text-2xl font-bold text-white mb-6">Similar Jobs</h2>
+            <div className="flex items-center justify-between mb-6">
+              <h2 className="text-2xl font-bold text-white">Similar {categoryInfo.name} Jobs</h2>
+              {job.category !== 'other' && (
+                <Link
+                  href={`/jobs/${job.category}`}
+                  className="text-green-400 hover:text-green-300 text-sm font-medium"
+                >
+                  View all {categoryInfo.name} jobs →
+                </Link>
+              )}
+            </div>
             <div className="grid md:grid-cols-3 gap-4">
               {otherJobs.map((otherJob) => (
                 <Link
