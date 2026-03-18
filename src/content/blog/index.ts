@@ -23,12 +23,16 @@ import { post as bdJobsGuide } from './9-govcon-bd-jobs-150k';
 import { post as captureManagerSalary } from './capture-manager-salary-guide';
 import { post as proposalManagerCareer } from './proposal-manager-career-path';
 import { post as noExperienceJobs } from './govcon-bd-jobs-no-experience';
+import { post as pricingAnalystGuide } from './pricing-analyst-govcon-guide';
+import { post as contractsAdminCareer } from './contracts-administrator-career';
 
 export const allPosts: BlogPost[] = [
   bdJobsGuide,
   captureManagerSalary,
   proposalManagerCareer,
   noExperienceJobs,
+  pricingAnalystGuide,
+  contractsAdminCareer,
   wishIKnew,
   whichCertification,
   samSearchTricks,
