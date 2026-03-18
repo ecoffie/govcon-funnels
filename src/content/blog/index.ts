@@ -25,14 +25,25 @@ import { post as proposalManagerCareer } from './proposal-manager-career-path';
 import { post as noExperienceJobs } from './govcon-bd-jobs-no-experience';
 import { post as pricingAnalystGuide } from './pricing-analyst-govcon-guide';
 import { post as contractsAdminCareer } from './contracts-administrator-career';
+import { post as cageCodeLookup } from './cage-code-lookup-guide';
+import { post as samChecklist } from './sam-gov-registration-checklist';
+import { post as certComparison } from './8a-vs-hubzone-vs-sdvosb';
+import { post as winNoExperience } from './win-government-contracts-no-experience';
 
 export const allPosts: BlogPost[] = [
+  // GovCon Strategy
+  winNoExperience,
+  certComparison,
+  cageCodeLookup,
+  samChecklist,
+  // Jobs
   bdJobsGuide,
   captureManagerSalary,
   proposalManagerCareer,
   noExperienceJobs,
   pricingAnalystGuide,
   contractsAdminCareer,
+  // Original posts
   wishIKnew,
   whichCertification,
   samSearchTricks,

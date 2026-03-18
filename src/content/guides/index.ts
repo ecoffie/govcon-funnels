@@ -26,6 +26,7 @@ export interface GuideData {
   relatedGuides: string[];
   relatedJobs?: string[]; // Job category slugs for internal linking
   publishedDate: string;
+  updatedDate?: string;
 }
 
 // Map guides to relevant job categories for internal linking
