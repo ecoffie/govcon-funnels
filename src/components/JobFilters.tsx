@@ -12,6 +12,7 @@ interface JobFiltersProps {
   location: string;
   onLocationChange: (location: string) => void;
   onSearch: () => void;
+  hideCategories?: boolean;
 }
 
 export default function JobFilters({
@@ -22,6 +23,7 @@ export default function JobFilters({
   location,
   onLocationChange,
   onSearch,
+  hideCategories = false,
 }: JobFiltersProps) {
   const categories = getDisplayCategories();
   const [showAllCategories, setShowAllCategories] = useState(false);
@@ -83,42 +85,44 @@ export default function JobFilters({
         </button>
       </div>
 
-      {/* Category filters */}
-      <div className="flex flex-wrap items-center gap-2">
-        <button
-          onClick={() => onCategoryChange(null)}
-          className={`px-4 py-2 rounded-full text-sm font-medium transition-colors ${
-            selectedCategory === null
-              ? 'bg-green-500 text-white'
-              : 'bg-slate-800 text-slate-300 hover:bg-slate-700'
-          }`}
-        >
-          All Roles
-        </button>
-
-        {displayedCategories.map((cat) => (
+      {/* Category filters - hidden on category landing pages */}
+      {!hideCategories && (
+        <div className="flex flex-wrap items-center gap-2">
           <button
-            key={cat.slug}
-            onClick={() => onCategoryChange(cat.slug)}
+            onClick={() => onCategoryChange(null)}
             className={`px-4 py-2 rounded-full text-sm font-medium transition-colors ${
-              selectedCategory === cat.slug
+              selectedCategory === null
                 ? 'bg-green-500 text-white'
                 : 'bg-slate-800 text-slate-300 hover:bg-slate-700'
             }`}
           >
-            {cat.shortName}
+            All Roles
           </button>
-        ))}
 
-        {!showAllCategories && categories.length > 5 && (
-          <button
-            onClick={() => setShowAllCategories(true)}
-            className="px-4 py-2 text-green-400 text-sm font-medium hover:text-green-300 transition-colors"
-          >
-            +{categories.length - 5} more
-          </button>
-        )}
-      </div>
+          {displayedCategories.map((cat) => (
+            <button
+              key={cat.slug}
+              onClick={() => onCategoryChange(cat.slug)}
+              className={`px-4 py-2 rounded-full text-sm font-medium transition-colors ${
+                selectedCategory === cat.slug
+                  ? 'bg-green-500 text-white'
+                  : 'bg-slate-800 text-slate-300 hover:bg-slate-700'
+              }`}
+            >
+              {cat.shortName}
+            </button>
+          ))}
+
+          {!showAllCategories && categories.length > 5 && (
+            <button
+              onClick={() => setShowAllCategories(true)}
+              className="px-4 py-2 text-green-400 text-sm font-medium hover:text-green-300 transition-colors"
+            >
+              +{categories.length - 5} more
+            </button>
+          )}
+        </div>
+      )}
     </div>
   );
 }

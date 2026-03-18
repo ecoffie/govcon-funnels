@@ -8,17 +8,18 @@ import JobFilters from '@/components/JobFilters';
 interface JobListClientProps {
   initialJobs: Job[];
   initialTotal: number;
+  fixedCategory?: JobCategory; // For category landing pages
 }
 
-export default function JobListClient({ initialJobs, initialTotal }: JobListClientProps) {
+export default function JobListClient({ initialJobs, initialTotal, fixedCategory }: JobListClientProps) {
   const [jobs, setJobs] = useState<Job[]>(initialJobs);
   const [total, setTotal] = useState(initialTotal);
   const [loading, setLoading] = useState(false);
   const [page, setPage] = useState(1);
   const [hasMore, setHasMore] = useState(initialJobs.length < initialTotal);
 
-  // Filter state
-  const [selectedCategory, setSelectedCategory] = useState<JobCategory | null>(null);
+  // Filter state - use fixedCategory if provided
+  const [selectedCategory, setSelectedCategory] = useState<JobCategory | null>(fixedCategory || null);
   const [keyword, setKeyword] = useState('');
   const [location, setLocation] = useState('');
 
@@ -28,7 +29,9 @@ export default function JobListClient({ initialJobs, initialTotal }: JobListClie
       const params = new URLSearchParams();
       if (keyword) params.set('keyword', keyword);
       if (location) params.set('location', location);
-      if (selectedCategory) params.set('category', selectedCategory);
+      // Use fixedCategory if set, otherwise use selectedCategory
+      const categoryToUse = fixedCategory || selectedCategory;
+      if (categoryToUse) params.set('category', categoryToUse);
 
       const newPage = resetPage ? 1 : page + 1;
       params.set('page', newPage.toString());
@@ -51,7 +54,7 @@ export default function JobListClient({ initialJobs, initialTotal }: JobListClie
     } finally {
       setLoading(false);
     }
-  }, [keyword, location, selectedCategory, page, jobs.length]);
+  }, [keyword, location, selectedCategory, fixedCategory, page, jobs.length]);
 
   const handleSearch = () => {
     fetchJobs(true);
@@ -76,7 +79,7 @@ export default function JobListClient({ initialJobs, initialTotal }: JobListClie
 
   return (
     <div>
-      {/* Filters */}
+      {/* Filters - hide category filter on category pages */}
       <div className="mb-8">
         <JobFilters
           selectedCategory={selectedCategory}
@@ -86,6 +89,7 @@ export default function JobListClient({ initialJobs, initialTotal }: JobListClie
           location={location}
           onLocationChange={setLocation}
           onSearch={handleSearch}
+          hideCategories={!!fixedCategory}
         />
       </div>
 

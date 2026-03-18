@@ -4,6 +4,7 @@ import { generateSeo } from '@/lib/seo';
 import { searchUSAJobs } from '@/lib/usajobs';
 import { getDisplayCategories } from '@/lib/job-categories';
 import JobListClient from './JobListClient';
+import JobAlertSignup from '@/components/JobAlertSignup';
 
 // Force dynamic rendering so env vars are available at runtime
 export const dynamic = 'force-dynamic';
@@ -115,6 +116,11 @@ export default async function JobsPage() {
           <Suspense fallback={<div className="animate-pulse bg-slate-800 h-32 rounded-xl" />}>
             <JobStats />
           </Suspense>
+
+          {/* Job Alerts Signup */}
+          <div className="mb-8">
+            <JobAlertSignup />
+          </div>
 
           <JobListClient initialJobs={initialJobs} initialTotal={total} />
         </div>

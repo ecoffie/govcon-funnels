@@ -75,9 +75,9 @@ export default function sitemap(): MetadataRoute.Sitemap {
     priority: 0.8,
   }));
 
-  // Job category landing pages for SEO
+  // Job category landing pages for SEO (clean URLs)
   const jobPages: MetadataRoute.Sitemap = jobCategories.map((category) => ({
-    url: `${SITE_URL}/jobs?category=${category}`,
+    url: `${SITE_URL}/jobs/${category}`,
     lastModified: now,
     changeFrequency: 'daily' as const,
     priority: 0.8,
