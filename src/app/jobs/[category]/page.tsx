@@ -39,32 +39,31 @@ export async function generateMetadata({ params }: { params: Promise<{ category:
   });
 }
 
-// JSON-LD for category page
+// JSON-LD for category page - use CollectionPage, not JobPosting
+// JobPosting schema is on individual job detail pages
 function categoryJsonLd(catInfo: typeof JOB_CATEGORIES[JobCategory], jobCount: number) {
   return {
     '@context': 'https://schema.org',
-    '@type': 'ItemList',
+    '@type': 'CollectionPage',
     name: `${catInfo.name} Jobs`,
-    description: catInfo.description,
-    numberOfItems: jobCount,
-    itemListElement: {
-      '@type': 'ListItem',
-      position: 1,
-      item: {
-        '@type': 'JobPosting',
-        title: catInfo.name,
-        description: catInfo.description,
-        baseSalary: {
-          '@type': 'MonetaryAmount',
-          currency: 'USD',
-          value: {
-            '@type': 'QuantitativeValue',
-            minValue: catInfo.salaryMin,
-            maxValue: catInfo.salaryMax,
-            unitText: 'YEAR',
-          },
-        },
+    description: `Find ${catInfo.name.toLowerCase()} jobs in government contracting. ${catInfo.description} Typical salary range: ${catInfo.salaryRange}.`,
+    about: {
+      '@type': 'Occupation',
+      name: catInfo.name,
+      occupationalCategory: 'Business Development',
+      estimatedSalary: {
+        '@type': 'MonetaryAmountDistribution',
+        currency: 'USD',
+        minValue: catInfo.salaryMin,
+        maxValue: catInfo.salaryMax,
+        unitText: 'YEAR',
       },
+    },
+    mainEntity: {
+      '@type': 'ItemList',
+      numberOfItems: jobCount,
+      itemListOrder: 'https://schema.org/ItemListOrderDescending',
+      name: `${catInfo.name} Job Listings`,
     },
   };
 }
