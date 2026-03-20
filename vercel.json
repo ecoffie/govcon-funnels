@@ -6,6 +6,76 @@
       "permanent": false
     },
     {
+      "source": "/bootcamp/part-3",
+      "destination": "/bootcamp",
+      "permanent": true
+    },
+    {
+      "source": "/bootcamp/part-2",
+      "destination": "/bootcamp",
+      "permanent": true
+    },
+    {
+      "source": "/bootcamp/part-1",
+      "destination": "/bootcamp",
+      "permanent": true
+    },
+    {
+      "source": "/10-things-they-dont-want-you-to-know-about-government-contracts",
+      "destination": "/blog/10-things-wish-i-knew",
+      "permanent": true
+    },
+    {
+      "source": "/10-things-they-dont-want-you-to-know-about-government-contracts/",
+      "destination": "/blog/10-things-wish-i-knew",
+      "permanent": true
+    },
+    {
+      "source": "/join-fhc",
+      "destination": "/free-course",
+      "permanent": true
+    },
+    {
+      "source": "/join-fhc-1",
+      "destination": "/free-course",
+      "permanent": true
+    },
+    {
+      "source": "/category/bid-opportunities",
+      "destination": "/jobs",
+      "permanent": true
+    },
+    {
+      "source": "/category/bid-opportunities/",
+      "destination": "/jobs",
+      "permanent": true
+    },
+    {
+      "source": "/podcast",
+      "destination": "/resources",
+      "permanent": true
+    },
+    {
+      "source": "/solutions",
+      "destination": "/consulting",
+      "permanent": true
+    },
+    {
+      "source": "/resources/library",
+      "destination": "/resources",
+      "permanent": true
+    },
+    {
+      "source": "/category/:slug*",
+      "destination": "/blog",
+      "permanent": true
+    },
+    {
+      "source": "/tag/:slug*",
+      "destination": "/blog",
+      "permanent": true
+    },
+    {
       "source": "/2-upsell.html",
       "destination": "/proposal-bootcamp/2-upsell.html",
       "permanent": false
