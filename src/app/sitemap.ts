@@ -31,6 +31,7 @@ const guidesSlugs = [
   'subcontracting-and-teaming',
   'federal-market-research',
   'gsa-schedule',
+  'naics-codes',
   'ai-government-contracting',
 ];
 

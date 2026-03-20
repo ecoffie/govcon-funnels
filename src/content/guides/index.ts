@@ -40,6 +40,7 @@ export const GUIDE_JOB_MAPPING: Record<string, string[]> = {
   'gsa-schedule': ['contracts-administrator', 'bd-manager', 'pricing-analyst'],
   'sam-gov-registration': ['contracts-administrator', 'bd-manager'],
   'cage-code': ['contracts-administrator'],
+  'naics-codes': ['bd-manager', 'capture-manager', 'contracts-administrator'],
   'sba-certifications': ['bd-manager', 'capture-manager'],
   '8a-certification': ['bd-manager', 'capture-manager'],
   'ai-government-contracting': ['proposal-manager', 'capture-manager', 'bd-consultant'],
@@ -61,6 +62,7 @@ import { guide as aiGovernmentContracting } from './ai-government-contracting';
 import { guide as eightACertification } from './8a-certification';
 import { guide as wosbCertification } from './wosb-certification';
 import { guide as gsaSchedule } from './gsa-schedule';
+import { guide as naicsCodes } from './naics-codes';
 
 export const allGuides: GuideData[] = [
   governmentContractingForBeginners,
@@ -77,6 +79,7 @@ export const allGuides: GuideData[] = [
   subcontractingAndTeaming,
   federalMarketResearch,
   gsaSchedule,
+  naicsCodes,
   aiGovernmentContracting,
 ];
 
