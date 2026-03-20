@@ -11,6 +11,23 @@ interface JobPageProps {
 
 // Generate JobPosting JSON-LD
 function jobPostingJsonLd(job: NonNullable<Awaited<ReturnType<typeof getJob>>>) {
+  // Build address object - only include fields that have values
+  // This avoids Google warnings about missing streetAddress/postalCode
+  const addressFields: Record<string, string> = {
+    '@type': 'PostalAddress',
+    addressCountry: 'US',
+  };
+
+  if (job.locationCity) {
+    addressFields.addressLocality = job.locationCity;
+  }
+  if (job.locationState) {
+    addressFields.addressRegion = job.locationState;
+  }
+
+  // For remote jobs, use different location handling per Google guidelines
+  const isFullyRemote = job.remote && (!job.locationCity || job.location?.toLowerCase().includes('remote'));
+
   return {
     '@context': 'https://schema.org',
     '@type': 'JobPosting',
@@ -22,16 +39,21 @@ function jobPostingJsonLd(job: NonNullable<Awaited<ReturnType<typeof getJob>>>) 
     hiringOrganization: {
       '@type': 'Organization',
       name: job.company,
+      sameAs: 'https://www.usajobs.gov',
     },
-    jobLocation: {
-      '@type': 'Place',
-      address: {
-        '@type': 'PostalAddress',
-        addressLocality: job.locationCity || job.location,
-        addressRegion: job.locationState || '',
-        addressCountry: 'US',
+    // For remote jobs, omit jobLocation and use jobLocationType instead
+    ...(isFullyRemote ? {
+      jobLocationType: 'TELECOMMUTE',
+      applicantLocationRequirements: {
+        '@type': 'Country',
+        name: 'United States',
       },
-    },
+    } : {
+      jobLocation: {
+        '@type': 'Place',
+        address: addressFields,
+      },
+    }),
     ...(job.salary_min && {
       baseSalary: {
         '@type': 'MonetaryAmount',
@@ -45,10 +67,12 @@ function jobPostingJsonLd(job: NonNullable<Awaited<ReturnType<typeof getJob>>>) 
       },
     }),
     directApply: false,
-    jobBenefits: 'Federal benefits package',
-    applicantLocationRequirements: job.remote
-      ? { '@type': 'Country', name: 'USA' }
-      : undefined,
+    jobBenefits: 'Federal benefits package including health insurance, retirement, and paid leave',
+    identifier: {
+      '@type': 'PropertyValue',
+      name: 'USAJobs',
+      value: job.id,
+    },
   };
 }
 
