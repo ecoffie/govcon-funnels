@@ -2,6 +2,7 @@ import Link from 'next/link';
 import StatsCounter from '@/components/StatsCounter';
 import { sharedHomepageContent } from '@/lib/shared-content';
 import { generateSeo } from '@/lib/seo';
+import { allPosts } from '@/content/blog';
 
 export const metadata = generateSeo({
   title: 'GovCon Giants - Win Federal Contracts | $82 Billion Unspent',
@@ -348,6 +349,42 @@ export default function Home() {
           <div className="text-center mt-8">
             <Link href="/resources" className="text-green-500 hover:text-green-400 font-semibold transition">
               View All 17 Free Videos →
+            </Link>
+          </div>
+        </div>
+      </section>
+
+      {/* Latest Articles Section */}
+      <section className="py-16 px-6">
+        <div className="max-w-6xl mx-auto">
+          <div className="text-center mb-10">
+            <h2 className="text-3xl font-bold text-white mb-3">
+              Latest <span className="text-green-500">Articles</span>
+            </h2>
+            <p className="text-slate-500">Expert insights on government contracting</p>
+          </div>
+
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+            {allPosts.slice(0, 6).map((post) => (
+              <Link
+                key={post.slug}
+                href={`/blog/${post.slug}`}
+                className="bg-slate-900 border border-slate-800 rounded-xl p-5 hover:border-green-600/50 transition group"
+              >
+                <div className="text-green-500 text-xs font-semibold uppercase tracking-wide mb-2">
+                  {post.category}
+                </div>
+                <h3 className="text-white font-bold mb-2 group-hover:text-green-400 transition line-clamp-2">
+                  {post.title}
+                </h3>
+                <p className="text-slate-500 text-sm line-clamp-2">{post.excerpt}</p>
+              </Link>
+            ))}
+          </div>
+
+          <div className="text-center mt-8">
+            <Link href="/blog" className="text-green-500 hover:text-green-400 font-semibold transition">
+              View All {allPosts.length} Articles →
             </Link>
           </div>
         </div>
