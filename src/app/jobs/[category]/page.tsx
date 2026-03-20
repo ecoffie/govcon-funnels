@@ -1,6 +1,6 @@
 import Link from 'next/link';
 import { notFound } from 'next/navigation';
-import { generateSeo } from '@/lib/seo';
+import { generateSeo, breadcrumbJsonLd } from '@/lib/seo';
 import { searchUSAJobs } from '@/lib/usajobs';
 import { JOB_CATEGORIES, getDisplayCategories, getCategoryInfo, CERTIFICATION_WEEKS } from '@/lib/job-categories';
 import type { JobCategory } from '@/types/job';
@@ -85,12 +85,24 @@ export default async function CategoryPage({ params }: { params: Promise<{ categ
   // Get certification weeks for this category
   const certWeeks = catInfo.certificationWeeks.map(w => CERTIFICATION_WEEKS[w as keyof typeof CERTIFICATION_WEEKS]);
 
+  // Breadcrumb items for JSON-LD
+  const breadcrumbItems = [
+    { name: 'Home', url: '/' },
+    { name: 'Jobs', url: '/jobs' },
+    { name: catInfo.name, url: `/jobs/${category}` },
+  ];
+
   return (
     <main className="min-h-screen bg-slate-950">
-      {/* JSON-LD */}
+      {/* JSON-LD: CollectionPage */}
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(categoryJsonLd(catInfo, total)) }}
+      />
+      {/* JSON-LD: BreadcrumbList */}
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbJsonLd(breadcrumbItems)) }}
       />
 
       {/* Hero Section */}

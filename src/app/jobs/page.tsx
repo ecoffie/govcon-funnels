@@ -1,6 +1,6 @@
 import { Suspense } from 'react';
 import Link from 'next/link';
-import { generateSeo } from '@/lib/seo';
+import { generateSeo, breadcrumbJsonLd } from '@/lib/seo';
 import { searchUSAJobs } from '@/lib/usajobs';
 import { getDisplayCategories } from '@/lib/job-categories';
 import JobListClient from './JobListClient';
@@ -71,12 +71,23 @@ export default async function JobsPage() {
   // Fetch initial jobs server-side
   const { jobs: initialJobs, total } = await searchUSAJobs({ limit: 25 });
 
+  // Breadcrumb items for JSON-LD
+  const breadcrumbItems = [
+    { name: 'Home', url: '/' },
+    { name: 'Jobs', url: '/jobs' },
+  ];
+
   return (
     <main className="min-h-screen bg-slate-950">
-      {/* JSON-LD */}
+      {/* JSON-LD: ItemList */}
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(jobListJsonLd()) }}
+      />
+      {/* JSON-LD: BreadcrumbList */}
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbJsonLd(breadcrumbItems)) }}
       />
 
       {/* Hero Section */}
@@ -123,6 +134,41 @@ export default async function JobsPage() {
           </div>
 
           <JobListClient initialJobs={initialJobs} initialTotal={total} />
+        </div>
+      </section>
+
+      {/* Career Guides Section */}
+      <section className="py-12 px-6 border-t border-slate-800">
+        <div className="max-w-4xl mx-auto">
+          <h2 className="text-2xl font-bold text-white mb-6 text-center">
+            GovCon <span className="text-green-500">Career Guides</span>
+          </h2>
+          <div className="grid md:grid-cols-2 gap-4">
+            <Link
+              href="/blog/9-govcon-bd-jobs-150k"
+              className="bg-slate-800/50 border border-slate-700 hover:border-green-500/50 rounded-xl p-6 transition-colors group"
+            >
+              <div className="text-green-400 text-sm font-medium mb-2">Career Guide</div>
+              <h3 className="text-lg font-bold text-white group-hover:text-green-400 transition-colors mb-2">
+                9 GovCon BD Jobs That Pay $150K+
+              </h3>
+              <p className="text-slate-400 text-sm">
+                From Proposal Coordinator to VP of BD — learn the career paths, salary ranges, and skills needed.
+              </p>
+            </Link>
+            <Link
+              href="/blog/govcon-bd-jobs-no-experience"
+              className="bg-slate-800/50 border border-slate-700 hover:border-green-500/50 rounded-xl p-6 transition-colors group"
+            >
+              <div className="text-green-400 text-sm font-medium mb-2">Getting Started</div>
+              <h3 className="text-lg font-bold text-white group-hover:text-green-400 transition-colors mb-2">
+                GovCon Jobs With No Experience
+              </h3>
+              <p className="text-slate-400 text-sm">
+                5 entry-level roles that pay $70K-$100K and lead to six-figure BD careers.
+              </p>
+            </Link>
+          </div>
         </div>
       </section>
 

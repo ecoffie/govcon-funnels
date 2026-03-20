@@ -1,6 +1,6 @@
 import Link from 'next/link';
 import { notFound } from 'next/navigation';
-import { generateSeo, SITE_URL } from '@/lib/seo';
+import { generateSeo, SITE_URL, breadcrumbJsonLd } from '@/lib/seo';
 import { getJob, searchUSAJobs } from '@/lib/usajobs';
 import { getCategoryInfo, formatSalary, CERTIFICATION_WEEKS } from '@/lib/job-categories';
 import type { Metadata } from 'next';
@@ -128,12 +128,25 @@ export default async function JobPage({ params }: JobPageProps) {
   const daysUntilClose = Math.ceil((closeDate.getTime() - today.getTime()) / (1000 * 60 * 60 * 24));
   const postedDate = new Date(job.posted_date);
 
+  // Build breadcrumb items
+  const breadcrumbItems = [
+    { name: 'Home', url: '/' },
+    { name: 'Jobs', url: '/jobs' },
+    ...(job.category !== 'other' ? [{ name: categoryInfo.name, url: `/jobs/${job.category}` }] : []),
+    { name: job.title, url: `/jobs/view/${job.id}` },
+  ];
+
   return (
     <main className="min-h-screen bg-slate-950">
-      {/* JSON-LD */}
+      {/* JSON-LD: JobPosting */}
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(jobPostingJsonLd(job)) }}
+      />
+      {/* JSON-LD: BreadcrumbList */}
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbJsonLd(breadcrumbItems)) }}
       />
 
       {/* Header */}
