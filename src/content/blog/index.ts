@@ -31,9 +31,11 @@ import { post as certComparison } from './8a-vs-hubzone-vs-sdvosb';
 import { post as winNoExperience } from './win-government-contracts-no-experience';
 import { post as contractVehicles } from './federal-contract-vehicles-guide';
 import { post as communicateWithCOs } from './communicate-with-contracting-officers';
+import { post as vendorMistakes } from './vendor-mistakes-contracting-officers';
 
 export const allPosts: BlogPost[] = [
   // GovCon Strategy
+  vendorMistakes,
   communicateWithCOs,
   contractVehicles,
   winNoExperience,
