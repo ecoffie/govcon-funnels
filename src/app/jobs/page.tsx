@@ -10,15 +10,16 @@ import JobAlertSignup from '@/components/JobAlertSignup';
 export const dynamic = 'force-dynamic';
 
 export const metadata = generateSeo({
-  title: 'GovCon Jobs | $80K-$500K Government Contracting Careers',
-  description: 'Find high-paying government contracting jobs in business development, capture management, and proposals. Salaries from $80K to $500K+. Get certified and land your dream role.',
+  title: 'Government Contractor Jobs | $100K+ Careers in Federal Contracting',
+  description: 'Browse 500+ government contractor jobs paying $100K-$500K. Capture manager, proposal manager, BD roles. No clearance required for many positions. Apply today.',
   path: '/jobs',
   keywords: [
     'government contractor jobs',
-    'govcon jobs',
+    '100k government contractor jobs',
+    'federal contractor jobs',
     'capture manager jobs',
     'proposal manager jobs',
-    'federal business development jobs',
+    'govcon jobs',
     'government contracting careers',
   ],
 });
