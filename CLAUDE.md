@@ -72,6 +72,13 @@ User submits form → /api/lead
 | `/free-course` | Free GovCon Course signup |
 | `/opp` | Opportunity Hunter funnel |
 | `/resources` | Free resources library |
+| `/videos` | Video library index page |
+| `/videos/[slug]` | Video landing pages (8 videos) |
+| `/guides` | Guide library index |
+| `/guides/[slug]` | Guide pages (15+ guides) |
+| `/jobs` | Government contractor jobs board |
+| `/jobs/[category]` | Job category pages (9 categories) |
+| `/glossary` | GovCon terminology glossary |
 | `/training` | Training hub |
 | `/premium` | Premium membership page |
 | `/dashboard` | Internal dashboard |
@@ -126,11 +133,18 @@ User submits form → /api/lead
 |------|---------|
 | `/src/app/page.tsx` | Main homepage |
 | `/src/app/resources/page.tsx` | Free resources library with videos |
+| `/src/app/videos/page.tsx` | Video library index |
+| `/src/app/videos/[slug]/page.tsx` | Dynamic video landing page template |
+| `/src/app/guides/[slug]/page.tsx` | Dynamic guide page template |
 | `/src/app/globals.css` | Global styles with green-glow effect |
 | `/src/app/layout.tsx` | Root layout |
 | `/src/lib/crm.ts` | GHL + Slack + webhook integrations |
+| `/src/lib/seo.ts` | SEO utilities, JSON-LD schemas |
 | `/src/app/api/lead/route.ts` | Lead submission API endpoint |
 | `/src/components/LeadForm.tsx` | Reusable lead capture form |
+| `/src/components/GuideEmailCapture.tsx` | Mid-article email capture component |
+| `/src/content/videos/index.ts` | Video data structure & exports |
+| `/src/content/guides/*.ts` | Guide content data files |
 
 ---
 
@@ -219,6 +233,24 @@ Same as market-assassin — `npm`, `node`, `vercel` CLI are not available locall
 
 ## Recent Work History
 
+### March 22, 2026
+- **Video SEO Landing Pages:**
+  - Created 8 video landing pages at `/videos/[slug]` targeting ~10,600 monthly searches
+  - Built video library index at `/videos`
+  - Added VideoObject JSON-LD schema to `/lib/seo.ts`
+  - Videos: get-started, find-contracts, market-research, proposal-writing, capability-statement, pricing, win-without-past-performance, gsa-schedule
+- **Guide Page Redesign:**
+  - Improved typography inspired by Mark Manson / Tim Ferriss blogs
+  - Larger headings (6xl), section dividers, better spacing
+  - Added mid-article email capture with `GuideEmailCapture` component
+  - Added `.guide-content` CSS styles with numbered list styling
+- **RFP Response Guide:**
+  - Created `/guides/rfp-response` for "rfp response" keyword (880/mo)
+- **Documentation Updates:**
+  - Updated VIDEO-SEO-MAPPING.md with completed implementation
+  - Updated SEO-3-MONTH-PLAN.md with video page milestones
+  - Updated README.md with project structure
+
 ### February 25, 2026
 - **Fixed broken proposal-bootcamp funnel flow:**
   - All 4 funnel pages had relative URLs (`2-upsell.html`) that broke without trailing slash
@@ -260,4 +292,4 @@ Same as market-assassin — `npm`, `node`, `vercel` CLI are not available locall
 
 ---
 
-*Last Updated: February 25, 2026*
+*Last Updated: March 22, 2026*

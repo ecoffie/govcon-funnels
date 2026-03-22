@@ -1,5 +1,21 @@
 This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
 
+**Live URL:** [govcongiants.org](https://govcongiants.org)
+
+## Main Features
+
+### Content Pages
+- **Guides** (`/guides/[slug]`) - 15+ educational guides with SEO optimization
+- **Videos** (`/videos/[slug]`) - 8 video landing pages with YouTube embeds
+- **Jobs** (`/jobs`) - Government contractor job board with 9 categories
+- **Glossary** (`/glossary`) - 45+ GovCon terms
+
+### Funnels
+- **Bootcamp** (`/bootcamp`) - Live bootcamp registration
+- **Surge** (`/surge`) - Surge bootcamp funnel
+- **Free Course** (`/free-course`) - Lead magnet funnel
+- **Opportunity Hunter** (`/opp`) - Tool signup funnel
+
 ## Getting Started
 
 First, run the development server:
@@ -81,3 +97,28 @@ You can check out [the Next.js GitHub repository](https://github.com/vercel/next
 The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
 
 Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+
+## Project Structure
+
+```
+src/
+├── app/
+│   ├── guides/[slug]/      # Guide pages (SEO optimized)
+│   ├── videos/[slug]/      # Video landing pages
+│   ├── jobs/               # Job board
+│   ├── glossary/           # GovCon glossary
+│   └── api/                # API routes (lead, stripe, etc.)
+├── content/
+│   ├── guides/             # Guide content data
+│   └── videos/             # Video content data
+├── components/             # React components
+└── lib/
+    ├── seo.ts              # SEO utilities & JSON-LD
+    └── crm.ts              # GHL + Slack integrations
+```
+
+## SEO Documentation
+
+- `SEO-3-MONTH-PLAN.md` - Full SEO strategy and timeline
+- `VIDEO-SEO-MAPPING.md` - Video to page mapping strategy
+- `JOBS-SEO-PLAN.md` - Jobs board SEO optimization

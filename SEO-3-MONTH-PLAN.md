@@ -67,14 +67,34 @@
 - [ ] Share CAGE code guide on social channels (highest volume keyword)
 - [ ] Share glossary as a resource on LinkedIn
 
+### Week 3.5 (Mar 22): Video SEO Pages ✅ COMPLETED
+- [x] Created video landing page infrastructure
+  - `/app/videos/page.tsx` - Video library index
+  - `/app/videos/[slug]/page.tsx` - Dynamic video template
+  - `/content/videos/` - Video data files
+  - Added VideoObject JSON-LD to `/lib/seo.ts`
+- [x] Built 8 video landing pages targeting ~10,600/mo combined:
+  1. /videos/get-started-government-contracting
+  2. /videos/find-government-contracts
+  3. /videos/market-research-govcon
+  4. /videos/proposal-writing-guide
+  5. /videos/capability-statement-guide
+  6. /videos/pricing-government-contracts
+  7. /videos/win-without-past-performance
+  8. /videos/gsa-schedule-guide
+- [x] Improved guide page design (Mark Manson-inspired typography)
+- [x] Added mid-article email capture component
+- [x] Created RFP response guide (`/guides/rfp-response`)
+
 ### Week 4 (Apr 4-13): Tier 4 Content Start
 - [ ] Enhance beginners guide for "government contracts" (18,100/mo, difficulty 65)
   - Add downloadable checklist
-  - Add video embeds from YouTube channel
+  - Add video embeds from YouTube channel (NOW HAVE /videos pages to link)
   - Increase depth to 3,000+ words
   - Add more internal links to new certification guides
 - [ ] Create "Federal Contractor" resource hub concept (difficulty 55)
   - Could be enhanced /guides index or new pillar page
+- [ ] Build remaining video landing pages (8 more from resources page)
 
 ### Month 1 KPIs
 | Metric | Target |
@@ -199,3 +219,8 @@ Run weekly or after every deploy. Checks:
 | wosb certification | 1,900 | $6.09 | 52 | /guides/wosb-certification | Top 50 by Month 3 |
 | gsa schedule | varies | varies | ~40 | /guides/gsa-schedule | Top 30 by Month 3 |
 | government contracts | 18,100 | $4.10 | 65 | /guides/beginners | Top 50 by Month 3 |
+| rfp response | 880 | $8.50 | 25 | /guides/rfp-response | Top 30 by Month 2 |
+| how to write government proposal | 1,500 | $6.20 | 35 | /videos/proposal-writing-guide | Top 30 by Month 2 |
+| capability statement template | 2,000 | $5.80 | 30 | /videos/capability-statement-guide | Top 30 by Month 2 |
+| government contract pricing | 800 | $7.10 | 28 | /videos/pricing-government-contracts | Top 30 by Month 2 |
+| how to get gsa schedule | 1,200 | $6.50 | 32 | /videos/gsa-schedule-guide | Top 30 by Month 2 |
