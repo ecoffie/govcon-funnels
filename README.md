@@ -117,8 +117,16 @@ src/
     └── crm.ts              # GHL + Slack integrations
 ```
 
-## SEO Documentation
+## Documentation
 
-- `SEO-3-MONTH-PLAN.md` - Full SEO strategy and timeline
-- `VIDEO-SEO-MAPPING.md` - Video to page mapping strategy
-- `JOBS-SEO-PLAN.md` - Jobs board SEO optimization
+All documentation lives in the `docs/` folder:
+
+```
+docs/
+├── seo/           # SEO strategy (3-month plan, video mapping, jobs)
+├── integrations/  # CRM, Slack, leads system
+├── setup/         # Deployment, troubleshooting
+└── framer/        # Framer export/import guides
+```
+
+See [docs/README.md](docs/README.md) for the full index.
