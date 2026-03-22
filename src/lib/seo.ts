@@ -215,4 +215,40 @@ export function itemListJsonLd({
   };
 }
 
+export function videoJsonLd({
+  name,
+  description,
+  thumbnailUrl,
+  uploadDate,
+  embedUrl,
+  duration,
+}: {
+  name: string;
+  description: string;
+  thumbnailUrl: string;
+  uploadDate: string;
+  embedUrl: string;
+  duration?: string;
+}) {
+  return {
+    '@context': 'https://schema.org',
+    '@type': 'VideoObject',
+    name,
+    description,
+    thumbnailUrl,
+    uploadDate,
+    embedUrl,
+    ...(duration && { duration: `PT${duration.replace(':', 'M')}S` }),
+    publisher: {
+      '@type': 'Organization',
+      name: SITE_NAME,
+      url: SITE_URL,
+      logo: {
+        '@type': 'ImageObject',
+        url: `${SITE_URL}/images/logo.png`,
+      },
+    },
+  };
+}
+
 export { SITE_URL, SITE_NAME };

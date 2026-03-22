@@ -1,0 +1,127 @@
+# YouTube Video → Website Page SEO Mapping
+
+**Created:** March 22, 2026
+**Goal:** Drive organic traffic to website via video content landing pages
+
+---
+
+## Strategy
+
+Each video gets a dedicated landing page at `/videos/[slug]` that:
+1. Embeds the YouTube video
+2. Provides comprehensive written content (for SEO)
+3. Has clear CTAs to courses/consulting
+4. Captures email via lead magnet
+5. Links to related guides and jobs
+
+---
+
+## Priority 1: High-Traffic Keyword Videos
+
+These videos target keywords with real search volume:
+
+| Video | Target Keywords | Volume | Page Slug |
+|-------|-----------------|--------|-----------|
+| Where Do I Start in GovCon? | how to get started government contracting, government contracting for beginners | 1,000+ | `/videos/get-started-government-contracting` |
+| SBA Profile Setup | sba profile, sba certification, small business certification | 500+ | `/videos/sba-profile-setup` |
+| Finding Contract Opportunities | how to find government contracts, sam.gov search | 3,000+ | `/videos/find-government-contracts` |
+| Market Research for GovCon | federal market research, government contract research | 500+ | `/videos/federal-market-research` |
+| Proposal Writing & Bidding | how to write government proposal, federal proposal writing | 1,500+ | `/videos/proposal-writing-guide` |
+| Capability Statement | capability statement template, capability statement example | 2,000+ | `/videos/capability-statement-guide` |
+| Pricing Strategies | government contract pricing, federal contract pricing | 800+ | `/videos/government-contract-pricing` |
+| GSA Schedule Overview | gsa schedule, how to get gsa schedule | 1,200+ | `/videos/gsa-schedule-overview` |
+
+---
+
+## Priority 2: Case Study Videos (Social Proof)
+
+| Video | Use Case | Page Slug |
+|-------|----------|-----------|
+| $834K in 7 Months Case Study | Success story | `/case-studies/834k-contract-win` |
+| Zero to First Contract | Beginner success | `/case-studies/first-contract-win` |
+| Fernando — Market Assassin | Tool testimonial | `/tools/market-assassin` (existing) |
+
+---
+
+## Priority 3: YouTube Live Archive
+
+Convert slide decks to landing pages with video embeds:
+
+| Live Title | Topic | Page Slug |
+|------------|-------|-----------|
+| $221B in Federal Contracts | Opportunity awareness | `/videos/221b-federal-contracts` |
+| 71% Had ZERO Competition | Low competition | `/videos/no-competition-contracts` |
+| How to Find and Contact Buyers | Agency outreach | `/videos/contact-federal-buyers` |
+| $221B Expiring Contracts | Recompete strategy | `/videos/expiring-contracts` |
+| 3,500 Prime Contractors Need Partners | Subcontracting | `/videos/prime-contractor-partners` |
+
+---
+
+## Current YouTube URLs (for embedding)
+
+### Resources Page Videos
+1. https://www.youtube.com/live/VwerrdguYTE - Where Do I Start
+2. https://youtu.be/g0NsG4SogDM - SBA Profile Setup
+3. https://youtube.com/live/JAa1qkOrtic - Market Research
+4. https://www.youtube.com/live/Ko1N0TMAAs0 - Finding Opportunities
+5. https://youtu.be/eCtnAM0j5gY - PSC Codes
+6. https://www.youtube.com/live/ke5RmuRQN_8 - Dangers of Consulting
+7. https://youtu.be/MTaIUOBbE1Q - Proposal Writing
+8. https://youtube.com/live/paUgQSU5v6c - Capability Statements
+9. https://youtu.be/5o5V8YkNjIM - Pricing Strategies
+10. https://youtu.be/3eBlk6J1Hig - Pricing Strategies Part 2
+11. https://youtu.be/uR8vdTtvuyU - Winning Without Past Performance
+12. https://youtube.com/live/HSWGMzkD0Vg - Financing Your Contract
+13. https://youtube.com/live/TDtk3mVWZDQ - Vendor Credit
+14. https://youtube.com/live/gHcWcYFWa4I - Construction Business
+15. https://youtu.be/XvWaAownrZU - Foreign Companies
+16. https://youtu.be/SdefXaGSS5Q - GSA Schedule
+
+### Case Study Videos
+1. https://youtube.com/watch?v=tGOfRQrI3W0 - Colin Content Generator
+2. https://youtube.com/watch?v=KrpDzQegF1E - Keidra Norwood
+3. https://youtube.com/watch?v=fomlx8tx-bI - Jacqueline Woodard
+4. https://youtube.com/watch?v=JQWFbP9b-0c - Fernando Market Assassin
+5. https://youtube.com/watch?v=dKtmkZz7Buo - Olga Overview
+6. https://youtube.com/watch?v=qqhgTUtn67g - Lotus Connect
+7. https://youtube.com/watch?v=YMEVydVs1q0 - Eric Tutorial
+8. https://youtube.com/watch?v=1O3tMVZUTPY - Wes & Eric
+9. https://youtube.com/watch?v=cf0U-ZaYikM - Market Assassin Demo
+10. https://youtube.com/watch?v=Vm4RhNXZ73U - Recompete Tracker
+11. https://youtube.com/watch?v=vO420eQ97Dw - Content Creator Demo
+
+---
+
+## Implementation Plan
+
+### Phase 1: Create Video Page Template
+- [ ] Create `/app/videos/[slug]/page.tsx` dynamic route
+- [ ] Design video landing page layout (embed + content + CTA)
+- [ ] Add video data structure to `/content/videos/`
+
+### Phase 2: Build Priority 1 Pages (8 videos)
+- [ ] Get Started Government Contracting
+- [ ] SBA Profile Setup
+- [ ] Find Government Contracts
+- [ ] Federal Market Research
+- [ ] Proposal Writing Guide
+- [ ] Capability Statement Guide
+- [ ] Government Contract Pricing
+- [ ] GSA Schedule Overview
+
+### Phase 3: Cross-Link
+- [ ] Link videos from related guides
+- [ ] Link videos from job category pages
+- [ ] Add video section to homepage
+- [ ] Update sitemap
+
+---
+
+## SEO Notes
+
+- Each video page should have 500-1000 words of written content
+- Include video transcript or detailed summary
+- Target 1-2 primary keywords per page
+- Include timestamps/chapters in written form
+- Add FAQ section based on common video questions
+- Internal link to related guides, jobs, and products
