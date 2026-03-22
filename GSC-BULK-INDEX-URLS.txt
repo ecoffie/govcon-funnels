@@ -1,0 +1,115 @@
+# Google Search Console - Bulk Indexing Request
+# Date: March 22, 2026
+# Total URLs: 61
+#
+# Instructions:
+# 1. Go to Google Search Console: https://search.google.com/search-console
+# 2. Select govcongiants.org property
+# 3. For each URL below:
+#    - Enter URL in the inspection bar at top
+#    - Click "Request Indexing" button
+#    - Wait for confirmation before next URL
+#
+# Priority Order: High-value pages first, then supporting content
+#
+# =============================================================================
+# PRIORITY 1: MONEY PAGES (Index these first - 15 URLs)
+# =============================================================================
+
+https://govcongiants.org/guides/cage-code
+https://govcongiants.org/guides/sam-gov-registration
+https://govcongiants.org/guides/8a-certification
+https://govcongiants.org/guides/vosb-certification
+https://govcongiants.org/guides/wosb-certification
+https://govcongiants.org/guides/hubzone-certification
+https://govcongiants.org/guides/gsa-schedule
+https://govcongiants.org/jobs
+https://govcongiants.org/government-contract-help
+https://govcongiants.org/proposal-writing-services
+https://govcongiants.org/glossary
+https://govcongiants.org/free-course
+https://govcongiants.org/consulting
+https://govcongiants.org/guides/government-contracting-for-beginners
+https://govcongiants.org/guides/finding-government-contracts
+
+# =============================================================================
+# PRIORITY 2: JOB CATEGORY PAGES (9 URLs)
+# =============================================================================
+
+https://govcongiants.org/jobs/capture-manager
+https://govcongiants.org/jobs/proposal-manager
+https://govcongiants.org/jobs/bd-manager
+https://govcongiants.org/jobs/pricing-analyst
+https://govcongiants.org/jobs/contracts-administrator
+https://govcongiants.org/jobs/proposal-coordinator
+https://govcongiants.org/jobs/capture-director
+https://govcongiants.org/jobs/vp-business-development
+https://govcongiants.org/jobs/bd-consultant
+
+# =============================================================================
+# PRIORITY 3: BLOG POSTS (15 URLs)
+# =============================================================================
+
+https://govcongiants.org/blog/vendor-mistakes-contracting-officers
+https://govcongiants.org/blog/communicate-with-contracting-officers
+https://govcongiants.org/blog/federal-contract-vehicles-guide
+https://govcongiants.org/blog/win-government-contracts-no-experience
+https://govcongiants.org/blog/8a-vs-hubzone-vs-sdvosb
+https://govcongiants.org/blog/sam-gov-registration-checklist
+https://govcongiants.org/blog/9-govcon-bd-jobs-150k
+https://govcongiants.org/blog/capture-manager-salary-guide
+https://govcongiants.org/blog/proposal-manager-career-path
+https://govcongiants.org/blog/govcon-bd-jobs-no-experience
+https://govcongiants.org/blog/pricing-analyst-govcon-guide
+https://govcongiants.org/blog/contracts-administrator-career
+https://govcongiants.org/blog/10-things-wish-i-knew
+https://govcongiants.org/blog/which-sba-certification
+https://govcongiants.org/blog/sam-gov-search-tricks
+
+# =============================================================================
+# PRIORITY 4: SUPPORTING GUIDES (6 URLs)
+# =============================================================================
+
+https://govcongiants.org/guides/capability-statement
+https://govcongiants.org/guides/sba-certifications
+https://govcongiants.org/guides/proposal-writing
+https://govcongiants.org/guides/subcontracting-and-teaming
+https://govcongiants.org/guides/federal-market-research
+https://govcongiants.org/guides/naics-codes
+https://govcongiants.org/guides/ai-government-contracting
+
+# =============================================================================
+# PRIORITY 5: FUNNEL/PRODUCT PAGES (12 URLs)
+# =============================================================================
+
+https://govcongiants.org
+https://govcongiants.org/resources
+https://govcongiants.org/resources/handouts
+https://govcongiants.org/training
+https://govcongiants.org/premium
+https://govcongiants.org/premium-page
+https://govcongiants.org/bootcamp
+https://govcongiants.org/contract-vehicles-bootcamp
+https://govcongiants.org/opp
+https://govcongiants.org/tools
+https://govcongiants.org/federal-contractor
+https://govcongiants.org/upskilling
+
+# =============================================================================
+# PRIORITY 6: LEGAL/MISC (4 URLs)
+# =============================================================================
+
+https://govcongiants.org/blog
+https://govcongiants.org/privacy-policy
+https://govcongiants.org/terms
+
+# =============================================================================
+# TRACKING
+# =============================================================================
+#
+# Date Submitted: _______________
+# URLs Submitted: _____ / 61
+# Errors Encountered:
+#
+# Re-check indexing status in 48-72 hours
+# Use: site:govcongiants.org in Google to verify
