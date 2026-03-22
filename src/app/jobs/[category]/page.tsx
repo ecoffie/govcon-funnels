@@ -16,6 +16,35 @@ export function generateStaticParams() {
   }));
 }
 
+// SEO-optimized titles for category pages (based on DataForSEO keyword research)
+const CATEGORY_SEO: Record<string, { title: string; description: string; keywords: string[] }> = {
+  'contracts-administrator': {
+    title: 'Contracts Administrator & Contracts Manager Jobs | $110K-$170K',
+    description: 'Find contracts administrator and contracts manager jobs in government contracting. Manage contract lifecycle, modifications, compliance. Salaries $110K-$170K.',
+    keywords: ['contracts administrator jobs', 'contracts manager jobs', 'contract specialist jobs', 'government contract jobs', 'federal contracts jobs'],
+  },
+  'pricing-analyst': {
+    title: 'Pricing Analyst Jobs | Government Contractor Careers | $120K-$180K',
+    description: 'Find pricing analyst and cost analyst jobs in government contracting. Develop cost proposals, build pricing models. Salaries $120K-$180K.',
+    keywords: ['pricing analyst jobs', 'cost analyst jobs', 'government pricing jobs', 'federal contractor jobs', 'cost proposal analyst'],
+  },
+  'proposal-manager': {
+    title: 'Proposal Manager Jobs | GovCon Careers | $160K-$240K',
+    description: 'Find proposal manager jobs in government contracting. Lead proposal teams, manage development lifecycle. Salaries $160K-$240K.',
+    keywords: ['proposal manager jobs', 'proposal director jobs', 'federal proposal jobs', 'government contractor jobs', 'proposal management careers'],
+  },
+  'capture-manager': {
+    title: 'Capture Manager Jobs | $150K-$220K Government Contractor Careers',
+    description: 'Find capture manager jobs in government contracting. Lead captures, develop win strategies, build relationships. Salaries $150K-$220K.',
+    keywords: ['capture manager jobs', 'capture manager salary', 'capture management jobs', 'government bd jobs', 'federal capture jobs'],
+  },
+  'bd-manager': {
+    title: 'Business Development Manager Jobs | Federal BD Careers | $150K-$250K',
+    description: 'Find business development manager jobs in government contracting. Build pipeline, develop customer relationships. Salaries $150K-$250K.',
+    keywords: ['business development manager jobs', 'bd manager federal', 'government bd jobs', 'federal contractor jobs', 'govcon bd careers'],
+  },
+};
+
 // Generate metadata for each category
 export async function generateMetadata({ params }: { params: Promise<{ category: string }> }) {
   const { category } = await params;
@@ -25,11 +54,14 @@ export async function generateMetadata({ params }: { params: Promise<{ category:
     return {};
   }
 
+  // Use SEO-optimized meta if available, otherwise generate from category info
+  const seoData = CATEGORY_SEO[category];
+
   return generateSeo({
-    title: `${catInfo.name} Jobs | ${catInfo.salaryRange} GovCon Careers`,
-    description: `Find ${catInfo.name.toLowerCase()} jobs in government contracting. ${catInfo.description} Salaries from ${catInfo.salaryRange}.`,
+    title: seoData?.title || `${catInfo.name} Jobs | ${catInfo.salaryRange} GovCon Careers`,
+    description: seoData?.description || `Find ${catInfo.name.toLowerCase()} jobs in government contracting. ${catInfo.description} Salaries from ${catInfo.salaryRange}.`,
     path: `/jobs/${category}`,
-    keywords: [
+    keywords: seoData?.keywords || [
       `${catInfo.name.toLowerCase()} jobs`,
       `${catInfo.name.toLowerCase()} salary`,
       `govcon ${catInfo.name.toLowerCase()}`,
