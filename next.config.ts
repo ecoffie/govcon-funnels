@@ -24,6 +24,11 @@ const nextConfig: NextConfig = {
         destination: "/privacy-policy",
         permanent: true,
       },
+      {
+        source: "/blog/cage-code-lookup-guide",
+        destination: "/guides/cage-code",
+        permanent: true,
+      },
     ];
   },
   async headers() {

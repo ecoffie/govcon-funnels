@@ -57,20 +57,37 @@ export const guide: GuideData = {
     {
       heading: 'How to Look Up a CAGE Code',
       content: `
-        <p>There are several ways to look up a CAGE code, whether you are searching for your own or researching another company:</p>
-        <p><strong>1. SAM.gov Entity Search</strong></p>
-        <p>The most reliable way to look up any CAGE code is through the <a href="https://sam.gov" target="_blank" rel="noopener">SAM.gov entity search</a>. You can search by company name, UEI, or CAGE code directly. The results show the entity's registration status, address, NAICS codes, and other details. No account is required to search — entity information is publicly available.</p>
-        <p><strong>2. DLA CAGE Code Search</strong></p>
-        <p>The Defense Logistics Agency maintains its own search tool specifically for CAGE and NCAGE codes. This is particularly useful for looking up manufacturers and suppliers in the defense supply chain. Access it through the <a href="https://cage.dla.mil" target="_blank" rel="noopener">DLA CAGE program website</a>.</p>
-        <p><strong>3. Your SAM.gov Profile</strong></p>
+        <p>There are several ways to look up a CAGE code, whether you are searching for your own or researching another company. All methods are free and most don't require an account.</p>
+        <p><strong>Method 1: SAM.gov Entity Search (Fastest)</strong></p>
+        <p>The most reliable way to look up any CAGE code is through the <a href="https://sam.gov" target="_blank" rel="noopener">SAM.gov entity search</a>:</p>
+        <ol>
+          <li>Go to <a href="https://sam.gov" target="_blank" rel="noopener">SAM.gov</a></li>
+          <li>Click "Search" in the top navigation</li>
+          <li>Select "Entity Information" from the dropdown</li>
+          <li>Enter the company name, CAGE code, or UEI</li>
+          <li>Click Search — results appear instantly</li>
+        </ol>
+        <p>No account is required. Results show registration status, address, NAICS codes, small business certifications, and points of contact.</p>
+        <p><strong>Method 2: DLA CAGE Code Search</strong></p>
+        <p>The Defense Logistics Agency maintains its own search tool specifically for CAGE and NCAGE codes at <a href="https://cage.dla.mil" target="_blank" rel="noopener">cage.dla.mil</a>. This is particularly useful for looking up manufacturers and suppliers in the defense supply chain. The DLA site shows basic CAGE info but doesn't include full SAM registration details.</p>
+        <p><strong>Method 3: SAM.gov Contract Data (Historical)</strong></p>
+        <p>If you need to find a contractor's CAGE code from a past contract, search <a href="https://sam.gov/content/contract-data" target="_blank" rel="noopener">SAM.gov Contract Data</a>. Search for the contractor by name to view contract records which include CAGE codes. This is useful when verifying a company's past performance or researching competitors.</p>
+        <p><strong>Method 4: Your SAM.gov Profile</strong></p>
         <p>If you are looking for your own CAGE code, log into SAM.gov and navigate to your entity registration. Your CAGE code is displayed on your entity dashboard and in your registration details.</p>
-        <p><strong>Tips for CAGE Code Searches:</strong></p>
+        <p><strong>Pro Tips for CAGE Code Searches:</strong></p>
         <ul>
-          <li>If searching by company name, try variations — the name in the CAGE system may differ slightly from the business's trade name</li>
+          <li>Use quotes around company names for exact matches: "Lockheed Martin"</li>
+          <li>Try variations if the first search doesn't work (Inc, LLC, Corp, Incorporated)</li>
+          <li>Filter by status to see only active registrations</li>
           <li>CAGE codes are exactly 5 characters — if you have a longer or shorter code, it is not a CAGE code</li>
           <li>An inactive CAGE code does not mean the company is out of business — their SAM registration may have simply lapsed</li>
-          <li>Use the CAGE code to cross-reference contract award data on SAM.gov to see what a company has won</li>
+          <li>Use the CAGE code to cross-reference contract award data on USAspending.gov to see what a company has won</li>
         </ul>
+        <h3>Common CAGE Code Lookup Scenarios</h3>
+        <p><strong>Verifying a Subcontractor:</strong> Before teaming with a company, verify their CAGE code is active and their SAM registration is current. An expired registration means they cannot receive government payments.</p>
+        <p><strong>Completing a Proposal:</strong> Most RFPs require CAGE codes for the prime and all subcontractors. Look up and verify all team member codes before submission.</p>
+        <p><strong>Checking Your Own Status:</strong> Search for your company to confirm your CAGE code is active and your registration hasn't expired. SAM registrations must be renewed annually.</p>
+        <p><strong>Researching Competitors:</strong> Look up competitor CAGE codes to research their contract history using USAspending.gov.</p>
       `,
     },
     {
@@ -157,6 +174,11 @@ export const guide: GuideData = {
       question: 'Can I look up any company\'s CAGE code?',
       answer:
         'Yes. CAGE code information is publicly available. You can search for any company\'s CAGE code using the SAM.gov entity search (search by company name) or the DLA CAGE code search tool at cage.dla.mil. No account is required to perform a basic search.',
+    },
+    {
+      question: 'What information does a CAGE code lookup reveal?',
+      answer:
+        'A CAGE code lookup reveals the company\'s legal business name, physical address, registration status (active/inactive), UEI, and registration dates. On SAM.gov, you can also see small business certifications (8(a), HUBZone, SDVOSB, WOSB), NAICS codes, points of contact, and socioeconomic status.',
     },
     {
       question: 'What is the difference between a CAGE code and a NCAGE code?',
