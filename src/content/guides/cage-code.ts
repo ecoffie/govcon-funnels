@@ -3,9 +3,9 @@ import type { GuideData } from './index';
 export const guide: GuideData = {
   slug: 'cage-code',
   title: 'CAGE Code: What It Is, How to Get One, and How to Look One Up',
-  metaTitle: 'CAGE Code Guide | How to Get & Look Up a CAGE Code (2026)',
+  metaTitle: 'Free CAGE Code Lookup & Search | Find Any CAGE Code in Seconds',
   metaDescription:
-    'Learn what a CAGE code is, how to get one through SAM.gov, how to look up CAGE codes, NATO CAGE (NCAGE) codes, renewal requirements, and common issues — complete guide for government contractors.',
+    'Free CAGE code lookup tool + complete guide. Search by company name, look up DLA CAGE codes, learn what a CAGE number means, and get your own CAGE code through SAM.gov.',
   keywords: [
     'cage code',
     'cage code lookup',
