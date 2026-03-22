@@ -20,7 +20,7 @@ export const post: BlogPost = {
   category: 'Business Development',
   publishedDate: '2026-03-22',
   relatedGuides: ['finding-government-contracts', 'proposal-writing', 'capability-statement'],
-  content: \`
+  content: `
 <p>Your proposal might be strong.</p>
 
 <p>Your pricing might be competitive.</p>
@@ -173,7 +173,7 @@ export const post: BlogPost = {
 <p>Government contracting isn't about relationships or sales skills. It's about compliance, capability, and clear communication.</p>
 
 <p>Avoid these 18 mistakes, and you'll already be ahead of most of your competition.</p>
-  \`,
+  `,
   faqs: [
     {
       question: 'What happens if I submit a proposal after the deadline?',
@@ -185,7 +185,7 @@ export const post: BlogPost = {
     },
     {
       question: 'How do I request a debrief after losing a contract?',
-      answer: 'Submit a written request to the contracting officer within 3 days of receiving the award notification. You have a right to a debrief on competitive acquisitions over the simplified acquisition threshold. The debrief will explain your proposal\\'s strengths and weaknesses.',
+      answer: "Submit a written request to the contracting officer within 3 days of receiving the award notification. You have a right to a debrief on competitive acquisitions over the simplified acquisition threshold. The debrief will explain your proposal's strengths and weaknesses.",
     },
     {
       question: 'What are the most common reasons proposals get rejected?',
