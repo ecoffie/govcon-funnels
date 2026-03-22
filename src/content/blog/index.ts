@@ -29,9 +29,11 @@ import { post as cageCodeLookup } from './cage-code-lookup-guide';
 import { post as samChecklist } from './sam-gov-registration-checklist';
 import { post as certComparison } from './8a-vs-hubzone-vs-sdvosb';
 import { post as winNoExperience } from './win-government-contracts-no-experience';
+import { post as contractVehicles } from './federal-contract-vehicles-guide';
 
 export const allPosts: BlogPost[] = [
   // GovCon Strategy
+  contractVehicles,
   winNoExperience,
   certComparison,
   cageCodeLookup,
