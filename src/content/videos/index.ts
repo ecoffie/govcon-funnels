@@ -44,14 +44,25 @@ export function extractYouTubeId(url: string): string {
 // Import all videos
 import { video as getStartedGovCon } from './get-started-government-contracting';
 import { video as findGovernmentContracts } from './find-government-contracts';
+import { video as marketResearchGovCon } from './market-research-govcon';
 import { video as proposalWritingGuide } from './proposal-writing-guide';
 import { video as capabilityStatementGuide } from './capability-statement-guide';
+import { video as pricingGovernmentContracts } from './pricing-government-contracts';
+import { video as winWithoutPastPerformance } from './win-without-past-performance';
+import { video as gsaScheduleGuide } from './gsa-schedule-guide';
 
 export const allVideos: VideoData[] = [
+  // Getting Started
   getStartedGovCon,
+  // Finding Opportunities
   findGovernmentContracts,
+  marketResearchGovCon,
+  // Winning Contracts
   proposalWritingGuide,
   capabilityStatementGuide,
+  pricingGovernmentContracts,
+  winWithoutPastPerformance,
+  gsaScheduleGuide,
 ];
 
 export function getVideoBySlug(slug: string): VideoData | undefined {
