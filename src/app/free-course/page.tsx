@@ -2,10 +2,10 @@ import LeadForm from '@/components/LeadForm';
 import { generateSeo } from '@/lib/seo';
 
 export const metadata = generateSeo({
-  title: 'Free Government Contracting Classes | 12-Day Course',
-  description: 'Free government contracting classes delivered daily. Learn SAM.gov registration, finding contracts, and winning bids. Join 5,000+ trained entrepreneurs. Start today.',
+  title: 'Free Government Contracting Classes | 12-Day Email Course',
+  description: 'Free government contracting training: 12 lessons covering SAM.gov registration, finding contracts, capability statements, and winning bids. 5,000+ trained. Start free today.',
   path: '/free-course',
-  keywords: ['free government contracting classes', 'free government contracting course', 'learn government contracting', 'govcon training free', 'federal contracting course'],
+  keywords: ['free government contracting classes', 'free government contracting course', 'free government contracting training', 'learn government contracting free', 'govcon training free', 'federal contracting course free'],
 });
 
 const courseModules = [

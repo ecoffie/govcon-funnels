@@ -3,9 +3,9 @@ import type { GuideData } from './index';
 export const guide: GuideData = {
   slug: 'vosb-certification',
   title: 'VOSB & SDVOSB Certification: Complete Guide for Veteran-Owned Businesses',
-  metaTitle: 'VOSB Certification Guide | SDVOSB Certification Requirements (2026)',
+  metaTitle: 'SDVOSB Certification | How to Get Veteran-Owned Business Certified (2026)',
   metaDescription:
-    'Learn VOSB and SDVOSB certification requirements, the SBA application process, benefits of veteran-owned business certification, and how to win set-aside contracts.',
+    'How to get SDVOSB certification: requirements, SBA VetCert application process, timeline, and benefits. Service-disabled veteran-owned small business guide.',
   keywords: [
     'vosb certification',
     'sdvosb certification',
