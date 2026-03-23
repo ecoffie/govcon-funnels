@@ -85,6 +85,11 @@
 - [x] Improved guide page design (Mark Manson-inspired typography)
 - [x] Added mid-article email capture component
 - [x] Created RFP response guide (`/guides/rfp-response`)
+- [x] Added video pages to sitemap (70 total URLs)
+- [x] Updated GSC bulk index list with 9 video URLs
+- [x] Organized docs into `docs/` folder structure
+- [x] GSC indexing: 79 URLs submitted (Priority 1-3, 5 done), quota hit
+- [ ] GSC indexing: Priority 4, 6, 7 remaining (24 URLs) - tomorrow
 
 ### Week 4 (Apr 4-13): Tier 4 Content Start
 - [ ] Enhance beginners guide for "government contracts" (18,100/mo, difficulty 65)
