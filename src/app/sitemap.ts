@@ -1,5 +1,6 @@
 import type { MetadataRoute } from 'next';
 import { allPosts } from '@/content/blog';
+import { allVideos } from '@/content/videos';
 
 const SITE_URL = 'https://govcongiants.org';
 
@@ -84,5 +85,16 @@ export default function sitemap(): MetadataRoute.Sitemap {
     priority: 0.8,
   }));
 
-  return [...staticPages, ...guidePages, ...blogPages, ...jobPages];
+  // Video landing pages
+  const videoPages: MetadataRoute.Sitemap = [
+    { url: `${SITE_URL}/videos`, lastModified: now, changeFrequency: 'weekly' as const, priority: 0.8 },
+    ...allVideos.map((video) => ({
+      url: `${SITE_URL}/videos/${video.slug}`,
+      lastModified: video.publishedDate,
+      changeFrequency: 'monthly' as const,
+      priority: 0.8,
+    })),
+  ];
+
+  return [...staticPages, ...guidePages, ...blogPages, ...jobPages, ...videoPages];
 }
