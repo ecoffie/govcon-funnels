@@ -1,6 +1,6 @@
 # Google Search Console - Bulk Indexing Request
 # Date: March 22, 2026
-# Total URLs: 61
+# Total URLs: 70
 #
 # Instructions:
 # 1. Go to Google Search Console: https://search.google.com/search-console
@@ -67,7 +67,21 @@ https://govcongiants.org/blog/which-sba-certification
 https://govcongiants.org/blog/sam-gov-search-tricks
 
 # =============================================================================
-# PRIORITY 4: SUPPORTING GUIDES (6 URLs)
+# PRIORITY 4: VIDEO LANDING PAGES (9 URLs) - Added Mar 22, 2026
+# =============================================================================
+
+https://govcongiants.org/videos
+https://govcongiants.org/videos/get-started-government-contracting
+https://govcongiants.org/videos/find-government-contracts
+https://govcongiants.org/videos/market-research-govcon
+https://govcongiants.org/videos/proposal-writing-guide
+https://govcongiants.org/videos/capability-statement-guide
+https://govcongiants.org/videos/pricing-government-contracts
+https://govcongiants.org/videos/win-without-past-performance
+https://govcongiants.org/videos/gsa-schedule-guide
+
+# =============================================================================
+# PRIORITY 5: SUPPORTING GUIDES (7 URLs)
 # =============================================================================
 
 https://govcongiants.org/guides/capability-statement
@@ -79,7 +93,7 @@ https://govcongiants.org/guides/naics-codes
 https://govcongiants.org/guides/ai-government-contracting
 
 # =============================================================================
-# PRIORITY 5: FUNNEL/PRODUCT PAGES (12 URLs)
+# PRIORITY 6: FUNNEL/PRODUCT PAGES (12 URLs)
 # =============================================================================
 
 https://govcongiants.org
@@ -96,7 +110,7 @@ https://govcongiants.org/federal-contractor
 https://govcongiants.org/upskilling
 
 # =============================================================================
-# PRIORITY 6: LEGAL/MISC (4 URLs)
+# PRIORITY 7: LEGAL/MISC (3 URLs)
 # =============================================================================
 
 https://govcongiants.org/blog
@@ -108,7 +122,7 @@ https://govcongiants.org/terms
 # =============================================================================
 #
 # Date Submitted: _______________
-# URLs Submitted: _____ / 61
+# URLs Submitted: _____ / 70
 # Errors Encountered:
 #
 # Re-check indexing status in 48-72 hours
