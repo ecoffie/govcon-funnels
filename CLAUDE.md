@@ -293,3 +293,4 @@ Same as market-assassin — `npm`, `node`, `vercel` CLI are not available locall
 ---
 
 *Last Updated: March 22, 2026*
+- use this with all youtube lives

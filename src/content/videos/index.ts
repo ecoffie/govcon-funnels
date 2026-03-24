@@ -43,25 +43,43 @@ export function extractYouTubeId(url: string): string {
 
 // Import all videos
 import { video as getStartedGovCon } from './get-started-government-contracting';
+import { video as sbaProfileSetup } from './sba-profile-setup';
 import { video as findGovernmentContracts } from './find-government-contracts';
 import { video as marketResearchGovCon } from './market-research-govcon';
+import { video as understandingPscCodes } from './understanding-psc-codes';
+import { video as dangersOfConsulting } from './dangers-of-consulting';
 import { video as proposalWritingGuide } from './proposal-writing-guide';
 import { video as capabilityStatementGuide } from './capability-statement-guide';
 import { video as pricingGovernmentContracts } from './pricing-government-contracts';
+import { video as pricingStrategiesPart2 } from './pricing-strategies-part-2';
 import { video as winWithoutPastPerformance } from './win-without-past-performance';
+import { video as financingYourContract } from './financing-your-contract';
+import { video as vendorSupplierCredit } from './vendor-supplier-credit';
+import { video as constructionBusinessGovcon } from './construction-business-govcon';
+import { video as foreignCompaniesGovcon } from './foreign-companies-govcon';
 import { video as gsaScheduleGuide } from './gsa-schedule-guide';
 
 export const allVideos: VideoData[] = [
   // Getting Started
   getStartedGovCon,
+  sbaProfileSetup,
   // Finding Opportunities
   findGovernmentContracts,
   marketResearchGovCon,
+  understandingPscCodes,
+  dangersOfConsulting,
   // Winning Contracts
   proposalWritingGuide,
   capabilityStatementGuide,
   pricingGovernmentContracts,
+  pricingStrategiesPart2,
   winWithoutPastPerformance,
+  // Business Growth
+  financingYourContract,
+  vendorSupplierCredit,
+  constructionBusinessGovcon,
+  foreignCompaniesGovcon,
+  // GSA
   gsaScheduleGuide,
 ];
 
