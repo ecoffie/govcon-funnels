@@ -4,9 +4,9 @@ import JsonLd from '@/components/JsonLd';
 import { glossaryTerms } from '@/content/glossary';
 
 export const metadata = generateSeo({
-  title: 'Government Contracting Glossary — 45+ Key Terms Defined',
+  title: 'GovCon Glossary: 50+ Terms Explained (CAGE, NAICS, FAR, IDIQ...)',
   description:
-    'Complete glossary of government contracting terms. Learn the meaning of CAGE code, NAICS, RFP, FAR, set-aside, IDIQ, and dozens more essential govcon terms.',
+    'Plain-English definitions of every government contracting term. What is a CAGE code? NAICS? RFP? FAR? Search 50+ terms instantly. Bookmark this.',
   path: '/glossary',
   keywords: [
     'government contracting glossary',

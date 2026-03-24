@@ -3,8 +3,8 @@ import type { BlogPost } from './index';
 export const post: BlogPost = {
   slug: 'pricing-analyst-govcon-guide',
   title: 'Pricing Analyst in Government Contracting: Salary, Skills & How to Break In',
-  metaTitle: 'GovCon Pricing Analyst: $120K-$180K Salary Guide (2026)',
-  metaDescription: 'Learn what pricing analysts do in government contracting, salary expectations ($120K-$180K), required skills, and how to land your first pricing role.',
+  metaTitle: 'Pricing Analyst Salary in GovCon: $120K-$180K (How to Break In)',
+  metaDescription: 'GovCon pricing analyst salaries + career path. No finance degree needed — here\'s how accountants and Excel experts transition into $150K+ pricing roles.',
   keywords: [
     'pricing analyst salary',
     'pricing analyst government contracting',

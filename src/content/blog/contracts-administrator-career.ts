@@ -3,8 +3,8 @@ import type { BlogPost } from './index';
 export const post: BlogPost = {
   slug: 'contracts-administrator-career',
   title: 'Contracts Administrator Career Guide: $110K-$170K in Government Contracting',
-  metaTitle: 'Contracts Administrator Salary & Career Path (2026 Guide)',
-  metaDescription: 'Everything you need to know about becoming a contracts administrator in GovCon. Salary ranges ($110K-$170K), required skills, certifications, and career path.',
+  metaTitle: 'Contracts Administrator Salary: $110K-$170K in GovCon [2026 Data]',
+  metaDescription: 'Contracts administrator salaries by experience level + city. Entry: $80K, Senior: $170K+. 3 certifications that boost pay 20%. Real job links inside.',
   keywords: [
     'contracts administrator salary',
     'contracts administrator jobs',

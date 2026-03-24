@@ -10,8 +10,8 @@ import JobAlertSignup from '@/components/JobAlertSignup';
 export const dynamic = 'force-dynamic';
 
 export const metadata = generateSeo({
-  title: 'Government Contractor Jobs | $100K+ Careers in Federal Contracting',
-  description: 'Browse 500+ government contractor jobs paying $100K-$500K. Capture manager, proposal manager, BD roles. No clearance required for many positions. Apply today.',
+  title: 'Government Contractor Jobs: $100K-$300K Roles (Hiring Now)',
+  description: 'GovCon jobs updated daily: Capture Manager, Proposal Manager, Contracts, BD. Remote options, no clearance required for many. 500+ open positions.',
   path: '/jobs',
   keywords: [
     'government contractor jobs',

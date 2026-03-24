@@ -3,8 +3,8 @@ import type { BlogPost } from './index';
 export const post: BlogPost = {
   slug: 'capture-manager-salary-guide',
   title: 'Capture Manager Salary Guide 2026: What GovCon Capture Managers Really Earn',
-  metaTitle: 'Capture Manager Salary 2026: $150K-$220K+ (Complete Guide)',
-  metaDescription: 'Discover what capture managers earn in government contracting. Salary ranges by experience, location, clearance level, and how to break into this $150K-$220K career.',
+  metaTitle: 'Capture Manager Salary: $150K-$250K+ (Real Data by Level) [2026]',
+  metaDescription: 'What capture managers actually earn: Junior $120K, Senior $180K, Director $250K+. DC vs remote pay gaps. How to break in without BD experience.',
   keywords: [
     'capture manager salary',
     'capture manager jobs',
