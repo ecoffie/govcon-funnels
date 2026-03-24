@@ -67,9 +67,15 @@
   - Email gate after 3 results (lead capture)
   - Internal link from `/guides/cage-code`
   - Targeting 9,900/mo searches for "cage code lookup"
+  - **Note:** SAM.gov API has 10 req/day limit for personal keys. Resets midnight UTC.
 - [x] Add internal links from homepage to top 3 new guides ✅ Mar 17 (done early)
   - Added: 8(a) Certification, GSA Schedule, Government Contract Help, Proposal Writing
   - Homepage now links to 8 guides (up from 4)
+- [x] CTR Optimization for 15 high-impression pages ✅ Mar 24
+  - Round 1: cage-code, 8a-vs-hubzone, sam-checklist, capability-statement, gsa-schedule
+  - Round 2: vosb-certification, win-no-experience, naics-codes, bd-jobs-150k, sam-registration
+  - Round 3: contracts-admin-career, capture-manager-salary, pricing-analyst, glossary, jobs
+  - Techniques: numbers, free offers, fear hooks, salary specificity, urgency
 - [ ] Share CAGE code guide on social channels (highest volume keyword)
 - [ ] Share glossary as a resource on LinkedIn
 
