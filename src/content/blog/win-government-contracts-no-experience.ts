@@ -3,8 +3,8 @@ import type { BlogPost } from './index';
 export const post: BlogPost = {
   slug: 'win-government-contracts-no-experience',
   title: 'How to Win Government Contracts With No Experience (5 Proven Strategies)',
-  metaTitle: 'Win Government Contracts With No Experience (2026 Guide)',
-  metaDescription: 'No past performance? No problem. Learn 5 proven strategies to win your first government contract even without federal experience.',
+  metaTitle: 'How to Win Government Contracts With No Experience (5 Strategies)',
+  metaDescription: 'No past performance? Here\'s how beginners win their first federal contract. 5 strategies that work in 2026 — including the $250K micro-purchase loophole.',
   keywords: [
     'win government contracts no experience',
     'government contracts for beginners',

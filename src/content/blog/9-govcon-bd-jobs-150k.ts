@@ -3,8 +3,8 @@ import type { BlogPost } from './index';
 export const post: BlogPost = {
   slug: '9-govcon-bd-jobs-150k',
   title: '9 GovCon Business Development Jobs That Pay $150K+ (2026 Guide)',
-  metaTitle: '9 GovCon BD Jobs That Pay $150K+ | Government Contractor Careers 2026',
-  metaDescription: 'Discover the highest-paying business development jobs in government contracting. From Proposal Coordinator to VP of BD, learn salary ranges, skills needed, and how to land these roles.',
+  metaTitle: '9 GovCon Jobs That Pay $150K-$500K (With Salary Data) [2026]',
+  metaDescription: 'Government contractor jobs paying $150K+: Capture Manager, Proposal Manager, BD Director, and 6 more roles. Real salary ranges + how to break in.',
   keywords: [
     'govcon jobs',
     'government contractor jobs',

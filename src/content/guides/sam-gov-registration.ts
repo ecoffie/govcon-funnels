@@ -3,9 +3,9 @@ import type { GuideData } from './index';
 export const guide: GuideData = {
   slug: 'sam-gov-registration',
   title: 'SAM.gov Registration: Complete Step-by-Step Guide',
-  metaTitle: 'SAM.gov Registration Guide | Step-by-Step for Small Business (2026)',
+  metaTitle: 'SAM.gov Registration (Free): 7 Steps to Get Your UEI + CAGE Code',
   metaDescription:
-    'Complete step-by-step guide to SAM.gov registration for government contracting. Learn about UEI numbers, CAGE codes, entity validation, and how to avoid common registration mistakes.',
+    'Register on SAM.gov in 7 steps — free, no paid services needed. Get your UEI and CAGE code in 7-10 days. Avoid the 3 mistakes that cause 60% of rejections.',
   keywords: [
     'SAM.gov registration',
     'sam.gov registration step by step',

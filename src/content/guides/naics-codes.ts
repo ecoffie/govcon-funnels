@@ -3,9 +3,9 @@ import type { GuideData } from './index';
 export const guide: GuideData = {
   slug: 'naics-codes',
   title: 'NAICS Codes: How to Find, Choose, and Use Them for Government Contracts',
-  metaTitle: 'NAICS Code Lookup Guide | Find Your NAICS Code for GovCon (2026)',
+  metaTitle: 'NAICS Code Lookup — Find Your Code + Size Standards in 2 Minutes',
   metaDescription:
-    'Learn how to find and choose the right NAICS codes for your business. Complete guide to NAICS code lookup, size standards, and how NAICS codes affect government contracting opportunities.',
+    'Free NAICS code search: find the right codes for your business. Plus size standard lookup — are you "small" for that $50M contract? Check instantly.',
   keywords: [
     'naics code',
     'naics code lookup',
