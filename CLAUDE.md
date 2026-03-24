@@ -312,12 +312,21 @@ Same as market-assassin — `npm`, `node`, `vercel` CLI are not available locall
   - Identified "cage code lookup" opportunity: 316 impressions, 0.6% CTR at position 9.9
   - Two pages competing: `/blog/cage-code-lookup-guide` (296 imp) vs `/guides/cage-code` (21 imp)
   - Built tool to match search intent (users want tool, not guide)
-- **Meta Tag CTR Optimization (15 pages):**
+- **Meta Tag CTR Optimization (15 pages on govcongiants.org):**
   - Round 1: cage-code, 8a-vs-hubzone, sam-checklist, capability-statement, gsa-schedule
   - Round 2: vosb-certification, win-no-experience, naics-codes, bd-jobs-150k, sam-registration
   - Round 3: contracts-admin-career, capture-manager-salary, pricing-analyst, glossary, jobs
   - Techniques: numbers, free offers, fear hooks, salary specificity, urgency
   - Combined impressions: ~9,800/month with near-zero CTR → optimized for clicks
+- **Shop Blog Optimization (shop.govcongiants.org):**
+  - Analyzed 15 shop blog articles vs main site guides — identified differentiation strategy
+  - Shop = tool-focused content, main site = educational guides
+  - Optimized all 15 shop blog meta descriptions for CTR
+  - Added tool badges to articles missing them
+- **Cross-Domain Linking:**
+  - Added "Free guides" cross-links from all 15 shop blog articles to govcongiants.org
+  - Links per article: 2-3 relevant guides (SAM registration, capability statements, certifications, etc.)
+  - SEO benefit: Cross-domain authority building between shop and main site
 
 ---
 

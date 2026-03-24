@@ -76,8 +76,18 @@
   - Round 2: vosb-certification, win-no-experience, naics-codes, bd-jobs-150k, sam-registration
   - Round 3: contracts-admin-career, capture-manager-salary, pricing-analyst, glossary, jobs
   - Techniques: numbers, free offers, fear hooks, salary specificity, urgency
+- [x] Shop Blog Differentiation ✅ Mar 24
+  - Analyzed shop.govcongiants.org/blog (15 articles) vs main site guides
+  - Strategy: Shop = tool-focused, main site = educational
+  - Optimized all 15 shop blog meta descriptions for CTR
+  - Added tool badges to all shop blog articles
+- [x] Cross-Domain Linking ✅ Mar 24
+  - Added "Free guides" cross-links from all 15 shop blog articles to govcongiants.org
+  - Links to: SAM registration, capability statements, NAICS codes, certifications, proposals
+  - SEO benefit: Cross-domain authority building
 - [ ] Share CAGE code guide on social channels (highest volume keyword)
 - [ ] Share glossary as a resource on LinkedIn
+- [ ] Monitor GSC in 7-14 days for CTR improvement on optimized pages
 
 ### Week 3.5 (Mar 22): Video SEO Pages ✅ COMPLETED
 - [x] Created video landing page infrastructure
