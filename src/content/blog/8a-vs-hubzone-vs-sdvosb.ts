@@ -3,8 +3,8 @@ import type { BlogPost } from './index';
 export const post: BlogPost = {
   slug: '8a-vs-hubzone-vs-sdvosb',
   title: '8(a) vs HUBZone vs SDVOSB: Which SBA Certification Should You Get?',
-  metaTitle: '8(a) vs HUBZone vs SDVOSB: Compare SBA Certifications (2026)',
-  metaDescription: 'Compare 8(a), HUBZone, SDVOSB, and WOSB certifications. Eligibility requirements, benefits, and which SBA certification is best for your business.',
+  metaTitle: '8(a) vs HUBZone vs SDVOSB — Which Gets You More Contracts? [2026]',
+  metaDescription: 'Side-by-side comparison: 8(a), HUBZone, SDVOSB, WOSB eligibility + set-aside percentages. Find which certification fits YOUR business in 5 minutes.',
   keywords: [
     '8a vs hubzone',
     'sdvosb vs 8a',

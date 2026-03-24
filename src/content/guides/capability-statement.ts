@@ -3,9 +3,9 @@ import type { GuideData } from './index';
 export const guide: GuideData = {
   slug: 'capability-statement',
   title: 'How to Write a Capability Statement That Wins Contracts',
-  metaTitle: 'Capability Statement Template & Guide | Win Government Contracts (2026)',
+  metaTitle: 'Capability Statement Template (Free) — 6 Must-Have Sections + Examples',
   metaDescription:
-    'Learn how to create a capability statement that wins government contracts. Includes essential elements, design tips, templates, and common mistakes to avoid.',
+    'Download a free capability statement template. The exact 6 sections federal buyers look for, with real examples. Make yours stand out in 30 minutes.',
   keywords: [
     'capability statement template',
     'capability statement',
