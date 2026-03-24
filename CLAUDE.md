@@ -58,6 +58,7 @@ User submits form → /api/lead
 | `GHL_LOCATION_ID` | GHL sub-account ID | Vercel + .env.local |
 | `SLACK_LEAD_WEBHOOK_URL` | Slack incoming webhook | Vercel + .env.local |
 | `STRIPE_SECRET_KEY` | Stripe payments | Vercel + .env.local |
+| `SAM_API_KEY` | SAM.gov Entity API for CAGE lookup | Vercel + .env.local |
 
 ---
 
@@ -71,6 +72,8 @@ User submits form → /api/lead
 | `/surge` | Surge Bootcamp landing page |
 | `/free-course` | Free GovCon Course signup |
 | `/opp` | Opportunity Hunter funnel |
+| `/tools` | Tools index page |
+| `/tools/cage-code-lookup` | Free CAGE code lookup tool (SEO: 9,900/mo) |
 | `/resources` | Free resources library |
 | `/videos` | Video library index page |
 | `/videos/[slug]` | Video landing pages (8 videos) |
@@ -145,6 +148,10 @@ User submits form → /api/lead
 | `/src/components/GuideEmailCapture.tsx` | Mid-article email capture component |
 | `/src/content/videos/index.ts` | Video data structure & exports |
 | `/src/content/guides/*.ts` | Guide content data files |
+| `/src/lib/sam-entity.ts` | SAM.gov Entity API wrapper for CAGE lookup |
+| `/src/app/api/cage-lookup/route.ts` | CAGE code search API with rate limiting |
+| `/src/app/tools/cage-code-lookup/page.tsx` | Free CAGE code lookup tool |
+| `/tasks/prd-cage-code-lookup.md` | PRD with evaluation criteria |
 
 ---
 
@@ -290,7 +297,21 @@ Same as market-assassin — `npm`, `node`, `vercel` CLI are not available locall
   - Fulfillment section: Financing, Vendor Credit reordered
   - Industry section: Construction, Foreign Companies fixed
 
+### March 24, 2026
+- **CAGE Code Lookup Tool:**
+  - Built free tool at `/tools/cage-code-lookup` targeting "cage code lookup" (9,900/mo searches)
+  - SAM.gov Entity API integration (`/src/lib/sam-entity.ts`)
+  - Search by CAGE code or company name
+  - Email gate after 3 results (leads to GHL with tag "cage-lookup")
+  - Rate limiting (30/hour per IP)
+  - Added to `/tools` page as featured free tool
+  - Internal link from `/guides/cage-code`
+  - PRD with evaluation criteria at `/tasks/prd-cage-code-lookup.md`
+- **GSC Analysis:**
+  - Identified "cage code lookup" opportunity: 316 impressions, 0.6% CTR at position 9.9
+  - Two pages competing: `/blog/cage-code-lookup-guide` (296 imp) vs `/guides/cage-code` (21 imp)
+  - Built tool to match search intent (users want tool, not guide)
+
 ---
 
-*Last Updated: March 22, 2026*
-- use this with all youtube lives
+*Last Updated: March 24, 2026*

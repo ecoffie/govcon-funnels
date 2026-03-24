@@ -59,8 +59,14 @@
 | Average Position | 8.9 | Top 10 | ON TARGET |
 
 ### Week 3 (Mar 28 – Apr 3): Content Optimization Round 1
-- [ ] Review GSC data — which pages are getting impressions but low CTR?
-- [ ] Optimize meta titles/descriptions for pages with impressions but <3% CTR
+- [x] Review GSC data — which pages are getting impressions but low CTR? ✅ Mar 24
+  - "cage code lookup": 316 impressions, 0.6% CTR, position 9.9
+  - Problem: Guide ranking for tool intent query
+- [x] Build CAGE Code Lookup Tool to match search intent ✅ Mar 24
+  - `/tools/cage-code-lookup` - free tool with SAM.gov API
+  - Email gate after 3 results (lead capture)
+  - Internal link from `/guides/cage-code`
+  - Targeting 9,900/mo searches for "cage code lookup"
 - [x] Add internal links from homepage to top 3 new guides ✅ Mar 17 (done early)
   - Added: 8(a) Certification, GSA Schedule, Government Contract Help, Proposal Writing
   - Homepage now links to 8 guides (up from 4)
