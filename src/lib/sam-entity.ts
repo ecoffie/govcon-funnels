@@ -89,7 +89,8 @@ export async function searchSamEntities(params: {
       console.error('SAM.gov API error:', response.status, errorText);
 
       if (response.status === 429) {
-        return { entities: [], totalRecords: 0, error: 'Rate limit exceeded. Try again later.' };
+        // SAM.gov has strict daily limits: 10/day for personal keys, 1,000/day with federal role
+        return { entities: [], totalRecords: 0, error: 'SAM.gov daily limit reached. Try again tomorrow.' };
       }
       if (response.status === 403) {
         return { entities: [], totalRecords: 0, error: 'API key invalid or expired.' };

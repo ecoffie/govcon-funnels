@@ -216,8 +216,22 @@ export default function CageCodeLookupPage() {
       {error && (
         <section className="px-6 pb-4">
           <div className="max-w-2xl mx-auto">
-            <div className="bg-red-500/10 border border-red-500/30 rounded-lg p-4 text-red-400">
-              {error}
+            <div className="bg-red-500/10 border border-red-500/30 rounded-lg p-4">
+              <p className="text-red-400 font-medium">{error}</p>
+              {error.includes('daily limit') && (
+                <p className="text-slate-400 text-sm mt-2">
+                  SAM.gov API has strict daily limits. The limit resets at midnight UTC.
+                  In the meantime, you can search directly on{' '}
+                  <a
+                    href="https://sam.gov/search/?index=ei&page=1&sort=-modifiedDate&pageSize=25&sfm%5Bstatus%5D%5Bis_active%5D=true"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="text-green-400 hover:underline"
+                  >
+                    SAM.gov
+                  </a>.
+                </p>
+              )}
             </div>
           </div>
         </section>
