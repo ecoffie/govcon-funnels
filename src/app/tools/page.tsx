@@ -17,6 +17,19 @@ export const metadata = generateSeo({
   ],
 });
 
+const freeTools = [
+  {
+    name: 'CAGE Code Lookup',
+    tagline: 'Search 600,000+ Federal Contractors',
+    description: 'Look up any CAGE code or search by company name. Find contractor details, NAICS codes, certifications, and registration status — all powered by official SAM.gov data.',
+    features: ['Search by CAGE code', 'Search by company name', 'NAICS & certifications', 'Free to use'],
+    href: '/tools/cage-code-lookup',
+    icon: '🔎',
+    color: 'green',
+    isFree: true,
+  },
+];
+
 const tools = [
   {
     name: 'Market Assassin',
@@ -95,9 +108,58 @@ export default function ToolsPage() {
         </div>
       </section>
 
-      {/* Tools Grid */}
+      {/* Free Tools */}
+      <section className="px-6 pb-12">
+        <div className="max-w-5xl mx-auto">
+          <h2 className="text-2xl font-bold text-white mb-6 flex items-center gap-2">
+            <span className="px-2 py-1 bg-green-500/20 text-green-400 text-sm rounded">FREE</span>
+            Free Tools
+          </h2>
+          <div className="space-y-6">
+            {freeTools.map((tool) => (
+              <div
+                key={tool.name}
+                className="bg-slate-900 border-2 border-green-500/30 rounded-2xl p-8 hover:border-green-500/50 transition"
+              >
+                <div className="flex flex-col md:flex-row gap-6">
+                  <div className="flex-shrink-0">
+                    <div className="w-16 h-16 rounded-xl bg-green-500/20 flex items-center justify-center text-3xl">
+                      {tool.icon}
+                    </div>
+                  </div>
+                  <div className="flex-1">
+                    <div className="flex items-center gap-3 mb-1">
+                      <h2 className="text-2xl font-bold text-white">{tool.name}</h2>
+                      <span className="px-2 py-0.5 bg-green-500/20 text-green-400 text-xs font-medium rounded">FREE</span>
+                    </div>
+                    <p className="text-green-500 font-medium mb-3">{tool.tagline}</p>
+                    <p className="text-slate-400 mb-4">{tool.description}</p>
+                    <ul className="grid grid-cols-2 gap-2 mb-6">
+                      {tool.features.map((feature) => (
+                        <li key={feature} className="text-slate-500 text-sm flex items-center gap-2">
+                          <span className="text-green-500">✓</span> {feature}
+                        </li>
+                      ))}
+                    </ul>
+                    <Link
+                      href={tool.href}
+                      className="inline-block px-6 py-3 bg-green-600 hover:bg-green-500 text-white rounded-lg font-semibold transition"
+                    >
+                      Try Free →
+                    </Link>
+                  </div>
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* Premium Tools Grid */}
       <section className="px-6 pb-20">
-        <div className="max-w-5xl mx-auto space-y-8">
+        <div className="max-w-5xl mx-auto">
+          <h2 className="text-2xl font-bold text-white mb-6">Premium Tools</h2>
+          <div className="space-y-8">
           {tools.map((tool) => (
             <div
               key={tool.name}
@@ -131,6 +193,7 @@ export default function ToolsPage() {
               </div>
             </div>
           ))}
+          </div>
         </div>
       </section>
 

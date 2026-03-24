@@ -58,6 +58,11 @@ export const guide: GuideData = {
       heading: 'How to Look Up a CAGE Code',
       content: `
         <p>There are several ways to look up a CAGE code, whether you are searching for your own or researching another company. All methods are free and most don't require an account.</p>
+        <div style="background: linear-gradient(135deg, rgba(16, 185, 129, 0.1) 0%, rgba(59, 130, 246, 0.1) 100%); border: 1px solid rgba(16, 185, 129, 0.3); border-radius: 12px; padding: 20px; margin: 20px 0;">
+          <p style="font-weight: 600; font-size: 1.1rem; margin-bottom: 8px;">Try Our Free CAGE Code Lookup Tool</p>
+          <p style="margin-bottom: 12px;">Search 600,000+ federal contractors by CAGE code or company name. Instant results powered by SAM.gov data.</p>
+          <a href="/tools/cage-code-lookup" style="display: inline-block; background: #10b981; color: white; padding: 10px 20px; border-radius: 8px; text-decoration: none; font-weight: 600;">Search CAGE Codes Free →</a>
+        </div>
         <p><strong>Method 1: SAM.gov Entity Search (Fastest)</strong></p>
         <p>The most reliable way to look up any CAGE code is through the <a href="https://sam.gov" target="_blank" rel="noopener">SAM.gov entity search</a>:</p>
         <ol>
