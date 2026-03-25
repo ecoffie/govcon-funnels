@@ -67,8 +67,8 @@ export async function searchSamEntities(params: {
       // Exact CAGE code search
       queryParams.set('cageCode', cageCode.toUpperCase().trim());
     } else if (companyName) {
-      // Partial company name search - use wildcard for contains search
-      queryParams.set('legalBusinessName', `*${companyName.trim()}*`);
+      // Partial company name search - SAM.gov supports partial match natively
+      queryParams.set('legalBusinessName', companyName.trim());
     }
 
     // Limit results
