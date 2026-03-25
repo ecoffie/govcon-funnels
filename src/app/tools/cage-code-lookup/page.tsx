@@ -166,8 +166,9 @@ export default function CageCodeLookupPage() {
                 <input
                   type="radio"
                   name="searchType"
+                  value="cageCode"
                   checked={searchType === 'cageCode'}
-                  onChange={() => setSearchType('cageCode')}
+                  onChange={(e) => setSearchType(e.target.value as 'cageCode' | 'companyName')}
                   className="w-4 h-4 text-green-500 bg-slate-800 border-slate-600 focus:ring-green-500"
                 />
                 <span className="text-white">CAGE Code</span>
@@ -176,8 +177,9 @@ export default function CageCodeLookupPage() {
                 <input
                   type="radio"
                   name="searchType"
+                  value="companyName"
                   checked={searchType === 'companyName'}
-                  onChange={() => setSearchType('companyName')}
+                  onChange={(e) => setSearchType(e.target.value as 'cageCode' | 'companyName')}
                   className="w-4 h-4 text-green-500 bg-slate-800 border-slate-600 focus:ring-green-500"
                 />
                 <span className="text-white">Company Name</span>
