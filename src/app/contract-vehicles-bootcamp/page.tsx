@@ -120,18 +120,23 @@ export default function ContractVehiclesBootcampLanding() {
           </div>
 
           {/* Free Downloads Preview */}
-          <div className="bg-slate-900/50 border border-slate-800 rounded-2xl p-6 mb-10 max-w-2xl mx-auto">
-            <h3 className="text-lg font-bold text-white mb-4 text-center">
+          <div className="bg-slate-900/50 border border-slate-800 rounded-2xl p-8 mb-10 max-w-4xl mx-auto">
+            <h3 className="text-2xl font-bold text-white mb-8 text-center">
               Register & Get 6 Free Resources Instantly
             </h3>
-            <div className="grid grid-cols-2 md:grid-cols-3 gap-3">
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
               {freeDownloads.map((item, i) => (
                 <div
                   key={i}
-                  className="bg-slate-950 border border-slate-800 rounded-lg p-3 text-left"
+                  className="bg-slate-900 border border-slate-800 rounded-xl p-6 flex items-start gap-4"
                 >
-                  <span className="text-lg">{item.icon}</span>
-                  <p className="text-white text-sm font-medium mt-1 leading-tight">{item.title}</p>
+                  <div className="w-12 h-12 bg-green-900/50 border border-green-700/50 rounded-xl flex items-center justify-center flex-shrink-0">
+                    <span className="text-2xl">{item.icon}</span>
+                  </div>
+                  <div>
+                    <h4 className="text-lg font-bold text-white mb-1">{item.title}</h4>
+                    <p className="text-slate-500 text-sm">{item.desc}</p>
+                  </div>
                 </div>
               ))}
             </div>
