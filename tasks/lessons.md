@@ -1,3 +1,4 @@
+# Lessons Learned
 
 ## March 26, 2026
 
@@ -8,7 +9,7 @@
 1. Make the fix
 2. Run unit tests locally
 3. Push to git
-4. Wait for Vercel deploy (~60 seconds)
+4. Wait for Vercel deploy (~60-90 seconds)
 5. Test the live endpoint with curl/browser
 6. ONLY THEN report "verified working"
 
@@ -16,3 +17,39 @@
 
 **Bad:** "Fixed and pushed. Should work now."
 **Good:** "Fixed and pushed. Waiting 60s for deploy... [tests live endpoint] Verified working - search for 'booz' returns 56 results."
+
+---
+
+### SAM.gov Entity API v3 quirks
+**Rule:** When using SAM.gov Entity API v3, always include these parameters:
+
+1. **`samRegistered=Yes`** - REQUIRED or API returns empty `entityData` array
+2. **`page=0`** - API uses 0-indexed pagination (not 1-indexed!)
+
+**Why:**
+- Without `samRegistered=Yes`, you get `totalRecords: 3, entityData: []`
+- With `page=1`, you skip the first page of results (empty for small result sets)
+
+**Correct API call:**
+```
+/entities?api_key=***&samRegistered=Yes&page=0&size=25&cageCode=1T4Z9
+```
+
+**Wrong (returns empty):**
+```
+/entities?api_key=***&page=1&size=25&cageCode=1T4Z9
+```
+
+---
+
+### Debug production issues systematically
+**Rule:** When production API returns unexpected results, add debug endpoints to expose internal state.
+
+**Pattern:**
+1. Add `?debug=true` query param support
+2. Return raw internal values (counts, URLs, config)
+3. Deploy and test
+4. Compare debug output to working local tests
+5. Remove debug code after fix
+
+**Why:** The SAM API pagination bug was only found by exposing the actual URL being called (`page=1` instead of `page=0`).
