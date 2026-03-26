@@ -240,6 +240,14 @@ Same as market-assassin — `npm`, `node`, `vercel` CLI are not available locall
 
 ## Recent Work History
 
+### March 25, 2026
+- **Contract Vehicles Bootcamp Landing Page:**
+  - Added "Register & Get 6 Free Resources Instantly" section showing downloads upfront
+  - 6 free resources: Expiring Contracts List, Recompete Checklist, 10 IDIQ Vehicles Guide, Active IDIQ List, Sources Sought Template, Task Order Template
+  - Design matches "What You Will Learn" style (2-column grid, icon boxes, green accents)
+  - Updated form CTA to "Get Free Access Now"
+  - Bootcamp date: March 28, 2026 at 9:00 AM ET
+
 ### March 22, 2026
 - **Video SEO Landing Pages:**
   - Created 8 video landing pages at `/videos/[slug]` targeting ~10,600 monthly searches
@@ -330,4 +338,4 @@ Same as market-assassin — `npm`, `node`, `vercel` CLI are not available locall
 
 ---
 
-*Last Updated: March 24, 2026*
+*Last Updated: March 25, 2026*
