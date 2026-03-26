@@ -9,6 +9,39 @@ export const metadata = generateSeo({
   keywords: ['IDIQ contracts', 'BPA government', 'contract vehicles', 'federal set-asides', 'government contracting bootcamp'],
 });
 
+const freeDownloads = [
+  {
+    icon: '📊',
+    title: 'March 2026 Expiring Contracts List',
+    desc: '15 sample contracts from 944 expiring in March 2026',
+  },
+  {
+    icon: '✅',
+    title: 'Recompete Positioning Checklist',
+    desc: '18-month timeline to position for expiring contracts',
+  },
+  {
+    icon: '🎯',
+    title: '10 IDIQ Vehicles Guide',
+    desc: 'GSA MAS, OASIS+, CIO-SP4, SEWP & more explained',
+  },
+  {
+    icon: '📋',
+    title: 'Active IDIQ Vehicles List',
+    desc: '50 vehicles with ceiling values & NAICS codes',
+  },
+  {
+    icon: '📄',
+    title: 'Sources Sought Response Template',
+    desc: 'Fill-in-the-blank template to respond to RFIs',
+  },
+  {
+    icon: '📝',
+    title: 'Task Order Response Template',
+    desc: 'Framework for responding to IDIQ task orders',
+  },
+];
+
 const contractVehicles = [
   {
     icon: '📘',
@@ -86,13 +119,31 @@ export default function ContractVehiclesBootcampLanding() {
             </div>
           </div>
 
+          {/* Free Downloads Preview */}
+          <div className="bg-slate-900/50 border border-slate-800 rounded-2xl p-6 mb-10 max-w-2xl mx-auto">
+            <h3 className="text-lg font-bold text-white mb-4 text-center">
+              Register & Get 6 Free Resources Instantly
+            </h3>
+            <div className="grid grid-cols-2 md:grid-cols-3 gap-3">
+              {freeDownloads.map((item, i) => (
+                <div
+                  key={i}
+                  className="bg-slate-950 border border-slate-800 rounded-lg p-3 text-left"
+                >
+                  <span className="text-lg">{item.icon}</span>
+                  <p className="text-white text-sm font-medium mt-1 leading-tight">{item.title}</p>
+                </div>
+              ))}
+            </div>
+          </div>
+
           <div className="bg-slate-900 border border-slate-800 rounded-2xl p-8 max-w-md mx-auto mb-12">
             <h3 className="text-xl font-bold text-white mb-2">Reserve Your Spot</h3>
             <p className="text-slate-500 text-sm mb-6">
-              Enter your info to access the contract vehicles bootcamp training.
+              Get instant access to all 6 resources + the live bootcamp.
             </p>
             <LeadForm
-              buttonText="Get Bootcamp Access"
+              buttonText="Get Free Access Now"
               redirectUrl="/contract-vehicles-bootcamp/upsell"
               source="contract-vehicles-bootcamp"
             />
