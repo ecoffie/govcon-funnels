@@ -1,12 +1,12 @@
 import { NextRequest, NextResponse } from 'next/server';
-import { searchSamEntities, SamEntity } from '@/lib/sam-entity';
+import { searchEntities, validateCAGECode } from '@/lib/sam';
 
 // Simple in-memory rate limiting (resets on cold start, sufficient for free tool)
 const rateLimitMap = new Map<string, { count: number; resetAt: number }>();
 const RATE_LIMIT_WINDOW = 60 * 60 * 1000; // 1 hour in ms
 const RATE_LIMIT_MAX = 30; // 30 requests per hour per IP
 
-function checkRateLimit(ip: string): { allowed: boolean; remaining: number } {
+function checkClientRateLimit(ip: string): { allowed: boolean; remaining: number } {
   const now = Date.now();
   const entry = rateLimitMap.get(ip);
 
@@ -39,10 +39,11 @@ function checkRateLimit(ip: string): { allowed: boolean; remaining: number } {
  * - limit: Max results (default 10, max 25)
  *
  * Rate limited: 30 requests/hour per IP
+ * Uses new SAM library with Supabase caching
  */
 export async function GET(request: NextRequest) {
   const searchParams = request.nextUrl.searchParams;
-  const cageCode = searchParams.get('cageCode')?.trim();
+  const cageCode = searchParams.get('cageCode')?.trim().toUpperCase();
   const companyName = searchParams.get('companyName')?.trim();
   const limitParam = searchParams.get('limit');
   const limit = Math.min(parseInt(limitParam || '10', 10), 25);
@@ -56,7 +57,7 @@ export async function GET(request: NextRequest) {
   }
 
   // Validate CAGE code format if provided
-  if (cageCode && !/^[A-Z0-9]{5}$/i.test(cageCode)) {
+  if (cageCode && !validateCAGECode(cageCode)) {
     return NextResponse.json(
       { error: 'CAGE code must be exactly 5 alphanumeric characters' },
       { status: 400 }
@@ -68,7 +69,7 @@ export async function GET(request: NextRequest) {
     || request.headers.get('x-real-ip')
     || 'unknown';
 
-  const rateCheck = checkRateLimit(ip);
+  const rateCheck = checkClientRateLimit(ip);
   if (!rateCheck.allowed) {
     return NextResponse.json(
       {
@@ -79,39 +80,48 @@ export async function GET(request: NextRequest) {
     );
   }
 
-  // Search SAM.gov
-  const result = await searchSamEntities({
+  // Search SAM.gov using new library
+  const result = await searchEntities({
     cageCode: cageCode || undefined,
-    companyName: companyName || undefined,
-    limit,
+    legalBusinessName: companyName || undefined,
+    size: limit,
   });
 
-  if (result.error) {
-    return NextResponse.json(
-      { error: result.error, entities: [], totalRecords: 0 },
-      { status: 500 }
-    );
+  if (result.entities.length === 0 && result.totalCount === 0) {
+    return NextResponse.json({
+      entities: [],
+      totalRecords: 0,
+      query: cageCode ? { type: 'cageCode', value: cageCode } : { type: 'companyName', value: companyName },
+      fromCache: result.fromCache,
+    });
   }
 
   // Transform for client (remove any sensitive fields if needed)
-  const publicEntities = result.entities.map((entity: SamEntity) => ({
+  const publicEntities = result.entities.map((entity) => ({
     cageCode: entity.cageCode,
     uei: entity.ueiSAM,
     name: entity.legalBusinessName,
-    dba: entity.dbaName,
+    dba: entity.dbaName || '',
     city: entity.physicalAddress?.city || '',
-    state: entity.physicalAddress?.stateOrProvinceCode || '',
+    state: entity.physicalAddress?.stateOrProvince || '',
     country: entity.physicalAddress?.countryCode || 'USA',
-    status: entity.registrationStatus === 'A' ? 'Active' : 'Inactive',
-    expirationDate: entity.registrationExpirationDate,
-    naics: entity.naicsCode,
-    businessTypes: entity.businessTypes,
-    certifications: entity.sbaBusinessTypes,
+    status: entity.isActive ? 'Active' : 'Inactive',
+    expirationDate: entity.registrationExpirationDate || '',
+    daysUntilExpiration: entity.daysUntilExpiration,
+    naics: entity.naicsList?.map(n => n.naicsCode) || [],
+    certifications: {
+      has8a: entity.has8a || false,
+      hasSDVOSB: entity.hasSDVOSB || false,
+      hasWOSB: entity.hasWOSB || false,
+      hasHUBZone: entity.hasHUBZone || false,
+      all: entity.certifications?.sbaBusinessTypes || [],
+    },
   }));
 
   return NextResponse.json({
     entities: publicEntities,
-    totalRecords: result.totalRecords,
+    totalRecords: result.totalCount,
     query: cageCode ? { type: 'cageCode', value: cageCode } : { type: 'companyName', value: companyName },
+    fromCache: result.fromCache,
   });
 }

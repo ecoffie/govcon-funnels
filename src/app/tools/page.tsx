@@ -28,6 +28,16 @@ const freeTools = [
     color: 'green',
     isFree: true,
   },
+  {
+    name: 'Expiring Contracts Finder',
+    tagline: 'Find Recompete Opportunities Before They Hit the Street',
+    description: 'Search for federal contracts expiring in the next 6-18 months. Identify sole source and low-competition contracts that will recompete — giving you time to prepare.',
+    features: ['Search by NAICS code', 'Expiration timeline', 'Competition level', 'Free to use'],
+    href: '/tools/expiring-contracts',
+    icon: '📅',
+    color: 'green',
+    isFree: true,
+  },
 ];
 
 const tools = [

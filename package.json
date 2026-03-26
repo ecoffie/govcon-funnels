@@ -7,9 +7,18 @@
     "dev:jan31": "ONLY_JAN31_FUNNEL=1 next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "eslint"
+    "lint": "eslint",
+    "test": "vitest",
+    "test:unit": "vitest run src/lib/sam/__tests__/unit/",
+    "test:integration": "vitest run src/lib/sam/__tests__/integration/",
+    "test:sam": "vitest run src/lib/sam/__tests__",
+    "test:sam:entity": "vitest run src/lib/sam/__tests__/**/entity*",
+    "test:sam:awards": "vitest run src/lib/sam/__tests__/**/awards*",
+    "test:api": "vitest run src/app/api/**/__tests__",
+    "test:all": "npm run test:unit && npm run test:integration"
   },
   "dependencies": {
+    "@supabase/supabase-js": "^2.100.0",
     "@upstash/redis": "^1.37.0",
     "@vercel/blob": "^2.3.1",
     "next": "16.1.4",
@@ -21,13 +30,18 @@
   },
   "devDependencies": {
     "@tailwindcss/postcss": "^4",
+    "@testing-library/dom": "^10.4.1",
+    "@testing-library/react": "^16.3.2",
     "@types/node": "^20",
     "@types/nodemailer": "^7.0.10",
     "@types/react": "^19",
     "@types/react-dom": "^19",
     "eslint": "^9",
     "eslint-config-next": "16.1.4",
+    "jsdom": "^29.0.1",
+    "msw": "^2.12.14",
     "tailwindcss": "^4",
-    "typescript": "^5"
+    "typescript": "^5",
+    "vitest": "^4.1.1"
   }
 }

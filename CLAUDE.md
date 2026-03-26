@@ -59,6 +59,9 @@ User submits form → /api/lead
 | `SLACK_LEAD_WEBHOOK_URL` | Slack incoming webhook | Vercel + .env.local |
 | `STRIPE_SECRET_KEY` | Stripe payments | Vercel + .env.local |
 | `SAM_API_KEY` | SAM.gov Entity API for CAGE lookup | Vercel + .env.local |
+| `SAM_CONTRACT_AWARDS_API_KEY` | SAM.gov Contract Awards API | Vercel + .env.local |
+| `NEXT_PUBLIC_SUPABASE_URL` | Supabase URL (shared with Market Assassin) | Vercel + .env.local |
+| `SUPABASE_SERVICE_ROLE_KEY` | Supabase service key for caching | Vercel + .env.local |
 
 ---
 
@@ -74,6 +77,7 @@ User submits form → /api/lead
 | `/opp` | Opportunity Hunter funnel |
 | `/tools` | Tools index page |
 | `/tools/cage-code-lookup` | Free CAGE code lookup tool (SEO: 9,900/mo) |
+| `/tools/expiring-contracts` | Free expiring contracts finder (lead magnet) |
 | `/resources` | Free resources library |
 | `/videos` | Video library index page |
 | `/videos/[slug]` | Video landing pages (8 videos) |
@@ -148,9 +152,14 @@ User submits form → /api/lead
 | `/src/components/GuideEmailCapture.tsx` | Mid-article email capture component |
 | `/src/content/videos/index.ts` | Video data structure & exports |
 | `/src/content/guides/*.ts` | Guide content data files |
-| `/src/lib/sam-entity.ts` | SAM.gov Entity API wrapper for CAGE lookup |
+| `/src/lib/sam/` | SAM.gov API library (Entity, Awards, caching, rate limiting) |
+| `/src/lib/sam/utils.ts` | Shared utilities, Supabase caching, rate limiting |
+| `/src/lib/sam/entity-api.ts` | Entity/CAGE lookup functions |
+| `/src/lib/sam/contract-awards.ts` | Contract awards & expiring contracts API |
 | `/src/app/api/cage-lookup/route.ts` | CAGE code search API with rate limiting |
+| `/src/app/api/expiring-contracts/route.ts` | Expiring contracts API (lead magnet) |
 | `/src/app/tools/cage-code-lookup/page.tsx` | Free CAGE code lookup tool |
+| `/src/app/tools/expiring-contracts/page.tsx` | Free expiring contracts finder tool |
 | `/tasks/prd-cage-code-lookup.md` | PRD with evaluation criteria |
 
 ---
@@ -204,6 +213,14 @@ npm run dev
 npm run build
 ```
 
+### Testing
+```bash
+npm run test:unit       # Unit tests (mocked, 31 tests)
+npm run test:integration # Integration tests (real API, requires SAM_API_KEY)
+npm run test:sam        # All SAM library tests
+npm run test            # Watch mode
+```
+
 ---
 
 ## Related Projects
@@ -241,6 +258,33 @@ Same as market-assassin — `npm`, `node`, `vercel` CLI are not available locall
 ## Recent Work History
 
 ### March 25, 2026
+- **SAM API Library Upgrade:**
+  - Ported robust SAM API library from Market Assassin to govcon-funnels
+  - New files: `/src/lib/sam/utils.ts`, `entity-api.ts`, `contract-awards.ts`, `index.ts`
+  - Features: Supabase caching (24hr TTL), rate limiting (1000/day), retry logic
+  - Deleted old `/src/lib/sam-entity.ts` (replaced by new library)
+  - Installed `@supabase/supabase-js` dependency
+- **Expiring Contracts Finder (New Lead Magnet Tool):**
+  - Built free tool at `/tools/expiring-contracts`
+  - Search by NAICS code for contracts expiring in 3-18 months
+  - Shows 15 results (teaser), upsells to Market Assassin Pro for full access
+  - Email gate after 3 searches (leads to GHL with tag "expiring-contracts")
+  - Summary stats: total value, sole source count, urgent count
+  - Added to `/tools` page as featured free tool
+- **Testing Infrastructure:**
+  - Installed Vitest, testing-library, msw
+  - Created `vitest.config.ts` and `vitest.setup.ts`
+  - Unit tests: 31 tests for utils and entity-api (all passing)
+  - Integration tests: real API tests (skipped without API key)
+  - Test commands: `npm run test:unit`, `test:integration`, `test:sam`
+- **CI/CD Pipeline:**
+  - Created `.github/workflows/test.yml`
+  - Runs unit tests and build on push/PR
+  - Integration tests run only on main branch
+- **Claude Agent Commands:**
+  - Created `/sam-lookup` command for CAGE/company lookups
+  - Created `/find-expiring` command for expiring contracts search
+  - Created `/test-sam` command for running SAM test suites
 - **Contract Vehicles Bootcamp Landing Page:**
   - Added "Register & Get 6 Free Resources Instantly" section showing downloads upfront
   - 6 free resources: Expiring Contracts List, Recompete Checklist, 10 IDIQ Vehicles Guide, Active IDIQ List, Sources Sought Template, Task Order Template
