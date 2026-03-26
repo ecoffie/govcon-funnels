@@ -272,6 +272,10 @@ export async function makeSAMRequest<T>(
 
   // 3. Build URL
   const url = new URL(`${config.baseUrl}${endpoint}`);
+
+  // Add API key as query parameter (SAM.gov uses api_key param, not Bearer token)
+  url.searchParams.append('api_key', config.apiKey);
+
   Object.entries(params).forEach(([key, value]) => {
     if (value !== undefined && value !== null && value !== '') {
       url.searchParams.append(key, String(value));
@@ -280,12 +284,11 @@ export async function makeSAMRequest<T>(
 
   // 4. Make request
   try {
-    console.log(`[SAM API Request] ${config.apiType}: ${url.pathname}`);
+    console.log(`[SAM API Request] ${config.apiType}: ${url.pathname}?${url.searchParams.toString().replace(/api_key=[^&]+/, 'api_key=***')}`);
 
     const response = await fetch(url.toString(), {
       method: 'GET',
       headers: {
-        'Authorization': `Bearer ${config.apiKey}`,
         'Accept': 'application/json'
       }
     });
