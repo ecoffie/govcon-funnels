@@ -85,8 +85,8 @@
   - Added "Free guides" cross-links from all 15 shop blog articles to govcongiants.org
   - Links to: SAM registration, capability statements, NAICS codes, certifications, proposals
   - SEO benefit: Cross-domain authority building
-- [ ] Share CAGE code guide on social channels (highest volume keyword)
-- [ ] Share glossary as a resource on LinkedIn
+- [x] Share CAGE code guide on social channels ✅ Mar 25 (drafted in SOCIAL-POSTS-MARCH-2026.md)
+- [x] Share glossary as a resource on LinkedIn ✅ Mar 25 (drafted in SOCIAL-POSTS-MARCH-2026.md)
 - [ ] Monitor GSC in 7-14 days for CTR improvement on optimized pages
 
 ### Week 3.5 (Mar 22): Video SEO Pages ✅ COMPLETED
@@ -113,15 +113,26 @@
 - [x] GSC indexing: 79 URLs submitted (Priority 1-3, 5 done), quota hit
 - [ ] GSC indexing: Priority 4, 6, 7 remaining (24 URLs) - tomorrow
 
+### Week 3.5 (Mar 25): Beginners Guide Enhancement ✅ COMPLETED
+- [x] Enhanced beginners guide with video embeds linking to /videos pages:
+  - Added: Get Started, Find Contracts, Market Research, Capability Statement videos
+  - Added "Recommended Videos" section with 6 key video links
+  - Updated checklist download CTA to link to /resources/handouts
+  - Guide already 3,000+ words with 10 sections, 8 FAQs
+- [x] Video page indexing check:
+  - 17 video URLs in sitemap (1 index + 16 videos)
+  - Not yet indexed by Google (submitted Mar 22)
+  - Need to resubmit via GSC
+
 ### Week 4 (Apr 4-13): Tier 4 Content Start
-- [ ] Enhance beginners guide for "government contracts" (18,100/mo, difficulty 65)
-  - Add downloadable checklist
-  - Add video embeds from YouTube channel (NOW HAVE /videos pages to link)
-  - Increase depth to 3,000+ words
-  - Add more internal links to new certification guides
+- [x] Enhance beginners guide for "government contracts" (18,100/mo, difficulty 65) ✅ Mar 25
+  - ~~Add downloadable checklist~~ Linked to /resources/handouts
+  - ~~Add video embeds from YouTube channel~~ Added 4 video embeds + 6-video list
+  - ~~Increase depth to 3,000+ words~~ Already 3,000+ words
+  - ~~Add more internal links to new certification guides~~ Already linked
 - [ ] Create "Federal Contractor" resource hub concept (difficulty 55)
   - Could be enhanced /guides index or new pillar page
-- [ ] Build remaining video landing pages (8 more from resources page)
+- [x] Build remaining video landing pages ✅ All 16 built (Mar 22)
 
 ### Month 1 KPIs
 | Metric | Target |

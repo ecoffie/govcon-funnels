@@ -50,9 +50,9 @@ export const guide: GuideData = {
         </ul>
 
         <div class="video-embed">
-          <h4>📺 Watch: Does the Government Buy What You Sell?</h4>
-          <p>Before diving in, make sure the government actually purchases your products or services. This 10-minute video shows you how to check.</p>
-          <p><a href="/resources" class="cta-link">Watch Free Video →</a></p>
+          <h4>📺 Watch: How to Get Started in Government Contracting</h4>
+          <p>Complete introduction to government contracting. Learn the basics, registration requirements, and how to find your first opportunity.</p>
+          <p><a href="/videos/get-started-government-contracting" class="cta-link">Watch Free Video →</a></p>
         </div>
       `,
     },
@@ -160,7 +160,7 @@ export const guide: GuideData = {
           <li>☐ <strong>Request debriefs on losses</strong> — Learn and improve</li>
         </ul>
 
-        <p><strong>Download this checklist:</strong> <a href="/free-course" class="cta-link">Get the printable PDF + video training →</a></p>
+        <p><strong>Download this checklist:</strong> <a href="/resources/handouts" class="cta-link">Get the printable PDF + Action Plan →</a></p>
       `,
     },
     {
@@ -322,9 +322,9 @@ export const guide: GuideData = {
         </ul>
 
         <div class="video-embed">
-          <h4>📺 Watch: Which SBA Certification Should You Get?</h4>
-          <p>Still unsure which certification fits your business? This video breaks down the decision.</p>
-          <p><a href="/resources" class="cta-link">Watch Free Video →</a></p>
+          <h4>📺 Watch: How to Find Government Contracts</h4>
+          <p>Learn how to search SAM.gov, set up alerts, and identify the best opportunities for your business.</p>
+          <p><a href="/videos/find-government-contracts" class="cta-link">Watch Free Video →</a></p>
         </div>
       `,
     },
@@ -373,6 +373,12 @@ export const guide: GuideData = {
 
         <p><a href="/guides/finding-government-contracts" class="cta-link">Complete Guide to Finding Contracts →</a></p>
         <p><a href="/guides/subcontracting-and-teaming" class="cta-link">Subcontracting & Teaming Guide →</a></p>
+
+        <div class="video-embed">
+          <h4>📺 Watch: Market Research for Government Contracting</h4>
+          <p>How to research agencies, analyze spending data, and identify your best opportunities.</p>
+          <p><a href="/videos/market-research-govcon" class="cta-link">Watch Free Video →</a></p>
+        </div>
       `,
     },
     {
@@ -399,6 +405,12 @@ export const guide: GuideData = {
         </ul>
 
         <p><a href="/guides/capability-statement" class="cta-link">Full Capability Statement Guide + Templates →</a></p>
+
+        <div class="video-embed">
+          <h4>📺 Watch: How to Create a Compelling Capability Statement</h4>
+          <p>See real examples and learn the exact format government buyers want to see.</p>
+          <p><a href="/videos/capability-statement-guide" class="cta-link">Watch Free Video →</a></p>
+        </div>
       `,
     },
     {
@@ -481,8 +493,18 @@ export const guide: GuideData = {
         <p>We've helped thousands of small businesses enter government contracting. Here's where to start:</p>
         <ul>
           <li><a href="/free-course">Free GovCon Course</a> — Video training on getting started</li>
-          <li><a href="/resources">Free Video Library</a> — In-depth tutorials on every topic</li>
+          <li><a href="/videos">Free Video Library</a> — 16 in-depth tutorials on every topic</li>
           <li><a href="/guides">All Guides</a> — Written guides on certifications, proposals, and more</li>
+        </ul>
+
+        <h3>Recommended Videos</h3>
+        <ul>
+          <li><a href="/videos/get-started-government-contracting">How to Get Started in Government Contracting</a></li>
+          <li><a href="/videos/find-government-contracts">How to Find Government Contracts</a></li>
+          <li><a href="/videos/proposal-writing-guide">Proposal Writing & Bidding Guide</a></li>
+          <li><a href="/videos/capability-statement-guide">Capability Statement Guide</a></li>
+          <li><a href="/videos/win-without-past-performance">Winning Without Past Performance</a></li>
+          <li><a href="/videos/gsa-schedule-guide">GSA Schedule Overview</a></li>
         </ul>
 
         <h3>Related Guides</h3>
