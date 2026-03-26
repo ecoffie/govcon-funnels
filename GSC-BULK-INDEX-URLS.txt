@@ -94,6 +94,14 @@ https://govcongiants.org/guides/naics-codes
 https://govcongiants.org/guides/ai-government-contracting
 
 # =============================================================================
+# PRIORITY 5.5: FREE TOOLS (3 URLs) - Added Mar 25, 2026
+# =============================================================================
+
+https://govcongiants.org/tools/cage-code-lookup
+https://govcongiants.org/tools/expiring-contracts
+https://govcongiants.org/tools
+
+# =============================================================================
 # PRIORITY 6: FUNNEL/PRODUCT PAGES (12 URLs)
 # =============================================================================
 

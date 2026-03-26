@@ -181,7 +181,7 @@ export const guide: GuideData = {
         <p><strong>Target Sole-Source Opportunities:</strong></p>
         <p>The sole-source threshold for SDVOSBs — $4.5 million for services and $8 million for manufacturing — represents a significant opportunity. Sole-source awards require a contracting officer to identify your firm as the only SDVOSB capable of performing the work at a fair price. Build direct relationships with program managers and contracting officers in your target agencies. Attend industry days, respond to sources sought notices, and make your capabilities known.</p>
         <p><strong>Monitor Contract Spending Data:</strong></p>
-        <p>Use <a href="https://sam.gov" target="_blank" rel="noopener">SAM.gov contract data</a> to research which agencies are awarding SDVOSB contracts in your NAICS codes, who the current SDVOSB incumbents are, and what contract values look like. This intelligence helps you target agencies that are actively buying what you sell and identify contracts coming up for recompete.</p>
+        <p>Use <a href="https://sam.gov" target="_blank" rel="noopener">SAM.gov contract data</a> to research which agencies are awarding SDVOSB contracts in your NAICS codes, who the current SDVOSB incumbents are, and what contract values look like. Use our free <a href="/tools/expiring-contracts">Expiring Contracts Finder</a> to find contracts expiring in your NAICS code — these represent recompete opportunities where incumbents may be vulnerable. This intelligence helps you target agencies that are actively buying what you sell and position for the next award.</p>
       `,
     },
   ],

@@ -26,6 +26,8 @@ const SITE_URLS = [
   '/proposal-writing-services',
   '/glossary',
   '/tools',
+  '/tools/cage-code-lookup',
+  '/tools/expiring-contracts',
   '/consulting',
   '/free-course',
   '/blog',
