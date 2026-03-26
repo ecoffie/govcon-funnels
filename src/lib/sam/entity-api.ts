@@ -231,10 +231,13 @@ export async function searchEntities(
   // Build query parameters
   // CRITICAL: samRegistered=Yes is REQUIRED or API returns empty entityData array
   const queryParams: Record<string, string | number> = {
-    samRegistered: 'Yes',
+    samRegistered: 'Yes',  // DO NOT REMOVE - Required for API to return entity data
     page: params.page || 1,
     size: params.size || 25
   };
+
+  // Debug logging to verify samRegistered is being added
+  console.log('[Entity Search] Building query params:', JSON.stringify(queryParams));
 
   if (params.legalBusinessName) {
     queryParams.legalBusinessName = params.legalBusinessName;

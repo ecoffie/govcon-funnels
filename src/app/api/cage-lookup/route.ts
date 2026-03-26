@@ -97,6 +97,7 @@ export async function GET(request: NextRequest) {
       hasMore: result.hasMore,
       page: result.page,
       firstEntity: result.entities[0] || null,
+      samApiUrl: (globalThis as Record<string, unknown>).__lastSamApiUrl || 'not captured',
     });
   }
 

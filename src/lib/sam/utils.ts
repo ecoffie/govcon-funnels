@@ -284,7 +284,10 @@ export async function makeSAMRequest<T>(
 
   // 4. Make request
   try {
-    console.log(`[SAM API Request] ${config.apiType}: ${url.pathname}?${url.searchParams.toString().replace(/api_key=[^&]+/, 'api_key=***')}`);
+    const logUrl = `${url.pathname}?${url.searchParams.toString().replace(/api_key=[^&]+/, 'api_key=***')}`;
+    console.log(`[SAM API Request] ${config.apiType}: ${logUrl}`);
+    // Store for debugging
+    (globalThis as Record<string, unknown>).__lastSamApiUrl = logUrl;
 
     const response = await fetch(url.toString(), {
       method: 'GET',
