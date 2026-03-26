@@ -87,6 +87,19 @@ export async function GET(request: NextRequest) {
     size: limit,
   });
 
+  // Debug: Return raw result to diagnose empty entities issue
+  if (searchParams.get('debug') === 'true') {
+    return NextResponse.json({
+      debug: true,
+      rawEntitiesCount: result.entities.length,
+      rawTotalCount: result.totalCount,
+      fromCache: result.fromCache,
+      hasMore: result.hasMore,
+      page: result.page,
+      firstEntity: result.entities[0] || null,
+    });
+  }
+
   if (result.entities.length === 0 && result.totalCount === 0) {
     return NextResponse.json({
       entities: [],
