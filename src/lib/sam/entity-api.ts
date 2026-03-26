@@ -230,14 +230,12 @@ export async function searchEntities(
 
   // Build query parameters
   // CRITICAL: samRegistered=Yes is REQUIRED or API returns empty entityData array
+  // CRITICAL: SAM.gov uses 0-indexed pagination! page=0 is the first page
   const queryParams: Record<string, string | number> = {
     samRegistered: 'Yes',  // DO NOT REMOVE - Required for API to return entity data
-    page: params.page || 1,
+    page: params.page !== undefined ? params.page - 1 : 0,  // Convert 1-indexed to 0-indexed
     size: params.size || 25
   };
-
-  // Debug logging to verify samRegistered is being added
-  console.log('[Entity Search] Building query params:', JSON.stringify(queryParams));
 
   if (params.legalBusinessName) {
     queryParams.legalBusinessName = params.legalBusinessName;

@@ -87,22 +87,6 @@ export async function GET(request: NextRequest) {
     size: limit,
   });
 
-  // Debug: Return raw result to diagnose empty entities issue
-  if (searchParams.get('debug') === 'true') {
-    return NextResponse.json({
-      debug: true,
-      rawEntitiesCount: result.entities.length,
-      rawTotalCount: result.totalCount,
-      fromCache: result.fromCache,
-      hasMore: result.hasMore,
-      page: result.page,
-      firstEntity: result.entities[0] || null,
-      samApiUrl: (globalThis as Record<string, unknown>).__lastSamApiUrl || 'not captured',
-      apiKeyConfigured: !!(process.env.SAM_API_KEY || process.env.SAM_ENTITY_API_KEY),
-      apiKeyPrefix: (process.env.SAM_ENTITY_API_KEY || process.env.SAM_API_KEY || '').substring(0, 8) + '...',
-    });
-  }
-
   if (result.entities.length === 0 && result.totalCount === 0) {
     return NextResponse.json({
       entities: [],
