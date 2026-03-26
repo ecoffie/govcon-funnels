@@ -17,9 +17,15 @@ interface EntityResult {
   country: string;
   status: string;
   expirationDate: string | null;
+  daysUntilExpiration?: number;
   naics: string[];
-  businessTypes: string[];
-  certifications: string[];
+  certifications: {
+    has8a: boolean;
+    hasSDVOSB: boolean;
+    hasWOSB: boolean;
+    hasHUBZone: boolean;
+    all: string[];
+  };
 }
 
 interface SearchResponse {
@@ -313,18 +319,22 @@ export default function CageCodeLookupPage() {
                   )}
 
                   {/* Certifications */}
-                  {entity.certifications.length > 0 && (
+                  {(entity.certifications.has8a || entity.certifications.hasSDVOSB || entity.certifications.hasWOSB || entity.certifications.hasHUBZone) && (
                     <div className="mt-2">
                       <span className="text-xs text-slate-500 uppercase tracking-wider">Certifications:</span>
                       <div className="flex flex-wrap gap-2 mt-1">
-                        {entity.certifications.map((cert) => (
-                          <span
-                            key={cert}
-                            className="px-2 py-0.5 bg-blue-500/20 rounded text-xs text-blue-400"
-                          >
-                            {cert}
-                          </span>
-                        ))}
+                        {entity.certifications.has8a && (
+                          <span className="px-2 py-0.5 bg-blue-500/20 rounded text-xs text-blue-400">8(a)</span>
+                        )}
+                        {entity.certifications.hasSDVOSB && (
+                          <span className="px-2 py-0.5 bg-blue-500/20 rounded text-xs text-blue-400">SDVOSB</span>
+                        )}
+                        {entity.certifications.hasWOSB && (
+                          <span className="px-2 py-0.5 bg-blue-500/20 rounded text-xs text-blue-400">WOSB</span>
+                        )}
+                        {entity.certifications.hasHUBZone && (
+                          <span className="px-2 py-0.5 bg-blue-500/20 rounded text-xs text-blue-400">HUBZone</span>
+                        )}
                       </div>
                     </div>
                   )}
