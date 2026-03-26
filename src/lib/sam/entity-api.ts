@@ -229,7 +229,9 @@ export async function searchEntities(
   const config = SAM_API_CONFIGS.entity;
 
   // Build query parameters
+  // CRITICAL: samRegistered=Yes is REQUIRED or API returns empty entityData array
   const queryParams: Record<string, string | number> = {
+    samRegistered: 'Yes',
     page: params.page || 1,
     size: params.size || 25
   };
