@@ -1,4 +1,4 @@
-import { describe, it, expect, vi, beforeEach } from 'vitest';
+import { describe, it, expect } from 'vitest';
 import { transformEntity, validateCAGECode } from '../../entity-api';
 
 describe('Entity API - Unit Tests', () => {
@@ -17,21 +17,68 @@ describe('Entity API - Unit Tests', () => {
   });
 
   describe('transformEntity', () => {
-    it('transforms raw API response correctly', () => {
-      const raw = {
-        ueiSAM: 'ABC123XYZ789',
-        cageCode: '17038',
-        legalBusinessName: 'BOOZ ALLEN HAMILTON INC',
-        registrationStatus: 'Active',
-        registrationExpirationDate: '2027-01-15',
-        sbaBusinessTypes: ['2X', 'XY'], // 8(a) and SDVOSB
-        physicalAddress: {
-          city: 'McLean',
-          stateOrProvince: 'VA',
-          zipCode: '22102',
-          countryCode: 'USA',
+    // Helper to create SAM.gov API v3 nested structure
+    function createRawEntity(overrides: {
+      registration?: Record<string, unknown>;
+      coreData?: Record<string, unknown>;
+      assertions?: Record<string, unknown>;
+      pointsOfContact?: Record<string, unknown>;
+    } = {}) {
+      return {
+        entityRegistration: {
+          ueiSAM: 'ABC123XYZ789',
+          cageCode: '17038',
+          legalBusinessName: 'BOOZ ALLEN HAMILTON INC',
+          dbaName: null,
+          registrationStatus: 'Active',
+          registrationExpirationDate: '2027-01-15',
+          ...overrides.registration,
+        },
+        coreData: {
+          physicalAddress: {
+            city: 'McLean',
+            stateOrProvinceCode: 'VA',
+            zipCode: '22102',
+            countryCode: 'USA',
+          },
+          mailingAddress: {},
+          businessTypes: {
+            sbaBusinessTypeList: [],
+          },
+          generalInformation: {},
+          ...overrides.coreData,
+        },
+        assertions: {
+          goodsAndServices: {
+            primaryNaics: '541512',
+            naicsList: [],
+            pscList: [],
+          },
+          ...overrides.assertions,
+        },
+        pointsOfContact: {
+          ...overrides.pointsOfContact,
         },
       };
+    }
+
+    it('transforms raw API response correctly', () => {
+      const raw = createRawEntity({
+        coreData: {
+          physicalAddress: {
+            city: 'McLean',
+            stateOrProvinceCode: 'VA',
+            zipCode: '22102',
+            countryCode: 'USA',
+          },
+          businessTypes: {
+            sbaBusinessTypeList: [
+              { sbaBusinessTypeCode: '2X' }, // 8(a)
+              { sbaBusinessTypeCode: 'XY' }, // SDVOSB
+            ],
+          },
+        },
+      });
 
       const result = transformEntity(raw);
 
@@ -46,7 +93,9 @@ describe('Entity API - Unit Tests', () => {
     });
 
     it('handles missing fields gracefully', () => {
-      const raw = { ueiSAM: 'ABC123' };
+      const raw = {
+        entityRegistration: { ueiSAM: 'ABC123' },
+      };
 
       const result = transformEntity(raw);
 
@@ -64,10 +113,11 @@ describe('Entity API - Unit Tests', () => {
       const futureDate = new Date();
       futureDate.setDate(futureDate.getDate() + 100);
 
-      const raw = {
-        ueiSAM: 'ABC123',
-        registrationExpirationDate: futureDate.toISOString().split('T')[0],
-      };
+      const raw = createRawEntity({
+        registration: {
+          registrationExpirationDate: futureDate.toISOString().split('T')[0],
+        },
+      });
 
       const result = transformEntity(raw);
 
@@ -77,10 +127,18 @@ describe('Entity API - Unit Tests', () => {
     });
 
     it('maps SBA business type codes to readable names', () => {
-      const raw = {
-        ueiSAM: 'ABC123',
-        sbaBusinessTypes: ['2X', 'XX', 'XY', '23'],
-      };
+      const raw = createRawEntity({
+        coreData: {
+          businessTypes: {
+            sbaBusinessTypeList: [
+              { sbaBusinessTypeCode: '2X' }, // 8(a)
+              { sbaBusinessTypeCode: 'XX' }, // HUBZone
+              { sbaBusinessTypeCode: 'XY' }, // SDVOSB
+              { sbaBusinessTypeCode: '23' }, // WOSB
+            ],
+          },
+        },
+      });
 
       const result = transformEntity(raw);
 
@@ -91,43 +149,53 @@ describe('Entity API - Unit Tests', () => {
     });
 
     it('parses NAICS list correctly', () => {
-      const raw = {
-        ueiSAM: 'ABC123',
-        naicsList: [
-          { naicsCode: '541512', naicsDescription: 'Computer Systems Design', isPrimary: true },
-          { naicsCode: '541611', naicsDescription: 'Management Consulting', isPrimary: false },
-        ],
-      };
+      const raw = createRawEntity({
+        assertions: {
+          goodsAndServices: {
+            primaryNaics: '541512',
+            naicsList: [
+              { naicsCode: '541512', naicsDescription: 'Computer Systems Design' },
+              { naicsCode: '541611', naicsDescription: 'Management Consulting' },
+            ],
+          },
+        },
+      });
 
       const result = transformEntity(raw);
 
       expect(result.naicsList).toHaveLength(2);
       expect(result.naicsList?.[0].naicsCode).toBe('541512');
-      expect(result.naicsList?.[0].isPrimary).toBe(true);
+      expect(result.naicsList?.[0].isPrimary).toBe(true); // Matches primaryNaics
       expect(result.naicsList?.[1].naicsCode).toBe('541611');
       expect(result.naicsList?.[1].isPrimary).toBe(false);
     });
 
     it('parses points of contact correctly', () => {
-      const raw = {
-        ueiSAM: 'ABC123',
-        pocList: [
-          { name: 'John Doe', title: 'CEO', phone: '555-1234', email: 'john@example.com', type: 'Government' },
-        ],
-      };
+      const raw = createRawEntity({
+        pointsOfContact: {
+          governmentBusinessPOC: {
+            firstName: 'John',
+            lastName: 'Doe',
+            title: 'CEO',
+          },
+          electronicBusinessPOC: {
+            firstName: 'Jane',
+            lastName: 'Smith',
+          },
+        },
+      });
 
       const result = transformEntity(raw);
 
-      expect(result.pointsOfContact).toHaveLength(1);
+      expect(result.pointsOfContact).toHaveLength(2);
       expect(result.pointsOfContact?.[0].name).toBe('John Doe');
-      expect(result.pointsOfContact?.[0].email).toBe('john@example.com');
+      expect(result.pointsOfContact?.[1].name).toBe('Jane Smith');
     });
 
     it('handles inactive registration status', () => {
-      const raw = {
-        ueiSAM: 'ABC123',
-        registrationStatus: 'Inactive',
-      };
+      const raw = createRawEntity({
+        registration: { registrationStatus: 'Inactive' },
+      });
 
       const result = transformEntity(raw);
 
@@ -136,10 +204,9 @@ describe('Entity API - Unit Tests', () => {
     });
 
     it('handles expired registration status', () => {
-      const raw = {
-        ueiSAM: 'ABC123',
-        registrationStatus: 'Expired',
-      };
+      const raw = createRawEntity({
+        registration: { registrationStatus: 'Expired' },
+      });
 
       const result = transformEntity(raw);
 
@@ -148,11 +215,12 @@ describe('Entity API - Unit Tests', () => {
     });
 
     it('handles DBA name when present', () => {
-      const raw = {
-        ueiSAM: 'ABC123',
-        legalBusinessName: 'Main Company LLC',
-        dbaName: 'Doing Business Name',
-      };
+      const raw = createRawEntity({
+        registration: {
+          legalBusinessName: 'Main Company LLC',
+          dbaName: 'Doing Business Name',
+        },
+      });
 
       const result = transformEntity(raw);
 
