@@ -98,6 +98,8 @@ export async function GET(request: NextRequest) {
       page: result.page,
       firstEntity: result.entities[0] || null,
       samApiUrl: (globalThis as Record<string, unknown>).__lastSamApiUrl || 'not captured',
+      apiKeyConfigured: !!(process.env.SAM_API_KEY || process.env.SAM_ENTITY_API_KEY),
+      apiKeyPrefix: (process.env.SAM_ENTITY_API_KEY || process.env.SAM_API_KEY || '').substring(0, 8) + '...',
     });
   }
 
