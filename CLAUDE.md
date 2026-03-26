@@ -144,26 +144,34 @@ Static HTML in `public/` MUST use absolute paths:
 
 ---
 
+## SAM.gov API Quirks
+
+**Critical parameters for Entity API v3:**
+1. `samRegistered=Yes` - REQUIRED or API returns empty `entityData`
+2. `page=0` - API uses 0-indexed pagination (not 1-indexed!)
+
+See `/tasks/lessons.md` for full details.
+
+---
+
 ## Recent Work (Last 7 Days)
+
+### March 26, 2026
+- **CAGE Lookup Fix:** Fixed SAM.gov API - added `samRegistered=Yes` and 0-indexed pagination
+- **Verified Working:** Company search returns results (booz → 56 results, saalex → 3 results)
 
 ### March 25, 2026
 - **SAM API Library:** Ported from Market Assassin with Supabase caching
 - **Expiring Contracts Tool:** `/tools/expiring-contracts` (15-result teaser, email gate)
 - **Testing:** Vitest setup, 31 unit tests, CI/CD pipeline
 - **Internal Links:** Added tool links to 3 high-impression guides
-- **Contract Vehicles Bootcamp:** Added 6 free resources section
 
 ### March 24, 2026
 - **CAGE Code Lookup:** `/tools/cage-code-lookup` targeting 9,900/mo searches
 - **CTR Optimization:** Meta tags for 15 pages across govcongiants.org
-- **Cross-Domain Links:** Shop blog → main site guide links
-
-### March 22, 2026
-- **Video Pages:** 8 video landing pages at `/videos/[slug]`
-- **Guide Redesign:** Improved typography, mid-article email capture
 
 *Full history: `/tasks/work-history.md`*
 
 ---
 
-*Last Updated: March 25, 2026*
+*Last Updated: March 26, 2026*
