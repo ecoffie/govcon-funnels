@@ -10,6 +10,10 @@ This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-
 - **Jobs** (`/jobs`) - Government contractor job board with 9 categories
 - **Glossary** (`/glossary`) - 45+ GovCon terms
 
+### Free Tools
+- **CAGE Code Lookup** (`/tools/cage-code-lookup`) - Search 600K+ federal contractors by CAGE code or company name
+- **Expiring Contracts Finder** (`/tools/expiring-contracts`) - Find federal contracts coming up for recompete by NAICS code
+
 ### Funnels
 - **Bootcamp** (`/bootcamp`) - Live bootcamp registration
 - **Surge** (`/surge`) - Surge bootcamp funnel
@@ -105,16 +109,27 @@ src/
 ├── app/
 │   ├── guides/[slug]/      # Guide pages (SEO optimized)
 │   ├── videos/[slug]/      # Video landing pages
+│   ├── tools/              # Free tools (CAGE lookup, expiring contracts)
 │   ├── jobs/               # Job board
 │   ├── glossary/           # GovCon glossary
-│   └── api/                # API routes (lead, stripe, etc.)
+│   └── api/                # API routes (lead, stripe, sam, etc.)
 ├── content/
 │   ├── guides/             # Guide content data
 │   └── videos/             # Video content data
 ├── components/             # React components
 └── lib/
+    ├── sam/                # SAM.gov API library (Entity, Awards, caching)
     ├── seo.ts              # SEO utilities & JSON-LD
     └── crm.ts              # GHL + Slack integrations
+```
+
+## Testing
+
+```bash
+npm run test:unit        # Unit tests (31 tests, mocked)
+npm run test:integration # Integration tests (real SAM.gov API)
+npm run test:sam         # All SAM library tests
+npm run test             # Watch mode
 ```
 
 ## Documentation

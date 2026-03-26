@@ -285,6 +285,13 @@ Same as market-assassin — `npm`, `node`, `vercel` CLI are not available locall
   - Created `/sam-lookup` command for CAGE/company lookups
   - Created `/find-expiring` command for expiring contracts search
   - Created `/test-sam` command for running SAM test suites
+- **Internal Linking for SEO:**
+  - Added expiring contracts tool links to 3 high-impression guides:
+    - `/guides/finding-government-contracts` (in "Using Tools" section)
+    - `/guides/gsa-schedule` (in "Winning Work" section)
+    - `/guides/vosb-certification` (in "Monitor Contract Spending" section)
+  - Added new tool URLs to IndexNow API route for search engine notification
+  - Updated GSC bulk index file with `/tools/cage-code-lookup` and `/tools/expiring-contracts`
 - **Contract Vehicles Bootcamp Landing Page:**
   - Added "Register & Get 6 Free Resources Instantly" section showing downloads upfront
   - 6 free resources: Expiring Contracts List, Recompete Checklist, 10 IDIQ Vehicles Guide, Active IDIQ List, Sources Sought Template, Task Order Template
