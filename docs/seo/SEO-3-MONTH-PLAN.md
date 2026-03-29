@@ -58,8 +58,31 @@
 | Average CTR | 5.3% | >3% | EXCEEDING |
 | Average Position | 8.9 | Top 10 | ON TARGET |
 
+#### Week 4 Performance Snapshot (Mar 29, 2026)
+| Metric | Value | Month 1 Target | Status |
+|--------|-------|----------------|--------|
+| Homepage Clicks | 96 | - | TOP PERFORMER |
+| Homepage Impressions | 1,047 | - | 9.2% CTR |
+| CAGE Code (guide) | 21 clicks | - | 6,254 impressions |
+| CAGE Code (blog redirect) | 25 clicks | - | 5,574 impressions |
+| Free Course | 11 clicks | - | 303 impressions, 3.6% CTR |
+| tools.govcongiants.org | 11 clicks | - | 625 impressions |
+
+**Top Finding:** CAGE code pages combined = 46 clicks, 11,828 impressions (0.4% CTR)
+- CTR is low — need to improve title/meta for CAGE pages
+- `/tools/cage-code-lookup` not yet appearing (built Mar 24, needs indexing time)
+
+**Indexing Status:**
+- 72 pages indexed ✅
+- 200 pages returning 404 → Fixed with redirects Mar 29
+- 48 pages "Crawled - currently not indexed" → Needs review
+- 9 pages "Discovered - currently not indexed" → Normal for new pages
+
 ### Week 3 (Mar 28 – Apr 3): Content Optimization Round 1
 - [x] Review GSC data — which pages are getting impressions but low CTR? ✅ Mar 24
+- [x] Fix 200+ legacy WordPress 404 errors ✅ Mar 29
+  - Added 301 redirects for: /who-we-are, /pricing, /footcamp, /learning/*, /product/*, /platform/*, /author/*, /2024/*, /2025/*, /solutions/*
+  - Verified all redirects working (HTTP 308)
   - "cage code lookup": 316 impressions, 0.6% CTR, position 9.9
   - Problem: Guide ranking for tool intent query
 - [x] Build CAGE Code Lookup Tool to match search intent ✅ Mar 24
