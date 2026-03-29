@@ -1,6 +1,56 @@
 {
   "redirects": [
     {
+      "source": "/who-we-are",
+      "destination": "/consulting",
+      "permanent": true
+    },
+    {
+      "source": "/pricing",
+      "destination": "/consulting",
+      "permanent": true
+    },
+    {
+      "source": "/footcamp",
+      "destination": "/bootcamp",
+      "permanent": true
+    },
+    {
+      "source": "/learning/:path*",
+      "destination": "/free-course",
+      "permanent": true
+    },
+    {
+      "source": "/product/:path*",
+      "destination": "https://shop.govcongiants.org",
+      "permanent": true
+    },
+    {
+      "source": "/platform/:path*",
+      "destination": "/resources",
+      "permanent": true
+    },
+    {
+      "source": "/author/:path*",
+      "destination": "/",
+      "permanent": true
+    },
+    {
+      "source": "/2024/:path*",
+      "destination": "/blog",
+      "permanent": true
+    },
+    {
+      "source": "/2025/:path*",
+      "destination": "/blog",
+      "permanent": true
+    },
+    {
+      "source": "/solutions/:path*",
+      "destination": "/consulting",
+      "permanent": true
+    },
+    {
       "source": "/cvb",
       "destination": "/contract-vehicles-bootcamp",
       "permanent": false
@@ -53,11 +103,6 @@
     {
       "source": "/podcast",
       "destination": "/resources",
-      "permanent": true
-    },
-    {
-      "source": "/solutions",
-      "destination": "/consulting",
       "permanent": true
     },
     {
