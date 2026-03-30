@@ -26,7 +26,7 @@ export default function BootcampBanner() {
     >
       <div className="max-w-6xl mx-auto px-4 py-3 text-center">
         <p className="text-sm md:text-base font-semibold">
-          💼 Upskill Your Employees — IRS Section 127: Up to $5,250/Year Tax-Free for Employee Training
+          Up to $5,250/Year Tax-Free for Employee Training
         </p>
         <p className="text-xs md:text-sm mt-1 text-emerald-100">
           Employers can offer GovCon training as a tax-free benefit. Almost free training for your team. Click to learn more →
