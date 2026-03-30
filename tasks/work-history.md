@@ -6,6 +6,29 @@ This file contains archived work history entries from CLAUDE.md.
 
 ## March 2026
 
+### March 29, 2026
+- **GSC Cleanup & SEO Fixes:**
+  - Fixed 200+ legacy WordPress 404 errors with redirects in `vercel.json`
+  - Redirects: `/who-we-are`, `/pricing`, `/footcamp`, `/learning/*`, `/product/*`, `/platform/*`, `/author/*`, `/2024/*`, `/2025/*`, `/solutions/*`
+  - Analyzed "Crawled - not indexed" (48 pages) - all Next.js chunks, no action needed
+  - Analyzed "Excluded by noindex" (254 pages) - all old WordPress content, no action needed
+  - Verified `/guides/sba-certifications` is actually indexed (stale GSC report)
+- **CAGE Code CTR Optimization:**
+  - Guide title: "CAGE Code Lookup (Free Tool)..." → "CAGE Code: What It Is & How to Get One (2026 Guide)"
+  - Tool title: Fixed duplicate "GovCon Giants | GovCon Giants" bug
+  - Tool title: "Free CAGE Code Lookup Tool..." → "CAGE Code Lookup [Free] — Search 600K+ Contractors"
+  - Differentiated by intent: Guide = educational, Tool = action
+  - Target: Improve 0.4% CTR on 11,828 impressions
+- **GSC Performance Snapshot (3 months):**
+  - Homepage: 96 clicks, 1,047 impressions (9.2% CTR)
+  - CAGE code guide: 21 clicks, 6,254 impressions
+  - CAGE code blog (redirect): 25 clicks, 5,574 impressions
+  - 72 pages indexed total
+
+### March 26, 2026
+- **CAGE Lookup Fix:** Fixed SAM.gov API - added `samRegistered=Yes` and 0-indexed pagination
+- **Verified Working:** Company search returns results (booz → 56 results, saalex → 3 results)
+
 ### March 25, 2026
 - **SAM API Library Upgrade:**
   - Ported robust SAM API library from Market Assassin to govcon-funnels

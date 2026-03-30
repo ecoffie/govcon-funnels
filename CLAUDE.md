@@ -156,6 +156,11 @@ See `/tasks/lessons.md` for full details.
 
 ## Recent Work (Last 7 Days)
 
+### March 29, 2026
+- **GSC Cleanup:** Fixed 200+ legacy 404s with redirects, analyzed indexing issues
+- **CAGE CTR Optimization:** New titles differentiating guide (educational) vs tool (action)
+- **GSC Snapshot:** 72 pages indexed, 11,828 impressions on CAGE pages (0.4% CTR → targeting 2%+)
+
 ### March 26, 2026
 - **CAGE Lookup Fix:** Fixed SAM.gov API - added `samRegistered=Yes` and 0-indexed pagination
 - **Verified Working:** Company search returns results (booz → 56 results, saalex → 3 results)
@@ -164,14 +169,9 @@ See `/tasks/lessons.md` for full details.
 - **SAM API Library:** Ported from Market Assassin with Supabase caching
 - **Expiring Contracts Tool:** `/tools/expiring-contracts` (15-result teaser, email gate)
 - **Testing:** Vitest setup, 31 unit tests, CI/CD pipeline
-- **Internal Links:** Added tool links to 3 high-impression guides
-
-### March 24, 2026
-- **CAGE Code Lookup:** `/tools/cage-code-lookup` targeting 9,900/mo searches
-- **CTR Optimization:** Meta tags for 15 pages across govcongiants.org
 
 *Full history: `/tasks/work-history.md`*
 
 ---
 
-*Last Updated: March 26, 2026*
+*Last Updated: March 29, 2026*

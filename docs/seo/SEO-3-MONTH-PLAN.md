@@ -110,7 +110,11 @@
   - SEO benefit: Cross-domain authority building
 - [x] Share CAGE code guide on social channels ✅ Mar 25 (drafted in SOCIAL-POSTS-MARCH-2026.md)
 - [x] Share glossary as a resource on LinkedIn ✅ Mar 25 (drafted in SOCIAL-POSTS-MARCH-2026.md)
-- [ ] Monitor GSC in 7-14 days for CTR improvement on optimized pages
+- [x] Monitor GSC in 7-14 days for CTR improvement on optimized pages
+  - ✅ Mar 29: Optimized CAGE code titles for CTR
+  - Guide: "CAGE Code: What It Is & How to Get One (2026 Guide)"
+  - Tool: "CAGE Code Lookup [Free] — Search 600K+ Contractors"
+  - Fixed duplicate "GovCon Giants | GovCon Giants" bug
 
 ### Week 3.5 (Mar 22): Video SEO Pages ✅ COMPLETED
 - [x] Created video landing page infrastructure
@@ -155,6 +159,7 @@
   - ~~Add more internal links to new certification guides~~ Already linked
 - [ ] Create "Federal Contractor" resource hub concept (difficulty 55)
   - Could be enhanced /guides index or new pillar page
+  - **Plan:** Enhance existing /guides page with hero, getting started path, grouped sections, tools CTAs
 - [x] Build remaining video landing pages ✅ All 16 built (Mar 22)
 
 ### Month 1 KPIs

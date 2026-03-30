@@ -53,3 +53,38 @@
 5. Remove debug code after fix
 
 **Why:** The SAM API pagination bug was only found by exposing the actual URL being called (`page=1` instead of `page=0`).
+
+---
+
+## March 29, 2026
+
+### GSC "Not Indexed" categories are mostly fine
+**Rule:** Don't panic at high numbers in GSC indexing reports. Analyze before acting.
+
+**Pattern:**
+- "Not found (404)" - Usually legacy URLs needing redirects
+- "Crawled - not indexed" - Often JS/CSS chunks (expected for Next.js)
+- "Excluded by noindex" - Old CMS content that no longer exists
+
+**Why:** 254 "noindex" pages looked alarming but were all old WordPress posts that don't exist on the new Next.js site. No action needed.
+
+---
+
+### Differentiate page titles by search intent
+**Rule:** When two pages compete for similar keywords, differentiate by intent:
+- Educational pages: "What is X", "How to", "(2026 Guide)"
+- Tool pages: "[Free]", "Search", "Lookup", action verbs
+
+**Example:**
+- Guide: "CAGE Code: What It Is & How to Get One (2026 Guide)"
+- Tool: "CAGE Code Lookup [Free] — Search 600K+ Contractors"
+
+**Why:** Reduces cannibalization and matches user intent better, improving CTR.
+
+---
+
+### Fix duplicate site name in Next.js metadata
+**Rule:** When using layout.tsx metadata, don't include "| Site Name" if the root layout already appends it.
+
+**Bad:** `title: "Page Title | GovCon Giants"` → renders as "Page Title | GovCon Giants | GovCon Giants"
+**Good:** `title: "Page Title"` → root layout appends site name once
