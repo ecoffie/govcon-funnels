@@ -105,7 +105,7 @@ export default function SiteNav() {
               Tools
             </Link>
             <Link href="/premium" className="text-slate-400 hover:text-white transition">
-              Premium
+              Federal BD Services
             </Link>
             <Link
               href="https://shop.govcongiants.org"
