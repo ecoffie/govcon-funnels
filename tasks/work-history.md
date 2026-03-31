@@ -6,6 +6,15 @@ This file contains archived work history entries from CLAUDE.md.
 
 ## March 2026
 
+### March 31, 2026
+- **JTED 2026 Landing Page:**
+  - Created `/jted-2026` landing page for JTED 2026 AEC Industry Day at MacDill AFB (April 1, 2026)
+  - Lead magnet for A/E/C Federal Intel Pack and presentation slides
+  - Features: email capture with LeadForm, stats row, download previews, "What's In The Intel Pack" section
+  - Added preview image of Intel Pack cover page (`/images/jted-intel-pack-preview.png`)
+  - Two-column layout for downloads with visual preview similar to TempNet staffing example
+  - Source: `src/app/jted-2026/page.tsx`, thank-you page at `src/app/jted-2026/thank-you/page.tsx`
+
 ### March 29, 2026
 - **GSC Cleanup & SEO Fixes:**
   - Fixed 200+ legacy WordPress 404 errors with redirects in `vercel.json`

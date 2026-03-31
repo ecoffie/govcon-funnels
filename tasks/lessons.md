@@ -88,3 +88,39 @@
 
 **Bad:** `title: "Page Title | GovCon Giants"` → renders as "Page Title | GovCon Giants | GovCon Giants"
 **Good:** `title: "Page Title"` → root layout appends site name once
+
+---
+
+## March 31, 2026
+
+### Typst layout: use #image not #figure to prevent floating
+**Rule:** In Typst, `#figure()` auto-floats content which can push images to next page leaving blank space. Use `#image()` directly with `#block(breakable: false)` wrapper for precise control.
+
+**Pattern:**
+```typst
+// Bad - image may float to next page
+#figure(
+  image("screenshot.png"),
+  caption: [Description]
+)
+
+// Good - keeps image exactly where you place it
+#block(breakable: false)[
+  #image("screenshot.png", width: 100%, height: 7.5in)
+  #v(0.1in)
+  #text(size: 9pt)[*Caption.* Description text...]
+]
+```
+
+**Why:** Spent multiple iterations fixing "blank page 16" issue because `#figure` kept floating images away from their headers.
+
+---
+
+### PDF layout fundamentals
+**Rule:** Professional PDF documents follow these conventions:
+1. **Grid system** - 6 or 12 column grid for consistent alignment
+2. **Figure conventions** - Captions below images, consistent spacing (1em gap)
+3. **Typography hierarchy** - Perfect Fourth ratio (1.333) for heading sizes
+4. **Keep together** - Use `breakable: false` to keep related content on same page
+
+**Why:** User feedback: "you're just throwing stuff on a page with no proper training or instruction"
