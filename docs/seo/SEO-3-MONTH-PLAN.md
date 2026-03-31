@@ -78,6 +78,24 @@
 - 48 pages "Crawled - currently not indexed" → Needs review
 - 9 pages "Discovered - currently not indexed" → Normal for new pages
 
+#### Month 1 End Review (Mar 31, 2026)
+**Sitemap Status:**
+- Total URLs in sitemap: ~82
+- Breakdown: 23 static + 16 guides + 17 blog + 9 jobs + 17 videos
+- All key URLs verified live (200 status)
+
+**New Pages Added:**
+- `/jted-2026` - JTED 2026 AEC Industry Day landing page (Apr 1, 2026 event)
+- `/tools/expiring-contracts` - Expiring contracts finder (lead magnet)
+
+**Month 1 Summary:**
+- ✅ All deploys complete
+- ✅ 200+ legacy 404s fixed with redirects
+- ✅ CAGE Code lookup tool built and live
+- ✅ CTR optimization done on 15 high-impression pages
+- ✅ 8 priority video pages built
+- ⏳ GSC indexing remaining: Priority 4, 6, 7 (24 URLs)
+
 ### Week 3 (Mar 28 – Apr 3): Content Optimization Round 1
 - [x] Review GSC data — which pages are getting impressions but low CTR? ✅ Mar 24
 - [x] Fix 200+ legacy WordPress 404 errors ✅ Mar 29
@@ -175,25 +193,30 @@
 
 ## Month 2: Optimize + Authority Build (Apr 14 – May 13)
 
-### Week 5 (Apr 14-20): Performance Review
+### Week 5 (Apr 1-7): Performance Review
 - [ ] Full GSC performance review for all new content
 - [ ] Identify which pages are ranking (position 1-100) and for which queries
 - [ ] Identify pages NOT yet indexed — troubleshoot and resubmit
 - [ ] Run health check script — verify all URLs still 200
+- [ ] Jobs SEO quick wins (from JOBS-SEO-PLAN.md):
+  - [ ] Add "contracts manager jobs" to contracts-administrator meta (2,400/mo)
+  - [ ] Add salary ranges to all job category titles
+  - [ ] Create `/jobs/defense` page (2,480/mo combined)
+  - [ ] Create `/jobs/remote` page (800/mo)
 
-### Week 6 (Apr 21-27): Content Refresh + Expansion
+### Week 6 (Apr 8-14): Content Refresh + Expansion
 - [ ] Update CAGE code guide based on real search queries from GSC (add sections for queries people are actually searching)
 - [ ] Add 10-15 more terms to glossary based on GSC query data
 - [ ] Optimize SAM.gov guide for "sam.gov registration step by step" long-tail
 - [ ] Add FAQ schema to /government-contract-help and /proposal-writing-services if not showing rich results
 
-### Week 7 (Apr 28 – May 4): Link Building + Social
+### Week 7 (Apr 15-21): Link Building + Social
 - [ ] Guest post or interview opportunity targeting one backlink to /guides/cage-code
 - [ ] Share certification guides on veteran business forums/groups (VOSB, SDVOSB)
 - [ ] Share HUBZone guide in relevant economic development communities
 - [ ] Create a YouTube video covering CAGE codes (link back to guide)
 
-### Week 8 (May 5-13): Tier 4 Continued
+### Week 8 (Apr 22-28): Tier 4 Continued
 - [ ] Finalize "Federal Contractor" resource page
 - [ ] Begin optimizing homepage for "government contractor" (18,100/mo, difficulty 70) — long-term play
 - [ ] Review and update all existing guide cross-links based on traffic data

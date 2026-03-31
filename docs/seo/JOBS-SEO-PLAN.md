@@ -129,23 +129,25 @@ The jobs board was built without keyword research ("build it and hope they come"
 
 ## Implementation Checklist
 
-### Week 1 (Immediate)
+**Status:** Not started (scheduled for Month 2 SEO work, Apr 1-28)
+
+### Week 5 (Apr 1-7) - Priority Quick Wins
 - [ ] Update contracts-administrator meta to include "contracts manager jobs"
 - [ ] Optimize all category page metas with salary ranges
 - [ ] Add "Defense & DoD Jobs" section to /jobs page
 - [ ] Create internal links from career blog posts to job categories
 
-### Week 2
+### Week 6 (Apr 8-14)
 - [ ] Create /jobs/defense landing page
 - [ ] Create /jobs/remote landing page
 - [ ] Write APMP Certification blog post
 
-### Week 3
+### Week 7 (Apr 15-21)
 - [ ] Write "How to Become a Government Contractor" blog post
 - [ ] Write comprehensive salary guide blog post
 - [ ] Submit new pages to GSC for indexing
 
-### Week 4
+### Week 8 (Apr 22-28)
 - [ ] Review GSC data for new pages
 - [ ] Optimize based on actual search queries
 - [ ] Share job pages on LinkedIn
