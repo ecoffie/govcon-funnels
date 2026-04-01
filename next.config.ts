@@ -29,6 +29,16 @@ const nextConfig: NextConfig = {
         destination: "/guides/cage-code",
         permanent: true,
       },
+      {
+        source: "/downloads/JTED-2026-Intel-Pack.pdf",
+        destination: "/handouts/ai-prompts.pdf",
+        permanent: false,
+      },
+      {
+        source: "/downloads/JTED-2026-Slides.pdf",
+        destination: "/handouts/2026-action-plan.pdf",
+        permanent: false,
+      },
     ];
   },
   async headers() {
