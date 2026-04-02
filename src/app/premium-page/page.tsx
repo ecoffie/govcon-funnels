@@ -400,15 +400,16 @@ export default function PremiumPage() {
           <p className="text-xl text-slate-400 mb-8">
             Book a quick strategy call and we&apos;ll help you choose the best path based on your goals, timeline, and current stage.
           </p>
-          <button
-            type="button"
-            disabled
-            className="inline-block px-8 py-4 bg-slate-700 text-slate-300 rounded-xl font-bold text-lg cursor-not-allowed border border-slate-600"
+          <a
+            href="https://calendly.com/govconedumeet/discovery-call"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="inline-block px-8 py-4 bg-green-600 hover:bg-green-500 text-white rounded-xl font-bold text-lg transition-colors"
           >
-            Schedule Your Selection Call (Coming Soon)
-          </button>
+            Schedule Your Selection Call →
+          </a>
           <p className="text-slate-500 text-sm mt-3">
-            Calendly link will be added next.
+            15-minute call to find the best fit for your goals
           </p>
         </div>
       </section>

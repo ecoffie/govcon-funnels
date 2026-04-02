@@ -1,0 +1,848 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>FREE Market Intelligence - GovCon Giants</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+      background: #0f172a;
+      color: white;
+      overflow-x: hidden;
+    }
+
+    .slide {
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      padding: 60px 40px;
+      position: relative;
+    }
+
+    .slide-number {
+      position: absolute;
+      top: 20px;
+      right: 30px;
+      font-size: 14px;
+      color: #64748b;
+    }
+
+    /* Slide 1: Hero */
+    .slide-hero {
+      background: linear-gradient(135deg, #1e3a8a 0%, #7c3aed 100%);
+      text-align: center;
+    }
+
+    .slide-hero h1 {
+      font-size: 72px;
+      font-weight: 800;
+      margin-bottom: 24px;
+      line-height: 1.1;
+    }
+
+    .slide-hero .highlight {
+      color: #4ade80;
+    }
+
+    .slide-hero .subtitle {
+      font-size: 28px;
+      color: rgba(255,255,255,0.9);
+      margin-bottom: 40px;
+    }
+
+    .slide-hero .value-tag {
+      display: inline-block;
+      background: rgba(0,0,0,0.3);
+      padding: 16px 32px;
+      border-radius: 50px;
+      font-size: 24px;
+    }
+
+    .slide-hero .value-tag .old-price {
+      text-decoration: line-through;
+      color: #f87171;
+      margin-right: 12px;
+    }
+
+    .slide-hero .value-tag .new-price {
+      color: #4ade80;
+      font-weight: 700;
+    }
+
+    /* Slide 2: What You Get */
+    .slide-overview {
+      background: #0f172a;
+    }
+
+    .slide-overview h2 {
+      font-size: 48px;
+      margin-bottom: 60px;
+      text-align: center;
+    }
+
+    .features-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 30px;
+      max-width: 1100px;
+    }
+
+    .feature-card {
+      background: linear-gradient(135deg, #1e293b 0%, #0f172a 100%);
+      border: 1px solid #334155;
+      border-radius: 20px;
+      padding: 40px;
+      transition: transform 0.3s, border-color 0.3s;
+    }
+
+    .feature-card:hover {
+      transform: translateY(-5px);
+      border-color: #7c3aed;
+    }
+
+    .feature-icon {
+      font-size: 48px;
+      margin-bottom: 20px;
+    }
+
+    .feature-card h3 {
+      font-size: 24px;
+      margin-bottom: 12px;
+      color: #e2e8f0;
+    }
+
+    .feature-card p {
+      color: #94a3b8;
+      line-height: 1.6;
+    }
+
+    .feature-card .schedule {
+      margin-top: 16px;
+      padding: 8px 16px;
+      background: #1e3a8a;
+      border-radius: 8px;
+      font-size: 14px;
+      display: inline-block;
+    }
+
+    /* Slide 3-6: Individual Features */
+    .slide-feature {
+      background: #0f172a;
+    }
+
+    .slide-feature .content {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 80px;
+      max-width: 1200px;
+      align-items: center;
+    }
+
+    .slide-feature .text h2 {
+      font-size: 48px;
+      margin-bottom: 24px;
+      line-height: 1.2;
+    }
+
+    .slide-feature .text p {
+      font-size: 20px;
+      color: #94a3b8;
+      line-height: 1.7;
+      margin-bottom: 24px;
+    }
+
+    .slide-feature .text ul {
+      list-style: none;
+    }
+
+    .slide-feature .text li {
+      font-size: 18px;
+      color: #e2e8f0;
+      padding: 12px 0;
+      border-bottom: 1px solid #1e293b;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .slide-feature .text li:last-child {
+      border-bottom: none;
+    }
+
+    .check {
+      color: #4ade80;
+      font-weight: bold;
+    }
+
+    .mockup {
+      background: #1e293b;
+      border-radius: 16px;
+      padding: 24px;
+      border: 1px solid #334155;
+    }
+
+    .mockup-header {
+      display: flex;
+      gap: 8px;
+      margin-bottom: 20px;
+    }
+
+    .mockup-dot {
+      width: 12px;
+      height: 12px;
+      border-radius: 50%;
+    }
+
+    .mockup-dot.red { background: #ef4444; }
+    .mockup-dot.yellow { background: #eab308; }
+    .mockup-dot.green { background: #22c55e; }
+
+    .mockup-content {
+      background: #0f172a;
+      border-radius: 8px;
+      padding: 24px;
+      min-height: 300px;
+    }
+
+    .email-preview {
+      font-family: Georgia, serif;
+    }
+
+    .email-preview .from {
+      font-size: 12px;
+      color: #64748b;
+      margin-bottom: 8px;
+    }
+
+    .email-preview .subject {
+      font-size: 20px;
+      font-weight: bold;
+      margin-bottom: 20px;
+      color: #e2e8f0;
+    }
+
+    .email-preview .opp {
+      background: #1e293b;
+      border-left: 4px solid #7c3aed;
+      padding: 16px;
+      margin-bottom: 12px;
+      border-radius: 0 8px 8px 0;
+    }
+
+    .email-preview .opp-title {
+      font-weight: bold;
+      color: #e2e8f0;
+      margin-bottom: 4px;
+    }
+
+    .email-preview .opp-agency {
+      font-size: 14px;
+      color: #94a3b8;
+    }
+
+    .email-preview .opp-value {
+      font-size: 14px;
+      color: #4ade80;
+      margin-top: 8px;
+    }
+
+    /* Slide 7: Preferences */
+    .slide-preferences {
+      background: linear-gradient(180deg, #0f172a 0%, #1e1b4b 100%);
+    }
+
+    .slide-preferences h2 {
+      font-size: 48px;
+      margin-bottom: 20px;
+      text-align: center;
+    }
+
+    .slide-preferences .subtitle {
+      font-size: 20px;
+      color: #94a3b8;
+      text-align: center;
+      margin-bottom: 50px;
+    }
+
+    .preferences-demo {
+      background: #1e293b;
+      border-radius: 20px;
+      padding: 40px;
+      max-width: 800px;
+      border: 1px solid #334155;
+    }
+
+    .pref-section {
+      margin-bottom: 30px;
+    }
+
+    .pref-section h4 {
+      font-size: 16px;
+      color: #94a3b8;
+      margin-bottom: 12px;
+    }
+
+    .industry-buttons {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+    }
+
+    .industry-btn {
+      padding: 12px 20px;
+      background: #0f172a;
+      border: 1px solid #334155;
+      border-radius: 10px;
+      color: #e2e8f0;
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+
+    .industry-btn.active {
+      background: #7c3aed;
+      border-color: #7c3aed;
+    }
+
+    .naics-input {
+      width: 100%;
+      padding: 16px;
+      background: #0f172a;
+      border: 1px solid #334155;
+      border-radius: 10px;
+      color: white;
+      font-size: 16px;
+    }
+
+    .frequency-options {
+      display: flex;
+      gap: 15px;
+    }
+
+    .freq-option {
+      flex: 1;
+      padding: 20px;
+      background: #0f172a;
+      border: 2px solid #334155;
+      border-radius: 12px;
+      text-align: center;
+      cursor: pointer;
+    }
+
+    .freq-option.active {
+      border-color: #4ade80;
+      background: rgba(74, 222, 128, 0.1);
+    }
+
+    .freq-option .label {
+      font-weight: bold;
+      margin-bottom: 4px;
+    }
+
+    .freq-option .desc {
+      font-size: 12px;
+      color: #94a3b8;
+    }
+
+    /* Slide 8: CTA */
+    .slide-cta {
+      background: linear-gradient(135deg, #7c3aed 0%, #1e3a8a 100%);
+      text-align: center;
+    }
+
+    .slide-cta h2 {
+      font-size: 56px;
+      margin-bottom: 24px;
+    }
+
+    .slide-cta p {
+      font-size: 24px;
+      color: rgba(255,255,255,0.9);
+      margin-bottom: 40px;
+      max-width: 700px;
+    }
+
+    .cta-steps {
+      display: flex;
+      gap: 40px;
+      margin-bottom: 50px;
+    }
+
+    .cta-step {
+      background: rgba(255,255,255,0.1);
+      padding: 30px 40px;
+      border-radius: 16px;
+      text-align: center;
+    }
+
+    .cta-step .number {
+      width: 50px;
+      height: 50px;
+      background: #4ade80;
+      color: #0f172a;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 24px;
+      font-weight: bold;
+      margin: 0 auto 16px;
+    }
+
+    .cta-step h4 {
+      font-size: 20px;
+      margin-bottom: 8px;
+    }
+
+    .cta-step p {
+      font-size: 14px;
+      color: rgba(255,255,255,0.7);
+      margin-bottom: 0;
+    }
+
+    .cta-url {
+      background: rgba(0,0,0,0.3);
+      padding: 20px 40px;
+      border-radius: 12px;
+      font-size: 24px;
+      font-family: monospace;
+      color: #4ade80;
+    }
+
+    /* Footer */
+    .slide-footer {
+      position: absolute;
+      bottom: 20px;
+      left: 0;
+      right: 0;
+      text-align: center;
+      color: #64748b;
+      font-size: 14px;
+    }
+
+    /* Navigation */
+    .nav {
+      position: fixed;
+      bottom: 30px;
+      right: 30px;
+      display: flex;
+      gap: 10px;
+      z-index: 100;
+    }
+
+    .nav button {
+      width: 50px;
+      height: 50px;
+      border-radius: 50%;
+      border: none;
+      background: #1e293b;
+      color: white;
+      font-size: 20px;
+      cursor: pointer;
+      transition: background 0.2s;
+    }
+
+    .nav button:hover {
+      background: #7c3aed;
+    }
+
+    /* Animations */
+    @keyframes fadeInUp {
+      from {
+        opacity: 0;
+        transform: translateY(30px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    .animate {
+      animation: fadeInUp 0.6s ease-out forwards;
+    }
+
+    /* Win Probability Badge */
+    .win-badge {
+      display: inline-block;
+      padding: 6px 14px;
+      border-radius: 20px;
+      font-size: 14px;
+      font-weight: bold;
+    }
+
+    .win-badge.excellent {
+      background: #166534;
+      color: #4ade80;
+    }
+
+    .win-badge.good {
+      background: #1e3a8a;
+      color: #60a5fa;
+    }
+
+    .win-badge.moderate {
+      background: #713f12;
+      color: #facc15;
+    }
+  </style>
+</head>
+<body>
+
+<!-- Slide 1: Hero -->
+<section class="slide slide-hero" id="slide-1">
+  <div class="slide-number">1 / 8</div>
+  <h1>
+    <span class="highlight">FREE</span> Market Intelligence<br>
+    For Bootcamp Attendees
+  </h1>
+  <p class="subtitle">
+    The same intel tools that Pro members pay $49/month for.<br>
+    Yours free during our beta period.
+  </p>
+  <div class="value-tag">
+    <span class="old-price">$588/year value</span>
+    <span class="new-price">FREE through April 27</span>
+  </div>
+  <div class="slide-footer">GovCon Giants | March 2026</div>
+</section>
+
+<!-- Slide 2: What You Get -->
+<section class="slide slide-overview" id="slide-2">
+  <div class="slide-number">2 / 8</div>
+  <h2>What You're Getting</h2>
+  <div class="features-grid">
+    <div class="feature-card">
+      <div class="feature-icon">📬</div>
+      <h3>Daily Opportunity Alerts</h3>
+      <p>SAM.gov opportunities matching YOUR NAICS codes, delivered to your inbox before your competitors see them.</p>
+      <div class="schedule">4x daily</div>
+    </div>
+    <div class="feature-card">
+      <div class="feature-icon">📊</div>
+      <h3>Daily Briefings</h3>
+      <p>Curated intel with win probability scores, agency insights, and ghosting/teaming opportunities.</p>
+      <div class="schedule">Every morning 6 AM</div>
+    </div>
+    <div class="feature-card">
+      <div class="feature-icon">🔍</div>
+      <h3>Weekly Deep Dive</h3>
+      <p>Full competitive analysis of 10 opportunities including bid history, incumbent info, and win strategies.</p>
+      <div class="schedule">Every Sunday</div>
+    </div>
+    <div class="feature-card">
+      <div class="feature-icon">🎯</div>
+      <h3>Weekly Pursuit Brief</h3>
+      <p>AI picks YOUR best opportunity and gives you a detailed pursuit plan with a win probability score.</p>
+      <div class="schedule">Every Monday</div>
+    </div>
+  </div>
+</section>
+
+<!-- Slide 3: Daily Alerts -->
+<section class="slide slide-feature" id="slide-3">
+  <div class="slide-number">3 / 8</div>
+  <div class="content">
+    <div class="text">
+      <h2>📬 Daily Opportunity Alerts</h2>
+      <p>Never miss a contract opportunity again. We scan SAM.gov 4 times a day and send you matches based on YOUR profile.</p>
+      <ul>
+        <li><span class="check">✓</span> Matches your NAICS codes</li>
+        <li><span class="check">✓</span> Filters by your set-aside type (8a, SDVOSB, etc.)</li>
+        <li><span class="check">✓</span> Keyword search catches mislabeled opps</li>
+        <li><span class="check">✓</span> Direct links to SAM.gov listing</li>
+        <li><span class="check">✓</span> Response deadline warnings</li>
+      </ul>
+    </div>
+    <div class="mockup">
+      <div class="mockup-header">
+        <div class="mockup-dot red"></div>
+        <div class="mockup-dot yellow"></div>
+        <div class="mockup-dot green"></div>
+      </div>
+      <div class="mockup-content email-preview">
+        <div class="from">From: GovCon Giants AI &lt;hello@govconedu.com&gt;</div>
+        <div class="subject">🎯 3 New Opportunities Match Your Profile</div>
+        <div class="opp">
+          <div class="opp-title">IT Support Services - IDIQ</div>
+          <div class="opp-agency">Department of Veterans Affairs</div>
+          <div class="opp-value">$2.5M - $10M · Set-Aside: SDVOSB</div>
+        </div>
+        <div class="opp">
+          <div class="opp-title">Cybersecurity Assessment Services</div>
+          <div class="opp-agency">Department of Defense - Army</div>
+          <div class="opp-value">$500K - $1M · Set-Aside: Small Business</div>
+        </div>
+        <div class="opp">
+          <div class="opp-title">Cloud Migration Support</div>
+          <div class="opp-agency">Department of Homeland Security</div>
+          <div class="opp-value">$1M - $5M · Set-Aside: 8(a)</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Slide 4: Daily Briefings -->
+<section class="slide slide-feature" id="slide-4">
+  <div class="slide-number">4 / 8</div>
+  <div class="content">
+    <div class="text">
+      <h2>📊 Daily Briefings</h2>
+      <p>More than just listings. We analyze opportunities and tell you which ones are worth pursuing and why.</p>
+      <ul>
+        <li><span class="check">✓</span> Win probability score for each opportunity</li>
+        <li><span class="check">✓</span> Agency spending trends</li>
+        <li><span class="check">✓</span> Ghosting opportunities (incumbent intel)</li>
+        <li><span class="check">✓</span> Teaming partner suggestions</li>
+        <li><span class="check">✓</span> Recompete alerts (expiring contracts)</li>
+      </ul>
+    </div>
+    <div class="mockup">
+      <div class="mockup-header">
+        <div class="mockup-dot red"></div>
+        <div class="mockup-dot yellow"></div>
+        <div class="mockup-dot green"></div>
+      </div>
+      <div class="mockup-content email-preview">
+        <div class="from">From: GovCon Giants AI &lt;hello@govconedu.com&gt;</div>
+        <div class="subject">📊 Your Daily GovCon Brief - March 29</div>
+        <div class="opp">
+          <div class="opp-title">Network Infrastructure Upgrade</div>
+          <div class="opp-agency">Department of Energy</div>
+          <div style="margin-top: 8px;">
+            <span class="win-badge excellent">78% Win Probability</span>
+          </div>
+          <div class="opp-value" style="margin-top: 8px;">
+            🎯 Low competition (3 historical bidders)<br>
+            👻 Incumbent: Acme Corp (contract expires June)
+          </div>
+        </div>
+        <div class="opp">
+          <div class="opp-title">Data Analytics Platform</div>
+          <div class="opp-agency">Department of Commerce</div>
+          <div style="margin-top: 8px;">
+            <span class="win-badge good">62% Win Probability</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Slide 5: Weekly Deep Dive -->
+<section class="slide slide-feature" id="slide-5">
+  <div class="slide-number">5 / 8</div>
+  <div class="content">
+    <div class="text">
+      <h2>🔍 Weekly Deep Dive</h2>
+      <p>Every Sunday, get a comprehensive analysis of the 10 best opportunities in your space.</p>
+      <ul>
+        <li><span class="check">✓</span> Full competitive landscape analysis</li>
+        <li><span class="check">✓</span> Historical bid counts (how many competed?)</li>
+        <li><span class="check">✓</span> Incumbent contract history</li>
+        <li><span class="check">✓</span> Agency buying patterns</li>
+        <li><span class="check">✓</span> Recommended pursuit strategy</li>
+        <li><span class="check">✓</span> Key dates calendar</li>
+      </ul>
+    </div>
+    <div class="mockup">
+      <div class="mockup-header">
+        <div class="mockup-dot red"></div>
+        <div class="mockup-dot yellow"></div>
+        <div class="mockup-dot green"></div>
+      </div>
+      <div class="mockup-content email-preview">
+        <div class="from">From: GovCon Giants AI &lt;hello@govconedu.com&gt;</div>
+        <div class="subject">🔍 Weekly Deep Dive - Top 10 Opportunities</div>
+        <div class="opp">
+          <div class="opp-title" style="font-size: 16px;">OPPORTUNITY #1 OF 10</div>
+          <div class="opp-title">Enterprise IT Modernization</div>
+          <div class="opp-agency">GSA Federal Acquisition Service</div>
+          <div class="opp-value" style="margin-top: 12px; line-height: 1.8;">
+            💰 Ceiling: $50M over 5 years<br>
+            📊 Historical bidders: 7 (avg)<br>
+            🏢 Incumbent: None (new requirement)<br>
+            📅 Proposal due: April 15, 2026<br>
+            <span class="win-badge excellent" style="margin-top: 8px;">RECOMMENDED PURSUIT</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Slide 6: Pursuit Brief -->
+<section class="slide slide-feature" id="slide-6">
+  <div class="slide-number">6 / 8</div>
+  <div class="content">
+    <div class="text">
+      <h2>🎯 Weekly Pursuit Brief</h2>
+      <p>Every Monday, our AI selects YOUR single best opportunity and gives you everything you need to win it.</p>
+      <ul>
+        <li><span class="check">✓</span> Detailed win probability breakdown</li>
+        <li><span class="check">✓</span> Strengths you should highlight</li>
+        <li><span class="check">✓</span> Weaknesses to address</li>
+        <li><span class="check">✓</span> Competitor analysis</li>
+        <li><span class="check">✓</span> Recommended teaming partners</li>
+        <li><span class="check">✓</span> Proposal outline suggestions</li>
+      </ul>
+    </div>
+    <div class="mockup">
+      <div class="mockup-header">
+        <div class="mockup-dot red"></div>
+        <div class="mockup-dot yellow"></div>
+        <div class="mockup-dot green"></div>
+      </div>
+      <div class="mockup-content email-preview">
+        <div class="from">From: GovCon Giants AI &lt;hello@govconedu.com&gt;</div>
+        <div class="subject">🎯 Your #1 Pursuit This Week</div>
+        <div class="opp" style="border-left-color: #4ade80;">
+          <div style="text-align: center; margin-bottom: 16px;">
+            <div style="font-size: 48px; font-weight: bold; color: #4ade80;">68<span style="font-size: 24px;">/100</span></div>
+            <div class="win-badge good">CONDITIONAL - GO</div>
+          </div>
+          <div class="opp-title">Managed Security Services</div>
+          <div class="opp-agency">Department of Justice</div>
+          <div class="opp-value" style="margin-top: 12px; line-height: 1.8;">
+            ✅ NAICS match: 541512<br>
+            ✅ Set-aside matches your certs<br>
+            ✅ Agency historically awards to SBs<br>
+            ⚠️ Condition: Need SOC 2 certification
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Slide 7: Customize -->
+<section class="slide slide-preferences" id="slide-7">
+  <div class="slide-number">7 / 8</div>
+  <h2>Customize Your Alerts</h2>
+  <p class="subtitle">Click "Manage Preferences" at the bottom of any email to update your settings</p>
+  <div class="preferences-demo">
+    <div class="pref-section">
+      <h4>Quick Select by Industry</h4>
+      <div class="industry-buttons">
+        <div class="industry-btn active">💻 IT Services</div>
+        <div class="industry-btn">🏗️ Construction</div>
+        <div class="industry-btn active">🛡️ Cybersecurity</div>
+        <div class="industry-btn">📊 Professional Services</div>
+        <div class="industry-btn">🏥 Healthcare</div>
+        <div class="industry-btn">📦 Logistics</div>
+      </div>
+    </div>
+    <div class="pref-section">
+      <h4>Or Enter NAICS Codes Directly</h4>
+      <input type="text" class="naics-input" value="541512, 541519, 518210" readonly>
+    </div>
+    <div class="pref-section">
+      <h4>Email Frequency</h4>
+      <div class="frequency-options">
+        <div class="freq-option active">
+          <div class="label">Daily</div>
+          <div class="desc">Every morning 6 AM</div>
+        </div>
+        <div class="freq-option">
+          <div class="label">Weekly</div>
+          <div class="desc">Sunday digest</div>
+        </div>
+        <div class="freq-option">
+          <div class="label">Paused</div>
+          <div class="desc">Keep settings, no emails</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Slide 8: CTA -->
+<section class="slide slide-cta" id="slide-8">
+  <div class="slide-number">8 / 8</div>
+  <h2>You're Already Enrolled!</h2>
+  <p>As a bootcamp attendee, you're automatically signed up. Here's what to do next:</p>
+  <div class="cta-steps">
+    <div class="cta-step">
+      <div class="number">1</div>
+      <h4>Check Your Email</h4>
+      <p>Your first alert arrives<br>within 24 hours</p>
+    </div>
+    <div class="cta-step">
+      <div class="number">2</div>
+      <h4>Click "Manage Preferences"</h4>
+      <p>Customize your NAICS codes<br>and set-aside type</p>
+    </div>
+    <div class="cta-step">
+      <div class="number">3</div>
+      <h4>Win Contracts!</h4>
+      <p>Use the intel to find and<br>pursue the right opportunities</p>
+    </div>
+  </div>
+  <div class="cta-url">
+    tools.govcongiants.org/alerts/preferences
+  </div>
+  <div class="slide-footer" style="color: rgba(255,255,255,0.6);">
+    Questions? Email service@govcongiants.com
+  </div>
+</section>
+
+<!-- Navigation -->
+<div class="nav">
+  <button onclick="prevSlide()">←</button>
+  <button onclick="nextSlide()">→</button>
+</div>
+
+<script>
+  let currentSlide = 1;
+  const totalSlides = 8;
+
+  function showSlide(n) {
+    if (n < 1) n = totalSlides;
+    if (n > totalSlides) n = 1;
+    currentSlide = n;
+
+    document.getElementById(`slide-${n}`).scrollIntoView({
+      behavior: 'smooth'
+    });
+  }
+
+  function nextSlide() {
+    showSlide(currentSlide + 1);
+  }
+
+  function prevSlide() {
+    showSlide(currentSlide - 1);
+  }
+
+  // Keyboard navigation
+  document.addEventListener('keydown', (e) => {
+    if (e.key === 'ArrowRight' || e.key === ' ') {
+      e.preventDefault();
+      nextSlide();
+    } else if (e.key === 'ArrowLeft') {
+      e.preventDefault();
+      prevSlide();
+    }
+  });
+
+  // Click to advance
+  document.querySelectorAll('.slide').forEach(slide => {
+    slide.addEventListener('click', (e) => {
+      if (e.target.tagName !== 'BUTTON' && e.target.tagName !== 'INPUT') {
+        nextSlide();
+      }
+    });
+  });
+</script>
+
+</body>
+</html>

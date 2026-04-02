@@ -1,7 +1,7 @@
 import Link from 'next/link';
 import { notFound } from 'next/navigation';
 import { generateSeo, breadcrumbJsonLd } from '@/lib/seo';
-import { searchUSAJobs } from '@/lib/usajobs';
+import { searchGovConJobs } from '@/lib/jsearch';
 import { JOB_CATEGORIES, getDisplayCategories, getCategoryInfo, CERTIFICATION_WEEKS } from '@/lib/job-categories';
 import type { JobCategory } from '@/types/job';
 import JobListClient from '../JobListClient';
@@ -109,7 +109,7 @@ export default async function CategoryPage({ params }: { params: Promise<{ categ
   }
 
   const catInfo = getCategoryInfo(category as JobCategory);
-  const { jobs: initialJobs, total } = await searchUSAJobs({
+  const { jobs: initialJobs, total } = await searchGovConJobs({
     category: category as JobCategory,
     limit: 25
   });

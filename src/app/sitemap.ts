@@ -15,6 +15,8 @@ const jobCategories = [
   'capture-director',
   'vp-business-development',
   'bd-consultant',
+  'defense',  // New: defense contractor jobs (2,480/mo)
+  'remote',   // New: remote govcon jobs (800/mo)
 ];
 
 const guidesSlugs = [

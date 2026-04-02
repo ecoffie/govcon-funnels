@@ -12,7 +12,7 @@ export type JobCategory =
   | 'bd-consultant'
   | 'other';
 
-export type JobSource = 'usajobs' | 'prime';
+export type JobSource = 'usajobs' | 'prime' | 'jsearch';
 
 export interface Job {
   id: string;

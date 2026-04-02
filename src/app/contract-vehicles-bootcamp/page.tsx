@@ -88,8 +88,8 @@ export default function ContractVehiclesBootcampLanding() {
           </Link>
         </div>
         <div className="max-w-3xl mx-auto text-center">
-          <div className="inline-flex items-center gap-2 bg-blue-900/50 border border-blue-700/50 text-blue-300 px-4 py-2 rounded-full text-sm font-medium mb-8">
-            <span>🎓</span> FREE LIVE BOOTCAMP - Mar 28, 2026
+          <div className="inline-flex items-center gap-2 bg-green-900/50 border border-green-700/50 text-green-300 px-4 py-2 rounded-full text-sm font-medium mb-8">
+            <span>🎬</span> BOOTCAMP REPLAY NOW AVAILABLE
           </div>
 
           <h1 className="text-4xl md:text-5xl font-bold text-white mb-6 leading-tight">
@@ -97,24 +97,23 @@ export default function ContractVehiclesBootcampLanding() {
           </h1>
 
           <p className="text-xl text-slate-400 mb-8 leading-relaxed">
-            Join us live on <span className="text-white font-semibold">March 28, 2026 at 9:00 AM Eastern</span>{' '}
-            for a Zoom training that breaks down IDIQs, BPAs, Sources Sought, set-asides, and contract types.
+            Get instant access to our complete 8-hour bootcamp recording that breaks down IDIQs, BPAs, Sources Sought, set-asides, and contract types.
           </p>
 
           <div className="bg-slate-900/70 border border-slate-700 rounded-xl p-5 mb-8 text-left max-w-xl mx-auto">
-            <h2 className="text-white font-bold mb-3 text-center">Bootcamp Details</h2>
+            <h2 className="text-white font-bold mb-3 text-center">Replay Access Details</h2>
             <div className="grid grid-cols-1 sm:grid-cols-3 gap-3 text-sm">
               <div className="bg-slate-950 border border-slate-800 rounded-lg p-3">
-                <p className="text-slate-500">Date</p>
-                <p className="text-white font-semibold">March 28, 2026</p>
+                <p className="text-slate-500">Format</p>
+                <p className="text-white font-semibold">On-Demand</p>
               </div>
               <div className="bg-slate-950 border border-slate-800 rounded-lg p-3">
-                <p className="text-slate-500">Time</p>
-                <p className="text-white font-semibold">9:00 AM ET</p>
+                <p className="text-slate-500">Duration</p>
+                <p className="text-white font-semibold">8 Hours</p>
               </div>
               <div className="bg-slate-950 border border-slate-800 rounded-lg p-3">
-                <p className="text-slate-500">Location</p>
-                <p className="text-white font-semibold">Live on Zoom</p>
+                <p className="text-slate-500">Access</p>
+                <p className="text-white font-semibold">Lifetime</p>
               </div>
             </div>
           </div>

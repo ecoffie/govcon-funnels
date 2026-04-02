@@ -49,7 +49,7 @@ Free guide: https://govcongiants.org/guides/cage-code
 7. **CO** - Contracting Officer (signs contracts)
 8. **IDIQ** - Indefinite Delivery/Indefinite Quantity (contract vehicle)
 9. **OSDBU** - Small business office at each agency
-10. **PTAC** - Free consulting centers (find yours at aptac-us.org)
+10. **APEX** - Free consulting centers (find yours at apexaccelerators.us)
 
 Want the full list? We built a free glossary with 45+ terms:
 

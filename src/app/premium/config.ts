@@ -32,7 +32,7 @@ export const PREMIUM_PRODUCTS: PremiumProduct[] = [
     shortTitle: 'Pro Member Plan',
     description: 'Lifetime Training License, access to the 4,000+ member community, Step-by-Step Success Guide, First Partner Bootcamp, and Proposal Bootcamp. One-time payment.',
     price: '$997 one-time',
-    ctaUrl: '/premium/pro-member-plan/checkout',
+    ctaUrl: 'https://buy.stripe.com/fZuaEYaKY4QWbBr26W',
     ctaText: 'Get Access →',
     highlights: [
       { icon: '🎓', title: 'Lifetime Training License', desc: 'Access all training for good.' },
@@ -46,8 +46,8 @@ export const PREMIUM_PRODUCTS: PremiumProduct[] = [
     shortTitle: 'Accelerator Program',
     description: '90 days of intensive support: 12 one-on-one coaching sessions (one per week), access to the Lifetime Program, personalized guidance through the federal contracting process, and step-by-step implementation support. Goal: contract-ready by program completion.',
     price: '',
-    ctaUrl: '/premium/accelerator/checkout',
-    ctaText: 'Apply Now →',
+    ctaUrl: 'https://calendly.com/govconedumeet/discovery-call',
+    ctaText: 'Schedule Discovery Call →',
     highlights: [
       { icon: '⚡', title: '12 Weekly 1:1 Sessions', desc: '90 days of dedicated coaching.' },
       { icon: '📋', title: 'Lifetime Program Access', desc: 'Full access included.' },
