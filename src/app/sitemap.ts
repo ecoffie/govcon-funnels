@@ -37,6 +37,9 @@ const guidesSlugs = [
   'naics-codes',
   'ai-government-contracting',
   'rfp-response',
+  'cmmc-certification',
+  'contract-vehicles',
+  'sources-sought',
 ];
 
 export default function sitemap(): MetadataRoute.Sitemap {

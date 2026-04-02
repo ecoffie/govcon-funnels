@@ -45,6 +45,9 @@ export const GUIDE_JOB_MAPPING: Record<string, string[]> = {
   '8a-certification': ['bd-manager', 'capture-manager'],
   'ai-government-contracting': ['proposal-manager', 'capture-manager', 'bd-consultant'],
   'rfp-response': ['proposal-manager', 'proposal-coordinator', 'capture-manager', 'pricing-analyst'],
+  'cmmc-certification': ['contracts-administrator', 'bd-manager', 'capture-manager'],
+  'contract-vehicles': ['bd-manager', 'capture-manager', 'contracts-administrator', 'proposal-manager'],
+  'sources-sought': ['bd-manager', 'capture-manager', 'proposal-coordinator'],
 };
 
 // Import all guides
@@ -65,6 +68,9 @@ import { guide as wosbCertification } from './wosb-certification';
 import { guide as gsaSchedule } from './gsa-schedule';
 import { guide as naicsCodes } from './naics-codes';
 import { guide as rfpResponse } from './rfp-response';
+import { guide as cmmcCertification } from './cmmc-certification';
+import { guide as contractVehicles } from './contract-vehicles';
+import { guide as sourcesSought } from './sources-sought';
 
 export const allGuides: GuideData[] = [
   governmentContractingForBeginners,
@@ -84,6 +90,9 @@ export const allGuides: GuideData[] = [
   naicsCodes,
   aiGovernmentContracting,
   rfpResponse,
+  cmmcCertification,
+  contractVehicles,
+  sourcesSought,
 ];
 
 export function getGuideBySlug(slug: string): GuideData | undefined {
