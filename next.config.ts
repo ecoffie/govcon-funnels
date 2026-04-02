@@ -29,6 +29,12 @@ const nextConfig: NextConfig = {
         destination: "/guides/cage-code",
         permanent: true,
       },
+      // OH landing page → direct to tool (no funnel, tool is ungated)
+      {
+        source: "/opp",
+        destination: "https://tools.govcongiants.org/opportunity-hunter",
+        permanent: false,
+      },
     ];
   },
   async headers() {
