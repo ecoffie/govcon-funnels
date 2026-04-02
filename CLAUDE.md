@@ -24,7 +24,7 @@ When user says: "the $82B page", "govcon funnels", "main marketing site", "the h
 ### Content Pages
 | Route | Purpose |
 |-------|---------|
-| `/guides/[slug]` | 15+ educational guides (SEO optimized) |
+| `/guides/[slug]` | 20 educational guides (SEO optimized) |
 | `/videos/[slug]` | 8 video landing pages |
 | `/jobs` | Job board - dual source (JSearch + USAJobs) |
 | `/glossary` | 45+ GovCon terms |
@@ -176,6 +176,15 @@ See `/tasks/lessons.md` for full details.
 ## Recent Work (Last 7 Days)
 
 ### April 2, 2026
+- **SEO Content Expansion (3 new guides):**
+  - `/guides/cmmc-certification` — CMMC 2.0 compliance guide for defense contractors
+  - `/guides/contract-vehicles` — GSA Schedule, GWACs, IDIQs, OASIS+ explained
+  - `/guides/sources-sought` — How to respond to market research notices + template
+  - Added to sitemap.ts (now 87 URLs) and IndexNow for fast indexing
+- **SEO Fixes:**
+  - Video pages added to IndexNow (17 pages)
+  - Internal linking expanded in SAM Registration and Capability Statement guides
+  - Missing pages added to sitemap: /guides, /guides/rfp-response, /tools/expiring-contracts
 - **Page Fixes (5 issues):**
   - Pro Member Plan checkout → Stripe payment link
   - Accelerator checkout → Calendly discovery call
