@@ -166,6 +166,16 @@ export const guide: GuideData = {
   ],
   faqs: [
     {
+      question: 'How do I register on SAM.gov step by step?',
+      answer:
+        'SAM.gov registration takes 7 steps: 1) Create a Login.gov account with your email, 2) Start entity registration on SAM.gov, 3) Validate your business name/EIN to get your UEI, 4) Your CAGE code is assigned automatically, 5) Enter core data (NAICS codes, business type), 6) Add banking info for payments, 7) Complete representations and certifications, then submit. Processing takes 7-10 business days.',
+    },
+    {
+      question: 'What documents do I need for SAM.gov registration?',
+      answer:
+        'You need: 1) EIN/TIN from the IRS (your EIN assignment letter), 2) Legal business name exactly as it appears on IRS records, 3) Physical business address (no P.O. boxes), 4) Bank account and routing number for payments, 5) NAICS codes for your business activities, and 6) Contact information for your government business POC. Have your IRS Letter 147C ready if name validation fails.',
+    },
+    {
       question: 'Is SAM.gov registration really free?',
       answer:
         'Yes, SAM.gov registration is 100% free. The U.S. government does not charge any fee to register, renew, or update your entity registration. If someone contacts you demanding payment for SAM registration, it is a scam. Only use the official website at sam.gov. If you need free help, contact the Federal Service Desk at fsd.gov.',

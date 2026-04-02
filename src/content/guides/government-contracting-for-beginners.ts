@@ -431,7 +431,7 @@ export const guide: GuideData = {
 
           <li><strong>Skipping past performance documentation:</strong> Every contract you perform — federal, state, or commercial — is potential past performance for future bids. Document results, collect references, and keep records organized from day one.</li>
 
-          <li><strong>Going it alone:</strong> Government contracting has a learning curve. Take advantage of free resources: SBA district offices, PTAC (Procurement Technical Assistance Centers), SCORE mentors, and agency OSDBU offices.</li>
+          <li><strong>Going it alone:</strong> Government contracting has a learning curve. Take advantage of free resources: SBA district offices, APEX Accelerators (formerly PTACs), SCORE mentors, and agency OSDBU offices.</li>
         </ul>
       `,
     },
@@ -483,7 +483,7 @@ export const guide: GuideData = {
       content: `
         <h3>Government Resources (All Free)</h3>
         <ul>
-          <li><strong>PTAC (Procurement Technical Assistance Centers)</strong> — Free consulting for small businesses. Find your local PTAC at <a href="https://www.aptac-us.org" target="_blank" rel="noopener">aptac-us.org</a></li>
+          <li><strong>APEX Accelerators</strong> — Free consulting for small businesses pursuing government contracts. Find your local APEX at <a href="https://www.apexaccelerators.us" target="_blank" rel="noopener">apexaccelerators.us</a></li>
           <li><strong>SBA District Offices</strong> — Local small business support and certification help</li>
           <li><strong>SCORE</strong> — Free business mentoring from experienced entrepreneurs</li>
           <li><strong>Agency OSDBU Offices</strong> — Small business specialists at every major agency</li>

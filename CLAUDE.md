@@ -26,7 +26,7 @@ When user says: "the $82B page", "govcon funnels", "main marketing site", "the h
 |-------|---------|
 | `/guides/[slug]` | 15+ educational guides (SEO optimized) |
 | `/videos/[slug]` | 8 video landing pages |
-| `/jobs` | Job board with 9 categories |
+| `/jobs` | Job board - dual source (JSearch + USAJobs) |
 | `/glossary` | 45+ GovCon terms |
 
 ### Free Tools
@@ -64,12 +64,19 @@ When user says: "the $82B page", "govcon funnels", "main marketing site", "the h
 | `/src/lib/sam/entity-api.ts` | CAGE/UEI/company lookup |
 | `/src/lib/sam/contract-awards.ts` | Contract awards & expiring contracts |
 
+### Job Board APIs
+| File | Purpose |
+|------|---------|
+| `/src/lib/jsearch.ts` | JSearch API (private sector BD jobs via RapidAPI) |
+| `/src/lib/usajobs.ts` | USAJobs API (federal government positions) |
+
 ### API Routes
 | Route | Purpose |
 |-------|---------|
 | `/api/lead` | Lead submission (GHL + Slack) |
 | `/api/cage-lookup` | CAGE code search |
 | `/api/expiring-contracts` | Expiring contracts search |
+| `/api/jobs` | Job search (JSearch for private, USAJobs for federal) |
 | `/api/indexnow` | Search engine notification |
 
 ---
@@ -82,8 +89,12 @@ When user says: "the $82B page", "govcon funnels", "main marketing site", "the h
 | `GHL_LOCATION_ID` | GHL sub-account ID |
 | `SLACK_LEAD_WEBHOOK_URL` | Slack webhook |
 | `STRIPE_SECRET_KEY` | Stripe payments |
-| `SAM_API_KEY` | SAM.gov Entity API |
+| `SAM_API_KEY` | SAM.gov Entity API (primary) |
+| `SAM_API_KEY_BACKUP` | SAM.gov backup key (auto-failover on rate limit) |
 | `SAM_CONTRACT_AWARDS_API_KEY` | SAM.gov Awards API |
+| `USAJOBS_API_KEY` | USAJobs API (federal jobs) |
+| `USAJOBS_EMAIL` | USAJobs API user agent |
+| `JSEARCH_API_KEY` | JSearch/RapidAPI (private sector jobs) |
 | `NEXT_PUBLIC_SUPABASE_URL` | Supabase URL |
 | `SUPABASE_SERVICE_ROLE_KEY` | Supabase service key |
 
@@ -117,6 +128,14 @@ Form submit → /api/lead
 - **Awards API:** Contract history, expiring contracts
 - **Caching:** Supabase (24hr TTL)
 - **Rate limit:** 1000 requests/day per API
+
+### Job Board APIs
+- **JSearch (RapidAPI):** Private sector BD jobs from LinkedIn, Indeed, Glassdoor, ZipRecruiter
+  - Shows Capture Manager, Proposal Manager roles at Booz Allen, Leidos, Peraton, etc.
+  - Free tier: 200 requests/month
+- **USAJobs:** Federal government positions (GS roles)
+  - Contract Specialist, Program Analyst, Acquisition roles
+  - Free, unlimited requests
 
 ---
 
@@ -156,6 +175,11 @@ See `/tasks/lessons.md` for full details.
 
 ## Recent Work (Last 7 Days)
 
+### March 31, 2026
+- **Jobs Board Upgrade:** Added JSearch API for private sector BD jobs (Capture Manager, Proposal Manager at Booz Allen, Leidos, etc.)
+- **Dual Source Jobs:** Page now shows two sections - Private Sector (JSearch) + Federal Government (USAJobs)
+- **Fixed /market-intel 404:** Added rewrite rule in next.config.ts
+
 ### March 29, 2026
 - **GSC Cleanup:** Fixed 200+ legacy 404s with redirects, analyzed indexing issues
 - **CAGE CTR Optimization:** New titles differentiating guide (educational) vs tool (action)
@@ -174,4 +198,4 @@ See `/tasks/lessons.md` for full details.
 
 ---
 
-*Last Updated: March 29, 2026*
+*Last Updated: March 31, 2026*

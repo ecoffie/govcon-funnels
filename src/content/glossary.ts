@@ -14,6 +14,13 @@ export const glossaryTerms: GlossaryTerm[] = [
     relatedGuide: '8a-certification',
   },
   {
+    term: 'APEX Accelerator',
+    slug: 'apex-accelerator',
+    definition:
+      'Formerly known as PTACs (Procurement Technical Assistance Centers). Free DoD-funded consulting programs that help businesses understand and compete for government contracts. Services include registration assistance, bid matching, proposal review, and training. Find your local APEX at apexaccelerators.us.',
+    relatedGuide: 'government-contracting-for-beginners',
+  },
+  {
     term: 'Best Value',
     slug: 'best-value',
     definition:
@@ -320,5 +327,94 @@ export const glossaryTerms: GlossaryTerm[] = [
     definition:
       'Women-Owned Small Business — an SBA certification for businesses 51%+ owned and controlled by women who are U.S. citizens. Provides access to set-aside contracts in designated NAICS codes where women-owned businesses are underrepresented.',
     relatedGuide: 'wosb-certification',
+  },
+  {
+    term: 'BPA (Blanket Purchase Agreement)',
+    slug: 'bpa',
+    definition:
+      'A simplified acquisition method that establishes "charge accounts" with qualified vendors. Allows agencies to make recurring purchases without issuing new solicitations for each transaction. Often used for supplies or repetitive services under the micro-purchase threshold.',
+  },
+  {
+    term: 'Capture Manager',
+    slug: 'capture-manager',
+    definition:
+      'The business development professional responsible for leading the pursuit of a specific contract opportunity. Develops win strategy, builds customer relationships, shapes the opportunity, and assembles the proposal team. Typically earns $150K-$220K.',
+  },
+  {
+    term: 'Proposal Manager',
+    slug: 'proposal-manager',
+    definition:
+      'The professional responsible for managing the proposal development process from RFP release to submission. Creates the proposal schedule, assigns writers, ensures compliance with all requirements, and manages production. Typically earns $160K-$240K.',
+    relatedGuide: 'proposal-writing',
+  },
+  {
+    term: 'DCAA (Defense Contract Audit Agency)',
+    slug: 'dcaa',
+    definition:
+      'The DoD agency that audits defense contractor accounting systems, incurred costs, and pricing proposals. DCAA-compliant accounting systems are required for cost-reimbursement contracts and may be required for fixed-price contracts.',
+  },
+  {
+    term: 'T&M (Time and Materials)',
+    slug: 'time-and-materials',
+    definition:
+      'A contract type where the government pays a fixed hourly rate for labor plus actual costs for materials. Used when the scope of work cannot be clearly defined. Riskier for the government than fixed-price, so used sparingly.',
+  },
+  {
+    term: 'FFP (Firm Fixed Price)',
+    slug: 'firm-fixed-price',
+    definition:
+      'A contract type where the contractor agrees to perform work for a set price regardless of actual costs. The contractor bears all risk of cost overruns but keeps any savings. The most common contract type in federal procurement.',
+  },
+  {
+    term: 'CPFF (Cost Plus Fixed Fee)',
+    slug: 'cost-plus-fixed-fee',
+    definition:
+      'A cost-reimbursement contract type where the government pays allowable incurred costs plus a negotiated fixed fee (profit). The contractor has less risk than FFP since costs are reimbursed, but must have a DCAA-compliant accounting system.',
+  },
+  {
+    term: 'J&A (Justification and Approval)',
+    slug: 'justification-and-approval',
+    definition:
+      'A document required when an agency uses other than full and open competition. Explains why competition is limited (sole-source, set-aside, brand-name) and must be approved at appropriate levels based on contract value.',
+  },
+  {
+    term: 'POC (Point of Contact)',
+    slug: 'point-of-contact',
+    definition:
+      'The designated person at an agency or contractor organization who handles inquiries about a specific matter. In SAM.gov profiles, contractors list government business POCs, electronic business POCs, and past performance POCs.',
+    relatedGuide: 'sam-gov-registration',
+  },
+  {
+    term: 'PWS (Performance Work Statement)',
+    slug: 'pws',
+    definition:
+      'A document in a solicitation that describes required outcomes and performance standards rather than how the work must be done. Allows contractors flexibility in their approach while holding them accountable for results.',
+    relatedGuide: 'proposal-writing',
+  },
+  {
+    term: 'SOW (Statement of Work)',
+    slug: 'statement-of-work',
+    definition:
+      'A document that describes the specific tasks, deliverables, and timelines required under a contract. More prescriptive than a PWS, telling the contractor exactly how work must be performed.',
+    relatedGuide: 'proposal-writing',
+  },
+  {
+    term: 'OCI (Organizational Conflict of Interest)',
+    slug: 'organizational-conflict-of-interest',
+    definition:
+      'A situation where a contractor\'s other activities or relationships may give it an unfair competitive advantage or impair its objectivity. Must be disclosed and may disqualify contractors from certain opportunities.',
+  },
+  {
+    term: 'Debriefing',
+    slug: 'debriefing',
+    definition:
+      'A post-award meeting where the government explains to unsuccessful offerors why their proposal was not selected. Provides valuable feedback on evaluation scores, strengths, weaknesses, and how the winning proposal compared.',
+    relatedGuide: 'proposal-writing',
+  },
+  {
+    term: 'Protest',
+    slug: 'protest',
+    definition:
+      'A formal challenge to a contract award decision, typically filed with the GAO (Government Accountability Office) or Court of Federal Claims. Contractors may protest if they believe the solicitation or award violated procurement law.',
   },
 ];

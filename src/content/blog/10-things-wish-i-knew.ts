@@ -45,7 +45,7 @@ export const post: BlogPost = {
 <p>Before you spend a dime on a proposal, do your market research. <strong>SAM.gov contract data</strong> shows you who's winning contracts in your space, what they're charging, and what agencies are buying. This information is free and public. Use it to identify your best opportunities and price competitively.</p>
 
 <h3>9. Networking Matters More Than You Think</h3>
-<p>Government contracting is a relationship business. Attend <strong>industry days</strong>, PTAC events, and SBA matchmaking sessions. Meet contracting officers, program managers, and prime contractors. Many contracts are influenced by relationships built before the solicitation even drops. If they don't know you exist, they can't buy from you.</p>
+<p>Government contracting is a relationship business. Attend <strong>industry days</strong>, APEX Accelerator events, and SBA matchmaking sessions. Meet contracting officers, program managers, and prime contractors. Many contracts are influenced by relationships built before the solicitation even drops. If they don't know you exist, they can't buy from you.</p>
 
 <h3>10. You Need a System, Not Just Hustle</h3>
 <p>The contractors who succeed long-term aren't the ones who work the hardest — they're the ones with <strong>repeatable systems</strong>. Set up a pipeline tracker for opportunities. Create proposal templates. Build a library of past performance writeups. Systematize your SAM.gov searches. The goal is to make winning contracts a process, not a miracle.</p>

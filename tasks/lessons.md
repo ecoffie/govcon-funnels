@@ -124,3 +124,53 @@
 4. **Keep together** - Use `breakable: false` to keep related content on same page
 
 **Why:** User feedback: "you're just throwing stuff on a page with no proper training or instruction"
+
+---
+
+## April 2, 2026
+
+### SAM.gov API returns HTTP 429 for throttling, not HTTP 200
+**Rule:** SAM.gov can return rate limit errors with EITHER HTTP 200 or HTTP 429. Check for error code `900804` in the response body regardless of HTTP status.
+
+**Pattern:**
+```javascript
+const responseText = await response.text();
+const data = JSON.parse(responseText);
+
+// Check for throttle BEFORE checking response.ok
+if (data?.code === '900804') {
+  // Key is throttled - try backup key
+  markKeyThrottled(apiKey, parseNextAccessTime(data.nextAccessTime));
+  return { throttled: true };
+}
+```
+
+**Why:** Initially checked for `response.ok` first, which returned `false` for HTTP 429 and went to generic error handling instead of backup key rotation.
+
+---
+
+### Implement API key rotation for rate-limited services
+**Rule:** For APIs with daily rate limits (like SAM.gov's 1,000/day), implement automatic key rotation with backup keys.
+
+**Pattern:**
+1. Store multiple keys: `SAM_API_KEY` (primary) and `SAM_API_KEY_BACKUP`
+2. Track throttled keys in memory with expiration timestamps
+3. Try primary key first, fall back to backup if throttled
+4. Mark keys as throttled when error code 900804 received
+5. Keys auto-reset at midnight UTC (or per API's reset schedule)
+
+**Code structure:**
+```javascript
+const throttledKeys: Record<string, number> = {}; // key -> throttle expiry timestamp
+
+function getAvailableKey(): string | null {
+  for (const key of [primaryKey, backupKey]) {
+    if (!throttledKeys[key] || throttledKeys[key] < Date.now()) {
+      return key;
+    }
+  }
+  return null;
+}
+```
+
+**Why:** Single key exhausted at midday left CAGE lookup tool broken until midnight. Backup key provides 2x capacity.

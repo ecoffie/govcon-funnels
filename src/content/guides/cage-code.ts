@@ -161,6 +161,31 @@ export const guide: GuideData = {
   ],
   faqs: [
     {
+      question: 'What is the CAGE code format?',
+      answer:
+        'A CAGE code is exactly 5 characters long, consisting of numbers and letters (alphanumeric). The first and fifth characters are always numbers (0-9), while the second, third, and fourth characters can be letters (A-Z, excluding I and O to avoid confusion with 1 and 0) or numbers. Example CAGE codes: 1ABC2, 0XYZ9, 3M5K7. If a code is longer or shorter than 5 characters, it is not a CAGE code.',
+    },
+    {
+      question: 'What is an example of a CAGE code?',
+      answer:
+        'Example CAGE codes include: 1ABC2, 0XYZ9, 3M5K7, 7S596, 0AJB3. Major contractors have well-known CAGE codes — for instance, Boeing has multiple CAGE codes for different divisions. You can look up any company\'s CAGE code for free using our CAGE Code Lookup tool or the SAM.gov entity search.',
+    },
+    {
+      question: 'How do I check my CAGE code status?',
+      answer:
+        'To check your CAGE code status: 1) Log into SAM.gov and view your entity registration — your CAGE code and status appear on your dashboard, or 2) Search for your company on SAM.gov (no login required) to see if your registration shows as "Active." An inactive status usually means your SAM registration has expired and needs renewal.',
+    },
+    {
+      question: 'How do I find my CAGE code?',
+      answer:
+        'If you have already registered on SAM.gov, log in and navigate to your entity registration — your CAGE code is displayed on your dashboard. You can also search for your company by name on SAM.gov without logging in. If you never registered, you don\'t have a CAGE code yet — complete your free SAM.gov registration to receive one.',
+    },
+    {
+      question: 'How do I verify a CAGE code is valid?',
+      answer:
+        'To verify a CAGE code: 1) Go to SAM.gov and search for the code in Entity Information, 2) Use our free CAGE Code Lookup tool, or 3) Search at cage.dla.mil. A valid, active CAGE code will show the company name, address, and "Active" status. If no results appear or the status shows "Inactive," the code may be invalid or the company\'s SAM registration has expired.',
+    },
+    {
       question: 'Is a CAGE code free?',
       answer:
         'Yes. CAGE codes are assigned for free as part of the SAM.gov registration process, which is also free. There is no fee to obtain, renew, or maintain a CAGE code. Be cautious of third-party services that charge fees for CAGE code registration — you can do it yourself at no cost through SAM.gov.',

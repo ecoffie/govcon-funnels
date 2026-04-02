@@ -132,7 +132,7 @@ export const post: BlogPost = {
   <li><strong>Learn the fundamentals.</strong> Understand the federal procurement process, FAR basics, and how captures work. Our <a href="/free-course">free course</a> covers the essentials.</li>
   <li><strong>Get certified.</strong> APMP certification for proposals, PMP for project management, and our <a href="/upskilling">BD training program</a> for capture and BD skills.</li>
   <li><strong>Start subcontracting.</strong> Work with a prime contractor to gain federal experience without the full commitment.</li>
-  <li><strong>Build your network.</strong> Attend industry days, PTAC events, and connect with BD professionals on LinkedIn.</li>
+  <li><strong>Build your network.</strong> Attend industry days, APEX Accelerator events, and connect with BD professionals on LinkedIn.</li>
   <li><strong>Apply strategically.</strong> Target companies in growth mode that are winning new contracts.</li>
 </ol>
 

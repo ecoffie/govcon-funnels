@@ -70,11 +70,76 @@ export const SAM_API_CONFIGS: Record<string, SAMAPIConfig> = {
 // Rate limit tracking (in-memory for now, could be Redis/KV)
 const rateLimitState: Record<string, { count: number; resetAt: number }> = {};
 
+// Track which API keys are throttled (reset at midnight UTC)
+const throttledKeys: Record<string, number> = {}; // key -> throttled until timestamp
+
 const RATE_LIMIT = {
   requestsPerDay: 1000,
   requestsPerMinute: 10,
   windowMs: 24 * 60 * 60 * 1000 // 24 hours
 };
+
+/**
+ * Get available API keys for a given API type
+ * Returns primary key first, then backup key
+ */
+function getAPIKeys(apiType: string): string[] {
+  const keys: string[] = [];
+
+  // Primary keys by API type
+  const primaryKey = (() => {
+    switch (apiType) {
+      case 'entity':
+        return process.env.SAM_ENTITY_API_KEY || process.env.SAM_API_KEY || '';
+      case 'awards':
+        return process.env.SAM_CONTRACT_AWARDS_API_KEY || process.env.SAM_API_KEY || '';
+      case 'subaward':
+        return process.env.SAM_SUBAWARD_API_KEY || process.env.SAM_API_KEY || '';
+      case 'hierarchy':
+        return process.env.SAM_HIERARCHY_API_KEY || process.env.SAM_API_KEY || '';
+      default:
+        return process.env.SAM_API_KEY || '';
+    }
+  })();
+
+  if (primaryKey) keys.push(primaryKey);
+
+  // Add backup key if available
+  const backupKey = process.env.SAM_API_KEY_BACKUP || '';
+  if (backupKey && backupKey !== primaryKey) {
+    keys.push(backupKey);
+  }
+
+  return keys;
+}
+
+/**
+ * Get the next available (non-throttled) API key
+ */
+function getAvailableAPIKey(apiType: string): string | null {
+  const keys = getAPIKeys(apiType);
+  const now = Date.now();
+
+  for (const key of keys) {
+    const throttledUntil = throttledKeys[key];
+    if (!throttledUntil || throttledUntil < now) {
+      // Key is available (not throttled or throttle expired)
+      delete throttledKeys[key]; // Clean up expired throttle
+      return key;
+    }
+  }
+
+  // All keys are throttled
+  return null;
+}
+
+/**
+ * Mark an API key as throttled until the specified time
+ */
+function markKeyThrottled(apiKey: string, untilTimestamp: number): void {
+  throttledKeys[apiKey] = untilTimestamp;
+  console.log(`[SAM API] Key ${apiKey.slice(0, 10)}... throttled until ${new Date(untilTimestamp).toISOString()}`);
+}
 
 // Supabase client for caching
 function getSupabaseClient() {
@@ -232,7 +297,89 @@ export function parseSAMError(status: number, body: unknown): SAMError {
 }
 
 /**
- * Make SAM API request with rate limiting, caching, and error handling
+ * Make a single SAM API request with a specific API key
+ */
+async function makeSingleRequest<T>(
+  config: SAMAPIConfig,
+  endpoint: string,
+  params: Record<string, string | number | boolean>,
+  apiKey: string
+): Promise<{ data: T | null; error: SAMError | null; throttled: boolean }> {
+  const url = new URL(`${config.baseUrl}${endpoint}`);
+  url.searchParams.append('api_key', apiKey);
+
+  Object.entries(params).forEach(([key, value]) => {
+    if (value !== undefined && value !== null && value !== '') {
+      url.searchParams.append(key, String(value));
+    }
+  });
+
+  try {
+    console.log(`[SAM API Request] ${config.apiType}: ${url.pathname}?${url.searchParams.toString().replace(/api_key=[^&]+/, 'api_key=***')}`);
+
+    const response = await fetch(url.toString(), {
+      method: 'GET',
+      headers: {
+        'Accept': 'application/json'
+      }
+    });
+
+    incrementRateLimit(config.apiType);
+
+    const responseText = await response.text();
+    let data;
+    try {
+      data = JSON.parse(responseText);
+    } catch {
+      data = responseText;
+    }
+
+    // Check for SAM.gov throttling error (can come with HTTP 200 or 429, code 900804)
+    if (data && typeof data === 'object' && 'code' in data && data.code === '900804') {
+      const throttleData = data as { code: string; message: string; description: string; nextAccessTime: string };
+
+      // Parse the next access time and mark this key as throttled
+      // Format: "2026-Apr-03 00:00:00+0000 UTC"
+      const nextAccess = new Date(throttleData.nextAccessTime.replace(' UTC', 'Z').replace(/(\d{4})-(\w{3})-(\d{2})/, '$1-$2-$3')).getTime();
+      const throttleUntil = isNaN(nextAccess) ? Date.now() + 24 * 60 * 60 * 1000 : nextAccess;
+      markKeyThrottled(apiKey, throttleUntil);
+
+      console.log(`[SAM API] Key ${apiKey.slice(0, 10)}... throttled, trying backup...`);
+
+      return {
+        data: null,
+        error: {
+          status: 429,
+          message: `SAM.gov API rate limit exceeded. Resets at ${throttleData.nextAccessTime}`,
+          retryable: false,
+          fallbackAvailable: true
+        },
+        throttled: true
+      };
+    }
+
+    if (!response.ok) {
+      return { data: null, error: parseSAMError(response.status, data), throttled: false };
+    }
+
+    return { data: data as T, error: null, throttled: false };
+  } catch (err) {
+    console.error(`[SAM API Error] ${config.apiType}:`, err);
+    return {
+      data: null,
+      error: {
+        status: 500,
+        message: err instanceof Error ? err.message : 'Network error',
+        retryable: true,
+        fallbackAvailable: true
+      },
+      throttled: false
+    };
+  }
+}
+
+/**
+ * Make SAM API request with rate limiting, caching, key rotation, and error handling
  */
 export async function makeSAMRequest<T>(
   config: SAMAPIConfig,
@@ -253,7 +400,7 @@ export async function makeSAMRequest<T>(
     }
   }
 
-  // 2. Check rate limit
+  // 2. Check internal rate limit
   if (!bypassRateLimit) {
     const rateLimit = checkRateLimit(config.apiType);
     if (!rateLimit.allowed) {
@@ -270,70 +417,50 @@ export async function makeSAMRequest<T>(
     }
   }
 
-  // 3. Build URL
-  const url = new URL(`${config.baseUrl}${endpoint}`);
+  // 3. Try available API keys (with automatic failover)
+  const apiKeys = getAPIKeys(config.apiType);
+  let lastError: SAMError | null = null;
 
-  // Add API key as query parameter (SAM.gov uses api_key param, not Bearer token)
-  url.searchParams.append('api_key', config.apiKey);
-
-  Object.entries(params).forEach(([key, value]) => {
-    if (value !== undefined && value !== null && value !== '') {
-      url.searchParams.append(key, String(value));
-    }
-  });
-
-  // 4. Make request
-  try {
-    console.log(`[SAM API Request] ${config.apiType}: ${url.pathname}?${url.searchParams.toString().replace(/api_key=[^&]+/, 'api_key=***')}`);
-
-    const response = await fetch(url.toString(), {
-      method: 'GET',
-      headers: {
-        'Accept': 'application/json'
-      }
-    });
-
-    // Increment rate limit counter
-    incrementRateLimit(config.apiType);
-
-    if (!response.ok) {
-      const errorBody = await response.text();
-      let parsed;
-      try {
-        parsed = JSON.parse(errorBody);
-      } catch {
-        parsed = errorBody;
-      }
-
-      return {
-        data: null,
-        error: parseSAMError(response.status, parsed),
-        fromCache: false
-      };
+  for (const apiKey of apiKeys) {
+    // Skip throttled keys
+    const throttledUntil = throttledKeys[apiKey];
+    if (throttledUntil && throttledUntil > Date.now()) {
+      console.log(`[SAM API] Skipping throttled key ${apiKey.slice(0, 10)}...`);
+      continue;
     }
 
-    const data = await response.json();
+    const result = await makeSingleRequest<T>(config, endpoint, params, apiKey);
 
-    // 5. Store in cache
-    if (useCache) {
-      await storeInCache(config.apiType, params, data, config.cacheTTLHours);
+    if (result.throttled) {
+      // Key was throttled, try next key
+      lastError = result.error;
+      continue;
     }
 
-    return { data: data as T, error: null, fromCache: false };
+    if (result.error) {
+      // Other error, return it
+      return { data: null, error: result.error, fromCache: false };
+    }
 
-  } catch (err) {
-    console.error(`[SAM API Error] ${config.apiType}:`, err);
-    return {
-      data: null,
-      error: {
-        status: 500,
-        message: err instanceof Error ? err.message : 'Network error',
-        retryable: true,
-        fallbackAvailable: true
-      },
-      fromCache: false
-    };
+    // Success! Store in cache and return
+    if (useCache && result.data) {
+      await storeInCache(config.apiType, params, result.data, config.cacheTTLHours);
+    }
+
+    return { data: result.data, error: null, fromCache: false };
   }
+
+  // All keys were throttled or no keys available
+  return {
+    data: null,
+    error: lastError || {
+      status: 429,
+      message: 'All SAM.gov API keys are rate limited. Please try again later.',
+      retryable: false,
+      fallbackAvailable: false
+    },
+    fromCache: false
+  };
 }
 
 /**
