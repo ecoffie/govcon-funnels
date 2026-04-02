@@ -40,7 +40,7 @@ When user says: "the $82B page", "govcon funnels", "main marketing site", "the h
 |-------|---------|
 | `/bootcamp` | Live bootcamp registration |
 | `/free-course` | Free course lead magnet |
-| `/opp` | Opportunity Hunter signup |
+| `/opp` | Redirects to tools.govcongiants.org/opportunity-hunter (ungated) |
 | `/proposal-bootcamp/` | Static HTML funnel (public/) |
 
 ---
@@ -175,6 +175,16 @@ See `/tasks/lessons.md` for full details.
 
 ## Recent Work (Last 7 Days)
 
+### April 2, 2026
+- **Page Fixes (5 issues):**
+  - Pro Member Plan checkout → Stripe payment link
+  - Accelerator checkout → Calendly discovery call
+  - Contract Vehicles Bootcamp → Replay access (March 28 event passed)
+  - Premium page → Enabled "Schedule Call" button with Calendly
+  - Proposal bootcamp → Removed stale February 2026 dates
+- **OH Redirect:** `/opp` now redirects directly to Opportunity Hunter tool (skip funnel)
+- **SAM.gov API Key Rotation:** Added backup key failover when primary is rate-limited
+
 ### March 31, 2026
 - **Jobs Board Upgrade:** Added JSearch API for private sector BD jobs (Capture Manager, Proposal Manager at Booz Allen, Leidos, etc.)
 - **Dual Source Jobs:** Page now shows two sections - Private Sector (JSearch) + Federal Government (USAJobs)
@@ -189,13 +199,8 @@ See `/tasks/lessons.md` for full details.
 - **CAGE Lookup Fix:** Fixed SAM.gov API - added `samRegistered=Yes` and 0-indexed pagination
 - **Verified Working:** Company search returns results (booz → 56 results, saalex → 3 results)
 
-### March 25, 2026
-- **SAM API Library:** Ported from Market Assassin with Supabase caching
-- **Expiring Contracts Tool:** `/tools/expiring-contracts` (15-result teaser, email gate)
-- **Testing:** Vitest setup, 31 unit tests, CI/CD pipeline
-
 *Full history: `/tasks/work-history.md`*
 
 ---
 
-*Last Updated: March 31, 2026*
+*Last Updated: April 2, 2026*

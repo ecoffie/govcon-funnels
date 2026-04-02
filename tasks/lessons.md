@@ -174,3 +174,26 @@ function getAvailableKey(): string | null {
 ```
 
 **Why:** Single key exhausted at midday left CAGE lookup tool broken until midnight. Backup key provides 2x capacity.
+
+---
+
+### Update stale dates immediately after events pass
+**Rule:** When live events pass (bootcamps, webinars), immediately update pages to "Replay Available" or the next scheduled date.
+
+**Pattern:**
+1. Change badge from "LIVE EVENT - [DATE]" → "BOOTCAMP REPLAY AVAILABLE"
+2. Change date-specific text to "On-Demand" / "Lifetime Access" / "Watch Anytime"
+3. Update details grid from Date/Time/Location → Format/Duration/Access
+
+**Why:** Contract Vehicles Bootcamp showed "March 28, 2026" for 5 days after the event passed. Stale dates hurt credibility.
+
+---
+
+### Premium/high-ticket products: use Calendly, not Stripe direct
+**Rule:** For products requiring consultation (Accelerator, White Glove), link to Calendly discovery call, not direct checkout.
+
+**Pattern:**
+- **Low-ticket (under $1,000):** Direct Stripe payment link (`buy.stripe.com/...`)
+- **High-ticket (over $1,000):** Calendly discovery call (`calendly.com/govconedumeet/discovery-call`)
+
+**Why:** Accelerator at $5,997 requires a conversation. Direct checkout creates friction and reduces conversions.
