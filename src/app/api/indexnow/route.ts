@@ -32,6 +32,24 @@ const SITE_URLS = [
   '/free-course',
   '/blog',
   '/march-surge',
+  // Video pages
+  '/videos',
+  '/videos/get-started-government-contracting',
+  '/videos/sba-profile-setup',
+  '/videos/find-government-contracts',
+  '/videos/market-research-govcon',
+  '/videos/understanding-psc-codes',
+  '/videos/dangers-of-consulting',
+  '/videos/proposal-writing-guide',
+  '/videos/capability-statement-guide',
+  '/videos/pricing-government-contracts',
+  '/videos/pricing-strategies-part-2',
+  '/videos/win-without-past-performance',
+  '/videos/financing-your-contract',
+  '/videos/vendor-supplier-credit',
+  '/videos/construction-business-govcon',
+  '/videos/foreign-companies-govcon',
+  '/videos/gsa-schedule-guide',
 ];
 
 /**
