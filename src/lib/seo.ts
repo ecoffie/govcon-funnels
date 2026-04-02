@@ -221,6 +221,7 @@ export function videoJsonLd({
   thumbnailUrl,
   uploadDate,
   embedUrl,
+  contentUrl,
   duration,
 }: {
   name: string;
@@ -228,8 +229,14 @@ export function videoJsonLd({
   thumbnailUrl: string;
   uploadDate: string;
   embedUrl: string;
+  contentUrl?: string;
   duration?: string;
 }) {
+  // Extract YouTube ID from embed URL for contentUrl if not provided
+  const youtubeIdMatch = embedUrl.match(/embed\/([^?]+)/);
+  const youtubeId = youtubeIdMatch ? youtubeIdMatch[1] : null;
+  const videoContentUrl = contentUrl || (youtubeId ? `https://www.youtube.com/watch?v=${youtubeId}` : undefined);
+
   return {
     '@context': 'https://schema.org',
     '@type': 'VideoObject',
@@ -238,7 +245,13 @@ export function videoJsonLd({
     thumbnailUrl,
     uploadDate,
     embedUrl,
+    ...(videoContentUrl && { contentUrl: videoContentUrl }),
     ...(duration && { duration: `PT${duration.replace(':', 'M')}S` }),
+    // Required: indicate this is a "watch page" by setting potentialAction
+    potentialAction: {
+      '@type': 'WatchAction',
+      target: videoContentUrl || embedUrl,
+    },
     publisher: {
       '@type': 'Organization',
       name: SITE_NAME,

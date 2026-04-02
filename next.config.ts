@@ -35,6 +35,57 @@ const nextConfig: NextConfig = {
         destination: "https://tools.govcongiants.org/opportunity-hunter",
         permanent: false,
       },
+      // GSC 404 fixes (April 2026)
+      {
+        source: "/solutions",
+        destination: "/premium",
+        permanent: true,
+      },
+      {
+        source: "/join-fhc",
+        destination: "https://federalhelpcenter.com/pro",
+        permanent: true,
+      },
+      {
+        source: "/join-fhc-1",
+        destination: "https://federalhelpcenter.com/pro",
+        permanent: true,
+      },
+      {
+        source: "/category/bid-opportunities",
+        destination: "/tools",
+        permanent: true,
+      },
+      {
+        source: "/category/bid-opportunities/",
+        destination: "/tools",
+        permanent: true,
+      },
+      {
+        source: "/resources/library",
+        destination: "/resources",
+        permanent: true,
+      },
+      {
+        source: "/events",
+        destination: "/",
+        permanent: true,
+      },
+      {
+        source: "/events/",
+        destination: "/",
+        permanent: true,
+      },
+      {
+        source: "/2024/:path*",
+        destination: "/",
+        permanent: true,
+      },
+      {
+        source: "/author/:path*",
+        destination: "/",
+        permanent: true,
+      },
     ];
   },
   async headers() {
