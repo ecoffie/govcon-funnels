@@ -59,8 +59,8 @@ export const guide: GuideData = {
         <p><strong>4. Company Data</strong></p>
         <p>Include the essential identifiers and facts that government buyers need at a glance:</p>
         <ul>
-          <li><strong>UEI Number</strong> (Unique Entity Identifier)</li>
-          <li><strong>CAGE Code</strong></li>
+          <li><strong>UEI Number</strong> (Unique Entity Identifier) — obtained during <a href="/guides/sam-gov-registration">SAM.gov registration</a></li>
+          <li><strong>CAGE Code</strong> — verify yours with our <a href="/tools/cage-code-lookup">free CAGE lookup tool</a></li>
           <li><strong>NAICS Codes</strong> (with descriptions)</li>
           <li><strong>SBA certifications</strong> (8(a), SDVOSB, HUBZone, WOSB, etc.)</li>
           <li><strong>Contract vehicles</strong> (GSA Schedule, GWACs, BPAs)</li>
@@ -95,7 +95,7 @@ export const guide: GuideData = {
         <p><strong>Prime Contractor Outreach</strong></p>
         <p>When approaching prime contractors about subcontracting opportunities, your capability statement is the first thing they want to see. Large businesses have small business liaison officers specifically tasked with identifying qualified subcontractors. Make their job easy by providing a clear, professional capability statement that highlights relevant past performance and certifications.</p>
         <p><strong>Follow-up After Networking</strong></p>
-        <p>After meeting a government buyer or potential teaming partner, send a follow-up email within 24 hours with your capability statement attached. Reference your conversation and any specific needs they mentioned. This keeps you top of mind when opportunities arise.</p>
+        <p>After meeting a government buyer or potential teaming partner, send a follow-up email within 24 hours with your capability statement attached. Reference your conversation and any specific needs they mentioned. This keeps you top of mind when opportunities arise. Consider including links to relevant expiring contracts in their space — use our <a href="/tools/expiring-contracts">Expiring Contracts Finder</a> to identify recompete opportunities.</p>
         <p><strong>Online Presence</strong></p>
         <p>Post your capability statement on your company website, link to it from your SAM.gov profile, and include it in your email signature for government-related correspondence.</p>
       `,
