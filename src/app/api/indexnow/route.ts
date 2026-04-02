@@ -28,6 +28,8 @@ const SITE_URLS = [
   '/tools',
   '/tools/cage-code-lookup',
   '/tools/expiring-contracts',
+  '/guides',
+  '/guides/rfp-response',
   '/consulting',
   '/free-course',
   '/blog',

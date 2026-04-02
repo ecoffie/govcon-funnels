@@ -36,6 +36,7 @@ const guidesSlugs = [
   'gsa-schedule',
   'naics-codes',
   'ai-government-contracting',
+  'rfp-response',
 ];
 
 export default function sitemap(): MetadataRoute.Sitemap {
@@ -54,6 +55,8 @@ export default function sitemap(): MetadataRoute.Sitemap {
     { url: `${SITE_URL}/opp`, lastModified: now, changeFrequency: 'monthly', priority: 0.8 },
     { url: `${SITE_URL}/tools`, lastModified: now, changeFrequency: 'monthly', priority: 0.8 },
     { url: `${SITE_URL}/tools/cage-code-lookup`, lastModified: now, changeFrequency: 'monthly', priority: 0.9 },
+    { url: `${SITE_URL}/tools/expiring-contracts`, lastModified: now, changeFrequency: 'daily', priority: 0.9 },
+    { url: `${SITE_URL}/guides`, lastModified: now, changeFrequency: 'weekly', priority: 0.9 },
     { url: `${SITE_URL}/consulting`, lastModified: now, changeFrequency: 'monthly', priority: 0.8 },
     { url: `${SITE_URL}/government-contract-help`, lastModified: now, changeFrequency: 'monthly', priority: 0.8 },
     { url: `${SITE_URL}/proposal-writing-services`, lastModified: now, changeFrequency: 'monthly', priority: 0.8 },
