@@ -144,7 +144,7 @@ export default function PremiumPage() {
               </span>
             </Link>
 
-            {/* Jan 31 Bootcamp Replay */}
+            {/* Bootcamp Replay */}
             <Link
               href="/jan-31-bootcamp-paid"
               className="bg-slate-900 border border-slate-800 rounded-xl p-8 block hover:border-green-600/50 transition group"
@@ -154,13 +154,13 @@ export default function PremiumPage() {
                   <span className="text-3xl">📹</span>
                 </div>
                 <div>
-                  <h3 className="text-2xl font-bold text-white mb-2">January 31st Bootcamp Replay</h3>
+                  <h3 className="text-2xl font-bold text-white mb-2">Bootcamp Replay Access</h3>
                   <p className="text-green-500 font-semibold mb-3">$99 one-time</p>
                 </div>
               </div>
 
               <p className="text-slate-400 mb-6">
-                Full replay of the Jan 31 bootcamp plus handouts and resources, with lifetime access.
+                Full bootcamp replay plus handouts and resources, with lifetime access.
               </p>
 
               <div className="space-y-3 mb-6">

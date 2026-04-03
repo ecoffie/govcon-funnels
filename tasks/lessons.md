@@ -197,3 +197,98 @@ function getAvailableKey(): string | null {
 - **High-ticket (over $1,000):** Calendly discovery call (`calendly.com/govconedumeet/discovery-call`)
 
 **Why:** Accelerator at $5,997 requires a conversation. Direct checkout creates friction and reduces conversions.
+
+---
+
+## April 3, 2026
+
+### GHL API creates messages but doesn't deliver email
+**Rule:** GoHighLevel Conversations API creates messages in the conversation thread but doesn't actually send email unless the location has a connected mailbox (Gmail, Outlook, or LC Email enabled).
+
+**Symptom:** API returns success (`200`), message appears in GHL Conversations tab, but recipient never receives email.
+
+**Workaround:** Use direct SMTP instead:
+```javascript
+// GHL credentials are in project: ~/Bootcamp/market-assassin-temp/.env.local
+SMTP_USER="hello@govconedu.com"
+SMTP_PASSWORD="pehiyeegbahxsinc"
+
+// Send via Gmail SMTP
+const server = smtplib.SMTP('smtp.gmail.com', 587);
+server.starttls();
+server.login(SMTP_USER, SMTP_PASSWORD);
+```
+
+**Why:** Spent 20 minutes debugging GHL "email sent" that never arrived. GHL needs mailbox configuration, which isn't set up.
+
+---
+
+### Use shared-content.ts for homepage content, not page.tsx
+**Rule:** Homepage content (free resources, premium levels) is sourced from `/src/lib/shared-content.ts`, not hardcoded in `page.tsx`.
+
+**Pattern:**
+- `sharedHomepageContent.freeResources` → "Free Resources to Get Started" section
+- `sharedHomepageContent.premiumLevels` → "Premium Resources" section
+- Edit shared-content.ts to update homepage cards
+
+**Why:** Spent time searching page.tsx for stale "January Bootcamp" text. It was in shared-content.ts.
+
+---
+
+### Eric's LinkedIn is /in/ecoffie (not /in/ericcoffie)
+**Rule:** When including Eric's contact info in emails or content:
+- LinkedIn: `https://www.linkedin.com/in/ecoffie/`
+- Email: `eric@govcongiants.com`
+- Calendly: `https://calendly.com/govconedumeet/discovery-call`
+
+**Why:** Wrong LinkedIn URL in email signature. Always verify personal URLs before sending.
+
+---
+
+### Search existing code before recommending new features
+**Rule:** Before recommending building new tools, agents, or features, ALWAYS search the codebase first to see what already exists.
+
+**Pattern:**
+1. Search `~/.claude/commands/` for existing slash commands
+2. Search `~/.mcp.json` for existing MCP servers
+3. Search `~/docs/` for existing documentation
+4. Compare findings to recommendations
+
+**Why:** Analysis recommended building 3 agents that already existed as comprehensive slash commands (`/deploy`, `/sync-access`, `/yt-live-package`). Wasted planning time on things already built.
+
+---
+
+### MCP servers location and enabling pattern
+**Rule:** All MCP servers are in `~/mcp-servers/`. Configuration is in `~/.mcp.json`.
+
+**To enable a new MCP server:**
+```json
+// Add to ~/.mcp.json mcpServers object:
+"servername": {
+  "command": "node",
+  "args": ["/Users/ericcoffie/mcp-servers/servername/index.js"],
+  "env": {
+    "API_KEY": "your-key-here"
+  }
+}
+```
+
+**Currently enabled:** samgov, stripe, grantsgov, perplexity, framer, vimeo
+**Ready but disabled:** usaspending (has bid count data SAM.gov lacks)
+
+---
+
+### Reference docs exist but weren't in CLAUDE.md
+**Rule:** When creating documentation, immediately add it to CLAUDE.md Reference Docs section.
+
+**Pattern:** Check `~/docs/` folder periodically for orphaned docs not referenced in CLAUDE.md.
+
+**Found orphaned (now added):**
+- `testing-checklist.md` - Page verification, deployment QA
+- `email-templates.md` - HTML components, sequence templates
+- `slide-components.md` - Reusable slide layouts
+- `briefing-format.md` - Daily/Weekly/Pursuit briefing specs
+- `briefing-data-sources.md` - Agency pain points, pipeline
+- `briefing-examples.md` - Real examples of all 3 formats
+
+**Why:** Had comprehensive docs that weren't being used because they weren't discoverable via CLAUDE.md.

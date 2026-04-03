@@ -4,6 +4,50 @@ This file contains archived work history entries from CLAUDE.md.
 
 ---
 
+## April 2026
+
+### April 3, 2026
+- **Website QA Sweep (5 fixes):**
+  - CRITICAL: Pro Member Plan checkout → Now redirects to Stripe payment link (`buy.stripe.com/...`)
+  - CRITICAL: Accelerator checkout → Now redirects to Calendly discovery call
+  - WARNING: Homepage → Removed stale "January Bootcamp", "Q4 spending", "Feb 28" references in `shared-content.ts`
+  - WARNING: Premium page → Changed "January 31st Bootcamp Replay" to "Bootcamp Replay Access"
+  - WARNING: Contract Vehicles Bootcamp → Changed "March 2026" to "Q2 2026" expiring contracts
+- **JTED 2026 Follow-up:**
+  - Queried GHL for JTED leads: 8 people downloaded the QR code at MacDill AFB (April 1 event)
+  - Sent personalized follow-up email to 7 leads (1 invalid: btaylor@chronicle.com)
+  - Email included ROI calculator link for BD Upskilling program (`govcongiants.org/upskilling/roi-calculator.html`)
+  - Used Gmail SMTP via `hello@govconedu.com` (GHL email delivery not configured)
+  - Notable companies: Kight Construction, Park Coastal Surveying (2 leads), Total Facade Resto, Alfka
+- **Claude Infrastructure Audit & Upgrades:**
+  - Analyzed all 32 custom slash commands, 14 docs, 7 MCP servers
+  - **Enabled Vimeo MCP:** Added credentials to `~/.mcp.json` (8 tools: upload, bulk_upload, list_videos, etc.)
+  - **CLAUDE.md updated:** Added 6 missing doc references (testing-checklist, email-templates, slide-components, briefing-format, briefing-data-sources, briefing-examples)
+  - **Enhanced `/sync-access`:** Expanded from 81 to 250+ lines with full diagnostic workflow, decision tree, common issues
+  - **Key finding:** 95% of recommended features already existed - just needed references and minor enhancements
+  - MCP servers now active: samgov, stripe, grantsgov, perplexity, framer, vimeo (6 total)
+
+### April 2, 2026
+- **SEO Content Expansion (3 new guides):**
+  - `/guides/cmmc-certification` — CMMC 2.0 compliance guide for defense contractors
+  - `/guides/contract-vehicles` — GSA Schedule, GWACs, IDIQs, OASIS+ explained
+  - `/guides/sources-sought` — How to respond to market research notices + template
+  - Added to sitemap.ts (now 87 URLs) and IndexNow for fast indexing
+- **SEO Fixes:**
+  - Video pages added to IndexNow (17 pages)
+  - Internal linking expanded in SAM Registration and Capability Statement guides
+  - Missing pages added to sitemap: /guides, /guides/rfp-response, /tools/expiring-contracts
+- **Page Fixes (5 issues):**
+  - Pro Member Plan checkout → Stripe payment link
+  - Accelerator checkout → Calendly discovery call
+  - Contract Vehicles Bootcamp → Replay access (March 28 event passed)
+  - Premium page → Enabled "Schedule Call" button with Calendly
+  - Proposal bootcamp → Removed stale February 2026 dates
+- **OH Redirect:** `/opp` now redirects directly to Opportunity Hunter tool (skip funnel)
+- **SAM.gov API Key Rotation:** Added backup key failover when primary is rate-limited
+
+---
+
 ## March 2026
 
 ### March 31, 2026

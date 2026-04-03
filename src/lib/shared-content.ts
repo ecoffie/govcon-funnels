@@ -143,24 +143,24 @@ export const sharedHomepageContent = {
   freeResources: [
     {
       icon: '🎓',
-      title: 'January Bootcamp',
+      title: 'Monthly Bootcamp',
       desc: 'Monthly training sessions with live Q&A to help start your GovCon journey.',
       link: '/bootcamp',
       cta: 'Register Now ->',
     },
     {
-      icon: '🔥',
-      title: 'Surge Bootcamp',
-      desc: 'Q4 federal spending focus - learn how to capture end-of-year opportunities.',
-      link: '/surge',
-      cta: 'Access Now ->',
+      icon: '🔍',
+      title: 'Opportunity Hunter',
+      desc: 'Find agencies that buy what you sell using our free AI-powered research tool.',
+      link: '/opp',
+      cta: 'Try It Free ->',
     },
     {
       icon: '📅',
-      title: 'Bid Bootcamp Downloads',
-      desc: 'Get bid forms and event details for the Feb 28 Specifics and Proposals bootcamp.',
+      title: 'Proposal Resources',
+      desc: 'Free templates and guides to help you write winning federal proposals.',
       link: 'https://funnels.govcongiants.org/proposal-bootcamp',
-      cta: 'Register Now ->',
+      cta: 'Get Resources ->',
     },
   ] as SharedHomepageResourceCard[],
   premiumLevels: [
@@ -169,7 +169,7 @@ export const sharedHomepageContent = {
       cards: [
         {
           icon: '📹',
-          title: 'January 31st Bootcamp Replay',
+          title: 'Bootcamp Replay Access',
           href: '/jan-31-bootcamp-paid',
           description: 'Full replay plus handouts with lifetime access.',
           cta: 'Get Access ->',

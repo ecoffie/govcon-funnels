@@ -175,6 +175,19 @@ See `/tasks/lessons.md` for full details.
 
 ## Recent Work (Last 7 Days)
 
+### April 3, 2026
+- **Website QA Sweep (5 fixes):**
+  - CRITICAL: Pro Member Plan checkout → Now redirects to Stripe payment link
+  - CRITICAL: Accelerator checkout → Now redirects to Calendly discovery call
+  - WARNING: Homepage → Removed stale "January Bootcamp", "Q4 spending", "Feb 28" references
+  - WARNING: Premium page → Changed "January 31st Bootcamp Replay" to "Bootcamp Replay Access"
+  - WARNING: Contract Vehicles Bootcamp → Changed "March 2026" to "Q2 2026" expiring contracts
+- **JTED 2026 Follow-up:**
+  - Queried GHL for JTED leads: 8 people downloaded the QR code at MacDill AFB
+  - Sent personalized follow-up email to 7 leads (1 invalid email)
+  - Email included ROI calculator link for BD Upskilling program
+  - Used Gmail SMTP via hello@govconedu.com (GHL email delivery not configured)
+
 ### April 2, 2026
 - **SEO Content Expansion (3 new guides):**
   - `/guides/cmmc-certification` — CMMC 2.0 compliance guide for defense contractors
@@ -212,4 +225,4 @@ See `/tasks/lessons.md` for full details.
 
 ---
 
-*Last Updated: April 2, 2026*
+*Last Updated: April 3, 2026*

@@ -12,8 +12,8 @@ export const metadata = generateSeo({
 const freeDownloads = [
   {
     icon: '📊',
-    title: 'March 2026 Expiring Contracts List',
-    desc: '15 sample contracts from 944 expiring in March 2026',
+    title: 'Q2 2026 Expiring Contracts List',
+    desc: '15 sample contracts from 900+ expiring this quarter',
   },
   {
     icon: '✅',

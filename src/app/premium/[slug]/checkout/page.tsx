@@ -1,6 +1,6 @@
 import { Metadata } from 'next';
 import Link from 'next/link';
-import { notFound } from 'next/navigation';
+import { notFound, redirect } from 'next/navigation';
 import { getPremiumBySlug, PREMIUM_SLUGS } from '../../config';
 
 type Props = { params: Promise<{ slug: string }> };
@@ -24,6 +24,12 @@ export default async function PremiumCheckoutPage({ params }: Props) {
   const product = getPremiumBySlug(slug);
   if (!product) notFound();
 
+  // If product has a direct checkout URL (Stripe link or Calendly), redirect to it
+  if (product.ctaUrl && (product.ctaUrl.startsWith('https://buy.stripe.com') || product.ctaUrl.startsWith('https://calendly.com'))) {
+    redirect(product.ctaUrl);
+  }
+
+  // Fallback for products without direct checkout (consulting, white glove, etc.)
   return (
     <main className="min-h-screen bg-slate-950">
       <section className="py-12 px-6">
@@ -35,23 +41,23 @@ export default async function PremiumCheckoutPage({ params }: Props) {
             ← Back to {product.title}
           </Link>
           <div className="card green-glow p-8 text-center">
-            <h1 className="text-2xl font-bold text-white mb-2">Checkout: {product.title}</h1>
+            <h1 className="text-2xl font-bold text-white mb-2">Get Started: {product.title}</h1>
             {product.price ? <p className="text-slate-400 mb-4">{product.price}</p> : null}
             <p className="text-slate-300 mb-8">
-              Secure checkout for this package is being set up. To complete your order now, contact us and we’ll get you set up right away.
+              This is a premium service. Contact us to discuss your needs and get started.
             </p>
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
               <a
-                href="mailto:hello@govconedu.com?subject=Premium%20Purchase%20Inquiry"
+                href="https://calendly.com/govconedumeet/discovery-call"
                 className="btn-primary inline-block green-glow text-center"
               >
-                Email Us to Complete Order
+                Schedule a Discovery Call
               </a>
               <a
-                href="tel:7864770477"
+                href="mailto:hello@govconedu.com?subject=Premium%20Inquiry%20-%20{product.title}"
                 className="inline-block text-center px-6 py-4 rounded-lg border border-slate-600 text-slate-200 hover:bg-slate-800 transition-colors"
               >
-                Call 786-477-0477
+                Email Us
               </a>
             </div>
             <p className="text-slate-500 text-sm mt-6">
