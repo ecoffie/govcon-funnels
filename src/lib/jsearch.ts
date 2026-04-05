@@ -268,17 +268,24 @@ export function getRelativeTime(dateStr: string): string {
 import type { Job, JobCategory } from '@/types/job';
 import { categorizeJob } from './job-categories';
 
+function parseValidDate(dateStr?: string | null): Date | null {
+  if (!dateStr) return null;
+  const parsed = new Date(dateStr);
+  return Number.isNaN(parsed.getTime()) ? null : parsed;
+}
+
 /**
  * Transform JSearch job to our Job type
  */
 export function transformJSearchJob(jsJob: JSearchJob): Job {
   const location = [jsJob.job_city, jsJob.job_state].filter(Boolean).join(', ') || 'Location not specified';
 
-  // Calculate a close date (30 days from posted if not specified)
-  const postedDate = new Date(jsJob.job_posted_at_datetime_utc);
-  const closeDate = jsJob.job_offer_expiration_datetime_utc
-    ? new Date(jsJob.job_offer_expiration_datetime_utc)
-    : new Date(postedDate.getTime() + 30 * 24 * 60 * 60 * 1000);
+  // Guard against malformed upstream dates to avoid runtime RangeError.
+  const fallbackPostedDate = new Date();
+  const postedDate = parseValidDate(jsJob.job_posted_at_datetime_utc) || fallbackPostedDate;
+  const closeDate =
+    parseValidDate(jsJob.job_offer_expiration_datetime_utc)
+    || new Date(postedDate.getTime() + 30 * 24 * 60 * 60 * 1000);
 
   return {
     id: jsJob.job_id,
@@ -293,7 +300,7 @@ export function transformJSearchJob(jsJob: JSearchJob): Job {
     grade: null, // JSearch doesn't have GS grades
     clearance: null, // Would need to parse from description
     remote: jsJob.job_is_remote,
-    posted_date: jsJob.job_posted_at_datetime_utc,
+    posted_date: postedDate.toISOString(),
     close_date: closeDate.toISOString(),
     apply_url: jsJob.job_apply_link,
     description: jsJob.job_description || '',
