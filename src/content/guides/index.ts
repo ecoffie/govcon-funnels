@@ -32,6 +32,7 @@ export interface GuideData {
 // Map guides to relevant job categories for internal linking
 export const GUIDE_JOB_MAPPING: Record<string, string[]> = {
   'proposal-writing': ['proposal-manager', 'proposal-coordinator', 'pricing-analyst'],
+  'how-to-bid-on-government-contracts': ['bd-manager', 'capture-manager', 'proposal-manager', 'bd-consultant'],
   'finding-government-contracts': ['bd-manager', 'capture-manager', 'bd-consultant'],
   'federal-market-research': ['capture-manager', 'bd-manager', 'pricing-analyst'],
   'capability-statement': ['bd-manager', 'proposal-coordinator', 'capture-manager'],
@@ -311,6 +312,7 @@ import { guide as proposalManagerCareer } from './proposal-manager-career';
 import { guide as captureManagerCareer } from './capture-manager-career';
 import { guide as healthcareContracting } from './healthcare-contracting';
 import { guide as professionalServices } from './professional-services';
+import { guide as howToBidOnGovernmentContracts } from './how-to-bid-on-government-contracts';
 
 export const allGuides: GuideData[] = [
   governmentContractingForBeginners,
@@ -453,6 +455,7 @@ export const allGuides: GuideData[] = [
   captureManagerCareer,
   healthcareContracting,
   professionalServices,
+  howToBidOnGovernmentContracts,
 ];
 
 export function getGuideBySlug(slug: string): GuideData | undefined {

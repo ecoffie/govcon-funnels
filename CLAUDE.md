@@ -24,7 +24,7 @@ When user says: "the $82B page", "govcon funnels", "main marketing site", "the h
 ### Content Pages
 | Route | Purpose |
 |-------|---------|
-| `/guides/[slug]` | 31 educational guides (SEO optimized) |
+| `/guides/[slug]` | 141 educational guides (SEO optimized) |
 | `/videos/[slug]` | 8 video landing pages |
 | `/jobs` | Job board - dual source (JSearch + USAJobs) |
 | `/glossary` | 45+ GovCon terms |
@@ -185,6 +185,14 @@ See `/tasks/lessons.md` for full details.
   - **Round 4 (4 zero-click pages):** which-sba-certification, federal-market-research, cmmc-certification, proposal-writing
   - All 20 URLs submitted to IndexNow
   - Expected impact: CTR 0.1% → 2%+, potential +500-1000 clicks/month
+- **Homepage SEO Optimization:**
+  - New title: `Government Contracting for Small Business [Free Training] | GovCon Giants`
+  - New description with stats ($750B+, 5,000+ trained) and action keywords
+  - Updated guide count display: "View All 140+ Guides"
+- **Content Gap: New Guide Created:**
+  - `/guides/how-to-bid-on-government-contracts` — High-value keyword, 9 sections, 8 FAQs
+  - Targets "how to bid on government contracts" (competitors: Deltek, US Chamber, SBA)
+  - Total guides now: 141
 - **Infrastructure:** Added `canonicalUrl` support to BlogPost interface and generateSeo function
 
 ### April 7, 2026
@@ -209,53 +217,15 @@ See `/tasks/lessons.md` for full details.
 - **Internal Linking:** Expanded relatedGuides arrays, added contextual links
 
 ### April 3, 2026
-- **Website QA Sweep (5 fixes):**
-  - CRITICAL: Pro Member Plan checkout → Now redirects to Stripe payment link
-  - CRITICAL: Accelerator checkout → Now redirects to Calendly discovery call
-  - WARNING: Homepage → Removed stale "January Bootcamp", "Q4 spending", "Feb 28" references
-  - WARNING: Premium page → Changed "January 31st Bootcamp Replay" to "Bootcamp Replay Access"
-  - WARNING: Contract Vehicles Bootcamp → Changed "March 2026" to "Q2 2026" expiring contracts
-- **JTED 2026 Follow-up:**
-  - Queried GHL for JTED leads: 8 people downloaded the QR code at MacDill AFB
-  - Sent personalized follow-up email to 7 leads (1 invalid email)
-  - Email included ROI calculator link for BD Upskilling program
-  - Used Gmail SMTP via hello@govconedu.com (GHL email delivery not configured)
+- **Website QA Sweep:** Fixed checkout flows (Pro Member → Stripe, Accelerator → Calendly)
+- **JTED Follow-up:** Sent personalized emails to 7 MacDill AFB leads
 
-### April 2, 2026
-- **SEO Content Expansion (3 new guides):**
-  - `/guides/cmmc-certification` — CMMC 2.0 compliance guide for defense contractors
-  - `/guides/contract-vehicles` — GSA Schedule, GWACs, IDIQs, OASIS+ explained
-  - `/guides/sources-sought` — How to respond to market research notices + template
-  - Added to sitemap.ts (now 87 URLs) and IndexNow for fast indexing
-- **SEO Fixes:**
-  - Video pages added to IndexNow (17 pages)
-  - Internal linking expanded in SAM Registration and Capability Statement guides
-  - Missing pages added to sitemap: /guides, /guides/rfp-response, /tools/expiring-contracts
-- **Page Fixes (5 issues):**
-  - Pro Member Plan checkout → Stripe payment link
-  - Accelerator checkout → Calendly discovery call
-  - Contract Vehicles Bootcamp → Replay access (March 28 event passed)
-  - Premium page → Enabled "Schedule Call" button with Calendly
-  - Proposal bootcamp → Removed stale February 2026 dates
-- **OH Redirect:** `/opp` now redirects directly to Opportunity Hunter tool (skip funnel)
-- **SAM.gov API Key Rotation:** Added backup key failover when primary is rate-limited
-
-### March 31, 2026
-- **Jobs Board Upgrade:** Added JSearch API for private sector BD jobs (Capture Manager, Proposal Manager at Booz Allen, Leidos, etc.)
-- **Dual Source Jobs:** Page now shows two sections - Private Sector (JSearch) + Federal Government (USAJobs)
-- **Fixed /market-intel 404:** Added rewrite rule in next.config.ts
-
-### March 29, 2026
-- **GSC Cleanup:** Fixed 200+ legacy 404s with redirects, analyzed indexing issues
-- **CAGE CTR Optimization:** New titles differentiating guide (educational) vs tool (action)
-- **GSC Snapshot:** 72 pages indexed, 11,828 impressions on CAGE pages (0.4% CTR → targeting 2%+)
-
-### March 26, 2026
-- **CAGE Lookup Fix:** Fixed SAM.gov API - added `samRegistered=Yes` and 0-indexed pagination
-- **Verified Working:** Company search returns results (booz → 56 results, saalex → 3 results)
-
-*Full history: `/tasks/work-history.md`*
+### Earlier Work
+See `/tasks/work-history.md` for full history including:
+- March 31: Jobs board upgrade (JSearch + USAJobs dual source)
+- March 29: GSC cleanup, 200+ redirects, CAGE CTR optimization
+- March 26: SAM.gov API fix (`samRegistered=Yes`, 0-indexed pagination)
 
 ---
 
-*Last Updated: April 6, 2026*
+*Last Updated: April 8, 2026*

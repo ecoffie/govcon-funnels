@@ -40,6 +40,19 @@ This file contains archived work history entries from CLAUDE.md.
     - proposal-writing → `Government Proposal Writing [Free Template + Checklist] — Win RFPs`
   - All 20 URLs submitted to IndexNow
   - Expected impact: CTR improvement from 0.1% → 2%+, potential +500-1000 clicks/month
+- **Homepage SEO Optimization:**
+  - New title: `Government Contracting for Small Business [Free Training] | GovCon Giants`
+  - New meta description: includes stats ($750B+, 5,000+ trained), action keywords, free tools
+  - Updated homepage guide count: "View All 140+ Guides"
+  - Targeting: position 16 → 10 (page 1)
+- **Content Gap Analysis & New Guide:**
+  - Analyzed competitor rankings: Deltek, US Chamber, SBA, FedBizAccess
+  - Identified gap: "how to bid on government contracts" - high search volume, no GCG guide
+  - Created `/guides/how-to-bid-on-government-contracts`:
+    - 9 comprehensive sections (full bidding lifecycle)
+    - 8 FAQs for rich snippet potential
+    - Internal links to related guides (SAM, proposals, finding contracts)
+  - Total guides: 141
 - **Infrastructure:**
   - Added `canonicalUrl` field to BlogPost interface
   - Updated generateSeo() to support canonical URL override

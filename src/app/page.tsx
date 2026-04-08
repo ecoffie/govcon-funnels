@@ -5,19 +5,19 @@ import { generateSeo } from '@/lib/seo';
 import { allPosts } from '@/content/blog';
 
 export const metadata = generateSeo({
-  title: 'GovCon Giants - Win Federal Contracts | $82 Billion Unspent',
-  description: 'The government is required to spend billions with small businesses every year. Learn how to position your business as a government contractor and win federal contracts.',
+  title: 'Government Contracting for Small Business [Free Training] | GovCon Giants',
+  description: 'Start winning federal contracts: free SAM.gov registration guide, CAGE code lookup, capability statement template. 5,000+ small businesses trained. $750B+ awarded annually.',
   path: '/',
   keywords: [
-    'government contracting',
-    'federal contracts',
+    'government contracting for small business',
+    'how to get government contracts',
+    'federal contracts for small business',
     'government contractor',
-    'federal contractor',
     'small business government contracts',
-    'govcon',
+    'SAM.gov registration',
     'win federal contracts',
-    'SAM.gov',
-    'government contracting for beginners',
+    'government contracting training',
+    'govcon',
   ],
 });
 
@@ -229,7 +229,7 @@ export default function Home() {
 
           <div className="text-center mt-6">
             <Link href="/guides" className="text-green-500 hover:text-green-400 font-semibold">
-              View All 16 Guides →
+              View All 140+ Guides →
             </Link>
           </div>
         </div>
