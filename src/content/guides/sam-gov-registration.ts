@@ -3,9 +3,9 @@ import type { GuideData } from './index';
 export const guide: GuideData = {
   slug: 'sam-gov-registration',
   title: 'SAM.gov Registration: Complete Step-by-Step Guide',
-  metaTitle: 'SAM.gov Registration (Free): 7 Steps to Get Your UEI + CAGE Code',
+  metaTitle: 'SAM.gov Registration [Free Step-by-Step] — Get Approved in 7 Days',
   metaDescription:
-    'Register on SAM.gov in 7 steps — free, no paid services needed. Get your UEI and CAGE code in 7-10 days. Avoid the 3 mistakes that cause 60% of rejections.',
+    'Free SAM.gov registration guide: 7 steps, 7-10 day timeline, zero cost. Get your UEI + CAGE code. Avoid the 3 errors that reject 60% of applications.',
   keywords: [
     'SAM.gov registration',
     'sam.gov registration step by step',
@@ -217,6 +217,9 @@ export const guide: GuideData = {
     'government-contracting-for-beginners',
     'cage-code',
     'capability-statement',
+    'naics-codes',
+    'finding-government-contracts',
+    'sba-certifications',
   ],
   publishedDate: '2026-03-13',
 };

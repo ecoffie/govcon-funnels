@@ -3,9 +3,9 @@ import type { GuideData } from './index';
 export const guide: GuideData = {
   slug: 'federal-market-research',
   title: 'Federal Market Research: How to Find and Analyze Government Spending Data',
-  metaTitle: 'Federal Market Research | Government Spending Data & Analysis Guide (2026)',
+  metaTitle: 'Federal Market Research [Free Tools] — Find $B in Contract Spending',
   metaDescription:
-    'Learn how to research federal spending data using USAspending.gov, SAM.gov contract data, procurement forecasts, and NAICS code analysis to win more government contracts.',
+    'Research federal spending: USAspending.gov, SAM.gov contract data, procurement forecasts. Free tools to find who buys what you sell + competitor intel.',
   keywords: [
     'federal spending data',
     'federal market research',

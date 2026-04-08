@@ -3,9 +3,9 @@ import type { GuideData } from './index';
 export const guide: GuideData = {
   slug: 'vosb-certification',
   title: 'VOSB & SDVOSB Certification: Complete Guide for Veteran-Owned Businesses',
-  metaTitle: 'SDVOSB Certification: 4 Requirements + VetCert Application Steps [2026]',
+  metaTitle: 'VOSB & SDVOSB Certification [Free Checklist] — Get Verified in 90 Days',
   metaDescription:
-    'Get SDVOSB certified in 90 days. 4 eligibility requirements, step-by-step VetCert application, and $27B+ in annual set-aside contracts waiting for you.',
+    'SDVOSB certification guide: 4 requirements, VetCert application steps, and $27B in set-aside contracts. Free checklist to avoid the mistakes that delay 40% of applications.',
   keywords: [
     'vosb certification',
     'sdvosb certification',
@@ -233,6 +233,8 @@ export const guide: GuideData = {
     'sba-certifications',
     'government-contracting-for-beginners',
     'finding-government-contracts',
+    'sole-source',
+    'set-asides',
   ],
   publishedDate: '2026-03-13',
 };

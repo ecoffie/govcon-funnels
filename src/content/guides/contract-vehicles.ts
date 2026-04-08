@@ -3,7 +3,7 @@ import type { GuideData } from './index';
 export const guide: GuideData = {
   slug: 'contract-vehicles',
   title: 'Federal Contract Vehicles: GSA Schedule, GWACs, IDIQs & OASIS+ Explained',
-  metaTitle: 'Contract Vehicles Guide (2026) — GSA Schedule vs GWAC vs IDIQ vs OASIS+',
+  metaTitle: 'Contract Vehicles Explained [Chart] — GSA vs GWAC vs IDIQ vs OASIS+',
   metaDescription:
     'Understand federal contract vehicles: GSA Schedule, GWACs, IDIQs, BPAs & OASIS+. Learn which vehicle fits your business and how to get on contract.',
   keywords: [
@@ -393,6 +393,8 @@ export const guide: GuideData = {
     'finding-government-contracts',
     'subcontracting-and-teaming',
     'sba-certifications',
+    'oasis-plus',
+    'gsa-advantage',
   ],
   publishedDate: '2026-04-02',
 };

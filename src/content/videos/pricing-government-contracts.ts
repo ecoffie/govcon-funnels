@@ -123,6 +123,16 @@ export const video: VideoData = {
 
   relatedJobs: ['pricing-analyst', 'proposal-manager', 'contracts-administrator', 'capture-manager'],
 
+  chapters: [
+    { title: 'Introduction', startTime: '0:00' },
+    { title: 'Types of Government Contracts', startTime: '4:00' },
+    { title: 'Understanding Your Cost Structure', startTime: '14:00' },
+    { title: 'Building Labor Rates', startTime: '26:00' },
+    { title: 'Competitive Pricing Strategies', startTime: '38:00' },
+    { title: 'Common Pricing Mistakes', startTime: '46:00' },
+    { title: 'Price Analysis Tools', startTime: '51:00' },
+  ],
+
   cta: {
     heading: 'Need Pricing Help?',
     description:

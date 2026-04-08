@@ -24,7 +24,7 @@ When user says: "the $82B page", "govcon funnels", "main marketing site", "the h
 ### Content Pages
 | Route | Purpose |
 |-------|---------|
-| `/guides/[slug]` | 20 educational guides (SEO optimized) |
+| `/guides/[slug]` | 31 educational guides (SEO optimized) |
 | `/videos/[slug]` | 8 video landing pages |
 | `/jobs` | Job board - dual source (JSearch + USAJobs) |
 | `/glossary` | 45+ GovCon terms |
@@ -175,6 +175,39 @@ See `/tasks/lessons.md` for full details.
 
 ## Recent Work (Last 7 Days)
 
+### April 8, 2026
+- **GSC CTR Optimization (20 pages):**
+  - Analyzed GSC export: identified high-impression/low-CTR pages
+  - Rewrote meta titles using bracket patterns, numbers, power words
+  - **Round 1 (6 guides):** ai-government-contracting, vosb-certification, gsa-schedule, naics-codes, sba-certifications, sam-gov-registration
+  - **Round 2 (5 blog posts):** federal-contract-vehicles-guide, win-government-contracts-no-experience, sam-gov-registration-checklist, 8a-vs-hubzone-vs-sdvosb, sam-gov-search-tricks
+  - **Round 3 (5 guides):** wosb-certification, hubzone-certification, 8a-certification, capability-statement, finding-government-contracts
+  - **Round 4 (4 zero-click pages):** which-sba-certification, federal-market-research, cmmc-certification, proposal-writing
+  - All 20 URLs submitted to IndexNow
+  - Expected impact: CTR 0.1% → 2%+, potential +500-1000 clicks/month
+- **Infrastructure:** Added `canonicalUrl` support to BlogPost interface and generateSeo function
+
+### April 7, 2026
+- **SEO Guide Expansion to 140 Total Guides:**
+  - Added 56 new guides via parallel agents (3 batches)
+  - New categories: GSA/vehicles, proposal volumes, career guides, compliance
+  - Total static pages: 283
+- **Internal Linking Optimization:**
+  - Fixed 37 orphan guides (zero inbound links)
+  - Added links to high-value orphans: proposal-orals-prep, technical-evaluation, black-hat-reviews, agency-budgets, export-controls
+- **Video SEO Fixes:**
+  - Fixed duration schema bug ("45:00" → "PT45M")
+  - Added chapter support with Clip schema
+  - 3 videos now have chapters: proposal-writing-guide, get-started-government-contracting, pricing-government-contracts
+- **Backlink Strategy:** Created `/tasks/backlink-strategy.md` with 15 targets + email templates
+
+### April 6, 2026
+- **Major SEO Content Expansion (67 new guides):**
+  - Total guides: 84 (was 17)
+  - New topics: contract types, FAR, DCAA, protests, certifications, proposal reviews, labor categories
+- **CTR Optimization:** Applied bracket patterns to meta titles
+- **Internal Linking:** Expanded relatedGuides arrays, added contextual links
+
 ### April 3, 2026
 - **Website QA Sweep (5 fixes):**
   - CRITICAL: Pro Member Plan checkout → Now redirects to Stripe payment link
@@ -225,4 +258,4 @@ See `/tasks/lessons.md` for full details.
 
 ---
 
-*Last Updated: April 3, 2026*
+*Last Updated: April 6, 2026*

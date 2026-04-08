@@ -3,9 +3,9 @@ import type { GuideData } from './index';
 export const guide: GuideData = {
   slug: 'sba-certifications',
   title: 'SBA Certifications: 8(a), SDVOSB, HUBZone, WOSB Explained',
-  metaTitle: 'SBA Certifications Guide | 8(a), SDVOSB, HUBZone, WOSB Explained (2026)',
+  metaTitle: 'SBA Certifications Explained: 8(a) vs SDVOSB vs HUBZone vs WOSB [2026]',
   metaDescription:
-    'Complete guide to SBA certifications for government contracting. Learn about 8(a), SDVOSB, HUBZone, and WOSB programs — eligibility, benefits, application process, and which certification is right for your business.',
+    'Which SBA certification is right for you? Compare 8(a), SDVOSB, HUBZone, WOSB: eligibility, benefits, $B+ in set-asides. Take our 2-min quiz to find out.',
   keywords: [
     '8a certification',
     'SBA certifications',
@@ -233,6 +233,9 @@ export const guide: GuideData = {
     'government-contracting-for-beginners',
     'sam-gov-registration',
     'capability-statement',
+    'sole-source',
+    'set-asides',
+    'past-performance',
   ],
   publishedDate: '2026-03-13',
 };

@@ -95,6 +95,15 @@ export const video: VideoData = {
 
   relatedJobs: ['bd-manager', 'capture-manager', 'contracts-administrator'],
 
+  chapters: [
+    { title: 'Introduction', startTime: '0:00' },
+    { title: 'The GovCon Landscape', startTime: '4:00' },
+    { title: 'Registration Requirements', startTime: '12:00' },
+    { title: 'Finding Opportunities', startTime: '22:00' },
+    { title: 'Small Business Advantages', startTime: '32:00' },
+    { title: 'Your First Steps', startTime: '40:00' },
+  ],
+
   cta: {
     heading: 'Ready to Start Your GovCon Journey?',
     description:

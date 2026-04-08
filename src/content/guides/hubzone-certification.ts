@@ -3,9 +3,9 @@ import type { GuideData } from './index';
 export const guide: GuideData = {
   slug: 'hubzone-certification',
   title: 'HUBZone Certification: Requirements, Map, and Application Guide',
-  metaTitle: 'HUBZone Certification Guide | Requirements, Map & How to Apply (2026)',
+  metaTitle: 'HUBZone Certification [Map + Checklist] — Get 10% Price Preference',
   metaDescription:
-    'Learn HUBZone certification requirements, how to check the HUBZone map, the application process, and benefits including a 10% price evaluation preference on federal contracts.',
+    'Check if you qualify: free HUBZone map lookup + 5 requirements. Get 10% price evaluation preference and access to $4B+ in HUBZone set-asides.',
   keywords: [
     'hubzone certification',
     'hubzone map',
@@ -209,6 +209,9 @@ export const guide: GuideData = {
     'sba-certifications',
     'government-contracting-for-beginners',
     'sam-gov-registration',
+    'sole-source',
+    'set-asides',
+    'simplified-acquisition',
   ],
   publishedDate: '2026-03-13',
 };

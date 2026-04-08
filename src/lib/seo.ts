@@ -14,6 +14,7 @@ interface SeoOptions {
   publishedTime?: string;
   modifiedTime?: string;
   noIndex?: boolean;
+  canonicalUrl?: string; // Override canonical URL (for duplicate content consolidation)
 }
 
 export function generateSeo({
@@ -26,6 +27,7 @@ export function generateSeo({
   publishedTime,
   modifiedTime,
   noIndex = false,
+  canonicalUrl,
 }: SeoOptions): Metadata {
   const url = `${SITE_URL}${path}`;
   const image = ogImage || DEFAULT_OG_IMAGE;
@@ -35,7 +37,7 @@ export function generateSeo({
     description,
     keywords: keywords?.join(', '),
     alternates: {
-      canonical: url,
+      canonical: canonicalUrl || url,
     },
     openGraph: {
       title,
@@ -215,6 +217,15 @@ export function itemListJsonLd({
   };
 }
 
+// Helper to convert "MM:SS" or "H:MM:SS" to seconds
+function timeToSeconds(time: string): number {
+  const parts = time.split(':').map(Number);
+  if (parts.length === 2) {
+    return parts[0] * 60 + parts[1];
+  }
+  return parts[0] * 3600 + parts[1] * 60 + parts[2];
+}
+
 export function videoJsonLd({
   name,
   description,
@@ -223,6 +234,7 @@ export function videoJsonLd({
   embedUrl,
   contentUrl,
   duration,
+  chapters,
 }: {
   name: string;
   description: string;
@@ -231,6 +243,7 @@ export function videoJsonLd({
   embedUrl: string;
   contentUrl?: string;
   duration?: string;
+  chapters?: Array<{ title: string; startTime: string }>;
 }) {
   // Extract YouTube ID from embed URL for contentUrl if not provided
   const youtubeIdMatch = embedUrl.match(/embed\/([^?]+)/);
@@ -245,8 +258,23 @@ export function videoJsonLd({
     thumbnailUrl,
     uploadDate,
     embedUrl,
+    inLanguage: 'en-US',
     ...(videoContentUrl && { contentUrl: videoContentUrl }),
-    ...(duration && { duration: `PT${duration.replace(':', 'M')}S` }),
+    ...(duration && {
+      duration: (() => {
+        const [minutes, seconds] = duration.split(':').map(Number);
+        return seconds > 0 ? `PT${minutes}M${seconds}S` : `PT${minutes}M`;
+      })()
+    }),
+    // Add chapters as Clip segments for rich snippets
+    ...(chapters && chapters.length > 0 && {
+      hasPart: chapters.map((chapter) => ({
+        '@type': 'Clip',
+        name: chapter.title,
+        startOffset: timeToSeconds(chapter.startTime),
+        url: `${videoContentUrl}?t=${timeToSeconds(chapter.startTime)}`,
+      })),
+    }),
     // Required: indicate this is a "watch page" by setting potentialAction
     potentialAction: {
       '@type': 'WatchAction',

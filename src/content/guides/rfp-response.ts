@@ -3,7 +3,7 @@ import type { GuideData } from './index';
 export const guide: GuideData = {
   slug: 'rfp-response',
   title: 'How to Respond to an RFP: Complete Government Proposal Guide',
-  metaTitle: 'How to Respond to an RFP | Government Proposal Guide 2026',
+  metaTitle: 'How to Respond to an RFP [Free Template] — 7-Step Government Proposal Guide',
   metaDescription: 'Learn how to respond to government RFPs step-by-step. Includes compliance matrix templates, proposal structure, evaluation criteria, and winning strategies. 60,000+ monthly searches.',
   keywords: [
     'RFP',

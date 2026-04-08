@@ -3,9 +3,9 @@ import type { GuideData } from './index';
 export const guide: GuideData = {
   slug: 'capability-statement',
   title: 'How to Write a Capability Statement That Wins Contracts',
-  metaTitle: 'Capability Statement Template (Free) — 6 Must-Have Sections + Examples',
+  metaTitle: 'Capability Statement Template [Free Download] — 6 Sections That Win',
   metaDescription:
-    'Download a free capability statement template. The exact 6 sections federal buyers look for, with real examples. Make yours stand out in 30 minutes.',
+    'Free capability statement template + examples. The 6 sections federal buyers actually read. Create yours in 30 minutes — stand out from 99% of vendors.',
   keywords: [
     'capability statement template',
     'capability statement',
@@ -199,6 +199,9 @@ export const guide: GuideData = {
     'government-contracting-for-beginners',
     'sba-certifications',
     'proposal-writing',
+    'naics-codes',
+    'past-performance',
+    'sources-sought',
   ],
   publishedDate: '2026-03-13',
 };

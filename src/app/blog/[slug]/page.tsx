@@ -25,6 +25,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
     type: 'article',
     publishedTime: post.publishedDate,
     modifiedTime: post.updatedDate,
+    canonicalUrl: post.canonicalUrl,
   });
 }
 

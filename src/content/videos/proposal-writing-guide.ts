@@ -107,6 +107,16 @@ export const video: VideoData = {
 
   relatedJobs: ['proposal-manager', 'proposal-coordinator', 'capture-manager', 'pricing-analyst'],
 
+  chapters: [
+    { title: 'Introduction', startTime: '0:00' },
+    { title: 'Understanding the RFP Structure', startTime: '3:30' },
+    { title: 'The Proposal Development Process', startTime: '12:00' },
+    { title: 'Writing Techniques That Win', startTime: '24:00' },
+    { title: 'Common Mistakes to Avoid', startTime: '38:00' },
+    { title: 'The Pricing Volume', startTime: '48:00' },
+    { title: 'Summary & Next Steps', startTime: '54:00' },
+  ],
+
   cta: {
     heading: 'Need Proposal Writing Help?',
     description:

@@ -3,9 +3,9 @@ import type { GuideData } from './index';
 export const guide: GuideData = {
   slug: 'proposal-writing',
   title: 'Government Proposal Writing: How to Write Winning RFP Responses',
-  metaTitle: 'Government Proposal Writing | How to Win Federal RFP Responses (2026)',
+  metaTitle: 'Government Proposal Writing [Free Template + Checklist] — Win RFPs',
   metaDescription:
-    'Master government proposal writing with this complete guide. Learn RFP analysis, compliance matrix creation, technical volume writing, and common proposal mistakes to avoid.',
+    'Proposal writing guide: RFP analysis, compliance matrix, technical volume. Free template + the 5 mistakes that kill 80% of proposals.',
   keywords: [
     'government proposal writing',
     'how to write a government proposal',
@@ -58,8 +58,8 @@ export const guide: GuideData = {
         <ul>
           <li><strong>Technical Volume (Volume I)</strong> — This is your solution. Describe your technical approach, methodology, tools, and innovations. Explain <em>how</em> you'll meet each requirement, not just <em>that</em> you can. Use specific details: named technologies, proven processes, and measurable outcomes. Generic statements like "we will provide high-quality services" earn zero points.</li>
           <li><strong>Management Volume (Volume II)</strong> — Demonstrate how you'll manage the contract. Include your organizational structure, key personnel resumes, staffing plan, quality assurance process, and risk mitigation approach. Show the government that you have the people and processes to deliver reliably.</li>
-          <li><strong>Past Performance Volume (Volume III)</strong> — Provide references from contracts similar in size, scope, and complexity to the one you're bidding. Include contract numbers, contracting officer names, period of performance, dollar values, and a narrative describing what you did and the results you achieved. Relevance matters more than volume — three highly relevant contracts beat ten unrelated ones.</li>
-          <li><strong>Price/Cost Volume (Volume IV)</strong> — Your pricing must be realistic, reasonable, and complete. Unrealistically low prices raise red flags and can result in rejection. Include all labor categories, rates, other direct costs, and indirect rates. For cost-reimbursement contracts, your cost proposal must be auditable.</li>
+          <li><strong>Past Performance Volume (Volume III)</strong> — Provide references from contracts similar in size, scope, and complexity to the one you're bidding. Include contract numbers, contracting officer names, period of performance, dollar values, and a narrative describing what you did and the results you achieved. Relevance matters more than volume — three highly relevant contracts beat ten unrelated ones. See our <a href="/guides/past-performance">Past Performance Guide</a> for detailed strategies.</li>
+          <li><strong>Price/Cost Volume (Volume IV)</strong> — Your pricing must be realistic, reasonable, and complete. Unrealistically low prices raise red flags and can result in rejection. Include all labor categories, rates, other direct costs, and indirect rates. For cost-reimbursement contracts, your cost proposal must be auditable. See our <a href="/guides/cost-proposals">Cost Proposals Guide</a> for pricing strategies.</li>
         </ul>
         <p>Follow the RFP's prescribed organization exactly. If the solicitation specifies a structure in Section L, mirror it precisely. <strong>Use the government's language and headings</strong> so evaluators can easily find and score each element of your response.</p>
       `,
@@ -91,7 +91,8 @@ export const guide: GuideData = {
           <li><strong>Address evaluation criteria explicitly.</strong> If Section M says they're evaluating "understanding of the requirement," include a section that demonstrates your understanding. Mirror the evaluation language in your headings and narrative.</li>
           <li><strong>Include graphics and visuals.</strong> Process flow diagrams, organizational charts, schedules, and infographics break up dense text and communicate complex approaches more effectively than paragraphs. Every graphic should have a caption, a title, and a callout that explains its significance.</li>
         </ul>
-        <p><strong>Ghost your competitors</strong> — without naming them, highlight strengths you have that they likely don't. If you know the incumbent has had performance issues, emphasize your quality control processes. If competitors lack your certification, make your certification a central theme. Subtle differentiation wins evaluations.</p>
+        <p><strong>Ghost your competitors</strong> — without naming them, highlight strengths you have that they likely don't. If you know the incumbent has had performance issues, emphasize your quality control processes. If competitors lack your certification, make your certification a central theme. Subtle differentiation wins evaluations. Learn more about competitive positioning in our <a href="/guides/ghosting-competitors">Ghosting Competitors Guide</a>.</p>
+        <p>Before submission, conduct rigorous <a href="/guides/black-hat-reviews">black hat reviews</a> where your team evaluates the proposal from a competitor's perspective. This aggressive review process catches weaknesses before evaluators do.</p>
       `,
     },
     {
@@ -124,8 +125,10 @@ export const guide: GuideData = {
           <li><strong>Verify file formats and naming conventions.</strong> If the RFP specifies PDF format with specific file names, comply exactly. Corrupted files or wrong formats can result in rejection.</li>
           <li><strong>Get a confirmation receipt.</strong> Always save the submission confirmation. For email submissions, request a read receipt and follow up if you don't receive confirmation.</li>
           <li><strong>Keep your proposal team available after submission.</strong> The government may request clarifications (called Evaluation Notices or ENs) that require quick turnaround responses.</li>
+          <li><strong>Prepare for oral presentations.</strong> Many complex procurements include oral presentations where you brief evaluators in person. See our <a href="/guides/proposal-orals-prep">Oral Presentations Guide</a> for preparation strategies.</li>
         </ul>
         <p>After award, whether you win or lose, <strong>always request a debriefing</strong>. The government is required to provide one for competitive procurements. Debriefs tell you exactly how you scored, where you were strong, and where you fell short — invaluable intelligence for your next proposal.</p>
+        <p>Understanding how evaluators score proposals gives you a strategic advantage. Learn more in our <a href="/guides/technical-evaluation">Technical Evaluation Guide</a>.</p>
       `,
     },
   ],
@@ -172,6 +175,9 @@ export const guide: GuideData = {
     'finding-government-contracts',
     'capability-statement',
     'subcontracting-and-teaming',
+    'cost-proposals',
+    'past-performance',
+    'bid-no-bid',
   ],
   publishedDate: '2026-03-13',
 };

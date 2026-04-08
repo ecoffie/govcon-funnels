@@ -57,6 +57,8 @@ export default async function VideoPage({ params }: Props) {
         thumbnailUrl: `https://img.youtube.com/vi/${video.youtubeId}/maxresdefault.jpg`,
         uploadDate: video.publishedDate,
         embedUrl: `https://www.youtube.com/embed/${video.youtubeId}`,
+        duration: video.duration,
+        chapters: video.chapters,
       })} />
       <JsonLd data={breadcrumbJsonLd(breadcrumbs)} />
 

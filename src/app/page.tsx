@@ -6,11 +6,13 @@ import { allPosts } from '@/content/blog';
 
 export const metadata = generateSeo({
   title: 'GovCon Giants - Win Federal Contracts | $82 Billion Unspent',
-  description: 'The government is required to spend billions with small businesses every year. Learn how to position your business to win federal contracts.',
+  description: 'The government is required to spend billions with small businesses every year. Learn how to position your business as a government contractor and win federal contracts.',
   path: '/',
   keywords: [
     'government contracting',
     'federal contracts',
+    'government contractor',
+    'federal contractor',
     'small business government contracts',
     'govcon',
     'win federal contracts',
@@ -69,7 +71,7 @@ export default function Home() {
 
           <p className="text-lg text-slate-500 mb-8 max-w-3xl mx-auto">
             The government is required to spend billions with small businesses every year.
-            We&apos;ll show you exactly how to position your business to win federal contracts.
+            We&apos;ll show you exactly how to position your business as a government contractor and win federal contracts.
           </p>
 
           {/* CTA Button - scrolls to Beginners Start Here */}
@@ -158,11 +160,33 @@ export default function Home() {
       {/* Popular Guides - SEO Internal Links */}
       <section className="py-16 px-6">
         <div className="max-w-6xl mx-auto">
+          <div className="mb-8 bg-gradient-to-r from-slate-900 to-slate-900/70 border border-green-600/30 rounded-2xl p-6 md:p-8">
+            <div className="flex flex-col lg:flex-row lg:items-center lg:justify-between gap-5">
+              <div className="max-w-3xl">
+                <div className="text-sm font-semibold text-green-400 mb-2">Federal Contractor Resource Hub</div>
+                <h2 className="text-2xl md:text-3xl font-bold text-white mb-3">
+                  Explore the full resource library for government contractors
+                </h2>
+                <p className="text-slate-400">
+                  Browse our structured hub of federal contractor guides, tools, glossary terms, and expert help whether you&apos;re getting registered or improving proposal performance.
+                </p>
+              </div>
+              <div className="shrink-0">
+                <Link
+                  href="/guides"
+                  className="inline-flex items-center justify-center px-6 py-3 bg-green-600 hover:bg-green-500 text-white rounded-xl font-semibold transition-all"
+                >
+                  Visit Resource Hub →
+                </Link>
+              </div>
+            </div>
+          </div>
+
           <div className="text-center mb-10">
             <h2 className="text-3xl font-bold text-white mb-3">
-              Popular <span className="text-green-500">Guides</span>
+              Popular <span className="text-green-500">Federal Contractor Guides</span>
             </h2>
-            <p className="text-slate-500">Essential reading for government contractors</p>
+            <p className="text-slate-500">Essential reading for new and growing government contractors</p>
           </div>
 
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">

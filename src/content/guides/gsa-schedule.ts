@@ -3,9 +3,9 @@ import type { GuideData } from './index';
 export const guide: GuideData = {
   slug: 'gsa-schedule',
   title: 'GSA Schedule: How to Get on a GSA Contract and Win More Work',
-  metaTitle: 'GSA Schedule Application: 5 Steps to Get Approved (2026 Guide)',
+  metaTitle: 'GSA Schedule [Step-by-Step] — Get Approved in 4-6 Months (2026)',
   metaDescription:
-    'How to get a GSA Schedule contract: timeline (4-6 months), costs ($5K-$15K), requirements checklist. Plus: 3 mistakes that get applications rejected.',
+    'Complete GSA Schedule application guide: 5 steps, $5K-$15K cost breakdown, and the 3 mistakes that get 60% of applications rejected. Checklist included.',
   keywords: [
     'gsa schedule',
     'gsa contract',
@@ -44,7 +44,7 @@ export const guide: GuideData = {
           <li><strong>Simplified ordering for agencies.</strong> When an agency buys from a GSA Schedule holder, the acquisition process is far simpler than a standalone procurement. For orders under the simplified acquisition threshold, a contracting officer can place an order directly with you. This makes agencies <em>more likely</em> to choose you — buying from schedule holders is the path of least resistance.</li>
           <li><strong>Pre-negotiated terms and conditions.</strong> All the standard contract terms, pricing, and compliance requirements are negotiated upfront when you receive your schedule. This means individual orders don't require the same level of negotiation, saving time for both you and the agency.</li>
           <li><strong>Access to GSA eBuy.</strong> <a href="https://www.ebuy.gsa.gov/" target="_blank" rel="noopener">GSA eBuy</a> is an online marketplace where agencies post Requests for Quotation (RFQs) exclusively to GSA Schedule holders. These are task order opportunities only available to companies on schedule — if you're not on schedule, you can't see or respond to them.</li>
-          <li><strong>Listed on GSA Advantage.</strong> <a href="https://www.gsaadvantage.gov/" target="_blank" rel="noopener">GSA Advantage</a> is the government's online shopping platform. Your products and services are listed with pricing, making it easy for government buyers to find you and place orders directly. Think of it as Amazon for federal procurement.</li>
+          <li><strong>Listed on GSA Advantage.</strong> <a href="https://www.gsaadvantage.gov/" target="_blank" rel="noopener">GSA Advantage</a> is the government's online shopping platform. Your products and services are listed with pricing, making it easy for government buyers to find you and place orders directly. Think of it as Amazon for federal procurement. Learn more in our <a href="/guides/gsa-advantage">GSA Advantage Guide</a>.</li>
           <li><strong>Increased credibility.</strong> Having a GSA Schedule signals to agencies that you've been vetted by GSA — your pricing is fair and reasonable, your business is financially stable, and you can deliver. This credibility is especially valuable for small businesses trying to establish themselves in the federal market.</li>
           <li><strong>Long contract duration.</strong> With a potential 20-year contract term (5-year base plus three 5-year options), a GSA Schedule provides a stable foundation for your government business. You invest once in the application process and benefit for decades.</li>
           <li><strong>State and local access.</strong> Through GSA's cooperative purchasing programs, state and local governments can also purchase from your GSA Schedule for certain categories. This expands your addressable market beyond the federal government.</li>
@@ -198,6 +198,9 @@ export const guide: GuideData = {
     'finding-government-contracts',
     'government-contracting-for-beginners',
     'federal-market-research',
+    'gsa-advantage',
+    'contract-vehicles',
+    'oasis-plus',
   ],
   publishedDate: '2026-03-13',
 };

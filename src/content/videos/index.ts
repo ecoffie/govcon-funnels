@@ -1,3 +1,8 @@
+export interface VideoChapter {
+  title: string;
+  startTime: string; // Format: "MM:SS" or "H:MM:SS"
+}
+
 export interface VideoData {
   slug: string;
   title: string;
@@ -19,6 +24,8 @@ export interface VideoData {
   relatedGuides: string[];
   /** Related job category slugs */
   relatedJobs: string[];
+  /** Video chapters/timestamps for SEO and navigation */
+  chapters?: VideoChapter[];
   cta: {
     heading: string;
     description: string;

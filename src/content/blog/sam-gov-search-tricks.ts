@@ -3,8 +3,8 @@ import type { BlogPost } from './index';
 export const post: BlogPost = {
   slug: 'sam-gov-search-tricks',
   title: '5 SAM.gov Search Tricks Most Contractors Don\'t Know',
-  metaTitle: '5 SAM.gov Search Tricks Most Contractors Don\'t Know [2026]',
-  metaDescription: 'Stop missing contract opportunities on SAM.gov. Learn 5 advanced search techniques that experienced government contractors use to find and win more bids.',
+  metaTitle: 'SAM.gov Search Tricks [5 Hacks] — Find Contracts Others Miss',
+  metaDescription: 'Advanced SAM.gov search techniques: saved searches, NAICS filtering, notice types, set-aside filters. Find contracts before your competitors do.',
   keywords: [
     'SAM.gov search tips',
     'how to search SAM.gov',

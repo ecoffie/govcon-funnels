@@ -3,8 +3,8 @@ import type { BlogPost } from './index';
 export const post: BlogPost = {
   slug: 'sam-gov-registration-checklist',
   title: 'SAM.gov Registration Checklist: Everything You Need Before You Start',
-  metaTitle: 'SAM.gov Registration Checklist — 12 Items You Need (Free PDF)',
-  metaDescription: 'Don\'t start SAM registration without this. Printable checklist: EIN, bank info, NAICS codes + 9 more required items. Avoid the #1 delay mistake.',
+  metaTitle: 'SAM.gov Registration Checklist [Free PDF] — 12 Items Before You Start',
+  metaDescription: 'Printable SAM.gov checklist: EIN, bank letter, NAICS codes + 9 more items. Gather everything first = complete registration in one session.',
   keywords: [
     'sam.gov registration checklist',
     'sam registration requirements',

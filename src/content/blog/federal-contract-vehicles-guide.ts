@@ -3,8 +3,8 @@ import type { BlogPost } from './index';
 export const post: BlogPost = {
   slug: 'federal-contract-vehicles-guide',
   title: '10 Federal Contract Vehicles Every Vendor Should Know',
-  metaTitle: '10 Federal Contract Vehicles Explained: IDIQ, BPA, GSA Schedule & More',
-  metaDescription: 'Understand the 10 most common federal contract vehicles including IDIQ contracts, BPAs, GSA Schedules, and set-asides. Learn which contract type fits your business.',
+  metaTitle: 'Federal Contract Vehicles [Chart] — IDIQ vs BPA vs GSA vs GWAC Explained',
+  metaDescription: '10 contract vehicles compared: IDIQ, BPA, GSA Schedule, GWAC, OASIS+. Which one fits your business? Free comparison chart + when to use each.',
   keywords: [
     'federal contract vehicles',
     'types of government contracts',

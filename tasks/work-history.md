@@ -6,6 +6,112 @@ This file contains archived work history entries from CLAUDE.md.
 
 ## April 2026
 
+### April 8, 2026
+- **GSC CTR Optimization (20 pages):**
+  - Analyzed GSC Pages export to identify high-impression/low-CTR opportunities
+  - Key finding: Pages with position 5-10 but <0.5% CTR = title/meta problem
+  - Rewrote meta titles using proven CTR patterns:
+    - Brackets: [Free], [2026], [Checklist], [Chart]
+    - Numbers: specific $ amounts, timelines, step counts
+    - Power words: "Win", "Get", "Find", "Avoid"
+  - **Round 1 - High-impression guides (6):**
+    - ai-government-contracting: 6,494 imp, 0.17% CTR → `AI for Government Contracting [Free Tools] — Find & Win Contracts Faster`
+    - vosb-certification: 5,425 imp, 0.09% CTR → `VOSB & SDVOSB Certification [Free Checklist] — Get Verified in 90 Days`
+    - gsa-schedule: 4,977 imp, 0.08% CTR → `GSA Schedule [Step-by-Step] — Get Approved in 4-6 Months (2026)`
+    - naics-codes: 3,500 imp, 0.14% CTR → `NAICS Code Lookup [Free] — Find Your Code + Size Standard Instantly`
+    - sba-certifications: 3,211 imp, 0.03% CTR → `SBA Certifications Explained: 8(a) vs SDVOSB vs HUBZone vs WOSB [2026]`
+    - sam-gov-registration: 5,611 imp, 0.07% CTR → `SAM.gov Registration [Free Step-by-Step] — Get Approved in 7 Days`
+  - **Round 2 - High-impression blog posts (5):**
+    - federal-contract-vehicles-guide: 3,973 imp → `Federal Contract Vehicles [Chart] — IDIQ vs BPA vs GSA vs GWAC Explained`
+    - win-government-contracts-no-experience: 3,153 imp → `Win Government Contracts With No Experience [5 Strategies That Work]`
+    - sam-gov-registration-checklist: 3,482 imp → `SAM.gov Registration Checklist [Free PDF] — 12 Items Before You Start`
+    - 8a-vs-hubzone-vs-sdvosb: 3,849 imp → `8(a) vs HUBZone vs SDVOSB [Comparison Chart] — Best for Your Business?`
+    - sam-gov-search-tricks: 2,337 imp → `SAM.gov Search Tricks [5 Hacks] — Find Contracts Others Miss`
+  - **Round 3 - More guides (5):**
+    - wosb-certification → `WOSB Certification [Free Guide] — $5B+ in Set-Aside Contracts (2026)`
+    - hubzone-certification → `HUBZone Certification [Map + Checklist] — Get 10% Price Preference`
+    - 8a-certification → `8(a) Certification [2026 Guide] — Sole-Source Contracts Up to $4.5M`
+    - capability-statement → `Capability Statement Template [Free Download] — 6 Sections That Win`
+    - finding-government-contracts → `How to Find Government Contracts [Free Tool] — SAM.gov Search Guide`
+  - **Round 4 - Zero-click pages (4):**
+    - which-sba-certification → `Which SBA Certification? [2-Min Quiz] — Find Your Best Fit`
+    - federal-market-research → `Federal Market Research [Free Tools] — Find $B in Contract Spending`
+    - cmmc-certification → `CMMC Certification [2026 Deadline] — Costs, Levels & Requirements`
+    - proposal-writing → `Government Proposal Writing [Free Template + Checklist] — Win RFPs`
+  - All 20 URLs submitted to IndexNow
+  - Expected impact: CTR improvement from 0.1% → 2%+, potential +500-1000 clicks/month
+- **Infrastructure:**
+  - Added `canonicalUrl` field to BlogPost interface
+  - Updated generateSeo() to support canonical URL override
+  - Confirmed CAGE blog→guide 301 redirect working (308 status)
+
+### April 7, 2026
+- **SEO Guide Expansion (140 total guides):**
+  - Added 56 new guides in 3 batches using parallel agents:
+    - Batch 1 (16): Proposal guides, contract admin, BD strategy, pricing/cost
+    - Batch 2 (20): Certifications, contract execution, advanced BD, compliance
+    - Batch 3 (20): GSA/vehicles, proposal volumes, career/industry, contract admin
+  - Notable new guides: gsa-mas-guide, technical-volume, capture-manager-career, ethics-compliance, agency-level-protests
+  - Total static pages: 283 (up from 243)
+  - All guides submitted to IndexNow
+- **Internal Linking Optimization:**
+  - Identified 37 orphan guides (zero inbound links)
+  - Added links to 5 high-value orphans from hub pages:
+    - proposal-orals-prep ← proposal-writing
+    - technical-evaluation ← proposal-writing
+    - black-hat-reviews ← proposal-writing
+    - agency-budgets ← capture-management, finding-government-contracts
+    - export-controls, counterfeit-parts, conflict-minerals ← compliance-program
+- **Video SEO Fixes:**
+  - Fixed duration bug: "45:00" → "PT45M" (was "PT45M00S")
+  - Fixed missing duration parameter in video schema
+  - Added chapter/timestamp support to VideoData interface
+  - Added `inLanguage: "en-US"` to video schema
+  - Added chapters to 3 high-value videos:
+    - proposal-writing-guide (7 chapters)
+    - get-started-government-contracting (6 chapters)
+    - pricing-government-contracts (7 chapters)
+- **Backlink Strategy Document:**
+  - Created `/tasks/backlink-strategy.md`
+  - 15 prioritized targets (SBDCNet, GovCon Chamber, APEX, HARO, podcasts)
+  - 3 email templates (resource page, guest post, podcast pitch)
+  - Week-by-week action plan
+
+### April 6, 2026
+- **Major SEO Content Expansion (11 new guides):**
+  - `/guides/oasis-plus` — OASIS+ GWAC overview, pools, eligibility
+  - `/guides/past-performance` — Building and documenting PP for proposals
+  - `/guides/teaming-agreements` — JVs, mentor-protégé, subcontracting
+  - `/guides/sole-source` — Non-competitive awards by certification type
+  - `/guides/cpars` — Contractor Performance Assessment Reports
+  - `/guides/set-asides` — All small business set-aside programs
+  - `/guides/gsa-advantage` — GSA's online marketplace ($30B+/year)
+  - `/guides/simplified-acquisition` — SAP & micro-purchases under $250K
+  - `/guides/cost-proposals` — Pricing government contracts
+  - `/guides/contract-modifications` — Change orders, options, extensions
+  - `/guides/bid-no-bid` — Opportunity evaluation framework
+- **Total guides now: 31** (up from 20 at start of April)
+- **CTR Optimization (11 guides):**
+  - Applied bracket patterns, numbers, action words to meta titles
+  - government-contracting-for-beginners: `[Free] — Win Your First Contract in 90 Days`
+  - finding-government-contracts: `[Free] — 5 SAM.gov Search Hacks`
+  - cage-code: `[Free Lookup] — Get Yours in 7 Days (2026 Guide)`
+  - proposal-writing: `[Free Template] — Win More RFPs in 2026`
+  - 8a-certification: `[Checklist] — Get Sole-Source Contracts Up to $4.5M`
+  - sources-sought: `[Free Template] — Turn RFIs Into Set-Asides`
+  - contract-vehicles: `[Chart] — GSA vs GWAC vs IDIQ vs OASIS+`
+- **Internal Linking Sweep (20+ guides updated):**
+  - Added contextual inline links where topics are mentioned in content
+  - Expanded `relatedGuides` arrays from 3-4 to 5-6 guides each
+  - Connected new guides to existing content bidirectionally
+  - Fixed broken reference to non-existent 'capture-management' guide in bid-no-bid
+  - Key connections: proposal-writing→cost-proposals, 8a→sole-source, gsa-schedule→gsa-advantage
+- **IndexNow Submissions:** Notified search engines of 8 new high-value URLs
+- **GSC Analysis:**
+  - 90 indexed pages, 498 not indexed (mostly Next.js chunks + legacy WordPress)
+  - Identified "Discovered - not indexed" pages needing attention
+  - Performance: 424 clicks, 85.4K impressions, 0.5% CTR, position 7.9
+
 ### April 3, 2026
 - **Website QA Sweep (5 fixes):**
   - CRITICAL: Pro Member Plan checkout → Now redirects to Stripe payment link (`buy.stripe.com/...`)

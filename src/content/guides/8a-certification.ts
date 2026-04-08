@@ -3,9 +3,9 @@ import type { GuideData } from './index';
 export const guide: GuideData = {
   slug: '8a-certification',
   title: '8(a) Certification: Eligibility, Application, and Program Benefits',
-  metaTitle: '8(a) Certification Guide | SBA 8(a) Program Requirements & Benefits (2026)',
+  metaTitle: '8(a) Certification [2026 Guide] — Sole-Source Contracts Up to $4.5M',
   metaDescription:
-    'Complete guide to 8(a) certification eligibility requirements, application process, sole-source contract benefits up to $4.5M/$8M, and how to maximize the nine-year SBA business development program.',
+    '8(a) program: eligibility checklist, 90-day application process, sole-source thresholds ($4.5M services, $8M manufacturing). Maximize your 9-year program.',
   keywords: [
     '8a certification',
     '8a program',
@@ -77,7 +77,7 @@ export const guide: GuideData = {
       content: `
         <p>The 8(a) program delivers benefits that go far beyond simply being listed in a government database. These are tangible, revenue-generating advantages that can transform a small business.</p>
         <p><strong>Sole-Source Contracts:</strong></p>
-        <p>This is the signature benefit of the 8(a) program. Federal contracting officers can award contracts directly to 8(a) firms <strong>without competition</strong>:</p>
+        <p>This is the signature benefit of the 8(a) program. Federal contracting officers can award <a href="/guides/sole-source">sole-source contracts</a> directly to 8(a) firms <strong>without competition</strong>:</p>
         <ul>
           <li>Up to <strong>$4.5 million</strong> for services contracts</li>
           <li>Up to <strong>$8 million</strong> for manufacturing contracts</li>
@@ -202,7 +202,7 @@ export const guide: GuideData = {
         <p><strong>Stack Certifications:</strong></p>
         <p>If you qualify for other <a href="/guides/sba-certifications">SBA certifications</a> — such as SDVOSB, HUBZone, or WOSB — obtain them in addition to your 8(a). Each certification opens additional set-aside categories and increases the total number of opportunities available to you.</p>
         <p><strong>Document Past Performance Meticulously:</strong></p>
-        <p>Every contract you perform during the 8(a) program builds the past performance record you will rely on after the program ends. Document outcomes, metrics, customer satisfaction, and lessons learned on every project. Request CPARs (Contractor Performance Assessment Reports) and follow up to ensure they are completed.</p>
+        <p>Every contract you perform during the 8(a) program builds the <a href="/guides/past-performance">past performance</a> record you will rely on after the program ends. Document outcomes, metrics, customer satisfaction, and lessons learned on every project. Request <a href="/guides/cpars">CPARs (Contractor Performance Assessment Reports)</a> and follow up to ensure they are completed.</p>
         <p><strong>Plan for Life After 8(a):</strong></p>
         <p>Begin preparing for the post-8(a) transition no later than Year 5. Pursue contract vehicles (GWACs, IDIQs, BPAs) that will continue after your certification expires. Build a pipeline of full-and-open opportunities. Ensure your team and processes can compete without the 8(a) advantage.</p>
       `,
@@ -286,6 +286,9 @@ export const guide: GuideData = {
     'sba-certifications',
     'government-contracting-for-beginners',
     'capability-statement',
+    'sole-source',
+    'cpars',
+    'teaming-agreements',
   ],
   publishedDate: '2026-03-13',
 };

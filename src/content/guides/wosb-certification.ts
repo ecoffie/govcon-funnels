@@ -3,9 +3,9 @@ import type { GuideData } from './index';
 export const guide: GuideData = {
   slug: 'wosb-certification',
   title: 'WOSB Certification: Requirements, Application, and Set-Aside Opportunities',
-  metaTitle: 'WOSB Certification Guide | Women-Owned Small Business Certification (2026)',
+  metaTitle: 'WOSB Certification [Free Guide] — $5B+ in Set-Aside Contracts (2026)',
   metaDescription:
-    'Complete guide to WOSB and EDWOSB certification — eligibility requirements, eligible NAICS codes, SBA application process, and set-aside contract opportunities for women-owned small businesses.',
+    'WOSB & EDWOSB certification: 3 requirements, SBA application steps, eligible NAICS codes. Access $5B+ in women-owned set-aside contracts.',
   keywords: [
     'wosb certification',
     'women owned small business certification',
@@ -206,6 +206,8 @@ export const guide: GuideData = {
     'sba-certifications',
     'government-contracting-for-beginners',
     'finding-government-contracts',
+    'sole-source',
+    'set-asides',
   ],
   publishedDate: '2026-03-13',
 };

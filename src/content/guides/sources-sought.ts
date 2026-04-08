@@ -3,7 +3,7 @@ import type { GuideData } from './index';
 export const guide: GuideData = {
   slug: 'sources-sought',
   title: 'How to Respond to Sources Sought Notices (And Why You Should)',
-  metaTitle: 'Sources Sought Response Guide (2026) — Template + Examples for Small Business',
+  metaTitle: 'Sources Sought Response [Free Template] — Turn RFIs Into Set-Asides',
   metaDescription:
     'Learn how to respond to Sources Sought and RFI notices. Free template included. Turn market research into small business set-asides and contract wins.',
   keywords: [
@@ -388,6 +388,8 @@ REQUIREMENT                    | OUR CAPABILITY
     'federal-market-research',
     'proposal-writing',
     'capability-statement',
+    'bid-no-bid',
+    'set-asides',
   ],
   publishedDate: '2026-04-02',
 };

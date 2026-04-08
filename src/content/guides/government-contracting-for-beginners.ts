@@ -3,7 +3,7 @@ import type { GuideData } from './index';
 export const guide: GuideData = {
   slug: 'government-contracting-for-beginners',
   title: 'Government Contracting for Beginners: The Complete Guide to Getting Started',
-  metaTitle: 'Government Contracting for Beginners | Complete 2026 Guide to Federal Contracts',
+  metaTitle: 'Government Contracting for Beginners [Free] — Win Your First Contract in 90 Days',
   metaDescription:
     'The definitive guide to getting government contracts as a small business. Step-by-step instructions for SAM.gov registration, certifications, finding opportunities, and winning your first contract.',
   keywords: [

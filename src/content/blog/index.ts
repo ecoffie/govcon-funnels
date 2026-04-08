@@ -13,6 +13,7 @@ export interface BlogPost {
   category: string;
   relatedGuides: string[];
   featuredImage?: string;
+  canonicalUrl?: string; // Point to canonical version if this is duplicate content
 }
 
 // Import all blog posts

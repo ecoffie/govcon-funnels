@@ -3,9 +3,9 @@ import type { GuideData } from './index';
 export const guide: GuideData = {
   slug: 'finding-government-contracts',
   title: 'How to Find Government Contracts: A Complete Guide',
-  metaTitle: 'How to Find Government Contracts | Step-by-Step Guide 2026',
+  metaTitle: 'How to Find Government Contracts [Free Tool] — SAM.gov Search Guide',
   metaDescription:
-    'Learn how to find government contracts on SAM.gov, understand solicitation types (RFP, RFQ, RFI), use NAICS codes, and win set-aside opportunities for small business.',
+    'Find federal contracts on SAM.gov: RFPs, RFQs, set-asides by NAICS code. Free search tool + 5 filters that surface opportunities your competitors miss.',
   keywords: [
     'how to find government contracts',
     'government contracts for small business',
@@ -32,7 +32,7 @@ export const guide: GuideData = {
           <li><strong>Set up saved searches</strong> with email notifications so new opportunities come to you automatically</li>
           <li><strong>Review the "Active" filter</strong> to see currently open solicitations you can bid on right now</li>
         </ul>
-        <p>Beyond SAM.gov, there are additional sources worth monitoring. <strong>USAspending.gov</strong> shows historical spending data so you can see which agencies are buying what you sell. <strong>Agency-specific procurement forecast pages</strong> list upcoming opportunities that haven't been formally solicited yet, giving you a head start on capture.</p>
+        <p>Beyond SAM.gov, there are additional sources worth monitoring. <strong>USAspending.gov</strong> shows historical spending data so you can see which agencies are buying what you sell. <strong>Agency-specific procurement forecast pages</strong> list upcoming opportunities that haven't been formally solicited yet, giving you a head start on capture. Understanding <a href="/guides/agency-budgets">agency budgets</a> helps you identify which programs have funding and are likely to result in contract awards.</p>
         <p>Many contractors also monitor <strong>GovWin</strong>, <strong>Bloomberg Government (BGOV)</strong>, and other paid platforms that aggregate opportunities and add intelligence layers. However, every opportunity on those platforms originates from SAM.gov, so mastering the free government source first is essential. The key is building a systematic daily or weekly search habit rather than checking sporadically.</p>
       `,
     },
@@ -44,7 +44,7 @@ export const guide: GuideData = {
           <li><strong>Request for Proposal (RFP)</strong> — A formal solicitation where the government asks for a detailed technical and cost proposal. RFPs are used for complex services and products where the agency evaluates proposals based on a "best value" or "trade-off" methodology, not just lowest price.</li>
           <li><strong>Request for Quotation (RFQ)</strong> — Used primarily for commercial items and simpler procurements. The government describes what they need, and vendors provide a price quote. RFQs are common under the Federal Supply Schedule (GSA) and simplified acquisition procedures.</li>
           <li><strong>Request for Information (RFI)</strong> — Not a solicitation to bid. An RFI is the government doing market research, asking industry what's available and what's possible. <strong>Always respond to RFIs</strong> — they shape future solicitations and put your company on the agency's radar.</li>
-          <li><strong>Sources Sought</strong> — Similar to an RFI, a sources sought notice asks industry to demonstrate capability. The agency uses responses to determine whether to set aside the procurement for small business or compete it full-and-open.</li>
+          <li><strong>Sources Sought</strong> — Similar to an RFI, a sources sought notice asks industry to demonstrate capability. The agency uses responses to determine whether to set aside the procurement for small business or compete it full-and-open. Learn how to respond effectively in our <a href="/guides/sources-sought">Sources Sought Guide</a>.</li>
           <li><strong>Pre-Solicitation Notice</strong> — Advance notice that a solicitation is coming. Use this time to prepare your team, identify teaming partners, and study the requirement.</li>
         </ul>
         <p>A common mistake new contractors make is only responding to RFPs. By the time an RFP drops, competitors who responded to the RFI and sources sought notice already have a relationship with the agency. Engaging early in the procurement cycle dramatically improves your win probability.</p>
@@ -71,7 +71,7 @@ export const guide: GuideData = {
         <p>The main set-aside categories are:</p>
         <ul>
           <li><strong>Small Business Set-Aside</strong> — Open to any business that qualifies as small under the relevant NAICS code size standard</li>
-          <li><strong>8(a) Business Development</strong> — For socially and economically disadvantaged small businesses enrolled in SBA's 8(a) program. 8(a) firms can receive sole-source contracts up to $4.5 million (services) or $7 million (manufacturing).</li>
+          <li><strong>8(a) Business Development</strong> — For socially and economically disadvantaged small businesses enrolled in SBA's 8(a) program. 8(a) firms can receive <a href="/guides/sole-source">sole-source contracts</a> up to $4.5 million (services) or $7 million (manufacturing). See our <a href="/guides/8a-certification">8(a) Certification Guide</a>.</li>
           <li><strong>HUBZone</strong> — For businesses located in Historically Underutilized Business Zones with employees who live in HUBZones. Provides a 10% price evaluation preference.</li>
           <li><strong>Service-Disabled Veteran-Owned Small Business (SDVOSB)</strong> — Now certified through the SBA's Veteran Small Business Certification program (vetcert.sba.gov). Previously self-certified, now requires formal SBA certification.</li>
           <li><strong>Women-Owned Small Business (WOSB/EDWOSB)</strong> — Certified through SBA or an approved third-party certifier. Set-asides available in designated NAICS codes where WOSBs are underrepresented.</li>
@@ -113,9 +113,9 @@ export const guide: GuideData = {
       heading: 'Evaluating Opportunities: The Bid/No-Bid Decision',
       content: `
         <p>One of the most important skills in government contracting is knowing which opportunities to pursue and which to pass on. Chasing every solicitation wastes time and money on proposals you're unlikely to win. A disciplined <strong>bid/no-bid process</strong> is what separates profitable contractors from those burning resources.</p>
-        <p>Use these criteria to evaluate every opportunity:</p>
+        <p>Use these criteria to evaluate every opportunity. For a complete framework, see our <a href="/guides/bid-no-bid">Bid/No-Bid Decision Guide</a>.</p>
         <ul>
-          <li><strong>Can you do the work?</strong> Do you have the technical capability, staff, and past performance to deliver? If the solicitation requires qualifications you don't have, it's a no-bid unless you can team with a partner who does.</li>
+          <li><strong>Can you do the work?</strong> Do you have the technical capability, staff, and <a href="/guides/past-performance">past performance</a> to deliver? If the solicitation requires qualifications you don't have, it's a no-bid unless you can team with a partner who does.</li>
           <li><strong>Is it the right size?</strong> A contract that's too small won't be profitable. One that's too large might exceed your capacity. Target opportunities that align with your current revenue and staffing levels.</li>
           <li><strong>Do you have a competitive advantage?</strong> Incumbent contractors win recompetes at a high rate. If you're bidding against an incumbent with no differentiator, your odds are low. Look for opportunities where you have an edge — better technical approach, relevant past performance, set-aside eligibility, or a relationship with the agency.</li>
           <li><strong>Do you have enough time?</strong> If you find a solicitation with a response due in 5 days and you have no preparation, that's usually a no-bid. Winning proposals take time to research, write, review, and refine.</li>
@@ -168,6 +168,9 @@ export const guide: GuideData = {
     'government-contracting-for-beginners',
     'federal-market-research',
     'proposal-writing',
+    'bid-no-bid',
+    'sources-sought',
+    'set-asides',
   ],
   publishedDate: '2026-03-13',
 };

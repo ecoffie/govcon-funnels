@@ -3,8 +3,8 @@ import type { BlogPost } from './index';
 export const post: BlogPost = {
   slug: 'which-sba-certification',
   title: 'Which SBA Certification Is Right for You? A Decision Guide',
-  metaTitle: 'Which SBA Certification Is Right for You? [2026 Decision Guide]',
-  metaDescription: 'Compare 8(a), SDVOSB, HUBZone, WOSB, and EDWOSB certifications side by side. Find out which SBA certification fits your business with our decision guide.',
+  metaTitle: 'Which SBA Certification? [2-Min Quiz] — Find Your Best Fit',
+  metaDescription: '8(a), SDVOSB, HUBZone, or WOSB? Take our 2-minute quiz to find which certification fits your business. Side-by-side comparison included.',
   keywords: [
     'which SBA certification',
     '8a vs SDVOSB',

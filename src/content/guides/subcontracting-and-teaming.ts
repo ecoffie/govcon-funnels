@@ -183,6 +183,9 @@ export const guide: GuideData = {
     'government-contracting-for-beginners',
     'proposal-writing',
     'sba-certifications',
+    'teaming-agreements',
+    'past-performance',
+    'oasis-plus',
   ],
   publishedDate: '2026-03-13',
 };

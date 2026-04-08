@@ -3,9 +3,9 @@ import type { GuideData } from './index';
 export const guide: GuideData = {
   slug: 'cmmc-certification',
   title: 'CMMC Certification: The Complete Guide for Small Contractors',
-  metaTitle: 'CMMC Certification Guide (2026) — Levels, Costs, Timeline & Requirements',
+  metaTitle: 'CMMC Certification [2026 Deadline] — Costs, Levels & Requirements',
   metaDescription:
-    'CMMC 2.0 certification explained for small businesses. Learn the 3 levels, costs ($34K-$112K), timeline, and how to prepare before the 2026 deadline.',
+    'CMMC 2.0 for small contractors: 3 levels explained, costs ($34K-$112K), 6-12 month timeline. Prepare now before the 2026 DoD deadline.',
   keywords: [
     'cmmc certification',
     'cmmc 2.0',
