@@ -95,6 +95,12 @@ export interface EntitySearchResult {
   pageSize: number;
   hasMore: boolean;
   fromCache: boolean;
+  error?: {
+    status: number;
+    message: string;
+    retryable: boolean;
+    fallbackAvailable: boolean;
+  };
 }
 
 // SBA Business Type Codes
@@ -278,7 +284,8 @@ export async function searchEntities(
       page: params.page || 1,
       pageSize: params.size || 25,
       hasMore: false,
-      fromCache: false
+      fromCache: false,
+      error: result.error,
     };
   }
 

@@ -1,7 +1,12 @@
-import { describe, it, expect } from 'vitest';
-import { transformEntity, validateCAGECode } from '../../entity-api';
+import { describe, it, expect, vi, beforeEach } from 'vitest';
+import * as samUtils from '../../utils';
+import { transformEntity, validateCAGECode, searchEntities } from '../../entity-api';
 
 describe('Entity API - Unit Tests', () => {
+  beforeEach(() => {
+    vi.restoreAllMocks();
+  });
+
   describe('validateCAGECode', () => {
     it('accepts valid 5-char alphanumeric', () => {
       expect(validateCAGECode('1ABC2')).toBe(true);
@@ -226,6 +231,32 @@ describe('Entity API - Unit Tests', () => {
 
       expect(result.legalBusinessName).toBe('Main Company LLC');
       expect(result.dbaName).toBe('Doing Business Name');
+    });
+  });
+
+  describe('searchEntities error handling', () => {
+    it('surfaces upstream SAM errors instead of silent empty results', async () => {
+      vi.spyOn(samUtils, 'makeSAMRequest').mockResolvedValue({
+        data: null,
+        error: {
+          status: 429,
+          message: 'SAM.gov API rate limit exceeded.',
+          retryable: false,
+          fallbackAvailable: false,
+        },
+        fromCache: false,
+      });
+
+      const result = await searchEntities({ cageCode: '17038', size: 1 });
+
+      expect(result.entities).toEqual([]);
+      expect(result.totalCount).toBe(0);
+      expect(result.error).toEqual({
+        status: 429,
+        message: 'SAM.gov API rate limit exceeded.',
+        retryable: false,
+        fallbackAvailable: false,
+      });
     });
   });
 });
