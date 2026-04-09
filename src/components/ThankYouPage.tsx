@@ -8,6 +8,9 @@ interface ThankYouPageProps {
   upsellDescription?: string;
   upsellLink?: string;
   upsellButtonText?: string;
+  /** Primary CTA shown before next steps (e.g. Download Free Handouts) */
+  primaryCtaUrl?: string;
+  primaryCtaText?: string;
 }
 
 export default function ThankYouPage({
@@ -17,7 +20,9 @@ export default function ThankYouPage({
   upsellTitle = "Want to Fast-Track Your Success?",
   upsellDescription = "Join GovCon Giants Pro for exclusive tools, live bootcamps, and weekly Q&A calls.",
   upsellLink = "https://shop.govcongiants.org",
-  upsellButtonText = "Get Pro Access - $99/month"
+  upsellButtonText = "Get Pro Access - $99/month",
+  primaryCtaUrl,
+  primaryCtaText,
 }: ThankYouPageProps) {
   return (
     <main className="min-h-screen section">
@@ -31,6 +36,18 @@ export default function ThankYouPage({
 
         <h1 className="text-4xl font-bold mb-4">{title}</h1>
         <p className="text-xl text-slate-300 mb-8">{message}</p>
+
+        {/* Primary CTA (e.g. Download Free Handouts) */}
+        {primaryCtaUrl && primaryCtaText && (
+          <div className="mb-8">
+            <Link
+              href={primaryCtaUrl}
+              className="inline-block px-8 py-4 bg-green-600 hover:bg-green-500 text-white rounded-xl font-bold text-lg transition-all"
+            >
+              {primaryCtaText}
+            </Link>
+          </div>
+        )}
 
         {/* Next Steps */}
         {nextSteps.length > 0 && (

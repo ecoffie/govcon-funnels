@@ -297,7 +297,9 @@ ${proCta()}`;
  */
 export async function sendBootcampEmail(params: EmailParams): Promise<EmailResult> {
   const firstName = params.name.split(' ')[0] || 'there';
-  const bootcampUrl = 'https://funnels.govcongiants.org/bootcamp/thank-you';
+  const baseUrl = process.env.NEXT_PUBLIC_SITE_URL || 'https://govcongiants.org';
+  const handoutsUrl = `${baseUrl}/resources/handouts`;
+  const bootcampDetailsUrl = `${baseUrl}/bootcamp/thank-you`;
 
   const content = `
 <h1 style="color: #ffffff; font-size: 28px; margin: 0 0 20px; text-align: center;">
@@ -306,15 +308,20 @@ export async function sendBootcampEmail(params: EmailParams): Promise<EmailResul
 
 <p style="color: #94a3b8; font-size: 16px; line-height: 1.6; margin: 0 0 30px;">
   Hey ${firstName},<br><br>
-  You're all set for the GovCon Giants Bootcamp! We'll send you reminders and materials as we get closer to the event.
+  You're all set for the GovCon Giants Bootcamp! Download your free handouts now and we'll send you reminders as we get closer to the event.
 </p>
 
 <table width="100%" cellpadding="0" cellspacing="0">
   <tr>
-    <td align="center" style="padding: 20px 0;">
-      <a href="${bootcampUrl}" style="display: inline-block; background-color: #4ade80; color: #0f172a; padding: 16px 32px; border-radius: 8px; text-decoration: none; font-weight: 700; font-size: 16px;">
-        View Bootcamp Details
+    <td align="center" style="padding: 10px 0;">
+      <a href="${handoutsUrl}" style="display: inline-block; background-color: #4ade80; color: #0f172a; padding: 16px 32px; border-radius: 8px; text-decoration: none; font-weight: 700; font-size: 16px;">
+        Download Your Free Handouts
       </a>
+    </td>
+  </tr>
+  <tr>
+    <td align="center" style="padding: 10px 0;">
+      <a href="${bootcampDetailsUrl}" style="color: #94a3b8; font-size: 14px; text-decoration: underline;">View full bootcamp details & event info →</a>
     </td>
   </tr>
 </table>

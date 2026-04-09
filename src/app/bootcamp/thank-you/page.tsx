@@ -4,9 +4,11 @@ export default function BootcampThankYou() {
   return (
     <ThankYouPage
       title="Handouts On Their Way! 📬"
-      message="Check your email for your free bootcamp handouts and event details."
+      message="Check your email for event details, and download your free handouts below."
+      primaryCtaUrl="/resources/handouts"
+      primaryCtaText="Download Free Handouts"
       nextSteps={[
-        "Download your free handouts from the email",
+        "Download your free handouts using the button above",
         "Add Feb 28, 9am-5pm ET to your calendar",
         "Review the handouts before the bootcamp",
         "Prepare your questions for the live Q&A"
