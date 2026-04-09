@@ -58,10 +58,28 @@ export interface JSearchParams {
 
 const JSEARCH_API_BASE = 'https://jsearch.p.rapidapi.com';
 
+export interface JobSearchErrorInfo {
+  status: number;
+  message: string;
+}
+
+class JSearchUpstreamError extends Error {
+  readonly status: number;
+
+  constructor(message: string, status: number = 503) {
+    super(message);
+    this.name = 'JSearchUpstreamError';
+    this.status = status;
+  }
+}
+
 function getApiKey(): string {
   const key = process.env.JSEARCH_API_KEY || process.env.RAPIDAPI_KEY;
   if (!key) {
-    throw new Error('JSEARCH_API_KEY or RAPIDAPI_KEY environment variable not set');
+    throw new JSearchUpstreamError(
+      'Jobs service is not configured. Missing JSEARCH_API_KEY or RAPIDAPI_KEY.',
+      503
+    );
   }
   return key;
 }
@@ -110,7 +128,10 @@ export async function searchJobs(params: JSearchParams): Promise<{
   if (!response.ok) {
     const error = await response.text();
     console.error('JSearch API error:', response.status, error);
-    throw new Error(`JSearch API error: ${response.status}`);
+    throw new JSearchUpstreamError(
+      `Jobs provider request failed with status ${response.status}.`,
+      response.status === 429 ? 429 : 503
+    );
   }
 
   const data: JSearchResponse = await response.json();
@@ -312,7 +333,7 @@ export async function searchGovConJobs(params: {
   remote?: boolean;
   limit?: number;
   page?: number;
-}): Promise<{ jobs: Job[]; total: number }> {
+}): Promise<{ jobs: Job[]; total: number; error?: JobSearchErrorInfo }> {
   const { keyword, category, remote, limit = 25, page = 1 } = params;
 
   // Build search query
@@ -365,6 +386,24 @@ export async function searchGovConJobs(params: {
     };
   } catch (error) {
     console.error('JSearch error:', error);
-    return { jobs: [], total: 0 };
+    if (error instanceof JSearchUpstreamError) {
+      return {
+        jobs: [],
+        total: 0,
+        error: {
+          status: error.status,
+          message: error.message,
+        },
+      };
+    }
+
+    return {
+      jobs: [],
+      total: 0,
+      error: {
+        status: 503,
+        message: 'Jobs provider is temporarily unavailable. Please try again shortly.',
+      },
+    };
   }
 }
