@@ -5,6 +5,7 @@ import {
   checkRateLimit,
   incrementRateLimit,
   parseSAMError,
+  makeSAMRequest,
 } from '../../utils';
 
 describe('SAM Utils - Unit Tests', () => {
@@ -161,6 +162,75 @@ describe('SAM Utils - Unit Tests', () => {
       expect(parseSAMError(401, {}).retryable).toBe(false);
       expect(parseSAMError(403, {}).retryable).toBe(false);
       expect(parseSAMError(404, {}).retryable).toBe(false);
+    });
+  });
+
+  describe('makeSAMRequest key failover', () => {
+    const originalEnv = process.env;
+
+    beforeEach(() => {
+      vi.restoreAllMocks();
+      process.env = { ...originalEnv };
+      process.env.SAM_API_KEY = 'primary-key';
+      process.env.SAM_API_KEY_BACKUP = 'backup-key';
+      delete process.env.SAM_ENTITY_API_KEY;
+    });
+
+    it('tries backup key when primary returns 429', async () => {
+      const fetchMock = vi
+        .spyOn(global, 'fetch')
+        .mockResolvedValueOnce({
+          ok: false,
+          status: 429,
+          text: async () => JSON.stringify({ message: 'Too many requests' }),
+        } as Response)
+        .mockResolvedValueOnce({
+          ok: true,
+          status: 200,
+          text: async () => JSON.stringify({ entityData: [{ entityRegistration: { ueiSAM: 'X' } }], totalRecords: 1 }),
+        } as Response);
+
+      const result = await makeSAMRequest<{ entityData: unknown[]; totalRecords: number }>(
+        {
+          apiType: 'entity',
+          baseUrl: 'https://api.sam.gov/entity-information/v3',
+          apiKey: 'unused',
+          cacheTTLHours: 24,
+        },
+        '/entities',
+        { cageCode: '12345' },
+        { useCache: false, bypassRateLimit: true }
+      );
+
+      expect(fetchMock).toHaveBeenCalledTimes(2);
+      expect(fetchMock.mock.calls[0][0]).toContain('api_key=primary-key');
+      expect(fetchMock.mock.calls[1][0]).toContain('api_key=backup-key');
+      expect(result.error).toBeNull();
+      expect(result.data?.totalRecords).toBe(1);
+    });
+
+    it('does not try backup key on non-fallback error', async () => {
+      const fetchMock = vi.spyOn(global, 'fetch').mockResolvedValueOnce({
+        ok: false,
+        status: 400,
+        text: async () => JSON.stringify({ message: 'Bad request' }),
+      } as Response);
+
+      const result = await makeSAMRequest(
+        {
+          apiType: 'entity',
+          baseUrl: 'https://api.sam.gov/entity-information/v3',
+          apiKey: 'unused',
+          cacheTTLHours: 24,
+        },
+        '/entities',
+        { cageCode: '12345' },
+        { useCache: false, bypassRateLimit: true }
+      );
+
+      expect(fetchMock).toHaveBeenCalledTimes(1);
+      expect(result.data).toBeNull();
+      expect(result.error?.status).toBe(400);
     });
   });
 });
