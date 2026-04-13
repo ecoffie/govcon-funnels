@@ -438,7 +438,15 @@ export async function makeSAMRequest<T>(
     }
 
     if (result.error) {
-      // Other error, return it
+      // Retry/fallback-eligible errors (429, 5xx, network) should try the next key.
+      // This protects lookup availability when a primary key is temporarily throttled.
+      lastError = result.error;
+      if (result.error.fallbackAvailable) {
+        console.log(`[SAM API] Key ${apiKey.slice(0, 10)}... failed (${result.error.status}), trying next key...`);
+        continue;
+      }
+
+      // Non-fallback errors should fail fast.
       return { data: null, error: result.error, fromCache: false };
     }
 
