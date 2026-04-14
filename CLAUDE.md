@@ -175,6 +175,12 @@ See `/tasks/lessons.md` for full details.
 
 ## Recent Work (Last 7 Days)
 
+### April 14, 2026
+- **SEO Redirect Fixes:**
+  - `/opp` redirect: Changed to permanent (308) - preserves link equity
+  - Added `/premium/accelerator/checkout` → Calendly redirect (prevents misleading checkout URL)
+- **URL Audit:** Found `/premium` vs `/premium-page` inconsistency splitting link equity
+
 ### April 8, 2026
 - **GSC CTR Optimization (20 pages):**
   - Analyzed GSC export: identified high-impression/low-CTR pages
@@ -228,4 +234,4 @@ See `/tasks/work-history.md` for full history including:
 
 ---
 
-*Last Updated: April 8, 2026*
+*Last Updated: April 14, 2026*

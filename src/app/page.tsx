@@ -295,7 +295,7 @@ export default function Home() {
       <section id="premium" className="py-20 px-6">
         <div className="max-w-6xl mx-auto">
           <div className="text-center mb-12">
-            <Link href="/premium-page" className="block group">
+            <Link href="/premium" className="block group">
               <h2 className="text-4xl font-bold text-white mb-4 group-hover:text-green-400 transition">
                 <span className="text-green-500">Premium</span> Resources
               </h2>
@@ -303,7 +303,7 @@ export default function Home() {
             <p className="text-slate-500 text-lg max-w-2xl mx-auto">
               Take it to the next level with paid replays and ongoing support.
             </p>
-            <Link href="/premium-page" className="inline-block mt-4 text-green-500 hover:text-green-400 font-semibold">
+            <Link href="/premium" className="inline-block mt-4 text-green-500 hover:text-green-400 font-semibold">
               See what level is right for you →
             </Link>
           </div>
@@ -477,7 +477,7 @@ export default function Home() {
                 <li><Link href="/free-course" className="text-slate-500 hover:text-white transition">Free Course</Link></li>
                 <li><Link href="/resources" className="text-slate-500 hover:text-white transition">Resources</Link></li>
                 <li><Link href="/tools" className="text-slate-500 hover:text-white transition">Tools</Link></li>
-                <li><Link href="/premium-page" className="text-slate-500 hover:text-white transition">Premium</Link></li>
+                <li><Link href="/premium" className="text-slate-500 hover:text-white transition">Premium</Link></li>
                 <li><Link href="/consulting" className="text-slate-500 hover:text-white transition">Consulting</Link></li>
                 <li><Link href="/upskilling" className="text-slate-500 hover:text-white transition">BD Training</Link></li>
               </ul>

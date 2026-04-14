@@ -6,6 +6,20 @@ This file contains archived work history entries from CLAUDE.md.
 
 ## April 2026
 
+### April 14, 2026
+- **SEO Redirect Fixes:**
+  - `/opp` redirect: Changed `permanent: false` to `permanent: true` (307→308)
+    - Preserves link equity for SAM.gov tool redirect
+  - Added `/premium/accelerator/checkout` → Calendly redirect
+    - Accelerator is consultation-based ($5,997), not direct payment
+    - Prevents misleading checkout URL that confused users
+  - Verified all redirects return 308 (permanent) status codes
+- **URL Audit Finding:**
+  - Identified `/premium` vs `/premium-page` URL inconsistency
+  - Homepage links to `/premium-page`, nav links to `/premium`
+  - Both pages exist but splits link equity
+  - Recommendation: Consolidate to single URL (future task)
+
 ### April 8, 2026
 - **GSC CTR Optimization (20 pages):**
   - Analyzed GSC Pages export to identify high-impression/low-CTR opportunities

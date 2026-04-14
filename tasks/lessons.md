@@ -292,3 +292,41 @@ server.login(SMTP_USER, SMTP_PASSWORD);
 - `briefing-examples.md` - Real examples of all 3 formats
 
 **Why:** Had comprehensive docs that weren't being used because they weren't discoverable via CLAUDE.md.
+
+---
+
+## April 14, 2026
+
+### Use permanent redirects (301/308) for link equity
+**Rule:** When redirecting URLs that should always point to the new destination, use `permanent: true` in next.config.ts.
+
+**Pattern:**
+- **Temporary (307):** `permanent: false` - URL might change back, don't update caches
+- **Permanent (308):** `permanent: true` - URL is permanently moved, cache it
+
+**When to use permanent:**
+- `/opp` → external tool URL (always goes there)
+- `/checkout` → payment/booking URL (canonical destination)
+- `/blog/old-slug` → `/guides/new-slug` (canonical redirect)
+
+**When to use temporary:**
+- Maintenance redirects (will restore original)
+- A/B testing redirects (might change)
+- Feature flag redirects (conditional)
+
+**Why:** Temporary redirects (307) don't pass link equity to the destination. Every internal/external link to `/opp` was losing SEO value instead of passing it to the tool.
+
+---
+
+### Misleading URLs hurt user trust
+**Rule:** If a URL says "checkout" but goes to a booking page, fix the URL.
+
+**Pattern:**
+1. Add explicit redirect in next.config.ts to bypass the page
+2. Or rename the route to match its actual destination
+
+**Example:**
+- `/premium/accelerator/checkout` → Calendly (not Stripe)
+- Fix: Redirect to Calendly directly, skipping the checkout page logic
+
+**Why:** Users clicking "checkout" expect to pay. Showing a booking form instead creates confusion and reduces conversions.

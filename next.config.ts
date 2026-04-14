@@ -33,7 +33,19 @@ const nextConfig: NextConfig = {
       {
         source: "/opp",
         destination: "https://tools.govcongiants.org/opportunity-hunter",
-        permanent: false,
+        permanent: true,
+      },
+      // Fix misleading checkout URL - accelerator is a call, not payment
+      {
+        source: "/premium/accelerator/checkout",
+        destination: "https://calendly.com/govconedumeet/discovery-call",
+        permanent: true,
+      },
+      // Consolidate duplicate premium URLs (April 14, 2026)
+      {
+        source: "/premium-page",
+        destination: "/premium",
+        permanent: true,
       },
       // GSC 404 fixes (April 2026) - only ones not in vercel.json
       {
