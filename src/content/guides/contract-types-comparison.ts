@@ -311,6 +311,8 @@ export const guide: GuideData = {
     buttonHref: '/consulting',
   },
   relatedGuides: [
+    'letter-contracts',
+    'healthcare-contracting',
     'firm-fixed-price-contracts',
     'cost-plus-contracts',
     'time-and-materials-contracts',

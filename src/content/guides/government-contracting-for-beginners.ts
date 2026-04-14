@@ -569,6 +569,8 @@ export const guide: GuideData = {
     buttonHref: '/free-course',
   },
   relatedGuides: [
+    'ai-government-contracting',
+    'contract-specialist-career',
     'sam-gov-registration',
     'cage-code',
     'capability-statement',

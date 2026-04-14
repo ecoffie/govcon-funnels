@@ -277,6 +277,7 @@ export const guide: GuideData = {
     buttonHref: '/free-course',
   },
   relatedGuides: [
+    'sdb-certification',
     '8a-certification',
     'vosb-certification',
     'hubzone-certification',

@@ -172,9 +172,11 @@ export const guide: GuideData = {
     buttonHref: '/bootcamp',
   },
   relatedGuides: [
+    'how-to-bid-on-government-contracts',
+    'proposal-orals-prep',
+    'proposal-manager-career',
     'finding-government-contracts',
     'capability-statement',
-    'subcontracting-and-teaming',
     'cost-proposals',
     'past-performance',
     'bid-no-bid',

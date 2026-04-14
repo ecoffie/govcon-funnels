@@ -230,12 +230,12 @@ export const guide: GuideData = {
     buttonHref: '/free-course',
   },
   relatedGuides: [
+    'edwosb-certification',
     'government-contracting-for-beginners',
     'sam-gov-registration',
     'capability-statement',
     'sole-source',
     'set-asides',
-    'past-performance',
   ],
   publishedDate: '2026-03-13',
 };
