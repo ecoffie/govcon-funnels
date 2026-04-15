@@ -320,6 +320,9 @@ export const guide: GuideData = {
     buttonHref: '/training',
   },
   relatedGuides: [
+    'request-for-information',
+    'teaming-partner-selection',
+    'recompete-strategy',
     'bid-no-bid',
     'proposal-writing',
     'sources-sought',

@@ -363,6 +363,8 @@ export const guide: GuideData = {
     buttonHref: '/consulting',
   },
   relatedGuides: [
+    'market-positioning',
+    'gate-reviews',
     'capture-management',
     'federal-market-research',
     'bid-no-bid',

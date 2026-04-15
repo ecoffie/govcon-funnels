@@ -172,6 +172,9 @@ export const guide: GuideData = {
     buttonHref: '/bootcamp',
   },
   relatedGuides: [
+    'proposal-team-building',
+    'technical-evaluation',
+    'pricing-volume',
     'how-to-bid-on-government-contracts',
     'proposal-orals-prep',
     'proposal-manager-career',

@@ -311,6 +311,8 @@ export const guide: GuideData = {
     buttonHref: '/consulting',
   },
   relatedGuides: [
+    'task-order-management',
+    'construction-contracting',
     'letter-contracts',
     'healthcare-contracting',
     'firm-fixed-price-contracts',

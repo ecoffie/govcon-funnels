@@ -165,6 +165,8 @@ export const guide: GuideData = {
     buttonHref: '/opp',
   },
   relatedGuides: [
+    'sbir-sttr',
+    'agency-budgets',
     'government-contracting-for-beginners',
     'federal-market-research',
     'proposal-writing',
