@@ -1,5 +1,5 @@
 import { describe, expect, it } from 'vitest';
-import { sanitizeApplyUrl, transformJSearchJob, type JSearchJob } from './jsearch';
+import { sanitizeApplyUrl, transformJSearchJob, type JSearchJob } from '../jsearch';
 
 function makeBaseJob(overrides: Partial<JSearchJob> = {}): JSearchJob {
   return {
