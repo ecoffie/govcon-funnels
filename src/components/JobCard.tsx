@@ -7,9 +7,18 @@ interface JobCardProps {
   featured?: boolean;
 }
 
+export function getJobDestination(job: Job): string {
+  return job.source === 'jsearch' ? job.apply_url : `/jobs/view/${job.id}`;
+}
+
 export default function JobCard({ job, featured = false }: JobCardProps) {
   const categoryInfo = getCategoryInfo(job.category);
   const certMatch = getCertificationMatch(job.category);
+  const destination = getJobDestination(job);
+  const isExternalDestination = job.source === 'jsearch';
+  const cardClass = `block bg-slate-900 border rounded-xl p-6 hover:border-green-500/50 transition-all hover:translate-y-[-2px] ${
+    featured ? 'border-green-500/30 ring-1 ring-green-500/20' : 'border-slate-800'
+  }`;
 
   // Calculate days until close
   const closeDate = new Date(job.close_date);
@@ -20,13 +29,8 @@ export default function JobCard({ job, featured = false }: JobCardProps) {
   const postedDate = new Date(job.posted_date);
   const daysSincePosted = Math.floor((today.getTime() - postedDate.getTime()) / (1000 * 60 * 60 * 24));
 
-  return (
-    <Link
-      href={`/jobs/view/${job.id}`}
-      className={`block bg-slate-900 border rounded-xl p-6 hover:border-green-500/50 transition-all hover:translate-y-[-2px] ${
-        featured ? 'border-green-500/30 ring-1 ring-green-500/20' : 'border-slate-800'
-      }`}
-    >
+  const cardContent = (
+    <>
       {featured && (
         <div className="flex items-center gap-2 text-yellow-500 text-sm font-semibold mb-3">
           <svg className="w-4 h-4" fill="currentColor" viewBox="0 0 20 20">
@@ -107,6 +111,25 @@ export default function JobCard({ job, featured = false }: JobCardProps) {
           </div>
         </div>
       )}
+    </>
+  );
+
+  if (isExternalDestination) {
+    return (
+      <a
+        href={destination}
+        target="_blank"
+        rel="noopener noreferrer"
+        className={cardClass}
+      >
+        {cardContent}
+      </a>
+    );
+  }
+
+  return (
+    <Link href={destination} className={cardClass}>
+      {cardContent}
     </Link>
   );
 }
