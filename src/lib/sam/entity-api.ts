@@ -14,6 +14,7 @@ import {
   makeSAMRequest,
   validateCAGECode
 } from './utils';
+import type { SAMError } from './utils';
 
 // Re-export validateCAGECode for convenience
 export { validateCAGECode };
@@ -95,6 +96,7 @@ export interface EntitySearchResult {
   pageSize: number;
   hasMore: boolean;
   fromCache: boolean;
+  error?: SAMError;
 }
 
 // SBA Business Type Codes
@@ -278,7 +280,8 @@ export async function searchEntities(
       page: params.page || 1,
       pageSize: params.size || 25,
       hasMore: false,
-      fromCache: false
+      fromCache: false,
+      error: result.error
     };
   }
 

@@ -438,7 +438,13 @@ export async function makeSAMRequest<T>(
     }
 
     if (result.error) {
-      // Other error, return it
+      // Retryable upstream errors (429/5xx/network) can fail over to backup keys.
+      if (result.error.fallbackAvailable) {
+        lastError = result.error;
+        continue;
+      }
+
+      // Non-retryable errors should fail fast.
       return { data: null, error: result.error, fromCache: false };
     }
 
