@@ -16,7 +16,7 @@ export const metadata = generateSeo({
   ],
 });
 
-const CALENDLY_URL = 'https://calendly.com/govconedumeet/gcg-beginnerscall';
+const CALENDLY_URL = 'https://calendly.com/govconedumeet/gcg-bd-discovery';
 
 const SPOTS_TOTAL = 5;
 const SPOTS_TAKEN = 2;
