@@ -92,6 +92,8 @@ export interface ContractFamily {
   latestEndDate: string;
 }
 
+const MAX_EXPIRING_CONTRACT_PAGES = 100;
+
 // Competition level mapping
 const EXTENT_COMPETED_MAP: Record<string, string> = {
   'A': 'Full and Open Competition',
@@ -336,15 +338,47 @@ export async function getExpiringContracts(
   expiringMonths: number = 18
 ): Promise<ContractAward[]> {
   const expiresWithinDays = expiringMonths * 30;
+  const pageSize = 100;
+  const allContracts: ContractAward[] = [];
 
-  const result = await searchContractAwards({
-    naicsCode,
-    expiresWithinDays,
-    size: 100
-  });
+  let page = 1;
+  let totalCount = Number.POSITIVE_INFINITY;
+  let hasMore = true;
+
+  while (hasMore && allContracts.length < totalCount && page <= MAX_EXPIRING_CONTRACT_PAGES) {
+    const result = await searchContractAwards({
+      naicsCode,
+      expiresWithinDays,
+      size: pageSize,
+      page
+    });
+
+    if (page === 1) {
+      totalCount = result.totalCount;
+    }
+
+    if (result.contracts.length === 0) {
+      break;
+    }
+
+    allContracts.push(...result.contracts);
+    hasMore = result.hasMore;
+    page++;
+  }
+
+  if (allContracts.length < totalCount && page > MAX_EXPIRING_CONTRACT_PAGES) {
+    console.warn(
+      `[Contract Awards] Expiring contracts pagination hit safety cap for NAICS ${naicsCode}. ` +
+      `Retrieved ${allContracts.length} of ${totalCount} records.`
+    );
+  }
+
+  const dedupedContracts = Array.from(
+    new Map(allContracts.map(contract => [contract.contractAwardUniqueKey, contract])).values()
+  );
 
   // Sort by days until expiration
-  return result.contracts.sort((a, b) =>
+  return dedupedContracts.sort((a, b) =>
     (a.daysUntilExpiration || 999) - (b.daysUntilExpiration || 999)
   );
 }
