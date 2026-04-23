@@ -126,7 +126,7 @@ export default function FreeCourse() {
                 {/* Video Thumbnail */}
                 <div className="relative aspect-video bg-slate-800">
                   <img
-                    src={`https://vumbnail.com/${lesson.videoId}.jpg`}
+                    src={`/api/vimeo-thumbnail/${lesson.videoId}`}
                     alt={lesson.title}
                     className="w-full h-full object-cover"
                   />
