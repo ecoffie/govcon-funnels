@@ -5,6 +5,8 @@ import {
   checkRateLimit,
   incrementRateLimit,
   parseSAMError,
+  makeSAMRequest,
+  type SAMAPIConfig,
 } from '../../utils';
 
 describe('SAM Utils - Unit Tests', () => {
@@ -161,6 +163,54 @@ describe('SAM Utils - Unit Tests', () => {
       expect(parseSAMError(401, {}).retryable).toBe(false);
       expect(parseSAMError(403, {}).retryable).toBe(false);
       expect(parseSAMError(404, {}).retryable).toBe(false);
+    });
+  });
+
+  describe('makeSAMRequest key failover', () => {
+    const config: SAMAPIConfig = {
+      apiType: 'entity',
+      baseUrl: 'https://sam.example.test',
+      apiKey: '',
+      cacheTTLHours: 24,
+    };
+
+    beforeEach(() => {
+      process.env.SAM_ENTITY_API_KEY = '';
+      process.env.SAM_API_KEY = 'primary-key';
+      process.env.SAM_API_KEY_BACKUP = 'backup-key';
+      vi.restoreAllMocks();
+    });
+
+    it('tries the backup key when the primary key gets a retryable 429', async () => {
+      const fetchMock = vi.fn()
+        .mockResolvedValueOnce(new Response(JSON.stringify({ message: 'Too many requests' }), { status: 429 }))
+        .mockResolvedValueOnce(new Response(JSON.stringify({ entityData: [], totalRecords: 0 }), { status: 200 }));
+      vi.stubGlobal('fetch', fetchMock);
+
+      const result = await makeSAMRequest(config, '/entities', { cageCode: 'ABC12' }, {
+        bypassRateLimit: true,
+        useCache: false,
+      });
+
+      expect(result.error).toBeNull();
+      expect(result.data).toEqual({ entityData: [], totalRecords: 0 });
+      expect(fetchMock).toHaveBeenCalledTimes(2);
+      expect(fetchMock.mock.calls[0][0]).toContain('api_key=primary-key');
+      expect(fetchMock.mock.calls[1][0]).toContain('api_key=backup-key');
+    });
+
+    it('does not try the backup key for non-retryable request errors', async () => {
+      const fetchMock = vi.fn()
+        .mockResolvedValueOnce(new Response(JSON.stringify({ message: 'Bad request' }), { status: 400 }));
+      vi.stubGlobal('fetch', fetchMock);
+
+      const result = await makeSAMRequest(config, '/entities', { cageCode: 'BAD' }, {
+        bypassRateLimit: true,
+        useCache: false,
+      });
+
+      expect(result.error?.status).toBe(400);
+      expect(fetchMock).toHaveBeenCalledTimes(1);
     });
   });
 });
