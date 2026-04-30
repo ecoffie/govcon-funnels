@@ -1,7 +1,22 @@
-import { describe, it, expect } from 'vitest';
-import { transformEntity, validateCAGECode } from '../../entity-api';
+import { describe, it, expect, vi, beforeEach } from 'vitest';
+import { searchEntities, transformEntity, validateCAGECode } from '../../entity-api';
+import { makeSAMRequest } from '../../utils';
+
+vi.mock('../../utils', async (importOriginal) => {
+  const actual = await importOriginal<typeof import('../../utils')>();
+  return {
+    ...actual,
+    makeSAMRequest: vi.fn(),
+  };
+});
+
+const mockedMakeSAMRequest = vi.mocked(makeSAMRequest);
 
 describe('Entity API - Unit Tests', () => {
+  beforeEach(() => {
+    mockedMakeSAMRequest.mockReset();
+  });
+
   describe('validateCAGECode', () => {
     it('accepts valid 5-char alphanumeric', () => {
       expect(validateCAGECode('1ABC2')).toBe(true);
@@ -226,6 +241,30 @@ describe('Entity API - Unit Tests', () => {
 
       expect(result.legalBusinessName).toBe('Main Company LLC');
       expect(result.dbaName).toBe('Doing Business Name');
+    });
+  });
+
+  describe('searchEntities', () => {
+    it('propagates upstream errors instead of returning a false empty result', async () => {
+      mockedMakeSAMRequest.mockResolvedValueOnce({
+        data: null,
+        fromCache: false,
+        error: {
+          status: 503,
+          message: 'SAM.gov unavailable',
+          retryable: true,
+          fallbackAvailable: true,
+        },
+      });
+
+      const result = await searchEntities({ cageCode: '17038', size: 1 });
+
+      expect(result.entities).toEqual([]);
+      expect(result.totalCount).toBe(0);
+      expect(result.error).toMatchObject({
+        status: 503,
+        message: 'SAM.gov unavailable',
+      });
     });
   });
 });

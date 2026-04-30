@@ -1,5 +1,6 @@
 import { describe, it, expect, vi, beforeEach } from 'vitest';
 import {
+  makeSAMRequest,
   validateCAGECode,
   generateCacheKey,
   checkRateLimit,
@@ -161,6 +162,70 @@ describe('SAM Utils - Unit Tests', () => {
       expect(parseSAMError(401, {}).retryable).toBe(false);
       expect(parseSAMError(403, {}).retryable).toBe(false);
       expect(parseSAMError(404, {}).retryable).toBe(false);
+    });
+  });
+
+  describe('makeSAMRequest key failover', () => {
+    beforeEach(() => {
+      vi.restoreAllMocks();
+      process.env.SAM_API_KEY = 'primary-key';
+      process.env.SAM_API_KEY_BACKUP = 'backup-key';
+    });
+
+    it('tries the backup key when the primary returns a retryable 429', async () => {
+      const fetchMock = vi.spyOn(global, 'fetch')
+        .mockResolvedValueOnce({
+          ok: false,
+          status: 429,
+          text: async () => JSON.stringify({ message: 'Too many requests' }),
+        } as Response)
+        .mockResolvedValueOnce({
+          ok: true,
+          status: 200,
+          text: async () => JSON.stringify({ entityData: [], totalRecords: 0 }),
+        } as Response);
+
+      const result = await makeSAMRequest(
+        {
+          apiType: 'entity',
+          baseUrl: 'https://api.sam.gov/entity-information/v3',
+          apiKey: 'primary-key',
+          cacheTTLHours: 24,
+        },
+        '/entities',
+        { samRegistered: 'Yes' },
+        { useCache: false }
+      );
+
+      expect(result.error).toBeNull();
+      expect(result.data).toEqual({ entityData: [], totalRecords: 0 });
+      expect(fetchMock).toHaveBeenCalledTimes(2);
+      expect(String(fetchMock.mock.calls[0][0])).toContain('api_key=primary-key');
+      expect(String(fetchMock.mock.calls[1][0])).toContain('api_key=backup-key');
+    });
+
+    it('does not try the backup key for non-retryable request errors', async () => {
+      const fetchMock = vi.spyOn(global, 'fetch').mockResolvedValueOnce({
+        ok: false,
+        status: 400,
+        text: async () => JSON.stringify({ message: 'Bad request' }),
+      } as Response);
+
+      const result = await makeSAMRequest(
+        {
+          apiType: 'entity',
+          baseUrl: 'https://api.sam.gov/entity-information/v3',
+          apiKey: 'primary-key',
+          cacheTTLHours: 24,
+        },
+        '/entities',
+        { samRegistered: 'Yes' },
+        { useCache: false }
+      );
+
+      expect(result.data).toBeNull();
+      expect(result.error?.status).toBe(400);
+      expect(fetchMock).toHaveBeenCalledTimes(1);
     });
   });
 });
