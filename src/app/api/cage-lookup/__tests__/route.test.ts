@@ -1,4 +1,5 @@
 import { beforeEach, describe, expect, it, vi } from 'vitest';
+import { NextRequest } from 'next/server';
 import type { SAMError } from '@/lib/sam';
 
 const searchEntitiesMock = vi.hoisted(() => vi.fn());
@@ -10,8 +11,8 @@ vi.mock('@/lib/sam', () => ({
 
 import { GET } from '../route';
 
-function requestFor(query: string): Request {
-  return new Request(`https://govcongiants.org/api/cage-lookup${query}`, {
+function requestFor(query: string): NextRequest {
+  return new NextRequest(`https://govcongiants.org/api/cage-lookup${query}`, {
     headers: {
       'x-forwarded-for': `203.0.113.${Math.floor(Math.random() * 200) + 1}`,
     },
@@ -43,7 +44,7 @@ describe('/api/cage-lookup', () => {
       error: upstreamFailure(500),
     });
 
-    const response = await GET(requestFor('?cageCode=17038') as never);
+    const response = await GET(requestFor('?cageCode=17038'));
     const body = await response.json();
 
     expect(response.status).toBe(503);
@@ -66,7 +67,7 @@ describe('/api/cage-lookup', () => {
       error: upstreamFailure(429),
     });
 
-    const response = await GET(requestFor('?companyName=Booz') as never);
+    const response = await GET(requestFor('?companyName=Booz'));
     const body = await response.json();
 
     expect(response.status).toBe(429);
@@ -83,7 +84,7 @@ describe('/api/cage-lookup', () => {
       fromCache: false,
     });
 
-    const response = await GET(requestFor('?cageCode=ZZZZZ') as never);
+    const response = await GET(requestFor('?cageCode=ZZZZZ'));
     const body = await response.json();
 
     expect(response.status).toBe(200);
