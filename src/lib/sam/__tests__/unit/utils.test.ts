@@ -168,6 +168,7 @@ describe('SAM Utils - Unit Tests', () => {
   describe('makeSAMRequest key failover', () => {
     beforeEach(() => {
       vi.restoreAllMocks();
+      delete process.env.SAM_ENTITY_API_KEY;
       process.env.SAM_API_KEY = 'primary-key';
       process.env.SAM_API_KEY_BACKUP = 'backup-key';
     });
