@@ -64,6 +64,12 @@ const nextConfig: NextConfig = {
         destination: "/premium#tier-whiteglove",
         permanent: true,
       },
+      // MI landing page → tools site free signup (temporary until /mi page built)
+      {
+        source: "/mi",
+        destination: "https://tools.govcongiants.org/briefings?setup=free",
+        permanent: false,
+      },
     ];
   },
   async headers() {

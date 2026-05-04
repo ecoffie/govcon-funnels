@@ -273,6 +273,8 @@ export const guide: GuideData = {
     buttonHref: '/free-course',
   },
   relatedGuides: [
+    'mentor-protege-program',
+    'ostensible-subcontractor-rule',
     'subcontracting-and-teaming',
     'past-performance',
     'capability-statement',

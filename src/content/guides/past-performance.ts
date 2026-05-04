@@ -263,6 +263,8 @@ export const guide: GuideData = {
     buttonHref: '/free-course',
   },
   relatedGuides: [
+    'cpars-ratings',
+    'past-performance-issues',
     'proposal-writing',
     'subcontracting-and-teaming',
     '8a-certification',

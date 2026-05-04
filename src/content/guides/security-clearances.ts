@@ -347,6 +347,8 @@ export const guide: GuideData = {
     buttonHref: '/consulting',
   },
   relatedGuides: [
+    'personnel-security-clearances',
+    'export-controls',
     'capability-statement',
     'finding-government-contracts',
     'proposal-writing',
