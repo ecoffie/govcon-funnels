@@ -1,7 +1,23 @@
-import { describe, it, expect } from 'vitest';
-import { transformEntity, validateCAGECode } from '../../entity-api';
+import { describe, it, expect, vi, beforeEach } from 'vitest';
+import { searchEntities, transformEntity, validateCAGECode } from '../../entity-api';
+
+const { mockMakeSAMRequest } = vi.hoisted(() => ({
+  mockMakeSAMRequest: vi.fn(),
+}));
+
+vi.mock('../../utils', async (importOriginal) => {
+  const actual = await importOriginal<typeof import('../../utils')>();
+  return {
+    ...actual,
+    makeSAMRequest: mockMakeSAMRequest,
+  };
+});
 
 describe('Entity API - Unit Tests', () => {
+  beforeEach(() => {
+    mockMakeSAMRequest.mockReset();
+  });
+
   describe('validateCAGECode', () => {
     it('accepts valid 5-char alphanumeric', () => {
       expect(validateCAGECode('1ABC2')).toBe(true);
@@ -226,6 +242,49 @@ describe('Entity API - Unit Tests', () => {
 
       expect(result.legalBusinessName).toBe('Main Company LLC');
       expect(result.dbaName).toBe('Doing Business Name');
+    });
+  });
+
+  describe('searchEntities', () => {
+    it('propagates SAM upstream errors instead of returning a false empty result', async () => {
+      mockMakeSAMRequest.mockResolvedValue({
+        data: null,
+        error: {
+          status: 503,
+          message: 'SAM unavailable',
+          retryable: true,
+          fallbackAvailable: true,
+        },
+        fromCache: false,
+      });
+
+      const result = await searchEntities({ cageCode: '17038', size: 1 });
+
+      expect(result.entities).toEqual([]);
+      expect(result.totalCount).toBe(0);
+      expect(result.error).toEqual({
+        status: 503,
+        message: 'SAM unavailable',
+        retryable: true,
+        fallbackAvailable: true,
+      });
+    });
+
+    it('preserves legitimate no-match searches as successful empty results', async () => {
+      mockMakeSAMRequest.mockResolvedValue({
+        data: {
+          entityData: [],
+          totalRecords: 0,
+        },
+        error: null,
+        fromCache: false,
+      });
+
+      const result = await searchEntities({ legalBusinessName: 'NO SUCH COMPANY', size: 10 });
+
+      expect(result.entities).toEqual([]);
+      expect(result.totalCount).toBe(0);
+      expect(result.error).toBeUndefined();
     });
   });
 });
