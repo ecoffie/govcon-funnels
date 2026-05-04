@@ -58,6 +58,12 @@ const nextConfig: NextConfig = {
         destination: "/",
         permanent: true,
       },
+      // Done-for-you → White Glove section (May 2026)
+      {
+        source: "/done-for-you",
+        destination: "/premium#tier-whiteglove",
+        permanent: true,
+      },
     ];
   },
   async headers() {
