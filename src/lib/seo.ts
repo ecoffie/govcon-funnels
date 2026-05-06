@@ -1,6 +1,6 @@
 import type { Metadata } from 'next';
 
-const SITE_URL = 'https://govcongiants.org';
+const SITE_URL = 'https://govcongiants.com';
 const SITE_NAME = 'GovCon Giants';
 const DEFAULT_OG_IMAGE = `${SITE_URL}/images/og-default.png`;
 

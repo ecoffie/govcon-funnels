@@ -3,6 +3,19 @@ import type { NextConfig } from "next";
 const nextConfig: NextConfig = {
   async redirects() {
     return [
+      // SEO Migration: .org → .com (May 2026)
+      {
+        source: "/:path*",
+        has: [{ type: "host", value: "govcongiants.org" }],
+        destination: "https://govcongiants.com/:path*",
+        permanent: true,
+      },
+      {
+        source: "/:path*",
+        has: [{ type: "host", value: "www.govcongiants.org" }],
+        destination: "https://govcongiants.com/:path*",
+        permanent: true,
+      },
       {
         source: "/:path*",
         has: [{ type: "host", value: "guides.govcongiants.org" }],

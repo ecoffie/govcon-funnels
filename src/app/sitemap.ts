@@ -1,8 +1,7 @@
 import type { MetadataRoute } from 'next';
 import { allPosts } from '@/content/blog';
 import { allVideos } from '@/content/videos';
-
-const SITE_URL = 'https://govcongiants.org';
+import { SITE_URL } from '@/lib/seo';
 
 // Job board categories for SEO
 const jobCategories = [

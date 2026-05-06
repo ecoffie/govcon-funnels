@@ -1,503 +1,347 @@
 import Link from 'next/link';
+import LeadForm from '@/components/LeadForm';
 import StatsCounter from '@/components/StatsCounter';
-import { sharedHomepageContent } from '@/lib/shared-content';
 import { generateSeo } from '@/lib/seo';
-import { allPosts } from '@/content/blog';
 
 export const metadata = generateSeo({
-  title: 'Government Contracting for Small Business [Free Training] | GovCon Giants',
-  description: 'Start winning federal contracts: free SAM.gov registration guide, CAGE code lookup, capability statement template. 5,000+ small businesses trained. $750B+ awarded annually.',
+  title: 'Market Intelligence for Federal Contractors | GovCon Giants',
+  description: 'AI-powered market intelligence for government contractors. Save 10+ hours/week searching SAM.gov. Daily briefings matched to your NAICS codes. Used by 5,000+ small businesses.',
   path: '/',
   keywords: [
-    'government contracting for small business',
-    'how to get government contracts',
-    'federal contracts for small business',
-    'government contractor',
-    'small business government contracts',
-    'SAM.gov registration',
-    'win federal contracts',
-    'government contracting training',
+    'government contracting',
+    'federal contracts',
+    'market intelligence',
     'govcon',
+    'opportunity alerts',
+    'federal contractor',
+    'government contractor',
+    'SAM.gov',
   ],
 });
 
 const stats = [
-  { value: "$750B+", label: "Annual Federal Spending", numericValue: 750, prefix: "$", suffix: "B+" },
-  { value: "23%", label: "Set Aside for Small Biz", numericValue: 23, suffix: "%" },
-  { value: "5,000+", label: "Members Trained", numericValue: 5000, suffix: "+" },
+  { value: "$750B+", label: "Federal Spending", numericValue: 750, prefix: "$", suffix: "B+" },
+  { value: "10+", label: "Hours Saved/Week", numericValue: 10, suffix: "+" },
+  { value: "5,000+", label: "Contractors", numericValue: 5000, suffix: "+" },
   { value: "$2B+", label: "Contracts Won", numericValue: 2, prefix: "$", suffix: "B+" },
 ];
 
-const videoCategories = [
+const testimonials = [
   {
-    title: "Where Do I Start?",
-    desc: "Getting started in government contracting",
-    videos: 5,
-    color: "green",
-    link: "/resources#getting-started",
+    quote: "I used to spend hours every day on SAM.gov. Now I get matched opportunities in my inbox. Game changer.",
+    name: "Marcus T.",
+    title: "8(a) IT Services",
   },
   {
-    title: "Finding Contract Opportunities",
-    desc: "How to find the right contracts for your business",
-    videos: 4,
-    color: "blue",
-    link: "/resources#finding-opportunities",
-  },
-  {
-    title: "Winning Without Past Performance",
-    desc: "How to win when you're just starting out",
-    videos: 5,
-    color: "amber",
-    link: "/resources#winning-contracts",
+    quote: "Found a $2.4M recompete I would have missed. The AI briefings pay for themselves.",
+    name: "Sandra K.",
+    title: "SDVOSB Construction",
   },
 ];
 
 export default function Home() {
   return (
     <main className="min-h-screen bg-slate-950">
-      {/* Hero Section */}
-      <section className="pt-10 pb-12 md:pt-12 md:pb-14 px-6">
-        <div className="max-w-6xl mx-auto text-center">
-          {/* Main Headline */}
-          <h1 className="text-5xl md:text-7xl font-black mb-4 leading-tight">
-            <span className="text-green-500">$82 BILLION</span><br />
-            <span className="text-red-500">UNSPENT</span><br />
-            <span className="text-white">FEDERAL MONEY</span>
+      {/* Hero Section - Email Capture First */}
+      <section className="pt-16 pb-20 px-6">
+        <div className="max-w-4xl mx-auto text-center">
+          {/* Value Prop */}
+          <h1 className="text-5xl md:text-7xl font-black mb-6 leading-tight">
+            <span className="text-white">We find contracts.</span><br />
+            <span className="text-green-500">You win them.</span>
           </h1>
 
-          <p className="text-2xl text-slate-300 mb-4 max-w-2xl mx-auto">
-            Here&apos;s how to get it
+          <p className="text-xl md:text-2xl text-slate-400 mb-4 max-w-2xl mx-auto">
+            Stop wasting 10+ hours/week searching SAM.gov.
+          </p>
+          <p className="text-lg text-slate-500 mb-8 max-w-xl mx-auto">
+            Get AI-matched opportunities delivered to your inbox daily.
           </p>
 
-          <p className="text-lg text-slate-500 mb-8 max-w-3xl mx-auto">
-            The government is required to spend billions with small businesses every year.
-            We&apos;ll show you exactly how to position your business as a government contractor and win federal contracts.
-          </p>
-
-          {/* CTA Button - scrolls to Beginners Start Here */}
-          <div className="flex justify-center mb-8">
-            <Link href="#beginners-start-here" className="px-8 py-4 bg-green-600 hover:bg-green-500 text-white rounded-xl font-bold text-lg transition-all green-glow">
-              Get Started Free
-            </Link>
+          {/* Email Capture - Primary CTA */}
+          <div className="max-w-md mx-auto mb-8">
+            <LeadForm
+              buttonText="Get Free Market Intelligence"
+              redirectUrl="https://tools.govcongiants.org/market-intelligence"
+              source="homepage-hero"
+              hidePhone={true}
+              buttonClassName="btn-primary w-full green-glow disabled:opacity-50 text-lg py-4"
+            />
           </div>
 
           {/* Stats Bar */}
-          <StatsCounter stats={stats} />
+          <div className="mt-12">
+            <StatsCounter stats={stats} />
+          </div>
         </div>
       </section>
 
-      {/* Beginners Start Here */}
-      <section id="resources" className="py-20 px-6 bg-slate-900/50">
-        <div id="beginners-start-here" className="scroll-mt-40" />
-        <div className="max-w-6xl mx-auto">
-          <div className="text-center mb-12">
+      {/* Pain Statement - Close the Imagination Gap */}
+      <section className="py-16 px-6 bg-slate-900/50">
+        <div className="max-w-4xl mx-auto">
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-8 text-center">
+            <div className="p-6">
+              <div className="text-4xl font-black text-red-500 mb-2">10+</div>
+              <div className="text-slate-400">Hours/week spent searching SAM.gov</div>
+            </div>
+            <div className="p-6">
+              <div className="text-4xl font-black text-red-500 mb-2">90%</div>
+              <div className="text-slate-400">Of opportunities missed</div>
+            </div>
+            <div className="p-6">
+              <div className="text-4xl font-black text-green-500 mb-2">$0</div>
+              <div className="text-slate-400">Cost to fix this</div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* How It Works - 3 simple steps */}
+      <section className="py-20 px-6">
+        <div className="max-w-5xl mx-auto">
+          <div className="text-center mb-16">
             <h2 className="text-4xl font-bold text-white mb-4">
-              Beginners <span className="text-green-500">Start Here</span>
+              How It Works
             </h2>
-            <p className="text-slate-500 text-lg max-w-2xl mx-auto">
-              The first things you need to do as a beginner
-            </p>
+            <p className="text-slate-400 text-lg">Three steps. Zero hours on SAM.gov.</p>
           </div>
 
-          <div className="max-w-4xl mx-auto space-y-0">
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
             {/* Step 1 */}
-            <a
-              href="https://govcongiants.org/resources/handouts"
-              className="flex flex-col sm:flex-row gap-4 sm:gap-6 items-start p-6 rounded-xl bg-slate-900 border border-slate-800 hover:border-green-600/50 transition group block"
-            >
-              <div className="flex-shrink-0 w-14 h-14 rounded-full bg-green-600 text-white font-black text-xl flex items-center justify-center">1</div>
-              <div className="flex-1">
-                <h3 className="text-xl font-bold text-white mb-1 group-hover:text-green-400 transition">Step 1: Download the free action plan</h3>
-                <p className="text-slate-500">Get your free action plan and the exact first moves to start winning federal contracts.</p>
-                <span className="inline-block mt-2 text-green-500 font-semibold">Download Now →</span>
+            <div className="text-center">
+              <div className="w-16 h-16 rounded-full bg-green-600 text-white font-black text-2xl flex items-center justify-center mx-auto mb-6">
+                1
               </div>
-            </a>
-            <div className="flex justify-center py-1">
-              <span className="text-slate-600">↓</span>
+              <h3 className="text-xl font-bold text-white mb-3">Enter Your NAICS</h3>
+              <p className="text-slate-400">
+                Tell us what you do. Takes 30 seconds.
+              </p>
             </div>
+
             {/* Step 2 */}
-            <Link href="/free-course" className="flex flex-col sm:flex-row gap-4 sm:gap-6 items-start p-6 rounded-xl bg-slate-900 border border-slate-800 hover:border-green-600/50 transition group">
-              <div className="flex-shrink-0 w-14 h-14 rounded-full bg-green-600 text-white font-black text-xl flex items-center justify-center">2</div>
-              <div className="flex-1">
-                <h3 className="text-xl font-bold text-white mb-1 group-hover:text-green-400 transition">Step 2: Take our free beginner&apos;s course</h3>
-                <p className="text-slate-500">Build your foundation from SAM.gov registration to landing your first contract.</p>
-                <span className="inline-block mt-2 text-green-500 font-semibold">Start Learning →</span>
+            <div className="text-center">
+              <div className="w-16 h-16 rounded-full bg-green-600 text-white font-black text-2xl flex items-center justify-center mx-auto mb-6">
+                2
               </div>
-            </Link>
-            <div className="flex justify-center py-1">
-              <span className="text-slate-600">↓</span>
+              <h3 className="text-xl font-bold text-white mb-3">AI Matches You</h3>
+              <p className="text-slate-400">
+                Our AI scans 1,000+ daily opportunities and finds yours.
+              </p>
             </div>
+
             {/* Step 3 */}
-            <Link href="/opp" className="flex flex-col sm:flex-row gap-4 sm:gap-6 items-start p-6 rounded-xl bg-slate-900 border border-slate-800 hover:border-green-600/50 transition group">
-              <div className="flex-shrink-0 w-14 h-14 rounded-full bg-green-600 text-white font-black text-xl flex items-center justify-center">3</div>
-              <div className="flex-1">
-                <h3 className="text-xl font-bold text-white mb-1 group-hover:text-green-400 transition">Step 3: Research using our free Opportunity Hunter tool</h3>
-                <p className="text-slate-500">Find agencies and contracts by NAICS code and keywords with free searches.</p>
-                <span className="inline-block mt-2 text-green-500 font-semibold">Try It Free →</span>
+            <div className="text-center">
+              <div className="w-16 h-16 rounded-full bg-green-600 text-white font-black text-2xl flex items-center justify-center mx-auto mb-6">
+                3
               </div>
-            </Link>
-            <div className="flex justify-center py-1">
-              <span className="text-slate-600">↓</span>
+              <h3 className="text-xl font-bold text-white mb-3">Win Contracts</h3>
+              <p className="text-slate-400">
+                Get briefings in your inbox. Focus on winning, not searching.
+              </p>
             </div>
-            {/* Step 4 */}
-            <a
-              href="https://calendly.com/govconedumeet/gcg-beginnerscall"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="flex flex-col sm:flex-row gap-4 sm:gap-6 items-start p-6 rounded-xl bg-slate-900 border border-slate-800 hover:border-green-600/50 transition group block"
-            >
-              <div className="flex-shrink-0 w-14 h-14 rounded-full bg-green-600 text-white font-black text-xl flex items-center justify-center">4</div>
-              <div className="flex-1">
-                <h3 className="text-xl font-bold text-white mb-1 group-hover:text-green-400 transition">Step 4: Schedule a call</h3>
-                <p className="text-slate-500">Talk with our team and get clear next steps for your business.</p>
-                <span className="inline-block mt-2 text-green-500 font-semibold">Book Now →</span>
-              </div>
-            </a>
           </div>
         </div>
       </section>
 
-      {/* Popular Guides - SEO Internal Links */}
-      <section className="py-16 px-6">
-        <div className="max-w-6xl mx-auto">
-          <div className="mb-8 bg-gradient-to-r from-slate-900 to-slate-900/70 border border-green-600/30 rounded-2xl p-6 md:p-8">
-            <div className="flex flex-col lg:flex-row lg:items-center lg:justify-between gap-5">
-              <div className="max-w-3xl">
-                <div className="text-sm font-semibold text-green-400 mb-2">Federal Contractor Resource Hub</div>
-                <h2 className="text-2xl md:text-3xl font-bold text-white mb-3">
-                  Explore the full resource library for government contractors
-                </h2>
-                <p className="text-slate-400">
-                  Browse our structured hub of federal contractor guides, tools, glossary terms, and expert help whether you&apos;re getting registered or improving proposal performance.
-                </p>
-              </div>
-              <div className="shrink-0">
-                <Link
-                  href="/guides"
-                  className="inline-flex items-center justify-center px-6 py-3 bg-green-600 hover:bg-green-500 text-white rounded-xl font-semibold transition-all"
-                >
-                  Visit Resource Hub →
-                </Link>
-              </div>
-            </div>
-          </div>
-
-          <div className="text-center mb-10">
-            <h2 className="text-3xl font-bold text-white mb-3">
-              Popular <span className="text-green-500">Federal Contractor Guides</span>
-            </h2>
-            <p className="text-slate-500">Essential reading for new and growing government contractors</p>
-          </div>
-
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
-            <Link href="/guides/cage-code" className="bg-slate-900 border border-slate-800 rounded-lg p-4 hover:border-green-600/50 transition group">
-              <h3 className="text-white font-semibold group-hover:text-green-400 transition mb-1">CAGE Code Guide</h3>
-              <p className="text-slate-500 text-sm">Get your 5-character ID for federal contracting</p>
-            </Link>
-            <Link href="/guides/sam-gov-registration" className="bg-slate-900 border border-slate-800 rounded-lg p-4 hover:border-green-600/50 transition group">
-              <h3 className="text-white font-semibold group-hover:text-green-400 transition mb-1">SAM.gov Registration</h3>
-              <p className="text-slate-500 text-sm">Step-by-step registration walkthrough</p>
-            </Link>
-            <Link href="/guides/8a-certification" className="bg-slate-900 border border-slate-800 rounded-lg p-4 hover:border-green-600/50 transition group">
-              <h3 className="text-white font-semibold group-hover:text-green-400 transition mb-1">8(a) Certification</h3>
-              <p className="text-slate-500 text-sm">Sole-source contracts up to $4.5M</p>
-            </Link>
-            <Link href="/guides/gsa-schedule" className="bg-slate-900 border border-slate-800 rounded-lg p-4 hover:border-green-600/50 transition group">
-              <h3 className="text-white font-semibold group-hover:text-green-400 transition mb-1">GSA Schedule</h3>
-              <p className="text-slate-500 text-sm">Pre-approved vendor access to agencies</p>
-            </Link>
-          </div>
-
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 mt-4">
-            <Link href="/jobs" className="bg-gradient-to-br from-green-900/30 to-slate-900 border border-green-600/30 rounded-lg p-4 hover:border-green-500/50 transition group">
-              <h3 className="text-green-400 font-semibold group-hover:text-green-300 transition mb-1">GovCon Jobs</h3>
-              <p className="text-slate-400 text-sm">$80K-$500K BD & Capture careers</p>
-            </Link>
-            <Link href="/guides/sba-certifications" className="bg-slate-900 border border-slate-800 rounded-lg p-4 hover:border-green-600/50 transition group">
-              <h3 className="text-white font-semibold group-hover:text-green-400 transition mb-1">SBA Certifications</h3>
-              <p className="text-slate-500 text-sm">HUBZone, WOSB, SDVOSB explained</p>
-            </Link>
-            <Link href="/glossary" className="bg-slate-900 border border-slate-800 rounded-lg p-4 hover:border-green-600/50 transition group">
-              <h3 className="text-white font-semibold group-hover:text-green-400 transition mb-1">GovCon Glossary</h3>
-              <p className="text-slate-500 text-sm">45+ terms every contractor should know</p>
-            </Link>
-            <Link href="/government-contract-help" className="bg-slate-900 border border-slate-800 rounded-lg p-4 hover:border-green-600/50 transition group">
-              <h3 className="text-white font-semibold group-hover:text-green-400 transition mb-1">Get Expert Help</h3>
-              <p className="text-slate-500 text-sm">Professional contract consulting services</p>
-            </Link>
-          </div>
-
-          <div className="text-center mt-6">
-            <Link href="/guides" className="text-green-500 hover:text-green-400 font-semibold">
-              View All 140+ Guides →
-            </Link>
-          </div>
-        </div>
-      </section>
-
-      {/* Free Resources to Get Started - 3 cards */}
-      <section className="py-20 px-6 bg-slate-900/50">
-        <div className="max-w-6xl mx-auto">
-          <div className="text-center mb-12">
-            <h2 className="text-4xl font-bold text-white mb-4">
-              Free <span className="text-green-500">Resources</span> to Get Started
-            </h2>
-            <p className="text-slate-500 text-lg">Everything you need to start winning federal contracts</p>
-          </div>
-
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-            {sharedHomepageContent.freeResources.map((resource, index) => (
-              <Link
-                key={index}
-                href={resource.link}
-                className="bg-slate-900 border border-slate-800 rounded-xl p-6 block hover:border-slate-700 transition"
-                {...(resource.link.startsWith("http") ? { target: "_blank", rel: "noopener noreferrer" } : {})}
-              >
-                <div className="w-12 h-12 rounded-lg bg-slate-800 flex items-center justify-center mb-4">
-                  <span className="text-2xl">{resource.icon}</span>
+      {/* Social Proof - Testimonials */}
+      <section className="py-16 px-6 bg-slate-900/50">
+        <div className="max-w-4xl mx-auto">
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+            {testimonials.map((testimonial, i) => (
+              <div key={i} className="bg-slate-800/50 border border-slate-700 rounded-xl p-6">
+                <p className="text-slate-300 text-lg mb-4 italic">"{testimonial.quote}"</p>
+                <div>
+                  <div className="font-bold text-white">{testimonial.name}</div>
+                  <div className="text-slate-500 text-sm">{testimonial.title}</div>
                 </div>
-                <h3 className="text-xl font-bold text-white mb-2">{resource.title}</h3>
-                <p className="text-slate-500 mb-4">{resource.desc}</p>
-                <span className="text-green-500 font-semibold">{resource.cta.replace('->', '→')}</span>
-              </Link>
+              </div>
             ))}
           </div>
         </div>
       </section>
 
-      {/* Urgency Section */}
+      {/* Core Benefits - Just 2 (Not 6) */}
       <section className="py-20 px-6">
         <div className="max-w-4xl mx-auto">
-          <div className="bg-slate-900 border border-slate-800 rounded-2xl p-8 md:p-12 text-center">
-            <div className="inline-flex items-center gap-2 bg-red-950 border border-red-900 text-red-500 px-4 py-2 rounded-full text-sm font-bold mb-6">
-              <span className="w-2 h-2 bg-red-500 rounded-full animate-pulse"></span>
-              URGENT OPPORTUNITY
-            </div>
-
-            <h2 className="text-3xl md:text-4xl font-bold text-white mb-4">
-              <span className="text-red-500">$82 Billion</span> Must Be Spent
-            </h2>
-
-            <p className="text-xl text-slate-400 mb-8">
-              Federal agencies are <span className="text-red-500 font-semibold">required by law</span> to meet small business spending goals.
-              Right now, they&apos;re <span className="text-green-500 font-semibold">$82 billion behind</span>.
-              This is YOUR opportunity.
-            </p>
-
-            <Link href="/bootcamp" className="inline-block px-8 py-4 bg-green-600 hover:bg-green-500 text-white rounded-xl font-bold text-lg transition-all">
-              Learn How to Get Your Share
-            </Link>
-          </div>
-        </div>
-      </section>
-
-      {/* Premium Resources Section */}
-      <section id="premium" className="py-20 px-6">
-        <div className="max-w-6xl mx-auto">
-          <div className="text-center mb-12">
-            <Link href="/premium" className="block group">
-              <h2 className="text-4xl font-bold text-white mb-4 group-hover:text-green-400 transition">
-                <span className="text-green-500">Premium</span> Resources
-              </h2>
-            </Link>
-            <p className="text-slate-500 text-lg max-w-2xl mx-auto">
-              Take it to the next level with paid replays and ongoing support.
-            </p>
-            <Link href="/premium" className="inline-block mt-4 text-green-500 hover:text-green-400 font-semibold">
-              See what level is right for you →
-            </Link>
-          </div>
-
-          {sharedHomepageContent.premiumLevels.map((level, levelIndex) => (
-            <div key={level.title} className={levelIndex < sharedHomepageContent.premiumLevels.length - 1 ? 'mb-12' : ''}>
-              <h3 className="text-xl font-bold text-white mb-4">{level.title}</h3>
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                {level.cards.map((card) => (
-                  <Link
-                    key={card.title}
-                    href={card.href}
-                    className={`bg-slate-900 border border-slate-800 rounded-xl p-6 block hover:border-green-600/50 transition ${level.cards.length === 1 ? 'md:max-w-md' : ''}`}
-                  >
-                    <div className="w-12 h-12 rounded-lg bg-slate-800 flex items-center justify-center mb-4">
-                      <span className="text-2xl">{card.icon}</span>
-                    </div>
-                    {card.badge ? (
-                      <p className="text-green-500 text-sm font-medium mb-1">{card.badge}</p>
-                    ) : null}
-                    <h4 className="text-lg font-bold text-white mb-2">{card.title}</h4>
-                    <p className="text-slate-500 text-sm mb-2">{card.description}</p>
-                    <span className="text-green-500 font-semibold text-sm">{card.cta.replace('->', '→')}</span>
-                  </Link>
-                ))}
-              </div>
-            </div>
-          ))}
-        </div>
-      </section>
-
-      {/* Video Section */}
-      <section id="training" className="py-20 px-6 bg-slate-900/50">
-        <div className="max-w-6xl mx-auto">
-          <div className="text-center mb-12">
+          <div className="text-center mb-16">
             <h2 className="text-4xl font-bold text-white mb-4">
-              Free <span className="text-green-500">Training</span> Videos
+              Two Things That Matter
             </h2>
-            <p className="text-slate-500 text-lg">Learn from experts who&apos;ve won millions in federal contracts</p>
+            <p className="text-slate-400 text-lg">Everything else is noise.</p>
           </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-            {videoCategories.map((cat, index) => (
-              <Link
-                key={index}
-                href={cat.link}
-                className={`bg-slate-900 border border-slate-800 rounded-xl overflow-hidden block hover:border-${cat.color}-600/50 transition group`}
-              >
-                <div className={`aspect-video bg-gradient-to-br from-${cat.color}-900/40 to-slate-900 flex items-center justify-center relative`}>
-                  <div className="text-center">
-                    <svg className={`w-16 h-16 text-${cat.color}-500 mx-auto mb-2 group-hover:scale-110 transition`} fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                      {cat.color === 'green' && <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="1.5" d="M13 10V3L4 14h7v7l9-11h-7z"/>}
-                      {cat.color === 'blue' && <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="1.5" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"/>}
-                      {cat.color === 'amber' && <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="1.5" d="M9 12l2 2 4-4M7.835 4.697a3.42 3.42 0 001.946-.806 3.42 3.42 0 014.438 0 3.42 3.42 0 001.946.806 3.42 3.42 0 013.138 3.138 3.42 3.42 0 00.806 1.946 3.42 3.42 0 010 4.438 3.42 3.42 0 00-.806 1.946 3.42 3.42 0 01-3.138 3.138 3.42 3.42 0 00-1.946.806 3.42 3.42 0 01-4.438 0 3.42 3.42 0 00-1.946-.806 3.42 3.42 0 01-3.138-3.138 3.42 3.42 0 00-.806-1.946 3.42 3.42 0 010-4.438 3.42 3.42 0 00.806-1.946 3.42 3.42 0 013.138-3.138z"/>}
-                    </svg>
-                    <span className={`text-${cat.color}-500/60 text-sm font-medium`}>{cat.videos} Videos</span>
-                  </div>
-                </div>
-                <div className="p-4">
-                  <h3 className="text-white font-bold mb-1">{cat.title}</h3>
-                  <p className="text-slate-500 text-sm">{cat.desc}</p>
-                </div>
-              </Link>
-            ))}
-          </div>
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+            {/* Benefit 1 */}
+            <div className="bg-slate-900 border border-slate-800 rounded-xl p-8 text-center">
+              <div className="text-5xl mb-4">🎯</div>
+              <h3 className="text-2xl font-bold text-white mb-3">Find Contracts</h3>
+              <p className="text-slate-400">
+                AI scans SAM.gov, Grants.gov, and 7,700+ agency forecasts.
+                You get matched opportunities — not a firehose.
+              </p>
+            </div>
 
-          <div className="text-center mt-8">
-            <Link href="/resources" className="text-green-500 hover:text-green-400 font-semibold transition">
-              View All 17 Free Videos →
-            </Link>
+            {/* Benefit 2 */}
+            <div className="bg-slate-900 border border-slate-800 rounded-xl p-8 text-center">
+              <div className="text-5xl mb-4">📧</div>
+              <h3 className="text-2xl font-bold text-white mb-3">Daily Briefings</h3>
+              <p className="text-slate-400">
+                Wake up to opportunities scored by win probability.
+                Know what to pursue. Know what to skip.
+              </p>
+            </div>
           </div>
         </div>
       </section>
 
-      {/* Latest Articles Section */}
-      <section className="py-16 px-6">
-        <div className="max-w-6xl mx-auto">
-          <div className="text-center mb-10">
-            <h2 className="text-3xl font-bold text-white mb-3">
-              Latest <span className="text-green-500">Articles</span>
+      {/* Pricing - Simple Free vs Pro (Mailchimp Model) */}
+      <section className="py-20 px-6 bg-slate-900/50">
+        <div className="max-w-4xl mx-auto">
+          <div className="text-center mb-16">
+            <h2 className="text-4xl font-bold text-white mb-4">
+              Simple Pricing
             </h2>
-            <p className="text-slate-500">Expert insights on government contracting</p>
+            <p className="text-slate-400 text-lg">Start free. Upgrade when you're winning.</p>
           </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-            {allPosts.slice(0, 6).map((post) => (
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+            {/* Free Tier */}
+            <div className="bg-slate-900 border border-slate-800 rounded-2xl p-8">
+              <div className="text-center mb-6">
+                <h3 className="text-2xl font-bold text-white mb-2">Free</h3>
+                <div className="text-4xl font-black text-white">$0</div>
+                <p className="text-slate-500 mt-1">Forever</p>
+              </div>
+              <ul className="space-y-3 mb-8">
+                <li className="flex items-center gap-3 text-slate-300">
+                  <span className="text-green-500">✓</span>
+                  Daily opportunity alerts
+                </li>
+                <li className="flex items-center gap-3 text-slate-300">
+                  <span className="text-green-500">✓</span>
+                  5 market research reports/month
+                </li>
+                <li className="flex items-center gap-3 text-slate-300">
+                  <span className="text-green-500">✓</span>
+                  NAICS matching
+                </li>
+              </ul>
               <Link
-                key={post.slug}
-                href={`/blog/${post.slug}`}
-                className="bg-slate-900 border border-slate-800 rounded-xl p-5 hover:border-green-600/50 transition group"
+                href="/free-course"
+                className="block w-full py-3 text-center bg-slate-800 hover:bg-slate-700 text-white rounded-xl font-bold transition"
               >
-                <div className="text-green-500 text-xs font-semibold uppercase tracking-wide mb-2">
-                  {post.category}
-                </div>
-                <h3 className="text-white font-bold mb-2 group-hover:text-green-400 transition line-clamp-2">
-                  {post.title}
-                </h3>
-                <p className="text-slate-500 text-sm line-clamp-2">{post.excerpt}</p>
+                Start Free
               </Link>
-            ))}
-          </div>
+            </div>
 
-          <div className="text-center mt-8">
-            <Link href="/blog" className="text-green-500 hover:text-green-400 font-semibold transition">
-              View All {allPosts.length} Articles →
-            </Link>
+            {/* Pro Tier */}
+            <div className="bg-gradient-to-br from-green-900/30 to-slate-900 border border-green-600/50 rounded-2xl p-8 relative">
+              <div className="absolute -top-3 left-1/2 -translate-x-1/2">
+                <span className="px-4 py-1 bg-green-600 text-white text-sm font-bold rounded-full">
+                  RECOMMENDED
+                </span>
+              </div>
+              <div className="text-center mb-6">
+                <h3 className="text-2xl font-bold text-white mb-2">Pro</h3>
+                <div className="text-4xl font-black text-white">$149<span className="text-lg font-normal text-slate-400">/mo</span></div>
+                <p className="text-slate-500 mt-1">Everything</p>
+              </div>
+              <ul className="space-y-3 mb-8">
+                <li className="flex items-center gap-3 text-slate-300">
+                  <span className="text-green-500">✓</span>
+                  <strong>AI Daily Briefings</strong>
+                </li>
+                <li className="flex items-center gap-3 text-slate-300">
+                  <span className="text-green-500">✓</span>
+                  <strong>Weekly Deep Dives</strong>
+                </li>
+                <li className="flex items-center gap-3 text-slate-300">
+                  <span className="text-green-500">✓</span>
+                  7,700+ agency forecasts
+                </li>
+                <li className="flex items-center gap-3 text-slate-300">
+                  <span className="text-green-500">✓</span>
+                  Unlimited market research
+                </li>
+                <li className="flex items-center gap-3 text-slate-300">
+                  <span className="text-green-500">✓</span>
+                  Pipeline tracker + CRM
+                </li>
+                <li className="flex items-center gap-3 text-slate-300">
+                  <span className="text-green-500">✓</span>
+                  Training included
+                </li>
+              </ul>
+              <Link
+                href="https://tools.govcongiants.org/market-intelligence"
+                className="block w-full py-3 text-center bg-green-600 hover:bg-green-500 text-white rounded-xl font-bold transition"
+              >
+                Get Pro
+              </Link>
+            </div>
           </div>
         </div>
       </section>
 
-      {/* CTA Section */}
+      {/* Final CTA - Email Capture */}
       <section className="py-20 px-6">
-        <div className="max-w-4xl mx-auto text-center">
+        <div className="max-w-3xl mx-auto text-center">
           <h2 className="text-4xl md:text-5xl font-bold text-white mb-6">
-            Ready to Win <span className="text-green-500">Federal Contracts</span>?
+            Stop searching.<br />
+            <span className="text-green-500">Start winning.</span>
           </h2>
           <p className="text-xl text-slate-400 mb-10">
-            Join thousands of small businesses who&apos;ve used our resources to win their share of federal spending.
+            Join 5,000+ contractors who get matched opportunities daily.
           </p>
+          <div className="max-w-md mx-auto">
+            <LeadForm
+              buttonText="Get Free Access"
+              redirectUrl="https://tools.govcongiants.org/market-intelligence"
+              source="homepage-footer"
+              hidePhone={true}
+              buttonClassName="btn-primary w-full green-glow disabled:opacity-50 text-lg py-4"
+            />
+          </div>
+        </div>
+      </section>
 
-          <div className="flex flex-col sm:flex-row gap-4 justify-center">
-            <Link href="/resources" className="px-10 py-5 bg-green-600 hover:bg-green-500 text-white rounded-xl font-bold text-xl transition-all green-glow">
-              Get Started Free
-            </Link>
-            <Link href="https://shop.govcongiants.org" className="px-10 py-5 bg-slate-800 hover:bg-slate-700 text-white border border-slate-700 rounded-xl font-bold text-xl transition-all">
-              Join Pro - $99/mo
-            </Link>
+      {/* SEO Links - Condensed */}
+      <section className="py-12 px-6 border-t border-slate-800">
+        <div className="max-w-6xl mx-auto">
+          <div className="flex flex-wrap justify-center gap-4 text-sm">
+            <Link href="/guides" className="text-slate-400 hover:text-green-400 transition">140+ Free Guides</Link>
+            <span className="text-slate-700">•</span>
+            <Link href="/guides/sam-gov-registration" className="text-slate-400 hover:text-green-400 transition">SAM.gov Registration</Link>
+            <span className="text-slate-700">•</span>
+            <Link href="/guides/cage-code" className="text-slate-400 hover:text-green-400 transition">CAGE Code</Link>
+            <span className="text-slate-700">•</span>
+            <Link href="/guides/8a-certification" className="text-slate-400 hover:text-green-400 transition">8(a) Certification</Link>
+            <span className="text-slate-700">•</span>
+            <Link href="/glossary" className="text-slate-400 hover:text-green-400 transition">GovCon Glossary</Link>
+            <span className="text-slate-700">•</span>
+            <Link href="/jobs" className="text-slate-400 hover:text-green-400 transition">GovCon Jobs</Link>
+            <span className="text-slate-700">•</span>
+            <Link href="/blog" className="text-slate-400 hover:text-green-400 transition">Blog</Link>
           </div>
         </div>
       </section>
 
       {/* Footer */}
-      <footer className="py-16 px-6 border-t border-slate-800">
+      <footer className="py-12 px-6 border-t border-slate-800">
         <div className="max-w-6xl mx-auto">
-          <div className="grid grid-cols-1 md:grid-cols-4 gap-10 mb-12">
-            {/* Brand */}
-            <div>
-              <div className="flex items-center gap-1 mb-4">
-                <span className="text-2xl font-bold text-white">GovCon</span>
-                <span className="text-2xl font-bold text-green-500">Giants</span>
-              </div>
-              <p className="text-slate-500 text-sm mb-4">
-                Helping small businesses win federal government contracts.
-              </p>
-              <div className="space-y-2 text-sm">
-                <a href="tel:7864770477" className="text-slate-400 hover:text-white transition block">786-477-0477</a>
-                <a href="mailto:hello@govconedu.com" className="text-slate-400 hover:text-white transition block">hello@govconedu.com</a>
-              </div>
+          <div className="flex flex-col md:flex-row justify-between items-center gap-6">
+            <div className="flex items-center gap-1">
+              <span className="text-xl font-bold text-white">GovCon</span>
+              <span className="text-xl font-bold text-green-500">Giants</span>
             </div>
-
-            {/* Learn (Guides) */}
-            <div>
-              <h3 className="text-white font-bold mb-4">Learn</h3>
-              <ul className="space-y-2 text-sm">
-                <li><Link href="/guides/government-contracting-for-beginners" className="text-slate-500 hover:text-white transition">GovCon for Beginners</Link></li>
-                <li><Link href="/guides/sam-gov-registration" className="text-slate-500 hover:text-white transition">SAM.gov Registration</Link></li>
-                <li><Link href="/guides/cage-code" className="text-slate-500 hover:text-white transition">CAGE Code Guide</Link></li>
-                <li><Link href="/guides/sba-certifications" className="text-slate-500 hover:text-white transition">SBA Certifications</Link></li>
-                <li><Link href="/guides/gsa-schedule" className="text-slate-500 hover:text-white transition">GSA Schedule</Link></li>
-                <li><Link href="/guides/proposal-writing" className="text-slate-500 hover:text-white transition">Proposal Writing</Link></li>
-                <li><Link href="/glossary" className="text-slate-500 hover:text-white transition">GovCon Glossary</Link></li>
-                <li><Link href="/guides" className="text-green-500 hover:text-green-400 transition font-medium">All Guides →</Link></li>
-              </ul>
+            <div className="flex flex-wrap justify-center gap-6 text-sm">
+              <a href="tel:7864770477" className="text-slate-400 hover:text-white transition">786-477-0477</a>
+              <a href="mailto:hello@govconedu.com" className="text-slate-400 hover:text-white transition">hello@govconedu.com</a>
+              <Link href="/privacy-policy" className="text-slate-400 hover:text-white transition">Privacy</Link>
+              <Link href="/terms" className="text-slate-400 hover:text-white transition">Terms</Link>
             </div>
-
-            {/* Products */}
-            <div>
-              <h3 className="text-white font-bold mb-4">Products</h3>
-              <ul className="space-y-2 text-sm">
-                <li><Link href="/jobs" className="text-green-500 hover:text-green-400 transition font-medium">GovCon Jobs</Link></li>
-                <li><Link href="/free-course" className="text-slate-500 hover:text-white transition">Free Course</Link></li>
-                <li><Link href="/resources" className="text-slate-500 hover:text-white transition">Resources</Link></li>
-                <li><Link href="/tools" className="text-slate-500 hover:text-white transition">Tools</Link></li>
-                <li><Link href="/premium" className="text-slate-500 hover:text-white transition">Premium</Link></li>
-                <li><Link href="/consulting" className="text-slate-500 hover:text-white transition">Consulting</Link></li>
-                <li><Link href="/upskilling" className="text-slate-500 hover:text-white transition">BD Training</Link></li>
-              </ul>
-            </div>
-
-            {/* Company */}
-            <div>
-              <h3 className="text-white font-bold mb-4">Company</h3>
-              <ul className="space-y-2 text-sm">
-                <li><Link href="/training" className="text-slate-500 hover:text-white transition">Training</Link></li>
-                <li><Link href="https://govcongiants.com" className="text-slate-500 hover:text-white transition">Contact</Link></li>
-                <li><Link href="/privacy-policy" className="text-slate-500 hover:text-white transition">Privacy Policy</Link></li>
-                <li><Link href="/terms" className="text-slate-500 hover:text-white transition">Terms of Service</Link></li>
-              </ul>
-            </div>
-          </div>
-
-          <div className="border-t border-slate-800 pt-8 text-center">
             <p className="text-slate-600 text-sm">
-              © 2026 GovCon Giants. All rights reserved.
+              © 2026 GovCon Giants
             </p>
           </div>
         </div>
