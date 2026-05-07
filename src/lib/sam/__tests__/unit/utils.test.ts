@@ -176,6 +176,7 @@ describe('SAM Utils - Unit Tests', () => {
     beforeEach(() => {
       vi.restoreAllMocks();
       vi.stubEnv('SAM_API_KEY', 'primary-key');
+      vi.stubEnv('SAM_ENTITY_API_KEY', 'primary-key');
       vi.stubEnv('SAM_API_KEY_BACKUP', 'backup-key');
     });
 
