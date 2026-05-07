@@ -5,6 +5,7 @@ import {
   checkRateLimit,
   incrementRateLimit,
   parseSAMError,
+  makeSAMRequest,
 } from '../../utils';
 
 describe('SAM Utils - Unit Tests', () => {
@@ -161,6 +162,62 @@ describe('SAM Utils - Unit Tests', () => {
       expect(parseSAMError(401, {}).retryable).toBe(false);
       expect(parseSAMError(403, {}).retryable).toBe(false);
       expect(parseSAMError(404, {}).retryable).toBe(false);
+    });
+  });
+
+  describe('makeSAMRequest key failover', () => {
+    const config = {
+      apiType: 'entity' as const,
+      baseUrl: 'https://api.example.test/entity',
+      apiKey: 'primary-key',
+      cacheTTLHours: 24,
+    };
+
+    beforeEach(() => {
+      vi.restoreAllMocks();
+      vi.stubEnv('SAM_API_KEY', 'primary-key');
+      vi.stubEnv('SAM_API_KEY_BACKUP', 'backup-key');
+    });
+
+    it('tries the backup key after a fallback-eligible 429 from the primary key', async () => {
+      const fetchMock = vi
+        .fn()
+        .mockResolvedValueOnce(new Response(JSON.stringify({ message: 'Too many requests' }), { status: 429 }))
+        .mockResolvedValueOnce(new Response(JSON.stringify({ entityData: [], totalRecords: 0 }), { status: 200 }));
+
+      vi.stubGlobal('fetch', fetchMock);
+
+      const result = await makeSAMRequest<{ entityData: []; totalRecords: number }>(
+        config,
+        '/entities',
+        { samRegistered: 'Yes' },
+        { useCache: false, bypassRateLimit: true }
+      );
+
+      expect(result.error).toBeNull();
+      expect(result.data).toEqual({ entityData: [], totalRecords: 0 });
+      expect(fetchMock).toHaveBeenCalledTimes(2);
+      expect(fetchMock.mock.calls[0][0]).toContain('api_key=primary-key');
+      expect(fetchMock.mock.calls[1][0]).toContain('api_key=backup-key');
+    });
+
+    it('does not use the backup key for non-fallback request errors', async () => {
+      const fetchMock = vi
+        .fn()
+        .mockResolvedValueOnce(new Response(JSON.stringify({ message: 'Bad request' }), { status: 400 }));
+
+      vi.stubGlobal('fetch', fetchMock);
+
+      const result = await makeSAMRequest(
+        config,
+        '/entities',
+        { samRegistered: 'Yes' },
+        { useCache: false, bypassRateLimit: true }
+      );
+
+      expect(result.error?.status).toBe(400);
+      expect(fetchMock).toHaveBeenCalledTimes(1);
+      expect(fetchMock.mock.calls[0][0]).toContain('api_key=primary-key');
     });
   });
 });
