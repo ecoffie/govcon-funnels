@@ -1,6 +1,7 @@
 import type { MetadataRoute } from 'next';
 import { allPosts } from '@/content/blog';
 import { allVideos } from '@/content/videos';
+import { agencies } from '@/content/agencies';
 import { SITE_URL } from '@/lib/seo';
 
 // Job board categories for SEO
@@ -193,6 +194,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
     { url: `${SITE_URL}/proposal-writing-services`, lastModified: now, changeFrequency: 'monthly', priority: 0.8 },
     { url: `${SITE_URL}/glossary`, lastModified: now, changeFrequency: 'monthly', priority: 0.7 },
     { url: `${SITE_URL}/federal-contractor`, lastModified: now, changeFrequency: 'monthly', priority: 0.9 },
+    { url: `${SITE_URL}/compare/deltek`, lastModified: now, changeFrequency: 'monthly', priority: 0.9 },
     { url: `${SITE_URL}/upskilling`, lastModified: now, changeFrequency: 'monthly', priority: 0.7 },
     { url: `${SITE_URL}/jobs`, lastModified: now, changeFrequency: 'daily', priority: 0.9 },
     { url: `${SITE_URL}/blog`, lastModified: now, changeFrequency: 'weekly', priority: 0.8 },
@@ -233,5 +235,16 @@ export default function sitemap(): MetadataRoute.Sitemap {
     })),
   ];
 
-  return [...staticPages, ...guidePages, ...blogPages, ...jobPages, ...videoPages];
+  // Agency profile pages
+  const agencyPages: MetadataRoute.Sitemap = [
+    { url: `${SITE_URL}/data/agencies`, lastModified: now, changeFrequency: 'weekly' as const, priority: 0.8 },
+    ...agencies.map((agency) => ({
+      url: `${SITE_URL}/data/agencies/${agency.slug}`,
+      lastModified: now,
+      changeFrequency: 'monthly' as const,
+      priority: 0.8,
+    })),
+  ];
+
+  return [...staticPages, ...guidePages, ...blogPages, ...jobPages, ...videoPages, ...agencyPages];
 }
