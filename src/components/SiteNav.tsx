@@ -108,10 +108,10 @@ export default function SiteNav() {
               Federal BD Services
             </Link>
             <Link
-              href="https://shop.govcongiants.org"
+              href="/mi-free"
               className="px-5 py-2 bg-green-600 hover:bg-green-500 text-white rounded-lg font-semibold transition"
             >
-              Join Pro
+              Start Free
             </Link>
           </nav>
         </div>
