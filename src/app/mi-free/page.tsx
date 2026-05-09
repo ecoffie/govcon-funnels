@@ -1,5 +1,5 @@
 import Link from 'next/link';
-import LeadForm from '@/components/LeadForm';
+import ABTestLeadForm from '@/components/ABTestLeadForm';
 import { generateSeo } from '@/lib/seo';
 import JsonLd from '@/components/JsonLd';
 import { SITE_URL } from '@/lib/seo';
@@ -100,10 +100,11 @@ export default function MIFreePage() {
             Stop missing opportunities. Get AI-matched federal contracts delivered to your inbox daily. Free forever.
           </p>
 
-          {/* Email Capture */}
+          {/* Email Capture - A/B Testing CTA */}
           <div className="max-w-md mx-auto mb-8">
-            <LeadForm
-              buttonText="Get Free Access"
+            <ABTestLeadForm
+              testId="mi-free-cta"
+              fallbackButtonText="Get Free Access"
               redirectUrl="https://mi.govcongiants.com/alerts/signup"
               source="mi-free-landing"
               hidePhone={true}
@@ -254,8 +255,9 @@ export default function MIFreePage() {
           </p>
 
           <div className="max-w-md mx-auto">
-            <LeadForm
-              buttonText="Get Free Access Now"
+            <ABTestLeadForm
+              testId="mi-free-cta"
+              fallbackButtonText="Get Free Access Now"
               redirectUrl="https://mi.govcongiants.com/alerts/signup"
               source="mi-free-landing-bottom"
               hidePhone={true}
