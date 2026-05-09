@@ -181,11 +181,32 @@ See `/tasks/lessons.md` for full details.
 ## Recent Work (Last 7 Days)
 
 ### May 9, 2026
-- **GovTribe Comparison Page:**
+- **Federal Compass Comparison Page:**
+  - Created `/compare/federal-compass` - targets "federal compass alternative"
+  - Highlights per-user pricing disadvantage ($8-24/user vs $149 flat)
+  - Cross-linked with Deltek and GovTribe comparison pages
+- **Contractor Funding Chart (Phase 1):**
+  - New USASpending.gov API library (`/src/lib/usaspending.ts`)
+  - API endpoint `/api/contractor-funding?uei=X&name=Y`
+  - ContractorFundingChart component with Recharts bar chart
+  - 5-year funding history with YoY growth indicators (green/amber/red)
+  - Summary metrics: total, average, peak year, YoY growth
+  - Gated display on contractor profile pages
+- **A/B Testing for MI Free CTAs:**
+  - New ab-test library with localStorage persistence + GA4 tracking
+  - ABTestLeadForm component for form submit button testing
+  - 4 CTA variants on /mi-free page:
+    - Control: "Get Free Access"
+    - Variant A: "Start Free — No Credit Card"
+    - Variant B: "Get Daily Contract Alerts"
+    - Variant C: "Try Free for 30 Days"
+- **Backlink Outreach:**
+  - Drafted 15 personalized outreach emails (tasks/backlink-outreach-emails.md)
+  - Targets: SBDCNet, GovCon Chamber, APEX, NCMA, Library of Congress, etc.
+- **GovTribe Comparison Page (earlier):**
   - Created `/compare/govtribe` - targets "govtribe alternative" keywords
   - Feature comparison table, pricing comparison, honest strengths/weaknesses
   - Cross-linked with `/compare/deltek`
-  - Submitted to IndexNow
 - **Internal Links to Data Pages (9 guides):**
   - Added links from high-traffic guides to new data pages
   - federal-market-research, finding-government-contracts, proposal-writing
