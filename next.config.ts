@@ -7,13 +7,13 @@ const nextConfig: NextConfig = {
       {
         source: "/:path*",
         has: [{ type: "host", value: "govcongiants.org" }],
-        destination: "https://govcongiants.com/:path*",
+        destination: "https://www.govcongiants.com/:path*",
         permanent: true,
       },
       {
         source: "/:path*",
         has: [{ type: "host", value: "www.govcongiants.org" }],
-        destination: "https://govcongiants.com/:path*",
+        destination: "https://www.govcongiants.com/:path*",
         permanent: true,
       },
       {

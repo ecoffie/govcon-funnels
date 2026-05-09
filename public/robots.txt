@@ -1,4 +1,4 @@
-# GovCon Giants - govcongiants.org
+# GovCon Giants - govcongiants.com
 User-agent: *
 Allow: /
 
@@ -10,4 +10,4 @@ Disallow: /internal/
 Disallow: /api/
 
 # Sitemap
-Sitemap: https://govcongiants.org/sitemap.xml
+Sitemap: https://www.govcongiants.com/sitemap.xml

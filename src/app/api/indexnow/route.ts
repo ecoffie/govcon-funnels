@@ -1,7 +1,7 @@
 import { NextRequest, NextResponse } from 'next/server';
 
 const INDEXNOW_KEY = 'ee86d2341492c65ffc9fcdb4cde80e41';
-const SITE_HOST = 'govcongiants.org';
+const SITE_HOST = 'www.govcongiants.com';
 
 // All indexable URLs on the site
 const SITE_URLS = [
