@@ -5,7 +5,7 @@ import { sendConfirmationEmail } from '@/lib/email';
 export async function POST(request: NextRequest) {
   try {
     const body = await request.json();
-    const { name, email, phone, source, redirectUrl, tags } = body;
+    const { name, email, phone, source, redirectUrl, tags, abTestId, abVariant } = body;
 
     if (!email?.trim()) {
       return NextResponse.json({ error: 'Email is required' }, { status: 400 });
@@ -18,6 +18,8 @@ export async function POST(request: NextRequest) {
       source: source?.trim() ?? 'website',
       redirectUrl,
       tags: Array.isArray(tags) ? tags : [],
+      abTestId: abTestId ?? null,
+      abVariant: abVariant ?? null,
     };
 
     // 1) Send to CRM first (HighLevel + optional webhook). Contact is created and tagged in GHL.
@@ -33,10 +35,11 @@ export async function POST(request: NextRequest) {
       source: lead.source,
     });
 
-    // Log for debugging
+    // Log for debugging (including A/B test data)
     console.log('New lead:', {
       email: lead.email,
       source: lead.source,
+      abTest: lead.abTestId ? `${lead.abTestId}:${lead.abVariant}` : null,
       crm: crmResults.ghl?.ok,
       slack: slackResult.ok,
       emailSent: emailResult.ok

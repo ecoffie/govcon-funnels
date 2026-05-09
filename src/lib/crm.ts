@@ -12,6 +12,10 @@ export interface LeadPayload {
   redirectUrl?: string;
   /** Optional: custom tags to add to the contact in GHL */
   tags?: string[];
+  /** Optional: A/B test ID (e.g. 'mi-free-cta') */
+  abTestId?: string | null;
+  /** Optional: A/B test variant (e.g. 'variant-a') */
+  abVariant?: string | null;
 }
 
 /** Send lead to GoHighLevel v2 API (creates or updates contact) */
@@ -28,9 +32,14 @@ export async function sendToGoHighLevel(lead: LeadPayload): Promise<{ ok: boolea
 
   try {
     // Use custom tags if provided, otherwise fall back to source-based tag
-    const allTags = lead.tags && lead.tags.length > 0
+    const baseTags = lead.tags && lead.tags.length > 0
       ? lead.tags
       : [lead.source];
+
+    // Add A/B test variant as a tag for segmentation
+    const allTags = lead.abTestId && lead.abVariant
+      ? [...baseTags, `ab-${lead.abTestId}-${lead.abVariant}`]
+      : baseTags;
 
     // GHL v2 API - uses services.leadconnectorhq.com with PIT key
     const res = await fetch('https://services.leadconnectorhq.com/contacts/', {
@@ -121,6 +130,11 @@ export async function sendToSlack(lead: LeadPayload): Promise<{ ok: boolean; err
 
   const sourceLabel = lead.source.replace(/-/g, ' ').replace(/\b\w/g, (c) => c.toUpperCase());
 
+  // Build A/B test context if present
+  const abTestInfo = lead.abTestId && lead.abVariant
+    ? ` \u00b7 A/B: \`${lead.abTestId}:${lead.abVariant}\``
+    : '';
+
   try {
     const res = await fetch(webhookUrl, {
       method: 'POST',
@@ -143,7 +157,7 @@ export async function sendToSlack(lead: LeadPayload): Promise<{ ok: boolean; err
           },
           {
             type: 'context',
-            elements: [{ type: 'mrkdwn', text: `Source: \`${lead.source}\` \u00b7 ${new Date().toISOString()}` }],
+            elements: [{ type: 'mrkdwn', text: `Source: \`${lead.source}\`${abTestInfo} \u00b7 ${new Date().toISOString()}` }],
           },
         ],
       }),
