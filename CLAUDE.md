@@ -28,6 +28,11 @@ When user says: "the $82B page", "govcon funnels", "main marketing site", "the h
 | `/videos/[slug]` | 8 video landing pages |
 | `/jobs` | Job board - dual source (JSearch + USAJobs) |
 | `/glossary` | 45+ GovCon terms |
+| `/data/agencies` | 35+ agency profiles with spending data |
+| `/data/contractors` | 500K+ contractor profiles (SAM.gov) |
+| `/data/forecasts` | 7,700+ forecast opportunities (gated) |
+| `/compare/deltek` | GovWin comparison page |
+| `/compare/govtribe` | GovTribe comparison page |
 
 ### Free Tools
 | Route | Purpose |
@@ -175,6 +180,24 @@ See `/tasks/lessons.md` for full details.
 
 ## Recent Work (Last 7 Days)
 
+### May 9, 2026
+- **GovTribe Comparison Page:**
+  - Created `/compare/govtribe` - targets "govtribe alternative" keywords
+  - Feature comparison table, pricing comparison, honest strengths/weaknesses
+  - Cross-linked with `/compare/deltek`
+  - Submitted to IndexNow
+- **Internal Links to Data Pages (9 guides):**
+  - Added links from high-traffic guides to new data pages
+  - federal-market-research, finding-government-contracts, proposal-writing
+  - capture-management, government-contracting-for-beginners, competitive-analysis
+  - bid-no-bid, agency-budgets, business-development-plan
+  - Links to: /data/agencies, /data/contractors, /data/forecasts
+- **Data Pages (from previous session):**
+  - `/data/contractors` - Index page + dynamic `[uei]` profiles
+  - `/data/forecasts` - 7,700+ forecasts landing page (gated)
+  - Homepage "Market Intelligence Platform" section added
+  - PRD created for contractor sales chart feature
+
 ### April 14, 2026
 - **SEO Redirect Fixes:**
   - `/opp` redirect: Changed to permanent (308) - preserves link equity
@@ -234,4 +257,4 @@ See `/tasks/work-history.md` for full history including:
 
 ---
 
-*Last Updated: April 14, 2026*
+*Last Updated: May 9, 2026*
