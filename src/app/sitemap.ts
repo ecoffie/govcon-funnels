@@ -183,6 +183,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
     { url: `${SITE_URL}/bootcamp`, lastModified: now, changeFrequency: 'monthly', priority: 0.8 },
     { url: `${SITE_URL}/contract-vehicles-bootcamp`, lastModified: now, changeFrequency: 'monthly', priority: 0.7 },
     { url: `${SITE_URL}/opp`, lastModified: now, changeFrequency: 'monthly', priority: 0.8 },
+    { url: `${SITE_URL}/mi-free`, lastModified: now, changeFrequency: 'weekly', priority: 0.9 },
     { url: `${SITE_URL}/tools`, lastModified: now, changeFrequency: 'monthly', priority: 0.8 },
     { url: `${SITE_URL}/tools/cage-code-lookup`, lastModified: now, changeFrequency: 'monthly', priority: 0.9 },
     { url: `${SITE_URL}/tools/expiring-contracts`, lastModified: now, changeFrequency: 'daily', priority: 0.9 },

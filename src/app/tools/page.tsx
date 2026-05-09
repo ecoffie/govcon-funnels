@@ -46,45 +46,50 @@ const tools = [
     tagline: 'Federal Market Research on Autopilot',
     description: 'Analyze agency spending patterns, identify target agencies, and uncover contract trends. Pull data from USAspending and SAM.gov contract data to build your capture strategy.',
     features: ['Agency spending breakdowns', 'NAICS code analysis', 'Contract trend reports', 'Competitor intelligence'],
-    href: 'https://shop.govcongiants.org',
+    href: 'https://mi.govcongiants.com/federal-market-assassin',
     icon: '🎯',
     color: 'red',
+    included: true,
   },
   {
     name: 'Content Reaper',
     tagline: 'AI-Powered Proposal Content Extraction',
     description: 'Extract and organize reusable content from past proposals, SOWs, and PWS documents. Build a searchable content library that makes future proposals faster.',
     features: ['Document analysis', 'Content extraction', 'Searchable library', 'Proposal acceleration'],
-    href: 'https://shop.govcongiants.org',
+    href: 'https://mi.govcongiants.com/content-reaper',
     icon: '📑',
     color: 'purple',
+    included: true,
   },
   {
     name: 'Opportunity Hunter',
     tagline: 'Find the Right Contracts, Faster',
     description: 'Search SAM.gov contract opportunities by NAICS code, keywords, set-aside type, and agency. Get matched opportunities delivered to your inbox.',
     features: ['SAM.gov integration', 'NAICS filtering', 'Set-aside filters', 'Email alerts'],
-    href: '/opp',
+    href: 'https://mi.govcongiants.com/opportunity-hunter',
     icon: '🔍',
     color: 'blue',
+    included: false,
   },
   {
     name: 'Contractor Database',
     tagline: 'Find Teaming Partners & Subcontractors',
-    description: 'Search our database of vetted government contractors to find teaming partners, mentors, and subcontracting opportunities. Build relationships that win contracts.',
-    features: ['Contractor profiles', 'NAICS matching', 'Certification filters', 'Direct contact'],
-    href: 'https://shop.govcongiants.org',
+    description: 'Search our database of 3,500+ vetted government contractors to find teaming partners, mentors, and subcontracting opportunities. Includes 800+ SBLO contacts.',
+    features: ['3,500+ contractor profiles', 'SBLO contact info', 'Certification filters', 'Teaming recommendations'],
+    href: 'https://mi.govcongiants.com/contractor-database',
     icon: '🤝',
     color: 'green',
+    included: true,
   },
   {
     name: 'Recompete Tracker',
     tagline: 'Never Miss a Recompete Opportunity',
-    description: 'Track expiring federal contracts and get alerts when recompete opportunities are posted. Position yourself months before the solicitation drops.',
-    features: ['Expiring contract alerts', 'Agency tracking', 'Timeline reminders', 'Recompete intelligence'],
-    href: 'https://shop.govcongiants.org',
+    description: 'Track 5,000+ expiring federal contracts and get alerts when recompete opportunities are posted. Position yourself months before the solicitation drops.',
+    features: ['5,000+ expiring contracts', 'Agency tracking', 'Timeline reminders', 'Incumbent data'],
+    href: 'https://mi.govcongiants.com/expiring-contracts',
     icon: '🔔',
     color: 'amber',
+    included: true,
   },
 ];
 
@@ -165,10 +170,33 @@ export default function ToolsPage() {
         </div>
       </section>
 
+      {/* MI Free CTA */}
+      <section className="px-6 pb-12">
+        <div className="max-w-5xl mx-auto">
+          <div className="bg-gradient-to-r from-green-900/30 to-slate-900 border border-green-500/30 rounded-2xl p-8">
+            <div className="flex flex-col md:flex-row items-center justify-between gap-6">
+              <div>
+                <h2 className="text-2xl font-bold text-white mb-2">Want All These Tools?</h2>
+                <p className="text-slate-400">Start with MI Free — get daily alerts and access to our free tools. No credit card required.</p>
+              </div>
+              <Link
+                href="/mi-free"
+                className="flex-shrink-0 px-8 py-4 bg-green-600 hover:bg-green-500 text-white rounded-xl font-bold text-lg transition-all"
+              >
+                Get MI Free →
+              </Link>
+            </div>
+          </div>
+        </div>
+      </section>
+
       {/* Premium Tools Grid */}
       <section className="px-6 pb-20">
         <div className="max-w-5xl mx-auto">
-          <h2 className="text-2xl font-bold text-white mb-6">Premium Tools</h2>
+          <div className="flex items-center justify-between mb-6">
+            <h2 className="text-2xl font-bold text-white">Premium Tools</h2>
+            <span className="px-3 py-1 bg-green-500/20 text-green-400 text-sm rounded-full">Included in MI Core — $149/mo</span>
+          </div>
           <div className="space-y-8">
           {tools.map((tool) => (
             <div
@@ -195,9 +223,8 @@ export default function ToolsPage() {
                   <Link
                     href={tool.href}
                     className="inline-block px-6 py-3 bg-green-600 hover:bg-green-500 text-white rounded-lg font-semibold transition"
-                    {...(tool.href.startsWith('http') ? { target: '_blank', rel: 'noopener noreferrer' } : {})}
                   >
-                    {tool.href === '/opp' ? 'Try Free →' : 'Get Access →'}
+                    {tool.included ? 'Included in MI Core →' : 'Try Free →'}
                   </Link>
                 </div>
               </div>
@@ -210,18 +237,24 @@ export default function ToolsPage() {
       {/* Bottom CTA */}
       <section className="px-6 pb-20">
         <div className="max-w-3xl mx-auto bg-slate-900 border border-green-600/30 rounded-2xl p-8 text-center">
-          <h2 className="text-2xl font-bold text-white mb-3">Need Help Choosing the Right Tool?</h2>
+          <h2 className="text-2xl font-bold text-white mb-3">Start Free, Upgrade When Ready</h2>
           <p className="text-slate-400 mb-6">
-            Book a free call with our team and we&apos;ll help you figure out which tools match your business goals.
+            MI Free gives you daily opportunity alerts and access to our free tools. Upgrade to MI Core ($149/mo) for the full intelligence platform.
           </p>
-          <Link
-            href="https://calendly.com/govconedumeet/gcg-beginnerscall"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="inline-block px-8 py-4 bg-green-600 hover:bg-green-500 text-white rounded-xl font-bold text-lg transition-all"
-          >
-            Book a Free Call
-          </Link>
+          <div className="flex flex-col sm:flex-row gap-4 justify-center">
+            <Link
+              href="/mi-free"
+              className="inline-block px-8 py-4 bg-green-600 hover:bg-green-500 text-white rounded-xl font-bold text-lg transition-all"
+            >
+              Get MI Free
+            </Link>
+            <Link
+              href="https://mi.govcongiants.com/market-intelligence"
+              className="inline-block px-8 py-4 bg-slate-800 hover:bg-slate-700 text-white rounded-xl font-bold text-lg transition-all border border-slate-700"
+            >
+              See MI Core
+            </Link>
+          </div>
         </div>
       </section>
     </main>
