@@ -305,9 +305,28 @@ export default function Home() {
         </div>
       </section>
 
-      {/* SEO Links - Condensed */}
+      {/* Data Platform Links */}
       <section className="py-12 px-6 border-t border-slate-800">
         <div className="max-w-6xl mx-auto">
+          <h3 className="text-center text-slate-500 text-sm font-medium mb-6 uppercase tracking-wide">Market Intelligence Platform</h3>
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mb-8">
+            <Link href="/data/agencies" className="bg-slate-900 border border-slate-800 rounded-lg p-4 hover:border-green-500/50 transition text-center group">
+              <div className="text-2xl font-bold text-green-400 mb-1">35+</div>
+              <div className="text-sm text-slate-400 group-hover:text-white transition">Agency Profiles</div>
+            </Link>
+            <Link href="/data/contractors" className="bg-slate-900 border border-slate-800 rounded-lg p-4 hover:border-green-500/50 transition text-center group">
+              <div className="text-2xl font-bold text-blue-400 mb-1">500K+</div>
+              <div className="text-sm text-slate-400 group-hover:text-white transition">Contractors</div>
+            </Link>
+            <Link href="/data/forecasts" className="bg-slate-900 border border-slate-800 rounded-lg p-4 hover:border-green-500/50 transition text-center group">
+              <div className="text-2xl font-bold text-amber-400 mb-1">7,700+</div>
+              <div className="text-sm text-slate-400 group-hover:text-white transition">Forecasts</div>
+            </Link>
+            <Link href="/tools/expiring-contracts" className="bg-slate-900 border border-slate-800 rounded-lg p-4 hover:border-green-500/50 transition text-center group">
+              <div className="text-2xl font-bold text-purple-400 mb-1">Live</div>
+              <div className="text-sm text-slate-400 group-hover:text-white transition">Expiring Contracts</div>
+            </Link>
+          </div>
           <div className="flex flex-wrap justify-center gap-4 text-sm">
             <Link href="/guides" className="text-slate-400 hover:text-green-400 transition">140+ Free Guides</Link>
             <span className="text-slate-700">•</span>
