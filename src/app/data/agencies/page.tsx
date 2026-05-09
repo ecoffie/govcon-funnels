@@ -124,8 +124,8 @@ export default function AgenciesIndexPage() {
                 <h3 className="text-white font-medium mb-2 group-hover:text-red-400 transition">
                   {agency.name}
                 </h3>
-                <p className="text-sm text-slate-500 line-clamp-2">
-                  {agency.painPoints[0]}
+                <p className="text-sm text-slate-500">
+                  {agency.painPoints.length} pain points • {agency.priorities.length} priorities
                 </p>
                 {agency.parent && (
                   <div className="mt-2 text-xs text-slate-600">
@@ -163,8 +163,8 @@ export default function AgenciesIndexPage() {
                 <h3 className="text-white font-medium mb-2 group-hover:text-blue-400 transition">
                   {agency.name}
                 </h3>
-                <p className="text-sm text-slate-500 line-clamp-2">
-                  {agency.painPoints[0]}
+                <p className="text-sm text-slate-500">
+                  {agency.painPoints.length} pain points • {agency.priorities.length} priorities
                 </p>
                 {agency.parent && (
                   <div className="mt-2 text-xs text-slate-600">
@@ -202,8 +202,8 @@ export default function AgenciesIndexPage() {
                 <h3 className="text-white font-medium mb-2 group-hover:text-green-400 transition">
                   {agency.name}
                 </h3>
-                <p className="text-sm text-slate-500 line-clamp-2">
-                  {agency.painPoints[0]}
+                <p className="text-sm text-slate-500">
+                  {agency.painPoints.length} pain points • {agency.priorities.length} priorities
                 </p>
               </Link>
             ))}
