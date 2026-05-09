@@ -251,5 +251,10 @@ export default function sitemap(): MetadataRoute.Sitemap {
     { url: `${SITE_URL}/data/contractors`, lastModified: now, changeFrequency: 'weekly' as const, priority: 0.8 },
   ];
 
-  return [...staticPages, ...guidePages, ...blogPages, ...jobPages, ...videoPages, ...agencyPages, ...contractorPages];
+  // Forecast page (gated content, index page for SEO)
+  const forecastPages: MetadataRoute.Sitemap = [
+    { url: `${SITE_URL}/data/forecasts`, lastModified: now, changeFrequency: 'weekly' as const, priority: 0.8 },
+  ];
+
+  return [...staticPages, ...guidePages, ...blogPages, ...jobPages, ...videoPages, ...agencyPages, ...contractorPages, ...forecastPages];
 }
