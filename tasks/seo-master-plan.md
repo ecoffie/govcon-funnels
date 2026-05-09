@@ -401,12 +401,12 @@ $149/mo conversion
 
 ### 3.2 Additional Comparison Pages
 
-| Route | Target | Priority |
-|-------|--------|----------|
-| `/compare/deltek` | GovWin IQ ($13K-$119K) | HIGH |
-| `/compare/govtribe` | GovTribe Pro ($600/yr) | MEDIUM |
-| `/compare/federal-compass` | Federal Compass | MEDIUM |
-| `/compare/sam-gov` | Free vs. our value-add | LOW |
+| Route | Target | Priority | Status |
+|-------|--------|----------|--------|
+| `/compare/deltek` | GovWin IQ ($13K-$119K) | HIGH | ✅ LIVE |
+| `/compare/govtribe` | GovTribe ($1,350-$4K/yr) | MEDIUM | ✅ LIVE |
+| `/compare/federal-compass` | Federal Compass | MEDIUM | TODO |
+| `/compare/sam-gov` | Free vs. our value-add | LOW | TODO |
 
 ---
 
@@ -466,33 +466,34 @@ After:
 
 ### Week 1: Infrastructure
 
-- [ ] Create `/data/` route structure in govcon-funnels
-- [ ] Build contractor profile page template
-- [ ] Build agency profile page template
-- [ ] Create API endpoints to fetch data from Market Assassin
-- [ ] Implement ungated vs. gated content logic
-- [ ] Add MI Free CTA component
+- [x] Create `/data/` route structure in govcon-funnels
+- [x] Build contractor profile page template (`/data/contractors/[uei]`)
+- [x] Build agency profile page template (`/data/agencies/[slug]`)
+- [x] Create API endpoints to fetch data from Market Assassin
+- [x] Implement ungated vs. gated content logic
+- [x] Add MI Free CTA component
 
 ### Week 2: Content Population
 
-- [ ] Generate 100 contractor profile pages (top by contract value)
-- [ ] Generate 50 agency profile pages (all with pain points)
-- [ ] Generate 200 forecast pages (top by value/date)
-- [ ] Create `/mi-free` landing page
-- [ ] Update sitemap to include data pages
+- [x] Generate contractor profile pages (dynamic from SAM.gov)
+- [x] Generate 35 agency profile pages (all with pain points)
+- [x] Create forecast landing page (`/data/forecasts`)
+- [x] Create `/mi-free` landing page
+- [x] Update sitemap to include data pages
 
 ### Week 3: SEO Optimization
 
-- [ ] Add JSON-LD schema to all data pages
-- [ ] Create internal linking between data pages
-- [ ] Submit sitemap to Google Search Console
-- [ ] Create IndexNow notifications for new pages
-- [ ] Build backlinks to data pages
+- [x] Add JSON-LD schema to all data pages
+- [x] Create internal linking between data pages (9 guides updated)
+- [x] Submit sitemap to Google Search Console
+- [x] Create IndexNow notifications for new pages
+- [ ] Build backlinks to data pages (see `/tasks/backlink-strategy.md`)
 
 ### Week 4: Conversion Optimization
 
-- [ ] Create `/compare/deltek` page
-- [ ] Update homepage positioning
+- [x] Create `/compare/deltek` page
+- [x] Create `/compare/govtribe` page
+- [x] Update homepage positioning (Market Intelligence Platform section)
 - [ ] A/B test MI Free CTAs
 - [ ] Set up conversion tracking (GA4 + Stripe)
 - [ ] Launch email sequence for MI Free → Pro
