@@ -449,6 +449,9 @@ export default function DeltekComparisonPage() {
             <Link href="/compare/govtribe" className="text-sm text-slate-400 hover:text-white transition">
               vs GovTribe →
             </Link>
+            <Link href="/compare/federal-compass" className="text-sm text-slate-400 hover:text-white transition">
+              vs Federal Compass →
+            </Link>
           </div>
         </div>
       </section>

@@ -496,7 +496,7 @@ After:
 - [x] Update homepage positioning (Market Intelligence Platform section)
 - [ ] A/B test MI Free CTAs
 - [ ] Set up conversion tracking (GA4 + Stripe)
-- [ ] Launch email sequence for MI Free → Pro
+- [x] ~~Launch email sequence for MI Free → Pro~~ — NOT NEEDED: Daily alerts already contain upgrade CTAs
 
 ---
 

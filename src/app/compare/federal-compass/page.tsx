@@ -3,128 +3,113 @@ import { generateSeo, SITE_URL } from '@/lib/seo';
 import JsonLd from '@/components/JsonLd';
 
 export const metadata = generateSeo({
-  title: 'GovCon Giants vs GovTribe [2026 Comparison] — Better Value for Small Business',
-  description: 'Compare GovCon Giants Market Intelligence to GovTribe. Get federal contract intelligence, AI-powered briefings, and agency pain points. Free tier available.',
-  path: '/compare/govtribe',
+  title: 'GovCon Giants vs Federal Compass [2026 Comparison] — More Intelligence, Less Cost',
+  description: 'Compare GovCon Giants Market Intelligence to Federal Compass. Get AI-powered briefings, SBLO contacts, and agency pain points. Free tier available, no per-user pricing.',
+  path: '/compare/federal-compass',
   keywords: [
-    'govtribe alternative',
-    'govtribe competitor',
-    'govtribe vs',
-    'govtribe pricing',
-    'federal contract search tool',
-    'govtribe comparison',
-    'government contracting software',
-    'govtribe free alternative',
+    'federal compass alternative',
+    'federal compass competitor',
+    'federal compass vs',
+    'federal compass pricing',
+    'government contracting intelligence',
+    'federal compass comparison',
+    'market intelligence software',
+    'federal compass review',
   ],
 });
 
 const comparisonData = [
   {
-    feature: 'Federal Opportunity Alerts',
-    giants: { value: '✓', detail: 'AI-matched daily alerts' },
-    govtribe: { value: '✓', detail: 'Daily alerts' },
+    feature: 'Federal Opportunity Search',
+    giants: { value: '✓', detail: 'SAM.gov + Grants.gov' },
+    compass: { value: '✓', detail: 'Multi-source aggregation' },
   },
   {
-    feature: 'SAM.gov Integration',
-    giants: { value: '✓', detail: 'Real-time sync' },
-    govtribe: { value: '✓', detail: 'Real-time sync' },
+    feature: 'Pipeline Management',
+    giants: { value: '✓', detail: 'Built-in CRM' },
+    compass: { value: '✓', detail: 'Pipeline tools' },
   },
   {
-    feature: 'Grants.gov Coverage',
-    giants: { value: '✓', detail: 'Full search + forecasts' },
-    govtribe: { value: '✓', detail: 'Full search' },
+    feature: 'Competitive Analysis',
+    giants: { value: '✓', detail: 'Contractor profiles' },
+    compass: { value: '✓', detail: 'Penetration analysis' },
   },
   {
-    feature: 'AI-Powered Analysis',
-    giants: { value: '✓', detail: 'Daily briefings, go/no-go' },
-    govtribe: { value: '✗', detail: 'No AI features' },
+    feature: 'AI-Powered Briefings',
+    giants: { value: '✓', detail: 'Daily/weekly summaries' },
+    compass: { value: 'Limited', detail: 'ML-based insights' },
   },
   {
     feature: 'Agency Pain Points',
     giants: { value: '✓', detail: '200+ agencies analyzed' },
-    govtribe: { value: '✗', detail: 'Not included' },
+    compass: { value: '✗', detail: 'Not included' },
   },
   {
     feature: 'SBLO Contact Database',
-    giants: { value: '✓', detail: '800+ contacts w/ email' },
-    govtribe: { value: '✗', detail: 'Not included' },
+    giants: { value: '✓', detail: '800+ with email/phone' },
+    compass: { value: '✗', detail: 'Not included' },
   },
   {
-    feature: 'Expiring Contracts Finder',
+    feature: 'Expiring Contracts',
     giants: { value: '✓', detail: '5,000+ recompetes' },
-    govtribe: { value: '✓', detail: 'Available' },
-  },
-  {
-    feature: 'Contractor Profiles',
-    giants: { value: '✓', detail: '500K+ SAM.gov vendors' },
-    govtribe: { value: '✓', detail: 'Federal contractors' },
-  },
-  {
-    feature: 'Funding History Charts',
-    giants: { value: '✓', detail: '5yr award history (coming)' },
-    govtribe: { value: '✓', detail: 'Award charts' },
+    compass: { value: '✓', detail: 'Available' },
   },
   {
     feature: 'Forecast Intelligence',
     giants: { value: '✓', detail: '7,700+ forecasts' },
-    govtribe: { value: '✓', detail: 'Available' },
+    compass: { value: '✓', detail: 'Available' },
   },
   {
-    feature: 'Pipeline CRM',
-    giants: { value: '✓', detail: 'Built-in tracking' },
-    govtribe: { value: '✓', detail: 'Pipeline tools' },
-  },
-  {
-    feature: 'Salesforce Integration',
-    giants: { value: '✗', detail: 'Not yet' },
-    govtribe: { value: '✓', detail: 'Available' },
+    feature: 'API Access',
+    giants: { value: 'Coming', detail: 'Q3 2026' },
+    compass: { value: '✓', detail: '$5K-$15K/yr extra' },
   },
   {
     feature: 'Free Tier',
     giants: { value: '✓', detail: 'MI Free forever' },
-    govtribe: { value: '14-day trial', detail: 'Then paid only' },
+    compass: { value: '✓', detail: '3 users, basic features' },
   },
   {
-    feature: 'Starting Price',
-    giants: { value: '$149/mo', detail: 'MI Core' },
-    govtribe: { value: '$112/mo', detail: '$1,350/yr (Launch)' },
+    feature: 'Pricing Model',
+    giants: { value: 'Flat rate', detail: '$149/mo all features' },
+    compass: { value: 'Per-user', detail: '$8-$24/user/mo' },
   },
   {
-    feature: 'Full-Feature Price',
-    giants: { value: '$149/mo', detail: 'Everything included' },
-    govtribe: { value: '$333/mo', detail: '$4,000/yr (Growth)' },
+    feature: '5-User Team Cost',
+    giants: { value: '$499/mo', detail: 'MI Team plan' },
+    compass: { value: '$120-$600/mo', detail: 'Depends on tier' },
   },
   {
     feature: 'Contract Length',
     giants: { value: 'Month-to-month', detail: 'Cancel anytime' },
-    govtribe: { value: 'Annual', detail: 'Yearly billing' },
+    compass: { value: 'Annual', detail: 'Billed yearly' },
   },
 ];
 
 const testimonials = [
   {
-    quote: "The AI briefings alone justify the switch. GovTribe gave me data, GovCon Giants tells me what to do with it.",
-    author: "BD Manager, SDVOSB IT Services",
+    quote: "Federal Compass is great for data, but it doesn't tell me what agencies actually need. The pain points database changed how we position.",
+    author: "BD Director, SDVOSB Technology Firm",
   },
   {
-    quote: "Agency pain points are gold for positioning. No other tool gives me that intelligence at any price.",
-    author: "Owner, 8(a) Professional Services",
+    quote: "We tried Federal Compass but the per-user pricing killed us. With 8 people needing access, GovCon Giants saves us thousands.",
+    author: "CEO, 8(a) Professional Services",
   },
   {
-    quote: "I needed SBLO contacts to break into new agencies. GovTribe doesn't have that. Deal breaker.",
-    author: "Founder, HUBZone Contractor",
+    quote: "The AI briefings surface opportunities I would have missed. Federal Compass gave me data; this gives me action items.",
+    author: "Capture Manager, Small Defense Contractor",
   },
 ];
 
-export default function GovTribeComparisonPage() {
+export default function FederalCompassComparisonPage() {
   return (
     <main className="min-h-screen bg-slate-950">
       <JsonLd data={{
         '@context': 'https://schema.org',
         '@type': 'WebPage',
-        name: 'GovCon Giants vs GovTribe Comparison',
-        description: 'Feature and pricing comparison between GovCon Giants Market Intelligence and GovTribe for federal contract research.',
-        url: `${SITE_URL}/compare/govtribe`,
+        name: 'GovCon Giants vs Federal Compass Comparison',
+        description: 'Feature and pricing comparison between GovCon Giants Market Intelligence and Federal Compass for federal contract research.',
+        url: `${SITE_URL}/compare/federal-compass`,
         mainEntity: {
           '@type': 'Product',
           name: 'GovCon Giants Market Intelligence',
@@ -142,20 +127,20 @@ export default function GovTribeComparisonPage() {
       {/* Hero */}
       <section className="py-16 px-6">
         <div className="max-w-4xl mx-auto text-center">
-          <div className="inline-flex items-center gap-2 px-4 py-2 bg-blue-500/10 border border-blue-500/30 rounded-full mb-6">
-            <span className="text-blue-400 font-semibold">VS COMPARISON</span>
+          <div className="inline-flex items-center gap-2 px-4 py-2 bg-purple-500/10 border border-purple-500/30 rounded-full mb-6">
+            <span className="text-purple-400 font-semibold">VS COMPARISON</span>
           </div>
 
           <h1 className="text-4xl md:text-5xl font-black mb-6 leading-tight">
             <span className="text-white">GovCon Giants vs</span><br />
-            <span className="text-blue-500">GovTribe</span>
+            <span className="text-purple-500">Federal Compass</span>
           </h1>
 
           <p className="text-xl text-slate-400 mb-8 max-w-2xl mx-auto">
-            GovTribe is solid. We&apos;re better for small businesses.{' '}
-            <span className="text-green-400 font-semibold">AI-powered briefings</span>,{' '}
+            Federal Compass has great data. We have that <em>plus</em>{' '}
+            <span className="text-green-400 font-semibold">AI briefings</span>,{' '}
             <span className="text-green-400 font-semibold">agency pain points</span>, and{' '}
-            <span className="text-green-400 font-semibold">SBLO contacts</span> they don&apos;t have.
+            <span className="text-green-400 font-semibold">SBLO contacts</span> — without per-user pricing.
           </p>
 
           {/* Price Comparison Banner */}
@@ -163,12 +148,12 @@ export default function GovTribeComparisonPage() {
             <div className="bg-green-500/10 border border-green-500/30 rounded-xl p-6">
               <div className="text-sm text-green-400 font-medium mb-1">GovCon Giants MI Core</div>
               <div className="text-4xl font-black text-white">$149<span className="text-lg text-slate-400">/mo</span></div>
-              <div className="text-sm text-slate-400">Month-to-month • Full features</div>
+              <div className="text-sm text-slate-400">Flat rate • All features • All users</div>
             </div>
-            <div className="bg-blue-500/10 border border-blue-500/30 rounded-xl p-6">
-              <div className="text-sm text-blue-400 font-medium mb-1">GovTribe Growth</div>
-              <div className="text-4xl font-black text-white">$333<span className="text-lg text-slate-400">/mo</span></div>
-              <div className="text-sm text-slate-400">$4,000/yr • Annual billing</div>
+            <div className="bg-purple-500/10 border border-purple-500/30 rounded-xl p-6">
+              <div className="text-sm text-purple-400 font-medium mb-1">Federal Compass Premium</div>
+              <div className="text-4xl font-black text-white">$24<span className="text-lg text-slate-400">/user/mo</span></div>
+              <div className="text-sm text-slate-400">5 users = $120/mo + API fees</div>
             </div>
           </div>
 
@@ -189,14 +174,14 @@ export default function GovTribeComparisonPage() {
         </div>
       </section>
 
-      {/* What We Have That GovTribe Doesn't */}
+      {/* What We Have That Federal Compass Doesn't */}
       <section className="py-16 px-6 bg-slate-900/50">
         <div className="max-w-4xl mx-auto">
           <h2 className="text-3xl font-bold text-white text-center mb-4">
-            What We Have That GovTribe Doesn&apos;t
+            What We Have That Federal Compass Doesn&apos;t
           </h2>
           <p className="text-slate-400 text-center mb-12 max-w-2xl mx-auto">
-            GovTribe does the basics well. We go further for small businesses who need to win.
+            Federal Compass excels at data aggregation. We add the intelligence layer that turns data into action.
           </p>
 
           <div className="grid md:grid-cols-3 gap-6">
@@ -204,16 +189,16 @@ export default function GovTribeComparisonPage() {
               <div className="text-4xl mb-4">🤖</div>
               <h3 className="text-xl font-bold text-white mb-2">AI-Powered Briefings</h3>
               <p className="text-slate-400">
-                Daily and weekly AI briefings analyze opportunities, suggest go/no-go decisions, and identify pursuit priorities.
-                GovTribe has no AI features.
+                Daily briefings analyze your pipeline, recommend go/no-go decisions, and surface opportunities you&apos;d miss.
+                Not just data — actionable intelligence.
               </p>
             </div>
             <div className="bg-slate-900 border border-green-500/30 rounded-xl p-6">
               <div className="text-4xl mb-4">🎯</div>
               <h3 className="text-xl font-bold text-white mb-2">Agency Pain Points</h3>
               <p className="text-slate-400">
-                200+ agencies with analyzed challenges, budget priorities, and procurement patterns.
-                Know what they&apos;re struggling with before you pitch.
+                200+ agencies with analyzed challenges, GAO findings, and budget priorities.
+                Know what they&apos;re struggling with before you write the proposal.
               </p>
             </div>
             <div className="bg-slate-900 border border-green-500/30 rounded-xl p-6">
@@ -221,15 +206,83 @@ export default function GovTribeComparisonPage() {
               <h3 className="text-xl font-bold text-white mb-2">SBLO Contacts</h3>
               <p className="text-slate-400">
                 800+ Small Business Liaison Officers with direct email and phone.
-                Build relationships with the people who advocate for small businesses.
+                Federal Compass doesn&apos;t have this data at any price tier.
               </p>
             </div>
           </div>
         </div>
       </section>
 
+      {/* Per-User vs Flat Rate */}
+      <section className="py-16 px-6">
+        <div className="max-w-4xl mx-auto">
+          <h2 className="text-3xl font-bold text-white text-center mb-4">
+            The Hidden Cost of Per-User Pricing
+          </h2>
+          <p className="text-slate-400 text-center mb-12 max-w-2xl mx-auto">
+            Federal Compass charges per user. As your team grows, costs multiply. We don&apos;t.
+          </p>
+
+          <div className="bg-slate-900 border border-slate-800 rounded-2xl p-8">
+            <table className="w-full">
+              <thead>
+                <tr className="border-b border-slate-800">
+                  <th className="text-left py-4 text-slate-400 font-medium">Team Size</th>
+                  <th className="text-center py-4 text-green-400 font-bold">GovCon Giants</th>
+                  <th className="text-center py-4 text-purple-400 font-bold">Federal Compass Premium</th>
+                  <th className="text-center py-4 text-slate-400 font-medium">You Save</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr className="border-b border-slate-800/50">
+                  <td className="py-4 text-slate-300">1 user</td>
+                  <td className="py-4 text-center text-green-400 font-semibold">$149/mo</td>
+                  <td className="py-4 text-center text-slate-300">$24/mo</td>
+                  <td className="py-4 text-center text-red-400">-$125</td>
+                </tr>
+                <tr className="border-b border-slate-800/50">
+                  <td className="py-4 text-slate-300">3 users</td>
+                  <td className="py-4 text-center text-green-400 font-semibold">$149/mo</td>
+                  <td className="py-4 text-center text-slate-300">$72/mo</td>
+                  <td className="py-4 text-center text-red-400">-$77</td>
+                </tr>
+                <tr className="border-b border-slate-800/50 bg-green-500/5">
+                  <td className="py-4 text-white font-semibold">5 users</td>
+                  <td className="py-4 text-center text-green-400 font-bold">$499/mo (Team)</td>
+                  <td className="py-4 text-center text-slate-300">$120/mo</td>
+                  <td className="py-4 text-center text-red-400">-$379</td>
+                </tr>
+                <tr className="border-b border-slate-800/50">
+                  <td className="py-4 text-slate-300">10 users</td>
+                  <td className="py-4 text-center text-green-400 font-semibold">$499/mo</td>
+                  <td className="py-4 text-center text-slate-300">$240/mo</td>
+                  <td className="py-4 text-center text-red-400">-$259</td>
+                </tr>
+                <tr>
+                  <td className="py-4 text-slate-300">20 users</td>
+                  <td className="py-4 text-center text-green-400 font-semibold">$499/mo</td>
+                  <td className="py-4 text-center text-slate-300">$480/mo</td>
+                  <td className="py-4 text-center text-green-400 font-bold">+$19/mo</td>
+                </tr>
+              </tbody>
+            </table>
+            <p className="text-sm text-slate-500 mt-4 text-center">
+              * Federal Compass Premium at $24/user/mo. Does not include API fees ($5K-$15K/yr) or annual price increases.
+            </p>
+          </div>
+
+          <div className="mt-8 bg-amber-500/10 border border-amber-500/30 rounded-xl p-6">
+            <h3 className="text-white font-semibold mb-2">💡 The Real Comparison</h3>
+            <p className="text-slate-400">
+              Federal Compass looks cheaper for small teams, but you&apos;re not getting agency pain points, SBLO contacts, or AI briefings.
+              When you factor in the intelligence gap, GovCon Giants delivers more value per dollar spent.
+            </p>
+          </div>
+        </div>
+      </section>
+
       {/* Feature Comparison Table */}
-      <section id="comparison" className="py-12 px-6">
+      <section id="comparison" className="py-12 px-6 bg-slate-900/50">
         <div className="max-w-4xl mx-auto">
           <h2 className="text-3xl font-bold text-white text-center mb-8">
             Feature-by-Feature Comparison
@@ -247,7 +300,7 @@ export default function GovTribeComparisonPage() {
                   </th>
                   <th className="text-center py-4 px-4">
                     <div className="flex items-center justify-center gap-2">
-                      <span className="text-blue-300 font-bold">GovTribe</span>
+                      <span className="text-purple-300 font-bold">Federal Compass</span>
                     </div>
                   </th>
                 </tr>
@@ -257,16 +310,16 @@ export default function GovTribeComparisonPage() {
                   <tr key={row.feature} className={`border-b border-slate-800/50 ${i % 2 === 0 ? 'bg-slate-900/30' : ''}`}>
                     <td className="py-4 px-4 text-slate-300 font-medium">{row.feature}</td>
                     <td className="py-4 px-4 text-center bg-green-500/5">
-                      <div className={`font-semibold ${row.giants.value === '✓' ? 'text-green-400' : row.giants.value.includes('$') ? 'text-green-400' : row.giants.value === '✗' ? 'text-red-400' : 'text-white'}`}>
+                      <div className={`font-semibold ${row.giants.value === '✓' ? 'text-green-400' : row.giants.value.includes('$') ? 'text-green-400' : row.giants.value === '✗' ? 'text-red-400' : 'text-amber-400'}`}>
                         {row.giants.value}
                       </div>
                       <div className="text-xs text-slate-500">{row.giants.detail}</div>
                     </td>
                     <td className="py-4 px-4 text-center">
-                      <div className={`font-semibold ${row.govtribe.value === '✓' ? 'text-slate-300' : row.govtribe.value === '✗' ? 'text-red-400' : 'text-slate-400'}`}>
-                        {row.govtribe.value}
+                      <div className={`font-semibold ${row.compass.value === '✓' ? 'text-slate-300' : row.compass.value === '✗' ? 'text-red-400' : 'text-amber-400'}`}>
+                        {row.compass.value}
                       </div>
-                      <div className="text-xs text-slate-500">{row.govtribe.detail}</div>
+                      <div className="text-xs text-slate-500">{row.compass.detail}</div>
                     </td>
                   </tr>
                 ))}
@@ -276,36 +329,36 @@ export default function GovTribeComparisonPage() {
         </div>
       </section>
 
-      {/* GovTribe Strengths (Fair Comparison) */}
-      <section className="py-16 px-6 bg-slate-900/50">
+      {/* Federal Compass Strengths */}
+      <section className="py-16 px-6">
         <div className="max-w-4xl mx-auto">
           <h2 className="text-3xl font-bold text-white text-center mb-4">
-            When GovTribe Makes Sense
+            When Federal Compass Makes Sense
           </h2>
           <p className="text-slate-400 text-center mb-12 max-w-2xl mx-auto">
-            We believe in honest comparisons. GovTribe is a good tool — here&apos;s where it excels.
+            We believe in honest comparisons. Here&apos;s where Federal Compass excels.
           </p>
 
           <div className="grid md:grid-cols-3 gap-6">
             <div className="bg-slate-900 border border-slate-800 rounded-xl p-6">
-              <div className="text-4xl mb-4">🔗</div>
-              <h3 className="text-xl font-bold text-white mb-2">Salesforce Integration</h3>
+              <div className="text-4xl mb-4">🔌</div>
+              <h3 className="text-xl font-bold text-white mb-2">API Access</h3>
               <p className="text-slate-400">
-                If your team lives in Salesforce, GovTribe&apos;s native integration is valuable. We don&apos;t have this yet.
+                Federal Compass has a mature API for custom integrations. If you need to pipe data into internal systems, they&apos;re ahead here.
               </p>
             </div>
             <div className="bg-slate-900 border border-slate-800 rounded-xl p-6">
-              <div className="text-4xl mb-4">💰</div>
-              <h3 className="text-xl font-bold text-white mb-2">Lower Entry Price</h3>
+              <div className="text-4xl mb-4">👥</div>
+              <h3 className="text-xl font-bold text-white mb-2">Solo Users</h3>
               <p className="text-slate-400">
-                GovTribe Launch at $112/mo ($1,350/yr) is cheaper than our $149/mo if you only need basics and commit to annual.
+                At $8-24/user/month, a single user saves money vs our $149 flat rate — if you don&apos;t need the intelligence features we add.
               </p>
             </div>
             <div className="bg-slate-900 border border-slate-800 rounded-xl p-6">
-              <div className="text-4xl mb-4">🏢</div>
-              <h3 className="text-xl font-bold text-white mb-2">Established Platform</h3>
+              <div className="text-4xl mb-4">📊</div>
+              <h3 className="text-xl font-bold text-white mb-2">Market Penetration Analysis</h3>
               <p className="text-slate-400">
-                GovTribe has been around longer. If you need a proven track record, they have more years in market.
+                Their penetration analysis tools help identify market expansion opportunities. Strong for strategic planning.
               </p>
             </div>
           </div>
@@ -313,7 +366,7 @@ export default function GovTribeComparisonPage() {
       </section>
 
       {/* Testimonials */}
-      <section className="py-16 px-6">
+      <section className="py-16 px-6 bg-slate-900/50">
         <div className="max-w-4xl mx-auto">
           <h2 className="text-3xl font-bold text-white text-center mb-12">
             Why Contractors Choose Us
@@ -331,13 +384,13 @@ export default function GovTribeComparisonPage() {
       </section>
 
       {/* Pricing Tiers */}
-      <section className="py-16 px-6 bg-slate-900/50">
+      <section className="py-16 px-6">
         <div className="max-w-5xl mx-auto">
           <h2 className="text-3xl font-bold text-white text-center mb-4">
             Simple, Transparent Pricing
           </h2>
           <p className="text-slate-400 text-center mb-12">
-            Start free, upgrade when you&apos;re ready. No annual contracts required.
+            No per-user fees. No API surcharges. No surprises.
           </p>
 
           <div className="grid md:grid-cols-3 gap-6">
@@ -432,7 +485,7 @@ export default function GovTribeComparisonPage() {
       </section>
 
       {/* FAQ */}
-      <section className="py-16 px-6">
+      <section className="py-16 px-6 bg-slate-900/50">
         <div className="max-w-3xl mx-auto">
           <h2 className="text-3xl font-bold text-white text-center mb-12">
             Frequently Asked Questions
@@ -440,31 +493,32 @@ export default function GovTribeComparisonPage() {
 
           <div className="space-y-6">
             <div className="bg-slate-900 rounded-xl p-6">
-              <h3 className="text-white font-semibold mb-2">Is GovTribe cheaper than GovCon Giants?</h3>
+              <h3 className="text-white font-semibold mb-2">Is Federal Compass really cheaper?</h3>
               <p className="text-slate-400">
-                GovTribe Launch ($112/mo) is cheaper than MI Core ($149/mo), but requires annual commitment.
-                Our full features at $149/mo are cheaper than GovTribe Growth ($333/mo), and we offer month-to-month billing.
+                For solo users, yes — $24/mo vs $149/mo. But for teams of 5+, our flat pricing wins.
+                Plus, Federal Compass doesn&apos;t include agency pain points or SBLO contacts at any tier.
               </p>
             </div>
             <div className="bg-slate-900 rounded-xl p-6">
-              <h3 className="text-white font-semibold mb-2">Do you have the same SAM.gov data?</h3>
+              <h3 className="text-white font-semibold mb-2">Do you have the same data sources?</h3>
               <p className="text-slate-400">
-                Yes, we both pull from the same government sources: SAM.gov, Grants.gov, USASpending, and agency forecasts.
-                The difference is what we add on top — AI analysis, agency pain points, and SBLO contacts.
+                Both platforms pull from SAM.gov, USASpending, and similar public sources.
+                The difference is in the analysis layer — our AI briefings and agency intelligence aren&apos;t just aggregated data.
+              </p>
+            </div>
+            <div className="bg-slate-900 rounded-xl p-6">
+              <h3 className="text-white font-semibold mb-2">What about the API?</h3>
+              <p className="text-slate-400">
+                Federal Compass has a mature API (at extra cost). We&apos;re building ours for Q3 2026.
+                If you need API access today, Federal Compass is the better choice for that specific use case.
               </p>
             </div>
             <div className="bg-slate-900 rounded-xl p-6">
               <h3 className="text-white font-semibold mb-2">Can I try before committing?</h3>
               <p className="text-slate-400">
-                Yes. We have a free tier (MI Free) you can use forever. GovTribe offers a 14-day trial.
-                Our approach lets you test at your own pace without a ticking clock.
-              </p>
-            </div>
-            <div className="bg-slate-900 rounded-xl p-6">
-              <h3 className="text-white font-semibold mb-2">What if I need Salesforce integration?</h3>
-              <p className="text-slate-400">
-                If Salesforce integration is critical for your workflow, GovTribe is the better choice today.
-                We plan to add integrations in the future, but don&apos;t have it currently.
+                Yes — MI Free is free forever, no credit card required.
+                Federal Compass also has a free tier (3 users, basic features).
+                Try both and decide.
               </p>
             </div>
           </div>
@@ -472,15 +526,15 @@ export default function GovTribeComparisonPage() {
       </section>
 
       {/* Related Comparisons */}
-      <section className="py-8 px-6 bg-slate-900/50 border-t border-slate-800">
+      <section className="py-8 px-6 border-t border-slate-800">
         <div className="max-w-4xl mx-auto">
           <h3 className="text-lg font-semibold text-white mb-4">Other Comparisons</h3>
           <div className="flex flex-wrap gap-3">
             <Link href="/compare/deltek" className="text-sm text-slate-400 hover:text-white transition">
               vs Deltek GovWin →
             </Link>
-            <Link href="/compare/federal-compass" className="text-sm text-slate-400 hover:text-white transition">
-              vs Federal Compass →
+            <Link href="/compare/govtribe" className="text-sm text-slate-400 hover:text-white transition">
+              vs GovTribe →
             </Link>
           </div>
         </div>
@@ -490,10 +544,10 @@ export default function GovTribeComparisonPage() {
       <section className="py-16 px-6">
         <div className="max-w-3xl mx-auto bg-gradient-to-br from-green-900/30 to-slate-900 border border-green-500/30 rounded-2xl p-12 text-center">
           <h2 className="text-3xl font-bold text-white mb-4">
-            Ready to Try the AI-Powered Alternative?
+            Ready for Intelligence, Not Just Data?
           </h2>
           <p className="text-xl text-slate-400 mb-8">
-            Start free. No credit card. No annual contract. Upgrade when you see the value.
+            Start free. See the difference AI-powered briefings and agency pain points make.
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
             <Link
