@@ -246,5 +246,10 @@ export default function sitemap(): MetadataRoute.Sitemap {
     })),
   ];
 
-  return [...staticPages, ...guidePages, ...blogPages, ...jobPages, ...videoPages, ...agencyPages];
+  // Contractor index page (dynamic profiles are server-rendered, not in sitemap)
+  const contractorPages: MetadataRoute.Sitemap = [
+    { url: `${SITE_URL}/data/contractors`, lastModified: now, changeFrequency: 'weekly' as const, priority: 0.8 },
+  ];
+
+  return [...staticPages, ...guidePages, ...blogPages, ...jobPages, ...videoPages, ...agencyPages, ...contractorPages];
 }
