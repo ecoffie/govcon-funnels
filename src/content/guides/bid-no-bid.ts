@@ -99,7 +99,7 @@ export const guide: GuideData = {
         </ul>
         <p><strong>Negative indicators (no-bid):</strong></p>
         <ul>
-          <li><strong>Wired opportunity</strong> — Another contractor clearly favored</li>
+          <li><strong>Wired opportunity</strong> — Another contractor clearly favored. Research incumbents in our <a href="/data/contractors">Contractor Database</a></li>
           <li><strong>No customer contact</strong> — You found out at RFP release</li>
           <li><strong>Requirements mismatch</strong> — Significant gaps in your capabilities</li>
           <li><strong>No relevant past performance</strong> — Can't demonstrate similar success</li>

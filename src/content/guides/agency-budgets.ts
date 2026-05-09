@@ -138,6 +138,7 @@ export const guide: GuideData = {
           <li>Agency websites — Budget justifications</li>
           <li>Congress.gov — Appropriations legislation</li>
           <li>USAspending.gov — Actual spending data</li>
+          <li>Our <a href="/data/agencies">Agency Profiles</a> — Spending by NAICS and procurement patterns for 35+ agencies</li>
         </ul>
         <p><strong>Reading budget documents:</strong></p>
         <ul>
@@ -261,7 +262,7 @@ export const guide: GuideData = {
         <p><strong>Market intelligence:</strong></p>
         <ul>
           <li>Budget is primary planning input</li>
-          <li>Combine with forecast data</li>
+          <li>Combine with forecast data — our <a href="/data/forecasts">Forecasts Database</a> has 7,700+ upcoming opportunities</li>
           <li>Industry day information</li>
           <li>Network intelligence</li>
         </ul>

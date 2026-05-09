@@ -49,6 +49,7 @@ export const guide: GuideData = {
           <li><strong>Download Center</strong> — Download raw data for deep analysis in Excel or a database. Power users pull contract data by NAICS code and build spending trend analyses that reveal emerging opportunities.</li>
         </ul>
         <p>A practical approach: search for your primary NAICS code, filter by agency and fiscal year, and analyze the results. How much is being spent? Who are the top recipients? What's the average contract size? Are contracts growing or declining? This 30-minute exercise gives you more market intelligence than most contractors gather in a year.</p>
+        <p><strong>Shortcut:</strong> Our <a href="/data/agencies">Federal Agencies Database</a> provides pre-analyzed spending data, pain points, and budget priorities for 35+ agencies — saving you hours of research on USAspending.gov.</p>
       `,
     },
     {
@@ -87,6 +88,7 @@ export const guide: GuideData = {
           <li>Whether it's a new requirement or recompete</li>
         </ul>
         <p>When you spot a forecasted opportunity that fits your capabilities, <strong>start your capture process immediately</strong>. Contact the listed program office to learn more about the requirement. Offer to provide a capabilities briefing. Submit a capability statement. Attend any related industry days. The contractors who engage 6-12 months before solicitation have a win rate dramatically higher than those who first learn about the opportunity when the RFP drops. Procurement forecasts are typically published at the start of each fiscal year (October) and updated quarterly.</p>
+        <p><strong>Save time:</strong> Our <a href="/data/forecasts">Federal Contract Forecasts</a> database aggregates 7,700+ forecasts from 11 agencies — so you don't have to manually check each agency's website.</p>
       `,
     },
     {
@@ -118,6 +120,7 @@ export const guide: GuideData = {
           <li><strong>Set-aside percentages</strong> — What percentage of spending in this NAICS code is set aside for small business? Higher set-aside rates mean more opportunities restricted to small firms.</li>
         </ul>
         <p>For competitive intelligence, research specific competitors in depth. On USAspending.gov, look up their <strong>total federal revenue, contract mix, and agency customers</strong>. On SAM.gov, check their <strong>entity registration for capabilities and certifications</strong>. Look at their proposals if any are publicly available (some become public after award through FOIA requests). Understanding your competitors' strengths and weaknesses is essential for developing proposal themes that differentiate your approach.</p>
+        <p><strong>Research competitors faster:</strong> Use our <a href="/data/contractors">Federal Contractor Database</a> to instantly look up any contractor's SAM registration, certifications, and NAICS codes.</p>
       `,
     },
     {

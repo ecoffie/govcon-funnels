@@ -33,7 +33,7 @@ export const guide: GuideData = {
           <li><strong>Review the "Active" filter</strong> to see currently open solicitations you can bid on right now</li>
         </ul>
         <p>Beyond SAM.gov, there are additional sources worth monitoring. <strong>USAspending.gov</strong> shows historical spending data so you can see which agencies are buying what you sell. <strong>Agency-specific procurement forecast pages</strong> list upcoming opportunities that haven't been formally solicited yet, giving you a head start on capture. Understanding <a href="/guides/agency-budgets">agency budgets</a> helps you identify which programs have funding and are likely to result in contract awards.</p>
-        <p>Many contractors also monitor <strong>GovWin</strong>, <strong>Bloomberg Government (BGOV)</strong>, and other paid platforms that aggregate opportunities and add intelligence layers. However, every opportunity on those platforms originates from SAM.gov, so mastering the free government source first is essential. The key is building a systematic daily or weekly search habit rather than checking sporadically.</p>
+        <p>Many contractors also monitor <strong>GovWin</strong>, <strong>Bloomberg Government (BGOV)</strong>, and other paid platforms that aggregate opportunities and add intelligence layers. However, every opportunity on those platforms originates from SAM.gov, so mastering the free government source first is essential. Looking for a <a href="/compare/deltek">GovWin alternative</a> that doesn't cost $25K/year? There are more affordable options. The key is building a systematic daily or weekly search habit rather than checking sporadically.</p>
       `,
     },
     {

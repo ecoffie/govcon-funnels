@@ -52,7 +52,7 @@ export const guide: GuideData = {
         <p><strong>Sources for opportunity identification:</strong></p>
         <ul>
           <li><strong>SAM.gov</strong> — Active solicitations, <a href="/guides/sources-sought">sources sought</a>, forecasts</li>
-          <li><strong>Agency procurement forecasts</strong> — Many agencies publish annual forecasts</li>
+          <li><strong>Agency procurement forecasts</strong> — Many agencies publish annual forecasts. Our <a href="/data/forecasts">Forecasts Database</a> aggregates 7,700+ upcoming opportunities</li>
           <li><strong>Expiring contracts</strong> — Use our <a href="/tools/expiring-contracts">Expiring Contracts Finder</a></li>
           <li><strong>Budget documents</strong> — Agency budget requests reveal priorities. See our <a href="/guides/agency-budgets">Agency Budgets Guide</a> for analysis techniques</li>
           <li><strong>Industry intelligence</strong> — GovWin, Bloomberg Government, etc.</li>
@@ -148,6 +148,7 @@ export const guide: GuideData = {
         <ul>
           <li><strong>SAM.gov</strong> — Past awards, subcontracting reports</li>
           <li><strong>FPDS/USASpending</strong> — Contract values, performance locations</li>
+          <li><strong>Contractor profiles</strong> — Our <a href="/data/contractors">Contractor Database</a> shows certifications, NAICS codes, and contract history</li>
           <li><strong>CPARS/PPIRS</strong> — Performance ratings (limited access)</li>
           <li><strong>Company websites</strong> — Capabilities, past projects, key personnel</li>
           <li><strong>LinkedIn</strong> — Staff movements, team composition</li>

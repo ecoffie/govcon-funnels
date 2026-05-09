@@ -114,9 +114,9 @@ export const guide: GuideData = {
         <p><strong>Pipeline sources:</strong></p>
         <ul>
           <li>SAM.gov and FedBizOpps</li>
-          <li>Agency forecasts</li>
-          <li>Customer relationships</li>
-          <li>Incumbent intelligence</li>
+          <li>Agency forecasts — our <a href="/data/forecasts">Forecasts Database</a> has 7,700+ upcoming opportunities</li>
+          <li>Customer relationships — research buyers via <a href="/data/agencies">Agency Profiles</a></li>
+          <li>Incumbent intelligence — find competitors in our <a href="/data/contractors">Contractor Database</a></li>
           <li>Network and industry events</li>
         </ul>
       `,

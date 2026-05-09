@@ -146,8 +146,8 @@ export const guide: GuideData = {
         <h3>Phase 5: Market Research (Ongoing)</h3>
         <ul>
           <li>☐ <strong>Set up SAM.gov saved searches</strong> — Daily opportunity alerts</li>
-          <li>☐ <strong>Research past awards</strong> — Who wins contracts in your NAICS codes</li>
-          <li>☐ <strong>Identify target agencies</strong> — Focus on 3-5 that buy what you sell</li>
+          <li>☐ <strong>Research past awards</strong> — Who wins contracts in your NAICS codes. Use our <a href="/data/contractors">Contractor Database</a> to see who's winning</li>
+          <li>☐ <strong>Identify target agencies</strong> — Focus on 3-5 that buy what you sell. Browse our <a href="/data/agencies">Agency Profiles</a></li>
           <li>☐ <strong>Contact OSDBU offices</strong> — Agency small business specialists</li>
           <li>☐ <strong>Attend industry days</strong> — Network with primes and agencies</li>
         </ul>
@@ -353,6 +353,7 @@ export const guide: GuideData = {
         <ul>
           <li><a href="https://acquisitiongateway.gov/forecast" target="_blank" rel="noopener">Acquisition Gateway Forecast</a> — Upcoming opportunities across agencies</li>
           <li>Individual agency forecast pages — DoD, HHS, DHS each publish their own</li>
+          <li>Our <a href="/data/forecasts">Forecasts Database</a> — 7,700+ upcoming opportunities searchable by agency, NAICS, and set-aside</li>
         </ul>
 
         <h3>Subcontracting Opportunities</h3>

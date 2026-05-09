@@ -91,6 +91,7 @@ export const guide: GuideData = {
         <ul>
           <li><strong>FPDS/USASpending.gov</strong> — Contract history, values, agencies</li>
           <li><strong>SAM.gov</strong> — Entity information, capabilities</li>
+          <li><strong>Contractor profiles</strong> — Our <a href="/data/contractors">Contractor Database</a> shows certifications, NAICS, and contract history for 500K+ vendors</li>
           <li><strong>GSA Advantage</strong> — GSA Schedule pricing, products</li>
           <li><strong>GovWin/Deltek</strong> — Win/loss data, opportunity tracking</li>
         </ul>

@@ -27,7 +27,7 @@ export const guide: GuideData = {
         <p>Government proposal writing is fundamentally different from commercial sales. In the private sector, relationships and conversations drive deals. In government contracting, <strong>your written proposal is evaluated against a defined set of criteria</strong>, and the evaluation team may never speak to you during the process.</p>
         <p>Here's the typical proposal lifecycle:</p>
         <ul>
-          <li><strong>Pre-solicitation phase</strong> — The government issues RFIs, sources sought notices, or draft solicitations. This is your chance to shape the requirement, understand the agency's needs, and position your company before the clock starts.</li>
+          <li><strong>Pre-solicitation phase</strong> — The government issues RFIs, sources sought notices, or draft solicitations. This is your chance to shape the requirement, understand the agency's needs, and position your company before the clock starts. Use this time for <a href="/guides/federal-market-research">market research</a> and to study your <a href="/data/agencies">target agencies</a>.</li>
           <li><strong>Solicitation release</strong> — The formal RFP, RFQ, or solicitation drops on SAM.gov. The clock starts ticking on your response deadline, typically 15-45 days depending on complexity.</li>
           <li><strong>Q&A period</strong> — Most solicitations allow vendors to submit written questions. <strong>Always submit questions</strong> — they clarify ambiguities and the government's answers become amendments that all bidders receive.</li>
           <li><strong>Proposal development</strong> — Your team writes, reviews, and refines the proposal. This is the most resource-intensive phase.</li>

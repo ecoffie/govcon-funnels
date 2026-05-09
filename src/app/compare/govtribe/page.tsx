@@ -3,118 +3,128 @@ import { generateSeo, SITE_URL } from '@/lib/seo';
 import JsonLd from '@/components/JsonLd';
 
 export const metadata = generateSeo({
-  title: 'GovCon Giants vs Deltek GovWin [2026 Comparison] — 80% Features, 2% Cost',
-  description: 'Compare GovCon Giants Market Intelligence to Deltek GovWin. Get federal contract intelligence, agency pain points, and opportunity alerts at a fraction of the cost. No 12-month contracts.',
-  path: '/compare/deltek',
+  title: 'GovCon Giants vs GovTribe [2026 Comparison] — Better Value for Small Business',
+  description: 'Compare GovCon Giants Market Intelligence to GovTribe. Get federal contract intelligence, AI-powered briefings, and agency pain points. Free tier available.',
+  path: '/compare/govtribe',
   keywords: [
-    'deltek govwin alternative',
-    'govwin competitor',
-    'deltek alternative',
-    'federal contract intelligence',
-    'govwin pricing',
-    'cheaper than govwin',
-    'govwin vs',
-    'government contracting tools',
+    'govtribe alternative',
+    'govtribe competitor',
+    'govtribe vs',
+    'govtribe pricing',
+    'federal contract search tool',
+    'govtribe comparison',
+    'government contracting software',
+    'govtribe free alternative',
   ],
 });
 
 const comparisonData = [
   {
     feature: 'Federal Opportunity Alerts',
-    giants: { value: '✓', detail: 'Daily AI-matched alerts' },
-    govwin: { value: '✓', detail: 'Daily alerts' },
+    giants: { value: '✓', detail: 'AI-matched daily alerts' },
+    govtribe: { value: '✓', detail: 'Daily alerts' },
   },
   {
     feature: 'SAM.gov Integration',
     giants: { value: '✓', detail: 'Real-time sync' },
-    govwin: { value: '✓', detail: 'Real-time sync' },
+    govtribe: { value: '✓', detail: 'Real-time sync' },
   },
   {
     feature: 'Grants.gov Coverage',
-    giants: { value: '✓', detail: 'Full search' },
-    govwin: { value: '✓', detail: 'Full search' },
+    giants: { value: '✓', detail: 'Full search + forecasts' },
+    govtribe: { value: '✓', detail: 'Full search' },
+  },
+  {
+    feature: 'AI-Powered Analysis',
+    giants: { value: '✓', detail: 'Daily briefings, go/no-go' },
+    govtribe: { value: '✗', detail: 'No AI features' },
   },
   {
     feature: 'Agency Pain Points',
     giants: { value: '✓', detail: '200+ agencies analyzed' },
-    govwin: { value: 'Limited', detail: 'Requires analyst calls' },
+    govtribe: { value: '✗', detail: 'Not included' },
   },
   {
     feature: 'SBLO Contact Database',
-    giants: { value: '✓', detail: '800+ contacts' },
-    govwin: { value: '✗', detail: 'Not included' },
+    giants: { value: '✓', detail: '800+ contacts w/ email' },
+    govtribe: { value: '✗', detail: 'Not included' },
   },
   {
-    feature: 'Expiring Contracts',
+    feature: 'Expiring Contracts Finder',
     giants: { value: '✓', detail: '5,000+ recompetes' },
-    govwin: { value: '✓', detail: 'Available' },
+    govtribe: { value: '✓', detail: 'Available' },
   },
   {
-    feature: 'Contractor Database',
-    giants: { value: '✓', detail: '3,500+ contractors' },
-    govwin: { value: '✓', detail: 'Extensive' },
+    feature: 'Contractor Profiles',
+    giants: { value: '✓', detail: '500K+ SAM.gov vendors' },
+    govtribe: { value: '✓', detail: 'Federal contractors' },
   },
   {
-    feature: 'Pipeline CRM',
-    giants: { value: '✓', detail: 'Built-in tracking' },
-    govwin: { value: '✓', detail: 'Full CRM' },
+    feature: 'Funding History Charts',
+    giants: { value: '✓', detail: '5yr award history (coming)' },
+    govtribe: { value: '✓', detail: 'Award charts' },
   },
   {
     feature: 'Forecast Intelligence',
     giants: { value: '✓', detail: '7,700+ forecasts' },
-    govwin: { value: '✓', detail: 'Available' },
+    govtribe: { value: '✓', detail: 'Available' },
   },
   {
-    feature: 'AI-Powered Briefings',
-    giants: { value: '✓', detail: 'Daily/weekly summaries' },
-    govwin: { value: '✗', detail: 'Manual research' },
+    feature: 'Pipeline CRM',
+    giants: { value: '✓', detail: 'Built-in tracking' },
+    govtribe: { value: '✓', detail: 'Pipeline tools' },
   },
   {
-    feature: 'Small Business Focus',
-    giants: { value: '✓', detail: 'Built for SBs' },
-    govwin: { value: 'Partial', detail: 'Enterprise focus' },
+    feature: 'Salesforce Integration',
+    giants: { value: '✗', detail: 'Not yet' },
+    govtribe: { value: '✓', detail: 'Available' },
   },
   {
     feature: 'Free Tier',
     giants: { value: '✓', detail: 'MI Free forever' },
-    govwin: { value: '✗', detail: 'No free option' },
+    govtribe: { value: '14-day trial', detail: 'Then paid only' },
   },
   {
-    feature: 'Monthly Pricing',
+    feature: 'Starting Price',
     giants: { value: '$149/mo', detail: 'MI Core' },
-    govwin: { value: '$6,000+/yr', detail: 'Annual only' },
+    govtribe: { value: '$112/mo', detail: '$1,350/yr (Launch)' },
+  },
+  {
+    feature: 'Full-Feature Price',
+    giants: { value: '$149/mo', detail: 'Everything included' },
+    govtribe: { value: '$333/mo', detail: '$4,000/yr (Growth)' },
   },
   {
     feature: 'Contract Length',
     giants: { value: 'Month-to-month', detail: 'Cancel anytime' },
-    govwin: { value: '12-month minimum', detail: 'Annual contract' },
+    govtribe: { value: 'Annual', detail: 'Yearly billing' },
   },
 ];
 
 const testimonials = [
   {
-    quote: "I was paying $8,000/year for GovWin. Switched to GovCon Giants and I'm getting 90% of what I need for $1,800/year. No brainer.",
-    author: "Owner, 8(a) IT Services Company",
+    quote: "The AI briefings alone justify the switch. GovTribe gave me data, GovCon Giants tells me what to do with it.",
+    author: "BD Manager, SDVOSB IT Services",
   },
   {
-    quote: "The agency pain points alone are worth the subscription. GovWin never gave me that level of actionable intelligence.",
-    author: "BD Director, Small Defense Contractor",
+    quote: "Agency pain points are gold for positioning. No other tool gives me that intelligence at any price.",
+    author: "Owner, 8(a) Professional Services",
   },
   {
-    quote: "As a small business, I couldn't justify GovWin's pricing. MI Core gives me what I need to compete without breaking the bank.",
-    author: "Founder, SDVOSB Professional Services",
+    quote: "I needed SBLO contacts to break into new agencies. GovTribe doesn't have that. Deal breaker.",
+    author: "Founder, HUBZone Contractor",
   },
 ];
 
-export default function DeltekComparisonPage() {
+export default function GovTribeComparisonPage() {
   return (
     <main className="min-h-screen bg-slate-950">
       <JsonLd data={{
         '@context': 'https://schema.org',
         '@type': 'WebPage',
-        name: 'GovCon Giants vs Deltek GovWin Comparison',
-        description: 'Feature and pricing comparison between GovCon Giants Market Intelligence and Deltek GovWin for federal contract research.',
-        url: `${SITE_URL}/compare/deltek`,
+        name: 'GovCon Giants vs GovTribe Comparison',
+        description: 'Feature and pricing comparison between GovCon Giants Market Intelligence and GovTribe for federal contract research.',
+        url: `${SITE_URL}/compare/govtribe`,
         mainEntity: {
           '@type': 'Product',
           name: 'GovCon Giants Market Intelligence',
@@ -132,19 +142,20 @@ export default function DeltekComparisonPage() {
       {/* Hero */}
       <section className="py-16 px-6">
         <div className="max-w-4xl mx-auto text-center">
-          <div className="inline-flex items-center gap-2 px-4 py-2 bg-amber-500/10 border border-amber-500/30 rounded-full mb-6">
-            <span className="text-amber-400 font-semibold">VS COMPARISON</span>
+          <div className="inline-flex items-center gap-2 px-4 py-2 bg-blue-500/10 border border-blue-500/30 rounded-full mb-6">
+            <span className="text-blue-400 font-semibold">VS COMPARISON</span>
           </div>
 
           <h1 className="text-4xl md:text-5xl font-black mb-6 leading-tight">
             <span className="text-white">GovCon Giants vs</span><br />
-            <span className="text-red-500">Deltek GovWin</span>
+            <span className="text-blue-500">GovTribe</span>
           </h1>
 
           <p className="text-xl text-slate-400 mb-8 max-w-2xl mx-auto">
-            Get <span className="text-green-400 font-semibold">80% of the features</span> at{' '}
-            <span className="text-green-400 font-semibold">2% of the cost</span>.
-            Built for small businesses who want to win government contracts without enterprise pricing.
+            GovTribe is solid. We&apos;re better for small businesses.{' '}
+            <span className="text-green-400 font-semibold">AI-powered briefings</span>,{' '}
+            <span className="text-green-400 font-semibold">agency pain points</span>, and{' '}
+            <span className="text-green-400 font-semibold">SBLO contacts</span> they don&apos;t have.
           </p>
 
           {/* Price Comparison Banner */}
@@ -152,26 +163,73 @@ export default function DeltekComparisonPage() {
             <div className="bg-green-500/10 border border-green-500/30 rounded-xl p-6">
               <div className="text-sm text-green-400 font-medium mb-1">GovCon Giants MI Core</div>
               <div className="text-4xl font-black text-white">$149<span className="text-lg text-slate-400">/mo</span></div>
-              <div className="text-sm text-slate-400">Month-to-month, cancel anytime</div>
+              <div className="text-sm text-slate-400">Month-to-month • Full features</div>
             </div>
-            <div className="bg-red-500/10 border border-red-500/30 rounded-xl p-6">
-              <div className="text-sm text-red-400 font-medium mb-1">Deltek GovWin</div>
-              <div className="text-4xl font-black text-white">$6,000<span className="text-lg text-slate-400">+/yr</span></div>
-              <div className="text-sm text-slate-400">12-month contract required</div>
+            <div className="bg-blue-500/10 border border-blue-500/30 rounded-xl p-6">
+              <div className="text-sm text-blue-400 font-medium mb-1">GovTribe Growth</div>
+              <div className="text-4xl font-black text-white">$333<span className="text-lg text-slate-400">/mo</span></div>
+              <div className="text-sm text-slate-400">$4,000/yr • Annual billing</div>
             </div>
           </div>
 
-          <Link
-            href="/mi-free"
-            className="inline-block px-8 py-4 bg-green-600 hover:bg-green-500 text-white rounded-xl font-bold text-lg transition-all"
-          >
-            Try Free — No Credit Card
-          </Link>
+          <div className="flex flex-col sm:flex-row gap-4 justify-center">
+            <Link
+              href="/mi-free"
+              className="inline-block px-8 py-4 bg-green-600 hover:bg-green-500 text-white rounded-xl font-bold text-lg transition-all"
+            >
+              Try Free — No Credit Card
+            </Link>
+            <Link
+              href="#comparison"
+              className="inline-block px-8 py-4 bg-slate-800 hover:bg-slate-700 text-white rounded-xl font-bold text-lg transition-all border border-slate-700"
+            >
+              See Full Comparison
+            </Link>
+          </div>
+        </div>
+      </section>
+
+      {/* What We Have That GovTribe Doesn't */}
+      <section className="py-16 px-6 bg-slate-900/50">
+        <div className="max-w-4xl mx-auto">
+          <h2 className="text-3xl font-bold text-white text-center mb-4">
+            What We Have That GovTribe Doesn&apos;t
+          </h2>
+          <p className="text-slate-400 text-center mb-12 max-w-2xl mx-auto">
+            GovTribe does the basics well. We go further for small businesses who need to win.
+          </p>
+
+          <div className="grid md:grid-cols-3 gap-6">
+            <div className="bg-slate-900 border border-green-500/30 rounded-xl p-6">
+              <div className="text-4xl mb-4">🤖</div>
+              <h3 className="text-xl font-bold text-white mb-2">AI-Powered Briefings</h3>
+              <p className="text-slate-400">
+                Daily and weekly AI briefings analyze opportunities, suggest go/no-go decisions, and identify pursuit priorities.
+                GovTribe has no AI features.
+              </p>
+            </div>
+            <div className="bg-slate-900 border border-green-500/30 rounded-xl p-6">
+              <div className="text-4xl mb-4">🎯</div>
+              <h3 className="text-xl font-bold text-white mb-2">Agency Pain Points</h3>
+              <p className="text-slate-400">
+                200+ agencies with analyzed challenges, budget priorities, and procurement patterns.
+                Know what they&apos;re struggling with before you pitch.
+              </p>
+            </div>
+            <div className="bg-slate-900 border border-green-500/30 rounded-xl p-6">
+              <div className="text-4xl mb-4">📞</div>
+              <h3 className="text-xl font-bold text-white mb-2">SBLO Contacts</h3>
+              <p className="text-slate-400">
+                800+ Small Business Liaison Officers with direct email and phone.
+                Build relationships with the people who advocate for small businesses.
+              </p>
+            </div>
+          </div>
         </div>
       </section>
 
       {/* Feature Comparison Table */}
-      <section className="py-12 px-6 bg-slate-900/50">
+      <section id="comparison" className="py-12 px-6">
         <div className="max-w-4xl mx-auto">
           <h2 className="text-3xl font-bold text-white text-center mb-8">
             Feature-by-Feature Comparison
@@ -189,7 +247,7 @@ export default function DeltekComparisonPage() {
                   </th>
                   <th className="text-center py-4 px-4">
                     <div className="flex items-center justify-center gap-2">
-                      <span className="text-slate-300 font-bold">Deltek GovWin</span>
+                      <span className="text-blue-300 font-bold">GovTribe</span>
                     </div>
                   </th>
                 </tr>
@@ -199,16 +257,16 @@ export default function DeltekComparisonPage() {
                   <tr key={row.feature} className={`border-b border-slate-800/50 ${i % 2 === 0 ? 'bg-slate-900/30' : ''}`}>
                     <td className="py-4 px-4 text-slate-300 font-medium">{row.feature}</td>
                     <td className="py-4 px-4 text-center bg-green-500/5">
-                      <div className={`font-semibold ${row.giants.value === '✓' ? 'text-green-400' : row.giants.value.includes('$') ? 'text-green-400' : 'text-white'}`}>
+                      <div className={`font-semibold ${row.giants.value === '✓' ? 'text-green-400' : row.giants.value.includes('$') ? 'text-green-400' : row.giants.value === '✗' ? 'text-red-400' : 'text-white'}`}>
                         {row.giants.value}
                       </div>
                       <div className="text-xs text-slate-500">{row.giants.detail}</div>
                     </td>
                     <td className="py-4 px-4 text-center">
-                      <div className={`font-semibold ${row.govwin.value === '✓' ? 'text-slate-300' : row.govwin.value === '✗' ? 'text-red-400' : 'text-slate-400'}`}>
-                        {row.govwin.value}
+                      <div className={`font-semibold ${row.govtribe.value === '✓' ? 'text-slate-300' : row.govtribe.value === '✗' ? 'text-red-400' : 'text-slate-400'}`}>
+                        {row.govtribe.value}
                       </div>
-                      <div className="text-xs text-slate-500">{row.govwin.detail}</div>
+                      <div className="text-xs text-slate-500">{row.govtribe.detail}</div>
                     </td>
                   </tr>
                 ))}
@@ -218,36 +276,36 @@ export default function DeltekComparisonPage() {
         </div>
       </section>
 
-      {/* Why Small Businesses Switch */}
-      <section className="py-16 px-6">
+      {/* GovTribe Strengths (Fair Comparison) */}
+      <section className="py-16 px-6 bg-slate-900/50">
         <div className="max-w-4xl mx-auto">
           <h2 className="text-3xl font-bold text-white text-center mb-4">
-            Why Small Businesses Switch from GovWin
+            When GovTribe Makes Sense
           </h2>
           <p className="text-slate-400 text-center mb-12 max-w-2xl mx-auto">
-            GovWin is built for large enterprises with big budgets. We built Market Intelligence for the rest of us.
+            We believe in honest comparisons. GovTribe is a good tool — here&apos;s where it excels.
           </p>
 
           <div className="grid md:grid-cols-3 gap-6">
             <div className="bg-slate-900 border border-slate-800 rounded-xl p-6">
+              <div className="text-4xl mb-4">🔗</div>
+              <h3 className="text-xl font-bold text-white mb-2">Salesforce Integration</h3>
+              <p className="text-slate-400">
+                If your team lives in Salesforce, GovTribe&apos;s native integration is valuable. We don&apos;t have this yet.
+              </p>
+            </div>
+            <div className="bg-slate-900 border border-slate-800 rounded-xl p-6">
               <div className="text-4xl mb-4">💰</div>
-              <h3 className="text-xl font-bold text-white mb-2">Save $4,200+/Year</h3>
+              <h3 className="text-xl font-bold text-white mb-2">Lower Entry Price</h3>
               <p className="text-slate-400">
-                MI Core at $149/mo ($1,788/yr) vs GovWin at $6,000+/yr. That&apos;s money you can spend on proposals.
+                GovTribe Launch at $112/mo ($1,350/yr) is cheaper than our $149/mo if you only need basics and commit to annual.
               </p>
             </div>
             <div className="bg-slate-900 border border-slate-800 rounded-xl p-6">
-              <div className="text-4xl mb-4">🚫</div>
-              <h3 className="text-xl font-bold text-white mb-2">No Long-Term Contracts</h3>
+              <div className="text-4xl mb-4">🏢</div>
+              <h3 className="text-xl font-bold text-white mb-2">Established Platform</h3>
               <p className="text-slate-400">
-                GovWin requires 12-month commitments. We&apos;re month-to-month because we earn your business every month.
-              </p>
-            </div>
-            <div className="bg-slate-900 border border-slate-800 rounded-xl p-6">
-              <div className="text-4xl mb-4">🎯</div>
-              <h3 className="text-xl font-bold text-white mb-2">Built for Small Business</h3>
-              <p className="text-slate-400">
-                SBLO contacts, set-aside filters, and features designed for small contractors — not billion-dollar primes.
+                GovTribe has been around longer. If you need a proven track record, they have more years in market.
               </p>
             </div>
           </div>
@@ -255,10 +313,10 @@ export default function DeltekComparisonPage() {
       </section>
 
       {/* Testimonials */}
-      <section className="py-16 px-6 bg-slate-900/50">
+      <section className="py-16 px-6">
         <div className="max-w-4xl mx-auto">
           <h2 className="text-3xl font-bold text-white text-center mb-12">
-            What Switchers Say
+            Why Contractors Choose Us
           </h2>
 
           <div className="grid md:grid-cols-3 gap-6">
@@ -272,35 +330,6 @@ export default function DeltekComparisonPage() {
         </div>
       </section>
 
-      {/* What You Get */}
-      <section className="py-16 px-6">
-        <div className="max-w-4xl mx-auto">
-          <h2 className="text-3xl font-bold text-white text-center mb-12">
-            What&apos;s Included in MI Core ($149/mo)
-          </h2>
-
-          <div className="grid md:grid-cols-2 gap-4">
-            {[
-              'Unlimited daily opportunity alerts',
-              'AI-powered daily briefings',
-              '200+ agency pain points',
-              '800+ SBLO contacts with email/phone',
-              '7,700+ forecast opportunities',
-              '5,000+ expiring contracts',
-              '3,500+ contractor database',
-              'Pipeline CRM to track opportunities',
-              'Federal Market Assassin research tool',
-              'Content Reaper proposal tool',
-            ].map((feature) => (
-              <div key={feature} className="flex items-center gap-3 p-4 bg-slate-900 rounded-lg">
-                <span className="text-green-500 text-xl">✓</span>
-                <span className="text-slate-300">{feature}</span>
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
-
       {/* Pricing Tiers */}
       <section className="py-16 px-6 bg-slate-900/50">
         <div className="max-w-5xl mx-auto">
@@ -308,7 +337,7 @@ export default function DeltekComparisonPage() {
             Simple, Transparent Pricing
           </h2>
           <p className="text-slate-400 text-center mb-12">
-            Start free, upgrade when you&apos;re ready. No sales calls required.
+            Start free, upgrade when you&apos;re ready. No annual contracts required.
           </p>
 
           <div className="grid md:grid-cols-3 gap-6">
@@ -355,13 +384,13 @@ export default function DeltekComparisonPage() {
                   <span className="text-green-500">✓</span> AI-powered briefings
                 </li>
                 <li className="flex items-center gap-2 text-slate-300">
-                  <span className="text-green-500">✓</span> Full SBLO contact info
+                  <span className="text-green-500">✓</span> Full SBLO contacts
+                </li>
+                <li className="flex items-center gap-2 text-slate-300">
+                  <span className="text-green-500">✓</span> Agency pain points
                 </li>
                 <li className="flex items-center gap-2 text-slate-300">
                   <span className="text-green-500">✓</span> Pipeline CRM
-                </li>
-                <li className="flex items-center gap-2 text-slate-300">
-                  <span className="text-green-500">✓</span> All premium tools
                 </li>
               </ul>
               <Link
@@ -411,30 +440,31 @@ export default function DeltekComparisonPage() {
 
           <div className="space-y-6">
             <div className="bg-slate-900 rounded-xl p-6">
-              <h3 className="text-white font-semibold mb-2">Is this really 80% of GovWin&apos;s features?</h3>
+              <h3 className="text-white font-semibold mb-2">Is GovTribe cheaper than GovCon Giants?</h3>
               <p className="text-slate-400">
-                For small businesses, yes. We cover opportunity alerts, forecasts, expiring contracts, and agency intelligence.
-                GovWin has additional features like bid/capture management suites, but most small businesses don&apos;t need (or use) them.
+                GovTribe Launch ($112/mo) is cheaper than MI Core ($149/mo), but requires annual commitment.
+                Our full features at $149/mo are cheaper than GovTribe Growth ($333/mo), and we offer month-to-month billing.
               </p>
             </div>
             <div className="bg-slate-900 rounded-xl p-6">
-              <h3 className="text-white font-semibold mb-2">Can I migrate my data from GovWin?</h3>
+              <h3 className="text-white font-semibold mb-2">Do you have the same SAM.gov data?</h3>
               <p className="text-slate-400">
-                Yes. Export your opportunities from GovWin and we&apos;ll help you import them into our Pipeline CRM.
-                Contact support after signing up for assistance.
+                Yes, we both pull from the same government sources: SAM.gov, Grants.gov, USASpending, and agency forecasts.
+                The difference is what we add on top — AI analysis, agency pain points, and SBLO contacts.
               </p>
             </div>
             <div className="bg-slate-900 rounded-xl p-6">
-              <h3 className="text-white font-semibold mb-2">What if I need more than 5 team members?</h3>
+              <h3 className="text-white font-semibold mb-2">Can I try before committing?</h3>
               <p className="text-slate-400">
-                Contact us for enterprise pricing. We offer custom plans for larger teams at rates still well below GovWin.
+                Yes. We have a free tier (MI Free) you can use forever. GovTribe offers a 14-day trial.
+                Our approach lets you test at your own pace without a ticking clock.
               </p>
             </div>
             <div className="bg-slate-900 rounded-xl p-6">
-              <h3 className="text-white font-semibold mb-2">Do you have the same data sources as GovWin?</h3>
+              <h3 className="text-white font-semibold mb-2">What if I need Salesforce integration?</h3>
               <p className="text-slate-400">
-                We pull from the same public sources: SAM.gov, Grants.gov, USASpending, and agency forecasts.
-                Our agency pain points data is proprietary and not available in GovWin.
+                If Salesforce integration is critical for your workflow, GovTribe is the better choice today.
+                We plan to add integrations in the future, but don&apos;t have it currently.
               </p>
             </div>
           </div>
@@ -446,8 +476,8 @@ export default function DeltekComparisonPage() {
         <div className="max-w-4xl mx-auto">
           <h3 className="text-lg font-semibold text-white mb-4">Other Comparisons</h3>
           <div className="flex flex-wrap gap-3">
-            <Link href="/compare/govtribe" className="text-sm text-slate-400 hover:text-white transition">
-              vs GovTribe →
+            <Link href="/compare/deltek" className="text-sm text-slate-400 hover:text-white transition">
+              vs Deltek GovWin →
             </Link>
           </div>
         </div>
@@ -457,10 +487,10 @@ export default function DeltekComparisonPage() {
       <section className="py-16 px-6">
         <div className="max-w-3xl mx-auto bg-gradient-to-br from-green-900/30 to-slate-900 border border-green-500/30 rounded-2xl p-12 text-center">
           <h2 className="text-3xl font-bold text-white mb-4">
-            Ready to Stop Overpaying for Contract Intelligence?
+            Ready to Try the AI-Powered Alternative?
           </h2>
           <p className="text-xl text-slate-400 mb-8">
-            Join thousands of small businesses who switched from expensive enterprise tools.
+            Start free. No credit card. No annual contract. Upgrade when you see the value.
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
             <Link
