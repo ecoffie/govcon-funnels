@@ -4,6 +4,7 @@ import { notFound } from 'next/navigation';
 import { searchEntities, SAMEntity } from '@/lib/sam/entity-api';
 import { generateSeo, SITE_URL } from '@/lib/seo';
 import JsonLd from '@/components/JsonLd';
+import { ContractorFundingChart } from '@/components/ContractorFundingChart';
 
 interface PageProps {
   params: Promise<{ uei: string }>;
@@ -198,40 +199,16 @@ export default async function ContractorProfilePage({ params }: PageProps) {
             </div>
           </div>
 
-          {/* Contract History - GATED */}
-          <div className="bg-slate-900 border border-slate-800 rounded-2xl p-8 mb-8 relative overflow-hidden">
+          {/* Contract History - GATED (with real funding chart) */}
+          <div className="bg-slate-900 border border-slate-800 rounded-2xl p-8 mb-8">
             <h2 className="text-xl font-bold text-white mb-6 flex items-center gap-2">
-              <span className="text-2xl">📊</span> Contract History
+              <span className="text-2xl">📊</span> Federal Funding History
             </h2>
-
-            {/* Blurred preview */}
-            <div className="space-y-4 mb-6">
-              {[1, 2, 3].map((num) => (
-                <div key={num} className="flex items-center justify-between p-4 bg-slate-800/50 rounded-xl opacity-50 blur-[3px] select-none pointer-events-none">
-                  <div>
-                    <div className="text-white font-medium">████████ ██████████ ████</div>
-                    <div className="text-sm text-slate-400">Agency: ████ | NAICS: ██████</div>
-                  </div>
-                  <div className="text-right">
-                    <div className="text-green-400 font-bold">$XX.XM</div>
-                    <div className="text-xs text-slate-500">Expires: XX/XX/XXXX</div>
-                  </div>
-                </div>
-              ))}
-            </div>
-
-            {/* Gate overlay */}
-            <div className="absolute inset-x-0 bottom-0 h-48 bg-gradient-to-t from-slate-900 via-slate-900/98 to-transparent flex items-end justify-center pb-8">
-              <div className="text-center">
-                <p className="text-slate-400 mb-3 text-sm">View 5-year contract history with values & competition data</p>
-                <Link
-                  href="https://mi.govcongiants.com/market-intelligence"
-                  className="inline-block px-6 py-3 bg-blue-600 hover:bg-blue-500 text-white rounded-lg font-semibold transition"
-                >
-                  Get MI Core — $149/mo
-                </Link>
-              </div>
-            </div>
+            <ContractorFundingChart
+              uei={contractor.ueiSAM}
+              companyName={contractor.legalBusinessName}
+              isGated={true}
+            />
           </div>
 
           {/* Certifications Detail - GATED */}
