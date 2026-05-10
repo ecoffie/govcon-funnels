@@ -1,5 +1,5 @@
 import Link from 'next/link';
-import { generateSeo, SITE_URL } from '@/lib/seo';
+import { generateSeo, SITE_URL, freeContentJsonLd } from '@/lib/seo';
 import JsonLd from '@/components/JsonLd';
 
 export const metadata = generateSeo({
@@ -314,6 +314,11 @@ export default function BestGovConSoftwarePage() {
           url: tool.url.startsWith('http') ? tool.url : `${SITE_URL}${tool.url}`,
         })),
       }} />
+      <JsonLd data={freeContentJsonLd({
+        title: 'Best Government Contracting Software 2026',
+        description: 'Comprehensive comparison of the best government contracting software for small businesses',
+        path: '/best-government-contracting-software',
+      })} />
 
       {/* Hero */}
       <section className="py-20 px-6">

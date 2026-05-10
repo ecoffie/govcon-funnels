@@ -4,7 +4,7 @@ import { useState, FormEvent } from 'react';
 import Link from 'next/link';
 import JsonLd from '@/components/JsonLd';
 
-const SITE_URL = 'https://www.govcongiants.com';
+const SITE_URL = 'https://govcongiants.com';
 const FREE_RESULTS_LIMIT = 3;
 
 interface EntityResult {
@@ -121,7 +121,7 @@ export default function CageCodeLookupPage() {
   const visibleResults = isUnlocked ? results : results.slice(0, FREE_RESULTS_LIMIT);
   const hiddenCount = results.length - FREE_RESULTS_LIMIT;
 
-  // JSON-LD for WebApplication
+  // JSON-LD for WebApplication with isAccessibleForFree for Google Helpful Content
   const webAppJsonLd = {
     '@context': 'https://schema.org',
     '@type': 'WebApplication',
@@ -130,6 +130,7 @@ export default function CageCodeLookupPage() {
     url: `${SITE_URL}/tools/cage-code-lookup`,
     applicationCategory: 'BusinessApplication',
     operatingSystem: 'Any',
+    isAccessibleForFree: true,
     offers: {
       '@type': 'Offer',
       price: '0',

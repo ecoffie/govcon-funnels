@@ -98,17 +98,27 @@ export default function ToolsPage() {
     <main className="min-h-screen bg-slate-950">
       <JsonLd data={{
         '@context': 'https://schema.org',
-        '@type': 'ItemList',
+        '@type': 'WebPage',
         name: 'GovCon Giants Tools',
         description: 'Government contracting tools for small businesses',
         url: `${SITE_URL}/tools`,
-        numberOfItems: tools.length,
-        itemListElement: tools.map((tool, i) => ({
-          '@type': 'ListItem',
-          position: i + 1,
-          name: tool.name,
-          description: tool.description,
-        })),
+        isAccessibleForFree: true,
+        mainEntity: {
+          '@type': 'ItemList',
+          name: 'GovCon Giants Tools',
+          numberOfItems: tools.length + freeTools.length,
+          itemListElement: [...freeTools, ...tools].map((tool, i) => ({
+            '@type': 'ListItem',
+            position: i + 1,
+            name: tool.name,
+            description: tool.description,
+          })),
+        },
+        publisher: {
+          '@type': 'Organization',
+          name: 'GovCon Giants',
+          url: SITE_URL,
+        },
       }} />
 
       {/* Hero */}

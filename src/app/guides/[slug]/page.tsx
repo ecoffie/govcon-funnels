@@ -2,7 +2,7 @@ import { notFound } from 'next/navigation';
 import Link from 'next/link';
 import type { Metadata } from 'next';
 import { allGuides, getGuideBySlug, GUIDE_JOB_MAPPING } from '@/content/guides';
-import { generateSeo, articleJsonLd, faqJsonLd, breadcrumbJsonLd } from '@/lib/seo';
+import { generateSeo, articleJsonLd, faqJsonLd, breadcrumbJsonLd, freeContentJsonLd } from '@/lib/seo';
 import { JOB_CATEGORIES } from '@/lib/job-categories';
 import type { JobCategory } from '@/types/job';
 import JsonLd from '@/components/JsonLd';
@@ -60,6 +60,12 @@ export default async function GuidePage({ params }: Props) {
       })} />
       <JsonLd data={faqJsonLd(guide.faqs)} />
       <JsonLd data={breadcrumbJsonLd(breadcrumbs)} />
+      <JsonLd data={freeContentJsonLd({
+        title: guide.title,
+        description: guide.metaDescription,
+        path: `/guides/${guide.slug}`,
+        datePublished: guide.publishedDate,
+      })} />
 
       {/* Hero */}
       <section className="pt-20 pb-16 px-6 bg-gradient-to-b from-slate-900 to-slate-950">

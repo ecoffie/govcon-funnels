@@ -4,7 +4,7 @@ import { useState, FormEvent } from 'react';
 import Link from 'next/link';
 import JsonLd from '@/components/JsonLd';
 
-const SITE_URL = 'https://www.govcongiants.com';
+const SITE_URL = 'https://govcongiants.com';
 const FREE_RESULTS_LIMIT = 15;
 
 interface ContractResult {
@@ -206,7 +206,7 @@ export default function ExpiringContractsPage() {
     }
   };
 
-  // JSON-LD for WebApplication
+  // JSON-LD for WebApplication with isAccessibleForFree for Google Helpful Content
   const webAppJsonLd = {
     '@context': 'https://schema.org',
     '@type': 'WebApplication',
@@ -215,6 +215,7 @@ export default function ExpiringContractsPage() {
     url: `${SITE_URL}/tools/expiring-contracts`,
     applicationCategory: 'BusinessApplication',
     operatingSystem: 'Any',
+    isAccessibleForFree: true,
     offers: {
       '@type': 'Offer',
       price: '0',
