@@ -355,6 +355,21 @@ export default function Home() {
               <div className="text-sm text-slate-400 group-hover:text-white transition">Expiring Contracts</div>
             </Link>
           </div>
+          {/* Industry & Product Links */}
+          <div className="flex flex-wrap justify-center gap-4 text-sm mb-4">
+            <Link href="/for/it-contractors" className="text-slate-400 hover:text-green-400 transition">IT Contractors</Link>
+            <span className="text-slate-700">•</span>
+            <Link href="/for/construction" className="text-slate-400 hover:text-green-400 transition">Construction</Link>
+            <span className="text-slate-700">•</span>
+            <Link href="/for/professional-services" className="text-slate-400 hover:text-green-400 transition">Professional Services</Link>
+            <span className="text-slate-700">•</span>
+            <Link href="/features" className="text-slate-400 hover:text-green-400 transition">All Features</Link>
+            <span className="text-slate-700">•</span>
+            <Link href="/demo" className="text-slate-400 hover:text-green-400 transition">Product Demo</Link>
+            <span className="text-slate-700">•</span>
+            <Link href="/compare/deltek" className="text-slate-400 hover:text-green-400 transition">vs. GovWin</Link>
+          </div>
+          {/* Resource Links */}
           <div className="flex flex-wrap justify-center gap-4 text-sm">
             <Link href="/guides" className="text-slate-400 hover:text-green-400 transition">140+ Free Guides</Link>
             <span className="text-slate-700">•</span>

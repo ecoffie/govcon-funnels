@@ -72,6 +72,9 @@ export default function SiteNav() {
     { href: '/compare/deltek', label: 'vs. Deltek GovWin', desc: 'Save 98% vs. enterprise pricing' },
     { href: '/compare/govtribe', label: 'vs. GovTribe', desc: 'More data, better price' },
     { href: '/compare/federal-compass', label: 'vs. Federal Compass', desc: 'No per-seat fees' },
+    { href: '/compare/highergov', label: 'vs. HigherGov', desc: 'Better small business focus' },
+    { href: '/compare/bloomberg-government', label: 'vs. Bloomberg Gov', desc: 'Affordable alternative' },
+    { href: '/migration/govwin', label: 'Switch from GovWin', desc: 'Migration guide + savings' },
   ];
 
   return (

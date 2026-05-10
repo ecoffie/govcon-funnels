@@ -294,12 +294,15 @@ export default function FeaturesPage() {
         </div>
       </section>
 
-      {/* Use Cases */}
+      {/* Use Cases - Certifications */}
       <section className="py-16 px-6">
         <div className="max-w-5xl mx-auto">
-          <h2 className="text-3xl font-bold text-white text-center mb-12">
+          <h2 className="text-3xl font-bold text-white text-center mb-4">
             Built for Small Business Contractors
           </h2>
+          <p className="text-slate-400 text-center mb-12">
+            Specialized intelligence for every SBA certification
+          </p>
 
           <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
             <Link href="/for/8a-contractors" className="bg-slate-900 border border-slate-800 rounded-xl p-6 hover:border-green-500/50 transition">
@@ -321,6 +324,41 @@ export default function FeaturesPage() {
               <div className="text-2xl mb-3">👩‍💼</div>
               <h3 className="text-lg font-bold text-white mb-2">WOSB/EDWOSB</h3>
               <p className="text-slate-400 text-sm">Women-owned set-aside opportunities</p>
+            </Link>
+          </div>
+        </div>
+      </section>
+
+      {/* Industry Verticals */}
+      <section className="py-16 px-6 bg-slate-900/50">
+        <div className="max-w-5xl mx-auto">
+          <h2 className="text-3xl font-bold text-white text-center mb-4">
+            Industry-Specific Intelligence
+          </h2>
+          <p className="text-slate-400 text-center mb-12">
+            Tailored features for your industry's unique federal contracting needs
+          </p>
+
+          <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
+            <Link href="/for/it-contractors" className="bg-slate-900 border border-slate-800 rounded-xl p-6 hover:border-green-500/50 transition">
+              <div className="text-2xl mb-3">💻</div>
+              <h3 className="text-lg font-bold text-white mb-2">IT Contractors</h3>
+              <p className="text-slate-400 text-sm">$90B federal IT market with NAICS 541512 opportunities</p>
+            </Link>
+            <Link href="/for/construction" className="bg-slate-900 border border-slate-800 rounded-xl p-6 hover:border-green-500/50 transition">
+              <div className="text-2xl mb-3">🏗️</div>
+              <h3 className="text-lg font-bold text-white mb-2">Construction</h3>
+              <p className="text-slate-400 text-sm">MILCON, FSRM, and infrastructure projects</p>
+            </Link>
+            <Link href="/for/professional-services" className="bg-slate-900 border border-slate-800 rounded-xl p-6 hover:border-green-500/50 transition">
+              <div className="text-2xl mb-3">📋</div>
+              <h3 className="text-lg font-bold text-white mb-2">Professional Services</h3>
+              <p className="text-slate-400 text-sm">Management consulting and advisory contracts</p>
+            </Link>
+            <Link href="/for/staffing-agencies" className="bg-slate-900 border border-slate-800 rounded-xl p-6 hover:border-green-500/50 transition">
+              <div className="text-2xl mb-3">👥</div>
+              <h3 className="text-lg font-bold text-white mb-2">Staffing Agencies</h3>
+              <p className="text-slate-400 text-sm">Federal staffing and workforce solutions</p>
             </Link>
           </div>
         </div>
