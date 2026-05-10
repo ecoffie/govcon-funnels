@@ -24,7 +24,7 @@ I put together a complete guide covering:
 → NCAGE codes for international contractors
 → Common issues and how to fix them
 
-📖 Read the full guide: https://govcongiants.org/guides/cage-code
+📖 Read the full guide: https://govcongiants.com/guides/cage-code
 
 #governmentcontracting #govcon #federalcontracts #smallbusiness #samgov #cagecode`,
 
@@ -49,7 +49,7 @@ I wrote a step-by-step guide covering:
 
 Stop paying "registration services" hundreds of dollars. Do it yourself.
 
-📖 Full guide: https://govcongiants.org/guides/sam-gov-registration
+📖 Full guide: https://govcongiants.com/guides/sam-gov-registration
 
 #samgov #governmentcontracting #govcon #federalcontracts #smallbusiness`,
 
@@ -74,7 +74,7 @@ I broke down each certification:
 → Benefits and set-aside dollars
 → How long it takes
 
-📖 Full comparison: https://govcongiants.org/guides/sba-certifications
+📖 Full comparison: https://govcongiants.com/guides/sba-certifications
 
 Which certification are you considering? Drop a comment 👇
 
@@ -94,7 +94,7 @@ From "Award" to "Wire Transfer" — everything you need to understand federal co
 
 Bookmark this one. You'll use it.
 
-📖 https://govcongiants.org/glossary
+📖 https://govcongiants.com/glossary
 
 What term confused you the most when you started? 👇
 
@@ -121,7 +121,7 @@ We offer:
 → Proposal support
 → Certification guidance
 
-📞 Book a call: https://govcongiants.org/government-contract-help
+📞 Book a call: https://govcongiants.com/government-contract-help
 
 What's your biggest challenge in federal contracting right now?
 

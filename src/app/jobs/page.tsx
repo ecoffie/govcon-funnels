@@ -37,7 +37,7 @@ function jobListJsonLd() {
     itemListElement: categories.map((cat, i) => ({
       '@type': 'ListItem',
       position: i + 1,
-      url: `https://govcongiants.org/jobs/${cat.slug}`,
+      url: `https://govcongiants.com/jobs/${cat.slug}`,
       name: `${cat.name} Jobs`,
     })),
   };

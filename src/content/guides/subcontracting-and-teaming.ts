@@ -177,7 +177,7 @@ export const guide: GuideData = {
     description:
       'The GovCon Giants Contractor Database connects you with verified small businesses, primes, and teaming partners actively looking to bid on government contracts.',
     buttonText: 'Explore the Contractor Database',
-    buttonHref: 'https://shop.govcongiants.org',
+    buttonHref: 'https://shop.govcongiants.com',
   },
   relatedGuides: [
     'government-contracting-for-beginners',

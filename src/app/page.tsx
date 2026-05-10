@@ -297,7 +297,7 @@ export default function Home() {
                 </li>
               </ul>
               <Link
-                href="https://tools.govcongiants.org/market-intelligence"
+                href="https://mi.govcongiants.com/market-intelligence"
                 className="block w-full py-3 text-center bg-green-600 hover:bg-green-500 text-white rounded-xl font-bold transition"
               >
                 Get Pro

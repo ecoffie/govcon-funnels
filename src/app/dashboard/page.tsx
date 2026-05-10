@@ -14,7 +14,7 @@ export default function DashboardHomePage() {
             live 8-hour training.
           </p>
           <a
-            href="https://funnels.govcongiants.org/proposal-bootcamp"
+            href="https://govcongiants.com/proposal-bootcamp"
             target="_blank"
             rel="noopener"
             className="inline-block rounded-md bg-green-600 px-4 py-2 font-semibold text-white hover:bg-green-500"

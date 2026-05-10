@@ -4,7 +4,7 @@ import { useState, FormEvent } from 'react';
 import Link from 'next/link';
 import JsonLd from '@/components/JsonLd';
 
-const SITE_URL = 'https://govcongiants.org';
+const SITE_URL = 'https://www.govcongiants.com';
 const FREE_RESULTS_LIMIT = 3;
 
 interface EntityResult {
@@ -441,7 +441,7 @@ export default function CageCodeLookupPage() {
               Our Market Assassin tool analyzes agency spending patterns and identifies the best opportunities for your business.
             </p>
             <Link
-              href="https://shop.govcongiants.org"
+              href="https://shop.govcongiants.com"
               target="_blank"
               rel="noopener noreferrer"
               className="inline-block px-8 py-4 bg-green-600 hover:bg-green-500 text-white rounded-xl font-bold text-lg transition-all"

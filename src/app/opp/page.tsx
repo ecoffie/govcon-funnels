@@ -47,7 +47,7 @@ export default function OpportunityPage() {
               </p>
               <div className="flex flex-col sm:flex-row gap-4">
                 <Link
-                  href="https://tools.govcongiants.org/opportunity-hunter"
+                  href="https://mi.govcongiants.com/opportunity-hunter"
                   className="py-4 px-8 bg-emerald-500 hover:bg-emerald-400 text-white font-bold rounded-lg transition-all text-lg text-center"
                 >
                   Try It Free →
@@ -73,7 +73,7 @@ export default function OpportunityPage() {
                     <div className="w-3 h-3 rounded-full bg-green-500"></div>
                   </div>
                   <div className="flex-1 bg-slate-700 rounded-lg px-3 py-1.5 text-xs text-slate-400">
-                    tools.govcongiants.org/opportunity-hunter
+                    mi.govcongiants.com/opportunity-hunter
                   </div>
                 </div>
                 {/* Tool Interface Mockup */}
@@ -224,7 +224,7 @@ export default function OpportunityPage() {
 
           <div className="text-center mt-12">
             <Link
-              href="https://tools.govcongiants.org/opportunity-hunter"
+              href="https://mi.govcongiants.com/opportunity-hunter"
               className="inline-flex items-center gap-2 py-4 px-8 bg-emerald-500 hover:bg-emerald-400 text-white font-bold rounded-lg transition-all text-lg"
             >
               Try Opportunity Hunter Free
@@ -293,7 +293,7 @@ export default function OpportunityPage() {
                 </li>
               </ul>
               <Link
-                href="https://tools.govcongiants.org/opportunity-hunter"
+                href="https://mi.govcongiants.com/opportunity-hunter"
                 className="block text-center py-4 px-6 rounded-lg font-bold transition-all bg-slate-700 hover:bg-slate-600 text-white"
               >
                 Start Free
@@ -445,7 +445,7 @@ export default function OpportunityPage() {
             </div>
             <div className="text-center">
               <Link
-                href="https://tools.govcongiants.org/market-assassin"
+                href="https://mi.govcongiants.com/market-assassin"
                 className="inline-flex items-center gap-2 bg-gradient-to-r from-red-600 to-red-700 hover:from-red-500 hover:to-red-600 text-white font-bold py-4 px-8 rounded-lg transition-all"
               >
                 Explore Market Assassin
@@ -467,7 +467,7 @@ export default function OpportunityPage() {
             Join thousands of contractors who use Opportunity Hunter to find and win federal contracts.
           </p>
           <Link
-            href="https://tools.govcongiants.org/opportunity-hunter"
+            href="https://mi.govcongiants.com/opportunity-hunter"
             className="inline-flex items-center gap-2 py-4 px-10 bg-emerald-500 hover:bg-emerald-400 text-white font-bold rounded-lg transition-all text-xl"
           >
             Launch Opportunity Hunter

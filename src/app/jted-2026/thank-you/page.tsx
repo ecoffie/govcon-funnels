@@ -99,7 +99,7 @@ export default function JTED2026ThankYou() {
             No credit card required.
           </p>
           <Link
-            href="https://tools.govcongiants.org/alerts"
+            href="https://mi.govcongiants.com/alerts"
             target="_blank"
             className="inline-flex items-center gap-2 bg-blue-600 hover:bg-blue-700 text-white px-6 py-3 rounded-lg font-bold transition"
           >
@@ -115,10 +115,10 @@ export default function JTED2026ThankYou() {
             <Link href="https://youtube.com/@govcongiants" target="_blank" className="text-slate-400 hover:text-white transition">
               YouTube (500+ videos)
             </Link>
-            <Link href="https://govcongiants.org/free-course" target="_blank" className="text-slate-400 hover:text-white transition">
+            <Link href="https://govcongiants.com/free-course" target="_blank" className="text-slate-400 hover:text-white transition">
               Free Course
             </Link>
-            <Link href="https://tools.govcongiants.org" target="_blank" className="text-slate-400 hover:text-white transition">
+            <Link href="https://mi.govcongiants.com" target="_blank" className="text-slate-400 hover:text-white transition">
               Market Assassin
             </Link>
           </div>

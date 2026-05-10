@@ -93,7 +93,7 @@ export default function ProposalWritingServicesPage() {
           name: 'Federal Proposal Writing Services — GovCon Giants',
           description:
             'Expert federal proposal writing support for small businesses pursuing government contracts.',
-          url: 'https://govcongiants.org/proposal-writing-services',
+          url: 'https://govcongiants.com/proposal-writing-services',
         })}
       />
       <JsonLd data={faqJsonLd(faqs)} />

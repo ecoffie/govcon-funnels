@@ -5,12 +5,12 @@ export const metadata: Metadata = {
   description: 'Free CAGE code lookup tool. Search any contractor by code or company name in seconds. Updated daily from SAM.gov. No login required.',
   keywords: 'cage code lookup, cage code search, cage code search by company name, find cage code, cage code, sam.gov cage code, federal contractor lookup',
   alternates: {
-    canonical: 'https://govcongiants.org/tools/cage-code-lookup',
+    canonical: 'https://govcongiants.com/tools/cage-code-lookup',
   },
   openGraph: {
     title: 'CAGE Code Lookup [Free] — Search 600K+ Contractors',
     description: 'Free CAGE code lookup tool. Search any contractor by code or company name in seconds. Updated daily from SAM.gov. No login required.',
-    url: 'https://govcongiants.org/tools/cage-code-lookup',
+    url: 'https://govcongiants.com/tools/cage-code-lookup',
     siteName: 'GovCon Giants',
     type: 'website',
   },

@@ -99,7 +99,7 @@ export default function Feb28Upsell() {
               <div className="text-green-500 text-sm mb-6">Cancel anytime</div>
 
               <a
-                href="https://shop.govcongiants.org"
+                href="https://shop.govcongiants.com"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="block w-full px-8 py-4 bg-green-600 hover:bg-green-500 text-white rounded-xl font-bold text-lg text-center transition-all mb-4 green-glow"

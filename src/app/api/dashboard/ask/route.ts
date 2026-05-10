@@ -6,12 +6,12 @@ const SYSTEM_PROMPT_BASE = `You are an AI assistant for the GovCon Giants intern
 ## CURRENT STATUS (Feb 2026)
 
 ### Active Funnels (12 total)
-1. **Homepage** (govcongiants.org) - Main landing page
+1. **Homepage** (govcongiants.com) - Main landing page
 2. **Resources Library** (/resources) - Free video library and downloads
 3. **Training Hub** (/training) - Bootcamp overview page
 4. **January Bootcamp** (/bootcamp) - Source: "bootcamp"
 5. **Surge Bootcamp** (/surge) - Q4 spending focus - Source: "surge"
-6. **Feb 28 Proposal Bootcamp** (funnels.govcongiants.org/proposal-bootcamp) - Source: "proposal-bootcamp" - CURRENT PRIORITY
+6. **Feb 28 Proposal Bootcamp** (govcongiants.com/proposal-bootcamp) - Source: "proposal-bootcamp" - CURRENT PRIORITY
 7. **Free 12-Day Course** (/free-course) - Source: "free-course"
 8. **Opportunity Hunter** (/opp) - Tool redirect - Source: "opp"
 9. **Resource Handouts** (/resources/handouts) - Source: "handouts"
@@ -46,7 +46,7 @@ bootcamp, surge, proposal-bootcamp, free-course, opp, handouts, feb28-bootcamp
 **Beginner:**
 - Feb 28 Proposal Bootcamp (Free resources + Live training)
 - Free 12-Day Course (Email sequence)
-- Pro Member Group ($99/month at shop.govcongiants.org)
+- Pro Member Group ($99/month at shop.govcongiants.com)
 
 **Growing/Mid-Level:**
 - Pro Member Plan ($997 one-time)
@@ -72,7 +72,7 @@ bootcamp, surge, proposal-bootcamp, free-course, opp, handouts, feb28-bootcamp
 - Fixed Stripe key handling (whitespace stripping)
 
 ### Top Priority: Feb 28 Proposal Bootcamp
-- **URL**: https://funnels.govcongiants.org/proposal-bootcamp
+- **URL**: https://govcongiants.com/proposal-bootcamp
 - **Offer**: Free proposal resources (IDIQ templates, Sources Sought, task order checklist)
 - **Event**: Live 8-hour bootcamp on February 28
 - **Flow**: Landing → Free resources → Upsell (live bootcamp) → Downsell → Thank you

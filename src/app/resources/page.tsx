@@ -272,7 +272,7 @@ const resources: Resource[] = [
     features: ["Agency Spending Data", "NAICS Code Search", "Top Buyers List", "5 Free Searches/Day"],
     value: "$500/yr",
     buttonText: "Launch Tool",
-    link: "https://tools.govcongiants.org/opportunity-hunter"
+    link: "https://mi.govcongiants.com/opportunity-hunter"
   },
   {
     section: "Templates",
@@ -424,7 +424,7 @@ export default function ResourceLibrary() {
             </div>
 
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
-              <Link href="https://funnels.govcongiants.org/proposal-bootcamp" className="bg-slate-900 border border-slate-700 rounded-xl p-5 block hover:bg-slate-800 transition" target="_blank" rel="noopener noreferrer">
+              <Link href="https://govcongiants.com/proposal-bootcamp" className="bg-slate-900 border border-slate-700 rounded-xl p-5 block hover:bg-slate-800 transition" target="_blank" rel="noopener noreferrer">
                 <span className="text-2xl">📅</span>
                 <h3 className="text-lg font-bold text-white mt-2 mb-1">Bid Bootcamp Downloads</h3>
                 <p className="text-slate-400 text-sm mb-3">Bid forms and event details for the Feb 28 bootcamp.</p>

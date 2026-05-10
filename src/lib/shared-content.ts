@@ -46,22 +46,22 @@ export interface SharedHomepagePremiumLevel {
 }
 
 const activeFunnels: SharedLinkItem[] = [
-  { label: 'Homepage', url: 'https://govcongiants.org/' },
-  { label: 'Free Resources Library', url: 'https://govcongiants.org/resources' },
-  { label: 'Training Hub', url: 'https://govcongiants.org/training' },
-  { label: 'January Bootcamp (bootcamp)', url: 'https://govcongiants.org/bootcamp' },
-  { label: 'Surge Bootcamp (surge)', url: 'https://govcongiants.org/surge' },
-  { label: 'Feb 28 Proposal Bootcamp (proposal-bootcamp)', url: 'https://funnels.govcongiants.org/proposal-bootcamp' },
-  { label: 'Free 12-Day Course (free-course)', url: 'https://govcongiants.org/free-course' },
-  { label: 'Opportunity Hunter Tool (opp)', url: 'https://govcongiants.org/opp' },
-  { label: 'Resource Handouts (handouts)', url: 'https://govcongiants.org/resources/handouts' },
+  { label: 'Homepage', url: 'https://govcongiants.com/' },
+  { label: 'Free Resources Library', url: 'https://govcongiants.com/resources' },
+  { label: 'Training Hub', url: 'https://govcongiants.com/training' },
+  { label: 'January Bootcamp (bootcamp)', url: 'https://govcongiants.com/bootcamp' },
+  { label: 'Surge Bootcamp (surge)', url: 'https://govcongiants.com/surge' },
+  { label: 'Feb 28 Proposal Bootcamp (proposal-bootcamp)', url: 'https://govcongiants.com/proposal-bootcamp' },
+  { label: 'Free 12-Day Course (free-course)', url: 'https://govcongiants.com/free-course' },
+  { label: 'Opportunity Hunter Tool (opp)', url: 'https://govcongiants.com/opp' },
+  { label: 'Resource Handouts (handouts)', url: 'https://govcongiants.com/resources/handouts' },
   {
     label: 'Contract Vehicles Bootcamp (contract-vehicles-bootcamp)',
-    url: 'https://govcongiants.org/contract-vehicles-bootcamp',
+    url: 'https://govcongiants.com/contract-vehicles-bootcamp',
   },
-  { label: 'Feb 28 Bootcamp Alt (feb28-bootcamp)', url: 'https://govcongiants.org/feb-28-bootcamp' },
-  { label: 'Premium Plans Overview', url: 'https://govcongiants.org/premium' },
-  { label: 'Jan 31 Bootcamp Paid (Stripe)', url: 'https://govcongiants.org/jan-31-bootcamp-paid' },
+  { label: 'Feb 28 Bootcamp Alt (feb28-bootcamp)', url: 'https://govcongiants.com/feb-28-bootcamp' },
+  { label: 'Premium Plans Overview', url: 'https://govcongiants.com/premium' },
+  { label: 'Jan 31 Bootcamp Paid (Stripe)', url: 'https://govcongiants.com/jan-31-bootcamp-paid' },
 ];
 
 const plansOverviewLevels: SharedPlanLevel[] = [
@@ -72,24 +72,24 @@ const plansOverviewLevels: SharedPlanLevel[] = [
     cards: [
       {
         title: 'Feb 28 Proposal Bootcamp',
-        link: 'https://funnels.govcongiants.org/proposal-bootcamp',
+        link: 'https://govcongiants.com/proposal-bootcamp',
         price: 'Live 8-hour training (Free + Paid tiers)',
-        whereSold: 'funnels.govcongiants.org/proposal-bootcamp',
+        whereSold: 'govcongiants.com/proposal-bootcamp',
         afterSignup:
           'Free resources -> Upsell to live bootcamp -> Downsell offer -> Thank you page with access.',
       },
       {
         title: 'Free 12-Day Course',
-        link: 'https://govcongiants.org/free-course',
+        link: 'https://govcongiants.com/free-course',
         price: 'Free',
-        whereSold: 'govcongiants.org/free-course',
+        whereSold: 'govcongiants.com/free-course',
         afterSignup: 'Email sequence with daily lessons; GHL contact created.',
       },
       {
         title: 'Pro Member Group',
-        link: 'https://shop.govcongiants.org',
+        link: 'https://shop.govcongiants.com',
         price: '$99/month',
-        whereSold: 'shop.govcongiants.org',
+        whereSold: 'shop.govcongiants.com',
         afterSignup:
           'Shop handles subscription; GHL/Slack if lead captured on this site first.',
       },
@@ -102,17 +102,17 @@ const plansOverviewLevels: SharedPlanLevel[] = [
     cards: [
       {
         title: 'Pro Member Plan',
-        link: 'https://govcongiants.org/premium/pro-member-plan/checkout',
+        link: 'https://govcongiants.com/premium/pro-member-plan/checkout',
         price: '$997 one-time',
         whereSold:
-          'govcongiants.org/premium/pro-member-plan/checkout (contact/email to complete)',
+          'govcongiants.com/premium/pro-member-plan/checkout (contact/email to complete)',
         afterSignup: 'Manual fulfillment; contact created via form or GHL.',
       },
       {
         title: 'Accelerator Program',
-        link: 'https://govcongiants.org/premium/accelerator/checkout',
+        link: 'https://govcongiants.com/premium/accelerator/checkout',
         price: '$5,997 one-time',
-        whereSold: 'govcongiants.org/premium/accelerator/checkout (contact/email to complete)',
+        whereSold: 'govcongiants.com/premium/accelerator/checkout (contact/email to complete)',
         afterSignup: 'Manual fulfillment; application flow then onboarding.',
       },
     ],
@@ -123,9 +123,9 @@ const plansOverviewLevels: SharedPlanLevel[] = [
     cards: [
       {
         title: 'Accelerator Program',
-        link: 'https://govcongiants.org/premium/accelerator/checkout',
+        link: 'https://govcongiants.com/premium/accelerator/checkout',
         price: '$5,997 one-time',
-        whereSold: 'govcongiants.org/premium/accelerator/checkout (contact/email to complete)',
+        whereSold: 'govcongiants.com/premium/accelerator/checkout (contact/email to complete)',
         afterSignup: 'Manual fulfillment; application flow then onboarding.',
       },
       {
@@ -159,7 +159,7 @@ export const sharedHomepageContent = {
       icon: '📅',
       title: 'Proposal Resources',
       desc: 'Free templates and guides to help you write winning federal proposals.',
-      link: 'https://funnels.govcongiants.org/proposal-bootcamp',
+      link: 'https://govcongiants.com/proposal-bootcamp',
       cta: 'Get Resources ->',
     },
   ] as SharedHomepageResourceCard[],
@@ -238,12 +238,12 @@ export const sharedDashboardContent = {
       { title: 'Status', value: '●', detail: 'All systems operational' },
     ] as SharedDashboardCard[],
     quickLinks: [
-      { label: '🎯 Feb 28 Proposal Bootcamp', url: 'https://funnels.govcongiants.org/proposal-bootcamp' },
-      { label: '🏠 Homepage', url: 'https://govcongiants.org/' },
-      { label: '📚 Resources Library', url: 'https://govcongiants.org/resources' },
-      { label: '🎓 Training Hub', url: 'https://govcongiants.org/training' },
-      { label: '💎 Premium Plans', url: 'https://govcongiants.org/premium' },
-      { label: '🛒 Shop (Pro Membership)', url: 'https://shop.govcongiants.org' },
+      { label: '🎯 Feb 28 Proposal Bootcamp', url: 'https://govcongiants.com/proposal-bootcamp' },
+      { label: '🏠 Homepage', url: 'https://govcongiants.com/' },
+      { label: '📚 Resources Library', url: 'https://govcongiants.com/resources' },
+      { label: '🎓 Training Hub', url: 'https://govcongiants.com/training' },
+      { label: '💎 Premium Plans', url: 'https://govcongiants.com/premium' },
+      { label: '🛒 Shop (Pro Membership)', url: 'https://shop.govcongiants.com' },
       { label: '💳 Stripe Dashboard', url: 'https://dashboard.stripe.com' },
       { label: '💼 GoHighLevel CRM', url: 'https://app.gohighlevel.com' },
       { label: '🔔 Slack App Settings', url: 'https://api.slack.com/apps' },

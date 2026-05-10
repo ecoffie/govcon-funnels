@@ -104,7 +104,7 @@ export default function GovernmentContractHelpPage() {
           name: 'Government Contract Help — GovCon Giants',
           description:
             'Expert government contracting guidance for small businesses including free courses, consulting, and AI-powered tools.',
-          url: 'https://govcongiants.org/government-contract-help',
+          url: 'https://govcongiants.com/government-contract-help',
         })}
       />
       <JsonLd data={faqJsonLd(faqs)} />

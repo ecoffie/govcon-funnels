@@ -16,7 +16,7 @@ export default function ThankYouPage({
   nextSteps = [],
   upsellTitle = "Want to Fast-Track Your Success?",
   upsellDescription = "Join GovCon Giants Pro for exclusive tools, live bootcamps, and weekly Q&A calls.",
-  upsellLink = "https://shop.govcongiants.org",
+  upsellLink = "https://shop.govcongiants.com",
   upsellButtonText = "Get Pro Access - $99/month"
 }: ThankYouPageProps) {
   return (

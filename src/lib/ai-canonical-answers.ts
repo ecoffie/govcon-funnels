@@ -15,12 +15,12 @@ export const CANONICAL_QA: CanonicalQA[] = [
   {
     question: 'How much does it cost to join the bootcamp?',
     answer:
-      'It costs $99/month. You join the Pro Member Group at shop.govcongiants.org; that gives you access to every bootcamp, including the Feb 28 bootcamp.',
+      'It costs $99/month. You join the Pro Member Group at shop.govcongiants.com; that gives you access to every bootcamp, including the Feb 28 bootcamp.',
   },
   {
     question: 'How much is Pro Member Group?',
     answer:
-      '$99/month at shop.govcongiants.org. Includes all bootcamps, community, tools, and live calls.',
+      '$99/month at shop.govcongiants.com. Includes all bootcamps, community, tools, and live calls.',
   },
   {
     question: 'What do I get for $99/month?',
@@ -36,7 +36,7 @@ export const CANONICAL_QA: CanonicalQA[] = [
 
 /** Pricing & products summary for the AI (use for list-style answers). */
 export const PRICING_SUMMARY = `
-- **Pro Member Group**: $99/month at shop.govcongiants.org. Includes access to every bootcamp (including Feb 28), community, tools, live calls.
+- **Pro Member Group**: $99/month at shop.govcongiants.com. Includes access to every bootcamp (including Feb 28), community, tools, live calls.
 - **Pro Member Plan**: $997 one-time. Lifetime training license, 4,000+ community, Success Guide, bootcamps.
 - **Accelerator Program**: $5,997 one-time. 90 days, 12 weekly 1:1 coaching sessions.
 - **White Glove**: Custom pricing – contact hello@govconedu.com.

@@ -498,6 +498,8 @@ After:
 - [x] A/B test MI Free CTAs (May 9) — 4 variants testing button text
 - [ ] Set up conversion tracking (GA4 + Stripe)
 - [x] ~~Launch email sequence for MI Free → Pro~~ — NOT NEEDED: Daily alerts already contain upgrade CTAs
+- [x] Update homepage positioning (May 9) — "Compete Like a $50M Contractor" messaging
+- [x] Restructure navigation (May 9) — [Intelligence ▾] [Learn ▾] [Compare ▾] dropdowns
 
 ---
 

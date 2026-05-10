@@ -59,7 +59,7 @@ function emailWrapper(content: string): string {
                 GovCon Giants | Helping small businesses win federal contracts
               </p>
               <p style="color: #475569; font-size: 11px; margin: 10px 0 0;">
-                <a href="https://govcongiants.org" style="color: #4ade80; text-decoration: none;">govcongiants.org</a>
+                <a href="https://govcongiants.com" style="color: #4ade80; text-decoration: none;">govcongiants.com</a>
               </p>
             </td>
           </tr>
@@ -159,8 +159,8 @@ export async function sendConfirmationEmail(params: EmailParams & { source: stri
  */
 export async function sendOpportunityHunterEmail(params: EmailParams): Promise<EmailResult> {
   const firstName = params.name.split(' ')[0] || 'there';
-  const toolUrl = 'https://funnels.govcongiants.org/opp/thank-you';
-  const logoUrl = 'https://funnels.govcongiants.org/images/opportunity-hunter-logo.png';
+  const toolUrl = 'https://govcongiants.com/opp/thank-you';
+  const logoUrl = 'https://govcongiants.com/images/opportunity-hunter-logo.png';
 
   const content = `
 <div style="text-align: center; margin-bottom: 24px;">
@@ -206,7 +206,7 @@ ${proCta()}`;
  */
 export async function sendSurgeEmail(params: EmailParams): Promise<EmailResult> {
   const firstName = params.name.split(' ')[0] || 'there';
-  const resourcesUrl = 'https://funnels.govcongiants.org/surge/thank-you';
+  const resourcesUrl = 'https://govcongiants.com/surge/thank-you';
 
   const content = `
 <h1 style="color: #ffffff; font-size: 28px; margin: 0 0 20px; text-align: center;">
@@ -251,7 +251,7 @@ ${proCta()}`;
  */
 export async function sendFreeCourseEmail(params: EmailParams): Promise<EmailResult> {
   const firstName = params.name.split(' ')[0] || 'there';
-  const courseUrl = 'https://funnels.govcongiants.org/free-course/course';
+  const courseUrl = 'https://govcongiants.com/free-course/course';
 
   const content = `
 <h1 style="color: #ffffff; font-size: 28px; margin: 0 0 20px; text-align: center;">
@@ -297,7 +297,7 @@ ${proCta()}`;
  */
 export async function sendBootcampEmail(params: EmailParams): Promise<EmailResult> {
   const firstName = params.name.split(' ')[0] || 'there';
-  const bootcampUrl = 'https://funnels.govcongiants.org/bootcamp/thank-you';
+  const bootcampUrl = 'https://govcongiants.com/bootcamp/thank-you';
 
   const content = `
 <h1 style="color: #ffffff; font-size: 28px; margin: 0 0 20px; text-align: center;">
@@ -339,7 +339,7 @@ ${proCta()}`;
  */
 export async function sendContractVehiclesBootcampEmail(params: EmailParams): Promise<EmailResult> {
   const firstName = params.name.split(' ')[0] || 'there';
-  const bootcampUrl = 'https://govcongiants.org/contract-vehicles-bootcamp/thank-you';
+  const bootcampUrl = 'https://govcongiants.com/contract-vehicles-bootcamp/thank-you';
 
   const content = `
 <h1 style="color: #ffffff; font-size: 28px; margin: 0 0 20px; text-align: center;">
@@ -399,7 +399,7 @@ export async function sendGenericWelcomeEmail(params: EmailParams & { source: st
 <table width="100%" cellpadding="0" cellspacing="0">
   <tr>
     <td align="center" style="padding: 20px 0;">
-      <a href="https://govcongiants.org" style="display: inline-block; background-color: #4ade80; color: #0f172a; padding: 16px 32px; border-radius: 8px; text-decoration: none; font-weight: 700; font-size: 16px;">
+      <a href="https://govcongiants.com" style="display: inline-block; background-color: #4ade80; color: #0f172a; padding: 16px 32px; border-radius: 8px; text-decoration: none; font-weight: 700; font-size: 16px;">
         Explore GovCon Giants
       </a>
     </td>
@@ -416,7 +416,7 @@ ${proCta()}`;
  */
 export async function sendEncoreBookletEmail(params: EmailParams): Promise<EmailResult> {
   const firstName = params.name.split(' ')[0] || 'there';
-  const thankYouUrl = 'https://funnels.govcongiants.org/encore/thank-you';
+  const thankYouUrl = 'https://govcongiants.com/encore/thank-you';
 
   const content = `
 <h1 style="color: #ffffff; font-size: 28px; margin: 0 0 20px; text-align: center;">
@@ -457,7 +457,7 @@ export async function sendProposalResourcesEmail(params: EmailParams): Promise<E
     return { ok: false, error: 'SMTP not configured' };
   }
 
-  const baseUrl = 'https://funnels.govcongiants.org/proposal-bootcamp';
+  const baseUrl = 'https://govcongiants.com/proposal-bootcamp';
 
   const html = `
 <!DOCTYPE html>
@@ -566,7 +566,7 @@ export async function sendProposalResourcesEmail(params: EmailParams): Promise<E
                 GovCon Giants | Helping small businesses win federal contracts
               </p>
               <p style="color: #475569; font-size: 11px; margin: 10px 0 0;">
-                <a href="https://govcongiants.org" style="color: #4ade80; text-decoration: none;">govcongiants.org</a>
+                <a href="https://govcongiants.com" style="color: #4ade80; text-decoration: none;">govcongiants.com</a>
               </p>
             </td>
           </tr>
@@ -635,7 +635,7 @@ const HANDOUT_DOWNLOADS = [
 
 export async function sendFreeHandoutsEmail(params: EmailParams): Promise<EmailResult> {
   const firstName = params.name.split(' ')[0] || 'there';
-  const baseUrl = 'https://funnels.govcongiants.org';
+  const baseUrl = 'https://govcongiants.com';
 
   const downloadRows = HANDOUT_DOWNLOADS.map(
     (d) =>

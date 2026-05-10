@@ -152,7 +152,7 @@ export async function GET(request: NextRequest) {
       // Upsell message
       upgrade: totalCount > FREE_RESULT_LIMIT ? {
         message: `Showing ${FREE_RESULT_LIMIT} of ${totalCount} expiring contracts. Get full access + email alerts with Market Assassin Pro.`,
-        url: 'https://tools.govcongiants.org/opportunity-hunter',
+        url: 'https://mi.govcongiants.com/opportunity-hunter',
       } : null,
     });
   } catch (error) {

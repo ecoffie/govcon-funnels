@@ -32,7 +32,7 @@ export async function POST(request: NextRequest) {
           'Content-Type': 'application/json',
         },
         body: JSON.stringify({
-          from: 'GovConEdu <notifications@govcongiants.org>',
+          from: 'GovConEdu <notifications@govcongiants.com>',
           to: 'hello@govconedu.com',
           subject: 'New Upskilling Newsletter Signup',
           text: `New signup for Upskilling newsletter:\n\nEmail: ${cleanEmail}\nTime: ${new Date().toISOString()}`,

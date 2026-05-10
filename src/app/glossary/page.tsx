@@ -27,7 +27,7 @@ function definedTermSetJsonLd() {
     name: 'Government Contracting Glossary',
     description:
       'Comprehensive glossary of terms used in U.S. federal government contracting.',
-    url: 'https://govcongiants.org/glossary',
+    url: 'https://govcongiants.com/glossary',
     hasDefinedTerm: glossaryTerms.map((t) => ({
       '@type': 'DefinedTerm',
       name: t.term,

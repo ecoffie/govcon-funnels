@@ -4,7 +4,7 @@ import { useState, FormEvent } from 'react';
 import Link from 'next/link';
 import JsonLd from '@/components/JsonLd';
 
-const SITE_URL = 'https://govcongiants.org';
+const SITE_URL = 'https://www.govcongiants.com';
 const FREE_RESULTS_LIMIT = 15;
 
 interface ContractResult {
@@ -463,7 +463,7 @@ export default function ExpiringContractsPage() {
                   Get full access to all {totalCount} expiring contracts, plus email alerts and POC information.
                 </p>
                 <a
-                  href="https://tools.govcongiants.org/opportunity-hunter"
+                  href="https://mi.govcongiants.com/opportunity-hunter"
                   target="_blank"
                   rel="noopener noreferrer"
                   className="inline-block px-8 py-3 bg-green-600 hover:bg-green-500 text-white rounded-lg font-bold transition"

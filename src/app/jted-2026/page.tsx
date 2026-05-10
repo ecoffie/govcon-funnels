@@ -226,11 +226,11 @@ export default function JTED2026Landing() {
                className="text-slate-400 hover:text-white transition">
               YouTube
             </a>
-            <a href="https://tools.govcongiants.org" target="_blank" rel="noopener noreferrer"
+            <a href="https://mi.govcongiants.com" target="_blank" rel="noopener noreferrer"
                className="text-slate-400 hover:text-white transition">
               Market Assassin
             </a>
-            <a href="https://govcongiants.org/free-course" target="_blank" rel="noopener noreferrer"
+            <a href="https://govcongiants.com/free-course" target="_blank" rel="noopener noreferrer"
                className="text-slate-400 hover:text-white transition">
               Free Course
             </a>
