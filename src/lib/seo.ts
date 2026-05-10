@@ -1,6 +1,6 @@
 import type { Metadata } from 'next';
 
-const SITE_URL = 'https://www.govcongiants.com';
+const SITE_URL = 'https://govcongiants.com';
 const SITE_NAME = 'GovCon Giants';
 const DEFAULT_OG_IMAGE = `${SITE_URL}/images/og-default.png`;
 
@@ -190,6 +190,84 @@ export function breadcrumbJsonLd(
       name: item.name,
       item: `${SITE_URL}${item.url}`,
     })),
+  };
+}
+
+/**
+ * WebPage schema with isAccessibleForFree - tells Google this content is free
+ * Use for all public educational content (guides, tools, videos)
+ */
+export function freeContentJsonLd({
+  title,
+  description,
+  path,
+  datePublished,
+  dateModified,
+}: {
+  title: string;
+  description: string;
+  path: string;
+  datePublished?: string;
+  dateModified?: string;
+}) {
+  return {
+    '@context': 'https://schema.org',
+    '@type': 'WebPage',
+    name: title,
+    description,
+    url: `${SITE_URL}${path}`,
+    isAccessibleForFree: true,
+    publisher: {
+      '@type': 'Organization',
+      name: SITE_NAME,
+      url: SITE_URL,
+    },
+    ...(datePublished && { datePublished }),
+    ...(dateModified && { dateModified }),
+  };
+}
+
+/**
+ * Gated content schema - tells Google which parts are free vs paywalled
+ * Use for freemium pages where preview is free but full content requires payment
+ */
+export function gatedContentJsonLd({
+  title,
+  description,
+  path,
+  freePreviewSelector = '.free-preview',
+  paidContentSelector = '.premium-content',
+}: {
+  title: string;
+  description: string;
+  path: string;
+  freePreviewSelector?: string;
+  paidContentSelector?: string;
+}) {
+  return {
+    '@context': 'https://schema.org',
+    '@type': 'WebPage',
+    name: title,
+    description,
+    url: `${SITE_URL}${path}`,
+    isAccessibleForFree: false,
+    hasPart: [
+      {
+        '@type': 'WebPageElement',
+        isAccessibleForFree: true,
+        cssSelector: freePreviewSelector,
+      },
+      {
+        '@type': 'WebPageElement',
+        isAccessibleForFree: false,
+        cssSelector: paidContentSelector,
+      },
+    ],
+    publisher: {
+      '@type': 'Organization',
+      name: SITE_NAME,
+      url: SITE_URL,
+    },
   };
 }
 
