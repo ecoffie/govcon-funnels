@@ -25,24 +25,30 @@
       "permanent": true
     },
     {
+      "source": "/:path*",
+      "has": [{ "type": "host", "value": "tools.govcongiants.org" }],
+      "destination": "https://mi.govcongiants.com/:path*",
+      "permanent": true
+    },
+    {
+      "source": "/shop",
+      "destination": "https://shop.govcongiants.org",
+      "permanent": true
+    },
+    {
+      "source": "/shop/:path*",
+      "destination": "https://shop.govcongiants.org/:path*",
+      "permanent": true
+    },
+    {
       "source": "/alerts",
       "destination": "https://mi.govcongiants.com/alerts/signup",
-      "permanent": false
+      "permanent": true
     },
     {
       "source": "/alerts/",
       "destination": "https://mi.govcongiants.com/alerts/signup",
-      "permanent": false
-    },
-    {
-      "source": "/shop",
-      "destination": "https://shop.govcongiants.com",
-      "permanent": false
-    },
-    {
-      "source": "/shop/:path*",
-      "destination": "https://shop.govcongiants.com/:path*",
-      "permanent": false
+      "permanent": true
     },
     {
       "source": "/who-we-are",
@@ -50,18 +56,28 @@
       "permanent": true
     },
     {
-      "source": "/pricing",
-      "destination": "/premium",
+      "source": "/footcamp",
+      "destination": "/",
       "permanent": true
     },
     {
-      "source": "/footcamp",
-      "destination": "/bootcamp",
+      "source": "/bootcamp",
+      "destination": "/",
+      "permanent": true
+    },
+    {
+      "source": "/bootcamp/:path*",
+      "destination": "/",
+      "permanent": true
+    },
+    {
+      "source": "/free-course",
+      "destination": "/",
       "permanent": true
     },
     {
       "source": "/learning/:path*",
-      "destination": "/free-course",
+      "destination": "/",
       "permanent": true
     },
     {
@@ -96,22 +112,12 @@
     },
     {
       "source": "/cvb",
-      "destination": "/contract-vehicles-bootcamp",
-      "permanent": false
-    },
-    {
-      "source": "/bootcamp/part-3",
-      "destination": "/bootcamp",
+      "destination": "/",
       "permanent": true
     },
     {
-      "source": "/bootcamp/part-2",
-      "destination": "/bootcamp",
-      "permanent": true
-    },
-    {
-      "source": "/bootcamp/part-1",
-      "destination": "/bootcamp",
+      "source": "/contract-vehicles-bootcamp",
+      "destination": "/",
       "permanent": true
     },
     {
@@ -126,12 +132,12 @@
     },
     {
       "source": "/join-fhc",
-      "destination": "/free-course",
+      "destination": "/",
       "permanent": true
     },
     {
       "source": "/join-fhc-1",
-      "destination": "/free-course",
+      "destination": "/",
       "permanent": true
     },
     {
@@ -166,33 +172,53 @@
     },
     {
       "source": "/2-upsell.html",
-      "destination": "/proposal-bootcamp/2-upsell.html",
-      "permanent": false
+      "destination": "/",
+      "permanent": true
     },
     {
       "source": "/3-downsell.html",
-      "destination": "/proposal-bootcamp/3-downsell.html",
-      "permanent": false
+      "destination": "/",
+      "permanent": true
     },
     {
       "source": "/4-thank-you.html",
-      "destination": "/proposal-bootcamp/4-thank-you.html",
-      "permanent": false
+      "destination": "/",
+      "permanent": true
     },
     {
       "source": "/pb",
-      "destination": "/proposal-bootcamp",
-      "permanent": false
+      "destination": "/",
+      "permanent": true
+    },
+    {
+      "source": "/proposal-bootcamp",
+      "destination": "/",
+      "permanent": true
+    },
+    {
+      "source": "/proposal-bootcamp/:path*",
+      "destination": "/",
+      "permanent": true
+    },
+    {
+      "source": "/training",
+      "destination": "/",
+      "permanent": true
+    },
+    {
+      "source": "/training/:path*",
+      "destination": "/",
+      "permanent": true
     },
     {
       "source": "/funding",
       "destination": "https://gov.encore-funding.com/govcon-giants-partner-government-contractor-funding/?utm_source=Eric+Coffie&utm_medium=Referral",
-      "permanent": false
+      "permanent": true
     },
     {
       "source": "/encore-funding",
       "destination": "https://gov.encore-funding.com/govcon-giants-partner-government-contractor-funding/?utm_source=Eric+Coffie&utm_medium=Referral",
-      "permanent": false
+      "permanent": true
     },
     {
       "source": "/events",

@@ -33,8 +33,15 @@ import { post as winNoExperience } from './win-government-contracts-no-experienc
 import { post as contractVehicles } from './federal-contract-vehicles-guide';
 import { post as communicateWithCOs } from './communicate-with-contracting-officers';
 import { post as vendorMistakes } from './vendor-mistakes-contracting-officers';
+import { post as cmmcGuide } from './cmmc-2-compliance-guide';
+import { post as oasisPlusGuide } from './oasis-plus-guide';
+import { post as fy2026Trends } from './fy2026-contracting-trends';
 
 export const allPosts: BlogPost[] = [
+  // 2026 Trends & Hot Topics
+  fy2026Trends,
+  cmmcGuide,
+  oasisPlusGuide,
   // GovCon Strategy
   vendorMistakes,
   communicateWithCOs,
