@@ -62,10 +62,18 @@ const features = [
   {
     id: 'recompetes',
     icon: '🔄',
-    title: 'Expiring Contracts',
+    title: 'Recompete Tracker',
     description: 'Find contracts coming up for recompete. See incumbents, contract values, and expiration dates to plan your capture strategy.',
-    stats: '5,000+ recompetes tracked',
-    link: '/tools/expiring-contracts',
+    stats: '180K+ expiring contracts',
+    link: '/features/recompete-tracker',
+  },
+  {
+    id: 'sbir-sttr',
+    icon: '🧪',
+    title: 'SBIR/STTR Tracker',
+    description: 'Track R&D funding across all 11 federal agencies. Phase I, II, and III opportunities with AI topic matching.',
+    stats: '$4B+ annual funding',
+    link: '/features/sbir-sttr',
   },
   {
     id: 'pipeline-crm',
