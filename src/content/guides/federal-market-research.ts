@@ -203,7 +203,7 @@ export const guide: GuideData = {
     description:
       'Market Assassin gives you instant access to federal spending analysis, competitor intelligence, and agency profiles — so you can focus on winning, not searching.',
     buttonText: 'Try Market Assassin',
-    buttonHref: 'https://shop.govcongiants.com',
+    buttonHref: '/shop',
   },
   relatedGuides: [
     'finding-government-contracts',

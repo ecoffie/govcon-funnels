@@ -441,7 +441,7 @@ export default function CageCodeLookupPage() {
               Our Market Assassin tool analyzes agency spending patterns and identifies the best opportunities for your business.
             </p>
             <Link
-              href="https://shop.govcongiants.com"
+              href="/shop"
               target="_blank"
               rel="noopener noreferrer"
               className="inline-block px-8 py-4 bg-green-600 hover:bg-green-500 text-white rounded-xl font-bold text-lg transition-all"

@@ -49,7 +49,7 @@ export const guide: GuideData = {
           <li><strong>Pre-solicitation intelligence.</strong> AI monitors sources of information notices, RFIs, and draft solicitations to alert you to opportunities in the early stages, when engagement with the agency has the highest impact on your win probability.</li>
           <li><strong>Noise reduction.</strong> Instead of sorting through hundreds of irrelevant results, AI filters your opportunity feed to show only the solicitations where you have a realistic chance of competing and winning.</li>
         </ul>
-        <p><a href="https://shop.govcongiants.com" target="_blank" rel="noopener"><strong>Opportunity Hunter</strong></a> from GovCon Giants is built specifically for this purpose — it uses AI to scan and analyze federal opportunities, matching them to your company profile so you spend less time searching and more time pursuing the right contracts.</p>
+        <p><a href="/shop" target="_blank" rel="noopener"><strong>Opportunity Hunter</strong></a> from GovCon Giants is built specifically for this purpose — it uses AI to scan and analyze federal opportunities, matching them to your company profile so you spend less time searching and more time pursuing the right contracts.</p>
         <p>The difference between manual search and AI-powered discovery is the difference between casting a wide net and hoping for the best versus precision-targeting opportunities where your probability of winning is highest.</p>
       `,
     },
@@ -65,7 +65,7 @@ export const guide: GuideData = {
           <li><strong>Pricing intelligence.</strong> By analyzing thousands of historical contract awards, AI generates pricing benchmarks for specific types of work, helping you develop competitive price-to-win strategies based on data rather than assumptions.</li>
           <li><strong>Teaming partner identification.</strong> AI can identify companies with complementary capabilities, strong past performance in target agencies, and relevant certifications — helping you build winning teams faster.</li>
         </ul>
-        <p><a href="https://shop.govcongiants.com" target="_blank" rel="noopener"><strong>Market Assassin</strong></a> from GovCon Giants is purpose-built for federal market research and competitive analysis. It gives you instant access to agency spending breakdowns, competitor profiles, and market trend data — analysis that would take days of manual research condensed into minutes.</p>
+        <p><a href="/shop" target="_blank" rel="noopener"><strong>Market Assassin</strong></a> from GovCon Giants is purpose-built for federal market research and competitive analysis. It gives you instant access to agency spending breakdowns, competitor profiles, and market trend data — analysis that would take days of manual research condensed into minutes.</p>
         <p>The contractors with the best intelligence win more often. AI makes that level of intelligence accessible to small businesses, not just the large primes with dedicated analytics teams.</p>
       `,
     },
@@ -87,7 +87,7 @@ export const guide: GuideData = {
           <li><strong>Technical innovation.</strong> The most competitive proposals include innovative technical approaches that differentiate you from competitors. AI can help articulate your approach, but the innovation itself comes from your subject matter experts.</li>
           <li><strong>Final review and quality.</strong> Every AI-generated section must be reviewed by a human who understands the work, the agency, and what evaluators are looking for. AI is an accelerator, not a replacement for proposal expertise.</li>
         </ul>
-        <p><a href="https://shop.govcongiants.com" target="_blank" rel="noopener"><strong>Content Reaper</strong></a> from GovCon Giants is designed for exactly this workflow — it helps you generate, refine, and organize proposal content while keeping you in control of strategy and quality. Think of it as your AI-powered proposal assistant that handles the heavy lifting so your team can focus on the strategy that wins.</p>
+        <p><a href="/shop" target="_blank" rel="noopener"><strong>Content Reaper</strong></a> from GovCon Giants is designed for exactly this workflow — it helps you generate, refine, and organize proposal content while keeping you in control of strategy and quality. Think of it as your AI-powered proposal assistant that handles the heavy lifting so your team can focus on the strategy that wins.</p>
       `,
     },
     {
@@ -96,19 +96,19 @@ export const guide: GuideData = {
         <p>GovCon Giants has developed three AI-powered tools built specifically for government contractors. Unlike generic AI tools, these are trained on federal procurement data and designed for the unique workflows of government contracting.</p>
         <ul>
           <li>
-            <strong><a href="https://shop.govcongiants.com" target="_blank" rel="noopener">Market Assassin</a> — Competitive Intelligence & Market Research</strong>
+            <strong><a href="/shop" target="_blank" rel="noopener">Market Assassin</a> — Competitive Intelligence & Market Research</strong>
             <p>Market Assassin analyzes federal spending data to give you instant competitive intelligence. Get agency spending breakdowns, competitor win histories, NAICS code market analysis, and pricing benchmarks — all in one platform. Stop spending hours on USAspending.gov and SAM.gov trying to piece together a picture of your market. Market Assassin does it in minutes.</p>
           </li>
           <li>
-            <strong><a href="https://shop.govcongiants.com" target="_blank" rel="noopener">Content Reaper</a> — Content & Proposal Support</strong>
+            <strong><a href="/shop" target="_blank" rel="noopener">Content Reaper</a> — Content & Proposal Support</strong>
             <p>Content Reaper helps you create, refine, and organize proposal content, capability statements, and business development materials. Generate first drafts, check compliance against solicitation requirements, repurpose content from previous proposals, and maintain a library of your best content for reuse. It's the proposal assistant every small business needs but few can afford to hire.</p>
           </li>
           <li>
-            <strong><a href="https://shop.govcongiants.com" target="_blank" rel="noopener">Opportunity Hunter</a> — AI Opportunity Discovery</strong>
+            <strong><a href="/shop" target="_blank" rel="noopener">Opportunity Hunter</a> — AI Opportunity Discovery</strong>
             <p>Opportunity Hunter uses AI to scan federal contract opportunities and match them to your company profile, certifications, and past performance. Get a filtered feed of opportunities where you can actually compete and win — not a firehose of irrelevant solicitations. It monitors for recompetes, tracks pre-solicitation activity, and alerts you to opportunities early in the procurement cycle.</p>
           </li>
         </ul>
-        <p>All three tools are available at <a href="https://shop.govcongiants.com" target="_blank" rel="noopener">shop.govcongiants.com</a>, and you can explore the full suite on our <a href="/tools">tools page</a>. Whether you're a new contractor building your pipeline or an experienced firm scaling your BD operation, these tools give you the AI-powered edge that the government contracting market demands in 2026.</p>
+        <p>All three tools are available at <a href="/shop" target="_blank" rel="noopener">shop.govcongiants.com</a>, and you can explore the full suite on our <a href="/tools">tools page</a>. Whether you're a new contractor building your pipeline or an experienced firm scaling your BD operation, these tools give you the AI-powered edge that the government contracting market demands in 2026.</p>
       `,
     },
     {
@@ -125,7 +125,7 @@ export const guide: GuideData = {
         </ul>
         <p><strong>Step 3: Invest in specialized govcon tools over generic AI.</strong></p>
         <ul>
-          <li>Generic AI tools like ChatGPT and Claude are useful for general writing and analysis, but they don't have access to federal procurement data or understand govcon-specific workflows. Specialized tools like <a href="https://shop.govcongiants.com" target="_blank" rel="noopener">GovCon Giants' AI suite</a> are built on federal data and designed for government contracting processes — the difference in output quality is significant.</li>
+          <li>Generic AI tools like ChatGPT and Claude are useful for general writing and analysis, but they don't have access to federal procurement data or understand govcon-specific workflows. Specialized tools like <a href="/shop" target="_blank" rel="noopener">GovCon Giants' AI suite</a> are built on federal data and designed for government contracting processes — the difference in output quality is significant.</li>
         </ul>
         <p><strong>Step 4: Build AI into your capture process.</strong></p>
         <ul>

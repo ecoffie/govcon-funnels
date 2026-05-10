@@ -2,12 +2,22 @@
   "redirects": [
     {
       "source": "/alerts",
-      "destination": "https://tools.govcongiants.org/alerts/signup",
+      "destination": "https://mi.govcongiants.com/alerts/signup",
       "permanent": false
     },
     {
       "source": "/alerts/",
-      "destination": "https://tools.govcongiants.org/alerts/signup",
+      "destination": "https://mi.govcongiants.com/alerts/signup",
+      "permanent": false
+    },
+    {
+      "source": "/shop",
+      "destination": "https://shop.govcongiants.com",
+      "permanent": false
+    },
+    {
+      "source": "/shop/:path*",
+      "destination": "https://shop.govcongiants.com/:path*",
       "permanent": false
     },
     {
@@ -17,7 +27,7 @@
     },
     {
       "source": "/pricing",
-      "destination": "/consulting",
+      "destination": "/premium",
       "permanent": true
     },
     {
@@ -32,7 +42,7 @@
     },
     {
       "source": "/product/:path*",
-      "destination": "https://shop.govcongiants.org",
+      "destination": "/shop",
       "permanent": true
     },
     {
@@ -147,7 +157,7 @@
     },
     {
       "source": "/pb",
-      "destination": "https://funnels.govcongiants.org/proposal-bootcamp",
+      "destination": "/proposal-bootcamp",
       "permanent": false
     },
     {
@@ -168,6 +178,16 @@
     {
       "source": "/events/",
       "destination": "/",
+      "permanent": true
+    },
+    {
+      "source": "/mi",
+      "destination": "https://mi.govcongiants.com/market-intelligence",
+      "permanent": true
+    },
+    {
+      "source": "/tools/opportunity-hunter",
+      "destination": "https://mi.govcongiants.com/opportunity-hunter",
       "permanent": true
     }
   ]

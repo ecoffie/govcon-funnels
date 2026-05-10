@@ -87,7 +87,7 @@ const plansOverviewLevels: SharedPlanLevel[] = [
       },
       {
         title: 'Pro Member Group',
-        link: 'https://shop.govcongiants.com',
+        link: '/shop',
         price: '$99/month',
         whereSold: 'shop.govcongiants.com',
         afterSignup:
@@ -243,7 +243,7 @@ export const sharedDashboardContent = {
       { label: '📚 Resources Library', url: 'https://govcongiants.com/resources' },
       { label: '🎓 Training Hub', url: 'https://govcongiants.com/training' },
       { label: '💎 Premium Plans', url: 'https://govcongiants.com/premium' },
-      { label: '🛒 Shop (Pro Membership)', url: 'https://shop.govcongiants.com' },
+      { label: '🛒 Shop (Pro Membership)', url: '/shop' },
       { label: '💳 Stripe Dashboard', url: 'https://dashboard.stripe.com' },
       { label: '💼 GoHighLevel CRM', url: 'https://app.gohighlevel.com' },
       { label: '🔔 Slack App Settings', url: 'https://api.slack.com/apps' },
