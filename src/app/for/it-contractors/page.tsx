@@ -341,12 +341,12 @@ export default function ITContractorsPage() {
               <p className="text-slate-400 text-sm">Complete guide to getting on GSA Schedule 70 and winning task orders.</p>
               <span className="text-green-400 text-sm font-medium mt-3 inline-block">Read Guide →</span>
             </Link>
-            <Link href="/guides/federal-contract-vehicles-guide" className="bg-slate-900 border border-slate-800 rounded-xl p-6 hover:border-green-500/50 transition">
+            <Link href="/blog/federal-contract-vehicles-guide" className="bg-slate-900 border border-slate-800 rounded-xl p-6 hover:border-green-500/50 transition">
               <h3 className="text-white font-bold mb-2">Contract Vehicles Guide</h3>
               <p className="text-slate-400 text-sm">GWAC vs IDIQ vs BPA - which vehicles matter for IT contractors.</p>
               <span className="text-green-400 text-sm font-medium mt-3 inline-block">Compare →</span>
             </Link>
-            <Link href="/guides/sbir-sttr-guide" className="bg-slate-900 border border-slate-800 rounded-xl p-6 hover:border-green-500/50 transition">
+            <Link href="/guides/sbir-sttr" className="bg-slate-900 border border-slate-800 rounded-xl p-6 hover:border-green-500/50 transition">
               <h3 className="text-white font-bold mb-2">SBIR/STTR Guide</h3>
               <p className="text-slate-400 text-sm">How to win R&D funding for innovative technology development.</p>
               <span className="text-green-400 text-sm font-medium mt-3 inline-block">Learn More →</span>
