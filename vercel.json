@@ -1,6 +1,30 @@
 {
   "redirects": [
     {
+      "source": "/:path*",
+      "has": [{ "type": "host", "value": "govcongiants.org" }],
+      "destination": "https://www.govcongiants.com/:path*",
+      "permanent": true
+    },
+    {
+      "source": "/:path*",
+      "has": [{ "type": "host", "value": "www.govcongiants.org" }],
+      "destination": "https://www.govcongiants.com/:path*",
+      "permanent": true
+    },
+    {
+      "source": "/:path*",
+      "has": [{ "type": "host", "value": "funnels.govcongiants.org" }],
+      "destination": "https://www.govcongiants.com/:path*",
+      "permanent": true
+    },
+    {
+      "source": "/:path*",
+      "has": [{ "type": "host", "value": "guides.govcongiants.org" }],
+      "destination": "https://www.govcongiants.com/:path*",
+      "permanent": true
+    },
+    {
       "source": "/alerts",
       "destination": "https://mi.govcongiants.com/alerts/signup",
       "permanent": false
