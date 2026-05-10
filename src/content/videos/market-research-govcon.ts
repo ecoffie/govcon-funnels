@@ -143,8 +143,8 @@ export const video: VideoData = {
   cta: {
     heading: 'Want Automated Market Research?',
     description:
-      'Our Opportunity Hunter tool monitors your target agencies and alerts you to new opportunities automatically.',
-    buttonText: 'Try Opportunity Hunter',
-    buttonHref: '/opp',
+      'Our Market Intelligence tool monitors your target agencies and alerts you to new opportunities automatically.',
+    buttonText: 'Try Market Intelligence Free',
+    buttonHref: '/mi-free',
   },
 };

@@ -74,7 +74,7 @@ const helpPaths = [
     icon: '🛠️',
     title: 'AI-Powered Tools',
     description:
-      'Market Assassin, Content Reaper, and Opportunity Hunter — AI tools built specifically for government contractors to find and win opportunities faster.',
+      'Market Assassin, Content Reaper, and Market Intelligence — AI tools built specifically for government contractors to find and win opportunities faster.',
     cta: 'Explore Tools',
     href: '/tools',
   },

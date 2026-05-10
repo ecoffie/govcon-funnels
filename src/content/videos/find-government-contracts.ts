@@ -109,8 +109,8 @@ export const video: VideoData = {
   cta: {
     heading: 'Want Help Finding Contracts?',
     description:
-      'Our Opportunity Hunter tool automatically finds and analyzes contracts matching your business. Stop spending hours searching SAM.gov.',
-    buttonText: 'Try Opportunity Hunter',
-    buttonHref: '/opp',
+      'Our Market Intelligence tool automatically finds and analyzes contracts matching your business. Stop spending hours searching SAM.gov.',
+    buttonText: 'Try Market Intelligence Free',
+    buttonHref: '/mi-free',
   },
 };

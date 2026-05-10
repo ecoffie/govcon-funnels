@@ -64,7 +64,7 @@ export default function ResourcesUpsell() {
                 </li>
                 <li className="flex items-start gap-2">
                   <span className="text-green-600 mt-1">✓</span>
-                  <span>Opportunity Hunter Pro</span>
+                  <span>Market Intelligence Pro</span>
                 </li>
                 <li className="flex items-start gap-2">
                   <span className="text-green-600 mt-1">✓</span>

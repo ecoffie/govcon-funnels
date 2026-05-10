@@ -263,11 +263,11 @@ export default function PremiumOverviewPage() {
               <span className="text-green-500 font-semibold text-sm">Download Now →</span>
             </Link>
             <Link
-              href="/opp"
+              href="/mi-free"
               className="bg-slate-800 border border-slate-700 rounded-xl p-6 block hover:border-green-600/50 transition text-left"
             >
               <div className="text-2xl mb-3">🔍</div>
-              <h3 className="text-white font-bold mb-1">Free Opportunity Hunter</h3>
+              <h3 className="text-white font-bold mb-1">Free Market Intelligence</h3>
               <p className="text-slate-400 text-sm mb-3">Find agencies and contracts by NAICS code and keywords with free searches.</p>
               <span className="text-green-500 font-semibold text-sm">Try It Free →</span>
             </Link>

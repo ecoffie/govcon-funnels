@@ -12,7 +12,7 @@ export const metadata = generateSeo({
     'federal market research tool',
     'contractor database',
     'govcon tools',
-    'opportunity hunter',
+    'market intelligence',
     'federal spending analysis',
   ],
 });
@@ -62,11 +62,11 @@ const tools = [
     included: true,
   },
   {
-    name: 'Opportunity Hunter',
+    name: 'Market Intelligence',
     tagline: 'Find the Right Contracts, Faster',
     description: 'Search SAM.gov contract opportunities by NAICS code, keywords, set-aside type, and agency. Get matched opportunities delivered to your inbox.',
     features: ['SAM.gov integration', 'NAICS filtering', 'Set-aside filters', 'Email alerts'],
-    href: 'https://mi.govcongiants.com/opportunity-hunter',
+    href: 'https://mi.govcongiants.com',
     icon: '🔍',
     color: 'blue',
     included: false,

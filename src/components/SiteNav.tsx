@@ -55,7 +55,7 @@ export default function SiteNav() {
     { href: '/data/contractors', label: 'Contractor Database', desc: '500K+ federal contractors' },
     { href: '/data/forecasts', label: 'Forecasts', desc: '7,700+ upcoming procurements' },
     { href: '/tools/expiring-contracts', label: 'Expiring Contracts', desc: 'Find recompete opportunities' },
-    { href: '/opp', label: 'Opportunity Hunter', desc: 'Multi-source opportunity search' },
+    { href: '/mi-free', label: 'Market Intelligence', desc: 'AI-powered contract search' },
   ];
 
   const learnLinks = [

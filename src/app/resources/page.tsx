@@ -267,12 +267,12 @@ const resources: Resource[] = [
     section: "Tools",
     category: "tools",
     gated: false,
-    title: "Opportunity Hunter Tool",
+    title: "Market Intelligence Tool",
     description: "Find federal agencies that buy what you sell. Analyze spending data by NAICS code or keyword.",
     features: ["Agency Spending Data", "NAICS Code Search", "Top Buyers List", "5 Free Searches/Day"],
     value: "$500/yr",
     buttonText: "Launch Tool",
-    link: "https://mi.govcongiants.com/opportunity-hunter"
+    link: "https://mi.govcongiants.com"
   },
   {
     section: "Templates",
@@ -414,9 +414,9 @@ export default function ResourceLibrary() {
                   <p className="text-slate-400 text-sm mb-3">Full curriculum from SAM.gov to your first contract.</p>
                   <span className="text-green-500 font-semibold text-sm">Start Learning →</span>
                 </Link>
-                <Link href="/opp" className="bg-slate-900 border border-slate-700 rounded-xl p-5 block hover:bg-slate-800 transition">
+                <Link href="/mi-free" className="bg-slate-900 border border-slate-700 rounded-xl p-5 block hover:bg-slate-800 transition">
                   <span className="text-2xl">🎯</span>
-                  <h3 className="text-lg font-bold text-white mt-2 mb-1">Opportunity Hunter</h3>
+                  <h3 className="text-lg font-bold text-white mt-2 mb-1">Market Intelligence</h3>
                   <p className="text-slate-400 text-sm mb-3">Find agencies and contracts by NAICS or keyword. Free searches.</p>
                   <span className="text-green-500 font-semibold text-sm">Try It Free →</span>
                 </Link>
@@ -611,7 +611,7 @@ export default function ResourceLibrary() {
             Want Access to Even More Resources?
           </h2>
           <p className="text-slate-400 text-lg mb-8">
-            Pro members get exclusive access to live bootcamps, weekly Q&A calls, the full Opportunity Hunter tool, and our private community.
+            Pro members get exclusive access to live bootcamps, weekly Q&A calls, full Market Intelligence access, and our private community.
           </p>
           <a
             href="https://federalhelpcenter.com/pro"
