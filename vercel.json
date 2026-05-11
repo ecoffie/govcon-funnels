@@ -239,6 +239,161 @@
       "source": "/tools/opportunity-hunter",
       "destination": "https://mi.govcongiants.com/opportunity-hunter",
       "permanent": true
+    },
+    {
+      "source": "/pricing",
+      "destination": "/premium",
+      "permanent": true
+    },
+    {
+      "source": "/certs",
+      "destination": "/guides/sba-certifications",
+      "permanent": true
+    },
+    {
+      "source": "/old-home",
+      "destination": "/",
+      "permanent": true
+    },
+    {
+      "source": "/govcongiants.org",
+      "destination": "/",
+      "permanent": true
+    },
+    {
+      "source": "/Solutions-1",
+      "destination": "/consulting",
+      "permanent": true
+    },
+    {
+      "source": "/why-use-ota",
+      "destination": "/guides/contract-types",
+      "permanent": true
+    },
+    {
+      "source": "/why-use-ota/",
+      "destination": "/guides/contract-types",
+      "permanent": true
+    },
+    {
+      "source": "/podcast-1",
+      "destination": "/resources",
+      "permanent": true
+    },
+    {
+      "source": "/who-we-are/:path*",
+      "destination": "/consulting",
+      "permanent": true
+    },
+    {
+      "source": "/:num(\\d+-\\d+)",
+      "destination": "/blog",
+      "permanent": true
+    },
+    {
+      "source": "/sources-sought-hvac-replacements",
+      "destination": "/blog",
+      "permanent": true
+    },
+    {
+      "source": "/technology-security-associates-inc-awarded-83-2m-idiq-contract",
+      "destination": "/blog",
+      "permanent": true
+    },
+    {
+      "source": "/technology-security-associates-inc-awarded-83-2m-idiq-contract/",
+      "destination": "/blog",
+      "permanent": true
+    },
+    {
+      "source": "/kizzy-m-dominguez-ph-d-the-hustle-gets-her-company-to-the-inc-5000-list-2",
+      "destination": "/blog",
+      "permanent": true
+    },
+    {
+      "source": "/kizzy-m-dominguez-ph-d-the-hustle-gets-her-company-to-the-inc-5000-list-2/",
+      "destination": "/blog",
+      "permanent": true
+    },
+    {
+      "source": "/burlington-industries-llc-awarded-10m-contract",
+      "destination": "/blog",
+      "permanent": true
+    },
+    {
+      "source": "/burlington-industries-llc-awarded-10m-contract/",
+      "destination": "/blog",
+      "permanent": true
+    },
+    {
+      "source": "/how-do-you-win-a-local-government-contract",
+      "destination": "/guides/finding-government-contracts",
+      "permanent": true
+    },
+    {
+      "source": "/how-do-you-win-a-local-government-contract/",
+      "destination": "/guides/finding-government-contracts",
+      "permanent": true
+    },
+    {
+      "source": "/top-10-naics-code-for-sap-this-2021",
+      "destination": "/guides/naics-codes",
+      "permanent": true
+    },
+    {
+      "source": "/top-10-naics-code-for-sap-this-2021/",
+      "destination": "/guides/naics-codes",
+      "permanent": true
+    },
+    {
+      "source": "/hangar-door-inspections-maintenance-services",
+      "destination": "/blog",
+      "permanent": true
+    },
+    {
+      "source": "/hangar-door-inspections-maintenance-services/",
+      "destination": "/blog",
+      "permanent": true
+    },
+    {
+      "source": "/genentech-usa-inc-awarded-27-8m-contract-for-various-pharmaceutical-products",
+      "destination": "/blog",
+      "permanent": true
+    },
+    {
+      "source": "/genentech-usa-inc-awarded-27-8m-contract-for-various-pharmaceutical-products/",
+      "destination": "/blog",
+      "permanent": true
+    },
+    {
+      "source": "/making-a-giant-011-maria-martinez-and-mike-cantave-building-a-product-based-business-in-the-aviation-industry-from-the-ground-up",
+      "destination": "/blog",
+      "permanent": true
+    },
+    {
+      "source": "/making-a-giant-011-maria-martinez-and-mike-cantave-building-a-product-based-business-in-the-aviation-industry-from-the-ground-up/",
+      "destination": "/blog",
+      "permanent": true
+    },
+    {
+      "source": "/acc-construction-co-inc-awarded-99m-contract",
+      "destination": "/blog",
+      "permanent": true
+    },
+    {
+      "source": "/acc-construction-co-inc-awarded-99m-contract/",
+      "destination": "/blog",
+      "permanent": true
+    },
+    {
+      "source": "/rising-eagle-medical-llc-awarded-100m-for-patient-monitoring-systems-accessories-and-training",
+      "destination": "/blog",
+      "permanent": true
+    },
+    {
+      "source": "/rising-eagle-medical-llc-awarded-100m-for-patient-monitoring-systems-accessories-and-training/",
+      "destination": "/blog",
+      "permanent": true
     }
   ]
 }
