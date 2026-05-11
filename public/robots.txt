@@ -10,4 +10,4 @@ Disallow: /internal/
 Disallow: /api/
 
 # Sitemap
-Sitemap: https://www.govcongiants.com/sitemap.xml
+Sitemap: https://govcongiants.com/sitemap.xml
