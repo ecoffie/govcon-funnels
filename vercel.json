@@ -267,12 +267,12 @@
     },
     {
       "source": "/why-use-ota",
-      "destination": "/guides/contract-types",
+      "destination": "/guides/contract-types-comparison",
       "permanent": true
     },
     {
       "source": "/why-use-ota/",
-      "destination": "/guides/contract-types",
+      "destination": "/guides/contract-types-comparison",
       "permanent": true
     },
     {
