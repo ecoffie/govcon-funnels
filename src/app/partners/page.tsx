@@ -308,7 +308,7 @@ export default function PartnersPage() {
                 </tr>
                 <tr className="border-b border-slate-800">
                   <td className="py-4 px-4 text-white">Price per user</td>
-                  <td className="py-4 px-4 text-center"><span className="text-green-400 font-semibold">Free/$49</span></td>
+                  <td className="py-4 px-4 text-center"><span className="text-green-400 font-semibold">Free/$149</span></td>
                   <td className="py-4 px-4 text-center"><span className="text-slate-400">$200+</span></td>
                   <td className="py-4 px-4 text-center"><span className="text-slate-400">$99+</span></td>
                 </tr>

@@ -76,7 +76,7 @@ const comparison = [
   { feature: 'SBA reporting export', mi: true, govwin: false, deltek: false },
   { feature: 'Training content library', mi: true, govwin: true, deltek: true },
   { feature: 'Co-branded resources', mi: true, govwin: false, deltek: false },
-  { feature: 'Price per user', mi: 'Free/$49', govwin: '$200+', deltek: '$300+' },
+  { feature: 'Price per user', mi: 'Free/$149', govwin: '$200+', deltek: '$300+' },
 ];
 
 const clientJourney = [

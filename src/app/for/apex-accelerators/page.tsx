@@ -76,7 +76,7 @@ const comparison = [
   { feature: 'Grant reporting export', mi: true, govwin: false, govtribe: false },
   { feature: 'Critical Tech Area filters', mi: true, govwin: true, govtribe: false },
   { feature: 'White-label option', mi: true, govwin: false, govtribe: false },
-  { feature: 'Price per user', mi: 'Free/$49', govwin: '$200+', govtribe: '$99+' },
+  { feature: 'Price per user', mi: 'Free/$149', govwin: '$200+', govtribe: '$99+' },
 ];
 
 export default function ApexAcceleratorsPage() {
