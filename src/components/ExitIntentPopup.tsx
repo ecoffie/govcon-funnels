@@ -113,7 +113,7 @@ export default function ExitIntentPopup() {
     );
   }
 
-  // Default content (B2C - beginner course)
+  // Default content (B2C - MI Free signup)
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center p-4">
       {/* Backdrop */}
@@ -138,7 +138,7 @@ export default function ExitIntentPopup() {
         {/* Content */}
         <div className="text-center">
           <div className="w-16 h-16 bg-green-600/20 rounded-full flex items-center justify-center mx-auto mb-4">
-            <span className="text-3xl">🎓</span>
+            <span className="text-3xl">🚀</span>
           </div>
 
           <h2 className="text-2xl font-bold text-white mb-2">
@@ -146,29 +146,29 @@ export default function ExitIntentPopup() {
           </h2>
 
           <p className="text-slate-400 mb-6">
-            Get our <span className="text-green-500 font-semibold">FREE beginner&apos;s course</span> on
-            government contracting. Learn how to register, find opportunities, and win your first contract.
+            Get <span className="text-green-500 font-semibold">FREE access</span> to federal contract intelligence.
+            Daily opportunity alerts, CAGE lookup, and expiring contracts finder.
           </p>
 
           <div className="space-y-3">
             <Link
-              href="/free-course"
+              href="/mi-free"
               className="block w-full px-6 py-4 bg-green-600 hover:bg-green-500 text-white rounded-xl font-bold transition"
               onClick={handleClose}
             >
-              Get Free Course →
+              Get Free Access →
             </Link>
 
             <button
               onClick={handleClose}
               className="text-slate-500 hover:text-slate-400 text-sm transition"
             >
-              No thanks, I&apos;ll figure it out myself
+              No thanks, I&apos;ll keep searching manually
             </button>
           </div>
 
           <p className="text-slate-600 text-xs mt-4">
-            Join 5,000+ contractors who started here
+            No credit card required
           </p>
         </div>
       </div>
