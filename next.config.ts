@@ -3,23 +3,23 @@ import type { NextConfig } from "next";
 const nextConfig: NextConfig = {
   async redirects() {
     return [
-      // SEO Migration: .org → .com (May 2026)
+      // SEO Migration: .org → .com (May 2026) - canonical is govcongiants.com (no www)
       {
         source: "/:path*",
         has: [{ type: "host", value: "govcongiants.org" }],
-        destination: "https://www.govcongiants.com/:path*",
+        destination: "https://govcongiants.com/:path*",
         permanent: true,
       },
       {
         source: "/:path*",
         has: [{ type: "host", value: "www.govcongiants.org" }],
-        destination: "https://www.govcongiants.com/:path*",
+        destination: "https://govcongiants.com/:path*",
         permanent: true,
       },
       {
         source: "/:path*",
-        has: [{ type: "host", value: "guides.govcongiants.org" }],
-        destination: "https://vault.govcongiants.org/:path*",
+        has: [{ type: "host", value: "www.govcongiants.com" }],
+        destination: "https://govcongiants.com/:path*",
         permanent: true,
       },
       {
@@ -31,6 +31,17 @@ const nextConfig: NextConfig = {
         source: "/vault/:path*",
         destination: "https://vault.govcongiants.org/:path*",
         permanent: false,
+      },
+      // GSC 404 fixes (May 2026)
+      {
+        source: "/surge/bc",
+        destination: "/",
+        permanent: true,
+      },
+      {
+        source: "/solutions",
+        destination: "/consulting",
+        permanent: true,
       },
       {
         source: "/privacy",
@@ -45,7 +56,7 @@ const nextConfig: NextConfig = {
       // OH landing page → direct to tool (no funnel, tool is ungated)
       {
         source: "/opp",
-        destination: "https://tools.govcongiants.org/opportunity-hunter",
+        destination: "https://mi.govcongiants.com/opportunity-hunter",
         permanent: true,
       },
       // Fix misleading checkout URL - accelerator is a call, not payment
@@ -77,11 +88,11 @@ const nextConfig: NextConfig = {
         destination: "/premium#tier-whiteglove",
         permanent: true,
       },
-      // MI landing page → tools site (temporary until /mi page built)
+      // MI landing page → MI site
       {
         source: "/mi",
-        destination: "https://tools.govcongiants.org/market-intelligence",
-        permanent: false,
+        destination: "https://mi.govcongiants.com/market-intelligence",
+        permanent: true,
       },
     ];
   },
