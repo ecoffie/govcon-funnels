@@ -1,4 +1,5 @@
 import Link from 'next/link';
+import { PARTNERSHIP_CALL_URL } from '@/lib/booking';
 import { generateSeo, SITE_URL } from '@/lib/seo';
 import JsonLd from '@/components/JsonLd';
 
@@ -134,7 +135,7 @@ export default function SBDCPage() {
 
           <div className="flex flex-col sm:flex-row gap-4 justify-center mb-12">
             <Link
-              href="https://calendly.com/govconedumeet/sbdc-partnership"
+              href={PARTNERSHIP_CALL_URL}
               className="px-8 py-4 bg-blue-600 hover:bg-blue-500 text-white rounded-xl font-bold text-lg transition-all"
             >
               Schedule Partnership Call
@@ -323,7 +324,7 @@ export default function SBDCPage() {
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
             <Link
-              href="https://calendly.com/govconedumeet/sbdc-partnership"
+              href={PARTNERSHIP_CALL_URL}
               className="px-8 py-4 bg-blue-600 hover:bg-blue-500 text-white rounded-xl font-bold text-lg transition-all"
             >
               Schedule Partnership Call
