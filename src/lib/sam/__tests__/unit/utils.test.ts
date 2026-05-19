@@ -181,6 +181,7 @@ describe('SAM Utils - Unit Tests', () => {
     it('tries the backup key when the primary key gets a plain 429', async () => {
       const primaryKey = `primary-${Date.now()}`;
       const backupKey = `backup-${Date.now()}`;
+      vi.stubEnv('SAM_ENTITY_API_KEY', primaryKey);
       vi.stubEnv('SAM_API_KEY', primaryKey);
       vi.stubEnv('SAM_API_KEY_BACKUP', backupKey);
 
@@ -210,6 +211,7 @@ describe('SAM Utils - Unit Tests', () => {
     it('does not try the backup key for non-fallback request errors', async () => {
       const primaryKey = `primary-${Date.now()}`;
       const backupKey = `backup-${Date.now()}`;
+      vi.stubEnv('SAM_ENTITY_API_KEY', primaryKey);
       vi.stubEnv('SAM_API_KEY', primaryKey);
       vi.stubEnv('SAM_API_KEY_BACKUP', backupKey);
 
