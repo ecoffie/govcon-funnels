@@ -86,7 +86,7 @@
       "permanent": true
     },
     {
-      "source": "/platform/:path*",
+      "source": "/platform/:path+",
       "destination": "/resources",
       "permanent": true
     },
