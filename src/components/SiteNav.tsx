@@ -186,7 +186,7 @@ export default function SiteNav() {
 
             {/* CTA Button */}
             <Link
-              href="/mi-free"
+              href="/mi"
               className="ml-2 px-5 py-2 bg-green-600 hover:bg-green-500 text-white rounded-lg font-semibold transition"
             >
               Start Free
@@ -260,7 +260,7 @@ export default function SiteNav() {
                   Pricing
                 </Link>
                 <Link
-                  href="/mi-free"
+                  href="/mi"
                   className="block mt-2 px-4 py-3 bg-green-600 hover:bg-green-500 text-white rounded-lg font-semibold text-center transition"
                 >
                   Start Free

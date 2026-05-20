@@ -89,6 +89,22 @@ const nextConfig: NextConfig = {
         permanent: true,
       },
       // /mi is now a local Mindy Pro sales page (removed redirect)
+      // /platform is the archived pre-Mindy homepage. Its metadata still
+      // has path='/' which creates an SEO duplicate of the homepage.
+      // Redirect to / so search engines consolidate on canonical Mindy.
+      {
+        source: "/platform",
+        destination: "/",
+        permanent: true,
+      },
+      // /mi-free is the old-branded free landing ("MI Free"). The new
+      // free landing is /mi (Mindy). SiteNav update below points at /mi
+      // directly; this redirect handles any stale external links.
+      {
+        source: "/mi-free",
+        destination: "/mi",
+        permanent: true,
+      },
     ];
   },
   async headers() {
