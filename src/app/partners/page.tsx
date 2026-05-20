@@ -78,7 +78,7 @@ const whyPartner = [
   {
     icon: '🆓',
     title: 'Free for Your Clients',
-    description: 'MI Free gives every client daily opportunity alerts, CAGE lookup, and research tools. No cost to you or them.',
+    description: 'Mindy Free gives every client daily opportunity alerts, CAGE lookup, and research tools. No cost to you or them.',
   },
   {
     icon: '📊',

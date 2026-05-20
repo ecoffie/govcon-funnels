@@ -86,12 +86,12 @@ const comparisonData = [
   },
   {
     feature: 'Free Tier',
-    giants: { value: '✓', detail: 'MI Free forever' },
+    giants: { value: '✓', detail: 'Mindy Free forever' },
     bgov: { value: '✗', detail: 'No free option' },
   },
   {
     feature: 'Monthly Pricing',
-    giants: { value: '$149/mo', detail: 'MI Core' },
+    giants: { value: '$149/mo', detail: 'Mindy Pro' },
     bgov: { value: '$625-$1,167/mo', detail: 'Annual subscription' },
   },
   {
@@ -107,7 +107,7 @@ const testimonials = [
     author: "Director of Capture, Professional Services Firm",
   },
   {
-    quote: "BGOV was costing us $10K/year and we were only using 20% of it. MI Core has the exact features we need for $1,800/year.",
+    quote: "BGOV was costing us $10K/year and we were only using 20% of it. Mindy Pro has the exact features we need for $1,800/year.",
     author: "Owner, 8(a) IT Services Company",
   },
   {
@@ -164,7 +164,7 @@ export default function BloombergGovernmentComparisonPage() {
             name: 'How much cheaper is GovCon Giants than Bloomberg Government?',
             acceptedAnswer: {
               '@type': 'Answer',
-              text: 'Significantly cheaper. Bloomberg Government costs $7,500-$14,000/year. GovCon Giants MI Core is $149/month ($1,788/year), saving you $5,700-$12,200 annually. MI Free is available at $0 forever.',
+              text: 'Significantly cheaper. Bloomberg Government costs $7,500-$14,000/year. GovCon Giants Mindy Pro is $149/month ($1,788/year), saving you $5,700-$12,200 annually. Mindy Free is available at $0 forever.',
             },
           },
           {
@@ -207,7 +207,7 @@ export default function BloombergGovernmentComparisonPage() {
           {/* Price Comparison Banner */}
           <div className="grid md:grid-cols-2 gap-6 max-w-2xl mx-auto mb-8">
             <div className="bg-green-500/10 border border-green-500/30 rounded-xl p-6">
-              <div className="text-sm text-green-400 font-medium mb-1">GovCon Giants MI Core</div>
+              <div className="text-sm text-green-400 font-medium mb-1">GovCon Giants Mindy Pro</div>
               <div className="text-4xl font-black text-white">$149<span className="text-lg text-slate-400">/mo</span></div>
               <div className="text-sm text-slate-400">Month-to-month, cancel anytime</div>
             </div>
@@ -297,7 +297,7 @@ export default function BloombergGovernmentComparisonPage() {
               <div className="text-4xl mb-4">💰</div>
               <h3 className="text-xl font-bold text-white mb-2">Save $5,700-$12,200/Year</h3>
               <p className="text-slate-400">
-                MI Core at $1,788/yr vs BGOV at $7,500-$14,000/yr. That&apos;s serious money you can invest in proposal development.
+                Mindy Pro at $1,788/yr vs BGOV at $7,500-$14,000/yr. That&apos;s serious money you can invest in proposal development.
               </p>
             </div>
             <div className="bg-slate-900 border border-slate-800 rounded-xl p-6">
@@ -333,7 +333,7 @@ export default function BloombergGovernmentComparisonPage() {
       <section className="py-16 px-6">
         <div className="max-w-4xl mx-auto">
           <h2 className="text-3xl font-bold text-white text-center mb-12">
-            What&apos;s Included in MI Core ($149/mo)
+            What&apos;s Included in Mindy Pro ($149/mo)
           </h2>
 
           <div className="grid md:grid-cols-2 gap-4">
@@ -425,7 +425,7 @@ export default function BloombergGovernmentComparisonPage() {
                 href="https://mi.govcongiants.com/market-intelligence"
                 className="block w-full py-3 bg-green-600 hover:bg-green-500 text-white rounded-lg font-semibold text-center transition"
               >
-                Get MI Core
+                Get Mindy Pro
               </Link>
             </div>
 
@@ -452,7 +452,7 @@ export default function BloombergGovernmentComparisonPage() {
                 href="https://mi.govcongiants.com/market-intelligence"
                 className="block w-full py-3 bg-slate-800 hover:bg-slate-700 text-white rounded-lg font-semibold text-center transition"
               >
-                Get MI Team
+                Get Mindy Team
               </Link>
             </div>
           </div>
@@ -482,7 +482,7 @@ export default function BloombergGovernmentComparisonPage() {
             <div className="bg-slate-900 rounded-xl p-6">
               <h3 className="text-white font-semibold mb-2">How much cheaper is GovCon Giants than Bloomberg Government?</h3>
               <p className="text-slate-400">
-                Significantly cheaper. Bloomberg Government costs $7,500-$14,000/year. GovCon Giants MI Core is $149/month ($1,788/year), saving you $5,700-$12,200 annually. MI Free is available at $0 forever.
+                Significantly cheaper. Bloomberg Government costs $7,500-$14,000/year. GovCon Giants Mindy Pro is $149/month ($1,788/year), saving you $5,700-$12,200 annually. Mindy Free is available at $0 forever.
               </p>
             </div>
             <div className="bg-slate-900 rounded-xl p-6">

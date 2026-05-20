@@ -180,20 +180,20 @@ export default function ToolsPage() {
         </div>
       </section>
 
-      {/* MI Free CTA */}
+      {/* Mindy Free CTA */}
       <section className="px-6 pb-12">
         <div className="max-w-5xl mx-auto">
           <div className="bg-gradient-to-r from-green-900/30 to-slate-900 border border-green-500/30 rounded-2xl p-8">
             <div className="flex flex-col md:flex-row items-center justify-between gap-6">
               <div>
                 <h2 className="text-2xl font-bold text-white mb-2">Want All These Tools?</h2>
-                <p className="text-slate-400">Start with MI Free — get daily alerts and access to our free tools. No credit card required.</p>
+                <p className="text-slate-400">Start with Mindy Free — get daily alerts and access to our free tools. No credit card required.</p>
               </div>
               <Link
                 href="/mi-free"
                 className="flex-shrink-0 px-8 py-4 bg-green-600 hover:bg-green-500 text-white rounded-xl font-bold text-lg transition-all"
               >
-                Get MI Free →
+                Get Mindy Free →
               </Link>
             </div>
           </div>
@@ -205,7 +205,7 @@ export default function ToolsPage() {
         <div className="max-w-5xl mx-auto">
           <div className="flex items-center justify-between mb-6">
             <h2 className="text-2xl font-bold text-white">Premium Tools</h2>
-            <span className="px-3 py-1 bg-green-500/20 text-green-400 text-sm rounded-full">Included in MI Core — $149/mo</span>
+            <span className="px-3 py-1 bg-green-500/20 text-green-400 text-sm rounded-full">Included in Mindy Pro — $149/mo</span>
           </div>
           <div className="space-y-8">
           {tools.map((tool) => (
@@ -234,7 +234,7 @@ export default function ToolsPage() {
                     href={tool.href}
                     className="inline-block px-6 py-3 bg-green-600 hover:bg-green-500 text-white rounded-lg font-semibold transition"
                   >
-                    {tool.included ? 'Included in MI Core →' : 'Try Free →'}
+                    {tool.included ? 'Included in Mindy Pro →' : 'Try Free →'}
                   </Link>
                 </div>
               </div>
@@ -249,20 +249,20 @@ export default function ToolsPage() {
         <div className="max-w-3xl mx-auto bg-slate-900 border border-green-600/30 rounded-2xl p-8 text-center">
           <h2 className="text-2xl font-bold text-white mb-3">Start Free, Upgrade When Ready</h2>
           <p className="text-slate-400 mb-6">
-            MI Free gives you daily opportunity alerts and access to our free tools. Upgrade to MI Core ($149/mo) for the full intelligence platform.
+            Mindy Free gives you daily opportunity alerts and access to our free tools. Upgrade to Mindy Pro ($149/mo) for the full intelligence platform.
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
             <Link
               href="/mi-free"
               className="inline-block px-8 py-4 bg-green-600 hover:bg-green-500 text-white rounded-xl font-bold text-lg transition-all"
             >
-              Get MI Free
+              Get Mindy Free
             </Link>
             <Link
               href="https://mi.govcongiants.com/market-intelligence"
               className="inline-block px-8 py-4 bg-slate-800 hover:bg-slate-700 text-white rounded-xl font-bold text-lg transition-all border border-slate-700"
             >
-              See MI Core
+              See Mindy Pro
             </Link>
           </div>
         </div>

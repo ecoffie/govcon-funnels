@@ -469,7 +469,7 @@ export default function ExpiringContractsPage() {
                   rel="noopener noreferrer"
                   className="inline-block px-8 py-3 bg-green-600 hover:bg-green-500 text-white rounded-lg font-bold transition"
                 >
-                  Upgrade to MI Core
+                  Upgrade to Mindy Pro
                 </a>
               </div>
             )}
