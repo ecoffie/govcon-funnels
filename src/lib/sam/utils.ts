@@ -438,7 +438,12 @@ export async function makeSAMRequest<T>(
     }
 
     if (result.error) {
-      // Other error, return it
+      if (result.error.fallbackAvailable) {
+        lastError = result.error;
+        continue;
+      }
+
+      // Non-retryable request errors should not cascade across keys.
       return { data: null, error: result.error, fromCache: false };
     }
 
