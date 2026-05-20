@@ -23,7 +23,9 @@ export const metadata = generateSeo({
 const CHECKOUT_MONTHLY = 'https://buy.stripe.com/dRmfZi9UO3MS20RdpefnO0C'; // $149/mo
 const CHECKOUT_ANNUAL = 'https://buy.stripe.com/eVqfZi5Eydns0WNgBqfnO0D';  // $1,490/yr
 const FREE_SIGNUP_URL = 'https://mi.govcongiants.com/alerts/signup';
-const DASHBOARD_URL = 'https://mi.govcongiants.com/briefings';
+// ?recover=1 tells /briefings to render the email gate (Enter your email /
+// Email me a secure link) instead of auto-bouncing to /alerts/signup.
+const DASHBOARD_URL = 'https://mi.govcongiants.com/briefings?recover=1';
 
 export default function Home() {
   return (
