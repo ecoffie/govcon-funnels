@@ -335,7 +335,7 @@ export default function Home() {
               </ul>
 
               <Link
-                href="mailto:service@govcongiants.com?subject=Mindy%20Teams%20Inquiry"
+                href="mailto:hello@govconedu.com?subject=Mindy%20Teams%20Inquiry"
                 className="block w-full py-3 bg-slate-700 hover:bg-slate-600 text-white font-semibold rounded-xl text-center transition-colors"
               >
                 Contact Sales
