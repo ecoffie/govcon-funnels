@@ -231,11 +231,6 @@
       "permanent": true
     },
     {
-      "source": "/mi",
-      "destination": "https://mi.govcongiants.com/market-intelligence",
-      "permanent": true
-    },
-    {
       "source": "/tools/opportunity-hunter",
       "destination": "https://mi.govcongiants.com/opportunity-hunter",
       "permanent": true

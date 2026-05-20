@@ -88,12 +88,7 @@ const nextConfig: NextConfig = {
         destination: "/premium#tier-whiteglove",
         permanent: true,
       },
-      // MI landing page → MI site
-      {
-        source: "/mi",
-        destination: "https://mi.govcongiants.com/market-intelligence",
-        permanent: true,
-      },
+      // /mi is now a local Mindy Pro sales page (removed redirect)
     ];
   },
   async headers() {
