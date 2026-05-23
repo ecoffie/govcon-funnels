@@ -187,6 +187,7 @@ describe('SAM Utils - Unit Tests', () => {
     };
 
     it('tries the backup key after a fallback-eligible primary key error', async () => {
+      process.env.SAM_ENTITY_API_KEY = 'primary-key';
       process.env.SAM_API_KEY = 'primary-key';
       process.env.SAM_API_KEY_BACKUP = 'backup-key';
 
@@ -210,6 +211,7 @@ describe('SAM Utils - Unit Tests', () => {
     });
 
     it('does not retry another key for non-fallback request errors', async () => {
+      process.env.SAM_ENTITY_API_KEY = 'primary-key';
       process.env.SAM_API_KEY = 'primary-key';
       process.env.SAM_API_KEY_BACKUP = 'backup-key';
 
