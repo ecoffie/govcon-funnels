@@ -6,7 +6,7 @@ import { generateSeo, SITE_URL } from '@/lib/seo';
 export const metadata = generateSeo({
   title: 'From Interested To Procurement Ready — HUBZone Webinar | June 15, 2026',
   description:
-    'Live webinar for small businesses entering the federal market. Hosted by Eric Coffie with leaders from TeamingPro, Encore Funding, and Logical Technology & Research. June 15, 2026, 8 AM – 6 PM EST.',
+    'Live webinar for small businesses entering the federal market. Hosted by Eric Coffie with leaders from TeamingPro, Encore Funding, and Logical Technology & Research. June 15, 2026.',
   path: '/hubzone',
   keywords: [
     'HUBZone webinar',
@@ -15,79 +15,71 @@ export const metadata = generateSeo({
     'teaming partners',
     'federal contractor funding',
     'US Army Corps of Engineers',
-    'GovCon Giants',
-    'Encore Funding',
-    'TeamingPro',
   ],
 });
 
 const pillars = [
   {
-    color: 'teaming',
-    icon: (
-      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="w-10 h-10 text-white">
-        <path d="M9 11.5 6 8.5 3 11.5l3 3" />
-        <path d="m15 12.5 3 3 3-3-3-3" />
-        <path d="M9 11.5 13 7.5l5 5" />
-        <path d="m5.5 14 7 7 6-6" />
-      </svg>
-    ),
+    icon: '🤝',
     title: 'The Teaming Pillar',
-    body: 'Find and secure teaming partners through automation. Skip the 12–18 month "getting-to-know-you" phase that slows small business growth.',
+    desc: 'Find and secure teaming partners through automation. Skip the 12–18 month "getting-to-know-you" phase that slows small business growth.',
   },
   {
-    color: 'funding',
-    icon: (
-      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="w-10 h-10 text-white">
-        <circle cx="12" cy="12" r="9" />
-        <path d="M12 6v12" />
-        <path d="M15 9.5c0-1.4-1.3-2.5-3-2.5s-3 1.1-3 2.5 1.3 2.5 3 2.5 3 1.1 3 2.5-1.3 2.5-3 2.5-3-1.1-3-2.5" />
-      </svg>
-    ),
+    icon: '💰',
     title: 'The Funding Pillar',
-    body: 'Specialized capital built for federal contractors. Manage financial demands without traditional bank restrictions.',
+    desc: 'Specialized capital built for federal contractors. Manage financial demands without traditional bank restrictions.',
   },
   {
-    color: 'agency',
-    icon: (
-      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="w-10 h-10 text-white">
-        <path d="M3 21h18" />
-        <path d="M5 21V10l7-5 7 5v11" />
-        <path d="M9 21v-6h6v6" />
-        <path d="M12 3v2" />
-      </svg>
-    ),
+    icon: '🏛️',
     title: 'The Agency Pillar',
-    body: 'Direct insight from the U.S. Army Corps of Engineers on what they look for when selecting small business partners.',
+    desc: 'Direct insight from the U.S. Army Corps of Engineers on what they look for when selecting small business partners.',
+  },
+];
+
+const steps = [
+  {
+    step: '1',
+    title: 'Reserve Your Seat',
+    desc: 'Register now and lock in your spot for the June 15 webinar.',
+  },
+  {
+    step: '2',
+    title: 'Join the Live Session',
+    desc: 'Spend the day with 4 federal contracting experts — teaming, funding, and agency strategy.',
+  },
+  {
+    step: '3',
+    title: 'Walk Away Procurement-Ready',
+    desc: 'Leave with a clear roadmap and the partners, capital, and agency insight to win.',
   },
 ];
 
 const speakers = [
   {
     name: 'Eric Coffie',
-    title: 'CEO Govcon Giants',
-    role: 'Moderator | GCG — Giant Achievements Federal Contracts',
+    title: 'CEO, GovCon Giants',
+    role: 'Moderator',
     bio: 'Bridging the gap between industry and government perspectives.',
     image: '/hubzone/headshot-eric.png',
   },
   {
     name: 'Tim Hagerty',
-    title: 'CEO TeamingPro',
-    role: 'The Teaming Pillar | TeamingPro',
+    title: 'CEO, TeamingPro',
+    role: 'The Teaming Pillar',
     bio: 'Demonstrating how automation transforms partner discovery for small businesses.',
     image: '/hubzone/headshot-tim.png',
   },
   {
     name: 'Chad Eberly',
-    title: 'General Manager Encore',
-    role: 'The Funding Pillar | Encore Funding',
+    title: 'General Manager, Encore Funding',
+    role: 'The Funding Pillar',
     bio: 'Sharing capital strategies that keep federal contractors performing on every win.',
     image: '/hubzone/headshot-chad.png',
   },
   {
     name: 'Todd Rogers',
-    title: 'President & CEO',
-    role: 'Logical Technology and Research',
+    title: 'President & CEO, Logical Technology and Research',
+    role: 'Agency Insight',
     bio: 'Direct insight into how LTR selects and works with small business partners.',
     image: '/hubzone/headshot-todd.png',
   },
@@ -109,14 +101,14 @@ const partnerLogos = [
 
 export default function HubzonePage() {
   return (
-    <main className="min-h-screen bg-white text-slate-900">
+    <main className="bg-white text-slate-900">
       <JsonLd
         data={{
           '@context': 'https://schema.org',
           '@type': 'Event',
           name: 'From Interested To Procurement Ready — HUBZone Webinar',
           description:
-            'Live webinar for small businesses entering the federal market. Three pillars: Teaming, Funding, Agency. Hosted by Eric Coffie with TeamingPro, Encore Funding, and LTR.',
+            'Live webinar for small businesses entering the federal market. Three pillars: Teaming, Funding, Agency.',
           startDate: '2026-06-15T08:00:00-04:00',
           endDate: '2026-06-15T18:00:00-04:00',
           eventAttendanceMode: 'https://schema.org/OnlineEventAttendanceMode',
@@ -140,250 +132,317 @@ export default function HubzonePage() {
         }}
       />
 
-      {/* HERO */}
-      <section className="relative overflow-hidden bg-gradient-to-br from-[#f97316] via-[#ea580c] to-[#9a3412]">
-        <div
-          className="absolute inset-0 opacity-20 bg-cover bg-center mix-blend-overlay"
-          style={{ backgroundImage: 'url(/hubzone/hero-capitol.png)' }}
-        />
-        <div className="absolute inset-0 bg-gradient-to-b from-transparent via-transparent to-black/30" />
+      {/* Header */}
+      <header className="border-b border-gray-100">
+        <div className="max-w-6xl mx-auto px-6 py-4 flex items-center justify-between">
+          <div className="text-2xl font-bold text-slate-900">
+            HUBZone <span className="text-orange-500">Webinar</span>
+          </div>
+          <div className="flex items-center gap-4">
+            <span className="text-sm text-gray-600 hidden sm:block">
+              June 15, 2026 · 8 AM – 6 PM EST
+            </span>
+            <a
+              href="#reserve"
+              className="bg-orange-500 text-white text-sm font-semibold px-4 py-2 rounded-lg hover:bg-orange-600 transition-colors"
+            >
+              Reserve Seat
+            </a>
+          </div>
+        </div>
+      </header>
 
-        <div className="relative max-w-6xl mx-auto px-6 pt-10 pb-20 md:pt-14 md:pb-28">
-          {/* Partner logo bar */}
-          <div className="bg-white rounded-2xl shadow-xl px-6 py-4 mb-12 inline-block">
-            <div className="flex items-center gap-6 md:gap-10 flex-wrap justify-center">
-              {partnerLogos.map((logo) => (
-                <Image
-                  key={logo.alt}
-                  src={logo.src}
-                  alt={logo.alt}
-                  width={120}
-                  height={50}
-                  className="h-8 md:h-10 w-auto object-contain"
-                />
-              ))}
+      {/* Hero */}
+      <section className="py-16 md:py-24 px-6">
+        <div className="max-w-6xl mx-auto grid md:grid-cols-2 gap-12 items-center">
+          <div>
+            <div className="inline-block bg-orange-100 text-orange-700 text-sm font-semibold px-3 py-1 rounded-full mb-6">
+              Free Live Webinar · June 15, 2026
             </div>
-          </div>
-
-          <div className="max-w-3xl">
-            <span className="inline-block bg-white/95 text-[#ea580c] font-bold uppercase tracking-wide px-5 py-2 rounded-full text-sm mb-6">
-              From Interested To
-            </span>
-            <h1 className="text-5xl md:text-7xl lg:text-8xl font-black text-white leading-[0.95] mb-6 uppercase tracking-tight">
-              Procurement<br />Ready
+            <h1 className="text-4xl md:text-5xl font-bold leading-tight mb-6">
+              From Interested To{' '}
+              <span className="text-orange-500">Procurement Ready</span>
             </h1>
-            <div className="h-1 w-32 bg-white mb-6" />
-            <p className="text-xl md:text-2xl text-white/95 max-w-2xl">
-              A live webinar for small businesses entering the federal market.
+            <p className="text-xl text-gray-600 mb-8">
+              A live one-day webinar for small businesses entering the federal market.
+              Three pillars. Four voices who&apos;ve built it. One clear roadmap forward.
             </p>
-          </div>
-        </div>
-      </section>
-
-      {/* PILLARS */}
-      <section className="py-20 px-6 bg-slate-50">
-        <div className="max-w-5xl mx-auto">
-          <div className="text-center mb-14">
-            <h2 className="text-3xl md:text-5xl font-black text-slate-900 mb-3">
-              Three Pillars of Federal Success
-            </h2>
-            <p className="text-lg text-slate-600">
-              What you&apos;ll walk away with on June 15.
-            </p>
-          </div>
-
-          <div className="space-y-6">
-            {pillars.map((p) => (
-              <div
-                key={p.title}
-                className="bg-white rounded-2xl shadow-md flex flex-col md:flex-row items-stretch overflow-hidden border border-slate-100"
-              >
-                <div
-                  className={`flex items-center justify-center p-8 md:w-48 md:min-h-[180px] ${
-                    p.color === 'teaming'
-                      ? 'bg-gradient-to-br from-[#7cb342] to-[#4a7c1f]'
-                      : p.color === 'funding'
-                      ? 'bg-gradient-to-br from-[#3b82f6] to-[#1e40af]'
-                      : 'bg-gradient-to-br from-[#ef4444] to-[#991b1b]'
-                  }`}
-                >
-                  <div className="w-20 h-20 rounded-full bg-white/20 flex items-center justify-center">
-                    {p.icon}
-                  </div>
-                </div>
-                <div className="p-8 md:py-10 md:pr-10 flex-1">
-                  <h3
-                    className={`text-2xl md:text-3xl font-black mb-3 ${
-                      p.color === 'teaming'
-                        ? 'text-[#4a7c1f]'
-                        : p.color === 'funding'
-                        ? 'text-[#1e40af]'
-                        : 'text-[#b91c1c]'
-                    }`}
-                  >
-                    {p.title}
-                  </h3>
-                  <p className="text-slate-700 text-lg leading-relaxed">{p.body}</p>
-                </div>
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* ROADMAP CTA STRIP */}
-      <section className="bg-gradient-to-r from-[#ea580c] via-[#dc2626] to-[#9a3412] py-16 px-6">
-        <div className="max-w-4xl mx-auto text-center">
-          <h2 className="text-3xl md:text-5xl font-black text-white mb-4">
-            Your Roadmap Forward
-          </h2>
-          <p className="text-lg md:text-xl text-white/95 max-w-3xl mx-auto">
-            Leave with a clear plan to navigate the federal ecosystem — partners, capital,
-            and agency requirements covered.
-          </p>
-        </div>
-      </section>
-
-      {/* SPEAKERS */}
-      <section className="py-20 px-6 bg-white">
-        <div className="max-w-5xl mx-auto">
-          <div className="text-center mb-14">
-            <span className="inline-block bg-[#ea580c] text-white font-bold uppercase tracking-wide px-5 py-2 rounded-full text-sm mb-5">
-              Meet Your
-            </span>
-            <h2 className="text-4xl md:text-6xl font-black text-slate-900 mb-4 uppercase">
-              Expert Panel
-            </h2>
-            <p className="text-lg text-slate-600 max-w-2xl mx-auto">
-              Three pillars of federal success. Four voices who&apos;ve built it.
-            </p>
-          </div>
-
-          <div className="space-y-6">
-            {speakers.map((s) => (
-              <div
-                key={s.name}
-                className="bg-slate-50 rounded-2xl p-6 md:p-8 flex flex-col md:flex-row items-center gap-6 md:gap-8 border border-slate-100"
-              >
-                <div className="flex-shrink-0">
-                  <div className="w-32 h-32 md:w-36 md:h-36 rounded-full overflow-hidden border-4 border-[#ea580c] shadow-lg">
-                    <Image
-                      src={s.image}
-                      alt={s.name}
-                      width={144}
-                      height={144}
-                      className="w-full h-full object-cover"
-                    />
-                  </div>
-                </div>
-                <div className="flex-1 text-center md:text-left">
-                  <h3 className="text-2xl md:text-3xl font-black text-[#ea580c] mb-1 uppercase">
-                    {s.name}
-                  </h3>
-                  <p className="font-bold text-slate-900">{s.title}</p>
-                  <p className="text-sm text-slate-600 mb-2">{s.role}</p>
-                  <p className="text-slate-700">{s.bio}</p>
-                </div>
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* DON'T JUST ATTEND + AUDIENCE */}
-      <section className="bg-slate-900 text-white py-16 px-6">
-        <div className="max-w-5xl mx-auto grid md:grid-cols-2 gap-10">
-          <div>
-            <h2 className="text-3xl md:text-4xl font-black mb-4">
-              Don&apos;t Just Attend,
-              <br />
-              Get Ready to Win
-            </h2>
-            <p className="text-lg text-slate-300">
-              Move from interested to procurement-ready in one session.
-            </p>
-          </div>
-          <div>
-            <h3 className="text-2xl font-black text-[#fb923c] mb-4 uppercase">
-              Who Should Be in the Room
-            </h3>
-            <ul className="space-y-2">
-              {audience.map((a) => (
-                <li key={a} className="flex gap-3 text-slate-200">
-                  <span className="text-[#fb923c] font-bold flex-shrink-0">●</span>
-                  <span>{a}</span>
+            <ul className="space-y-3 mb-8">
+              {[
+                'Find teaming partners without the 12–18 month wait',
+                'Access specialized capital for federal contractors',
+                'Hear directly from the U.S. Army Corps of Engineers',
+                'Walk away with a clear roadmap (½-hour live Q&A)',
+              ].map((item) => (
+                <li key={item} className="flex items-start gap-3">
+                  <span className="mt-1 flex-shrink-0 w-5 h-5 rounded-full bg-orange-500 text-white flex items-center justify-center text-xs font-bold">
+                    ✓
+                  </span>
+                  <span className="text-gray-700">{item}</span>
                 </li>
               ))}
             </ul>
+            <div className="flex items-center gap-3 text-sm text-gray-500">
+              <span className="font-semibold text-gray-700">In partnership with:</span>
+              <div className="flex items-center gap-4 flex-wrap">
+                {partnerLogos.map((logo) => (
+                  <Image
+                    key={logo.alt}
+                    src={logo.src}
+                    alt={logo.alt}
+                    width={80}
+                    height={32}
+                    className="h-6 w-auto object-contain opacity-80"
+                  />
+                ))}
+              </div>
+            </div>
+          </div>
+          <div id="reserve-top" className="bg-gray-50 rounded-2xl p-8 shadow-lg">
+            <h2 className="text-2xl font-bold mb-2 text-center">Reserve Your Seat</h2>
+            <p className="text-gray-500 text-center mb-6">
+              June 15, 2026 · 8 AM – 6 PM EST
+            </p>
+            <LeadForm
+              buttonText="Reserve My Seat"
+              source="hubzone-webinar"
+              redirectUrl="/hubzone/thank-you"
+              buttonClassName="w-full bg-orange-500 hover:bg-orange-600 text-white font-bold py-3 px-6 rounded-lg transition-colors disabled:opacity-50"
+              inputClassName="w-full px-4 py-3 border border-gray-200 rounded-lg focus:border-orange-500 focus:outline-none text-slate-900 placeholder-gray-400 bg-white"
+              helperTextClassName="text-center text-sm text-gray-500"
+            />
           </div>
         </div>
       </section>
 
-      {/* RESERVE YOUR SEAT FORM */}
-      <section id="reserve" className="py-20 px-6 bg-gradient-to-br from-[#ea580c] via-[#dc2626] to-[#9a3412]">
-        <div className="max-w-3xl mx-auto">
-          <div className="bg-white rounded-3xl shadow-2xl overflow-hidden">
-            <div className="bg-gradient-to-r from-[#ea580c] to-[#dc2626] text-white text-center py-8 px-6">
-              <h2 className="text-3xl md:text-5xl font-black uppercase mb-3">
-                Reserve Your Seat
-              </h2>
-              <div className="inline-block bg-white text-[#ea580c] font-black text-xl md:text-2xl px-6 py-2 rounded-full mb-3">
-                June 15, 2026
-              </div>
-              <p className="text-lg font-bold text-white">8:00 AM – 6:00 PM EST</p>
-              <p className="text-sm text-white/90 italic">
-                (Includes a ½-hour Q&amp;A session)
-              </p>
-            </div>
+      {/* Problem / Solution */}
+      <section className="bg-gray-50 py-16 md:py-20 px-6">
+        <div className="max-w-4xl mx-auto text-center">
+          <h2 className="text-3xl md:text-4xl font-bold mb-6">
+            Trying to Break Into Federal Contracting?
+          </h2>
+          <p className="text-xl text-gray-600 mb-8 max-w-2xl mx-auto">
+            You see the $775B federal market. You know there&apos;s opportunity. But
+            partners are hard to find, capital is hard to get, and agencies feel like
+            a black box.
+          </p>
+          <div className="bg-white rounded-2xl p-8 shadow-sm max-w-2xl mx-auto">
+            <p className="text-lg font-semibold text-orange-600 mb-3">
+              One day. Three pillars. Real answers.
+            </p>
+            <p className="text-gray-600">
+              Spend the day with four experts who&apos;ve built this from every angle —
+              teaming, funding, and agency selection — and leave with the playbook
+              you need to actually win.
+            </p>
+          </div>
+        </div>
+      </section>
 
-            <div className="p-8 md:p-10">
-              <p className="text-center text-slate-600 mb-6">
-                Hosted by <span className="font-bold text-[#ea580c]">Eric Coffie</span> — CEO,
-                GovCon Giants
+      {/* Three Pillars */}
+      <section className="py-16 md:py-20 px-6">
+        <div className="max-w-6xl mx-auto">
+          <h2 className="text-3xl md:text-4xl font-bold text-center mb-4">
+            Three Pillars of Federal Success
+          </h2>
+          <p className="text-center text-gray-600 mb-12 max-w-2xl mx-auto">
+            What you&apos;ll walk away with on June 15.
+          </p>
+          <div className="grid md:grid-cols-3 gap-8">
+            {pillars.map((p) => (
+              <div
+                key={p.title}
+                className="bg-white border border-gray-200 rounded-2xl p-8 hover:shadow-lg transition-shadow"
+              >
+                <div className="text-4xl mb-4">{p.icon}</div>
+                <h3 className="text-xl font-bold mb-3">{p.title}</h3>
+                <p className="text-gray-600">{p.desc}</p>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* How It Works */}
+      <section className="bg-gray-900 text-white py-16 md:py-20 px-6">
+        <div className="max-w-4xl mx-auto">
+          <h2 className="text-3xl md:text-4xl font-bold text-center mb-12">
+            How It Works
+          </h2>
+          <div className="grid md:grid-cols-3 gap-8">
+            {steps.map((item) => (
+              <div key={item.step} className="text-center">
+                <div className="w-14 h-14 rounded-full bg-orange-500 text-white text-2xl font-bold flex items-center justify-center mx-auto mb-4">
+                  {item.step}
+                </div>
+                <h3 className="text-xl font-bold mb-2">{item.title}</h3>
+                <p className="text-gray-400">{item.desc}</p>
+              </div>
+            ))}
+          </div>
+          <div className="mt-12 text-center">
+            <a
+              href="#reserve"
+              className="inline-block bg-orange-500 text-white text-lg font-semibold px-8 py-4 rounded-lg hover:bg-orange-600 transition-colors"
+            >
+              Reserve My Seat
+            </a>
+          </div>
+        </div>
+      </section>
+
+      {/* Speakers */}
+      <section className="py-16 md:py-20 px-6">
+        <div className="max-w-6xl mx-auto">
+          <h2 className="text-3xl md:text-4xl font-bold text-center mb-4">
+            Meet Your Expert Panel
+          </h2>
+          <p className="text-center text-gray-600 mb-12 max-w-2xl mx-auto">
+            Three pillars of federal success. Four voices who&apos;ve built it.
+          </p>
+          <div className="grid md:grid-cols-2 gap-6">
+            {speakers.map((s) => (
+              <div
+                key={s.name}
+                className="bg-white border border-gray-200 rounded-2xl p-6 flex gap-5 hover:shadow-lg transition-shadow"
+              >
+                <div className="flex-shrink-0 w-24 h-24 rounded-full overflow-hidden border-4 border-orange-500 relative">
+                  <Image
+                    src={s.image}
+                    alt={s.name}
+                    fill
+                    sizes="96px"
+                    className="object-cover"
+                  />
+                </div>
+                <div className="flex-1">
+                  <div className="inline-block bg-orange-100 text-orange-700 text-xs font-semibold px-2 py-0.5 rounded-full mb-1">
+                    {s.role}
+                  </div>
+                  <h3 className="text-xl font-bold text-slate-900">{s.name}</h3>
+                  <p className="text-sm text-gray-600 mb-2">{s.title}</p>
+                  <p className="text-sm text-gray-700">{s.bio}</p>
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* Who Should Attend */}
+      <section className="bg-gray-50 py-16 md:py-20 px-6">
+        <div className="max-w-4xl mx-auto text-center">
+          <h2 className="text-3xl md:text-4xl font-bold mb-4">
+            Who Should Be in the Room
+          </h2>
+          <p className="text-gray-600 mb-10">
+            Built for small businesses ready to take their next step in federal contracting.
+          </p>
+          <div className="grid md:grid-cols-2 gap-4 max-w-3xl mx-auto text-left">
+            {audience.map((a) => (
+              <div
+                key={a}
+                className="bg-white rounded-xl p-5 border border-gray-200 flex items-start gap-3"
+              >
+                <span className="mt-1 flex-shrink-0 w-5 h-5 rounded-full bg-orange-500 text-white flex items-center justify-center text-xs font-bold">
+                  ✓
+                </span>
+                <span className="text-gray-700">{a}</span>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* Bottom CTA */}
+      <section id="reserve" className="bg-orange-50 py-16 md:py-20 px-6">
+        <div className="max-w-4xl mx-auto">
+          <div className="grid md:grid-cols-2 gap-10 items-center">
+            <div>
+              <div className="inline-block bg-orange-500 text-white text-sm font-semibold px-3 py-1 rounded-full mb-4">
+                Free · Limited Seats
+              </div>
+              <h2 className="text-3xl md:text-4xl font-bold mb-4">
+                Don&apos;t Just Attend.<br />Get Ready to Win.
+              </h2>
+              <p className="text-gray-600 mb-6">
+                Move from interested to procurement-ready in one session.
+                Reserve your spot for the June 15 live webinar — includes a ½-hour Q&A.
               </p>
+              <div className="space-y-2 text-sm text-gray-600">
+                <p>
+                  <span className="font-semibold text-gray-800">When:</span>{' '}
+                  June 15, 2026 · 8 AM – 6 PM EST
+                </p>
+                <p>
+                  <span className="font-semibold text-gray-800">Where:</span>{' '}
+                  Online · Link sent after registration
+                </p>
+                <p>
+                  <span className="font-semibold text-gray-800">Cost:</span> Free
+                </p>
+              </div>
+            </div>
+            <div className="bg-white rounded-2xl p-8 shadow-lg">
+              <h3 className="text-xl font-bold mb-4 text-center">Reserve Your Seat</h3>
               <LeadForm
                 buttonText="Reserve My Seat"
-                source="hubzone-webinar"
+                source="hubzone-webinar-bottom"
                 redirectUrl="/hubzone/thank-you"
-                buttonClassName="w-full bg-gradient-to-r from-[#ea580c] to-[#dc2626] hover:from-[#dc2626] hover:to-[#9a3412] text-white font-black uppercase py-4 px-6 rounded-lg text-lg transition-all shadow-lg disabled:opacity-50"
-                inputClassName="w-full px-4 py-3 border-2 border-slate-200 rounded-lg focus:border-[#ea580c] focus:outline-none text-slate-900 placeholder-slate-400"
-                helperTextClassName="text-center text-sm text-slate-500 italic"
+                buttonClassName="w-full bg-orange-500 hover:bg-orange-600 text-white font-bold py-3 px-6 rounded-lg transition-colors disabled:opacity-50"
+                inputClassName="w-full px-4 py-3 border border-gray-200 rounded-lg focus:border-orange-500 focus:outline-none text-slate-900 placeholder-gray-400 bg-white"
+                helperTextClassName="text-center text-sm text-gray-500"
               />
             </div>
           </div>
-
-          <div className="text-center text-white/90 mt-10 text-sm">
-            <p className="mb-1">
-              For Further Information:{' '}
-              <a
-                href="https://encoregov.com"
-                className="underline font-bold hover:text-white"
-                target="_blank"
-                rel="noopener noreferrer"
-              >
-                Encoregov.com
-              </a>
-            </p>
-            <p>
-              Shelly Sweedler at{' '}
-              <a href="tel:2169989021" className="underline">
-                216-998-9021
-              </a>{' '}
-              · Robinn Mikalic at{' '}
-              <a href="tel:2169989206" className="underline">
-                216-998-9206
-              </a>
-            </p>
-          </div>
         </div>
       </section>
 
-      {/* FOOTER */}
-      <footer className="bg-slate-950 text-slate-400 py-10 px-6 text-center text-sm">
-        <p>
-          &copy; {new Date().getFullYear()} GovCon Giants. In partnership with Encore Funding,
-          TeamingPro, and Logical Technology and Research.
-        </p>
+      {/* Footer */}
+      <footer className="border-t border-gray-200 py-10 px-6">
+        <div className="max-w-6xl mx-auto">
+          <div className="flex flex-col md:flex-row items-start justify-between gap-8">
+            <div>
+              <div className="font-semibold text-lg text-gray-700 mb-2">
+                HUBZone <span className="text-orange-500">Webinar</span>
+              </div>
+              <p className="text-sm text-gray-500">
+                Hosted by GovCon Giants in partnership with<br />
+                Encore Funding, TeamingPro, and Logical Technology and Research.
+              </p>
+            </div>
+            <div className="text-sm text-gray-500 space-y-1">
+              <p>
+                <span className="text-gray-700 font-medium">Questions?</span>
+              </p>
+              <p>
+                Shelly Sweedler ·{' '}
+                <a href="tel:2169989021" className="hover:text-orange-600">
+                  (216) 998-9021
+                </a>
+              </p>
+              <p>
+                Robinn Mikalic ·{' '}
+                <a href="tel:2169989206" className="hover:text-orange-600">
+                  (216) 998-9206
+                </a>
+              </p>
+              <p>
+                <a
+                  href="https://encoregov.com"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="hover:text-orange-600"
+                >
+                  encoregov.com
+                </a>
+              </p>
+            </div>
+          </div>
+          <div className="mt-8 pt-6 border-t border-gray-100 text-center text-sm text-gray-400">
+            &copy; {new Date().getFullYear()} GovCon Giants. All rights reserved.
+          </div>
+        </div>
       </footer>
     </main>
   );
