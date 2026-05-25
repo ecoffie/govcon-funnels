@@ -96,7 +96,7 @@ const partnerLogos = [
   { src: '/hubzone/logo-encore.png', alt: 'Encore Funding' },
   { src: '/hubzone/logo-gcg.png', alt: 'GCG — Giant Achievements Federal Contracts' },
   { src: '/hubzone/logo-teamingpro.png', alt: 'TeamingPro' },
-  { src: '/hubzone/logo-ltr.jpg', alt: 'Logical Technology and Research' },
+  { src: '/hubzone/logo-ltr.png', alt: 'Logical Technology and Research' },
 ];
 
 export default function HubzonePage() {
