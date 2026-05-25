@@ -182,6 +182,7 @@ describe('SAM Utils - Unit Tests', () => {
 
     it('fails over to the backup key for plain retryable errors', async () => {
       vi.stubEnv('SAM_API_KEY', 'primary-key');
+      vi.stubEnv('SAM_ENTITY_API_KEY', 'primary-key');
       vi.stubEnv('SAM_API_KEY_BACKUP', 'backup-key');
       const successBody = { entityData: [], totalRecords: 0 };
       const fetchMock = vi
@@ -210,6 +211,7 @@ describe('SAM Utils - Unit Tests', () => {
 
     it('does not retry backup keys for non-fallback request errors', async () => {
       vi.stubEnv('SAM_API_KEY', 'primary-key');
+      vi.stubEnv('SAM_ENTITY_API_KEY', 'primary-key');
       vi.stubEnv('SAM_API_KEY_BACKUP', 'backup-key');
       const fetchMock = vi
         .fn()
