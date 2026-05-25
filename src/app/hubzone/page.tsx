@@ -96,7 +96,7 @@ const partnerLogos = [
   { src: '/hubzone/logo-encore.png', alt: 'Encore Funding' },
   { src: '/hubzone/logo-gcg.png', alt: 'GCG — Giant Achievements Federal Contracts' },
   { src: '/hubzone/logo-teamingpro.png', alt: 'TeamingPro' },
-  { src: '/hubzone/logo-ltr.png', alt: 'Logical Technology and Research' },
+  { src: '/hubzone/logo-ltr.jpg', alt: 'Logical Technology and Research' },
 ];
 
 export default function HubzonePage() {
@@ -182,21 +182,6 @@ export default function HubzonePage() {
                 </li>
               ))}
             </ul>
-            <div className="flex items-center gap-3 text-sm text-gray-500">
-              <span className="font-semibold text-gray-700">In partnership with:</span>
-              <div className="flex items-center gap-4 flex-wrap">
-                {partnerLogos.map((logo) => (
-                  <Image
-                    key={logo.alt}
-                    src={logo.src}
-                    alt={logo.alt}
-                    width={80}
-                    height={32}
-                    className="h-6 w-auto object-contain opacity-80"
-                  />
-                ))}
-              </div>
-            </div>
           </div>
           <div id="reserve-top" className="bg-gray-50 rounded-2xl p-8 shadow-lg">
             <h2 className="text-2xl font-bold mb-2 text-center">Reserve Your Seat</h2>
@@ -211,6 +196,27 @@ export default function HubzonePage() {
               inputClassName="w-full px-4 py-3 border border-gray-200 rounded-lg focus:border-orange-500 focus:outline-none text-slate-900 placeholder-gray-400 bg-white"
               helperTextClassName="text-center text-sm text-gray-500"
             />
+          </div>
+        </div>
+      </section>
+
+      {/* Partners Strip */}
+      <section className="border-y border-gray-100 py-12 md:py-14 px-6 bg-white">
+        <div className="max-w-6xl mx-auto">
+          <p className="text-center text-xs md:text-sm font-bold uppercase tracking-[0.2em] text-gray-500 mb-8">
+            Brought to you by
+          </p>
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-x-10 gap-y-8 items-center justify-items-center">
+            {partnerLogos.map((logo) => (
+              <Image
+                key={logo.alt}
+                src={logo.src}
+                alt={logo.alt}
+                width={240}
+                height={96}
+                className="h-14 md:h-16 w-auto object-contain"
+              />
+            ))}
           </div>
         </div>
       </section>
