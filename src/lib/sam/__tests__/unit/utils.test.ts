@@ -1,11 +1,19 @@
-import { describe, it, expect, vi, beforeEach } from 'vitest';
+import { describe, it, expect, vi, beforeEach, afterEach } from 'vitest';
 import {
   validateCAGECode,
   generateCacheKey,
   checkRateLimit,
   incrementRateLimit,
   parseSAMError,
+  makeSAMRequest,
+  type SAMAPIConfig,
 } from '../../utils';
+
+afterEach(() => {
+  vi.unstubAllEnvs();
+  vi.unstubAllGlobals();
+  vi.restoreAllMocks();
+});
 
 describe('SAM Utils - Unit Tests', () => {
   describe('validateCAGECode', () => {
@@ -161,6 +169,65 @@ describe('SAM Utils - Unit Tests', () => {
       expect(parseSAMError(401, {}).retryable).toBe(false);
       expect(parseSAMError(403, {}).retryable).toBe(false);
       expect(parseSAMError(404, {}).retryable).toBe(false);
+    });
+  });
+
+  describe('makeSAMRequest', () => {
+    const config: SAMAPIConfig = {
+      apiType: 'entity',
+      baseUrl: 'https://api.sam.gov/entity-information/v3',
+      apiKey: '',
+      cacheTTLHours: 24,
+    };
+
+    it('fails over to the backup key for plain retryable errors', async () => {
+      vi.stubEnv('SAM_API_KEY', 'primary-key');
+      vi.stubEnv('SAM_API_KEY_BACKUP', 'backup-key');
+      const successBody = { entityData: [], totalRecords: 0 };
+      const fetchMock = vi
+        .fn()
+        .mockResolvedValueOnce(
+          new Response(JSON.stringify({ message: 'Too many requests' }), { status: 429 })
+        )
+        .mockResolvedValueOnce(
+          new Response(JSON.stringify(successBody), { status: 200 })
+        );
+      vi.stubGlobal('fetch', fetchMock);
+
+      const result = await makeSAMRequest<typeof successBody>(
+        config,
+        '/entities',
+        { cageCode: '17038' },
+        { useCache: false, bypassRateLimit: true }
+      );
+
+      expect(result.error).toBeNull();
+      expect(result.data).toEqual(successBody);
+      expect(fetchMock).toHaveBeenCalledTimes(2);
+      expect(new URL(fetchMock.mock.calls[0][0] as string).searchParams.get('api_key')).toBe('primary-key');
+      expect(new URL(fetchMock.mock.calls[1][0] as string).searchParams.get('api_key')).toBe('backup-key');
+    });
+
+    it('does not retry backup keys for non-fallback request errors', async () => {
+      vi.stubEnv('SAM_API_KEY', 'primary-key');
+      vi.stubEnv('SAM_API_KEY_BACKUP', 'backup-key');
+      const fetchMock = vi
+        .fn()
+        .mockResolvedValueOnce(
+          new Response(JSON.stringify({ message: 'Bad request' }), { status: 400 })
+        );
+      vi.stubGlobal('fetch', fetchMock);
+
+      const result = await makeSAMRequest(
+        config,
+        '/entities',
+        { cageCode: '17038' },
+        { useCache: false, bypassRateLimit: true }
+      );
+
+      expect(result.data).toBeNull();
+      expect(result.error?.status).toBe(400);
+      expect(fetchMock).toHaveBeenCalledTimes(1);
     });
   });
 });
