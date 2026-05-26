@@ -4,9 +4,9 @@ import JsonLd from '@/components/JsonLd';
 import { generateSeo, SITE_URL } from '@/lib/seo';
 
 export const metadata = generateSeo({
-  title: 'From Interested To Procurement Ready — HUBZone Webinar | June 15, 2026',
+  title: 'From Interested To Procurement Ready — HUBZone Webinar | June 17, 2026',
   description:
-    'Live webinar for small businesses entering the federal market. Hosted by Eric Coffie with leaders from TeamingPro, Encore Funding, and Logical Technology & Research. June 15, 2026.',
+    'Live webinar for small businesses entering the federal market. Hosted by Eric Coffie with leaders from TeamingPro, Encore Funding, and Logical Technology & Research. June 17, 2026.',
   path: '/hubzone',
   keywords: [
     'HUBZone webinar',
@@ -40,7 +40,7 @@ const steps = [
   {
     step: '1',
     title: 'Reserve Your Seat',
-    desc: 'Register now and lock in your spot for the June 15 webinar.',
+    desc: 'Register now and lock in your spot for the June 17 webinar.',
   },
   {
     step: '2',
@@ -110,8 +110,8 @@ export default function HubzonePage() {
           name: 'From Interested To Procurement Ready — HUBZone Webinar',
           description:
             'Live webinar for small businesses entering the federal market. Three pillars: Teaming, Funding, Agency.',
-          startDate: '2026-06-15T18:00:00-04:00',
-          endDate: '2026-06-15T20:00:00-04:00',
+          startDate: '2026-06-17T18:00:00-04:00',
+          endDate: '2026-06-17T20:00:00-04:00',
           eventAttendanceMode: 'https://schema.org/OnlineEventAttendanceMode',
           eventStatus: 'https://schema.org/EventScheduled',
           location: {
@@ -141,7 +141,7 @@ export default function HubzonePage() {
           </div>
           <div className="flex items-center gap-4">
             <span className="text-sm text-gray-600 hidden sm:block">
-              June 15, 2026 · 6 – 8 PM EST
+              June 17, 2026 · 6 – 8 PM EST
             </span>
             <a
               href="#reserve"
@@ -158,7 +158,7 @@ export default function HubzonePage() {
         <div className="max-w-6xl mx-auto grid md:grid-cols-2 gap-12 items-center">
           <div>
             <div className="inline-block bg-orange-100 text-orange-700 text-sm font-semibold px-3 py-1 rounded-full mb-6">
-              Free Live Webinar · June 15, 2026
+              Free Live Webinar · June 17, 2026
             </div>
             <h1 className="text-4xl md:text-5xl font-bold leading-tight mb-6">
               From Interested To{' '}
@@ -187,7 +187,7 @@ export default function HubzonePage() {
           <div id="reserve-top" className="bg-gray-50 rounded-2xl p-8 shadow-lg">
             <h2 className="text-2xl font-bold mb-2 text-center">Reserve Your Seat</h2>
             <p className="text-gray-500 text-center mb-6">
-              June 15, 2026 · 6 – 8 PM EST
+              June 17, 2026 · 6 – 8 PM EST
             </p>
             <LeadForm
               buttonText="Reserve My Seat"
@@ -253,7 +253,7 @@ export default function HubzonePage() {
             Three Pillars of Federal Success
           </h2>
           <p className="text-center text-gray-600 mb-12 max-w-2xl mx-auto">
-            What you&apos;ll walk away with on June 15.
+            What you&apos;ll walk away with on June 17.
           </p>
           <div className="grid md:grid-cols-3 gap-8">
             {pillars.map((p) => (
@@ -374,12 +374,12 @@ export default function HubzonePage() {
               </h2>
               <p className="text-gray-600 mb-6">
                 Move from interested to procurement-ready in one session.
-                Reserve your spot for the June 15 live webinar — includes a ½-hour Q&A.
+                Reserve your spot for the June 17 live webinar — includes a ½-hour Q&A.
               </p>
               <div className="space-y-2 text-sm text-gray-600">
                 <p>
                   <span className="font-semibold text-gray-800">When:</span>{' '}
-                  June 15, 2026 · 6 – 8 PM EST
+                  June 17, 2026 · 6 – 8 PM EST
                 </p>
                 <p>
                   <span className="font-semibold text-gray-800">Where:</span>{' '}

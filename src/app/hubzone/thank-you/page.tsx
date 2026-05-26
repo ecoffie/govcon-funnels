@@ -36,7 +36,7 @@ export default function HubzoneThankYou() {
               </li>
               <li className="flex gap-3">
                 <span className="bg-[#ea580c] text-white font-black w-7 h-7 rounded-full flex items-center justify-center flex-shrink-0">2</span>
-                <span>Add <span className="font-bold">June 15, 2026 · 8 AM – 6 PM EST</span> to your calendar.</span>
+                <span>Add <span className="font-bold">June 17, 2026 · 6 – 8 PM EST</span> to your calendar.</span>
               </li>
               <li className="flex gap-3">
                 <span className="bg-[#ea580c] text-white font-black w-7 h-7 rounded-full flex items-center justify-center flex-shrink-0">3</span>

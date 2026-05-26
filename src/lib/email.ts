@@ -632,11 +632,11 @@ export async function sendProposalResourcesEmail(params: EmailParams): Promise<E
 export async function sendHubzoneWebinarEmail(params: EmailParams): Promise<EmailResult> {
   const firstName = params.name.split(' ')[0] || 'there';
   const webinarUrl = 'https://govcongiants.com/hubzone';
-  // Google Calendar add-event link (June 15, 2026, 6:00–8:00 PM EDT = 22:00–00:00 UTC)
+  // Google Calendar add-event link (June 17, 2026, 6:00–8:00 PM EDT = 22:00–00:00 UTC)
   const calendarUrl =
     'https://www.google.com/calendar/render?action=TEMPLATE' +
     '&text=' + encodeURIComponent('From Interested To Procurement Ready — HUBZone Webinar') +
-    '&dates=20260615T220000Z/20260616T000000Z' +
+    '&dates=20260617T220000Z/20260618T000000Z' +
     '&details=' + encodeURIComponent('Live webinar for small businesses entering the federal market. Hosted by Eric Coffie with Tim Hagerty (TeamingPro), Chad Eberly (Encore Funding), and Todd Rogers (LTR). Includes ½-hour Q&A.\n\nWebinar link will be sent before the event.\n\nDetails: https://govcongiants.com/hubzone') +
     '&location=' + encodeURIComponent('Online — link sent before event');
 
@@ -660,7 +660,7 @@ export async function sendHubzoneWebinarEmail(params: EmailParams): Promise<Emai
                 You&rsquo;re Registered
               </div>
               <h1 style="color: #ffffff; font-size: 30px; line-height: 1.2; font-weight: 800; margin: 0 0 12px;">
-                See You June 15, ${firstName}!
+                See You June 17, ${firstName}!
               </h1>
               <p style="color: #ffedd5; font-size: 16px; margin: 0;">
                 From Interested To <strong style="color: #ffffff;">Procurement Ready</strong>
@@ -678,7 +678,7 @@ export async function sendHubzoneWebinarEmail(params: EmailParams): Promise<Emai
                       Save the Date
                     </p>
                     <p style="color: #1e293b; font-size: 22px; font-weight: 800; margin: 0 0 4px;">
-                      Monday, June 15, 2026
+                      Wednesday, June 17, 2026
                     </p>
                     <p style="color: #475569; font-size: 16px; margin: 0 0 16px;">
                       6:00 PM &ndash; 8:00 PM EST <span style="color: #94a3b8; font-size: 14px;">(incl. ½-hour Q&amp;A)</span>
@@ -714,7 +714,7 @@ export async function sendHubzoneWebinarEmail(params: EmailParams): Promise<Emai
           <tr>
             <td style="padding: 32px 32px 0;">
               <h3 style="color: #0f172a; font-size: 18px; font-weight: 800; margin: 0 0 16px;">
-                What to expect on June 15
+                What to expect on June 17
               </h3>
               <table width="100%" cellpadding="0" cellspacing="0">
                 <tr>
@@ -850,7 +850,7 @@ export async function sendHubzoneWebinarEmail(params: EmailParams): Promise<Emai
 
   return sendEmail(
     params.to,
-    `${firstName}, you're in for June 15 — From Interested To Procurement Ready`,
+    `${firstName}, you're in for June 17 — From Interested To Procurement Ready`,
     html
   );
 }
