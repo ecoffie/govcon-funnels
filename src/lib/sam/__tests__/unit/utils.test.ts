@@ -4,6 +4,7 @@ import {
   generateCacheKey,
   checkRateLimit,
   incrementRateLimit,
+  makeSAMRequest,
   parseSAMError,
 } from '../../utils';
 
@@ -161,6 +162,64 @@ describe('SAM Utils - Unit Tests', () => {
       expect(parseSAMError(401, {}).retryable).toBe(false);
       expect(parseSAMError(403, {}).retryable).toBe(false);
       expect(parseSAMError(404, {}).retryable).toBe(false);
+    });
+  });
+
+  describe('makeSAMRequest failover', () => {
+    it('tries the backup key when the primary key gets a fallback-eligible 429', async () => {
+      process.env.SAM_ENTITY_API_KEY = 'primary-key';
+      process.env.SAM_API_KEY_BACKUP = 'backup-key';
+      const fetchMock = vi.mocked(fetch);
+      fetchMock
+        .mockResolvedValueOnce(
+          new Response(JSON.stringify({ message: 'Too many requests' }), { status: 429 })
+        )
+        .mockResolvedValueOnce(
+          new Response(JSON.stringify({ ok: true }), { status: 200 })
+        );
+
+      const result = await makeSAMRequest<{ ok: boolean }>(
+        {
+          apiType: 'entity',
+          baseUrl: 'https://api.sam.test/entity',
+          apiKey: 'unused',
+          cacheTTLHours: 1,
+        },
+        '/entities',
+        { cageCode: '12345' },
+        { useCache: false, bypassRateLimit: true }
+      );
+
+      expect(result.error).toBeNull();
+      expect(result.data).toEqual({ ok: true });
+      expect(fetchMock).toHaveBeenCalledTimes(2);
+      expect(String(fetchMock.mock.calls[0][0])).toContain('api_key=primary-key');
+      expect(String(fetchMock.mock.calls[1][0])).toContain('api_key=backup-key');
+    });
+
+    it('does not try the backup key for non-fallback request errors', async () => {
+      process.env.SAM_ENTITY_API_KEY = 'primary-key';
+      process.env.SAM_API_KEY_BACKUP = 'backup-key';
+      const fetchMock = vi.mocked(fetch);
+      fetchMock.mockResolvedValueOnce(
+        new Response(JSON.stringify({ message: 'Bad request' }), { status: 400 })
+      );
+
+      const result = await makeSAMRequest<{ ok: boolean }>(
+        {
+          apiType: 'entity',
+          baseUrl: 'https://api.sam.test/entity',
+          apiKey: 'unused',
+          cacheTTLHours: 1,
+        },
+        '/entities',
+        { cageCode: 'BAD' },
+        { useCache: false, bypassRateLimit: true }
+      );
+
+      expect(result.data).toBeNull();
+      expect(result.error?.status).toBe(400);
+      expect(fetchMock).toHaveBeenCalledTimes(1);
     });
   });
 });

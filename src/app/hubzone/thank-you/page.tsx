@@ -32,11 +32,11 @@ export default function HubzoneThankYou() {
             <ol className="space-y-3 text-slate-700">
               <li className="flex gap-3">
                 <span className="bg-[#ea580c] text-white font-black w-7 h-7 rounded-full flex items-center justify-center flex-shrink-0">1</span>
-                <span>Check your inbox for a confirmation email with the webinar link.</span>
+                <span>Check your inbox for a confirmation email with the event details.</span>
               </li>
               <li className="flex gap-3">
                 <span className="bg-[#ea580c] text-white font-black w-7 h-7 rounded-full flex items-center justify-center flex-shrink-0">2</span>
-                <span>Add <span className="font-bold">June 15, 2026 · 8 AM – 6 PM EST</span> to your calendar.</span>
+                <span>Add <span className="font-bold">June 15, 2026 · 6 – 8 PM EST</span> to your calendar.</span>
               </li>
               <li className="flex gap-3">
                 <span className="bg-[#ea580c] text-white font-black w-7 h-7 rounded-full flex items-center justify-center flex-shrink-0">3</span>
