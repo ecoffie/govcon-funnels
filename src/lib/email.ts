@@ -632,11 +632,11 @@ export async function sendProposalResourcesEmail(params: EmailParams): Promise<E
 export async function sendHubzoneWebinarEmail(params: EmailParams): Promise<EmailResult> {
   const firstName = params.name.split(' ')[0] || 'there';
   const webinarUrl = 'https://govcongiants.com/hubzone';
-  // Google Calendar add-event link (June 15, 2026, 8 AM – 6 PM EST = 12:00–22:00 UTC)
+  // Google Calendar add-event link (June 15, 2026, 6:00–8:00 PM EDT = 22:00–00:00 UTC)
   const calendarUrl =
     'https://www.google.com/calendar/render?action=TEMPLATE' +
     '&text=' + encodeURIComponent('From Interested To Procurement Ready — HUBZone Webinar') +
-    '&dates=20260615T120000Z/20260615T220000Z' +
+    '&dates=20260615T220000Z/20260616T000000Z' +
     '&details=' + encodeURIComponent('Live webinar for small businesses entering the federal market. Hosted by Eric Coffie with Tim Hagerty (TeamingPro), Chad Eberly (Encore Funding), and Todd Rogers (LTR). Includes ½-hour Q&A.\n\nWebinar link will be sent before the event.\n\nDetails: https://govcongiants.com/hubzone') +
     '&location=' + encodeURIComponent('Online — link sent before event');
 
@@ -681,7 +681,7 @@ export async function sendHubzoneWebinarEmail(params: EmailParams): Promise<Emai
                       Monday, June 15, 2026
                     </p>
                     <p style="color: #475569; font-size: 16px; margin: 0 0 16px;">
-                      8:00 AM &ndash; 6:00 PM EST
+                      6:00 PM &ndash; 8:00 PM EST <span style="color: #94a3b8; font-size: 14px;">(incl. ½-hour Q&amp;A)</span>
                     </p>
                     <a href="${calendarUrl}" style="display: inline-block; background-color: #ea580c; color: #ffffff; padding: 12px 24px; border-radius: 8px; text-decoration: none; font-weight: 700; font-size: 14px;">
                       + Add to Google Calendar
@@ -786,7 +786,7 @@ export async function sendHubzoneWebinarEmail(params: EmailParams): Promise<Emai
                       <li>Know your NAICS codes and small business certifications (HUBZone, 8(a), WOSB, etc.).</li>
                       <li>Write down the 1&ndash;3 contracts or agencies you most want to pursue.</li>
                       <li>Bring the one funding or teaming question that&rsquo;s blocking you right now.</li>
-                      <li>Block the full day &mdash; this is hands-on, not a passive watch.</li>
+                      <li>Block 6&ndash;8 PM EST &mdash; this is hands-on, not a passive watch.</li>
                     </ul>
                   </td>
                 </tr>

@@ -45,7 +45,7 @@ const steps = [
   {
     step: '2',
     title: 'Join the Live Session',
-    desc: 'Spend the day with 4 federal contracting experts — teaming, funding, and agency strategy.',
+    desc: 'Spend 2 hours with 4 federal contracting experts — teaming, funding, and agency strategy.',
   },
   {
     step: '3',
@@ -97,6 +97,7 @@ const partnerLogos = [
   { src: '/hubzone/logo-gcg.png', alt: 'GCG — Giant Achievements Federal Contracts' },
   { src: '/hubzone/logo-teamingpro.png', alt: 'TeamingPro' },
   { src: '/hubzone/logo-ltr.png', alt: 'Logical Technology and Research' },
+  { src: '/hubzone/logo-hubzone-council.png', alt: 'HUBZone Contractors National Council' },
 ];
 
 export default function HubzonePage() {
@@ -109,8 +110,8 @@ export default function HubzonePage() {
           name: 'From Interested To Procurement Ready — HUBZone Webinar',
           description:
             'Live webinar for small businesses entering the federal market. Three pillars: Teaming, Funding, Agency.',
-          startDate: '2026-06-15T08:00:00-04:00',
-          endDate: '2026-06-15T18:00:00-04:00',
+          startDate: '2026-06-15T18:00:00-04:00',
+          endDate: '2026-06-15T20:00:00-04:00',
           eventAttendanceMode: 'https://schema.org/OnlineEventAttendanceMode',
           eventStatus: 'https://schema.org/EventScheduled',
           location: {
@@ -140,7 +141,7 @@ export default function HubzonePage() {
           </div>
           <div className="flex items-center gap-4">
             <span className="text-sm text-gray-600 hidden sm:block">
-              June 15, 2026 · 8 AM – 6 PM EST
+              June 15, 2026 · 6 – 8 PM EST
             </span>
             <a
               href="#reserve"
@@ -164,7 +165,7 @@ export default function HubzonePage() {
               <span className="text-orange-500">Procurement Ready</span>
             </h1>
             <p className="text-xl text-gray-600 mb-8">
-              A live one-day webinar for small businesses entering the federal market.
+              A live 2-hour webinar for small businesses entering the federal market.
               Three pillars. Four voices who&apos;ve built it. One clear roadmap forward.
             </p>
             <ul className="space-y-3 mb-8">
@@ -186,7 +187,7 @@ export default function HubzonePage() {
           <div id="reserve-top" className="bg-gray-50 rounded-2xl p-8 shadow-lg">
             <h2 className="text-2xl font-bold mb-2 text-center">Reserve Your Seat</h2>
             <p className="text-gray-500 text-center mb-6">
-              June 15, 2026 · 8 AM – 6 PM EST
+              June 15, 2026 · 6 – 8 PM EST
             </p>
             <LeadForm
               buttonText="Reserve My Seat"
@@ -206,7 +207,7 @@ export default function HubzonePage() {
           <p className="text-center text-xs md:text-sm font-bold uppercase tracking-[0.2em] text-gray-500 mb-8">
             Brought to you by
           </p>
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-x-10 gap-y-8 items-center justify-items-center">
+          <div className="grid grid-cols-2 md:grid-cols-5 gap-x-8 gap-y-8 items-center justify-items-center">
             {partnerLogos.map((logo) => (
               <Image
                 key={logo.alt}
@@ -234,10 +235,10 @@ export default function HubzonePage() {
           </p>
           <div className="bg-white rounded-2xl p-8 shadow-sm max-w-2xl mx-auto">
             <p className="text-lg font-semibold text-orange-600 mb-3">
-              One day. Three pillars. Real answers.
+              Two hours. Three pillars. Real answers.
             </p>
             <p className="text-gray-600">
-              Spend the day with four experts who&apos;ve built this from every angle —
+              Spend an evening with four experts who&apos;ve built this from every angle —
               teaming, funding, and agency selection — and leave with the playbook
               you need to actually win.
             </p>
@@ -378,7 +379,7 @@ export default function HubzonePage() {
               <div className="space-y-2 text-sm text-gray-600">
                 <p>
                   <span className="font-semibold text-gray-800">When:</span>{' '}
-                  June 15, 2026 · 8 AM – 6 PM EST
+                  June 15, 2026 · 6 – 8 PM EST
                 </p>
                 <p>
                   <span className="font-semibold text-gray-800">Where:</span>{' '}
