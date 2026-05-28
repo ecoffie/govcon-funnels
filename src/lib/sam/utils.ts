@@ -438,7 +438,14 @@ export async function makeSAMRequest<T>(
     }
 
     if (result.error) {
-      // Other error, return it
+      lastError = result.error;
+
+      if (result.error.fallbackAvailable) {
+        console.log(`[SAM API] ${config.apiType} request failed with fallback-eligible error, trying next key...`);
+        continue;
+      }
+
+      // Non-retryable request errors should not burn backup keys.
       return { data: null, error: result.error, fromCache: false };
     }
 
