@@ -190,7 +190,7 @@ export default function MIFreePage() {
               Start Free
             </Link>
             <Link
-              href="https://mi.govcongiants.com/market-intelligence"
+              href="https://getmindy.ai/market-intelligence"
               className="px-8 py-4 bg-slate-800 hover:bg-slate-700 text-white rounded-xl font-bold text-lg transition-all text-center border border-slate-700"
             >
               See MI Core Features

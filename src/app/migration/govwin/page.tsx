@@ -586,7 +586,7 @@ export default function GovWinMigrationPage() {
                 </li>
               </ul>
               <Link
-                href="https://mi.govcongiants.com/market-intelligence"
+                href="https://getmindy.ai/market-intelligence"
                 className="block w-full py-3 bg-green-600 hover:bg-green-500 text-white rounded-lg font-semibold text-center transition"
               >
                 Upgrade to Core
@@ -613,7 +613,7 @@ export default function GovWinMigrationPage() {
                 </li>
               </ul>
               <Link
-                href="https://mi.govcongiants.com/market-intelligence"
+                href="https://getmindy.ai/market-intelligence"
                 className="block w-full py-3 bg-slate-800 hover:bg-slate-700 text-white rounded-lg font-semibold text-center transition"
               >
                 Upgrade to Team

@@ -190,7 +190,7 @@ export default async function ContractorProfilePage({ params }: PageProps) {
               <div className="text-center">
                 <p className="text-slate-400 mb-3 text-sm">See all {contractor.naicsList?.length || 0} NAICS codes</p>
                 <Link
-                  href="https://mi.govcongiants.com/market-intelligence"
+                  href="https://getmindy.ai/market-intelligence"
                   className="inline-block px-6 py-3 bg-green-600 hover:bg-green-500 text-white rounded-lg font-semibold transition"
                 >
                   Get MI Core — $149/mo
@@ -235,7 +235,7 @@ export default async function ContractorProfilePage({ params }: PageProps) {
             {certifications.length > 0 && (
               <div className="absolute inset-x-0 bottom-0 h-32 bg-gradient-to-t from-slate-900 via-slate-900/98 to-transparent flex items-end justify-center pb-6">
                 <Link
-                  href="https://mi.govcongiants.com/market-intelligence"
+                  href="https://getmindy.ai/market-intelligence"
                   className="text-sm text-green-400 hover:text-green-300 font-medium"
                 >
                   View certification expiration dates →
@@ -264,7 +264,7 @@ export default async function ContractorProfilePage({ params }: PageProps) {
             {/* Gate overlay */}
             <div className="absolute inset-x-0 bottom-0 h-32 bg-gradient-to-t from-slate-900 via-slate-900/98 to-transparent flex items-end justify-center pb-6">
               <Link
-                href="https://mi.govcongiants.com/market-intelligence"
+                href="https://getmindy.ai/market-intelligence"
                 className="text-sm text-green-400 hover:text-green-300 font-medium"
               >
                 Unlock contact information →
@@ -310,7 +310,7 @@ export default async function ContractorProfilePage({ params }: PageProps) {
                   </li>
                 </ul>
                 <Link
-                  href="https://mi.govcongiants.com/market-intelligence"
+                  href="https://getmindy.ai/market-intelligence"
                   className="block w-full py-3 bg-green-600 hover:bg-green-500 text-white rounded-lg font-semibold text-center transition"
                 >
                   Get MI Core

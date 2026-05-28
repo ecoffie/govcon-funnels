@@ -203,7 +203,7 @@ export function ContractorFundingChart({ uei, companyName, isGated = true }: Con
               See 5-year contract trends, agency breakdown, and growth metrics
             </p>
             <a
-              href="https://mi.govcongiants.com/market-intelligence"
+              href="https://getmindy.ai/market-intelligence"
               className="inline-block px-6 py-3 bg-green-600 hover:bg-green-500 text-white rounded-lg font-semibold transition"
             >
               Get MI Core — $149/mo

@@ -66,7 +66,7 @@ const tools = [
     tagline: 'Find the Right Contracts, Faster',
     description: 'Search SAM.gov contract opportunities by NAICS code, keywords, set-aside type, and agency. Get matched opportunities delivered to your inbox.',
     features: ['SAM.gov integration', 'NAICS filtering', 'Set-aside filters', 'Email alerts'],
-    href: 'https://mi.govcongiants.com',
+    href: 'https://getmindy.ai',
     icon: '🔍',
     color: 'blue',
     included: false,
@@ -86,7 +86,7 @@ const tools = [
     tagline: 'Never Miss a Recompete Opportunity',
     description: 'Track 5,000+ expiring federal contracts and get alerts when recompete opportunities are posted. Position yourself months before the solicitation drops.',
     features: ['5,000+ expiring contracts', 'Agency tracking', 'Timeline reminders', 'Incumbent data'],
-    href: 'https://mi.govcongiants.com/expiring-contracts',
+    href: 'https://getmindy.ai/expiring-contracts',
     icon: '🔔',
     color: 'amber',
     included: true,
@@ -259,7 +259,7 @@ export default function ToolsPage() {
               Get Mindy Free
             </Link>
             <Link
-              href="https://mi.govcongiants.com/market-intelligence"
+              href="https://getmindy.ai/market-intelligence"
               className="inline-block px-8 py-4 bg-slate-800 hover:bg-slate-700 text-white rounded-xl font-bold text-lg transition-all border border-slate-700"
             >
               See Mindy Pro

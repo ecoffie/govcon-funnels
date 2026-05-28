@@ -365,7 +365,7 @@ export default function DeltekComparisonPage() {
                 </li>
               </ul>
               <Link
-                href="https://mi.govcongiants.com/market-intelligence"
+                href="https://getmindy.ai/market-intelligence"
                 className="block w-full py-3 bg-green-600 hover:bg-green-500 text-white rounded-lg font-semibold text-center transition"
               >
                 Get MI Core
@@ -392,7 +392,7 @@ export default function DeltekComparisonPage() {
                 </li>
               </ul>
               <Link
-                href="https://mi.govcongiants.com/market-intelligence"
+                href="https://getmindy.ai/market-intelligence"
                 className="block w-full py-3 bg-slate-800 hover:bg-slate-700 text-white rounded-lg font-semibold text-center transition"
               >
                 Get MI Team
@@ -473,7 +473,7 @@ export default function DeltekComparisonPage() {
               Start Free — No Credit Card
             </Link>
             <Link
-              href="https://mi.govcongiants.com/market-intelligence"
+              href="https://getmindy.ai/market-intelligence"
               className="px-8 py-4 bg-slate-800 hover:bg-slate-700 text-white rounded-xl font-bold text-lg transition-all border border-slate-700"
             >
               See Full Features

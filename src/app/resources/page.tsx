@@ -272,7 +272,7 @@ const resources: Resource[] = [
     features: ["Agency Spending Data", "NAICS Code Search", "Top Buyers List", "5 Free Searches/Day"],
     value: "$500/yr",
     buttonText: "Launch Tool",
-    link: "https://mi.govcongiants.com"
+    link: "https://getmindy.ai"
   },
   {
     section: "Templates",

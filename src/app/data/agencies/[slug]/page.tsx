@@ -154,7 +154,7 @@ export default async function AgencyPage({ params }: Props) {
               <div className="text-center">
                 <p className="text-slate-400 mb-4 text-sm">Unlock {agency.painPoints.length} pain points for {agency.abbreviation}</p>
                 <Link
-                  href="https://mi.govcongiants.com/market-intelligence"
+                  href="https://getmindy.ai/market-intelligence"
                   className="inline-block px-6 py-3 bg-green-600 hover:bg-green-500 text-white rounded-lg font-semibold transition"
                 >
                   Get MI Core — $149/mo
@@ -186,7 +186,7 @@ export default async function AgencyPage({ params }: Props) {
               <div className="text-center">
                 <p className="text-slate-400 mb-4 text-sm">See what {agency.abbreviation} is prioritizing in FY2025-2026</p>
                 <Link
-                  href="https://mi.govcongiants.com/market-intelligence"
+                  href="https://getmindy.ai/market-intelligence"
                   className="inline-block px-6 py-3 bg-blue-600 hover:bg-blue-500 text-white rounded-lg font-semibold transition"
                 >
                   Get MI Core — $149/mo
@@ -215,7 +215,7 @@ export default async function AgencyPage({ params }: Props) {
             {/* Gate overlay */}
             <div className="absolute inset-x-0 bottom-0 h-32 bg-gradient-to-t from-slate-900 via-slate-900/98 to-transparent flex items-end justify-center pb-6">
               <Link
-                href="https://mi.govcongiants.com/market-intelligence"
+                href="https://getmindy.ai/market-intelligence"
                 className="inline-block px-6 py-3 bg-green-600 hover:bg-green-500 text-white rounded-lg font-semibold transition"
               >
                 View Spending Data
@@ -244,7 +244,7 @@ export default async function AgencyPage({ params }: Props) {
               {/* Gate overlay */}
               <div className="absolute inset-x-0 bottom-0 h-24 bg-gradient-to-t from-slate-900 via-slate-900/98 to-transparent flex items-end justify-center pb-4">
                 <Link
-                  href="https://mi.govcongiants.com/market-intelligence"
+                  href="https://getmindy.ai/market-intelligence"
                   className="text-sm text-green-400 hover:text-green-300 font-medium transition"
                 >
                   Unlock NAICS codes with MI Core →
@@ -320,7 +320,7 @@ export default async function AgencyPage({ params }: Props) {
                 </ul>
 
                 <Link
-                  href="https://mi.govcongiants.com/market-intelligence"
+                  href="https://getmindy.ai/market-intelligence"
                   className="block w-full py-3 bg-green-600 hover:bg-green-500 text-white rounded-lg font-semibold text-center transition"
                 >
                   Get MI Core

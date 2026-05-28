@@ -464,7 +464,7 @@ export default function ExpiringContractsPage() {
                   Get full access to all {totalCount} expiring contracts, plus email alerts and POC information.
                 </p>
                 <a
-                  href="https://mi.govcongiants.com"
+                  href="https://getmindy.ai"
                   target="_blank"
                   rel="noopener noreferrer"
                   className="inline-block px-8 py-3 bg-green-600 hover:bg-green-500 text-white rounded-lg font-bold transition"

@@ -124,7 +124,7 @@ export default function ContractorsIndexPage() {
                 {/* Gated */}
                 <div className="absolute inset-x-0 bottom-0 h-16 bg-gradient-to-t from-slate-900 via-slate-900/95 to-transparent flex items-end justify-center pb-3">
                   <Link
-                    href="https://mi.govcongiants.com/market-intelligence"
+                    href="https://getmindy.ai/market-intelligence"
                     className="text-sm text-green-400 hover:text-green-300 font-medium"
                   >
                     Search {cert.label} contractors →
@@ -204,7 +204,7 @@ export default function ContractorsIndexPage() {
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
             <Link
-              href="https://mi.govcongiants.com/market-intelligence"
+              href="https://getmindy.ai/market-intelligence"
               className="px-6 py-3 bg-green-600 hover:bg-green-500 text-white rounded-xl font-semibold transition"
             >
               Get MI Core — $149/mo

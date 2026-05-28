@@ -87,7 +87,7 @@ export default function ForecastsIndexPage() {
 
           {/* CTA */}
           <Link
-            href="https://mi.govcongiants.com/market-intelligence"
+            href="https://getmindy.ai/market-intelligence"
             className="inline-block px-8 py-4 bg-green-600 hover:bg-green-500 text-white rounded-xl font-semibold text-lg transition"
           >
             Search Forecasts — MI Core $149/mo
@@ -130,7 +130,7 @@ export default function ForecastsIndexPage() {
               <div className="text-center">
                 <p className="text-slate-400 mb-4">Unlock 7,700+ contract forecasts</p>
                 <Link
-                  href="https://mi.govcongiants.com/market-intelligence"
+                  href="https://getmindy.ai/market-intelligence"
                   className="inline-block px-6 py-3 bg-green-600 hover:bg-green-500 text-white rounded-lg font-semibold transition"
                 >
                   Get MI Core — $149/mo
@@ -157,7 +157,7 @@ export default function ForecastsIndexPage() {
                 </div>
                 <p className="text-sm text-slate-400 mb-4 line-clamp-1">{agency.name}</p>
                 <Link
-                  href="https://mi.govcongiants.com/market-intelligence"
+                  href="https://getmindy.ai/market-intelligence"
                   className="text-sm text-green-400 hover:text-green-300 font-medium"
                 >
                   Search {agency.code} forecasts →
@@ -184,7 +184,7 @@ export default function ForecastsIndexPage() {
                 </div>
                 <p className="text-white text-sm mb-3">{naics.desc}</p>
                 <Link
-                  href="https://mi.govcongiants.com/market-intelligence"
+                  href="https://getmindy.ai/market-intelligence"
                   className="text-xs text-slate-400 hover:text-green-400"
                 >
                   View forecasts →
@@ -251,7 +251,7 @@ export default function ForecastsIndexPage() {
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
             <Link
-              href="https://mi.govcongiants.com/market-intelligence"
+              href="https://getmindy.ai/market-intelligence"
               className="px-6 py-3 bg-green-600 hover:bg-green-500 text-white rounded-xl font-semibold transition"
             >
               Get MI Core — $149/mo
