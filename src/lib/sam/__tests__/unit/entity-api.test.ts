@@ -1,5 +1,5 @@
-import { describe, it, expect } from 'vitest';
-import { transformEntity, validateCAGECode } from '../../entity-api';
+import { describe, it, expect, vi } from 'vitest';
+import { searchEntities, transformEntity, validateCAGECode } from '../../entity-api';
 
 describe('Entity API - Unit Tests', () => {
   describe('validateCAGECode', () => {
@@ -226,6 +226,23 @@ describe('Entity API - Unit Tests', () => {
 
       expect(result.legalBusinessName).toBe('Main Company LLC');
       expect(result.dbaName).toBe('Doing Business Name');
+    });
+  });
+
+  describe('searchEntities', () => {
+    it('propagates SAM upstream errors instead of returning a silent empty success', async () => {
+      delete process.env.SAM_API_KEY_BACKUP;
+      const fetchMock = vi.mocked(fetch);
+      fetchMock.mockResolvedValueOnce(
+        new Response(JSON.stringify({ message: 'SAM unavailable' }), { status: 503 })
+      );
+
+      const result = await searchEntities({ cageCode: '1ABC2', size: 1 });
+
+      expect(result.entities).toEqual([]);
+      expect(result.totalCount).toBe(0);
+      expect(result.error?.status).toBe(503);
+      expect(result.error?.message).toBe('SAM unavailable');
     });
   });
 });

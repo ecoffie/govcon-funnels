@@ -4,6 +4,7 @@ import {
   generateCacheKey,
   checkRateLimit,
   incrementRateLimit,
+  makeSAMRequest,
   parseSAMError,
 } from '../../utils';
 
@@ -161,6 +162,46 @@ describe('SAM Utils - Unit Tests', () => {
       expect(parseSAMError(401, {}).retryable).toBe(false);
       expect(parseSAMError(403, {}).retryable).toBe(false);
       expect(parseSAMError(404, {}).retryable).toBe(false);
+    });
+  });
+
+  describe('makeSAMRequest key failover', () => {
+    const entityConfig = {
+      apiType: 'entity' as const,
+      baseUrl: 'https://api.sam.gov/entity-information/v3',
+      apiKey: 'unused',
+      cacheTTLHours: 24,
+    };
+
+    it('tries the backup key when the primary key gets a fallback-eligible 429', async () => {
+      process.env.SAM_API_KEY_BACKUP = 'backup-api-key';
+      const fetchMock = vi.mocked(fetch);
+      fetchMock
+        .mockResolvedValueOnce(new Response(JSON.stringify({ message: 'Too many requests' }), { status: 429 }))
+        .mockResolvedValueOnce(new Response(JSON.stringify({ entityData: [], totalRecords: 0 }), { status: 200 }));
+
+      const result = await makeSAMRequest(entityConfig, '/entities', {}, { useCache: false });
+
+      expect(result.error).toBeNull();
+      expect(result.data).toEqual({ entityData: [], totalRecords: 0 });
+      expect(fetchMock).toHaveBeenCalledTimes(2);
+      expect(String(fetchMock.mock.calls[0][0])).toContain('api_key=test-entity-key');
+      expect(String(fetchMock.mock.calls[1][0])).toContain('api_key=backup-api-key');
+    });
+
+    it('does not try the backup key for non-fallback request errors', async () => {
+      process.env.SAM_API_KEY_BACKUP = 'backup-api-key';
+      const fetchMock = vi.mocked(fetch);
+      fetchMock.mockResolvedValueOnce(
+        new Response(JSON.stringify({ message: 'Bad request' }), { status: 400 })
+      );
+
+      const result = await makeSAMRequest(entityConfig, '/entities', {}, { useCache: false });
+
+      expect(result.data).toBeNull();
+      expect(result.error?.status).toBe(400);
+      expect(fetchMock).toHaveBeenCalledTimes(1);
+      expect(String(fetchMock.mock.calls[0][0])).toContain('api_key=test-entity-key');
     });
   });
 });
