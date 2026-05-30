@@ -438,7 +438,13 @@ export async function makeSAMRequest<T>(
     }
 
     if (result.error) {
-      // Other error, return it
+      lastError = result.error;
+
+      if (result.error.fallbackAvailable) {
+        // Retryable SAM.gov failures should advance to the backup key before surfacing an outage.
+        continue;
+      }
+
       return { data: null, error: result.error, fromCache: false };
     }
 
