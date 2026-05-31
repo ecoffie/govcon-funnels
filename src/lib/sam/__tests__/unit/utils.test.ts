@@ -169,11 +169,12 @@ describe('SAM Utils - Unit Tests', () => {
     beforeEach(() => {
       vi.unstubAllGlobals();
       delete process.env.SAM_API_KEY;
+      delete process.env.SAM_ENTITY_API_KEY;
       delete process.env.SAM_API_KEY_BACKUP;
     });
 
     it('tries a backup key when the primary key returns a retryable error', async () => {
-      process.env.SAM_API_KEY = 'primary-key';
+      process.env.SAM_ENTITY_API_KEY = 'primary-key';
       process.env.SAM_API_KEY_BACKUP = 'backup-key';
 
       const fetchMock = vi.fn()
@@ -207,7 +208,7 @@ describe('SAM Utils - Unit Tests', () => {
     });
 
     it('does not try a backup key for non-retryable request errors', async () => {
-      process.env.SAM_API_KEY = 'primary-key';
+      process.env.SAM_ENTITY_API_KEY = 'primary-key';
       process.env.SAM_API_KEY_BACKUP = 'backup-key';
 
       const fetchMock = vi.fn().mockResolvedValueOnce(new Response(
