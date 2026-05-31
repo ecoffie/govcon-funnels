@@ -438,7 +438,13 @@ export async function makeSAMRequest<T>(
     }
 
     if (result.error) {
-      // Other error, return it
+      if (result.error.fallbackAvailable) {
+        // Retryable provider/network errors should try backup keys before failing.
+        lastError = result.error;
+        continue;
+      }
+
+      // Non-retryable request errors should fail fast instead of burning backup quota.
       return { data: null, error: result.error, fromCache: false };
     }
 
