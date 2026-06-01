@@ -180,7 +180,7 @@ describe('SAM Utils - Unit Tests', () => {
     };
 
     it('tries the backup key after a plain 429 from the primary key', async () => {
-      vi.stubEnv('SAM_API_KEY', 'primary-key');
+      vi.stubEnv('SAM_ENTITY_API_KEY', 'primary-key');
       vi.stubEnv('SAM_API_KEY_BACKUP', 'backup-key');
 
       const fetchMock = vi.fn()
@@ -207,7 +207,7 @@ describe('SAM Utils - Unit Tests', () => {
     });
 
     it('does not try the backup key for non-retryable request errors', async () => {
-      vi.stubEnv('SAM_API_KEY', 'primary-key');
+      vi.stubEnv('SAM_ENTITY_API_KEY', 'primary-key');
       vi.stubEnv('SAM_API_KEY_BACKUP', 'backup-key');
 
       const fetchMock = vi.fn().mockResolvedValue(new Response(
