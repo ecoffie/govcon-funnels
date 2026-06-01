@@ -5,6 +5,7 @@ import SiteNav from "@/components/SiteNav";
 import ExitIntentPopup from "@/components/ExitIntentPopup";
 import JsonLd from "@/components/JsonLd";
 import { organizationJsonLd } from "@/lib/seo";
+import { Analytics } from "@vercel/analytics/next";
 import "./globals.css";
 
 const inter = Inter({
@@ -61,6 +62,7 @@ export default function RootLayout({
         <SiteNav />
         <ExitIntentPopup />
         {children}
+        <Analytics />
       </body>
     </html>
   );
