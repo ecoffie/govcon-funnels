@@ -180,6 +180,19 @@ See `/tasks/lessons.md` for full details.
 
 ## Recent Work (Last 7 Days)
 
+### June 2, 2026
+- **Sales Tracking / Purchase Attribution (LIVE on govcongiants.com):**
+  - First-party attribution funnel: `AttributionTracker` (layout.tsx) captures UTM/referrer/click-ids → `gca_attr` cookie + localStorage
+  - Paid CTAs route through `/checkout/[product]` → records a `CheckoutStart` in shared Upstash, forwards `client_reference_id` to Stripe
+  - `/api/stripe/webhook` (signature-verified, idempotent) joins attribution → saves `PurchaseRecord` + Slack alert
+  - `/admin/purchases` dashboard + `/api/admin/purchases` API (password-gated via `PURCHASES_ADMIN_PASSWORD`), with by-site / by-source / by-product revenue rollups
+  - **Unified cross-site:** site-namespaced keys (`PURCHASE_SITE`, default `gcg`); shared `purchases` index so one dashboard shows both govcongiants.com (`gcg`) and getmindy.ai (`mindy`)
+  - **Storage:** shared Upstash `market-assassin-codes` (Vercel-managed); connecting it forces a `STORAGE_` prefix, so `getRedis()` reads `STORAGE_KV_REST_API_*` with unprefixed fallback
+  - New files: `src/lib/purchase-attribution.ts`, `src/lib/admin-auth.ts`, `src/components/AttributionTracker.tsx`, `src/app/checkout/[product]/route.ts`, `src/app/api/stripe/webhook/route.ts`, `src/app/admin/purchases/page.tsx`, `src/app/api/admin/purchases/route.ts`
+  - Env on Vercel: `STRIPE_WEBHOOK_SECRET`, `PURCHASES_ADMIN_PASSWORD`, `PURCHASE_SITE=gcg`, `STORAGE_KV_REST_API_*`
+  - Mindy side (getmindy.ai) shipped in market-assassin PR #5 — see that repo's CLAUDE.md
+  - **Note:** dead `.org` host 308-redirects same-path to `.com`; this repo serves govcongiants.com
+
 ### May 9, 2026
 - **Federal Compass Comparison Page:**
   - Created `/compare/federal-compass` - targets "federal compass alternative"
@@ -278,4 +291,4 @@ See `/tasks/work-history.md` for full history including:
 
 ---
 
-*Last Updated: May 9, 2026*
+*Last Updated: June 2, 2026*
