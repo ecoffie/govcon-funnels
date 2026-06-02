@@ -3,6 +3,11 @@ import { Redis } from "@upstash/redis";
 const NS = "gfd:purchase";
 export const ATTR_COOKIE = "gca_attr";
 
+// Which property this deployment represents. Tags every record so a single
+// shared Upstash DB can hold purchases from both govcongiants.com ("gcg") and
+// getmindy.ai ("mindy") and the dashboard can show them in one unified view.
+export const SITE = process.env.PURCHASE_SITE || "gcg";
+
 let redisClient: Redis | null = null;
 
 function getRedis(): Redis {
@@ -104,6 +109,7 @@ export type CheckoutStart = {
 
 export type PurchaseRecord = {
   id: string;
+  site?: string;
   event_id: string;
   event_type: string;
   status: "paid" | "failed" | "open" | "unknown";
@@ -123,12 +129,15 @@ export type PurchaseRecord = {
   raw_created?: number;
 };
 
+// Per-record keys are site-scoped so purchase/checkout IDs can never collide
+// across properties. The purchases index set is SHARED (no site segment) so the
+// unified dashboard reads every property in one pass; each member is stored as
+// "<site>:<id>" so the reader knows which site-scoped key to fetch.
 const key = {
-  checkout: (id: string) => `${NS}:checkout:${id}`,
-  checkouts: () => `${NS}:checkouts`,
-  purchase: (id: string) => `${NS}:purchase:${id}`,
+  checkout: (id: string) => `${NS}:${SITE}:checkout:${id}`,
+  purchase: (site: string, id: string) => `${NS}:${site}:purchase:${id}`,
   purchases: () => `${NS}:purchases`,
-  event: (id: string) => `${NS}:stripe-event:${id}`,
+  event: (id: string) => `${NS}:${SITE}:stripe-event:${id}`,
 };
 
 function safeString(input: unknown, max = 500): string | undefined {
@@ -204,7 +213,6 @@ export async function createCheckoutStart(args: {
 
   const r = getRedis();
   await r.set(key.checkout(record.id), record, { ex: 180 * 24 * 60 * 60 });
-  await r.sadd(key.checkouts(), record.id);
   return record;
 }
 
@@ -237,8 +245,12 @@ export async function markStripeEventProcessed(eventId: string): Promise<void> {
 
 export async function savePurchase(record: PurchaseRecord): Promise<void> {
   const r = getRedis();
-  await r.set(key.purchase(record.id), record);
-  await r.sadd(key.purchases(), record.id);
+  const site = record.site || SITE;
+  const stamped: PurchaseRecord = { ...record, site };
+  await r.set(key.purchase(site, stamped.id), stamped);
+  // Index member encodes the site so the shared dashboard can resolve the
+  // site-scoped record key without scanning every namespace.
+  await r.sadd(key.purchases(), `${site}:${stamped.id}`);
 }
 
 export type PurchaseReport = {
@@ -250,6 +262,7 @@ export type PurchaseReport = {
     other_count: number;
     paid_revenue_cents: number;
   };
+  by_site: Array<{ site: string; count: number; paid_count: number; paid_revenue_cents: number }>;
   by_source: Array<{ source: string; count: number; paid_count: number; paid_revenue_cents: number }>;
   by_product: Array<{ product_id: string; product_name: string; count: number; paid_count: number; paid_revenue_cents: number }>;
   purchases: PurchaseRecord[];
@@ -257,9 +270,18 @@ export type PurchaseReport = {
 
 export async function listPurchases(limit = 500): Promise<PurchaseRecord[]> {
   const r = getRedis();
-  const ids = await r.smembers(key.purchases());
-  if (!ids.length) return [];
-  const records = await Promise.all(ids.map((id) => r.get<PurchaseRecord>(key.purchase(id))));
+  const members = await r.smembers(key.purchases());
+  if (!members.length) return [];
+  const records = await Promise.all(
+    members.map((member) => {
+      // Members are "<site>:<id>". Legacy members (pre-namespacing) have no
+      // ":" and fall back to the default SITE namespace.
+      const idx = member.indexOf(":");
+      const site = idx === -1 ? SITE : member.slice(0, idx);
+      const id = idx === -1 ? member : member.slice(idx + 1);
+      return r.get<PurchaseRecord>(key.purchase(site, id));
+    }),
+  );
   return records
     .filter((rec): rec is PurchaseRecord => !!rec)
     .sort((a, b) => (b.created_at || "").localeCompare(a.created_at || ""))
@@ -277,6 +299,7 @@ export async function buildPurchaseReport(limit = 500): Promise<PurchaseReport> 
     paid_revenue_cents: 0,
   };
 
+  const siteMap = new Map<string, { count: number; paid_count: number; paid_revenue_cents: number }>();
   const sourceMap = new Map<string, { count: number; paid_count: number; paid_revenue_cents: number }>();
   const productMap = new Map<string, { product_id: string; product_name: string; count: number; paid_count: number; paid_revenue_cents: number }>();
 
@@ -286,6 +309,15 @@ export async function buildPurchaseReport(limit = 500): Promise<PurchaseReport> 
     else if (p.status === "failed") totals.failed_count += 1;
     else totals.other_count += 1;
     if (isPaid && p.amount_cents) totals.paid_revenue_cents += p.amount_cents;
+
+    const site = p.site || "unknown";
+    const siteAgg = siteMap.get(site) ?? { count: 0, paid_count: 0, paid_revenue_cents: 0 };
+    siteAgg.count += 1;
+    if (isPaid) {
+      siteAgg.paid_count += 1;
+      if (p.amount_cents) siteAgg.paid_revenue_cents += p.amount_cents;
+    }
+    siteMap.set(site, siteAgg);
 
     const summary = attributionSummary(p.attribution);
     const source = summary.last_source || summary.first_source || "unknown";
@@ -315,6 +347,9 @@ export async function buildPurchaseReport(limit = 500): Promise<PurchaseReport> 
   return {
     generated_at: new Date().toISOString(),
     totals,
+    by_site: Array.from(siteMap.entries())
+      .map(([site, v]) => ({ site, ...v }))
+      .sort((a, b) => b.paid_revenue_cents - a.paid_revenue_cents || b.count - a.count),
     by_source: Array.from(sourceMap.entries())
       .map(([source, v]) => ({ source, ...v }))
       .sort((a, b) => b.paid_revenue_cents - a.paid_revenue_cents || b.count - a.count),

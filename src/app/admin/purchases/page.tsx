@@ -78,7 +78,7 @@ export default async function PurchasesDashboard({ searchParams }: { searchParam
     );
   }
 
-  const { totals, by_source, by_product, purchases } = report;
+  const { totals, by_site, by_source, by_product, purchases } = report;
 
   return (
     <main className="min-h-screen bg-slate-950 text-slate-100 p-6 md:p-8">
@@ -94,6 +94,20 @@ export default async function PurchasesDashboard({ searchParams }: { searchParam
           <Stat label="Failed" value={String(totals.failed_count)} accent="text-rose-400" />
           <Stat label="Total events" value={String(totals.count)} accent="text-slate-200" />
         </section>
+
+        <Panel title="By site">
+          <Table head={["Site", "Events", "Paid", "Revenue"]}>
+            {by_site.map((s) => (
+              <tr key={s.site} className="border-t border-slate-800">
+                <Td>{s.site === "gcg" ? "govcongiants.com" : s.site === "mindy" ? "getmindy.ai" : s.site}</Td>
+                <Td>{s.count}</Td>
+                <Td>{s.paid_count}</Td>
+                <Td>{money(s.paid_revenue_cents)}</Td>
+              </tr>
+            ))}
+            {!by_site.length && <EmptyRow cols={4} />}
+          </Table>
+        </Panel>
 
         <section className="grid gap-6 lg:grid-cols-2">
           <Panel title="By source (last touch)">
@@ -126,12 +140,13 @@ export default async function PurchasesDashboard({ searchParams }: { searchParam
         </section>
 
         <Panel title="Recent purchases">
-          <Table head={["When (ET)", "Status", "Product", "Amount", "Customer", "Source / Medium", "Campaign", "Landing"]}>
+          <Table head={["When (ET)", "Site", "Status", "Product", "Amount", "Customer", "Source / Medium", "Campaign", "Landing"]}>
             {purchases.map((p) => {
               const a = attributionSummary(p.attribution);
               return (
-                <tr key={p.id} className="border-t border-slate-800 align-top">
+                <tr key={`${p.site || "?"}:${p.id}`} className="border-t border-slate-800 align-top">
                   <Td>{fmtDate(p.created_at)}</Td>
+                  <Td>{p.site || "—"}</Td>
                   <Td>{statusBadge(p.status)}</Td>
                   <Td>{p.product_name}</Td>
                   <Td>{money(p.amount_cents)}</Td>
@@ -146,7 +161,7 @@ export default async function PurchasesDashboard({ searchParams }: { searchParam
                 </tr>
               );
             })}
-            {!purchases.length && <EmptyRow cols={8} />}
+            {!purchases.length && <EmptyRow cols={9} />}
           </Table>
         </Panel>
       </div>
