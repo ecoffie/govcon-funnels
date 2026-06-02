@@ -63,6 +63,13 @@ export default function RootLayout({
         <ExitIntentPopup />
         {children}
         <Analytics />
+        <Script
+          src="https://widgets.leadconnectorhq.com/loader.js"
+          data-resources-url="https://widgets.leadconnectorhq.com/chat-widget/loader.js"
+          data-widget-id="6a1e1545b2d4c061bc44e305"
+          data-source="WEB_USER"
+          strategy="afterInteractive"
+        />
       </body>
     </html>
   );
