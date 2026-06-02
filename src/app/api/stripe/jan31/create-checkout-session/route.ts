@@ -1,5 +1,11 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { createCheckoutSession } from '@/lib/stripeApi';
+import {
+  ATTR_COOKIE,
+  CHECKOUT_PRODUCTS,
+  createCheckoutStart,
+  parseAttributionCookie,
+} from '@/lib/purchase-attribution';
 
 export const runtime = 'nodejs';
 
@@ -20,7 +26,22 @@ export async function POST(request: NextRequest) {
 
     const productId = process.env.STRIPE_JAN31_PRODUCT_ID;
     const priceId = process.env.STRIPE_JAN31_PRICE_ID;
-    const metadata = { funnel: 'jan-31-bootcamp-paid' as const };
+    const product = CHECKOUT_PRODUCTS['jan-31-bootcamp-paid'];
+    const attribution = parseAttributionCookie(request.cookies.get(ATTR_COOKIE)?.value);
+    const checkoutStart = await createCheckoutStart({
+      product,
+      sourceUrl: request.headers.get('referer') || request.url,
+      attribution,
+    }).catch((err) => {
+      console.error('Jan31 checkout attribution start failed:', err);
+      return null;
+    });
+    const metadata = {
+      funnel: 'jan-31-bootcamp-paid' as const,
+      product_id: product.id,
+      product_name: product.name,
+      ...(checkoutStart ? { attribution_id: checkoutStart.id } : {}),
+    };
 
     if (!productId && !priceId) {
       return NextResponse.json(
@@ -31,8 +52,8 @@ export async function POST(request: NextRequest) {
 
     const session = await createCheckoutSession(
       productId
-        ? { productId, unitAmountCents: 9900, successUrl, cancelUrl, customerEmail: email, metadata }
-        : { priceId: priceId!, successUrl, cancelUrl, customerEmail: email, metadata }
+        ? { productId, unitAmountCents: 9900, successUrl, cancelUrl, customerEmail: email, clientReferenceId: checkoutStart?.id, metadata }
+        : { priceId: priceId!, successUrl, cancelUrl, customerEmail: email, clientReferenceId: checkoutStart?.id, metadata }
     );
 
     if (!session.url) {
@@ -43,11 +64,11 @@ export async function POST(request: NextRequest) {
     }
 
     return NextResponse.json({ url: session.url });
-  } catch (err: any) {
+  } catch (err: unknown) {
+    const message = err instanceof Error ? err.message : 'Failed to create checkout session';
     return NextResponse.json(
-      { error: err?.message || 'Failed to create checkout session' },
+      { error: message },
       { status: 500 }
     );
   }
 }
-

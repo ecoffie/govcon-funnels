@@ -24,8 +24,13 @@ export default async function PremiumCheckoutPage({ params }: Props) {
   const product = getPremiumBySlug(slug);
   if (!product) notFound();
 
-  // If product has a direct checkout URL (Stripe link or Calendly), redirect to it
-  if (product.ctaUrl && (product.ctaUrl.startsWith('https://buy.stripe.com') || product.ctaUrl.startsWith('https://calendly.com'))) {
+  // Products with automated checkout route through /checkout first so
+  // attribution can be joined back to Stripe webhook events.
+  if (product.ctaUrl && (
+    product.ctaUrl.startsWith('/checkout/') ||
+    product.ctaUrl.startsWith('https://buy.stripe.com') ||
+    product.ctaUrl.startsWith('https://calendly.com')
+  )) {
     redirect(product.ctaUrl);
   }
 

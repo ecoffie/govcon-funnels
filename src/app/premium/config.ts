@@ -32,7 +32,7 @@ export const PREMIUM_PRODUCTS: PremiumProduct[] = [
     shortTitle: 'Pro Member Plan',
     description: 'Lifetime Training License, access to the 4,000+ member community, Step-by-Step Success Guide, First Partner Bootcamp, and Proposal Bootcamp. One-time payment.',
     price: '$997 one-time',
-    ctaUrl: 'https://buy.stripe.com/fZuaEYaKY4QWbBr26W',
+    ctaUrl: '/checkout/pro-member-plan',
     ctaText: 'Get Access →',
     highlights: [
       { icon: '🎓', title: 'Lifetime Training License', desc: 'Access all training for good.' },

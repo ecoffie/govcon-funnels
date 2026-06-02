@@ -40,7 +40,7 @@ async function stripeRequest<T>(
   });
 
   const text = await res.text();
-  let json: any = null;
+  let json: unknown = null;
   try {
     json = text ? JSON.parse(text) : null;
   } catch {
@@ -48,9 +48,13 @@ async function stripeRequest<T>(
   }
 
   if (!res.ok) {
+    const errorJson = json as {
+      error?: { message?: string };
+      message?: string;
+    } | null;
     const msg =
-      json?.error?.message ||
-      json?.message ||
+      errorJson?.error?.message ||
+      errorJson?.message ||
       `Stripe API error (${res.status})`;
     throw new Error(msg);
   }
@@ -65,6 +69,7 @@ export async function createCheckoutSession(params: {
   successUrl: string;
   cancelUrl: string;
   customerEmail?: string;
+  clientReferenceId?: string;
   metadata?: Record<string, string>;
 }): Promise<StripeCheckoutSession> {
   const form = new URLSearchParams();
@@ -85,10 +90,12 @@ export async function createCheckoutSession(params: {
 
   form.set('billing_address_collection', 'auto');
 
+  if (params.clientReferenceId) form.set('client_reference_id', params.clientReferenceId);
   if (params.customerEmail) form.set('customer_email', params.customerEmail);
   if (params.metadata) {
     Object.entries(params.metadata).forEach(([k, v]) => {
       form.set(`metadata[${k}]`, v);
+      form.set(`payment_intent_data[metadata][${k}]`, v);
     });
   }
 
@@ -106,4 +113,3 @@ export async function retrieveCheckoutSession(
     { method: 'GET' }
   );
 }
-

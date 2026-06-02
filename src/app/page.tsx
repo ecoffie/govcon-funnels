@@ -19,9 +19,11 @@ export const metadata = generateSeo({
   ],
 });
 
-// URLs - point to mi.govcongiants.com for the actual app
-const CHECKOUT_MONTHLY = 'https://buy.stripe.com/dRmfZi9UO3MS20RdpefnO0C'; // $149/mo
-const CHECKOUT_ANNUAL = 'https://buy.stripe.com/eVqfZi5Eydns0WNgBqfnO0D';  // $1,490/yr
+// Paid CTAs route through /checkout first so purchase attribution is captured
+// before the buyer lands on Stripe or the external bundle shop.
+const CHECKOUT_MONTHLY = '/checkout/mindy-pro-monthly'; // $149/mo
+const CHECKOUT_ANNUAL = '/checkout/mindy-pro-annual';  // $1,490/yr
+const CHECKOUT_ULTIMATE_BUNDLE = '/checkout/ultimate-giant-bundle'; // $1,497 bundle
 const FREE_SIGNUP_URL = 'https://mi.govcongiants.com/alerts/signup';
 // ?recover=1 tells /briefings to render the email gate (Enter your email /
 // Email me a secure link) instead of auto-bouncing to /alerts/signup.
@@ -414,7 +416,7 @@ export default function Home() {
                 </div>
                 <p className="text-amber-300 text-sm mb-4">Lifetime access</p>
                 <Link
-                  href="https://shop.govcongiants.com/bundles/ultimate"
+                  href={CHECKOUT_ULTIMATE_BUNDLE}
                   className="inline-block w-full md:w-auto px-6 py-3 bg-amber-400 hover:bg-amber-300 text-slate-900 rounded-xl font-bold text-center transition-colors shadow-lg shadow-amber-500/20"
                 >
                   Get Lifetime Access →

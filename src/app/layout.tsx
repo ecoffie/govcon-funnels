@@ -3,6 +3,7 @@ import Script from "next/script";
 import { Inter } from "next/font/google";
 import SiteNav from "@/components/SiteNav";
 import ExitIntentPopup from "@/components/ExitIntentPopup";
+import AttributionTracker from "@/components/AttributionTracker";
 import JsonLd from "@/components/JsonLd";
 import { organizationJsonLd } from "@/lib/seo";
 import { Analytics } from "@vercel/analytics/next";
@@ -58,6 +59,7 @@ export default function RootLayout({
             </Script>
           </>
         )}
+        <AttributionTracker />
         <JsonLd data={organizationJsonLd()} />
         <SiteNav />
         <ExitIntentPopup />
