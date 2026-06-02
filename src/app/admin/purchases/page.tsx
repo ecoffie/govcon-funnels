@@ -72,7 +72,8 @@ export default async function PurchasesDashboard({ searchParams }: { searchParam
         <h1 className="text-2xl font-bold mb-2">Purchases Dashboard</h1>
         <p className="text-rose-400">Error: {error}</p>
         <p className="mt-2 text-sm text-slate-400">
-          Check that <code>KV_REST_API_URL</code> and <code>KV_REST_API_TOKEN</code> are set.
+          Check that <code>KV_REST_API_URL</code>/<code>KV_REST_API_TOKEN</code> (or the
+          <code>STORAGE_</code>-prefixed names) are set.
         </p>
       </main>
     );

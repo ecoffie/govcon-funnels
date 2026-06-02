@@ -10,11 +10,17 @@ export const SITE = process.env.PURCHASE_SITE || "gcg";
 
 let redisClient: Redis | null = null;
 
+// Vercel forces a variable prefix when connecting a store that's already linked
+// to another project, so the shared market-assassin-codes store injects
+// STORAGE_KV_REST_API_* here. Accept the prefixed names first, then fall back to
+// the unprefixed defaults so the lib stays portable.
 function getRedis(): Redis {
-  const url = process.env.KV_REST_API_URL;
-  const token = process.env.KV_REST_API_TOKEN;
+  const url = process.env.STORAGE_KV_REST_API_URL || process.env.KV_REST_API_URL;
+  const token = process.env.STORAGE_KV_REST_API_TOKEN || process.env.KV_REST_API_TOKEN;
   if (!url || !token) {
-    throw new Error("KV_REST_API_URL and KV_REST_API_TOKEN are required for purchase attribution");
+    throw new Error(
+      "KV_REST_API_URL/TOKEN (or STORAGE_KV_REST_API_URL/TOKEN) are required for purchase attribution",
+    );
   }
   if (!redisClient) redisClient = new Redis({ url, token });
   return redisClient;
