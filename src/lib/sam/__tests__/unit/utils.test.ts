@@ -171,7 +171,12 @@ describe('SAM Utils - Unit Tests', () => {
     const originalFetch = global.fetch;
 
     beforeEach(() => {
-      process.env = { ...originalEnv, SAM_API_KEY: 'primary-key', SAM_API_KEY_BACKUP: 'backup-key' };
+      process.env = {
+        ...originalEnv,
+        SAM_API_KEY: 'primary-key',
+        SAM_ENTITY_API_KEY: 'primary-key',
+        SAM_API_KEY_BACKUP: 'backup-key',
+      };
       vi.restoreAllMocks();
     });
 
