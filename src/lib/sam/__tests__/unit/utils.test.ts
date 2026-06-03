@@ -5,6 +5,8 @@ import {
   checkRateLimit,
   incrementRateLimit,
   parseSAMError,
+  makeSAMRequest,
+  SAM_API_CONFIGS,
 } from '../../utils';
 
 describe('SAM Utils - Unit Tests', () => {
@@ -161,6 +163,69 @@ describe('SAM Utils - Unit Tests', () => {
       expect(parseSAMError(401, {}).retryable).toBe(false);
       expect(parseSAMError(403, {}).retryable).toBe(false);
       expect(parseSAMError(404, {}).retryable).toBe(false);
+    });
+  });
+
+  describe('makeSAMRequest key failover', () => {
+    const originalEnv = process.env;
+    const originalFetch = global.fetch;
+
+    beforeEach(() => {
+      process.env = { ...originalEnv, SAM_API_KEY: 'primary-key', SAM_API_KEY_BACKUP: 'backup-key' };
+      vi.restoreAllMocks();
+    });
+
+    afterEach(() => {
+      process.env = originalEnv;
+      global.fetch = originalFetch;
+    });
+
+    it('tries the backup key after a retryable primary-key failure', async () => {
+      const fetchMock = vi
+        .fn()
+        .mockResolvedValueOnce({
+          ok: false,
+          status: 429,
+          text: async () => JSON.stringify({ message: 'Too many requests' }),
+        })
+        .mockResolvedValueOnce({
+          ok: true,
+          status: 200,
+          text: async () => JSON.stringify({ entityData: [], totalRecords: 0 }),
+        });
+      global.fetch = fetchMock as unknown as typeof fetch;
+
+      const result = await makeSAMRequest<{ entityData: unknown[]; totalRecords: number }>(
+        SAM_API_CONFIGS.entity,
+        '/entities',
+        { samRegistered: 'Yes' },
+        { useCache: false, bypassRateLimit: true }
+      );
+
+      expect(result.error).toBeNull();
+      expect(result.data?.totalRecords).toBe(0);
+      expect(fetchMock).toHaveBeenCalledTimes(2);
+      expect(String(fetchMock.mock.calls[0][0])).toContain('api_key=primary-key');
+      expect(String(fetchMock.mock.calls[1][0])).toContain('api_key=backup-key');
+    });
+
+    it('does not try the backup key after a non-retryable request error', async () => {
+      const fetchMock = vi.fn().mockResolvedValue({
+        ok: false,
+        status: 400,
+        text: async () => JSON.stringify({ message: 'Bad request' }),
+      });
+      global.fetch = fetchMock as unknown as typeof fetch;
+
+      const result = await makeSAMRequest<{ entityData: unknown[]; totalRecords: number }>(
+        SAM_API_CONFIGS.entity,
+        '/entities',
+        { samRegistered: 'Yes' },
+        { useCache: false, bypassRateLimit: true }
+      );
+
+      expect(result.error?.status).toBe(400);
+      expect(fetchMock).toHaveBeenCalledTimes(1);
     });
   });
 });
