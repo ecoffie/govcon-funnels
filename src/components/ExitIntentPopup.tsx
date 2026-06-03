@@ -3,6 +3,7 @@
 import { useState, useEffect } from 'react';
 import { usePathname } from 'next/navigation';
 import Link from 'next/link';
+import { PARTNERSHIP_CALL_URL } from '@/lib/booking';
 
 // B2B partner pages should show partnership CTA, not beginner course
 const PARTNER_PATHS = ['/for/apex-accelerators', '/for/sbdc', '/for/chambers', '/partners'];
@@ -88,7 +89,7 @@ export default function ExitIntentPopup() {
 
             <div className="space-y-3">
               <Link
-                href="https://calendly.com/govconedumeet/partnership"
+                href={PARTNERSHIP_CALL_URL}
                 className="block w-full px-6 py-4 bg-blue-600 hover:bg-blue-500 text-white rounded-xl font-bold transition"
                 onClick={handleClose}
               >
