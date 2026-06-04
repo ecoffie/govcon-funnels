@@ -438,7 +438,15 @@ export async function makeSAMRequest<T>(
     }
 
     if (result.error) {
-      // Other error, return it
+      lastError = result.error;
+      if (result.error.fallbackAvailable) {
+        // Retryable SAM failures (plain 429/5xx/network) should fall through
+        // to backup keys, not just provider-specific throttle responses.
+        continue;
+      }
+
+      // Non-fallback errors (bad request, auth failure, not found) should not
+      // be retried with other keys because the request itself is invalid.
       return { data: null, error: result.error, fromCache: false };
     }
 
