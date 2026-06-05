@@ -4,15 +4,14 @@
  * or `Authorization: Bearer <pw>`. Set PURCHASES_ADMIN_PASSWORD in the
  * environment; falls back to the ecosystem admin password if unset.
  */
-const FALLBACK_PASSWORD = "galata-assassin-2026";
 
-export function getAdminPassword(): string {
-  return process.env.PURCHASES_ADMIN_PASSWORD || process.env.ADMIN_PASSWORD || FALLBACK_PASSWORD;
+export function getAdminPassword(): string | null {
+  const password = process.env.PURCHASES_ADMIN_PASSWORD || process.env.ADMIN_PASSWORD;
+  return password && password.length > 0 ? password : null;
 }
 
-export function isAuthorized(provided: string | null | undefined): boolean {
-  if (!provided) return false;
-  const expected = getAdminPassword();
+export function constantTimeEquals(provided: string | null | undefined, expected: string | null | undefined): boolean {
+  if (!provided || !expected) return false;
   if (provided.length !== expected.length) return false;
   // Constant-time-ish compare to avoid trivial timing leaks.
   let diff = 0;
@@ -20,6 +19,10 @@ export function isAuthorized(provided: string | null | undefined): boolean {
     diff |= provided.charCodeAt(i) ^ expected.charCodeAt(i);
   }
   return diff === 0;
+}
+
+export function isAuthorized(provided: string | null | undefined): boolean {
+  return constantTimeEquals(provided, getAdminPassword());
 }
 
 export function extractPassword(req: {

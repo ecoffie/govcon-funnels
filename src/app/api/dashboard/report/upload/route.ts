@@ -1,7 +1,12 @@
 import { NextRequest, NextResponse } from 'next/server';
+import { extractPassword, isAuthorized } from '@/lib/admin-auth';
 import { importReportFromBuffer } from '@/lib/import-report';
 
 export async function POST(request: NextRequest) {
+  if (!isAuthorized(extractPassword(request))) {
+    return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
+  }
+
   try {
     const formData = await request.formData();
     const file = formData.get('file') as File | null;
