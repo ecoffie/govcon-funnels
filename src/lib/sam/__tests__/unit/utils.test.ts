@@ -10,18 +10,26 @@ import {
 
 describe('SAM Utils - Unit Tests', () => {
   const originalEnv = {
+    SAM_ENTITY_API_KEY: process.env.SAM_ENTITY_API_KEY,
     SAM_API_KEY: process.env.SAM_API_KEY,
     SAM_API_KEY_BACKUP: process.env.SAM_API_KEY_BACKUP,
   };
 
   beforeEach(() => {
     vi.unstubAllGlobals();
+    delete process.env.SAM_ENTITY_API_KEY;
     delete process.env.SAM_API_KEY;
     delete process.env.SAM_API_KEY_BACKUP;
   });
 
   afterEach(() => {
     vi.unstubAllGlobals();
+    if (originalEnv.SAM_ENTITY_API_KEY === undefined) {
+      delete process.env.SAM_ENTITY_API_KEY;
+    } else {
+      process.env.SAM_ENTITY_API_KEY = originalEnv.SAM_ENTITY_API_KEY;
+    }
+
     if (originalEnv.SAM_API_KEY === undefined) {
       delete process.env.SAM_API_KEY;
     } else {
@@ -200,7 +208,7 @@ describe('SAM Utils - Unit Tests', () => {
     };
 
     it('tries the backup key after a retryable plain 429 from the primary key', async () => {
-      process.env.SAM_API_KEY = 'primary-key';
+      process.env.SAM_ENTITY_API_KEY = 'primary-key';
       process.env.SAM_API_KEY_BACKUP = 'backup-key';
       const fetchMock = vi.fn()
         .mockResolvedValueOnce(new Response(JSON.stringify({ message: 'Too many requests' }), { status: 429 }))
@@ -222,7 +230,7 @@ describe('SAM Utils - Unit Tests', () => {
     });
 
     it('does not try the backup key for non-retryable request errors', async () => {
-      process.env.SAM_API_KEY = 'primary-key';
+      process.env.SAM_ENTITY_API_KEY = 'primary-key';
       process.env.SAM_API_KEY_BACKUP = 'backup-key';
       const fetchMock = vi.fn()
         .mockResolvedValueOnce(new Response(JSON.stringify({ message: 'Bad request' }), { status: 400 }));
