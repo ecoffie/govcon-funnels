@@ -5,7 +5,42 @@ import {
   formatTemplateReleaseSummary,
 } from '@/lib/slackTasks';
 
-export async function POST(_request: NextRequest) {
+function getResetSecret(): string | null {
+  return process.env.DASHBOARD_RESET_SECRET || process.env.DASHBOARD_API_SECRET || null;
+}
+
+function extractResetSecret(request: NextRequest): string | null {
+  const header = request.headers.get('x-dashboard-reset-secret');
+  if (header) return header;
+
+  const auth = request.headers.get('authorization');
+  if (auth?.startsWith('Bearer ')) return auth.slice(7);
+
+  return null;
+}
+
+function matchesSecret(provided: string | null, expected: string): boolean {
+  if (!provided || provided.length !== expected.length) return false;
+  let diff = 0;
+  for (let i = 0; i < expected.length; i++) {
+    diff |= provided.charCodeAt(i) ^ expected.charCodeAt(i);
+  }
+  return diff === 0;
+}
+
+export async function POST(request: NextRequest) {
+  const expectedSecret = getResetSecret();
+  if (!expectedSecret) {
+    return NextResponse.json(
+      { error: 'Dashboard reset secret is not configured' },
+      { status: 503 }
+    );
+  }
+
+  if (!matchesSecret(extractResetSecret(request), expectedSecret)) {
+    return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
+  }
+
   try {
     const result = await resetTasksAndProjectsToFeb28Bootcamp();
     try {

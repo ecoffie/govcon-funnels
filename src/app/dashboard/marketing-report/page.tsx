@@ -86,6 +86,7 @@ export default function MarketingReportPage() {
   const [uploading, setUploading] = useState(false);
   const [seeding, setSeeding] = useState(false);
   const [uploadMsg, setUploadMsg] = useState<string | null>(null);
+  const [loadError, setLoadError] = useState<string | null>(null);
   const [sectionEdits, setSectionEdits] = useState<Record<string, string>>({});
   const [savingSection, setSavingSection] = useState<string | null>(null);
 
@@ -94,8 +95,13 @@ export default function MarketingReportPage() {
     const params = new URLSearchParams();
     if (week) params.set('week', week);
     params.set('history', '1');
+    const password = new URLSearchParams(window.location.search).get('password') ?? '';
+    if (password) params.set('password', password);
     const url = `${base}?${params}`;
-    const res = await fetch(url);
+    const res = await fetch(url, password ? { headers: { 'x-admin-password': password } } : undefined);
+    if (res.status === 401) {
+      throw new Error('Unauthorized. Add the admin password as ?password=... to view this report.');
+    }
     if (!res.ok) throw new Error('Failed to load report');
     return res.json();
   }, []);
@@ -107,7 +113,7 @@ export default function MarketingReportPage() {
         setSelectedWeek(data.current?.week_start ?? data.weeks?.[0] ?? '');
         setSectionEdits(data.sections ?? {});
       })
-      .catch(console.error)
+      .catch((err) => setLoadError(err instanceof Error ? err.message : 'Failed to load report'))
       .finally(() => setLoading(false));
   }, [fetchReport]);
 
@@ -126,8 +132,14 @@ export default function MarketingReportPage() {
   const onSeed = async () => {
     setSeeding(true);
     setUploadMsg(null);
+    const password = new URLSearchParams(window.location.search).get('password') ?? '';
+    const params = new URLSearchParams();
+    if (password) params.set('password', password);
     try {
-      const res = await fetch('/api/dashboard/report/seed', { method: 'POST' });
+      const res = await fetch(`/api/dashboard/report/seed?${params}`, {
+        method: 'POST',
+        headers: password ? { 'x-admin-password': password } : undefined,
+      });
       const data = await res.json();
       if (!res.ok) throw new Error(data.error || 'Seed failed');
       setUploadMsg(`Loaded ${data.weeksImported ?? 0} weeks. ${data.message ?? ''}`);
@@ -149,8 +161,15 @@ export default function MarketingReportPage() {
     setUploadMsg(null);
     const form = new FormData();
     form.append('file', file);
+    const password = new URLSearchParams(window.location.search).get('password') ?? '';
+    const params = new URLSearchParams();
+    if (password) params.set('password', password);
     try {
-      const res = await fetch('/api/dashboard/report/upload', { method: 'POST', body: form });
+      const res = await fetch(`/api/dashboard/report/upload?${params}`, {
+        method: 'POST',
+        body: form,
+        headers: password ? { 'x-admin-password': password } : undefined,
+      });
       const data = await res.json();
       if (!res.ok) throw new Error(data.error || 'Upload failed');
       setUploadMsg(`Imported ${data.weeksImported ?? 0} weeks. ${data.message ?? ''}`);
@@ -170,10 +189,16 @@ export default function MarketingReportPage() {
     if (!selectedWeek) return;
     const content = sectionEdits[sectionKey] ?? '';
     setSavingSection(sectionKey);
+    const password = new URLSearchParams(window.location.search).get('password') ?? '';
+    const params = new URLSearchParams();
+    if (password) params.set('password', password);
     try {
-      const res = await fetch('/api/dashboard/report/sections', {
+      const res = await fetch(`/api/dashboard/report/sections?${params}`, {
         method: 'PATCH',
-        headers: { 'Content-Type': 'application/json' },
+        headers: {
+          'Content-Type': 'application/json',
+          ...(password ? { 'x-admin-password': password } : {}),
+        },
         body: JSON.stringify({ week_start: selectedWeek, section: sectionKey, content }),
       });
       if (!res.ok) throw new Error('Save failed');
@@ -189,6 +214,14 @@ export default function MarketingReportPage() {
     return (
       <div className="rounded-xl border border-slate-700 bg-slate-900/70 p-8 text-center text-slate-400">
         Loading report...
+      </div>
+    );
+  }
+
+  if (loadError && !report) {
+    return (
+      <div className="rounded-xl border border-amber-700 bg-amber-950/40 p-8 text-center text-amber-100">
+        {loadError}
       </div>
     );
   }
