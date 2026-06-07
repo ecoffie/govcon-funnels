@@ -130,6 +130,7 @@ const nextConfig: NextConfig = {
         { source: "/quiz", destination: "/quiz/index.html" },
         { source: "/upskilling", destination: "/upskilling/index.html" },
         { source: "/market-intel", destination: "/market-intel/index.html" },
+        { source: "/proposal-bootcamp", destination: "/proposal-bootcamp/index.html" },
       ],
       afterFiles: [
         { source: "/dashboard.html", destination: "/api/dashboard-page" },
