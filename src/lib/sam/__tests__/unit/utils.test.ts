@@ -1,13 +1,43 @@
-import { describe, it, expect, vi, beforeEach } from 'vitest';
+import { afterEach, describe, it, expect, vi, beforeEach } from 'vitest';
 import {
+  SAM_API_CONFIGS,
   validateCAGECode,
   generateCacheKey,
   checkRateLimit,
   incrementRateLimit,
+  makeSAMRequest,
   parseSAMError,
 } from '../../utils';
 
+const originalEntityKey = process.env.SAM_ENTITY_API_KEY;
+const originalSamKey = process.env.SAM_API_KEY;
+const originalBackupKey = process.env.SAM_API_KEY_BACKUP;
+
+function restoreEnv() {
+  if (originalEntityKey === undefined) {
+    delete process.env.SAM_ENTITY_API_KEY;
+  } else {
+    process.env.SAM_ENTITY_API_KEY = originalEntityKey;
+  }
+
+  if (originalSamKey === undefined) {
+    delete process.env.SAM_API_KEY;
+  } else {
+    process.env.SAM_API_KEY = originalSamKey;
+  }
+
+  if (originalBackupKey === undefined) {
+    delete process.env.SAM_API_KEY_BACKUP;
+  } else {
+    process.env.SAM_API_KEY_BACKUP = originalBackupKey;
+  }
+}
+
 describe('SAM Utils - Unit Tests', () => {
+  afterEach(() => {
+    restoreEnv();
+  });
+
   describe('validateCAGECode', () => {
     it('accepts valid 5-character alphanumeric CAGE codes', () => {
       expect(validateCAGECode('1ABC2')).toBe(true);
@@ -161,6 +191,50 @@ describe('SAM Utils - Unit Tests', () => {
       expect(parseSAMError(401, {}).retryable).toBe(false);
       expect(parseSAMError(403, {}).retryable).toBe(false);
       expect(parseSAMError(404, {}).retryable).toBe(false);
+    });
+  });
+
+  describe('makeSAMRequest failover', () => {
+    beforeEach(() => {
+      process.env.SAM_ENTITY_API_KEY = 'primary-key';
+      process.env.SAM_API_KEY = 'primary-key';
+      process.env.SAM_API_KEY_BACKUP = 'backup-key';
+    });
+
+    it('tries the backup key after a fallback-eligible primary 429', async () => {
+      vi.mocked(fetch)
+        .mockResolvedValueOnce(new Response(JSON.stringify({ message: 'Too many requests' }), { status: 429 }))
+        .mockResolvedValueOnce(new Response(JSON.stringify({ entityData: [], totalRecords: 0 }), { status: 200 }));
+
+      const result = await makeSAMRequest<{ entityData: unknown[]; totalRecords: number }>(
+        SAM_API_CONFIGS.entity,
+        '/entities',
+        { samRegistered: 'Yes', page: 0, size: 1 },
+        { useCache: false, bypassRateLimit: true }
+      );
+
+      expect(fetch).toHaveBeenCalledTimes(2);
+      expect(String(vi.mocked(fetch).mock.calls[0][0])).toContain('api_key=primary-key');
+      expect(String(vi.mocked(fetch).mock.calls[1][0])).toContain('api_key=backup-key');
+      expect(result.error).toBeNull();
+      expect(result.data?.totalRecords).toBe(0);
+    });
+
+    it('does not try the backup key for non-fallback request errors', async () => {
+      vi.mocked(fetch).mockResolvedValueOnce(
+        new Response(JSON.stringify({ message: 'Bad request' }), { status: 400 })
+      );
+
+      const result = await makeSAMRequest<{ entityData: unknown[]; totalRecords: number }>(
+        SAM_API_CONFIGS.entity,
+        '/entities',
+        { samRegistered: 'Yes', page: 0, size: 1 },
+        { useCache: false, bypassRateLimit: true }
+      );
+
+      expect(fetch).toHaveBeenCalledTimes(1);
+      expect(result.data).toBeNull();
+      expect(result.error?.status).toBe(400);
     });
   });
 });

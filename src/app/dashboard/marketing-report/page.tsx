@@ -88,26 +88,43 @@ export default function MarketingReportPage() {
   const [uploadMsg, setUploadMsg] = useState<string | null>(null);
   const [sectionEdits, setSectionEdits] = useState<Record<string, string>>({});
   const [savingSection, setSavingSection] = useState<string | null>(null);
+  const [loadError, setLoadError] = useState<string | null>(null);
+  const [adminPassword] = useState(() => {
+    if (typeof window === 'undefined') return '';
+    return new URLSearchParams(window.location.search).get('password') ?? '';
+  });
 
   const fetchReport = useCallback(async (week?: string) => {
     const base = '/api/dashboard/report';
     const params = new URLSearchParams();
     if (week) params.set('week', week);
     params.set('history', '1');
+    if (adminPassword) params.set('password', adminPassword);
     const url = `${base}?${params}`;
     const res = await fetch(url);
-    if (!res.ok) throw new Error('Failed to load report');
+    if (!res.ok) {
+      const data = await res.json().catch(() => ({}));
+      throw new Error(typeof data.error === 'string' ? data.error : 'Failed to load report');
+    }
     return res.json();
-  }, []);
+  }, [adminPassword]);
+
+  const authHeaders = useCallback(() => {
+    return adminPassword ? { 'x-admin-password': adminPassword } : undefined;
+  }, [adminPassword]);
 
   useEffect(() => {
     fetchReport()
       .then((data) => {
+        setLoadError(null);
         setReport(data);
         setSelectedWeek(data.current?.week_start ?? data.weeks?.[0] ?? '');
         setSectionEdits(data.sections ?? {});
       })
-      .catch(console.error)
+      .catch((err) => {
+        console.error(err);
+        setLoadError(err instanceof Error ? err.message : 'Failed to load report');
+      })
       .finally(() => setLoading(false));
   }, [fetchReport]);
 
@@ -116,8 +133,11 @@ export default function MarketingReportPage() {
     setLoading(true);
     try {
       const data = await fetchReport(week);
+      setLoadError(null);
       setReport(data);
       setSectionEdits(data.sections ?? {});
+    } catch (err) {
+      setLoadError(err instanceof Error ? err.message : 'Failed to load report');
     } finally {
       setLoading(false);
     }
@@ -127,11 +147,12 @@ export default function MarketingReportPage() {
     setSeeding(true);
     setUploadMsg(null);
     try {
-      const res = await fetch('/api/dashboard/report/seed', { method: 'POST' });
+      const res = await fetch('/api/dashboard/report/seed', { method: 'POST', headers: authHeaders() });
       const data = await res.json();
       if (!res.ok) throw new Error(data.error || 'Seed failed');
       setUploadMsg(`Loaded ${data.weeksImported ?? 0} weeks. ${data.message ?? ''}`);
       const fresh = await fetchReport();
+      setLoadError(null);
       setReport(fresh);
       setSelectedWeek(fresh.current?.week_start ?? fresh.weeks?.[0] ?? '');
       setSectionEdits(fresh.sections ?? {});
@@ -150,11 +171,12 @@ export default function MarketingReportPage() {
     const form = new FormData();
     form.append('file', file);
     try {
-      const res = await fetch('/api/dashboard/report/upload', { method: 'POST', body: form });
+      const res = await fetch('/api/dashboard/report/upload', { method: 'POST', headers: authHeaders(), body: form });
       const data = await res.json();
       if (!res.ok) throw new Error(data.error || 'Upload failed');
       setUploadMsg(`Imported ${data.weeksImported ?? 0} weeks. ${data.message ?? ''}`);
       const fresh = await fetchReport();
+      setLoadError(null);
       setReport(fresh);
       setSelectedWeek(fresh.current?.week_start ?? fresh.weeks?.[0] ?? '');
       setSectionEdits(fresh.sections ?? {});
@@ -173,11 +195,12 @@ export default function MarketingReportPage() {
     try {
       const res = await fetch('/api/dashboard/report/sections', {
         method: 'PATCH',
-        headers: { 'Content-Type': 'application/json' },
+        headers: { 'Content-Type': 'application/json', ...(authHeaders() ?? {}) },
         body: JSON.stringify({ week_start: selectedWeek, section: sectionKey, content }),
       });
       if (!res.ok) throw new Error('Save failed');
       const data = await fetchReport(selectedWeek);
+      setLoadError(null);
       setReport(data);
       setSectionEdits(data.sections ?? {});
     } finally {
@@ -189,6 +212,19 @@ export default function MarketingReportPage() {
     return (
       <div className="rounded-xl border border-slate-700 bg-slate-900/70 p-8 text-center text-slate-400">
         Loading report...
+      </div>
+    );
+  }
+
+  if (loadError && !report) {
+    return (
+      <div className="rounded-xl border border-red-700/60 bg-red-950/40 p-8 text-center">
+        <h2 className="mb-2 text-xl font-semibold text-red-100">Marketing report unavailable</h2>
+        <p className="text-sm text-red-200">
+          {loadError === 'Unauthorized'
+            ? 'Enter the dashboard password in the URL to view this internal report.'
+            : loadError}
+        </p>
       </div>
     );
   }
