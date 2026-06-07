@@ -87,16 +87,26 @@ export async function GET(request: NextRequest) {
     size: limit,
   });
 
-  // Check if we got an error (e.g., rate limited)
-  if (result.entities.length === 0 && result.totalCount === 0 && !result.fromCache) {
-    // This could be either no results found OR an API error (rate limit, etc.)
-    // Try to provide helpful message
+  if (result.error) {
+    const isRateLimited = result.error.status === 429;
+    return NextResponse.json(
+      {
+        error: isRateLimited
+          ? 'SAM.gov rate limit exceeded. Please try again later.'
+          : 'SAM.gov lookup is temporarily unavailable. Please try again later.',
+        details: result.error.message,
+      },
+      { status: isRateLimited ? 429 : 503 }
+    );
+  }
+
+  if (result.entities.length === 0 && result.totalCount === 0) {
     return NextResponse.json({
       entities: [],
       totalRecords: 0,
       query: cageCode ? { type: 'cageCode', value: cageCode } : { type: 'companyName', value: companyName },
       fromCache: result.fromCache,
-      note: 'No results found. If you expected results, SAM.gov API may be temporarily unavailable. Please try again later.',
+      note: 'No results found.',
     });
   }
 
