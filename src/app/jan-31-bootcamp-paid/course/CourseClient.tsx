@@ -1,7 +1,6 @@
 'use client';
 
-import { useEffect, useState } from 'react';
-import Link from 'next/link';
+import { useState } from 'react';
 
 // Jan 31 Bootcamp replay — order matches your Vimeo uploads (chronological by recording time)
 const lessons = [
@@ -14,13 +13,16 @@ const lessons = [
 ];
 
 export default function CourseClient() {
-  const [completedLessons, setCompletedLessons] = useState<number[]>([]);
+  const [completedLessons, setCompletedLessons] = useState<number[]>(() => {
+    if (typeof window === 'undefined') return [];
+    try {
+      const saved = localStorage.getItem('govcon_jan31_progress');
+      return saved ? JSON.parse(saved) : [];
+    } catch {
+      return [];
+    }
+  });
   const [activeVideo, setActiveVideo] = useState<number | null>(null);
-
-  useEffect(() => {
-    const saved = localStorage.getItem('govcon_jan31_progress');
-    if (saved) setCompletedLessons(JSON.parse(saved));
-  }, []);
 
   const toggleComplete = (day: number) => {
     const updated = completedLessons.includes(day)
