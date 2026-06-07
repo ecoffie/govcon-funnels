@@ -1,7 +1,31 @@
-import { describe, it, expect } from 'vitest';
-import { transformEntity, validateCAGECode } from '../../entity-api';
+import { afterEach, describe, it, expect, vi } from 'vitest';
+import { searchEntities, transformEntity, validateCAGECode } from '../../entity-api';
+
+const originalEntityKey = process.env.SAM_ENTITY_API_KEY;
+const originalSamKey = process.env.SAM_API_KEY;
+const originalBackupKey = process.env.SAM_API_KEY_BACKUP;
 
 describe('Entity API - Unit Tests', () => {
+  afterEach(() => {
+    if (originalEntityKey === undefined) {
+      delete process.env.SAM_ENTITY_API_KEY;
+    } else {
+      process.env.SAM_ENTITY_API_KEY = originalEntityKey;
+    }
+
+    if (originalSamKey === undefined) {
+      delete process.env.SAM_API_KEY;
+    } else {
+      process.env.SAM_API_KEY = originalSamKey;
+    }
+
+    if (originalBackupKey === undefined) {
+      delete process.env.SAM_API_KEY_BACKUP;
+    } else {
+      process.env.SAM_API_KEY_BACKUP = originalBackupKey;
+    }
+  });
+
   describe('validateCAGECode', () => {
     it('accepts valid 5-char alphanumeric', () => {
       expect(validateCAGECode('1ABC2')).toBe(true);
@@ -226,6 +250,25 @@ describe('Entity API - Unit Tests', () => {
 
       expect(result.legalBusinessName).toBe('Main Company LLC');
       expect(result.dbaName).toBe('Doing Business Name');
+    });
+  });
+
+  describe('searchEntities error propagation', () => {
+    it('returns the SAM upstream error instead of masking it as no results', async () => {
+      process.env.SAM_ENTITY_API_KEY = 'primary-key';
+      process.env.SAM_API_KEY = 'primary-key';
+      delete process.env.SAM_API_KEY_BACKUP;
+
+      vi.mocked(fetch).mockResolvedValueOnce(
+        new Response(JSON.stringify({ message: 'SAM outage' }), { status: 503 })
+      );
+
+      const result = await searchEntities({ cageCode: '17038', size: 1 });
+
+      expect(result.entities).toEqual([]);
+      expect(result.totalCount).toBe(0);
+      expect(result.error?.status).toBe(503);
+      expect(result.error?.message).toBe('SAM outage');
     });
   });
 });
