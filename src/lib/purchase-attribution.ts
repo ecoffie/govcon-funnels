@@ -320,7 +320,7 @@ export async function listPurchases(limit = 500): Promise<PurchaseRecord[]> {
   const r = getRedis();
   const members = await r.smembers(key.purchases());
   if (!members.length) return [];
-  const records = await Promise.all(
+  const records: Array<PurchaseRecord | null> = await Promise.all(
     members.map(async (member) => {
       // Members are "<site>:<id>". Legacy members (pre-namespacing) have no
       // ":" and their records live at the original unscoped purchase key.
@@ -339,8 +339,8 @@ export async function listPurchases(limit = 500): Promise<PurchaseRecord[]> {
       return record ? { ...record, site: record.site || site } : null;
     }),
   );
-  return records
-    .filter((rec): rec is PurchaseRecord => !!rec)
+  const present = records.filter((rec): rec is PurchaseRecord => rec !== null);
+  return present
     .sort((a, b) => (b.created_at || "").localeCompare(a.created_at || ""))
     .slice(0, limit);
 }
