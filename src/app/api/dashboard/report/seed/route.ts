@@ -1,11 +1,16 @@
-import { NextResponse } from 'next/server';
+import { NextRequest, NextResponse } from 'next/server';
 import { readFile } from 'fs/promises';
 import { existsSync } from 'fs';
 import { importReportFromBuffer } from '@/lib/import-report';
+import { extractPassword, isAuthorized } from '@/lib/admin-auth';
 
 const DEFAULT_SEED_PATH = '/Users/kkii/Downloads/Weekly Growth Report (1).xlsx';
 
-export async function POST() {
+export async function POST(request: NextRequest) {
+  if (!isAuthorized(extractPassword(request))) {
+    return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
+  }
+
   try {
     const path = process.env.SEED_REPORT_PATH ?? DEFAULT_SEED_PATH;
     if (!existsSync(path)) {
