@@ -5,14 +5,29 @@ import { extractPassword, isAuthorized } from '@/lib/admin-auth';
 export const runtime = 'nodejs';
 export const dynamic = 'force-dynamic';
 
+/** Constant-time-ish compare so the tracker password check doesn't leak length/timing. */
+function matches(provided: string, expected: string): boolean {
+  if (provided.length !== expected.length) return false;
+  let diff = 0;
+  for (let i = 0; i < expected.length; i++) {
+    diff |= provided.charCodeAt(i) ^ expected.charCodeAt(i);
+  }
+  return diff === 0;
+}
+
 /**
  * Password-gated HUBZone registration summary.
  * Even though names are redacted (no emails/phones), they are still PII, so
- * the endpoint requires the shared admin password (?password=, x-admin-password
- * header, or Bearer token) — same gate as /api/admin/purchases.
+ * the endpoint requires a password (?password=, x-admin-password header, or
+ * Bearer token). Accepts EITHER the dedicated, shareable HUBZONE_TRACKER_PASSWORD
+ * (safe to give the team) OR the shared admin password used by /api/admin/purchases.
  */
 export async function GET(request: NextRequest) {
-  if (!isAuthorized(extractPassword(request))) {
+  const provided = extractPassword(request);
+  const trackerPw = process.env.HUBZONE_TRACKER_PASSWORD;
+  const trackerOk = !!provided && !!trackerPw && matches(provided, trackerPw);
+
+  if (!trackerOk && !isAuthorized(provided)) {
     return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
   }
 
