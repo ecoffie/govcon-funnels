@@ -51,6 +51,7 @@ const PW_KEY = 'hubzone-tracker-pw';
 export default function RegistrationsTrackerPage() {
   const [password, setPassword] = useState<string | null>(null);
   const [pwInput, setPwInput] = useState('');
+  const [showPw, setShowPw] = useState(false);
   const [authError, setAuthError] = useState<string | null>(null);
   const [data, setData] = useState<Summary | null>(null);
   const [error, setError] = useState<string | null>(null);
@@ -116,14 +117,24 @@ export default function RegistrationsTrackerPage() {
           </p>
           <h1 className="text-xl font-bold text-slate-900 mt-1 mb-1">HUBZone Webinar</h1>
           <p className="text-gray-500 text-sm mb-6">Team access only</p>
-          <input
-            type="password"
-            autoFocus
-            value={pwInput}
-            onChange={(e) => setPwInput(e.target.value)}
-            placeholder="Password"
-            className="w-full border border-gray-300 rounded-lg px-4 py-2.5 text-center focus:outline-none focus:ring-2 focus:ring-orange-500 focus:border-orange-500"
-          />
+          <div className="relative">
+            <input
+              type={showPw ? 'text' : 'password'}
+              autoFocus
+              value={pwInput}
+              onChange={(e) => setPwInput(e.target.value)}
+              placeholder="Password"
+              className="w-full border border-gray-300 rounded-lg pl-4 pr-12 py-2.5 text-center text-slate-900 placeholder:text-gray-400 focus:outline-none focus:ring-2 focus:ring-orange-500 focus:border-orange-500"
+            />
+            <button
+              type="button"
+              onClick={() => setShowPw((s) => !s)}
+              className="absolute right-3 top-1/2 -translate-y-1/2 text-gray-400 hover:text-gray-600 text-sm"
+              aria-label={showPw ? 'Hide password' : 'Show password'}
+            >
+              {showPw ? '🙈' : '👁️'}
+            </button>
+          </div>
           {authError && <p className="text-red-500 text-sm mt-2">{authError}</p>}
           <button type="submit"
             className="mt-4 w-full bg-orange-500 hover:bg-orange-600 text-white font-semibold rounded-lg px-4 py-2.5 transition-colors">
