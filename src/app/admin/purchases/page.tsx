@@ -1,10 +1,31 @@
 import { buildPurchaseReport, attributionSummary, type PurchaseRecord } from "@/lib/purchase-attribution";
-import { isAuthorized } from "@/lib/admin-auth";
+import { ADMIN_COOKIE, isAuthorized } from "@/lib/admin-auth";
+import { cookies } from "next/headers";
+import { redirect } from "next/navigation";
 
 export const runtime = "nodejs";
 export const dynamic = "force-dynamic";
 
-type SearchParams = Promise<{ password?: string; limit?: string }>;
+type SearchParams = Promise<{ error?: string; limit?: string }>;
+
+async function loginAction(formData: FormData) {
+  "use server";
+
+  const password = String(formData.get("password") || "");
+  if (!isAuthorized(password)) {
+    redirect("/admin/purchases?error=1");
+  }
+
+  const cookieStore = await cookies();
+  cookieStore.set(ADMIN_COOKIE, password, {
+    httpOnly: true,
+    maxAge: 8 * 60 * 60,
+    path: "/admin/purchases",
+    sameSite: "lax",
+    secure: process.env.NODE_ENV === "production",
+  });
+  redirect("/admin/purchases");
+}
 
 function money(cents?: number): string {
   if (cents == null) return "—";
@@ -32,14 +53,17 @@ function statusBadge(status: PurchaseRecord["status"]) {
 }
 
 export default async function PurchasesDashboard({ searchParams }: { searchParams: SearchParams }) {
-  const { password } = await searchParams;
+  const { error: authError } = await searchParams;
+  const cookieStore = await cookies();
+  const password = cookieStore.get(ADMIN_COOKIE)?.value;
 
   if (!isAuthorized(password)) {
     return (
       <main className="min-h-screen bg-slate-950 text-slate-100 flex items-center justify-center p-6">
-        <form className="w-full max-w-sm space-y-4 rounded-2xl border border-slate-800 bg-slate-900 p-8">
+        <form action={loginAction} className="w-full max-w-sm space-y-4 rounded-2xl border border-slate-800 bg-slate-900 p-8">
           <h1 className="text-xl font-bold">Purchases Dashboard</h1>
           <p className="text-sm text-slate-400">Enter the admin password to continue.</p>
+          {authError ? <p className="text-sm text-rose-400">Incorrect password.</p> : null}
           <input
             type="password"
             name="password"
