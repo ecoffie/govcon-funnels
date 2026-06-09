@@ -1,63 +1,134 @@
 'use client';
 
-import { useEffect, useState, useCallback } from 'react';
+import { useEffect, useState, useCallback, useMemo } from 'react';
 import Image from 'next/image';
 
 interface Registrant {
   name: string;
+  firstName: string;
+  lastName: string;
+  email: string;
+  phone: string | null;
   company: string | null;
+  formLabel: 'Top form' | 'Bottom form' | 'Other';
+  source: string;
+  signedUpAt: string;
   date: string;
   internal: boolean;
 }
 
-interface Summary {
+interface SourceBreakdown {
+  label: string;
+  count: number;
+  pct: number;
+}
+
+interface CommandCenter {
   count: number;
   internalCount: number;
   total: number;
+  goal: number;
+  pctToGoal: number;
   webinarDate: string;
   daysUntil: number;
-  registrants: Registrant[];
-  trend: { date: string; count: number }[];
   updatedAt: string;
+  neededPerDay: number;
+  runRatePerDay: number;
+  recentRatePerDay: number;
+  projectedFinal: number;
+  onTrack: boolean;
+  last24h: number;
+  last7d: number;
+  daysSinceLast: number | null;
+  momentum: 'accelerating' | 'steady' | 'cooling';
+  sources: SourceBreakdown[];
+  trend: { date: string; count: number }[];
+  registrants: Registrant[];
 }
 
-function formatDate(iso: string): string {
-  if (!iso || iso === 'unknown') return '';
+const PW_KEY = 'hubzone-tracker-pw';
+
+function fmtDay(iso: string): string {
+  if (!iso || iso === 'unknown') return '—';
   const d = new Date(`${iso}T00:00:00Z`);
   return d.toLocaleDateString('en-US', { month: 'short', day: 'numeric', timeZone: 'UTC' });
+}
+
+function fmtDateTime(iso: string): string {
+  if (!iso) return '—';
+  const d = new Date(iso);
+  if (isNaN(d.getTime())) return '—';
+  return d.toLocaleString('en-US', {
+    month: 'short', day: 'numeric', hour: 'numeric', minute: '2-digit',
+  });
 }
 
 function Sparkbars({ trend }: { trend: { date: string; count: number }[] }) {
   if (!trend.length) return null;
   const max = Math.max(...trend.map((t) => t.count), 1);
   return (
-    <div className="flex items-end gap-1.5 h-20">
+    <div className="flex items-end gap-1.5 h-24">
       {trend.map((t) => (
         <div key={t.date} className="flex flex-col items-center gap-1 flex-1 min-w-0">
+          <span className="text-[10px] font-semibold text-gray-500">{t.count}</span>
           <div
             className="w-full rounded-t bg-orange-500/90 transition-all"
-            style={{ height: `${Math.max(8, (t.count / max) * 64)}px` }}
-            title={`${formatDate(t.date)}: ${t.count}`}
+            style={{ height: `${Math.max(6, (t.count / max) * 60)}px` }}
+            title={`${fmtDay(t.date)}: ${t.count}`}
           />
-          <span className="text-[10px] text-gray-400 whitespace-nowrap">{formatDate(t.date)}</span>
+          <span className="text-[10px] text-gray-400 whitespace-nowrap">{fmtDay(t.date)}</span>
         </div>
       ))}
     </div>
   );
 }
 
-const PW_KEY = 'hubzone-tracker-pw';
+function Stat({ label, value, sub, tone = 'default' }: {
+  label: string; value: React.ReactNode; sub?: string;
+  tone?: 'default' | 'good' | 'bad' | 'warn';
+}) {
+  const valueColor = {
+    default: 'text-slate-900', good: 'text-emerald-600',
+    bad: 'text-red-500', warn: 'text-orange-500',
+  }[tone];
+  return (
+    <div className="bg-white rounded-xl border border-gray-200 p-4">
+      <div className="text-[11px] font-semibold uppercase tracking-wide text-gray-400">{label}</div>
+      <div className={`text-2xl font-bold tabular-nums mt-1 ${valueColor}`}>{value}</div>
+      {sub && <div className="text-xs text-gray-400 mt-0.5">{sub}</div>}
+    </div>
+  );
+}
 
-export default function RegistrationsTrackerPage() {
+function downloadCsv(rows: Registrant[]) {
+  const headers = ['Name', 'Email', 'Phone', 'Company', 'Form', 'Signed Up', 'Internal'];
+  const escape = (v: string) => `"${(v ?? '').replace(/"/g, '""')}"`;
+  const lines = [headers.join(',')];
+  for (const r of rows) {
+    lines.push([
+      r.name, r.email, r.phone ?? '', r.company ?? '', r.formLabel,
+      r.signedUpAt, r.internal ? 'yes' : 'no',
+    ].map((v) => escape(String(v))).join(','));
+  }
+  const blob = new Blob([lines.join('\n')], { type: 'text/csv' });
+  const url = URL.createObjectURL(blob);
+  const a = document.createElement('a');
+  a.href = url;
+  a.download = `hubzone-registrations-${new Date().toISOString().slice(0, 10)}.csv`;
+  a.click();
+  URL.revokeObjectURL(url);
+}
+
+export default function CommandCenterPage() {
   const [password, setPassword] = useState<string | null>(null);
   const [pwInput, setPwInput] = useState('');
   const [showPw, setShowPw] = useState(false);
   const [authError, setAuthError] = useState<string | null>(null);
-  const [data, setData] = useState<Summary | null>(null);
+  const [data, setData] = useState<CommandCenter | null>(null);
   const [error, setError] = useState<string | null>(null);
   const [loading, setLoading] = useState(false);
+  const [showInternal, setShowInternal] = useState(false);
 
-  // Restore a previously-entered password for this browser session.
   useEffect(() => {
     const saved = sessionStorage.getItem(PW_KEY);
     if (saved) setPassword(saved);
@@ -72,7 +143,6 @@ export default function RegistrationsTrackerPage() {
         headers: { 'x-admin-password': password },
       });
       if (res.status === 401) {
-        // Bad/expired password — clear it and drop back to the login screen.
         sessionStorage.removeItem(PW_KEY);
         setPassword(null);
         setAuthError('Incorrect password.');
@@ -91,7 +161,6 @@ export default function RegistrationsTrackerPage() {
   useEffect(() => {
     if (!password) return;
     load();
-    // Auto-refresh every 60s so a left-open tab stays live.
     const id = setInterval(load, 60_000);
     return () => clearInterval(id);
   }, [load, password]);
@@ -106,14 +175,19 @@ export default function RegistrationsTrackerPage() {
     setPassword(pw);
   }
 
-  // Login screen — shown until a password is entered/restored.
+  const visibleRegistrants = useMemo(
+    () => (data?.registrants ?? []).filter((r) => showInternal || !r.internal),
+    [data, showInternal],
+  );
+
+  // ---- Login screen ----
   if (!password) {
     return (
       <main className="min-h-screen bg-gray-50 flex items-center justify-center px-4">
         <form onSubmit={submitPassword}
           className="bg-white rounded-2xl border border-gray-200 shadow-sm p-8 w-full max-w-sm text-center">
           <p className="text-xs font-semibold tracking-widest text-orange-600 uppercase">
-            Registration Tracker
+            Command Center
           </p>
           <h1 className="text-xl font-bold text-slate-900 mt-1 mb-1">HUBZone Webinar</h1>
           <p className="text-gray-500 text-sm mb-6">Team access only</p>
@@ -126,114 +200,197 @@ export default function RegistrationsTrackerPage() {
               placeholder="Password"
               className="w-full border border-gray-300 rounded-lg pl-4 pr-12 py-2.5 text-center text-slate-900 placeholder:text-gray-400 focus:outline-none focus:ring-2 focus:ring-orange-500 focus:border-orange-500"
             />
-            <button
-              type="button"
-              onClick={() => setShowPw((s) => !s)}
+            <button type="button" onClick={() => setShowPw((s) => !s)}
               className="absolute right-3 top-1/2 -translate-y-1/2 text-gray-400 hover:text-gray-600 text-sm"
-              aria-label={showPw ? 'Hide password' : 'Show password'}
-            >
+              aria-label={showPw ? 'Hide password' : 'Show password'}>
               {showPw ? '🙈' : '👁️'}
             </button>
           </div>
           {authError && <p className="text-red-500 text-sm mt-2">{authError}</p>}
           <button type="submit"
             className="mt-4 w-full bg-orange-500 hover:bg-orange-600 text-white font-semibold rounded-lg px-4 py-2.5 transition-colors">
-            View Tracker
+            Enter
           </button>
         </form>
       </main>
     );
   }
 
+  const momentumChip = data && {
+    accelerating: { txt: '▲ Accelerating', cls: 'text-emerald-700 bg-emerald-50' },
+    steady: { txt: '— Steady', cls: 'text-gray-600 bg-gray-100' },
+    cooling: { txt: '▼ Cooling', cls: 'text-red-600 bg-red-50' },
+  }[data.momentum];
+
   return (
-    <main className="min-h-screen bg-gray-50 py-10 px-4">
-      <div className="max-w-2xl mx-auto">
+    <main className="min-h-screen bg-gray-50 py-8 px-4">
+      <div className="max-w-5xl mx-auto">
         {/* Header */}
-        <div className="flex items-center justify-center gap-4 mb-6 flex-wrap">
-          <Image src="/hubzone/logo-gcg.png" alt="GovCon Giants" width={120} height={40}
-            className="h-8 w-auto object-contain" />
-          <span className="text-gray-300">×</span>
-          <Image src="/hubzone/logo-encore.png" alt="Encore Funding" width={120} height={40}
-            className="h-8 w-auto object-contain" />
+        <div className="flex items-center justify-between gap-4 mb-6 flex-wrap">
+          <div className="flex items-center gap-3">
+            <Image src="/hubzone/logo-gcg.png" alt="GovCon Giants" width={110} height={36}
+              className="h-7 w-auto object-contain" />
+            <span className="text-gray-300">×</span>
+            <Image src="/hubzone/logo-encore.png" alt="Encore Funding" width={110} height={36}
+              className="h-7 w-auto object-contain" />
+          </div>
+          <div className="text-right">
+            <p className="text-[11px] font-semibold tracking-widest text-orange-600 uppercase">
+              Registration Command Center
+            </p>
+            <p className="text-sm text-gray-500">HUBZone Webinar · Wed June 17, 2026 · 6–8 PM EST</p>
+          </div>
         </div>
 
-        <div className="text-center mb-2">
-          <p className="text-xs font-semibold tracking-widest text-orange-600 uppercase">
-            Live Registration Tracker
-          </p>
-          <h1 className="text-2xl font-bold text-slate-900 mt-1">HUBZone Webinar</h1>
-          <p className="text-gray-500 text-sm">Wednesday, June 17, 2026 · 6:00–8:00 PM EST</p>
-        </div>
-
-        {/* Hero count */}
-        <div className="bg-white rounded-2xl border border-gray-200 shadow-sm p-8 my-6 text-center">
-          {loading && !data ? (
-            <div className="text-gray-400 py-8">Loading…</div>
-          ) : error ? (
-            <div className="text-red-500 py-8 text-sm">{error}</div>
-          ) : data ? (
-            <>
-              <div className="text-6xl font-extrabold text-orange-500 tabular-nums">{data.count}</div>
-              <div className="text-gray-500 mt-1">registered</div>
-              <div className="flex items-center justify-center gap-6 mt-6 text-sm">
+        {loading && !data ? (
+          <div className="text-center text-gray-400 py-20">Loading command center…</div>
+        ) : error ? (
+          <div className="text-center text-red-500 py-20 text-sm">{error}</div>
+        ) : data ? (
+          <>
+            {/* GOAL / PROGRESS BAR */}
+            <div className="bg-white rounded-2xl border border-gray-200 shadow-sm p-6 mb-5">
+              <div className="flex items-end justify-between mb-3 flex-wrap gap-2">
                 <div>
-                  <div className="text-xl font-bold text-slate-900 tabular-nums">{data.daysUntil}</div>
-                  <div className="text-gray-400">days to go</div>
+                  <span className="text-4xl font-extrabold text-orange-500 tabular-nums">{data.count}</span>
+                  <span className="text-gray-400 text-lg"> / {data.goal} goal</span>
                 </div>
-                {data.internalCount > 0 && (
-                  <div>
-                    <div className="text-xl font-bold text-slate-900 tabular-nums">+{data.internalCount}</div>
-                    <div className="text-gray-400">team</div>
-                  </div>
-                )}
+                <div className="flex items-center gap-2">
+                  <span className={`text-xs font-semibold px-2.5 py-1 rounded-full ${
+                    data.onTrack ? 'text-emerald-700 bg-emerald-50' : 'text-red-600 bg-red-50'}`}>
+                    {data.onTrack ? 'On track' : 'Behind pace'}
+                  </span>
+                  <span className="text-sm text-gray-500">{data.daysUntil} days left</span>
+                </div>
               </div>
-            </>
-          ) : null}
-        </div>
+              <div className="w-full h-3 bg-gray-100 rounded-full overflow-hidden">
+                <div className="h-full bg-gradient-to-r from-orange-400 to-orange-600 rounded-full transition-all"
+                  style={{ width: `${Math.min(100, data.pctToGoal)}%` }} />
+              </div>
+              <div className="text-xs text-gray-400 mt-1.5">{data.pctToGoal}% to goal</div>
+            </div>
 
-        {/* Trend */}
-        {data && data.trend.length > 0 && (
-          <div className="bg-white rounded-2xl border border-gray-200 shadow-sm p-6 mb-6">
-            <p className="text-xs font-semibold text-gray-500 uppercase tracking-wide mb-4">
-              Daily sign-ups
+            {/* PACE & PROJECTION */}
+            <p className="text-xs font-semibold text-gray-500 uppercase tracking-wide mb-2">Pace & Projection</p>
+            <div className="grid grid-cols-2 md:grid-cols-4 gap-3 mb-6">
+              <Stat label="Need / day" value={data.neededPerDay}
+                sub={`to reach ${data.goal} in ${data.daysUntil}d`}
+                tone={data.neededPerDay > data.recentRatePerDay ? 'bad' : 'good'} />
+              <Stat label="Current pace" value={`${data.recentRatePerDay}/day`} sub="7-day avg" />
+              <Stat label="Projected final" value={data.projectedFinal}
+                sub="at current pace" tone={data.onTrack ? 'good' : 'bad'} />
+              <Stat label="Gap to close" value={Math.max(0, data.goal - data.projectedFinal)}
+                sub="goal − projection" tone="warn" />
+            </div>
+
+            {/* VELOCITY & RECENCY */}
+            <p className="text-xs font-semibold text-gray-500 uppercase tracking-wide mb-2">Velocity & Recency</p>
+            <div className="grid grid-cols-2 md:grid-cols-4 gap-3 mb-6">
+              <Stat label="Last 24h" value={data.last24h} tone={data.last24h > 0 ? 'good' : 'default'} />
+              <Stat label="Last 7 days" value={data.last7d} />
+              <Stat label="Since last reg"
+                value={data.daysSinceLast === null ? '—' : data.daysSinceLast === 0 ? 'Today' : `${data.daysSinceLast}d`}
+                tone={data.daysSinceLast !== null && data.daysSinceLast >= 2 ? 'bad' : 'default'} />
+              <div className="bg-white rounded-xl border border-gray-200 p-4">
+                <div className="text-[11px] font-semibold uppercase tracking-wide text-gray-400">Momentum</div>
+                {momentumChip && (
+                  <span className={`inline-block mt-2 text-sm font-semibold px-2.5 py-1 rounded-full ${momentumChip.cls}`}>
+                    {momentumChip.txt}
+                  </span>
+                )}
+                <div className="text-xs text-gray-400 mt-1">last 3d vs prior 3d</div>
+              </div>
+            </div>
+
+            {/* TREND + SOURCE side by side */}
+            <div className="grid md:grid-cols-2 gap-5 mb-6">
+              <div className="bg-white rounded-2xl border border-gray-200 shadow-sm p-6">
+                <p className="text-xs font-semibold text-gray-500 uppercase tracking-wide mb-4">Daily sign-ups</p>
+                <Sparkbars trend={data.trend} />
+              </div>
+              <div className="bg-white rounded-2xl border border-gray-200 shadow-sm p-6">
+                <p className="text-xs font-semibold text-gray-500 uppercase tracking-wide mb-4">Source attribution</p>
+                <div className="space-y-3">
+                  {data.sources.map((s) => (
+                    <div key={s.label}>
+                      <div className="flex justify-between text-sm mb-1">
+                        <span className="text-slate-700">{s.label}</span>
+                        <span className="text-gray-500 tabular-nums">{s.count} · {s.pct}%</span>
+                      </div>
+                      <div className="w-full h-2 bg-gray-100 rounded-full overflow-hidden">
+                        <div className="h-full bg-orange-500 rounded-full" style={{ width: `${s.pct}%` }} />
+                      </div>
+                    </div>
+                  ))}
+                  {data.internalCount > 0 && (
+                    <p className="text-xs text-gray-400 pt-2">
+                      +{data.internalCount} internal team sign-ups (excluded from goal)
+                    </p>
+                  )}
+                </div>
+              </div>
+            </div>
+
+            {/* WORKLIST */}
+            <div className="bg-white rounded-2xl border border-gray-200 shadow-sm overflow-hidden">
+              <div className="flex items-center justify-between px-6 py-4 flex-wrap gap-3">
+                <p className="text-xs font-semibold text-gray-500 uppercase tracking-wide">
+                  Follow-up worklist · {visibleRegistrants.length}
+                </p>
+                <div className="flex items-center gap-3">
+                  <label className="flex items-center gap-1.5 text-xs text-gray-500 cursor-pointer">
+                    <input type="checkbox" checked={showInternal}
+                      onChange={(e) => setShowInternal(e.target.checked)}
+                      className="accent-orange-500" />
+                    Show team
+                  </label>
+                  <button onClick={() => downloadCsv(visibleRegistrants)}
+                    className="text-xs font-semibold text-orange-600 hover:text-orange-700 border border-orange-200 hover:border-orange-300 rounded-lg px-3 py-1.5">
+                    ↓ Export CSV
+                  </button>
+                </div>
+              </div>
+              <div className="overflow-x-auto">
+                <table className="w-full text-sm">
+                  <thead>
+                    <tr className="text-left text-[11px] uppercase tracking-wide text-gray-400 border-y border-gray-100">
+                      <th className="px-6 py-2 font-semibold">Name</th>
+                      <th className="px-3 py-2 font-semibold">Email</th>
+                      <th className="px-3 py-2 font-semibold">Phone</th>
+                      <th className="px-3 py-2 font-semibold">Form</th>
+                      <th className="px-6 py-2 font-semibold whitespace-nowrap">Signed up</th>
+                    </tr>
+                  </thead>
+                  <tbody className="divide-y divide-gray-50">
+                    {visibleRegistrants.map((r, i) => (
+                      <tr key={i} className="hover:bg-gray-50">
+                        <td className="px-6 py-2.5 font-medium text-slate-900 whitespace-nowrap">
+                          {r.name}
+                          {r.internal && (
+                            <span className="ml-2 text-[10px] font-semibold text-orange-600 bg-orange-50 px-1.5 py-0.5 rounded uppercase">Team</span>
+                          )}
+                        </td>
+                        <td className="px-3 py-2.5">
+                          <a href={`mailto:${r.email}`} className="text-orange-600 hover:underline">{r.email}</a>
+                        </td>
+                        <td className="px-3 py-2.5 text-gray-600 whitespace-nowrap">
+                          {r.phone ? <a href={`tel:${r.phone}`} className="hover:underline">{r.phone}</a> : <span className="text-gray-300">—</span>}
+                        </td>
+                        <td className="px-3 py-2.5 text-gray-500 whitespace-nowrap">{r.formLabel}</td>
+                        <td className="px-6 py-2.5 text-gray-500 whitespace-nowrap">{fmtDateTime(r.signedUpAt)}</td>
+                      </tr>
+                    ))}
+                  </tbody>
+                </table>
+              </div>
+            </div>
+
+            <p className="text-center text-xs text-gray-400 mt-6">
+              Auto-refreshes every minute · Updated{' '}
+              {new Date(data.updatedAt).toLocaleTimeString('en-US', { hour: 'numeric', minute: '2-digit' })}
             </p>
-            <Sparkbars trend={data.trend} />
-          </div>
-        )}
-
-        {/* Registrant list */}
-        {data && data.registrants.length > 0 && (
-          <div className="bg-white rounded-2xl border border-gray-200 shadow-sm overflow-hidden">
-            <p className="text-xs font-semibold text-gray-500 uppercase tracking-wide px-6 pt-5 pb-2">
-              Who's registered
-            </p>
-            <ul className="divide-y divide-gray-100">
-              {data.registrants.map((r, i) => (
-                <li key={i} className="flex items-center justify-between px-6 py-3">
-                  <div className="min-w-0">
-                    <span className="font-medium text-slate-900">{r.name}</span>
-                    {r.company && (
-                      <span className="text-gray-400 text-sm"> · {r.company}</span>
-                    )}
-                    {r.internal && (
-                      <span className="ml-2 text-[10px] font-semibold text-orange-600 bg-orange-50 px-1.5 py-0.5 rounded uppercase">
-                        Team
-                      </span>
-                    )}
-                  </div>
-                  <span className="text-xs text-gray-400 whitespace-nowrap ml-3">{formatDate(r.date)}</span>
-                </li>
-              ))}
-            </ul>
-          </div>
-        )}
-
-        {data && (
-          <p className="text-center text-xs text-gray-400 mt-6">
-            Auto-refreshes every minute · Last updated{' '}
-            {new Date(data.updatedAt).toLocaleTimeString('en-US', { hour: 'numeric', minute: '2-digit' })}
-          </p>
-        )}
+          </>
+        ) : null}
       </div>
     </main>
   );

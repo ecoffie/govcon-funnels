@@ -1,10 +1,14 @@
 /**
- * HUBZone webinar registration tracker.
+ * HUBZone webinar registration command center.
  *
  * Reads registrant contacts from GoHighLevel (tagged when the lead form is
- * submitted on /hubzone) and returns a sanitized, public-safe summary:
- * count, daily trend, and redacted names (first name + last initial + company).
- * Emails and phones are never returned to the client.
+ * submitted on /hubzone) and returns full operational detail for the
+ * password-gated team dashboard: pace vs. goal, projection, velocity,
+ * source attribution, and a follow-up worklist with contact info.
+ *
+ * This endpoint is password-protected, so it returns real contact detail
+ * (name/email/phone) for the team to work the list. The lib never decides
+ * caching — the route does.
  */
 
 const GHL_SEARCH_URL = 'https://services.leadconnectorhq.com/contacts/search';
@@ -12,8 +16,11 @@ const GHL_SEARCH_URL = 'https://services.leadconnectorhq.com/contacts/search';
 /** Tags applied by the hubzone lead forms (top + bottom of page). */
 const HUBZONE_TAGS = ['hubzone-webinar', 'hubzone-webinar-bottom'];
 
-/** Webinar date — used by the UI for the countdown. */
+/** Webinar date — used by the UI for the countdown + pace math. */
 export const WEBINAR_DATE_ISO = '2026-06-17';
+
+/** Registration goal for June 17 (drives the pace/projection panel). */
+export const REGISTRATION_GOAL = 200;
 
 interface GhlContact {
   id?: string;
@@ -21,33 +28,75 @@ interface GhlContact {
   firstName?: string;
   lastName?: string;
   companyName?: string;
+  phone?: string;
+  source?: string;
   dateAdded?: string;
   tags?: string[];
 }
 
-export interface PublicRegistrant {
-  /** "Heather B." — first name + last initial, redacted. */
+/** A registrant with full (gated) contact detail for the worklist. */
+export interface Registrant {
   name: string;
+  firstName: string;
+  lastName: string;
+  email: string;
+  phone: string | null;
   company: string | null;
-  /** YYYY-MM-DD */
+  /** Which form converted them: 'top' (hero) or 'bottom' (footer CTA). */
+  formLabel: 'Top form' | 'Bottom form' | 'Other';
+  source: string;
+  /** Full ISO timestamp of signup. */
+  signedUpAt: string;
+  /** YYYY-MM-DD (UTC) for grouping. */
   date: string;
-  /** True for Encore team / internal sign-ups (still shown, flagged). */
   internal: boolean;
 }
 
-export interface RegistrationSummary {
-  /** Genuine external registrants (excludes test + internal). */
+export interface SourceBreakdown {
+  label: string;
   count: number;
-  /** Internal Encore/GCG team sign-ups. */
+  pct: number;
+}
+
+export interface RegistrationCommandCenter {
+  // headline
+  count: number; // external (excludes test + internal)
   internalCount: number;
   total: number;
+  goal: number;
+  pctToGoal: number;
+
+  // dates
   webinarDate: string;
   daysUntil: number;
-  /** Most-recent-first. */
-  registrants: PublicRegistrant[];
-  /** [{ date, count }] ascending by date, external registrants only. */
-  trend: { date: string; count: number }[];
   updatedAt: string;
+
+  // pace & projection
+  /** Registrations per day still needed to hit goal in the remaining days. */
+  neededPerDay: number;
+  /** Average registrations/day over the active sign-up window so far. */
+  runRatePerDay: number;
+  /** Average registrations/day over the last 7 days. */
+  recentRatePerDay: number;
+  /** Projected final count at the recent run rate. */
+  projectedFinal: number;
+  /** True if recent pace would hit the goal. */
+  onTrack: boolean;
+
+  // velocity & recency
+  last24h: number;
+  last7d: number;
+  /** Days since the most recent external registration (0 = today). */
+  daysSinceLast: number | null;
+  /** 'accelerating' | 'steady' | 'cooling' based on last-3d vs prior-3d. */
+  momentum: 'accelerating' | 'steady' | 'cooling';
+
+  // source attribution
+  sources: SourceBreakdown[];
+
+  // data
+  trend: { date: string; count: number }[];
+  registrants: Registrant[];
 }
 
 /** Emails that are test data or known internal team members. */
@@ -63,14 +112,18 @@ function isInternalEmail(email: string): boolean {
   return INTERNAL_EMAIL_DOMAINS.includes(domain);
 }
 
-/** "Heather Bianconi" -> "Heather B." ; falls back gracefully. */
-function redactName(first?: string, last?: string): string {
+function displayName(first?: string, last?: string, email?: string): string {
   const f = (first ?? '').trim();
   const l = (last ?? '').trim();
-  if (!f && !l) return 'Registrant';
-  if (f.toLowerCase() === 'none') return l ? `${l.charAt(0)}.` : 'Registrant';
-  const initial = l && l.toLowerCase() !== 'none' ? ` ${l.charAt(0).toUpperCase()}.` : '';
-  return `${f}${initial}`.trim();
+  const clean = (s: string) => (s.toLowerCase() === 'none' ? '' : s);
+  const name = `${clean(f)} ${clean(l)}`.trim();
+  return name || (email ?? 'Registrant');
+}
+
+function formLabelFor(source: string): Registrant['formLabel'] {
+  if (source.includes('bottom')) return 'Bottom form';
+  if (source.includes('hubzone-webinar')) return 'Top form';
+  return 'Other';
 }
 
 async function searchByTag(tag: string, apiKey: string, locationId: string): Promise<GhlContact[]> {
@@ -86,7 +139,6 @@ async function searchByTag(tag: string, apiKey: string, locationId: string): Pro
       pageLimit: 100,
       filters: [{ field: 'tags', operator: 'contains', value: tag }],
     }),
-    // GHL data changes constantly; never cache at the fetch layer.
     cache: 'no-store',
   });
 
@@ -99,13 +151,23 @@ async function searchByTag(tag: string, apiKey: string, locationId: string): Pro
   return Array.isArray(data?.contacts) ? data.contacts : [];
 }
 
+const DAY_MS = 1000 * 60 * 60 * 24;
+
 function daysUntil(dateIso: string, now: Date): number {
   const target = new Date(`${dateIso}T00:00:00Z`);
-  const ms = target.getTime() - now.getTime();
-  return Math.max(0, Math.ceil(ms / (1000 * 60 * 60 * 24)));
+  return Math.max(0, Math.ceil((target.getTime() - now.getTime()) / DAY_MS));
 }
 
-export async function getHubzoneRegistrations(now: Date): Promise<RegistrationSummary> {
+/** Count registrants whose signup falls within the last `hours` from now. */
+function countWithin(rows: Registrant[], now: Date, hours: number): number {
+  const cutoff = now.getTime() - hours * 60 * 60 * 1000;
+  return rows.filter((r) => {
+    const t = Date.parse(r.signedUpAt);
+    return Number.isFinite(t) && t >= cutoff;
+  }).length;
+}
+
+export async function getHubzoneRegistrations(now: Date): Promise<RegistrationCommandCenter> {
   const apiKey = process.env.GHL_API_KEY;
   const locationId = process.env.GHL_LOCATION_ID;
   if (!apiKey || !locationId) {
@@ -120,48 +182,116 @@ export async function getHubzoneRegistrations(now: Date): Promise<RegistrationSu
     if (key && !byKey.has(key)) byKey.set(key, contact);
   }
 
-  const external: PublicRegistrant[] = [];
+  const rows: Registrant[] = [];
   let internalCount = 0;
 
   for (const c of byKey.values()) {
     const email = (c.email ?? '').toLowerCase();
     if (!email || isTestEmail(email)) continue; // drop test/QA leads entirely
 
-    const date = (c.dateAdded ?? '').slice(0, 10);
+    const signedUpAt = c.dateAdded ?? '';
     const internal = isInternalEmail(email);
     if (internal) internalCount += 1;
 
-    external.push({
-      name: redactName(c.firstName, c.lastName),
+    const source = (c.source ?? '').trim() || 'unknown';
+    rows.push({
+      name: displayName(c.firstName, c.lastName, c.email),
+      firstName: (c.firstName ?? '').trim(),
+      lastName: (c.lastName ?? '').trim(),
+      email,
+      phone: (c.phone ?? '').trim() || null,
       company: (c.companyName ?? '').trim() || null,
-      date: date || 'unknown',
+      formLabel: formLabelFor(source),
+      source,
+      signedUpAt,
+      date: signedUpAt.slice(0, 10) || 'unknown',
       internal,
     });
   }
 
-  // Sort most-recent-first for the list.
-  external.sort((a, b) => (a.date < b.date ? 1 : a.date > b.date ? -1 : 0));
+  // Most-recent-first.
+  rows.sort((a, b) => (a.signedUpAt < b.signedUpAt ? 1 : a.signedUpAt > b.signedUpAt ? -1 : 0));
 
-  // Trend: external (non-internal) registrants per day, ascending.
+  const external = rows.filter((r) => !r.internal);
+  const count = external.length;
+
+  // ---- Trend (external, per day, ascending) ----
   const trendMap = new Map<string, number>();
   for (const r of external) {
-    if (r.internal || r.date === 'unknown') continue;
+    if (r.date === 'unknown') continue;
     trendMap.set(r.date, (trendMap.get(r.date) ?? 0) + 1);
   }
   const trend = [...trendMap.entries()]
     .sort(([a], [b]) => (a < b ? -1 : 1))
     .map(([date, count]) => ({ date, count }));
 
-  const count = external.filter((r) => !r.internal).length;
+  // ---- Pace & projection ----
+  const remaining = daysUntil(WEBINAR_DATE_ISO, now);
+  const toGoal = Math.max(0, REGISTRATION_GOAL - count);
+  const neededPerDay = remaining > 0 ? toGoal / remaining : toGoal;
+
+  // Run rate over the active window (first signup → now), min 1 day.
+  const firstTs = external.length
+    ? Math.min(...external.map((r) => Date.parse(r.signedUpAt)).filter(Number.isFinite))
+    : now.getTime();
+  const activeDays = Math.max(1, Math.ceil((now.getTime() - firstTs) / DAY_MS));
+  const runRatePerDay = count / activeDays;
+
+  const last24h = countWithin(external, now, 24);
+  const last7d = countWithin(external, now, 24 * 7);
+  const recentRatePerDay = last7d / 7;
+
+  const projectedFinal = Math.round(count + recentRatePerDay * remaining);
+  const onTrack = projectedFinal >= REGISTRATION_GOAL;
+
+  // ---- Recency ----
+  let daysSinceLast: number | null = null;
+  if (external.length && external[0].signedUpAt) {
+    const lastTs = Date.parse(external[0].signedUpAt);
+    if (Number.isFinite(lastTs)) {
+      daysSinceLast = Math.floor((now.getTime() - lastTs) / DAY_MS);
+    }
+  }
+
+  // ---- Momentum: last 3 days vs the 3 days before that ----
+  const last3 = countWithin(external, now, 24 * 3);
+  const prev3 = countWithin(external, now, 24 * 6) - last3;
+  let momentum: RegistrationCommandCenter['momentum'] = 'steady';
+  if (last3 > prev3 * 1.25) momentum = 'accelerating';
+  else if (last3 < prev3 * 0.75) momentum = 'cooling';
+
+  // ---- Source attribution (external only) ----
+  const srcMap = new Map<string, number>();
+  for (const r of external) srcMap.set(r.formLabel, (srcMap.get(r.formLabel) ?? 0) + 1);
+  const sources: SourceBreakdown[] = [...srcMap.entries()]
+    .map(([label, n]) => ({ label, count: n, pct: count ? Math.round((n / count) * 100) : 0 }))
+    .sort((a, b) => b.count - a.count);
 
   return {
     count,
     internalCount,
-    total: external.length,
+    total: rows.length,
+    goal: REGISTRATION_GOAL,
+    pctToGoal: Math.round((count / REGISTRATION_GOAL) * 100),
+
     webinarDate: WEBINAR_DATE_ISO,
-    daysUntil: daysUntil(WEBINAR_DATE_ISO, now),
-    registrants: external,
-    trend,
+    daysUntil: remaining,
     updatedAt: now.toISOString(),
+
+    neededPerDay: Math.round(neededPerDay * 10) / 10,
+    runRatePerDay: Math.round(runRatePerDay * 10) / 10,
+    recentRatePerDay: Math.round(recentRatePerDay * 10) / 10,
+    projectedFinal,
+    onTrack,
+
+    last24h,
+    last7d,
+    daysSinceLast,
+    momentum,
+
+    sources,
+
+    trend,
+    registrants: rows, // includes internal (flagged) for the full worklist
   };
 }
