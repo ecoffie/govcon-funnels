@@ -355,6 +355,7 @@ export default function CommandCenterPage() {
                   <thead>
                     <tr className="text-left text-[11px] uppercase tracking-wide text-gray-400 border-y border-gray-100">
                       <th className="px-6 py-2 font-semibold">Name</th>
+                      <th className="px-3 py-2 font-semibold">Company</th>
                       <th className="px-3 py-2 font-semibold">Email</th>
                       <th className="px-3 py-2 font-semibold">Phone</th>
                       <th className="px-3 py-2 font-semibold">Form</th>
@@ -369,6 +370,9 @@ export default function CommandCenterPage() {
                           {r.internal && (
                             <span className="ml-2 text-[10px] font-semibold text-orange-600 bg-orange-50 px-1.5 py-0.5 rounded uppercase">Team</span>
                           )}
+                        </td>
+                        <td className="px-3 py-2.5 text-gray-600 whitespace-nowrap">
+                          {r.company || <span className="text-gray-300">—</span>}
                         </td>
                         <td className="px-3 py-2.5">
                           <a href={`mailto:${r.email}`} className="text-orange-600 hover:underline">{r.email}</a>

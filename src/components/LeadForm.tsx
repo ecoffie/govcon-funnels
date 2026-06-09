@@ -8,6 +8,10 @@ interface LeadFormProps {
   source?: string;
   /** Hide phone field (e.g. for minimal lead magnets) */
   hidePhone?: boolean;
+  /** Show a Company Name field (e.g. webinar registration) */
+  showCompany?: boolean;
+  /** Make the company field required when shown (default true) */
+  companyRequired?: boolean;
   /** Custom button class (e.g. for Encore branding) */
   buttonClassName?: string;
   /** Custom input class (e.g. form-input-encore for light theme) */
@@ -21,6 +25,8 @@ export default function LeadForm({
   redirectUrl = "/thank-you",
   source = "funnel",
   hidePhone = false,
+  showCompany = false,
+  companyRequired = true,
   buttonClassName = "btn-primary w-full green-glow disabled:opacity-50",
   inputClassName = "form-input",
   helperTextClassName = "text-center text-sm text-slate-400"
@@ -28,7 +34,8 @@ export default function LeadForm({
   const [formData, setFormData] = useState({
     name: '',
     email: '',
-    phone: ''
+    phone: '',
+    company: ''
   });
   const [isSubmitting, setIsSubmitting] = useState(false);
 
@@ -88,6 +95,16 @@ export default function LeadForm({
           placeholder="Your Phone (optional)"
           value={formData.phone}
           onChange={(e) => setFormData({ ...formData, phone: e.target.value })}
+          className={inputClassName}
+        />
+      )}
+      {showCompany && (
+        <input
+          type="text"
+          placeholder={companyRequired ? 'Company Name' : 'Company Name (optional)'}
+          value={formData.company}
+          onChange={(e) => setFormData({ ...formData, company: e.target.value })}
+          required={companyRequired}
           className={inputClassName}
         />
       )}

@@ -5,7 +5,7 @@ import { sendConfirmationEmail } from '@/lib/email';
 export async function POST(request: NextRequest) {
   try {
     const body = await request.json();
-    const { name, email, phone, source, redirectUrl, tags, abTestId, abVariant } = body;
+    const { name, email, phone, company, source, redirectUrl, tags, abTestId, abVariant } = body;
 
     if (!email?.trim()) {
       return NextResponse.json({ error: 'Email is required' }, { status: 400 });
@@ -15,6 +15,7 @@ export async function POST(request: NextRequest) {
       name: name?.trim() ?? '',
       email: email.trim(),
       phone: phone?.trim() ?? '',
+      company: company?.trim() ?? '',
       source: source?.trim() ?? 'website',
       redirectUrl,
       tags: Array.isArray(tags) ? tags : [],

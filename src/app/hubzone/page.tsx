@@ -1,5 +1,6 @@
 import Image from 'next/image';
 import LeadForm from '@/components/LeadForm';
+import HubzoneScarcityBanner from '@/components/HubzoneScarcityBanner';
 import JsonLd from '@/components/JsonLd';
 import { generateSeo, SITE_URL } from '@/lib/seo';
 
@@ -186,12 +187,16 @@ export default function HubzonePage() {
           </div>
           <div id="reserve-top" className="bg-gray-50 rounded-2xl p-8 shadow-lg">
             <h2 className="text-2xl font-bold mb-2 text-center">Reserve Your Seat</h2>
-            <p className="text-gray-500 text-center mb-6">
+            <p className="text-gray-500 text-center mb-4">
               June 17, 2026 · 6 – 8 PM EST
             </p>
+            <div className="flex justify-center mb-6">
+              <HubzoneScarcityBanner />
+            </div>
             <LeadForm
               buttonText="Reserve My Seat"
               source="hubzone-webinar"
+              showCompany
               redirectUrl="/hubzone/thank-you"
               buttonClassName="w-full bg-orange-500 hover:bg-orange-600 text-white font-bold py-3 px-6 rounded-lg transition-colors disabled:opacity-50"
               inputClassName="w-full px-4 py-3 border border-gray-200 rounded-lg focus:border-orange-500 focus:outline-none text-slate-900 placeholder-gray-400 bg-white"
@@ -395,6 +400,7 @@ export default function HubzonePage() {
               <LeadForm
                 buttonText="Reserve My Seat"
                 source="hubzone-webinar-bottom"
+                showCompany
                 redirectUrl="/hubzone/thank-you"
                 buttonClassName="w-full bg-orange-500 hover:bg-orange-600 text-white font-bold py-3 px-6 rounded-lg transition-colors disabled:opacity-50"
                 inputClassName="w-full px-4 py-3 border border-gray-200 rounded-lg focus:border-orange-500 focus:outline-none text-slate-900 placeholder-gray-400 bg-white"

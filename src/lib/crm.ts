@@ -7,6 +7,8 @@ export interface LeadPayload {
   name: string;
   email: string;
   phone?: string;
+  /** Optional: company name (e.g. webinar registration) */
+  company?: string;
   source: string;
   /** Optional: redirect path after submit (e.g. /bootcamp/upsell) */
   redirectUrl?: string;
@@ -55,6 +57,7 @@ export async function sendToGoHighLevel(lead: LeadPayload): Promise<{ ok: boolea
         lastName,
         email: lead.email,
         phone: lead.phone || '',
+        companyName: lead.company || '',
         source: lead.source,
         tags: allTags,
       }),
@@ -100,6 +103,7 @@ export async function sendToWebhook(lead: LeadPayload): Promise<{ ok: boolean; e
         lastName,
         email: lead.email,
         phone: lead.phone ?? '',
+        company: lead.company ?? '',
         source: lead.source,
         tags: allTags,
         redirectUrl: lead.redirectUrl,
@@ -153,6 +157,7 @@ export async function sendToSlack(lead: LeadPayload): Promise<{ ok: boolean; err
               { type: 'mrkdwn', text: `*Email:*\n${lead.email}` },
               { type: 'mrkdwn', text: `*Signed up for:*\n${sourceLabel}` },
               { type: 'mrkdwn', text: `*Phone:*\n${lead.phone || '\u2014'}` },
+              { type: 'mrkdwn', text: `*Company:*\n${lead.company || '\u2014'}` },
             ],
           },
           {
