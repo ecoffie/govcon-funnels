@@ -46,14 +46,37 @@ function Sparkbars({ trend }: { trend: { date: string; count: number }[] }) {
   );
 }
 
+const PW_KEY = 'hubzone-tracker-pw';
+
 export default function RegistrationsTrackerPage() {
+  const [password, setPassword] = useState<string | null>(null);
+  const [pwInput, setPwInput] = useState('');
+  const [authError, setAuthError] = useState<string | null>(null);
   const [data, setData] = useState<Summary | null>(null);
   const [error, setError] = useState<string | null>(null);
-  const [loading, setLoading] = useState(true);
+  const [loading, setLoading] = useState(false);
+
+  // Restore a previously-entered password for this browser session.
+  useEffect(() => {
+    const saved = sessionStorage.getItem(PW_KEY);
+    if (saved) setPassword(saved);
+  }, []);
 
   const load = useCallback(async () => {
+    if (!password) return;
+    setLoading(true);
     try {
-      const res = await fetch('/api/hubzone/registrations', { cache: 'no-store' });
+      const res = await fetch('/api/hubzone/registrations', {
+        cache: 'no-store',
+        headers: { 'x-admin-password': password },
+      });
+      if (res.status === 401) {
+        // Bad/expired password — clear it and drop back to the login screen.
+        sessionStorage.removeItem(PW_KEY);
+        setPassword(null);
+        setAuthError('Incorrect password.');
+        return;
+      }
       if (!res.ok) throw new Error((await res.json()).error || 'Failed to load');
       setData(await res.json());
       setError(null);
@@ -62,14 +85,54 @@ export default function RegistrationsTrackerPage() {
     } finally {
       setLoading(false);
     }
-  }, []);
+  }, [password]);
 
   useEffect(() => {
+    if (!password) return;
     load();
     // Auto-refresh every 60s so a left-open tab stays live.
     const id = setInterval(load, 60_000);
     return () => clearInterval(id);
-  }, [load]);
+  }, [load, password]);
+
+  function submitPassword(e: React.FormEvent) {
+    e.preventDefault();
+    const pw = pwInput.trim();
+    if (!pw) return;
+    sessionStorage.setItem(PW_KEY, pw);
+    setAuthError(null);
+    setPwInput('');
+    setPassword(pw);
+  }
+
+  // Login screen — shown until a password is entered/restored.
+  if (!password) {
+    return (
+      <main className="min-h-screen bg-gray-50 flex items-center justify-center px-4">
+        <form onSubmit={submitPassword}
+          className="bg-white rounded-2xl border border-gray-200 shadow-sm p-8 w-full max-w-sm text-center">
+          <p className="text-xs font-semibold tracking-widest text-orange-600 uppercase">
+            Registration Tracker
+          </p>
+          <h1 className="text-xl font-bold text-slate-900 mt-1 mb-1">HUBZone Webinar</h1>
+          <p className="text-gray-500 text-sm mb-6">Team access only</p>
+          <input
+            type="password"
+            autoFocus
+            value={pwInput}
+            onChange={(e) => setPwInput(e.target.value)}
+            placeholder="Password"
+            className="w-full border border-gray-300 rounded-lg px-4 py-2.5 text-center focus:outline-none focus:ring-2 focus:ring-orange-500 focus:border-orange-500"
+          />
+          {authError && <p className="text-red-500 text-sm mt-2">{authError}</p>}
+          <button type="submit"
+            className="mt-4 w-full bg-orange-500 hover:bg-orange-600 text-white font-semibold rounded-lg px-4 py-2.5 transition-colors">
+            View Tracker
+          </button>
+        </form>
+      </main>
+    );
+  }
 
   return (
     <main className="min-h-screen bg-gray-50 py-10 px-4">
