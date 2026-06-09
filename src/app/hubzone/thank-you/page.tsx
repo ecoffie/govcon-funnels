@@ -2,6 +2,7 @@
 
 import { useEffect, useState } from 'react';
 import Link from 'next/link';
+import HubzoneSpinWheel from '@/components/HubzoneSpinWheel';
 
 export default function HubzoneThankYou() {
   const [userName, setUserName] = useState('there');
@@ -27,6 +28,13 @@ export default function HubzoneThankYou() {
         </div>
 
         <div className="p-8 md:p-10 space-y-6">
+          {/* Spin-the-wheel reward (PROTOTYPE) */}
+          <div className="bg-gradient-to-b from-orange-50 to-white rounded-2xl p-6 border border-orange-100 text-center">
+            <h2 className="font-black text-slate-900 text-xl uppercase mb-1">🎡 Spin to Win</h2>
+            <p className="text-sm text-slate-500 mb-5">A thank-you for registering — one spin per attendee.</p>
+            <HubzoneSpinWheel />
+          </div>
+
           <div className="bg-slate-50 rounded-xl p-6 border border-slate-100">
             <h2 className="font-black text-slate-900 text-xl mb-3 uppercase">What Happens Next</h2>
             <ol className="space-y-3 text-slate-700">
