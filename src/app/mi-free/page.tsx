@@ -105,7 +105,7 @@ export default function MIFreePage() {
             <ABTestLeadForm
               testId="mi-free-cta"
               fallbackButtonText="Get Free Access"
-              redirectUrl="https://mi.govcongiants.com/alerts/signup"
+              redirectUrl="https://getmindy.ai/alerts/signup"
               source="mi-free-landing"
               hidePhone={true}
               buttonClassName="btn-primary w-full green-glow disabled:opacity-50 text-lg py-4"
@@ -184,7 +184,7 @@ export default function MIFreePage() {
           {/* CTA Buttons */}
           <div className="flex flex-col sm:flex-row gap-4 justify-center mt-12">
             <Link
-              href="https://mi.govcongiants.com/alerts/signup"
+              href="https://getmindy.ai/alerts/signup"
               className="px-8 py-4 bg-green-600 hover:bg-green-500 text-white rounded-xl font-bold text-lg transition-all text-center"
             >
               Start Free
@@ -258,7 +258,7 @@ export default function MIFreePage() {
             <ABTestLeadForm
               testId="mi-free-cta"
               fallbackButtonText="Get Free Access Now"
-              redirectUrl="https://mi.govcongiants.com/alerts/signup"
+              redirectUrl="https://getmindy.ai/alerts/signup"
               source="mi-free-landing-bottom"
               hidePhone={true}
               buttonClassName="btn-primary w-full green-glow disabled:opacity-50 text-lg py-4"

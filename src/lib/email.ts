@@ -162,7 +162,7 @@ export async function sendConfirmationEmail(params: EmailParams & { source: stri
  */
 export async function sendMarketIntelligenceEmail(params: EmailParams): Promise<EmailResult> {
   const firstName = params.name.split(' ')[0] || 'there';
-  const toolUrl = 'https://mi.govcongiants.com';
+  const toolUrl = 'https://getmindy.ai';
   const logoUrl = 'https://govcongiants.com/images/mi-logo.png';
 
   const content = `

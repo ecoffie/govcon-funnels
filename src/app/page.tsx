@@ -24,10 +24,10 @@ export const metadata = generateSeo({
 const CHECKOUT_MONTHLY = '/checkout/mindy-pro-monthly'; // $149/mo
 const CHECKOUT_ANNUAL = '/checkout/mindy-pro-annual';  // $1,490/yr
 const CHECKOUT_ULTIMATE_BUNDLE = '/checkout/ultimate-giant-bundle'; // $1,497 bundle
-const FREE_SIGNUP_URL = 'https://mi.govcongiants.com/alerts/signup';
+const FREE_SIGNUP_URL = 'https://getmindy.ai/alerts/signup';
 // ?recover=1 tells /briefings to render the email gate (Enter your email /
 // Email me a secure link) instead of auto-bouncing to /alerts/signup.
-const DASHBOARD_URL = 'https://mi.govcongiants.com/briefings?recover=1';
+const DASHBOARD_URL = 'https://getmindy.ai/briefings?recover=1';
 
 export default function Home() {
   return (
