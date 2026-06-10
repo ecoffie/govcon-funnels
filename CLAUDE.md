@@ -180,6 +180,29 @@ See `/tasks/lessons.md` for full details.
 
 ## Recent Work (Last 7 Days)
 
+### June 9–10, 2026 — HUBZone Webinar Command Center + encoregov SEO
+
+**HUBZone webinar registration tracker → command center** (`/hubzone/registrations`, password-gated):
+- `src/lib/hubzone-registrations.ts` — pulls GHL contacts by tags `hubzone-webinar` + `hubzone-webinar-bottom`, dedupes, drops test leads, flags internal (@encore-funding.com etc.) sign-ups. Computes pace vs. **200 goal**, projection (7-day run rate), velocity (24h/7d, days-since-last, momentum), source attribution (top vs bottom form).
+- `src/app/api/hubzone/registrations/route.ts` — gated: accepts **`HUBZONE_TRACKER_PASSWORD`** (`hubzone2026`, shareable) OR the admin `PURCHASES_ADMIN_PASSWORD`. Returns 401 without.
+- `src/app/hubzone/registrations/page.tsx` — login screen (👁️ show/hide), goal bar, pace/velocity stat cards, daily-signups sparkbars, source bars, follow-up worklist (name/company/email/phone/signup-time) + CSV export. Auto-refresh 60s, `noindex` via sibling layout.
+- **Public count-only** `src/app/api/hubzone/spots/route.ts` — `{registered, capacity:100, remaining, full}`, NO PII — powers the scarcity banner.
+
+**Meeting action items (June 10):**
+- **Company Name field** — `LeadForm` gained opt-in `showCompany` prop → threaded through `/api/lead` → GHL `companyName` + Slack + webhook. Enabled on both `/hubzone` forms; worklist + CSV show Company.
+- **Scarcity banner** — `HubzoneScarcityBanner.tsx` "first 100 get Zoom access" w/ live spots-remaining.
+- **Spin-the-wheel PROTOTYPE** — `HubzoneSpinWheel.tsx` on `/hubzone/thank-you`. Canvas, weighted prizes (editable `PRIZES` array), one-spin-per-attendee (localStorage), crypto-random draw. NOTE: client-side draw — move server-side + record to GHL before using for real valuable prizes.
+- Action items tracked in `tasks/hubzone-webinar-todo.md`.
+
+**encoregov.com cross-site SEO (inbound links from this site):**
+- HUBZone page: removed `rel=noreferrer` (was stripping link equity) → `rel=noopener`, descriptive anchor, points to `/government-contractor-financing`.
+- Homepage (Mindy) footer: added contextual financing-partner link to encoregov.com (`rel=noopener`).
+- **Repointed `/funding` + `/encore-funding`** (`FUNDING_DEST` in `funding/page.tsx`) from old `gov.encore-funding.com` → `encoregov.com/government-contractor-financing`, **UTM preserved** (`utm_source=Eric+Coffie&utm_medium=Referral`).
+
+**Gotchas learned:**
+- `echo "val" | vercel env add` stores a trailing `\n` → breaks constant-length password compare (401). Use `printf 'val' | vercel env add`, then redeploy (env binds only on a build AFTER the var is set).
+- `rel="noreferrer"` on outbound links strips SEO link equity — use `rel="noopener"` alone for partner links you want to pass authority.
+
 ### June 2, 2026
 - **Sales Tracking / Purchase Attribution (LIVE on govcongiants.com):**
   - First-party attribution funnel: `AttributionTracker` (layout.tsx) captures UTM/referrer/click-ids → `gca_attr` cookie + localStorage
@@ -291,4 +314,4 @@ See `/tasks/work-history.md` for full history including:
 
 ---
 
-*Last Updated: June 2, 2026*
+*Last Updated: June 10, 2026*
