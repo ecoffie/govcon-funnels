@@ -538,6 +538,18 @@ export default function Home() {
             <span className="mx-4">•</span>
             <Link href="/terms" className="text-slate-400 hover:text-white transition">Terms</Link>
           </p>
+          <p className="text-slate-600 text-xs mb-4">
+            Need working capital for your contracts? Our financing partner{' '}
+            <a
+              href="https://encoregov.com/government-contractor-financing"
+              target="_blank"
+              rel="noopener"
+              className="text-slate-400 hover:text-white underline transition"
+            >
+              Encore Funding offers government contractor financing
+            </a>
+            .
+          </p>
           <p className="text-slate-600 text-xs">
             © 2026 GovCon Giants
           </p>

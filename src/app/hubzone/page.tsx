@@ -442,12 +442,12 @@ export default function HubzonePage() {
               </p>
               <p>
                 <a
-                  href="https://encoregov.com"
+                  href="https://encoregov.com/government-contractor-financing"
                   target="_blank"
-                  rel="noopener noreferrer"
+                  rel="noopener"
                   className="hover:text-orange-600"
                 >
-                  encoregov.com
+                  Government contractor financing by Encore Funding
                 </a>
               </p>
             </div>
