@@ -12,6 +12,8 @@
  */
 
 const GHL_SEARCH_URL = 'https://services.leadconnectorhq.com/contacts/search';
+const GHL_PAGE_LIMIT = 100;
+const MAX_GHL_PAGES = 50;
 
 /** Tags applied by the hubzone lead forms (top + bottom of page). */
 const HUBZONE_TAGS = ['hubzone-webinar', 'hubzone-webinar-bottom'];
@@ -100,11 +102,18 @@ export interface RegistrationCommandCenter {
 }
 
 /** Emails that are test data or known internal team members. */
-const TEST_EMAIL_PATTERNS = [/\+/, /@example\.com$/i, /(^|\b)(test|email-test)\b/i];
 const INTERNAL_EMAIL_DOMAINS = ['encore-funding.com', 'govcongiants.com', 'teamingpro.com'];
 
 function isTestEmail(email: string): boolean {
-  return TEST_EMAIL_PATTERNS.some((re) => re.test(email));
+  const [local = '', domain = ''] = email.toLowerCase().split('@');
+  return (
+    domain === 'example.com' ||
+    domain.endsWith('.example.com') ||
+    local === 'test' ||
+    local.startsWith('test+') ||
+    local.startsWith('test.') ||
+    local.startsWith('email-test')
+  );
 }
 
 function isInternalEmail(email: string): boolean {
@@ -127,28 +136,41 @@ function formLabelFor(source: string): Registrant['formLabel'] {
 }
 
 async function searchByTag(tag: string, apiKey: string, locationId: string): Promise<GhlContact[]> {
-  const res = await fetch(GHL_SEARCH_URL, {
-    method: 'POST',
-    headers: {
-      Authorization: `Bearer ${apiKey}`,
-      'Content-Type': 'application/json',
-      Version: '2021-07-28',
-    },
-    body: JSON.stringify({
-      locationId,
-      pageLimit: 100,
-      filters: [{ field: 'tags', operator: 'contains', value: tag }],
-    }),
-    cache: 'no-store',
-  });
+  const contacts: GhlContact[] = [];
 
-  if (!res.ok) {
-    const text = await res.text();
-    throw new Error(`GHL search failed (${res.status}): ${text.slice(0, 200)}`);
+  for (let page = 1; page <= MAX_GHL_PAGES; page += 1) {
+    const res = await fetch(GHL_SEARCH_URL, {
+      method: 'POST',
+      headers: {
+        Authorization: `Bearer ${apiKey}`,
+        'Content-Type': 'application/json',
+        Version: '2021-07-28',
+      },
+      body: JSON.stringify({
+        locationId,
+        page,
+        pageLimit: GHL_PAGE_LIMIT,
+        filters: [{ field: 'tags', operator: 'contains', value: tag }],
+      }),
+      cache: 'no-store',
+    });
+
+    if (!res.ok) {
+      const text = await res.text();
+      throw new Error(`GHL search failed (${res.status}): ${text.slice(0, 200)}`);
+    }
+
+    const data = await res.json();
+    const pageContacts = Array.isArray(data?.contacts) ? data.contacts : [];
+    contacts.push(...pageContacts);
+
+    const total = typeof data?.total === 'number' ? data.total : undefined;
+    if (pageContacts.length < GHL_PAGE_LIMIT || (total !== undefined && contacts.length >= total)) {
+      break;
+    }
   }
 
-  const data = await res.json();
-  return Array.isArray(data?.contacts) ? data.contacts : [];
+  return contacts;
 }
 
 const DAY_MS = 1000 * 60 * 60 * 24;

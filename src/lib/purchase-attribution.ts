@@ -135,15 +135,21 @@ export type PurchaseRecord = {
   raw_created?: number;
 };
 
-// Per-record keys are site-scoped so purchase/checkout IDs can never collide
-// across properties. The purchases index set is SHARED (no site segment) so the
-// unified dashboard reads every property in one pass; each member is stored as
+const KNOWN_SITES = Array.from(new Set([SITE, "gcg", "mindy"]));
+
+// Per-record purchase keys are site-scoped so IDs can never collide across
+// properties. The purchases index set is SHARED (no site segment) so the unified
+// dashboard reads every property in one pass; each member is stored as
 // "<site>:<id>" so the reader knows which site-scoped key to fetch.
 const key = {
   checkout: (id: string) => `${NS}:${SITE}:checkout:${id}`,
+  checkoutForSite: (site: string, id: string) => `${NS}:${site}:checkout:${id}`,
+  checkoutGlobal: (id: string) => `${NS}:checkout:${id}`,
   purchase: (site: string, id: string) => `${NS}:${site}:purchase:${id}`,
+  purchaseLegacy: (id: string) => `${NS}:purchase:${id}`,
   purchases: () => `${NS}:purchases`,
-  event: (id: string) => `${NS}:${SITE}:stripe-event:${id}`,
+  event: (id: string) => `${NS}:stripe-event:${id}`,
+  eventForSite: (site: string, id: string) => `${NS}:${site}:stripe-event:${id}`,
 };
 
 function safeString(input: unknown, max = 500): string | undefined {
@@ -219,29 +225,65 @@ export async function createCheckoutStart(args: {
 
   const r = getRedis();
   await r.set(key.checkout(record.id), record, { ex: 180 * 24 * 60 * 60 });
+  await r.set(key.checkoutGlobal(record.id), record, { ex: 180 * 24 * 60 * 60 });
   return record;
 }
 
 export async function getCheckoutStart(id: string | undefined | null): Promise<CheckoutStart | null> {
   if (!id) return null;
   const r = getRedis();
-  return r.get<CheckoutStart>(key.checkout(id));
+  const lookupKeys = [
+    key.checkout(id),
+    key.checkoutGlobal(id),
+    ...KNOWN_SITES.map((site) => key.checkoutForSite(site, id)),
+  ];
+
+  for (const lookupKey of Array.from(new Set(lookupKeys))) {
+    const record = await r.get<CheckoutStart>(lookupKey);
+    if (record) return record;
+  }
+
+  return null;
 }
 
 export async function markCheckoutStatus(id: string, status: CheckoutStart["status"]) {
   const existing = await getCheckoutStart(id);
   if (!existing) return;
-  await getRedis().set(
-    key.checkout(id),
-    { ...existing, status, updated_at: new Date().toISOString() },
-    { ex: 180 * 24 * 60 * 60 },
+  const r = getRedis();
+  const updated = { ...existing, status, updated_at: new Date().toISOString() };
+  const lookupKeys = Array.from(
+    new Set([
+      key.checkout(id),
+      key.checkoutGlobal(id),
+      ...KNOWN_SITES.map((site) => key.checkoutForSite(site, id)),
+    ]),
+  );
+  await Promise.all(
+    lookupKeys.map(async (lookupKey) => {
+      const shouldWrite =
+        lookupKey === key.checkout(id) ||
+        lookupKey === key.checkoutGlobal(id) ||
+        !!(await r.get<CheckoutStart>(lookupKey));
+      if (shouldWrite) {
+        await r.set(lookupKey, updated, { ex: 180 * 24 * 60 * 60 });
+      }
+    }),
   );
 }
 
 export async function hasProcessedStripeEvent(eventId: string): Promise<boolean> {
   const r = getRedis();
-  const existing = await r.get<string>(key.event(eventId));
-  return !!existing;
+  const lookupKeys = [
+    key.event(eventId),
+    ...KNOWN_SITES.map((site) => key.eventForSite(site, eventId)),
+  ];
+
+  for (const lookupKey of Array.from(new Set(lookupKeys))) {
+    const existing = await r.get<string>(lookupKey);
+    if (existing) return true;
+  }
+
+  return false;
 }
 
 export async function markStripeEventProcessed(eventId: string): Promise<void> {
@@ -278,18 +320,27 @@ export async function listPurchases(limit = 500): Promise<PurchaseRecord[]> {
   const r = getRedis();
   const members = await r.smembers(key.purchases());
   if (!members.length) return [];
-  const records = await Promise.all(
-    members.map((member) => {
+  const records: Array<PurchaseRecord | null> = await Promise.all(
+    members.map(async (member) => {
       // Members are "<site>:<id>". Legacy members (pre-namespacing) have no
-      // ":" and fall back to the default SITE namespace.
+      // ":" and their records live at the original unscoped purchase key.
       const idx = member.indexOf(":");
-      const site = idx === -1 ? SITE : member.slice(0, idx);
-      const id = idx === -1 ? member : member.slice(idx + 1);
-      return r.get<PurchaseRecord>(key.purchase(site, id));
+      if (idx === -1) {
+        const legacy = await r.get<PurchaseRecord>(key.purchaseLegacy(member));
+        if (legacy) return { ...legacy, site: legacy.site || SITE };
+
+        const scoped = await r.get<PurchaseRecord>(key.purchase(SITE, member));
+        return scoped ? { ...scoped, site: scoped.site || SITE } : null;
+      }
+
+      const site = member.slice(0, idx);
+      const id = member.slice(idx + 1);
+      const record = await r.get<PurchaseRecord>(key.purchase(site, id));
+      return record ? { ...record, site: record.site || site } : null;
     }),
   );
-  return records
-    .filter((rec): rec is PurchaseRecord => !!rec)
+  const present = records.filter((rec): rec is PurchaseRecord => rec !== null);
+  return present
     .sort((a, b) => (b.created_at || "").localeCompare(a.created_at || ""))
     .slice(0, limit);
 }
