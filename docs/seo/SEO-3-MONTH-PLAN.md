@@ -255,7 +255,7 @@
 - [ ] Analyze which pages drive the most /free-course signups
 - [ ] A/B test CTA copy on top 3 traffic pages
 - [ ] Add email capture form to glossary page (lead magnet: "GovCon Starter Checklist")
-- [ ] Add exit-intent popup on high-traffic guides pointing to free course
+- [x] ~~Add exit-intent popup~~ **Removed Jun 11, 2026** — `ExitIntentPopup` deleted from `govcon-funnels` layout (Eric: no exit popups on govcongiants.org)
 
 ### Week 10 (May 21-27): Content Depth
 - [ ] Expand top-performing guides to 3,000+ words with additional sections
