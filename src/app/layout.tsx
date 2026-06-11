@@ -2,7 +2,6 @@ import type { Metadata } from "next";
 import Script from "next/script";
 import { Inter } from "next/font/google";
 import SiteNav from "@/components/SiteNav";
-import ExitIntentPopup from "@/components/ExitIntentPopup";
 import AttributionTracker from "@/components/AttributionTracker";
 import JsonLd from "@/components/JsonLd";
 import { organizationJsonLd } from "@/lib/seo";
@@ -62,7 +61,6 @@ export default function RootLayout({
         <AttributionTracker />
         <JsonLd data={organizationJsonLd()} />
         <SiteNav />
-        <ExitIntentPopup />
         {children}
         <Analytics />
         <Script
