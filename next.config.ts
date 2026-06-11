@@ -105,6 +105,18 @@ const nextConfig: NextConfig = {
         destination: "/mi",
         permanent: true,
       },
+      // Mindy Launch bootcamp (Sat June 27, 2026) — static funnel lives on the
+      // funnels project; redirect the clean .com URL to it. 302 (event page).
+      {
+        source: "/mindy-launch",
+        destination: "https://funnels-one.vercel.app/mindy-launch/",
+        permanent: false,
+      },
+      {
+        source: "/mindy-launch/",
+        destination: "https://funnels-one.vercel.app/mindy-launch/",
+        permanent: false,
+      },
     ];
   },
   async headers() {
