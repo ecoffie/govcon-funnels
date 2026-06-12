@@ -3,6 +3,27 @@ import Link from 'next/link';
 import { generateSeo, SITE_URL } from '@/lib/seo';
 import JsonLd from '@/components/JsonLd';
 import { agencies, getAgencyBySlug, getAllAgencySlugs, getSubAgencies } from '@/content/agencies';
+import enrichmentData from '@/content/agency-enrichment.json';
+
+// Richer agency data exported from market-assassin's databases (307 agencies,
+// 10 pain points + 10 priorities each, real budget authority, and a count of
+// subcontracting contacts). Keyed by exact agency name. Regenerate with
+// `node scripts/export-agency-enrichment.js`. See that script for the policy on
+// why contacts are a COUNT only (PII gated to Mindy Pro).
+interface AgencyEnrichment {
+  painPoints: string[];
+  priorities: string[];
+  budget: { fy2025: number | null; fy2026: number | null; changePercent: number | null; trend: string | null } | null;
+  subcontractingContacts: number;
+}
+const ENRICHMENT = (enrichmentData as { agencies: Record<string, AgencyEnrichment> }).agencies;
+
+function fmtBillions(n: number | null): string {
+  if (!n) return '—';
+  if (n >= 1e9) return `$${(n / 1e9).toFixed(1)}B`;
+  if (n >= 1e6) return `$${(n / 1e6).toFixed(0)}M`;
+  return `$${n.toLocaleString()}`;
+}
 
 interface Props {
   params: Promise<{ slug: string }>;
@@ -42,6 +63,16 @@ export default async function AgencyPage({ params }: Props) {
 
   const subAgencies = getSubAgencies(slug);
   const parentAgency = agency.parent ? getAgencyBySlug(agency.parent) : null;
+
+  // Merge the richer exported data by agency name. Fall back to the static
+  // content when an agency isn't in the enrichment set (so nothing regresses).
+  const enrich = ENRICHMENT[agency.name];
+  const painPointCount = enrich?.painPoints.length || agency.painPoints.length;
+  const priorityCount = enrich?.priorities.length || agency.priorities.length;
+  const contactCount = enrich?.subcontractingContacts || 0;
+  // Two real pain points shown unblurred as proof the data is real; the rest gated.
+  const samplePainPoints = (enrich?.painPoints || agency.painPoints).slice(0, 2);
+  const budget = enrich?.budget;
 
   return (
     <main className="min-h-screen bg-slate-950">
@@ -107,23 +138,46 @@ export default async function AgencyPage({ params }: Props) {
             </div>
           </div>
 
-          {/* Teaser Stats - Show counts only */}
-          <div className="grid grid-cols-2 md:grid-cols-3 gap-4 mt-8">
+          {/* Teaser Stats — real counts from the exported databases */}
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mt-8">
             <div className="bg-slate-900 border border-slate-800 rounded-xl p-6">
-              <div className="text-3xl font-bold text-green-400">{agency.painPoints.length}</div>
+              <div className="text-3xl font-bold text-green-400">{painPointCount}</div>
               <div className="text-sm text-slate-400">Pain Points Identified</div>
               <div className="text-xs text-slate-500">Updated Monthly</div>
             </div>
             <div className="bg-slate-900 border border-slate-800 rounded-xl p-6">
-              <div className="text-3xl font-bold text-blue-400">{agency.priorities.length}</div>
+              <div className="text-3xl font-bold text-blue-400">{priorityCount}</div>
               <div className="text-sm text-slate-400">Budget Priorities</div>
               <div className="text-xs text-slate-500">FY2025-2026</div>
             </div>
-            <div className="bg-slate-900 border border-slate-800 rounded-xl p-6">
-              <div className="text-3xl font-bold text-amber-400">{agency.naicsCodes?.length || 0}</div>
-              <div className="text-sm text-slate-400">Top NAICS Codes</div>
-              <div className="text-xs text-slate-500">By spending volume</div>
-            </div>
+            {contactCount > 0 ? (
+              <div className="bg-slate-900 border border-slate-800 rounded-xl p-6">
+                <div className="text-3xl font-bold text-purple-400">{contactCount.toLocaleString()}</div>
+                <div className="text-sm text-slate-400">Subcontracting Contacts</div>
+                <div className="text-xs text-slate-500">Primes w/ sub plans</div>
+              </div>
+            ) : (
+              <div className="bg-slate-900 border border-slate-800 rounded-xl p-6">
+                <div className="text-3xl font-bold text-amber-400">{agency.naicsCodes?.length || 0}</div>
+                <div className="text-sm text-slate-400">Top NAICS Codes</div>
+                <div className="text-xs text-slate-500">By spending volume</div>
+              </div>
+            )}
+            {budget?.fy2026 ? (
+              <div className="bg-slate-900 border border-slate-800 rounded-xl p-6">
+                <div className="text-3xl font-bold text-emerald-400">{fmtBillions(budget.fy2026)}</div>
+                <div className="text-sm text-slate-400">FY2026 Budget Authority</div>
+                <div className="text-xs text-slate-500">
+                  {budget.trend === 'declining' ? '▼' : budget.trend === 'growing' ? '▲' : '◆'} vs FY2025
+                </div>
+              </div>
+            ) : (
+              <div className="bg-slate-900 border border-slate-800 rounded-xl p-6">
+                <div className="text-3xl font-bold text-amber-400">{agency.naicsCodes?.length || 0}</div>
+                <div className="text-sm text-slate-400">Top NAICS Codes</div>
+                <div className="text-xs text-slate-500">By spending volume</div>
+              </div>
+            )}
           </div>
         </div>
       </section>
@@ -137,9 +191,17 @@ export default async function AgencyPage({ params }: Props) {
               <span className="text-2xl">🎯</span> Agency Pain Points
             </h2>
 
-            {/* Blurred preview */}
+            {/* Two REAL pain points shown as proof the data is real, then the rest gated. */}
             <div className="space-y-4 mb-6">
-              {[1, 2, 3, 4, 5].map((num) => (
+              {samplePainPoints.map((point, i) => (
+                <div key={`real-${i}`} className="flex items-start gap-3">
+                  <span className="w-6 h-6 bg-green-500/20 text-green-400 rounded-full flex items-center justify-center text-sm font-medium flex-shrink-0">
+                    {i + 1}
+                  </span>
+                  <span className="text-slate-300">{point}</span>
+                </div>
+              ))}
+              {[samplePainPoints.length + 1, samplePainPoints.length + 2, samplePainPoints.length + 3].map((num) => (
                 <div key={num} className="flex items-start gap-3 opacity-50 blur-[3px] select-none pointer-events-none">
                   <span className="w-6 h-6 bg-green-500/20 text-green-400 rounded-full flex items-center justify-center text-sm font-medium flex-shrink-0">
                     {num}
@@ -152,7 +214,7 @@ export default async function AgencyPage({ params }: Props) {
             {/* Gate overlay */}
             <div className="absolute inset-x-0 bottom-0 h-56 bg-gradient-to-t from-slate-900 via-slate-900/98 to-transparent flex items-end justify-center pb-8">
               <div className="text-center">
-                <p className="text-slate-400 mb-4 text-sm">Unlock {agency.painPoints.length} pain points for {agency.abbreviation}</p>
+                <p className="text-slate-400 mb-4 text-sm">Unlock all {painPointCount} pain points for {agency.abbreviation}</p>
                 <Link
                   href="https://getmindy.ai/market-intelligence"
                   className="inline-block px-6 py-3 bg-green-600 hover:bg-green-500 text-white rounded-lg font-semibold transition"
@@ -194,6 +256,45 @@ export default async function AgencyPage({ params }: Props) {
               </div>
             </div>
           </div>
+
+          {/* Subcontracting Contacts — count + teaser, PII gated to Mindy Pro */}
+          {contactCount > 0 && (
+            <div className="bg-slate-900 border border-slate-800 rounded-2xl p-8 mb-8 relative overflow-hidden">
+              <h2 className="text-xl font-bold text-white mb-2 flex items-center gap-2">
+                <span className="text-2xl">📇</span> Subcontracting Contacts
+              </h2>
+              <p className="text-slate-400 text-sm mb-6">
+                <span className="text-purple-300 font-semibold">{contactCount.toLocaleString()} prime contractors</span> with
+                active subcontracting plans serve {agency.abbreviation} — your fastest path in as a sub.
+              </p>
+
+              {/* Blurred contact rows */}
+              <div className="space-y-3 mb-6">
+                {[1, 2, 3].map((num) => (
+                  <div key={num} className="flex items-center gap-3 opacity-50 blur-[3px] select-none pointer-events-none">
+                    <span className="w-8 h-8 bg-purple-500/20 rounded-full flex-shrink-0" />
+                    <div className="flex-1">
+                      <div className="text-slate-300 text-sm">████████ ████████ ██████</div>
+                      <div className="text-slate-500 text-xs">SBLO · ██████@████████.com</div>
+                    </div>
+                  </div>
+                ))}
+              </div>
+
+              {/* Gate overlay */}
+              <div className="absolute inset-x-0 bottom-0 h-44 bg-gradient-to-t from-slate-900 via-slate-900/98 to-transparent flex items-end justify-center pb-8">
+                <div className="text-center">
+                  <p className="text-slate-400 mb-4 text-sm">Get all {contactCount.toLocaleString()} {agency.abbreviation} subcontracting contacts in Mindy</p>
+                  <Link
+                    href="https://getmindy.ai/market-intelligence"
+                    className="inline-block px-6 py-3 bg-purple-600 hover:bg-purple-500 text-white rounded-lg font-semibold transition"
+                  >
+                    Get Mindy Pro — $149/mo
+                  </Link>
+                </div>
+              </div>
+            </div>
+          )}
 
           {/* Spending Data - GATED */}
           <div className="bg-slate-900 border border-slate-800 rounded-2xl p-8 mb-8 relative overflow-hidden">
@@ -303,7 +404,7 @@ export default async function AgencyPage({ params }: Props) {
 
                 <ul className="space-y-2 mb-6 text-left">
                   <li className="flex items-center gap-2 text-slate-300 text-sm">
-                    <span className="text-green-500">✓</span> All {agency.painPoints.length} pain points for {agency.abbreviation}
+                    <span className="text-green-500">✓</span> All {painPointCount} pain points for {agency.abbreviation}
                   </li>
                   <li className="flex items-center gap-2 text-slate-300 text-sm">
                     <span className="text-green-500">✓</span> Budget priorities & spending data
