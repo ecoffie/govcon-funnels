@@ -38,7 +38,42 @@ const topNaicsCodes = [
   { code: '541990', desc: 'Other Professional Services', count: 410 },
 ];
 
-export default function ForecastsIndexPage() {
+// Live, BQ-FREE forecast preview from market-assassin's public Supabase-only
+// endpoint (Eric's constraint: no BigQuery). Real total/agency count + a sample
+// of real forecasts. ISR-cached daily; falls back to the static numbers below
+// if the API is unreachable. Full pipeline stays gated to Mindy Pro.
+const FORECASTS_API = 'https://getmindy.ai/api/forecasts-preview';
+
+interface ForecastPreview {
+  agency: string;
+  title: string;
+  value: string;
+  fiscalYear: string;
+  naics: string;
+}
+
+async function fetchForecastPreview(): Promise<{ totalCount: number; agencyCount: number; sample: ForecastPreview[] } | null> {
+  try {
+    const res = await fetch(`${FORECASTS_API}?limit=6`, { next: { revalidate: 86400 } });
+    if (!res.ok) return null;
+    const data = await res.json();
+    if (!data?.success || !Array.isArray(data.sample)) return null;
+    return { totalCount: data.totalCount || 0, agencyCount: data.agencyCount || 0, sample: data.sample };
+  } catch {
+    return null;
+  }
+}
+
+// ISR: refresh daily so live counts/samples stay current without per-request hits.
+export const revalidate = 86400;
+
+export default async function ForecastsIndexPage() {
+  const preview = await fetchForecastPreview();
+  const totalLabel = preview?.totalCount ? preview.totalCount.toLocaleString() : '7,700+';
+  const agencyLabel = preview?.agencyCount ? String(preview.agencyCount) : '11';
+  // Real forecasts as proof: first 2 shown, the rest blurred behind the gate.
+  const realSample = preview?.sample || [];
+
   return (
     <main className="min-h-screen bg-slate-950">
       <JsonLd data={{
@@ -68,11 +103,11 @@ export default function ForecastsIndexPage() {
           {/* Stats */}
           <div className="grid grid-cols-2 md:grid-cols-4 gap-4 max-w-3xl mx-auto mb-12">
             <div className="bg-slate-900 border border-slate-800 rounded-xl p-4">
-              <div className="text-3xl font-bold text-green-400">7,700+</div>
+              <div className="text-3xl font-bold text-green-400">{totalLabel}</div>
               <div className="text-sm text-slate-400">Forecasts</div>
             </div>
             <div className="bg-slate-900 border border-slate-800 rounded-xl p-4">
-              <div className="text-3xl font-bold text-blue-400">11</div>
+              <div className="text-3xl font-bold text-blue-400">{agencyLabel}</div>
               <div className="text-sm text-slate-400">Agencies</div>
             </div>
             <div className="bg-slate-900 border border-slate-800 rounded-xl p-4">
@@ -101,28 +136,38 @@ export default function ForecastsIndexPage() {
           <h2 className="text-2xl font-bold text-white mb-6">Sample Forecasts</h2>
 
           <div className="bg-slate-900 border border-slate-800 rounded-2xl overflow-hidden relative">
-            {/* Blurred preview rows */}
+            {/* Real forecasts: first 2 shown as proof, the rest blurred behind
+                the gate. Falls back to blurred placeholders if the API is down. */}
             <div className="divide-y divide-slate-800">
-              {[
-                { agency: 'DOD', title: '████████ Cloud Migration ████████', value: '$25M-$50M', date: 'Q2 FY2026' },
-                { agency: 'VA', title: '████████ Healthcare IT ████████', value: '$10M-$15M', date: 'Q3 FY2026' },
-                { agency: 'HHS', title: '████████ Data Analytics ████████', value: '$5M-$10M', date: 'Q1 FY2026' },
-                { agency: 'NASA', title: '████████ Engineering Support ████████', value: '$15M-$25M', date: 'Q4 FY2026' },
-                { agency: 'GSA', title: '████████ Facilities Management ████████', value: '$3M-$8M', date: 'Q2 FY2026' },
-              ].map((forecast, i) => (
-                <div key={i} className="p-4 flex items-center justify-between opacity-60 blur-[2px] select-none pointer-events-none">
-                  <div className="flex items-center gap-4">
-                    <span className="px-2 py-1 bg-slate-800 text-slate-400 rounded text-xs font-medium">
-                      {forecast.agency}
-                    </span>
-                    <span className="text-white">{forecast.title}</span>
+              {(realSample.length > 0
+                ? realSample
+                : [
+                    { agency: 'DOD', title: 'Cloud Migration Support Services', value: '$25M-$50M', fiscalYear: 'FY2026', naics: '' },
+                    { agency: 'VA', title: 'Healthcare IT Modernization', value: '$10M-$15M', fiscalYear: 'FY2026', naics: '' },
+                    { agency: 'HHS', title: 'Data Analytics Platform', value: '$5M-$10M', fiscalYear: 'FY2026', naics: '' },
+                    { agency: 'NASA', title: 'Engineering Support', value: '$15M-$25M', fiscalYear: 'FY2026', naics: '' },
+                    { agency: 'GSA', title: 'Facilities Management', value: '$3M-$8M', fiscalYear: 'FY2026', naics: '' },
+                  ]
+              ).map((forecast, i) => {
+                const reveal = i < 2; // first two are real + visible (proof)
+                return (
+                  <div
+                    key={i}
+                    className={`p-4 flex items-center justify-between ${reveal ? '' : 'opacity-60 blur-[2px] select-none pointer-events-none'}`}
+                  >
+                    <div className="flex items-center gap-4 min-w-0">
+                      <span className="px-2 py-1 bg-slate-800 text-slate-300 rounded text-xs font-medium flex-shrink-0">
+                        {forecast.agency}
+                      </span>
+                      <span className="text-white truncate">{reveal ? forecast.title : '████████ ████████████ ████████'}</span>
+                    </div>
+                    <div className="flex items-center gap-4 text-sm flex-shrink-0">
+                      <span className="text-green-400 font-medium">{forecast.value}</span>
+                      <span className="text-slate-500">{forecast.fiscalYear}</span>
+                    </div>
                   </div>
-                  <div className="flex items-center gap-4 text-sm">
-                    <span className="text-green-400 font-medium">{forecast.value}</span>
-                    <span className="text-slate-500">{forecast.date}</span>
-                  </div>
-                </div>
-              ))}
+                );
+              })}
             </div>
 
             {/* Gate overlay */}
