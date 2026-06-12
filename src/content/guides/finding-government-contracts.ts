@@ -165,6 +165,7 @@ export const guide: GuideData = {
     buttonHref: '/mi-free',
   },
   relatedGuides: [
+    'ai-government-contracting',
     'sbir-sttr',
     'agency-budgets',
     'government-contracting-for-beginners',

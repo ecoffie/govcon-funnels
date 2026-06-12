@@ -78,6 +78,21 @@ export default async function GuidePage({ params }: Props) {
           </h1>
           <p className="text-xl md:text-2xl text-slate-400 leading-relaxed">{guide.heroSubtitle}</p>
 
+          {/* Above-the-fold transactional CTA (e.g. lookup tool) — only on guides
+              that rank for action queries, so searchers reach the tool immediately. */}
+          {guide.heroCta && (
+            <div className="mt-8">
+              <p className="text-sm text-slate-500 mb-3">{guide.heroCta.label}</p>
+              <Link
+                href={guide.heroCta.buttonHref}
+                className="inline-flex items-center gap-2 bg-green-500 hover:bg-green-400 text-slate-950 font-bold text-lg px-7 py-3.5 rounded-xl transition-colors shadow-lg shadow-green-500/20 group"
+              >
+                {guide.heroCta.buttonText}
+                <span className="group-hover:translate-x-1 transition-transform">→</span>
+              </Link>
+            </div>
+          )}
+
           {/* Reading time estimate */}
           <div className="mt-8 flex items-center justify-center gap-4 text-sm text-slate-500">
             <span>{Math.ceil(guide.sections.reduce((acc, s) => acc + s.content.length, 0) / 1500)} min read</span>

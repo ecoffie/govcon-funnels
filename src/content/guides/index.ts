@@ -15,6 +15,17 @@ export interface GuideData {
   metaDescription: string;
   keywords: string[];
   heroSubtitle: string;
+  /**
+   * Optional above-the-fold CTA. Use on guides that rank for transactional
+   * queries (e.g. "cage code lookup") so the searcher hits the tool/action
+   * immediately instead of scrolling past educational copy — improves CTR
+   * and on-page conversion. Omit on purely informational guides.
+   */
+  heroCta?: {
+    label: string; // small kicker above the button, e.g. "Need to look one up right now?"
+    buttonText: string;
+    buttonHref: string;
+  };
   sections: GuideSection[];
   faqs: GuideFaq[];
   cta: {

@@ -231,6 +231,7 @@ export const guide: GuideData = {
   },
   relatedGuides: [
     'edwosb-certification',
+    'hubzone-certification',
     'government-contracting-for-beginners',
     'sam-gov-registration',
     'capability-statement',

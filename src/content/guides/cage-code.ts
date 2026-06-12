@@ -20,6 +20,11 @@ export const guide: GuideData = {
   ],
   heroSubtitle:
     'A CAGE code is your 5-character business ID for federal contracting. Nearly 10,000 people search for CAGE code information every month — here is everything you need to know.',
+  heroCta: {
+    label: 'Need to look up a CAGE code right now?',
+    buttonText: 'Search 600K+ Contractors Free',
+    buttonHref: '/tools/cage-code-lookup',
+  },
   sections: [
     {
       heading: 'What Is a CAGE Code?',
