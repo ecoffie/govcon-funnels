@@ -18,6 +18,33 @@ interface AgencyEnrichment {
 }
 const ENRICHMENT = (enrichmentData as { agencies: Record<string, AgencyEnrichment> }).agencies;
 
+// Live source for pain points + priorities: market-assassin's PUBLIC, BQ-FREE
+// agency-hierarchy API (reads static JSON + USASpending, never BigQuery — Eric's
+// constraint: keep BQ to a minimum). Fetched at ISR time so new agencies and
+// refreshed pain points appear without a re-export; revalidated daily. The
+// static export (agency-enrichment.json) stays the fallback if the API is
+// unreachable, AND remains the source for the contact count + budget (those
+// aren't in the live API response).
+const AGENCY_API = 'https://getmindy.ai/api/agency-hierarchy';
+
+async function fetchLiveAgency(name: string): Promise<{ painPoints: string[]; priorities: string[] } | null> {
+  try {
+    const res = await fetch(`${AGENCY_API}?agency=${encodeURIComponent(name)}`, {
+      next: { revalidate: 86400 }, // 1 day ISR cache — no per-request hit
+    });
+    if (!res.ok) return null;
+    const data = await res.json();
+    const r = data?.result;
+    if (!r || !Array.isArray(r.painPoints)) return null;
+    return {
+      painPoints: r.painPoints || [],
+      priorities: Array.isArray(r.priorities) ? r.priorities : [],
+    };
+  } catch {
+    return null; // network/parse failure → fall back to static export
+  }
+}
+
 function fmtBillions(n: number | null): string {
   if (!n) return '—';
   if (n >= 1e9) return `$${(n / 1e9).toFixed(1)}B`;
@@ -28,6 +55,10 @@ function fmtBillions(n: number | null): string {
 interface Props {
   params: Promise<{ slug: string }>;
 }
+
+// ISR: rebuild each agency page at most once a day so the live pain-points fetch
+// stays fresh without a per-request hit. (BQ-free — the API reads static JSON.)
+export const revalidate = 86400;
 
 export async function generateStaticParams() {
   return getAllAgencySlugs().map((slug) => ({ slug }));
@@ -64,14 +95,20 @@ export default async function AgencyPage({ params }: Props) {
   const subAgencies = getSubAgencies(slug);
   const parentAgency = agency.parent ? getAgencyBySlug(agency.parent) : null;
 
-  // Merge the richer exported data by agency name. Fall back to the static
-  // content when an agency isn't in the enrichment set (so nothing regresses).
+  // Data precedence (all BQ-free): LIVE agency-hierarchy API → static export →
+  // hand-written static content. Live keeps pain points/priorities fresh; the
+  // export supplies contact count + budget (not in the live API) and is the
+  // offline fallback.
   const enrich = ENRICHMENT[agency.name];
-  const painPointCount = enrich?.painPoints.length || agency.painPoints.length;
-  const priorityCount = enrich?.priorities.length || agency.priorities.length;
+  const live = await fetchLiveAgency(agency.name);
+
+  const painPoints = live?.painPoints.length ? live.painPoints : (enrich?.painPoints || agency.painPoints);
+  const priorities = live?.priorities.length ? live.priorities : (enrich?.priorities || agency.priorities);
+  const painPointCount = painPoints.length;
+  const priorityCount = priorities.length;
   const contactCount = enrich?.subcontractingContacts || 0;
   // Two real pain points shown unblurred as proof the data is real; the rest gated.
-  const samplePainPoints = (enrich?.painPoints || agency.painPoints).slice(0, 2);
+  const samplePainPoints = painPoints.slice(0, 2);
   const budget = enrich?.budget;
 
   return (
