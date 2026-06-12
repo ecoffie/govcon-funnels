@@ -218,7 +218,7 @@ export default function AgenciesIndexPage() {
             Get Deeper Agency Intelligence
           </h2>
           <p className="text-slate-400 mb-6">
-            MI Free includes daily opportunity alerts, 200+ agency pain points, and SBLO contacts to help you win more contracts.
+            Mindy Free includes daily opportunity alerts, 200+ agency pain points, and SBLO contacts to help you win more contracts.
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
             <Link

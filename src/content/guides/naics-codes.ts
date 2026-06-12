@@ -52,8 +52,8 @@ export const guide: GuideData = {
         <p>The Small Business Administration maintains a <a href="https://www.sba.gov/size-standards/" target="_blank" rel="noopener">size standards tool</a> that shows NAICS codes along with their corresponding small business size standards. This is essential for determining whether you qualify as a small business for specific work.</p>
         <p><strong>3. SAM.gov Contract Search</strong></p>
         <p>Search for contracts similar to work you want to pursue on <a href="https://sam.gov" target="_blank" rel="noopener">SAM.gov</a>. Look at which NAICS codes are assigned to those opportunities — this shows you what codes agencies actually use for that type of work.</p>
-        <p><strong>4. GovCon Giants Market Intelligence</strong></p>
-        <p>Our <a href="/mi-free">Market Intelligence tool</a> lets you search federal spending by NAICS code to see which agencies buy what you sell and how much they spend.</p>
+        <p><strong>4. Mindy</strong></p>
+        <p>Our <a href="/mi-free">Mindy tool</a> lets you search federal spending by NAICS code to see which agencies buy what you sell and how much they spend.</p>
         <p><strong>Tips for NAICS Code Searches:</strong></p>
         <ul>
           <li>Search by keyword first, then review the detailed descriptions to find the best match</li>
@@ -161,7 +161,7 @@ export const guide: GuideData = {
         <p><strong>2. Qualifying for Set-Asides</strong></p>
         <p>Small business set-asides are based on the NAICS code assigned to the contract. Before bidding, verify you meet the size standard for that specific code. If the contract uses a NAICS code where you are NOT small, you cannot compete for the set-aside.</p>
         <p><strong>3. Understanding Your Competition</strong></p>
-        <p>Research who else holds the same NAICS codes. On SAM.gov, you can search for entities by NAICS code to see potential competitors and teaming partners. Our <a href="/mi-free">Market Intelligence</a> tool shows spending by NAICS code and which companies are winning.</p>
+        <p>Research who else holds the same NAICS codes. On SAM.gov, you can search for entities by NAICS code to see potential competitors and teaming partners. Our <a href="/mi-free">Mindy</a> tool shows spending by NAICS code and which companies are winning.</p>
         <p><strong>4. Positioning Your Capability Statement</strong></p>
         <p>List your primary NAICS codes prominently on your <a href="/guides/capability-statement">capability statement</a>. When contracting officers search for vendors, they often filter by NAICS code. Make it easy for them to see you are a match.</p>
         <p><strong>5. NAICS Code Challenges</strong></p>
@@ -230,8 +230,8 @@ export const guide: GuideData = {
   cta: {
     heading: 'Ready to Find Contracts That Match Your NAICS Codes?',
     description:
-      'Use our free Market Intelligence tool to search federal spending by NAICS code. See which agencies buy what you sell and identify your next opportunity.',
-    buttonText: 'Try Market Intelligence Free',
+      'Use our free Mindy tool to search federal spending by NAICS code. See which agencies buy what you sell and identify your next opportunity.',
+    buttonText: 'Try Mindy Free',
     buttonHref: '/mi-free',
   },
   relatedGuides: [

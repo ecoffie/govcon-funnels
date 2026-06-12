@@ -137,7 +137,7 @@ export default function ResourcesDownsell() {
                     <td className="text-center text-green-500">✓</td>
                   </tr>
                   <tr className="border-b border-slate-800">
-                    <td className="py-2">Market Intelligence Pro</td>
+                    <td className="py-2">Mindy Pro</td>
                     <td className="text-center text-slate-600">✗</td>
                     <td className="text-center text-slate-600">✗</td>
                     <td className="text-center text-green-500">✓</td>

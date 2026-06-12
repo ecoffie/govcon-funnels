@@ -4,7 +4,7 @@ import JsonLd from '@/components/JsonLd';
 
 export const metadata = generateSeo({
   title: 'GovCon Giants vs Deltek GovWin [2026 Comparison] — 80% Features, 2% Cost',
-  description: 'Compare GovCon Giants Market Intelligence to Deltek GovWin. Get federal contract intelligence, agency pain points, and opportunity alerts at a fraction of the cost. No 12-month contracts.',
+  description: 'Compare Mindy to Deltek GovWin. Get federal contract intelligence, agency pain points, and opportunity alerts at a fraction of the cost. No 12-month contracts.',
   path: '/compare/deltek',
   keywords: [
     'deltek govwin alternative',
@@ -76,12 +76,12 @@ const comparisonData = [
   },
   {
     feature: 'Free Tier',
-    giants: { value: '✓', detail: 'MI Free forever' },
+    giants: { value: '✓', detail: 'Mindy Free forever' },
     govwin: { value: '✗', detail: 'No free option' },
   },
   {
     feature: 'Monthly Pricing',
-    giants: { value: '$149/mo', detail: 'MI Core' },
+    giants: { value: '$149/mo', detail: 'Mindy Pro' },
     govwin: { value: '$6,000+/yr', detail: 'Annual only' },
   },
   {
@@ -101,7 +101,7 @@ const testimonials = [
     author: "BD Director, Small Defense Contractor",
   },
   {
-    quote: "As a small business, I couldn't justify GovWin's pricing. MI Core gives me what I need to compete without breaking the bank.",
+    quote: "As a small business, I couldn't justify GovWin's pricing. Mindy Pro gives me what I need to compete without breaking the bank.",
     author: "Founder, SDVOSB Professional Services",
   },
 ];
@@ -113,11 +113,11 @@ export default function DeltekComparisonPage() {
         '@context': 'https://schema.org',
         '@type': 'WebPage',
         name: 'GovCon Giants vs Deltek GovWin Comparison',
-        description: 'Feature and pricing comparison between GovCon Giants Market Intelligence and Deltek GovWin for federal contract research.',
+        description: 'Feature and pricing comparison between Mindy and Deltek GovWin for federal contract research.',
         url: `${SITE_URL}/compare/deltek`,
         mainEntity: {
           '@type': 'Product',
-          name: 'GovCon Giants Market Intelligence',
+          name: 'Mindy',
           description: 'Federal contracting intelligence platform for small businesses',
           offers: {
             '@type': 'AggregateOffer',
@@ -150,7 +150,7 @@ export default function DeltekComparisonPage() {
           {/* Price Comparison Banner */}
           <div className="grid md:grid-cols-2 gap-6 max-w-2xl mx-auto mb-8">
             <div className="bg-green-500/10 border border-green-500/30 rounded-xl p-6">
-              <div className="text-sm text-green-400 font-medium mb-1">GovCon Giants MI Core</div>
+              <div className="text-sm text-green-400 font-medium mb-1">GovCon Giants Mindy Pro</div>
               <div className="text-4xl font-black text-white">$149<span className="text-lg text-slate-400">/mo</span></div>
               <div className="text-sm text-slate-400">Month-to-month, cancel anytime</div>
             </div>
@@ -225,7 +225,7 @@ export default function DeltekComparisonPage() {
             Why Small Businesses Switch from GovWin
           </h2>
           <p className="text-slate-400 text-center mb-12 max-w-2xl mx-auto">
-            GovWin is built for large enterprises with big budgets. We built Market Intelligence for the rest of us.
+            GovWin is built for large enterprises with big budgets. We built Mindy for the rest of us.
           </p>
 
           <div className="grid md:grid-cols-3 gap-6">
@@ -233,7 +233,7 @@ export default function DeltekComparisonPage() {
               <div className="text-4xl mb-4">💰</div>
               <h3 className="text-xl font-bold text-white mb-2">Save $4,200+/Year</h3>
               <p className="text-slate-400">
-                MI Core at $149/mo ($1,788/yr) vs GovWin at $6,000+/yr. That&apos;s money you can spend on proposals.
+                Mindy Pro at $149/mo ($1,788/yr) vs GovWin at $6,000+/yr. That&apos;s money you can spend on proposals.
               </p>
             </div>
             <div className="bg-slate-900 border border-slate-800 rounded-xl p-6">
@@ -276,7 +276,7 @@ export default function DeltekComparisonPage() {
       <section className="py-16 px-6">
         <div className="max-w-4xl mx-auto">
           <h2 className="text-3xl font-bold text-white text-center mb-12">
-            What&apos;s Included in MI Core ($149/mo)
+            What&apos;s Included in Mindy Pro ($149/mo)
           </h2>
 
           <div className="grid md:grid-cols-2 gap-4">
@@ -368,7 +368,7 @@ export default function DeltekComparisonPage() {
                 href="https://getmindy.ai/market-intelligence"
                 className="block w-full py-3 bg-green-600 hover:bg-green-500 text-white rounded-lg font-semibold text-center transition"
               >
-                Get MI Core
+                Get Mindy Pro
               </Link>
             </div>
 
@@ -395,7 +395,7 @@ export default function DeltekComparisonPage() {
                 href="https://getmindy.ai/market-intelligence"
                 className="block w-full py-3 bg-slate-800 hover:bg-slate-700 text-white rounded-lg font-semibold text-center transition"
               >
-                Get MI Team
+                Get Mindy Teams
               </Link>
             </div>
           </div>

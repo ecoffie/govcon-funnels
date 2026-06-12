@@ -2,7 +2,7 @@ import Link from 'next/link';
 import { generateSeo } from '@/lib/seo';
 
 export const metadata = generateSeo({
-  title: 'Mindy | Free Federal Contract Alerts & Market Intelligence',
+  title: 'Mindy | Free Federal Contract Alerts & Mindy',
   description: 'Get daily federal contract opportunities matched to your business. Free forever. AI-powered alerts from SAM.gov, Grants.gov, and 7,600+ agency forecasts. The big contractors have armies. You have Mindy.',
   path: '/mi',
   keywords: [

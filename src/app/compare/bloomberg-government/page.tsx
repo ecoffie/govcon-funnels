@@ -4,7 +4,7 @@ import JsonLd from '@/components/JsonLd';
 
 export const metadata = generateSeo({
   title: 'GovCon Giants vs Bloomberg Government [2026 Comparison] — BD Focus, 98% Lower Cost',
-  description: 'Compare GovCon Giants Market Intelligence to Bloomberg Government. Get federal contract intelligence, opportunity alerts, and agency pain points for small businesses. No $10K/year subscription.',
+  description: 'Compare Mindy to Bloomberg Government. Get federal contract intelligence, opportunity alerts, and agency pain points for small businesses. No $10K/year subscription.',
   path: '/compare/bloomberg-government',
   keywords: [
     'bloomberg government alternative',
@@ -123,11 +123,11 @@ export default function BloombergGovernmentComparisonPage() {
         '@context': 'https://schema.org',
         '@type': 'WebPage',
         name: 'GovCon Giants vs Bloomberg Government Comparison',
-        description: 'Feature and pricing comparison between GovCon Giants Market Intelligence and Bloomberg Government for federal contract research.',
+        description: 'Feature and pricing comparison between Mindy and Bloomberg Government for federal contract research.',
         url: `${SITE_URL}/compare/bloomberg-government`,
         mainEntity: {
           '@type': 'Product',
-          name: 'GovCon Giants Market Intelligence',
+          name: 'Mindy',
           description: 'Federal contracting intelligence platform for small businesses',
           offers: {
             '@type': 'AggregateOffer',
@@ -282,7 +282,7 @@ export default function BloombergGovernmentComparisonPage() {
             Why BD Teams Choose GovCon Giants Over BGOV
           </h2>
           <p className="text-slate-400 text-center mb-12 max-w-2xl mx-auto">
-            Bloomberg Government is built for policy professionals. We built Market Intelligence for BD and capture teams.
+            Bloomberg Government is built for policy professionals. We built Mindy for BD and capture teams.
           </p>
 
           <div className="grid md:grid-cols-3 gap-6">

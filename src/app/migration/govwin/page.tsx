@@ -3,8 +3,8 @@ import { generateSeo, SITE_URL, faqJsonLd } from '@/lib/seo';
 import JsonLd from '@/components/JsonLd';
 
 export const metadata = generateSeo({
-  title: 'Switch from GovWin to Market Intelligence [2026 Migration Guide]',
-  description: 'Complete migration guide for switching from Deltek GovWin to GovCon Giants Market Intelligence. Step-by-step instructions, ROI calculator, and honest comparison. Save $23K+/year.',
+  title: 'Switch from GovWin to Mindy [2026 Migration Guide]',
+  description: 'Complete migration guide for switching from Deltek GovWin to Mindy. Step-by-step instructions, ROI calculator, and honest comparison. Save $23K+/year.',
   path: '/migration/govwin',
   keywords: [
     'switch from govwin',
@@ -34,7 +34,7 @@ const migrationSteps = [
   },
   {
     step: 2,
-    title: 'Sign Up for MI Free (No Credit Card)',
+    title: 'Sign Up for Mindy Free (No Credit Card)',
     duration: '5 minutes',
     instructions: [
       'Go to govcongiants.com/mi-free',
@@ -160,7 +160,7 @@ const faqs = [
   },
   {
     question: 'What if I\'m locked into a GovWin contract?',
-    answer: 'Most GovWin contracts are annual with 30-day cancellation notice. You can start using MI Free immediately while you wait for your GovWin contract to expire. This lets you learn the system without paying for both.',
+    answer: 'Most GovWin contracts are annual with 30-day cancellation notice. You can start using Mindy Free immediately while you wait for your GovWin contract to expire. This lets you learn the system without paying for both.',
   },
   {
     question: 'Do you have the same agency data as GovWin?',
@@ -168,7 +168,7 @@ const faqs = [
   },
   {
     question: 'Can you help me with the migration?',
-    answer: 'Yes! Email support@govconedu.com after signing up. Our team will schedule a 30-minute onboarding call to help you import your pipeline, set up alerts, and configure your profile. This is included free with MI Core and MI Team subscriptions.',
+    answer: 'Yes! Email support@govconedu.com after signing up. Our team will schedule a 30-minute onboarding call to help you import your pipeline, set up alerts, and configure your profile. This is included free with Mindy Pro and Mindy Teams subscriptions.',
   },
 ];
 
@@ -178,8 +178,8 @@ export default function GovWinMigrationPage() {
       <JsonLd data={{
         '@context': 'https://schema.org',
         '@type': 'HowTo',
-        name: 'How to Switch from GovWin to Market Intelligence',
-        description: 'Complete step-by-step guide for migrating from Deltek GovWin to GovCon Giants Market Intelligence.',
+        name: 'How to Switch from GovWin to Mindy',
+        description: 'Complete step-by-step guide for migrating from Deltek GovWin to Mindy.',
         totalTime: 'PT1H',
         step: migrationSteps.map((s) => ({
           '@type': 'HowToStep',
@@ -203,7 +203,7 @@ export default function GovWinMigrationPage() {
           </h1>
 
           <p className="text-xl text-slate-400 mb-8 max-w-2xl mx-auto">
-            Complete step-by-step instructions for migrating from Deltek GovWin to Market Intelligence.
+            Complete step-by-step instructions for migrating from Deltek GovWin to Mindy.
             Keep your pipeline, save money, gain better tools.
           </p>
 
@@ -239,7 +239,7 @@ export default function GovWinMigrationPage() {
             5-Step Migration Process
           </h2>
           <p className="text-slate-400 text-center mb-12 max-w-2xl mx-auto">
-            Follow this checklist to switch from GovWin to Market Intelligence without losing any data or missing opportunities.
+            Follow this checklist to switch from GovWin to Mindy without losing any data or missing opportunities.
           </p>
 
           <div className="space-y-8">
@@ -293,7 +293,7 @@ export default function GovWinMigrationPage() {
             ROI Calculator: Save $23K+ by Switching
           </h2>
           <p className="text-slate-400 text-center mb-12">
-            See how much money you&apos;ll save over 5 years by switching from GovWin to Market Intelligence.
+            See how much money you&apos;ll save over 5 years by switching from GovWin to Mindy.
           </p>
 
           <div className="bg-slate-900 border border-slate-800 rounded-2xl p-8">
@@ -318,10 +318,10 @@ export default function GovWinMigrationPage() {
               </div>
 
               <div>
-                <div className="text-green-400 font-semibold mb-4">MI Team Cost (Year 1)</div>
+                <div className="text-green-400 font-semibold mb-4">Mindy Teams Cost (Year 1)</div>
                 <div className="space-y-2 text-slate-300">
                   <div className="flex justify-between">
-                    <span>MI Team (5 users)</span>
+                    <span>Mindy Teams (5 users)</span>
                     <span className="font-mono">$5,988</span>
                   </div>
                   <div className="flex justify-between">
@@ -359,7 +359,7 @@ export default function GovWinMigrationPage() {
 
             <div className="text-center">
               <div className="text-5xl font-black text-green-400 mb-2">$23,412</div>
-              <div className="text-slate-400">Total 5-Year Savings (GovWin vs MI Team)</div>
+              <div className="text-slate-400">Total 5-Year Savings (GovWin vs Mindy Teams)</div>
             </div>
           </div>
         </div>
@@ -425,7 +425,7 @@ export default function GovWinMigrationPage() {
                   <div>
                     <div className="text-white font-semibold mb-1">Unlimited Users (Team Plan)</div>
                     <div className="text-slate-400 text-sm">
-                      GovWin charges $2,000+ per additional user. MI Team includes 5 users at $499/mo total.
+                      GovWin charges $2,000+ per additional user. Mindy Teams includes 5 users at $499/mo total.
                     </div>
                   </div>
                 </li>
@@ -466,7 +466,7 @@ export default function GovWinMigrationPage() {
       <section className="py-16 px-6">
         <div className="max-w-4xl mx-auto">
           <h2 className="text-3xl font-bold text-white text-center mb-8">
-            Feature Comparison: GovWin vs Market Intelligence
+            Feature Comparison: GovWin vs Mindy
           </h2>
 
           <div className="overflow-x-auto">
@@ -481,7 +481,7 @@ export default function GovWinMigrationPage() {
                   </th>
                   <th className="text-center py-4 px-4 bg-green-500/5 rounded-t-lg">
                     <div className="flex items-center justify-center gap-2">
-                      <span className="text-green-400 font-bold">Market Intelligence</span>
+                      <span className="text-green-400 font-bold">Mindy</span>
                     </div>
                   </th>
                 </tr>
@@ -630,8 +630,8 @@ export default function GovWinMigrationPage() {
             Ready to Make the Switch?
           </h2>
           <p className="text-xl text-slate-400 mb-8">
-            Start with MI Free today. No credit card, no contract, no risk.
-            Keep GovWin running while you test-drive Market Intelligence.
+            Start with Mindy Free today. No credit card, no contract, no risk.
+            Keep GovWin running while you test-drive Mindy.
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
             <Link

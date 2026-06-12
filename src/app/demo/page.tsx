@@ -5,8 +5,8 @@ import DemoTabs from './DemoTabs';
 
 // SEO metadata
 export const metadata = generateSeo({
-  title: 'Government Contracting Software Demo | See Market Intelligence in Action',
-  description: 'Watch a live demo of GovCon Giants Market Intelligence platform. Search 24K+ opportunities, track contracts, AI briefings, and more. Try the federal contract finder demo free.',
+  title: 'Government Contracting Software Demo | See Mindy in Action',
+  description: 'Watch a live demo of Mindy platform. Search 24K+ opportunities, track contracts, AI briefings, and more. Try the federal contract finder demo free.',
   path: '/demo',
   keywords: [
     'government contracting software demo',
@@ -57,7 +57,7 @@ const faqs = [
     answer: 'No. Create a free account with just your email. No credit card required for the free tier.',
   },
   {
-    question: 'What data sources does Market Intelligence use?',
+    question: 'What data sources does Mindy use?',
     answer: 'We aggregate from SAM.gov, Grants.gov, USASpending, NIH RePORTER, DARPA, NSF, DOE Labs, acquisitiongateway.gov forecasts, and 50+ state contracting portals.',
   },
   {
@@ -81,7 +81,7 @@ export default function DemoPage() {
       <JsonLd data={{
         '@context': 'https://schema.org',
         '@type': 'SoftwareApplication',
-        name: 'GovCon Giants Market Intelligence',
+        name: 'Mindy',
         applicationCategory: 'BusinessApplication',
         operatingSystem: 'Web',
         description: 'Federal contracting intelligence platform for small businesses. Find government contracts, track opportunities, and win more federal work.',
@@ -116,7 +116,7 @@ export default function DemoPage() {
           </div>
 
           <h1 className="text-4xl md:text-6xl font-black mb-6 leading-tight">
-            <span className="text-white">See Market Intelligence</span><br />
+            <span className="text-white">See Mindy</span><br />
             <span className="bg-gradient-to-r from-green-400 to-emerald-400 bg-clip-text text-transparent">
               in Action
             </span>
@@ -152,7 +152,7 @@ export default function DemoPage() {
               Platform Walkthrough
             </h2>
             <p className="text-slate-400 max-w-2xl mx-auto">
-              Watch a 5-minute overview of the Market Intelligence platform and see how contractors are using it to win more federal work.
+              Watch a 5-minute overview of the Mindy and see how contractors are using it to win more federal work.
             </p>
           </div>
 
@@ -160,7 +160,7 @@ export default function DemoPage() {
             <iframe
               className="absolute inset-0 w-full h-full"
               src="https://www.youtube.com/embed/dQw4w9WgXcQ"
-              title="GovCon Giants Market Intelligence Demo"
+              title="Mindy Demo"
               allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
               allowFullScreen
             />
@@ -191,7 +191,7 @@ export default function DemoPage() {
             Join the Contractors Using MI to Win More Work
           </h2>
           <p className="text-xl text-slate-400 mb-12">
-            Small businesses across the country use Market Intelligence to find opportunities,
+            Small businesses across the country use Mindy to find opportunities,
             track their pipeline, and compete for federal contracts.
           </p>
 
@@ -239,7 +239,7 @@ export default function DemoPage() {
             Demo & Trial FAQ
           </h2>
           <p className="text-slate-400 text-center mb-12">
-            Common questions about trying Market Intelligence
+            Common questions about trying Mindy
           </p>
 
           <div className="space-y-4">

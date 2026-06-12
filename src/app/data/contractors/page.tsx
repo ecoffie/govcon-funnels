@@ -200,14 +200,14 @@ export default function ContractorsIndexPage() {
             Get Full Contractor Intelligence
           </h2>
           <p className="text-slate-400 mb-6">
-            MI Core includes contract history, bid counts, competition analysis, and teaming partner recommendations.
+            Mindy Pro includes contract history, bid counts, competition analysis, and teaming partner recommendations.
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
             <Link
               href="https://getmindy.ai/market-intelligence"
               className="px-6 py-3 bg-green-600 hover:bg-green-500 text-white rounded-xl font-semibold transition"
             >
-              Get MI Core — $149/mo
+              Get Mindy Pro — $149/mo
             </Link>
             <Link
               href="/tools/cage-code-lookup"

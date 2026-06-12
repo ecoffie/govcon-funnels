@@ -19,7 +19,7 @@ export const metadata = generateSeo({
 
 const tiers = [
   {
-    name: 'MI Free',
+    name: 'Mindy Free',
     price: '$0',
     period: 'forever',
     description: 'Get started with federal contracting intelligence. No credit card required.',
@@ -42,7 +42,7 @@ const tiers = [
     ],
   },
   {
-    name: 'MI Core',
+    name: 'Mindy Pro',
     price: '$149',
     period: '/month',
     annualPrice: '$1,788/year',
@@ -68,7 +68,7 @@ const tiers = [
     ],
   },
   {
-    name: 'MI Team',
+    name: 'Mindy Teams',
     price: '$499',
     period: '/month',
     annualPrice: '$5,988/year',
@@ -77,7 +77,7 @@ const tiers = [
     ctaLink: 'mailto:hello@govconedu.com?subject=MI%20Team%20Inquiry',
     highlighted: false,
     features: [
-      'Everything in MI Core',
+      'Everything in Mindy Pro',
       'Up to 10 team members',
       'Shared pipeline & notes',
       'Custom briefing schedules',
@@ -105,7 +105,7 @@ const faqs = [
   },
   {
     question: 'Is there a free trial?',
-    answer: 'Yes! MI Core comes with a 14-day free trial. MI Free is completely free forever with no credit card required. Start with MI Free and upgrade when you see the value.',
+    answer: 'Yes! Mindy Pro comes with a 14-day free trial. Mindy Free is completely free forever with no credit card required. Start with Mindy Free and upgrade when you see the value.',
   },
   {
     question: 'Can I cancel anytime?',
@@ -121,7 +121,7 @@ const faqs = [
   },
   {
     question: 'What if I need help getting started?',
-    answer: 'All paid plans include email support. MI Team includes a dedicated account manager for onboarding. We also have 140+ free guides and video tutorials to help you get the most from the platform.',
+    answer: 'All paid plans include email support. Mindy Teams includes a dedicated account manager for onboarding. We also have 140+ free guides and video tutorials to help you get the most from the platform.',
   },
 ];
 
@@ -131,7 +131,7 @@ export default function PricingPage() {
       <JsonLd data={{
         '@context': 'https://schema.org',
         '@type': 'Product',
-        name: 'GovCon Giants Market Intelligence',
+        name: 'Mindy',
         description: 'Federal contracting intelligence platform for small businesses',
         url: `${SITE_URL}/pricing`,
         brand: {
@@ -283,7 +283,7 @@ export default function PricingPage() {
             Compare the Costs
           </h2>
           <p className="text-slate-400 text-center mb-12 max-w-2xl mx-auto">
-            See how GovCon Giants MI Core ($1,788/year) stacks up against enterprise tools
+            See how GovCon Giants Mindy Pro ($1,788/year) stacks up against enterprise tools
           </p>
 
           <div className="bg-slate-900 border border-slate-800 rounded-xl overflow-hidden">
@@ -294,7 +294,7 @@ export default function PricingPage() {
             </div>
             <div className="grid grid-cols-3 gap-0 border-b border-green-500/30 bg-green-500/5">
               <div className="p-4 text-white font-semibold flex items-center gap-2">
-                <span className="text-green-400">GovCon Giants MI Core</span>
+                <span className="text-green-400">GovCon Giants Mindy Pro</span>
               </div>
               <div className="p-4 text-center">
                 <span className="text-green-400 font-bold text-xl">$1,788/yr</span>
@@ -330,9 +330,9 @@ export default function PricingPage() {
               <thead>
                 <tr className="border-b border-slate-700">
                   <th className="text-left p-4 text-slate-300 font-semibold">Feature</th>
-                  <th className="text-center p-4 text-slate-300 font-semibold">MI Free</th>
-                  <th className="text-center p-4 text-green-400 font-semibold">MI Core</th>
-                  <th className="text-center p-4 text-slate-300 font-semibold">MI Team</th>
+                  <th className="text-center p-4 text-slate-300 font-semibold">Mindy Free</th>
+                  <th className="text-center p-4 text-green-400 font-semibold">Mindy Pro</th>
+                  <th className="text-center p-4 text-slate-300 font-semibold">Mindy Teams</th>
                 </tr>
               </thead>
               <tbody>

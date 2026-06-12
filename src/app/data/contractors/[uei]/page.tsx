@@ -193,7 +193,7 @@ export default async function ContractorProfilePage({ params }: PageProps) {
                   href="https://getmindy.ai/market-intelligence"
                   className="inline-block px-6 py-3 bg-green-600 hover:bg-green-500 text-white rounded-lg font-semibold transition"
                 >
-                  Get MI Core — $149/mo
+                  Get Mindy Pro — $149/mo
                 </Link>
               </div>
             </div>
@@ -313,7 +313,7 @@ export default async function ContractorProfilePage({ params }: PageProps) {
                   href="https://getmindy.ai/market-intelligence"
                   className="block w-full py-3 bg-green-600 hover:bg-green-500 text-white rounded-lg font-semibold text-center transition"
                 >
-                  Get MI Core
+                  Get Mindy Pro
                 </Link>
               </div>
             </div>

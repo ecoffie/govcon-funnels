@@ -62,7 +62,7 @@ const tools = [
     included: true,
   },
   {
-    name: 'Market Intelligence',
+    name: 'Mindy',
     tagline: 'Find the Right Contracts, Faster',
     description: 'Search SAM.gov contract opportunities by NAICS code, keywords, set-aside type, and agency. Get matched opportunities delivered to your inbox.',
     features: ['SAM.gov integration', 'NAICS filtering', 'Set-aside filters', 'Email alerts'],

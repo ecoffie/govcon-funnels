@@ -13,7 +13,7 @@ const SYSTEM_PROMPT_BASE = `You are an AI assistant for the GovCon Giants intern
 5. **Surge Bootcamp** (/surge) - Q4 spending focus - Source: "surge"
 6. **Feb 28 Proposal Bootcamp** (govcongiants.com/proposal-bootcamp) - Source: "proposal-bootcamp" - CURRENT PRIORITY
 7. **Free 12-Day Course** (/free-course) - Source: "free-course"
-8. **Market Intelligence** (/mi-free) - Tool redirect - Source: "mi-free"
+8. **Mindy** (/mi-free) - Tool redirect - Source: "mi-free"
 9. **Resource Handouts** (/resources/handouts) - Source: "handouts"
 10. **Feb 28 Bootcamp Alt** (/feb-28-bootcamp) - Source: "feb28-bootcamp"
 11. **Premium Plans** (/premium) - Overview of paid products

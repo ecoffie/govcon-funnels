@@ -18,7 +18,7 @@ export const metadata = generateSeo({
 const comparisonData = [
   {
     feature: 'Annual Price',
-    giants: { value: '$1,788/yr', detail: 'MI Core' },
+    giants: { value: '$1,788/yr', detail: 'Mindy Pro' },
     competitor: { value: '$2,700-$6,000/yr', detail: 'Per user' },
   },
   {
@@ -63,7 +63,7 @@ const comparisonData = [
   },
   {
     feature: 'Free Tier',
-    giants: { value: '✓', detail: 'MI Free forever' },
+    giants: { value: '✓', detail: 'Mindy Free forever' },
     competitor: { value: '✗', detail: 'Paid only' },
   },
 ];
@@ -98,7 +98,7 @@ export default function EZGovOppsComparisonPage() {
 
           <div className="grid md:grid-cols-2 gap-6 max-w-2xl mx-auto mb-8">
             <div className="bg-green-500/10 border border-green-500/30 rounded-xl p-6">
-              <div className="text-sm text-green-400 font-medium mb-1">GovCon Giants MI Core</div>
+              <div className="text-sm text-green-400 font-medium mb-1">GovCon Giants Mindy Pro</div>
               <div className="text-4xl font-black text-white">$1,788<span className="text-lg text-slate-400">/yr</span></div>
               <div className="text-sm text-slate-400">Unlimited team members</div>
             </div>

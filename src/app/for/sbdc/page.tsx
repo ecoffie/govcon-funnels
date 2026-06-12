@@ -46,7 +46,7 @@ const solutions = [
   {
     icon: '🆓',
     title: 'Free for Every Client',
-    description: 'MI Free gives every client daily opportunity alerts, CAGE code lookup, and contract research tools. Zero cost to your center.',
+    description: 'Mindy Free gives every client daily opportunity alerts, CAGE code lookup, and contract research tools. Zero cost to your center.',
     highlight: 'No budget required',
   },
   {

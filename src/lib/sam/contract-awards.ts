@@ -335,18 +335,144 @@ export async function getExpiringContracts(
   naicsCode: string,
   expiringMonths: number = 18
 ): Promise<ContractAward[]> {
-  const expiresWithinDays = expiringMonths * 30;
+  // SAM.gov's Contract Awards API requires a provisioned System Account key
+  // (SAM_CONTRACT_AWARDS_API_KEY) that isn't available here, so it silently
+  // returned []. USASpending's spending_by_award is public, no auth, and is
+  // FPDS's official successor — the same source market-assassin uses. Query it
+  // by NAICS, then keep awards whose period-of-performance End Date falls inside
+  // the [today, today+N months] window (USASpending can't filter end-date
+  // server-side, so we over-fetch recent active awards and filter in-process).
+  return getExpiringContractsFromUSASpending(naicsCode, expiringMonths);
+}
 
-  const result = await searchContractAwards({
-    naicsCode,
-    expiresWithinDays,
-    size: 100
+const USASPENDING_AWARD_SEARCH = 'https://api.usaspending.gov/api/v2/search/spending_by_award/';
+
+/**
+ * USASpending-backed expiring-contracts query (FPDS successor, no auth).
+ */
+async function getExpiringContractsFromUSASpending(
+  naicsCode: string,
+  expiringMonths: number
+): Promise<ContractAward[]> {
+  const today = new Date();
+  const windowEnd = new Date(today.getTime() + expiringMonths * 30 * 24 * 60 * 60 * 1000);
+
+  // Over-fetch the most recently-active awards for this NAICS (action date in
+  // the last ~3 years), sorted so the soonest-ending surface first, then filter
+  // by End Date in-window. 3 years of action-date coverage catches multi-year
+  // base awards that are only now approaching expiration.
+  const actionFrom = new Date(today);
+  actionFrom.setFullYear(actionFrom.getFullYear() - 3);
+
+  const requestBody = {
+    filters: {
+      naics_codes: [naicsCode],
+      time_period: [{ start_date: ymd(actionFrom), end_date: ymd(windowEnd) }],
+      award_type_codes: ['A', 'B', 'C', 'D'],
+    },
+    fields: [
+      'Award ID', 'Recipient Name', 'Awarding Agency', 'Awarding Sub Agency',
+      'Award Amount', 'Total Outlays', 'Start Date', 'End Date', 'NAICS',
+      'Place of Performance State Code', 'recipient_id', 'generated_internal_id',
+    ],
+    page: 1,
+    limit: 100,
+    sort: 'End Date',
+    order: 'asc',
+  };
+
+  let results: Record<string, unknown>[] = [];
+  try {
+    const res = await fetch(USASPENDING_AWARD_SEARCH, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(requestBody),
+    });
+    if (!res.ok) {
+      console.error('[Expiring Contracts] USASpending error', res.status, await res.text());
+      return [];
+    }
+    const data = await res.json();
+    results = data.results || [];
+  } catch (err) {
+    console.error('[Expiring Contracts] USASpending fetch failed', err);
+    return [];
+  }
+
+  const todayMs = today.getTime();
+  const windowEndMs = windowEnd.getTime();
+
+  const mapped = results.map((r): ContractAward | null => {
+    const endDateStr = (r['End Date'] as string) || '';
+    if (!endDateStr) return null;
+    const endMs = new Date(endDateStr).getTime();
+    if (Number.isNaN(endMs)) return null;
+    // Keep only awards expiring between now and the window end (the "expiring"
+    // promise). Already-expired awards are dropped.
+    if (endMs < todayMs || endMs > windowEndMs) return null;
+
+    const daysUntilExpiration = Math.round((endMs - todayMs) / (24 * 60 * 60 * 1000));
+    const amount = Number(r['Award Amount']) || 0;
+    const naicsRaw = r['NAICS'];
+    const { code: nCode, desc: nDesc } = parseNaicsField(naicsRaw, naicsCode);
+
+    return {
+      piid: (r['Award ID'] as string) || (r['generated_internal_id'] as string) || '',
+      contractAwardUniqueKey: (r['generated_internal_id'] as string) || (r['Award ID'] as string) || '',
+      recipientName: (r['Recipient Name'] as string) || 'Unknown',
+      recipientUei: (r['recipient_id'] as string) || '',
+      awardingAgencyName: (r['Awarding Agency'] as string) || '',
+      awardingSubAgencyName: (r['Awarding Sub Agency'] as string) || '',
+      naicsCode: nCode,
+      naicsDescription: nDesc,
+      pscCode: '',
+      totalObligation: Number(r['Total Outlays']) || amount,
+      currentTotalValueOfAward: amount,
+      baseAndExercisedOptionsValue: amount,
+      potentialTotalValueOfAward: amount,
+      periodOfPerformanceStartDate: (r['Start Date'] as string) || '',
+      periodOfPerformanceCurrentEndDate: endDateStr,
+      periodOfPerformancePotentialEndDate: endDateStr,
+      // USASpending's award-search doesn't return bid counts; leave neutral so
+      // the UI doesn't falsely flag everything as "low competition".
+      numberOfOffersReceived: 0,
+      extentCompeted: '',
+      extentCompetedDescription: '',
+      typeOfContractPricing: '',
+      contractDescription: '',
+      placeOfPerformanceCity: '',
+      placeOfPerformanceState: (r['Place of Performance State Code'] as string) || '',
+      placeOfPerformanceZip: '',
+      modificationNumber: '0',
+      actionDate: (r['Start Date'] as string) || '',
+      isBaseAward: true,
+      competitionLevel: undefined,
+      daysUntilExpiration,
+    };
   });
 
-  // Sort by days until expiration
-  return result.contracts.sort((a, b) =>
-    (a.daysUntilExpiration || 999) - (b.daysUntilExpiration || 999)
+  return (mapped.filter(Boolean) as ContractAward[]).sort(
+    (a, b) => (a.daysUntilExpiration || 999) - (b.daysUntilExpiration || 999)
   );
+}
+
+function ymd(d: Date): string {
+  return `${d.getFullYear()}-${String(d.getMonth() + 1).padStart(2, '0')}-${String(d.getDate()).padStart(2, '0')}`;
+}
+
+// USASpending returns NAICS as "236220 — Commercial and Institutional Building
+// Construction" (or sometimes an object). Split into code + description.
+function parseNaicsField(raw: unknown, fallbackCode: string): { code: string; desc: string } {
+  if (raw && typeof raw === 'object') {
+    const o = raw as Record<string, unknown>;
+    return { code: String(o.code || fallbackCode), desc: String(o.description || '') };
+  }
+  if (typeof raw === 'string' && raw.trim()) {
+    const m = raw.match(/^(\d{2,6})\s*[—-]?\s*(.*)$/);
+    if (m) return { code: m[1], desc: (m[2] || '').trim() };
+    return { code: fallbackCode, desc: raw.trim() };
+  }
+  return { code: fallbackCode, desc: '' };
 }
 
 /**

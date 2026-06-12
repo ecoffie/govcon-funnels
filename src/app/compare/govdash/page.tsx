@@ -29,7 +29,7 @@ const comparisonData = [
   },
   {
     feature: 'Free Tier',
-    giants: { value: '✓', detail: 'MI Free forever' },
+    giants: { value: '✓', detail: 'Mindy Free forever' },
     competitor: { value: '✗', detail: 'No free option' },
   },
   {

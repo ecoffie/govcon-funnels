@@ -46,7 +46,7 @@ const solutions = [
   {
     icon: '🆓',
     title: 'Free for All Your Clients',
-    description: 'MI Free gives every client daily opportunity alerts, CAGE lookup, and expiring contract finder. No cost to you or them.',
+    description: 'Mindy Free gives every client daily opportunity alerts, CAGE lookup, and expiring contract finder. No cost to you or them.',
     highlight: 'Zero budget impact',
   },
   {
@@ -283,7 +283,7 @@ export default function ApexAcceleratorsPage() {
               <div>
                 <h3 className="text-white font-bold text-lg mb-2">Your Clients Get Free Access</h3>
                 <p className="text-slate-400">
-                  Send clients to your custom signup link. They get MI Free instantly — daily alerts,
+                  Send clients to your custom signup link. They get Mindy Free instantly — daily alerts,
                   CAGE lookup, expiring contracts, and more. No credit card required.
                 </p>
               </div>

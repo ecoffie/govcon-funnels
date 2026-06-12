@@ -109,8 +109,8 @@ export const video: VideoData = {
   cta: {
     heading: 'Want Help Finding Contracts?',
     description:
-      'Our Market Intelligence tool automatically finds and analyzes contracts matching your business. Stop spending hours searching SAM.gov.',
-    buttonText: 'Try Market Intelligence Free',
+      'Our Mindy tool automatically finds and analyzes contracts matching your business. Stop spending hours searching SAM.gov.',
+    buttonText: 'Try Mindy Free',
     buttonHref: '/mi-free',
   },
 };

@@ -108,7 +108,7 @@ export default function HigherGovComparisonPage() {
 
           <div className="grid md:grid-cols-2 gap-6 max-w-2xl mx-auto mb-8">
             <div className="bg-green-500/10 border border-green-500/30 rounded-xl p-6">
-              <div className="text-sm text-green-400 font-medium mb-1">GovCon Giants MI Core</div>
+              <div className="text-sm text-green-400 font-medium mb-1">GovCon Giants Mindy Pro</div>
               <div className="text-4xl font-black text-white">$149<span className="text-lg text-slate-400">/mo</span></div>
               <div className="text-sm text-slate-400">Unlimited team members</div>
             </div>
@@ -184,7 +184,7 @@ export default function HigherGovComparisonPage() {
               <div className="text-3xl mb-4">💰</div>
               <h3 className="text-xl font-bold text-white mb-2">No Per-User Pricing</h3>
               <p className="text-slate-400">
-                HigherGov charges per user, which adds up for teams. Our MI Core plan includes unlimited team members at $149/month —
+                HigherGov charges per user, which adds up for teams. Our Mindy Pro plan includes unlimited team members at $149/month —
                 whether you&apos;re solo or have 10 people on your BD team.
               </p>
             </div>

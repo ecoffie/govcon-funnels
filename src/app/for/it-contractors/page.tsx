@@ -87,7 +87,7 @@ export default function ITContractorsPage() {
       <JsonLd data={{
         '@context': 'https://schema.org',
         '@type': 'SoftwareApplication',
-        name: 'GovCon Giants Market Intelligence for IT Contractors',
+        name: 'Mindy for IT Contractors',
         applicationCategory: 'BusinessApplication',
         offers: {
           '@type': 'Offer',

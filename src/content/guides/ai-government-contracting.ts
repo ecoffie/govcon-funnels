@@ -5,7 +5,7 @@ export const guide: GuideData = {
   title: 'AI Tools for Government Contracting: How AI Is Changing GovCon',
   metaTitle: 'AI for Government Contracting [Free Tools] — Find & Win Contracts Faster',
   metaDescription:
-    'Use AI to find federal contracts, write proposals, and research competitors. Free tools: Market Intelligence, Market Assassin, Content Reaper. Built for small business GovCon.',
+    'Use AI to find federal contracts, write proposals, and research competitors. Free tools: Mindy, Market Assassin, Content Reaper. Built for small business GovCon.',
   keywords: [
     'ai government contracting',
     'ai govcon tools',
@@ -19,7 +19,7 @@ export const guide: GuideData = {
     'government contracting technology',
   ],
   heroSubtitle:
-    'AI is transforming how small businesses find, compete for, and win government contracts. GovCon Giants has built purpose-built AI tools — Market Assassin, Content Reaper, and Market Intelligence — to give you an unfair advantage in federal contracting.',
+    'AI is transforming how small businesses find, compete for, and win government contracts. GovCon Giants has built purpose-built AI tools — Market Assassin, Content Reaper, and Mindy — to give you an unfair advantage in federal contracting.',
   sections: [
     {
       heading: 'How AI Is Transforming Government Contracting',
@@ -49,7 +49,7 @@ export const guide: GuideData = {
           <li><strong>Pre-solicitation intelligence.</strong> AI monitors sources of information notices, RFIs, and draft solicitations to alert you to opportunities in the early stages, when engagement with the agency has the highest impact on your win probability.</li>
           <li><strong>Noise reduction.</strong> Instead of sorting through hundreds of irrelevant results, AI filters your opportunity feed to show only the solicitations where you have a realistic chance of competing and winning.</li>
         </ul>
-        <p><a href="/mi-free" target="_blank" rel="noopener"><strong>Market Intelligence</strong></a> from GovCon Giants is built specifically for this purpose — it uses AI to scan and analyze federal opportunities, matching them to your company profile so you spend less time searching and more time pursuing the right contracts.</p>
+        <p><a href="/mi-free" target="_blank" rel="noopener"><strong>Mindy</strong></a> from GovCon Giants is built specifically for this purpose — it uses AI to scan and analyze federal opportunities, matching them to your company profile so you spend less time searching and more time pursuing the right contracts.</p>
         <p>The difference between manual search and AI-powered discovery is the difference between casting a wide net and hoping for the best versus precision-targeting opportunities where your probability of winning is highest.</p>
       `,
     },
@@ -104,8 +104,8 @@ export const guide: GuideData = {
             <p>Content Reaper helps you create, refine, and organize proposal content, capability statements, and business development materials. Generate first drafts, check compliance against solicitation requirements, repurpose content from previous proposals, and maintain a library of your best content for reuse. It's the proposal assistant every small business needs but few can afford to hire.</p>
           </li>
           <li>
-            <strong><a href="/mi-free" target="_blank" rel="noopener">Market Intelligence</a> — AI Opportunity Discovery</strong>
-            <p>Market Intelligence uses AI to scan federal contract opportunities and match them to your company profile, certifications, and past performance. Get a filtered feed of opportunities where you can actually compete and win — not a firehose of irrelevant solicitations. It monitors for recompetes, tracks pre-solicitation activity, and alerts you to opportunities early in the procurement cycle.</p>
+            <strong><a href="/mi-free" target="_blank" rel="noopener">Mindy</a> — AI Opportunity Discovery</strong>
+            <p>Mindy uses AI to scan federal contract opportunities and match them to your company profile, certifications, and past performance. Get a filtered feed of opportunities where you can actually compete and win — not a firehose of irrelevant solicitations. It monitors for recompetes, tracks pre-solicitation activity, and alerts you to opportunities early in the procurement cycle.</p>
           </li>
         </ul>
         <p>All three tools are available at <a href="/shop" target="_blank" rel="noopener">shop.govcongiants.com</a>, and you can explore the full suite on our <a href="/tools">tools page</a>. Whether you're a new contractor building your pipeline or an experienced firm scaling your BD operation, these tools give you the AI-powered edge that the government contracting market demands in 2026.</p>
@@ -167,7 +167,7 @@ export const guide: GuideData = {
     {
       question: 'What are the best AI tools for government contracting?',
       answer:
-        'The best AI tools for government contracting are purpose-built for federal procurement workflows. GovCon Giants offers three specialized tools: Market Assassin for competitive intelligence and market research, Content Reaper for proposal and content support, and Market Intelligence for AI-powered opportunity discovery. Generic AI tools like ChatGPT can help with general writing tasks, but they lack access to federal procurement data and don\'t understand govcon-specific processes. For the best results, use specialized govcon AI tools for procurement-specific tasks and general AI for supporting work like editing and brainstorming.',
+        'The best AI tools for government contracting are purpose-built for federal procurement workflows. GovCon Giants offers three specialized tools: Market Assassin for competitive intelligence and market research, Content Reaper for proposal and content support, and Mindy for AI-powered opportunity discovery. Generic AI tools like ChatGPT can help with general writing tasks, but they lack access to federal procurement data and don\'t understand govcon-specific processes. For the best results, use specialized govcon AI tools for procurement-specific tasks and general AI for supporting work like editing and brainstorming.',
     },
     {
       question: 'Is the government using AI in procurement?',
@@ -187,7 +187,7 @@ export const guide: GuideData = {
     {
       question: 'How do I get started with AI for government contracting?',
       answer:
-        'Start by visiting the GovCon Giants tools page at govcongiants.com/tools to explore Market Assassin, Content Reaper, and Market Intelligence. Begin with the tool that addresses your biggest pain point — if you struggle to find opportunities, start with Market Intelligence; if market research takes too long, start with Market Assassin; if proposals are your bottleneck, start with Content Reaper. You can also use free AI tools like ChatGPT to practice AI-assisted workflows before investing in specialized tools. The key is to start now and build AI into your routine, because your competitors already are.',
+        'Start by visiting the GovCon Giants tools page at govcongiants.com/tools to explore Market Assassin, Content Reaper, and Mindy. Begin with the tool that addresses your biggest pain point — if you struggle to find opportunities, start with Mindy; if market research takes too long, start with Market Assassin; if proposals are your bottleneck, start with Content Reaper. You can also use free AI tools like ChatGPT to practice AI-assisted workflows before investing in specialized tools. The key is to start now and build AI into your routine, because your competitors already are.',
     },
     {
       question: 'Is my data safe when using AI tools for government contracting?',
@@ -198,7 +198,7 @@ export const guide: GuideData = {
   cta: {
     heading: 'Try GovCon Giants AI Tools Today',
     description:
-      'Market Assassin, Content Reaper, and Market Intelligence give your small business the AI-powered edge you need to find, compete for, and win government contracts. Stop doing it the hard way.',
+      'Market Assassin, Content Reaper, and Mindy give your small business the AI-powered edge you need to find, compete for, and win government contracts. Stop doing it the hard way.',
     buttonText: 'Explore Our Tools',
     buttonHref: '/tools',
   },

@@ -4,7 +4,7 @@ import JsonLd from '@/components/JsonLd';
 
 export const metadata = generateSeo({
   title: 'GovCon Giants vs Fed-Spend [2026 Comparison] — More Comprehensive Intelligence',
-  description: 'Compare GovCon Giants Market Intelligence to Fed-Spend. Get agency pain points, 800+ SBLO contacts, 7,700+ forecasts, contractor database, and AI briefings. More data than Fed-Spend Pro.',
+  description: 'Compare Mindy to Fed-Spend. Get agency pain points, 800+ SBLO contacts, 7,700+ forecasts, contractor database, and AI briefings. More data than Fed-Spend Pro.',
   path: '/compare/fed-spend',
   keywords: [
     'fed-spend alternative',
@@ -86,12 +86,12 @@ const comparisonData = [
   },
   {
     feature: 'Free Tier',
-    giants: { value: '✓', detail: 'MI Free forever' },
+    giants: { value: '✓', detail: 'Mindy Free forever' },
     fedspend: { value: '✓', detail: 'Free plan available' },
   },
   {
     feature: 'Premium Pricing',
-    giants: { value: '$149/mo', detail: 'MI Core' },
+    giants: { value: '$149/mo', detail: 'Mindy Pro' },
     fedspend: { value: '$49-$199/mo', detail: 'Pro/Enterprise' },
   },
   {
@@ -123,11 +123,11 @@ export default function FedSpendComparisonPage() {
         '@context': 'https://schema.org',
         '@type': 'WebPage',
         name: 'GovCon Giants vs Fed-Spend Comparison',
-        description: 'Feature and pricing comparison between GovCon Giants Market Intelligence and Fed-Spend for federal contract research.',
+        description: 'Feature and pricing comparison between Mindy and Fed-Spend for federal contract research.',
         url: `${SITE_URL}/compare/fed-spend`,
         mainEntity: {
           '@type': 'Product',
-          name: 'GovCon Giants Market Intelligence',
+          name: 'Mindy',
           description: 'Federal contracting intelligence platform for small businesses',
           offers: {
             '@type': 'AggregateOffer',
@@ -164,7 +164,7 @@ export default function FedSpendComparisonPage() {
             name: 'Is GovCon Giants more expensive than Fed-Spend?',
             acceptedAnswer: {
               '@type': 'Answer',
-              text: 'GovCon Giants MI Core is $149/month, which is comparable to Fed-Spend Pro ($49-$199/month depending on features). For the price, you get significantly more data: SBLO contacts, agency pain points, contractor database, and comprehensive forecasts that Fed-Spend doesn\'t offer.',
+              text: 'GovCon Giants Mindy Pro is $149/month, which is comparable to Fed-Spend Pro ($49-$199/month depending on features). For the price, you get significantly more data: SBLO contacts, agency pain points, contractor database, and comprehensive forecasts that Fed-Spend doesn\'t offer.',
             },
           },
           {
@@ -172,7 +172,7 @@ export default function FedSpendComparisonPage() {
             name: 'Can I switch from Fed-Spend to GovCon Giants?',
             acceptedAnswer: {
               '@type': 'Answer',
-              text: 'Yes. Both are month-to-month subscriptions with no long-term contracts. You can sign up for GovCon Giants MI Free to test it alongside Fed-Spend, then cancel Fed-Spend when ready. Contact support for migration assistance.',
+              text: 'Yes. Both are month-to-month subscriptions with no long-term contracts. You can sign up for GovCon Giants Mindy Free to test it alongside Fed-Spend, then cancel Fed-Spend when ready. Contact support for migration assistance.',
             },
           },
           {
@@ -207,7 +207,7 @@ export default function FedSpendComparisonPage() {
           {/* Price Comparison Banner */}
           <div className="grid md:grid-cols-2 gap-6 max-w-2xl mx-auto mb-8">
             <div className="bg-green-500/10 border border-green-500/30 rounded-xl p-6">
-              <div className="text-sm text-green-400 font-medium mb-1">GovCon Giants MI Core</div>
+              <div className="text-sm text-green-400 font-medium mb-1">GovCon Giants Mindy Pro</div>
               <div className="text-4xl font-black text-white">$149<span className="text-lg text-slate-400">/mo</span></div>
               <div className="text-sm text-slate-400">Complete intelligence suite</div>
             </div>
@@ -333,7 +333,7 @@ export default function FedSpendComparisonPage() {
       <section className="py-16 px-6">
         <div className="max-w-4xl mx-auto">
           <h2 className="text-3xl font-bold text-white text-center mb-12">
-            What&apos;s Included in MI Core ($149/mo)
+            What&apos;s Included in Mindy Pro ($149/mo)
           </h2>
 
           <div className="grid md:grid-cols-2 gap-4">
@@ -425,7 +425,7 @@ export default function FedSpendComparisonPage() {
                 href="https://getmindy.ai/market-intelligence"
                 className="block w-full py-3 bg-green-600 hover:bg-green-500 text-white rounded-lg font-semibold text-center transition"
               >
-                Get MI Core
+                Get Mindy Pro
               </Link>
             </div>
 
@@ -452,7 +452,7 @@ export default function FedSpendComparisonPage() {
                 href="https://getmindy.ai/market-intelligence"
                 className="block w-full py-3 bg-slate-800 hover:bg-slate-700 text-white rounded-lg font-semibold text-center transition"
               >
-                Get MI Team
+                Get Mindy Teams
               </Link>
             </div>
           </div>
@@ -482,13 +482,13 @@ export default function FedSpendComparisonPage() {
             <div className="bg-slate-900 rounded-xl p-6">
               <h3 className="text-white font-semibold mb-2">Is GovCon Giants more expensive than Fed-Spend?</h3>
               <p className="text-slate-400">
-                GovCon Giants MI Core is $149/month, which is comparable to Fed-Spend Pro ($49-$199/month depending on features). For the price, you get significantly more data: SBLO contacts, agency pain points, contractor database, and comprehensive forecasts that Fed-Spend doesn&apos;t offer.
+                GovCon Giants Mindy Pro is $149/month, which is comparable to Fed-Spend Pro ($49-$199/month depending on features). For the price, you get significantly more data: SBLO contacts, agency pain points, contractor database, and comprehensive forecasts that Fed-Spend doesn&apos;t offer.
               </p>
             </div>
             <div className="bg-slate-900 rounded-xl p-6">
               <h3 className="text-white font-semibold mb-2">Can I switch from Fed-Spend to GovCon Giants?</h3>
               <p className="text-slate-400">
-                Yes. Both are month-to-month subscriptions with no long-term contracts. You can sign up for GovCon Giants MI Free to test it alongside Fed-Spend, then cancel Fed-Spend when ready. Contact support for migration assistance.
+                Yes. Both are month-to-month subscriptions with no long-term contracts. You can sign up for GovCon Giants Mindy Free to test it alongside Fed-Spend, then cancel Fed-Spend when ready. Contact support for migration assistance.
               </p>
             </div>
             <div className="bg-slate-900 rounded-xl p-6">

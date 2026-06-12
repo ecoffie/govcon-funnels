@@ -53,7 +53,7 @@ const activeFunnels: SharedLinkItem[] = [
   { label: 'Surge Bootcamp (surge)', url: 'https://govcongiants.com/surge' },
   { label: 'Feb 28 Proposal Bootcamp (proposal-bootcamp)', url: 'https://govcongiants.com/proposal-bootcamp' },
   { label: 'Free 12-Day Course (free-course)', url: 'https://govcongiants.com/free-course' },
-  { label: 'Market Intelligence Tool (mi-free)', url: 'https://govcongiants.com/mi-free' },
+  { label: 'Mindy Tool (mi-free)', url: 'https://govcongiants.com/mi-free' },
   { label: 'Resource Handouts (handouts)', url: 'https://govcongiants.com/resources/handouts' },
   {
     label: 'Contract Vehicles Bootcamp (contract-vehicles-bootcamp)',
@@ -150,7 +150,7 @@ export const sharedHomepageContent = {
     },
     {
       icon: '🔍',
-      title: 'Market Intelligence',
+      title: 'Mindy',
       desc: 'Find agencies that buy what you sell using our free AI-powered research tool.',
       link: '/mi-free',
       cta: 'Try It Free ->',

@@ -450,7 +450,7 @@ export const guide: GuideData = {
           <li>☐ Research which certifications you may qualify for</li>
         </ul>
 
-        <h3>Days 31-60: Market Intelligence</h3>
+        <h3>Days 31-60: Mindy</h3>
         <ul>
           <li>☐ Research past contract awards in your NAICS codes</li>
           <li>☐ Identify 3-5 target agencies that buy what you sell</li>

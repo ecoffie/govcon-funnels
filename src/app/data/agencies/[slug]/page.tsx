@@ -157,7 +157,7 @@ export default async function AgencyPage({ params }: Props) {
                   href="https://getmindy.ai/market-intelligence"
                   className="inline-block px-6 py-3 bg-green-600 hover:bg-green-500 text-white rounded-lg font-semibold transition"
                 >
-                  Get MI Core — $149/mo
+                  Get Mindy Pro — $149/mo
                 </Link>
               </div>
             </div>
@@ -189,7 +189,7 @@ export default async function AgencyPage({ params }: Props) {
                   href="https://getmindy.ai/market-intelligence"
                   className="inline-block px-6 py-3 bg-blue-600 hover:bg-blue-500 text-white rounded-lg font-semibold transition"
                 >
-                  Get MI Core — $149/mo
+                  Get Mindy Pro — $149/mo
                 </Link>
               </div>
             </div>
@@ -247,7 +247,7 @@ export default async function AgencyPage({ params }: Props) {
                   href="https://getmindy.ai/market-intelligence"
                   className="text-sm text-green-400 hover:text-green-300 font-medium transition"
                 >
-                  Unlock NAICS codes with MI Core →
+                  Unlock NAICS codes with Mindy Pro →
                 </Link>
               </div>
             </div>
@@ -323,7 +323,7 @@ export default async function AgencyPage({ params }: Props) {
                   href="https://getmindy.ai/market-intelligence"
                   className="block w-full py-3 bg-green-600 hover:bg-green-500 text-white rounded-lg font-semibold text-center transition"
                 >
-                  Get MI Core
+                  Get Mindy Pro
                 </Link>
               </div>
             </div>

@@ -3,7 +3,7 @@ import { generateSeo, SITE_URL, faqJsonLd } from '@/lib/seo';
 import JsonLd from '@/components/JsonLd';
 
 export const metadata = generateSeo({
-  title: 'Federal Consulting Contracts — Market Intelligence for Professional Services (NAICS 541611)',
+  title: 'Federal Consulting Contracts — Mindy for Professional Services (NAICS 541611)',
   description: 'Government contracting intelligence built for management consulting firms. Track $70B+ in federal professional services spending, GSA PSS Schedule opportunities, BPA/IDIQ task orders, and labor category rates.',
   path: '/for/professional-services',
   keywords: [

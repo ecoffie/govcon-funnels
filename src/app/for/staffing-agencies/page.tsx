@@ -3,7 +3,7 @@ import { generateSeo, SITE_URL, faqJsonLd } from '@/lib/seo';
 import JsonLd from '@/components/JsonLd';
 
 export const metadata = generateSeo({
-  title: 'Government Staffing Contracts — Market Intelligence for Agencies (NAICS 561320)',
+  title: 'Government Staffing Contracts — Mindy for Agencies (NAICS 561320)',
   description: 'Federal contract intelligence for staffing agencies and temporary help services. Find staff aug contracts, GSA Schedule 738 opportunities, and labor category demand across federal agencies.',
   path: '/for/staffing-agencies',
   keywords: [

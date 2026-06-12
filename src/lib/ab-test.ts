@@ -18,7 +18,7 @@ export interface ABTest {
 export const AB_TESTS: Record<string, ABTest> = {
   'mi-free-cta': {
     id: 'mi-free-cta',
-    name: 'MI Free CTA Button Text',
+    name: 'Mindy Free CTA Button Text',
     variants: [
       { id: 'control', name: 'Get Free Access' },
       { id: 'variant-a', name: 'Start Free — No Credit Card' },
@@ -28,7 +28,7 @@ export const AB_TESTS: Record<string, ABTest> = {
   },
   'mi-free-headline': {
     id: 'mi-free-headline',
-    name: 'MI Free Headline',
+    name: 'Mindy Free Headline',
     variants: [
       { id: 'control', name: 'Stop missing opportunities' },
       { id: 'variant-a', name: 'Your next contract is waiting' },

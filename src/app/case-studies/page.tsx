@@ -4,7 +4,7 @@ import JsonLd from '@/components/JsonLd';
 
 export const metadata = generateSeo({
   title: 'Government Contracting Success Stories — Real Small Business Wins',
-  description: '$2.5M+ in federal contracts won by Market Intelligence users. See how 8(a), SDVOSB, WOSB, and HUBZone contractors used competitive intelligence to win task orders, BPAs, and IDIQs.',
+  description: '$2.5M+ in federal contracts won by Mindy users. See how 8(a), SDVOSB, WOSB, and HUBZone contractors used competitive intelligence to win task orders, BPAs, and IDIQs.',
   path: '/case-studies',
   keywords: [
     'government contracting success stories',
@@ -300,7 +300,7 @@ export default function CaseStudiesPage() {
           <p className="text-slate-500 text-sm text-center">
             <strong>Note:</strong> These are composite case studies based on real customer outcomes.
             Company names and specific details have been generalized to protect client confidentiality.
-            Contract values and timelines represent actual results achieved by Market Intelligence users.
+            Contract values and timelines represent actual results achieved by Mindy users.
           </p>
         </div>
       </section>
@@ -312,7 +312,7 @@ export default function CaseStudiesPage() {
             Ready to Win Your First Federal Contract?
           </h2>
           <p className="text-xl text-slate-400 mb-8">
-            Join 2,000+ contractors using Market Intelligence to find opportunities,
+            Join 2,000+ contractors using Mindy to find opportunities,
             research agencies, and track their pipeline.
           </p>
           <Link

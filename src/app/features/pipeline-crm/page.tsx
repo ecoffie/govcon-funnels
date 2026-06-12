@@ -117,7 +117,7 @@ const faqs = [
   },
   {
     question: 'How many users can I add?',
-    answer: 'MI Core ($149/mo) includes 3 users. MI Team ($499/mo) includes unlimited users. No per-seat pricing like enterprise CRMs.',
+    answer: 'Mindy Pro ($149/mo) includes 3 users. Mindy Teams ($499/mo) includes unlimited users. No per-seat pricing like enterprise CRMs.',
   },
   {
     question: 'Can I track teaming partners?',

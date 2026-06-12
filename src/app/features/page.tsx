@@ -106,7 +106,7 @@ export default function FeaturesPage() {
       <JsonLd data={{
         '@context': 'https://schema.org',
         '@type': 'SoftwareApplication',
-        name: 'GovCon Giants Market Intelligence',
+        name: 'Mindy',
         applicationCategory: 'BusinessApplication',
         operatingSystem: 'Web',
         description: 'Federal contracting intelligence platform for small businesses. Find government contracts, track opportunities, and win more federal work.',
@@ -269,7 +269,7 @@ export default function FeaturesPage() {
               <div className="p-4"></div>
             </div>
             <div className="grid grid-cols-3 gap-0 border-b border-green-500/30 bg-green-500/5">
-              <div className="p-4 text-white font-semibold">GovCon Giants MI Core</div>
+              <div className="p-4 text-white font-semibold">GovCon Giants Mindy Pro</div>
               <div className="p-4 text-center">
                 <span className="text-green-400 font-bold text-xl">$1,788/yr</span>
               </div>

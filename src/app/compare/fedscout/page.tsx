@@ -4,7 +4,7 @@ import JsonLd from '@/components/JsonLd';
 
 export const metadata = generateSeo({
   title: 'GovCon Giants vs FedScout [2026 Comparison] — More Data, Better Intelligence',
-  description: 'Compare GovCon Giants Market Intelligence to FedScout. Get agency pain points, SBLO contacts, 7,700+ forecasts, and AI briefings. More comprehensive than FedScout Free or Pro.',
+  description: 'Compare Mindy to FedScout. Get agency pain points, SBLO contacts, 7,700+ forecasts, and AI briefings. More comprehensive than FedScout Free or Pro.',
   path: '/compare/fedscout',
   keywords: [
     'fedscout alternative',
@@ -76,12 +76,12 @@ const comparisonData = [
   },
   {
     feature: 'Free Tier Alerts',
-    giants: { value: '5/month', detail: 'MI Free' },
+    giants: { value: '5/month', detail: 'Mindy Free' },
     fedscout: { value: '3/month', detail: 'FedScout Free' },
   },
   {
     feature: 'Premium Pricing',
-    giants: { value: '$149/mo', detail: 'MI Core' },
+    giants: { value: '$149/mo', detail: 'Mindy Pro' },
     fedscout: { value: '$49-$99/mo', detail: 'Pro plans' },
   },
   {
@@ -101,7 +101,7 @@ const testimonials = [
     author: "BD Manager, Small IT Contractor",
   },
   {
-    quote: "We switched from FedScout Pro to MI Core. For $50 more per month, we get 10x the features. The forecast database alone is worth it.",
+    quote: "We switched from FedScout Pro to Mindy Pro. For $50 more per month, we get 10x the features. The forecast database alone is worth it.",
     author: "Owner, SDVOSB Construction Firm",
   },
 ];
@@ -113,11 +113,11 @@ export default function FedScoutComparisonPage() {
         '@context': 'https://schema.org',
         '@type': 'WebPage',
         name: 'GovCon Giants vs FedScout Comparison',
-        description: 'Feature and pricing comparison between GovCon Giants Market Intelligence and FedScout for federal contract research.',
+        description: 'Feature and pricing comparison between Mindy and FedScout for federal contract research.',
         url: `${SITE_URL}/compare/fedscout`,
         mainEntity: {
           '@type': 'Product',
-          name: 'GovCon Giants Market Intelligence',
+          name: 'Mindy',
           description: 'Federal contracting intelligence platform for small businesses',
           offers: {
             '@type': 'AggregateOffer',
@@ -138,7 +138,7 @@ export default function FedScoutComparisonPage() {
             name: 'How does GovCon Giants compare to FedScout Free?',
             acceptedAnswer: {
               '@type': 'Answer',
-              text: 'Both offer free tiers with limited alerts. GovCon Giants MI Free includes 5 alerts/month (vs FedScout\'s 3/month), plus agency pain points preview, CAGE code lookup, and expiring contracts search. For serious BD work, MI Core ($149/mo) includes unlimited alerts, AI briefings, SBLO contacts, and 7,700+ forecasts that FedScout doesn\'t offer.',
+              text: 'Both offer free tiers with limited alerts. GovCon Giants Mindy Free includes 5 alerts/month (vs FedScout\'s 3/month), plus agency pain points preview, CAGE code lookup, and expiring contracts search. For serious BD work, Mindy Pro ($149/mo) includes unlimited alerts, AI briefings, SBLO contacts, and 7,700+ forecasts that FedScout doesn\'t offer.',
             },
           },
           {
@@ -146,7 +146,7 @@ export default function FedScoutComparisonPage() {
             name: 'Is GovCon Giants more expensive than FedScout Pro?',
             acceptedAnswer: {
               '@type': 'Answer',
-              text: 'GovCon Giants MI Core is $149/month vs FedScout Pro at $49-$99/month, but you get significantly more features: 800+ SBLO contacts, 200+ agency pain points, 7,700+ forecasts, AI-powered briefings, and a built-in pipeline CRM. The additional cost provides 5-10x more intelligence.',
+              text: 'GovCon Giants Mindy Pro is $149/month vs FedScout Pro at $49-$99/month, but you get significantly more features: 800+ SBLO contacts, 200+ agency pain points, 7,700+ forecasts, AI-powered briefings, and a built-in pipeline CRM. The additional cost provides 5-10x more intelligence.',
             },
           },
           {
@@ -197,7 +197,7 @@ export default function FedScoutComparisonPage() {
           {/* Price Comparison Banner */}
           <div className="grid md:grid-cols-2 gap-6 max-w-2xl mx-auto mb-8">
             <div className="bg-green-500/10 border border-green-500/30 rounded-xl p-6">
-              <div className="text-sm text-green-400 font-medium mb-1">GovCon Giants MI Core</div>
+              <div className="text-sm text-green-400 font-medium mb-1">GovCon Giants Mindy Pro</div>
               <div className="text-4xl font-black text-white">$149<span className="text-lg text-slate-400">/mo</span></div>
               <div className="text-sm text-slate-400">Unlimited alerts + AI intelligence</div>
             </div>
@@ -323,7 +323,7 @@ export default function FedScoutComparisonPage() {
       <section className="py-16 px-6">
         <div className="max-w-4xl mx-auto">
           <h2 className="text-3xl font-bold text-white text-center mb-12">
-            What&apos;s Included in MI Core ($149/mo)
+            What&apos;s Included in Mindy Pro ($149/mo)
           </h2>
 
           <div className="grid md:grid-cols-2 gap-4">
@@ -415,7 +415,7 @@ export default function FedScoutComparisonPage() {
                 href="https://getmindy.ai/market-intelligence"
                 className="block w-full py-3 bg-green-600 hover:bg-green-500 text-white rounded-lg font-semibold text-center transition"
               >
-                Get MI Core
+                Get Mindy Pro
               </Link>
             </div>
 
@@ -442,7 +442,7 @@ export default function FedScoutComparisonPage() {
                 href="https://getmindy.ai/market-intelligence"
                 className="block w-full py-3 bg-slate-800 hover:bg-slate-700 text-white rounded-lg font-semibold text-center transition"
               >
-                Get MI Team
+                Get Mindy Teams
               </Link>
             </div>
           </div>
@@ -460,13 +460,13 @@ export default function FedScoutComparisonPage() {
             <div className="bg-slate-900 rounded-xl p-6">
               <h3 className="text-white font-semibold mb-2">How does GovCon Giants compare to FedScout Free?</h3>
               <p className="text-slate-400">
-                Both offer free tiers with limited alerts. GovCon Giants MI Free includes 5 alerts/month (vs FedScout&apos;s 3/month), plus agency pain points preview, CAGE code lookup, and expiring contracts search. For serious BD work, MI Core ($149/mo) includes unlimited alerts, AI briefings, SBLO contacts, and 7,700+ forecasts that FedScout doesn&apos;t offer.
+                Both offer free tiers with limited alerts. GovCon Giants Mindy Free includes 5 alerts/month (vs FedScout&apos;s 3/month), plus agency pain points preview, CAGE code lookup, and expiring contracts search. For serious BD work, Mindy Pro ($149/mo) includes unlimited alerts, AI briefings, SBLO contacts, and 7,700+ forecasts that FedScout doesn&apos;t offer.
               </p>
             </div>
             <div className="bg-slate-900 rounded-xl p-6">
               <h3 className="text-white font-semibold mb-2">Is GovCon Giants more expensive than FedScout Pro?</h3>
               <p className="text-slate-400">
-                GovCon Giants MI Core is $149/month vs FedScout Pro at $49-$99/month, but you get significantly more features: 800+ SBLO contacts, 200+ agency pain points, 7,700+ forecasts, AI-powered briefings, and a built-in pipeline CRM. The additional cost provides 5-10x more intelligence.
+                GovCon Giants Mindy Pro is $149/month vs FedScout Pro at $49-$99/month, but you get significantly more features: 800+ SBLO contacts, 200+ agency pain points, 7,700+ forecasts, AI-powered briefings, and a built-in pipeline CRM. The additional cost provides 5-10x more intelligence.
               </p>
             </div>
             <div className="bg-slate-900 rounded-xl p-6">

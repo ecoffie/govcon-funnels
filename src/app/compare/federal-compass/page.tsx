@@ -4,7 +4,7 @@ import JsonLd from '@/components/JsonLd';
 
 export const metadata = generateSeo({
   title: 'GovCon Giants vs Federal Compass [2026 Comparison] — More Intelligence, Less Cost',
-  description: 'Compare GovCon Giants Market Intelligence to Federal Compass. Get AI-powered briefings, SBLO contacts, and agency pain points. Free tier available, no per-user pricing.',
+  description: 'Compare Mindy to Federal Compass. Get AI-powered briefings, SBLO contacts, and agency pain points. Free tier available, no per-user pricing.',
   path: '/compare/federal-compass',
   keywords: [
     'federal compass alternative',
@@ -66,7 +66,7 @@ const comparisonData = [
   },
   {
     feature: 'Free Tier',
-    giants: { value: '✓', detail: 'MI Free forever' },
+    giants: { value: '✓', detail: 'Mindy Free forever' },
     compass: { value: '✓', detail: '3 users, basic features' },
   },
   {
@@ -76,7 +76,7 @@ const comparisonData = [
   },
   {
     feature: '5-User Team Cost',
-    giants: { value: '$499/mo', detail: 'MI Team plan' },
+    giants: { value: '$499/mo', detail: 'Mindy Teams plan' },
     compass: { value: '$120-$600/mo', detail: 'Depends on tier' },
   },
   {
@@ -108,11 +108,11 @@ export default function FederalCompassComparisonPage() {
         '@context': 'https://schema.org',
         '@type': 'WebPage',
         name: 'GovCon Giants vs Federal Compass Comparison',
-        description: 'Feature and pricing comparison between GovCon Giants Market Intelligence and Federal Compass for federal contract research.',
+        description: 'Feature and pricing comparison between Mindy and Federal Compass for federal contract research.',
         url: `${SITE_URL}/compare/federal-compass`,
         mainEntity: {
           '@type': 'Product',
-          name: 'GovCon Giants Market Intelligence',
+          name: 'Mindy',
           description: 'Federal contracting intelligence platform for small businesses',
           offers: {
             '@type': 'AggregateOffer',
@@ -146,7 +146,7 @@ export default function FederalCompassComparisonPage() {
           {/* Price Comparison Banner */}
           <div className="grid md:grid-cols-2 gap-6 max-w-2xl mx-auto mb-8">
             <div className="bg-green-500/10 border border-green-500/30 rounded-xl p-6">
-              <div className="text-sm text-green-400 font-medium mb-1">GovCon Giants MI Core</div>
+              <div className="text-sm text-green-400 font-medium mb-1">GovCon Giants Mindy Pro</div>
               <div className="text-4xl font-black text-white">$149<span className="text-lg text-slate-400">/mo</span></div>
               <div className="text-sm text-slate-400">Flat rate • All features • All users</div>
             </div>
@@ -450,7 +450,7 @@ export default function FederalCompassComparisonPage() {
                 href="https://getmindy.ai/market-intelligence"
                 className="block w-full py-3 bg-green-600 hover:bg-green-500 text-white rounded-lg font-semibold text-center transition"
               >
-                Get MI Core
+                Get Mindy Pro
               </Link>
             </div>
 
@@ -477,7 +477,7 @@ export default function FederalCompassComparisonPage() {
                 href="https://getmindy.ai/market-intelligence"
                 className="block w-full py-3 bg-slate-800 hover:bg-slate-700 text-white rounded-lg font-semibold text-center transition"
               >
-                Get MI Team
+                Get Mindy Teams
               </Link>
             </div>
           </div>
@@ -516,7 +516,7 @@ export default function FederalCompassComparisonPage() {
             <div className="bg-slate-900 rounded-xl p-6">
               <h3 className="text-white font-semibold mb-2">Can I try before committing?</h3>
               <p className="text-slate-400">
-                Yes — MI Free is free forever, no credit card required.
+                Yes — Mindy Free is free forever, no credit card required.
                 Federal Compass also has a free tier (3 users, basic features).
                 Try both and decide.
               </p>

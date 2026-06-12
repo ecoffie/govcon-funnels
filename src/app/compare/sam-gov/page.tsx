@@ -164,7 +164,7 @@ export default function SamGovComparisonPage() {
                 SAM.gov gives you raw data. We analyze it with AI to surface opportunities matched to your NAICS codes,
                 certifications, and past performance.
               </p>
-              <span className="text-green-400 text-sm font-semibold">Included in MI Core →</span>
+              <span className="text-green-400 text-sm font-semibold">Included in Mindy Pro →</span>
             </div>
             <div className="bg-gradient-to-br from-green-900/20 to-slate-900 border border-green-500/30 rounded-xl p-6">
               <div className="text-3xl mb-3">🏛️</div>
@@ -172,7 +172,7 @@ export default function SamGovComparisonPage() {
               <p className="text-slate-400 text-sm mb-3">
                 Know what agencies need before RFPs drop. 200+ agencies analyzed with budget priorities, pain points, and modernization goals.
               </p>
-              <span className="text-green-400 text-sm font-semibold">Included in MI Core →</span>
+              <span className="text-green-400 text-sm font-semibold">Included in Mindy Pro →</span>
             </div>
             <div className="bg-gradient-to-br from-green-900/20 to-slate-900 border border-green-500/30 rounded-xl p-6">
               <div className="text-3xl mb-3">📇</div>
@@ -180,7 +180,7 @@ export default function SamGovComparisonPage() {
               <p className="text-slate-400 text-sm mb-3">
                 Direct access to 800+ Small Business Liaison Officers at prime contractors. Email addresses and phone numbers for teaming.
               </p>
-              <span className="text-green-400 text-sm font-semibold">Included in MI Core →</span>
+              <span className="text-green-400 text-sm font-semibold">Included in Mindy Pro →</span>
             </div>
             <div className="bg-gradient-to-br from-green-900/20 to-slate-900 border border-green-500/30 rounded-xl p-6">
               <div className="text-3xl mb-3">📊</div>
@@ -188,7 +188,7 @@ export default function SamGovComparisonPage() {
               <p className="text-slate-400 text-sm mb-3">
                 Track opportunities from discovery to award. SAM.gov has no pipeline tracking — you&apos;re left managing spreadsheets.
               </p>
-              <span className="text-green-400 text-sm font-semibold">Included in MI Core →</span>
+              <span className="text-green-400 text-sm font-semibold">Included in Mindy Pro →</span>
             </div>
           </div>
         </div>

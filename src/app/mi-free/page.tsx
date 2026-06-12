@@ -5,8 +5,8 @@ import JsonLd from '@/components/JsonLd';
 import { SITE_URL } from '@/lib/seo';
 
 export const metadata = generateSeo({
-  title: 'MI Free — Government Contracting Intelligence | No Credit Card',
-  description: 'Get daily federal contract alerts, agency pain points, and SBLO contacts free. AI-matched opportunities for your NAICS codes. Start winning government contracts with Market Intelligence.',
+  title: 'Mindy Free — Government Contracting Intelligence | No Credit Card',
+  description: 'Get daily federal contract alerts, agency pain points, and SBLO contacts free. AI-matched opportunities for your NAICS codes. Start winning government contracts with Mindy.',
   path: '/mi-free',
   keywords: [
     'government contract alerts',
@@ -69,7 +69,7 @@ export default function MIFreePage() {
       <JsonLd data={{
         '@context': 'https://schema.org',
         '@type': 'SoftwareApplication',
-        name: 'MI Free - Government Contracting Intelligence',
+        name: 'Mindy Free - Government Contracting Intelligence',
         applicationCategory: 'BusinessApplication',
         operatingSystem: 'Web',
         offers: {
@@ -111,7 +111,7 @@ export default function MIFreePage() {
               buttonClassName="btn-primary w-full green-glow disabled:opacity-50 text-lg py-4"
             />
             <p className="text-sm text-slate-500 mt-3">
-              Join 5,000+ contractors already using MI Free
+              Join 5,000+ contractors already using Mindy Free
             </p>
           </div>
         </div>
@@ -143,7 +143,7 @@ export default function MIFreePage() {
       <section className="py-20 px-6">
         <div className="max-w-4xl mx-auto">
           <h2 className="text-3xl font-bold text-white text-center mb-4">
-            MI Free vs. MI Core vs. MI Team
+            Mindy Free vs. Mindy Pro vs. Mindy Teams
           </h2>
           <p className="text-slate-400 text-center mb-12">
             Start free, upgrade when you&apos;re ready
@@ -193,7 +193,7 @@ export default function MIFreePage() {
               href="https://getmindy.ai/market-intelligence"
               className="px-8 py-4 bg-slate-800 hover:bg-slate-700 text-white rounded-xl font-bold text-lg transition-all text-center border border-slate-700"
             >
-              See MI Core Features
+              See Mindy Pro Features
             </Link>
           </div>
         </div>
@@ -215,7 +215,7 @@ export default function MIFreePage() {
       <section className="py-20 px-6">
         <div className="max-w-4xl mx-auto">
           <h2 className="text-3xl font-bold text-white text-center mb-12">
-            How MI Free Works
+            How Mindy Free Works
           </h2>
 
           <div className="grid md:grid-cols-3 gap-8">
@@ -276,12 +276,12 @@ export default function MIFreePage() {
 
           <div className="space-y-6">
             <div className="bg-slate-900 rounded-xl p-6">
-              <h3 className="text-white font-semibold mb-2">Is MI Free really free?</h3>
+              <h3 className="text-white font-semibold mb-2">Is Mindy Free really free?</h3>
               <p className="text-slate-400">Yes. No credit card required, no trial period. You get 5 matched opportunities per month and access to our free tools forever.</p>
             </div>
             <div className="bg-slate-900 rounded-xl p-6">
-              <h3 className="text-white font-semibold mb-2">What&apos;s the difference between MI Free and MI Core?</h3>
-              <p className="text-slate-400">MI Free gives you basic alerts and access to free tools. MI Core ($149/mo) adds AI-powered briefings, full SBLO contact info, unlimited forecasts, Pipeline CRM, and access to our 3,500+ contractor database.</p>
+              <h3 className="text-white font-semibold mb-2">What&apos;s the difference between Mindy Free and Mindy Pro?</h3>
+              <p className="text-slate-400">Mindy Free gives you basic alerts and access to free tools. Mindy Pro ($149/mo) adds AI-powered briefings, full SBLO contact info, unlimited forecasts, Pipeline CRM, and access to our 3,500+ contractor database.</p>
             </div>
             <div className="bg-slate-900 rounded-xl p-6">
               <h3 className="text-white font-semibold mb-2">How is this different from searching SAM.gov myself?</h3>
@@ -289,7 +289,7 @@ export default function MIFreePage() {
             </div>
             <div className="bg-slate-900 rounded-xl p-6">
               <h3 className="text-white font-semibold mb-2">Can I upgrade later?</h3>
-              <p className="text-slate-400">Yes. You can upgrade to MI Core or MI Team anytime from your dashboard. No long-term contracts.</p>
+              <p className="text-slate-400">Yes. You can upgrade to Mindy Pro or Mindy Teams anytime from your dashboard. No long-term contracts.</p>
             </div>
           </div>
         </div>

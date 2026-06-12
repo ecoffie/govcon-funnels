@@ -3,8 +3,8 @@ import { generateSeo, SITE_URL } from '@/lib/seo';
 import JsonLd from '@/components/JsonLd';
 
 export const metadata = generateSeo({
-  title: 'Switch from GovTribe to Market Intelligence [Migration Guide] — GovCon Giants',
-  description: 'Step-by-step guide to migrating from GovTribe to Market Intelligence. Export saved searches, recreate filters, and unlock AI-powered briefings.',
+  title: 'Switch from GovTribe to Mindy [Migration Guide] — GovCon Giants',
+  description: 'Step-by-step guide to migrating from GovTribe to Mindy. Export saved searches, recreate filters, and unlock AI-powered briefings.',
   path: '/migration/govtribe',
   keywords: [
     'switch from govtribe',
@@ -34,7 +34,7 @@ const migrationSteps = [
   },
   {
     step: 2,
-    title: 'Sign Up for MI Free (No Credit Card)',
+    title: 'Sign Up for Mindy Free (No Credit Card)',
     duration: '2 minutes',
     description: 'Start with the free tier to test your searches before committing.',
     instructions: [
@@ -94,7 +94,7 @@ const migrationSteps = [
       'Log into GovTribe and go to Account Settings',
       'Click "Cancel Subscription" (may need to email support for annual plans)',
       'Export any final data you need',
-      'Upgrade to MI Core ($149/mo) if you need unlimited alerts',
+      'Upgrade to Mindy Pro ($149/mo) if you need unlimited alerts',
     ],
     tip: 'GovTribe requires 30-day notice for cancellation. Start the process early if on annual billing.',
   },
@@ -157,7 +157,7 @@ const whyUsersSwitchReasons = [
   {
     icon: '🆓',
     title: 'Forever Free Tier',
-    description: 'MI Free lets you test indefinitely. GovTribe gives you 14 days then requires payment.',
+    description: 'Mindy Free lets you test indefinitely. GovTribe gives you 14 days then requires payment.',
   },
   {
     icon: '📊',
@@ -181,7 +181,7 @@ const faqs = [
   },
   {
     question: 'Can I keep using GovTribe for some searches and MI for others?',
-    answer: 'Yes, but you\'d be paying for two tools. Most users migrate fully to save $112-$333/mo. Start with MI Free to test, then decide. The 2-week parallel testing period helps you verify before committing.',
+    answer: 'Yes, but you\'d be paying for two tools. Most users migrate fully to save $112-$333/mo. Start with Mindy Free to test, then decide. The 2-week parallel testing period helps you verify before committing.',
   },
   {
     question: 'Does MI have the same filtering options as GovTribe?',
@@ -196,8 +196,8 @@ export default function GovTribeMigrationPage() {
       <JsonLd data={{
         '@context': 'https://schema.org',
         '@type': 'HowTo',
-        name: 'How to Switch from GovTribe to Market Intelligence',
-        description: 'Step-by-step migration guide for switching from GovTribe to GovCon Giants Market Intelligence.',
+        name: 'How to Switch from GovTribe to Mindy',
+        description: 'Step-by-step migration guide for switching from GovTribe to Mindy.',
         url: `${SITE_URL}/migration/govtribe`,
         step: migrationSteps.map((step) => ({
           '@type': 'HowToStep',
@@ -234,7 +234,7 @@ export default function GovTribeMigrationPage() {
           </h1>
 
           <p className="text-xl text-slate-400 mb-8 max-w-2xl mx-auto">
-            Export your saved searches, test MI Free side-by-side, and migrate when you&apos;re ready.{' '}
+            Export your saved searches, test Mindy Free side-by-side, and migrate when you&apos;re ready.{' '}
             <span className="text-green-400 font-semibold">45 minutes total work, 2 weeks parallel testing.</span>
           </p>
 
@@ -293,7 +293,7 @@ export default function GovTribeMigrationPage() {
               </ul>
             </div>
             <div className="bg-green-500/10 border border-green-500/30 rounded-xl p-6">
-              <div className="text-sm text-green-400 font-medium mb-1">MI Core</div>
+              <div className="text-sm text-green-400 font-medium mb-1">Mindy Pro</div>
               <div className="text-4xl font-black text-white">$149<span className="text-lg text-slate-400">/mo</span></div>
               <div className="text-sm text-slate-400 mb-4">Month-to-month • Cancel anytime</div>
               <ul className="space-y-2 text-sm text-slate-400">
@@ -465,7 +465,7 @@ export default function GovTribeMigrationPage() {
             Ready to Start Your Migration?
           </h2>
           <p className="text-xl text-slate-400 mb-8">
-            Test MI Free side-by-side with GovTribe for 2 weeks. No credit card. No risk.
+            Test Mindy Free side-by-side with GovTribe for 2 weeks. No credit card. No risk.
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
             <Link

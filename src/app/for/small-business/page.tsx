@@ -314,7 +314,7 @@ export default function SmallBusinessPage() {
             <div className="text-center">
               <div className="w-12 h-12 rounded-full bg-green-500/20 text-green-400 font-bold flex items-center justify-center mx-auto mb-4">1</div>
               <h3 className="text-white font-bold mb-2">Sign Up Free</h3>
-              <p className="text-slate-400 text-sm">No credit card required. Get instant access to MI Free with basic features.</p>
+              <p className="text-slate-400 text-sm">No credit card required. Get instant access to Mindy Free with basic features.</p>
             </div>
             <div className="text-center">
               <div className="w-12 h-12 rounded-full bg-green-500/20 text-green-400 font-bold flex items-center justify-center mx-auto mb-4">2</div>

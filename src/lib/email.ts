@@ -158,7 +158,7 @@ export async function sendConfirmationEmail(params: EmailParams & { source: stri
 }
 
 /**
- * Market Intelligence confirmation email
+ * Mindy confirmation email
  */
 export async function sendMarketIntelligenceEmail(params: EmailParams): Promise<EmailResult> {
   const firstName = params.name.split(' ')[0] || 'there';
@@ -167,23 +167,23 @@ export async function sendMarketIntelligenceEmail(params: EmailParams): Promise<
 
   const content = `
 <div style="text-align: center; margin-bottom: 24px;">
-  <img src="${logoUrl}" alt="Market Intelligence" width="180" style="max-width: 180px; height: auto;" />
+  <img src="${logoUrl}" alt="Mindy" width="180" style="max-width: 180px; height: auto;" />
 </div>
 
 <h1 style="color: #ffffff; font-size: 28px; margin: 0 0 20px; text-align: center;">
-  Your Market Intelligence Access is Ready!
+  Your Mindy Access is Ready!
 </h1>
 
 <p style="color: #94a3b8; font-size: 16px; line-height: 1.6; margin: 0 0 30px;">
   Hey ${firstName},<br><br>
-  Great news! You now have access to Market Intelligence - our AI-powered platform that matches your business with federal agencies that buy what you sell.
+  Great news! You now have access to Mindy - our AI-powered platform that matches your business with federal agencies that buy what you sell.
 </p>
 
 <table width="100%" cellpadding="0" cellspacing="0">
   <tr>
     <td align="center" style="padding: 20px 0;">
       <a href="${toolUrl}" style="display: inline-block; background-color: #4ade80; color: #0f172a; padding: 16px 32px; border-radius: 8px; text-decoration: none; font-weight: 700; font-size: 16px;">
-        Access Market Intelligence
+        Access Mindy
       </a>
     </td>
   </tr>
@@ -201,7 +201,7 @@ export async function sendMarketIntelligenceEmail(params: EmailParams): Promise<
 
 ${proCta()}`;
 
-  return sendEmail(params.to, `${firstName}, Your Market Intelligence Access is Ready!`, emailWrapper(content));
+  return sendEmail(params.to, `${firstName}, Your Mindy Access is Ready!`, emailWrapper(content));
 }
 
 // Keep old function name as alias for backward compatibility

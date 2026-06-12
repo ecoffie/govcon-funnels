@@ -143,8 +143,8 @@ export const video: VideoData = {
   cta: {
     heading: 'Want Automated Market Research?',
     description:
-      'Our Market Intelligence tool monitors your target agencies and alerts you to new opportunities automatically.',
-    buttonText: 'Try Market Intelligence Free',
+      'Our Mindy tool monitors your target agencies and alerts you to new opportunities automatically.',
+    buttonText: 'Try Mindy Free',
     buttonHref: '/mi-free',
   },
 };

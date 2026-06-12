@@ -105,7 +105,7 @@ export const guide: GuideData = {
           <li><strong>Historical data research</strong> — Use USAspending.gov and SAM.gov's contract data search to see who won previous iterations of a contract, what they bid, and what the evaluation criteria were. This intelligence is gold for competitive positioning.</li>
           <li><strong>Expiring contracts finder</strong> — Use our free <a href="/tools/expiring-contracts">Expiring Contracts Finder</a> to identify federal contracts coming up for recompete. When an incumbent's contract is ending, that's your opportunity to position for the follow-on award.</li>
         </ul>
-        <p>The GovCon Giants <strong>Market Intelligence</strong> tool is designed specifically for this workflow — aggregating federal opportunities, filtering by your profile, and surfacing the ones where you have the best chance of winning. The goal is to spend less time searching and more time on capture activities: meeting with agency contacts, building teaming relationships, and writing competitive proposals.</p>
+        <p>The GovCon Giants <strong>Mindy</strong> tool is designed specifically for this workflow — aggregating federal opportunities, filtering by your profile, and surfacing the ones where you have the best chance of winning. The goal is to spend less time searching and more time on capture activities: meeting with agency contacts, building teaming relationships, and writing competitive proposals.</p>
         <p>Whatever tools you use, the key is <strong>consistency</strong>. The contractors who win are the ones who review opportunities daily, respond to every relevant RFI, and maintain a disciplined pipeline.</p>
       `,
     },
@@ -160,8 +160,8 @@ export const guide: GuideData = {
   cta: {
     heading: 'Stop Searching. Start Finding.',
     description:
-      'Market Intelligence surfaces the federal contracts that match your business, so you spend less time searching and more time winning.',
-    buttonText: 'Try Market Intelligence Free',
+      'Mindy surfaces the federal contracts that match your business, so you spend less time searching and more time winning.',
+    buttonText: 'Try Mindy Free',
     buttonHref: '/mi-free',
   },
   relatedGuides: [

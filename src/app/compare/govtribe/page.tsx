@@ -4,7 +4,7 @@ import JsonLd from '@/components/JsonLd';
 
 export const metadata = generateSeo({
   title: 'GovCon Giants vs GovTribe [2026 Comparison] — Better Value for Small Business',
-  description: 'Compare GovCon Giants Market Intelligence to GovTribe. Get federal contract intelligence, AI-powered briefings, and agency pain points. Free tier available.',
+  description: 'Compare Mindy to GovTribe. Get federal contract intelligence, AI-powered briefings, and agency pain points. Free tier available.',
   path: '/compare/govtribe',
   keywords: [
     'govtribe alternative',
@@ -81,12 +81,12 @@ const comparisonData = [
   },
   {
     feature: 'Free Tier',
-    giants: { value: '✓', detail: 'MI Free forever' },
+    giants: { value: '✓', detail: 'Mindy Free forever' },
     govtribe: { value: '14-day trial', detail: 'Then paid only' },
   },
   {
     feature: 'Starting Price',
-    giants: { value: '$149/mo', detail: 'MI Core' },
+    giants: { value: '$149/mo', detail: 'Mindy Pro' },
     govtribe: { value: '$112/mo', detail: '$1,350/yr (Launch)' },
   },
   {
@@ -123,11 +123,11 @@ export default function GovTribeComparisonPage() {
         '@context': 'https://schema.org',
         '@type': 'WebPage',
         name: 'GovCon Giants vs GovTribe Comparison',
-        description: 'Feature and pricing comparison between GovCon Giants Market Intelligence and GovTribe for federal contract research.',
+        description: 'Feature and pricing comparison between Mindy and GovTribe for federal contract research.',
         url: `${SITE_URL}/compare/govtribe`,
         mainEntity: {
           '@type': 'Product',
-          name: 'GovCon Giants Market Intelligence',
+          name: 'Mindy',
           description: 'Federal contracting intelligence platform for small businesses',
           offers: {
             '@type': 'AggregateOffer',
@@ -161,7 +161,7 @@ export default function GovTribeComparisonPage() {
           {/* Price Comparison Banner */}
           <div className="grid md:grid-cols-2 gap-6 max-w-2xl mx-auto mb-8">
             <div className="bg-green-500/10 border border-green-500/30 rounded-xl p-6">
-              <div className="text-sm text-green-400 font-medium mb-1">GovCon Giants MI Core</div>
+              <div className="text-sm text-green-400 font-medium mb-1">GovCon Giants Mindy Pro</div>
               <div className="text-4xl font-black text-white">$149<span className="text-lg text-slate-400">/mo</span></div>
               <div className="text-sm text-slate-400">Month-to-month • Full features</div>
             </div>
@@ -397,7 +397,7 @@ export default function GovTribeComparisonPage() {
                 href="https://getmindy.ai/market-intelligence"
                 className="block w-full py-3 bg-green-600 hover:bg-green-500 text-white rounded-lg font-semibold text-center transition"
               >
-                Get MI Core
+                Get Mindy Pro
               </Link>
             </div>
 
@@ -424,7 +424,7 @@ export default function GovTribeComparisonPage() {
                 href="https://getmindy.ai/market-intelligence"
                 className="block w-full py-3 bg-slate-800 hover:bg-slate-700 text-white rounded-lg font-semibold text-center transition"
               >
-                Get MI Team
+                Get Mindy Teams
               </Link>
             </div>
           </div>
@@ -442,7 +442,7 @@ export default function GovTribeComparisonPage() {
             <div className="bg-slate-900 rounded-xl p-6">
               <h3 className="text-white font-semibold mb-2">Is GovTribe cheaper than GovCon Giants?</h3>
               <p className="text-slate-400">
-                GovTribe Launch ($112/mo) is cheaper than MI Core ($149/mo), but requires annual commitment.
+                GovTribe Launch ($112/mo) is cheaper than Mindy Pro ($149/mo), but requires annual commitment.
                 Our full features at $149/mo are cheaper than GovTribe Growth ($333/mo), and we offer month-to-month billing.
               </p>
             </div>
@@ -456,7 +456,7 @@ export default function GovTribeComparisonPage() {
             <div className="bg-slate-900 rounded-xl p-6">
               <h3 className="text-white font-semibold mb-2">Can I try before committing?</h3>
               <p className="text-slate-400">
-                Yes. We have a free tier (MI Free) you can use forever. GovTribe offers a 14-day trial.
+                Yes. We have a free tier (Mindy Free) you can use forever. GovTribe offers a 14-day trial.
                 Our approach lets you test at your own pace without a ticking clock.
               </p>
             </div>

@@ -90,7 +90,7 @@ export default function ForecastsIndexPage() {
             href="https://getmindy.ai/market-intelligence"
             className="inline-block px-8 py-4 bg-green-600 hover:bg-green-500 text-white rounded-xl font-semibold text-lg transition"
           >
-            Search Forecasts — MI Core $149/mo
+            Search Forecasts — Mindy Pro $149/mo
           </Link>
         </div>
       </section>
@@ -133,7 +133,7 @@ export default function ForecastsIndexPage() {
                   href="https://getmindy.ai/market-intelligence"
                   className="inline-block px-6 py-3 bg-green-600 hover:bg-green-500 text-white rounded-lg font-semibold transition"
                 >
-                  Get MI Core — $149/mo
+                  Get Mindy Pro — $149/mo
                 </Link>
               </div>
             </div>
@@ -247,14 +247,14 @@ export default function ForecastsIndexPage() {
             Stop Chasing — Start Shaping
           </h2>
           <p className="text-slate-400 mb-6">
-            MI Core gives you full access to 7,700+ forecasts, daily alerts, and AI-powered briefings to help you win more contracts.
+            Mindy Pro gives you full access to 7,700+ forecasts, daily alerts, and AI-powered briefings to help you win more contracts.
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
             <Link
               href="https://getmindy.ai/market-intelligence"
               className="px-6 py-3 bg-green-600 hover:bg-green-500 text-white rounded-xl font-semibold transition"
             >
-              Get MI Core — $149/mo
+              Get Mindy Pro — $149/mo
             </Link>
             <Link
               href="/guides/federal-market-research"

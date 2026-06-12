@@ -94,7 +94,7 @@ export default function ProMemberGroupPage() {
               <h4 className="text-white font-bold mb-4 text-center">Plus Everything in Pro Membership:</h4>
               <div className="grid grid-cols-2 md:grid-cols-3 gap-3 text-sm text-slate-400">
                 <div className="flex items-center gap-2"><span className="text-green-500">✓</span> Monthly Live Bootcamps</div>
-                <div className="flex items-center gap-2"><span className="text-green-500">✓</span> Market Intelligence Pro</div>
+                <div className="flex items-center gap-2"><span className="text-green-500">✓</span> Mindy Pro</div>
                 <div className="flex items-center gap-2"><span className="text-green-500">✓</span> Weekly Q&A Calls</div>
                 <div className="flex items-center gap-2"><span className="text-green-500">✓</span> Pro Member Community</div>
                 <div className="flex items-center gap-2"><span className="text-green-500">✓</span> All Bootcamp Replays</div>

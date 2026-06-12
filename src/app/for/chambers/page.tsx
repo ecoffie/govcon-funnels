@@ -46,7 +46,7 @@ const solutions = [
   {
     icon: '🎁',
     title: 'Premium Member Benefit',
-    description: 'MI Free for all members. MI Core at discounted rates. Position government contracts as an exclusive chamber benefit.',
+    description: 'Mindy Free for all members. Mindy Pro at discounted rates. Position government contracts as an exclusive chamber benefit.',
     highlight: 'Increase perceived value',
   },
   {
@@ -73,8 +73,8 @@ const benefits = [
   {
     title: 'For Members',
     items: [
-      'Free access to MI Free (daily alerts, CAGE lookup)',
-      'Discounted MI Core subscription ($49/mo vs $149)',
+      'Free access to Mindy Free (daily alerts, CAGE lookup)',
+      'Discounted Mindy Pro subscription ($49/mo vs $149)',
       'Access to GovCon training library',
       'Invitation to GovCon workshops',
       'Connection to teaming partner network',
