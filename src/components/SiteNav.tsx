@@ -184,6 +184,15 @@ export default function SiteNav() {
               Pricing
             </Link>
 
+            {/* Bootcamp — Mindy Launch (June 27) */}
+            <Link
+              href="/mindy-launch"
+              className="px-4 py-2 text-violet-300 hover:text-white transition flex items-center gap-1.5"
+            >
+              <span className="inline-block w-2 h-2 rounded-full bg-violet-500 animate-pulse"></span>
+              Free Bootcamp
+            </Link>
+
             {/* CTA Button */}
             <Link
               href="/mi"
@@ -256,6 +265,9 @@ export default function SiteNav() {
 
               {/* Direct Links */}
               <div className="border-t border-slate-800 pt-4 mt-4">
+                <Link href="/mindy-launch" className="block px-2 py-2 text-violet-300 hover:text-white transition font-medium">
+                  Free Bootcamp — June 27
+                </Link>
                 <Link href="/pricing" className="block px-2 py-2 text-slate-300 hover:text-white transition">
                   Pricing
                 </Link>
