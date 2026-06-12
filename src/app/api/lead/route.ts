@@ -1,6 +1,7 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { sendLeadToCrm, sendToSlack } from '@/lib/crm';
 import { sendConfirmationEmail } from '@/lib/email';
+import { saveLeadToSupabase } from '@/lib/supabase-leads';
 
 export async function POST(request: NextRequest) {
   try {
@@ -24,7 +25,12 @@ export async function POST(request: NextRequest) {
     };
 
     // 1) Send to CRM first (HighLevel + optional webhook). Contact is created and tagged in GHL.
-    const crmResults = await sendLeadToCrm(lead);
+    //    Also write a backup row to Supabase (funnel_leads) so a signup is never
+    //    lost if GHL fails. Both run in parallel; the backup never blocks the user.
+    const [crmResults, supabaseResult] = await Promise.all([
+      sendLeadToCrm(lead),
+      saveLeadToSupabase(lead),
+    ]);
 
     // 2) Send Slack notification (email, name, what they signed up for, phone)
     const slackResult = await sendToSlack(lead);
@@ -42,6 +48,7 @@ export async function POST(request: NextRequest) {
       source: lead.source,
       abTest: lead.abTestId ? `${lead.abTestId}:${lead.abVariant}` : null,
       crm: crmResults.ghl?.ok,
+      supabase: supabaseResult.ok,
       slack: slackResult.ok,
       emailSent: emailResult.ok
     });
@@ -50,6 +57,7 @@ export async function POST(request: NextRequest) {
     return NextResponse.json({
       success: true,
       crm: crmResults,
+      supabase: supabaseResult,
       slack: slackResult,
       email: emailResult,
     });
