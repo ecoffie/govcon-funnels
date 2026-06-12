@@ -105,18 +105,6 @@ const nextConfig: NextConfig = {
         destination: "/mi",
         permanent: true,
       },
-      // Mindy Launch bootcamp (Sat June 27, 2026) — static funnel lives on the
-      // funnels project; redirect the clean .com URL to it. 302 (event page).
-      {
-        source: "/mindy-launch",
-        destination: "https://funnels-one.vercel.app/mindy-launch/",
-        permanent: false,
-      },
-      {
-        source: "/mindy-launch/",
-        destination: "https://funnels-one.vercel.app/mindy-launch/",
-        permanent: false,
-      },
     ];
   },
   async headers() {
@@ -142,6 +130,10 @@ const nextConfig: NextConfig = {
         { source: "/quiz", destination: "/quiz/index.html" },
         { source: "/upskilling", destination: "/upskilling/index.html" },
         { source: "/market-intel", destination: "/market-intel/index.html" },
+        // Mindy Launch (Sat June 27, 2026): proxy the static funnel so the URL
+        // stays on govcongiants.com/mindy-launch (rewrite, not redirect).
+        { source: "/mindy-launch", destination: "https://funnels-one.vercel.app/mindy-launch/index.html" },
+        { source: "/mindy-launch/:path*", destination: "https://funnels-one.vercel.app/mindy-launch/:path*" },
       ],
       afterFiles: [
         { source: "/dashboard.html", destination: "/api/dashboard-page" },
