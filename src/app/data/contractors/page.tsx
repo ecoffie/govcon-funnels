@@ -4,7 +4,7 @@ import JsonLd from '@/components/JsonLd';
 
 export const metadata = generateSeo({
   title: 'Federal Contractor Database — CAGE, UEI & Company Lookup',
-  description: 'Search 500,000+ federal contractors by CAGE code, UEI, or company name. Find SAM registration status, certifications, and contract history.',
+  description: 'Search 317,000+ federal contractors by CAGE code, UEI, or company name. Find SAM registration status, certifications, and contract history.',
   path: '/data/contractors',
   keywords: [
     'federal contractor database',
@@ -53,7 +53,7 @@ export default function ContractorsIndexPage() {
             Federal <span className="text-green-500">Contractor</span> Database
           </h1>
           <p className="text-xl text-slate-400 max-w-2xl mx-auto mb-8">
-            Research 500,000+ federal contractors. Find SAM registration status, certifications, NAICS codes, and contract history.
+            Research 317,000+ federal contractors. Find SAM registration status, certifications, NAICS codes, and contract history.
           </p>
 
           {/* Search CTA */}
@@ -86,7 +86,7 @@ export default function ContractorsIndexPage() {
           {/* Stats */}
           <div className="grid grid-cols-3 gap-4 max-w-xl mx-auto">
             <div className="bg-slate-900 border border-slate-800 rounded-xl p-4">
-              <div className="text-2xl font-bold text-green-400">500K+</div>
+              <div className="text-2xl font-bold text-green-400">317K+</div>
               <div className="text-sm text-slate-400">Contractors</div>
             </div>
             <div className="bg-slate-900 border border-slate-800 rounded-xl p-4">

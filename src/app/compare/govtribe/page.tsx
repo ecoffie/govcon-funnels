@@ -56,7 +56,7 @@ const comparisonData = [
   },
   {
     feature: 'Contractor Profiles',
-    giants: { value: '✓', detail: '500K+ SAM.gov vendors' },
+    giants: { value: '✓', detail: '317K+ federal contractors' },
     govtribe: { value: '✓', detail: 'Federal contractors' },
   },
   {

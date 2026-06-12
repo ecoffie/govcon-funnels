@@ -52,7 +52,7 @@ export default function SiteNav() {
 
   const intelligenceLinks = [
     { href: '/data/agencies', label: 'Agency Profiles', desc: '35+ agencies with pain points' },
-    { href: '/data/contractors', label: 'Contractor Database', desc: '500K+ federal contractors' },
+    { href: '/data/contractors', label: 'Contractor Database', desc: '317K+ federal contractors' },
     { href: '/data/forecasts', label: 'Forecasts', desc: '7,700+ upcoming procurements' },
     { href: '/tools/expiring-contracts', label: 'Expiring Contracts', desc: 'Find recompete opportunities' },
     { href: '/mi-free', label: 'Market Intelligence', desc: 'AI-powered contract search' },
