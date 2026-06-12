@@ -380,5 +380,11 @@
       "destination": "/blog",
       "permanent": true
     }
+  ],
+  "crons": [
+    {
+      "path": "/api/cron/seo-report",
+      "schedule": "0 13 * * 1"
+    }
   ]
 }
