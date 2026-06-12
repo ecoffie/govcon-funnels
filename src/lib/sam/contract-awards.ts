@@ -357,17 +357,21 @@ async function getExpiringContractsFromUSASpending(
   const today = new Date();
   const windowEnd = new Date(today.getTime() + expiringMonths * 30 * 24 * 60 * 60 * 1000);
 
-  // Over-fetch the most recently-active awards for this NAICS (action date in
-  // the last ~3 years), sorted so the soonest-ending surface first, then filter
-  // by End Date in-window. 3 years of action-date coverage catches multi-year
-  // base awards that are only now approaching expiration.
+  // USASpending's time_period filters on ACTION date, not End Date — so we
+  // can't ask it directly for "contracts ending in the next N months". Instead:
+  // pull awards whose action date is in the last ~2.5 years (i.e. currently-
+  // active base awards + recent mods), sorted by Award Amount desc so the
+  // meaningful contracts surface first, across several pages, then filter
+  // in-process by End Date ∈ [today, today+N months]. (Empirically a ~2.5y
+  // action window + 3 pages yields the bulk of the in-window expirations; a
+  // shorter window or End-Date sort returned only long-expired 2004-era awards.)
   const actionFrom = new Date(today);
-  actionFrom.setFullYear(actionFrom.getFullYear() - 3);
+  actionFrom.setDate(actionFrom.getDate() - 900); // ~2.5 years
 
-  const requestBody = {
+  const baseBody = {
     filters: {
       naics_codes: [naicsCode],
-      time_period: [{ start_date: ymd(actionFrom), end_date: ymd(windowEnd) }],
+      time_period: [{ start_date: ymd(actionFrom), end_date: ymd(today) }],
       award_type_codes: ['A', 'B', 'C', 'D'],
     },
     fields: [
@@ -375,25 +379,29 @@ async function getExpiringContractsFromUSASpending(
       'Award Amount', 'Total Outlays', 'Start Date', 'End Date', 'NAICS',
       'Place of Performance State Code', 'recipient_id', 'generated_internal_id',
     ],
-    page: 1,
     limit: 100,
-    sort: 'End Date',
-    order: 'asc',
+    sort: 'Award Amount',
+    order: 'desc',
   };
 
-  let results: Record<string, unknown>[] = [];
+  const results: Record<string, unknown>[] = [];
+  const PAGES = 3; // 300 awards — enough to cover the in-window expirations
   try {
-    const res = await fetch(USASPENDING_AWARD_SEARCH, {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify(requestBody),
-    });
-    if (!res.ok) {
-      console.error('[Expiring Contracts] USASpending error', res.status, await res.text());
-      return [];
+    for (let page = 1; page <= PAGES; page++) {
+      const res = await fetch(USASPENDING_AWARD_SEARCH, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ ...baseBody, page }),
+      });
+      if (!res.ok) {
+        console.error('[Expiring Contracts] USASpending error', res.status, await res.text());
+        break;
+      }
+      const data = await res.json();
+      const pageResults: Record<string, unknown>[] = data.results || [];
+      results.push(...pageResults);
+      if (pageResults.length < 100) break; // last page
     }
-    const data = await res.json();
-    results = data.results || [];
   } catch (err) {
     console.error('[Expiring Contracts] USASpending fetch failed', err);
     return [];
