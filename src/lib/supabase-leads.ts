@@ -28,6 +28,41 @@ const client =
     ? createClient(url, serviceKey, { auth: { persistSession: false } })
     : null;
 
+/**
+ * Mindy Launch (June 27, 2026) Zoom-seat cap. First N signups get the live
+ * Zoom link; everyone after watches on YouTube. Overbooked above the real
+ * ~100 Zoom room cap to account for typical webinar no-show (~33%).
+ * Shared by /api/lead (position on signup) and /api/mindy-launch/spots.
+ */
+export const MINDY_LAUNCH_ZOOM_CAP = 150;
+
+/**
+ * Count distinct signups for a funnel source. Distinct-by-email so a refresh
+ * or double-submit doesn't inflate the count (which would wrongly push a real
+ * person past the Zoom cap). Returns null on any failure — callers fail soft.
+ */
+export async function countLeadsBySource(source: string): Promise<number | null> {
+  if (!client) return null;
+  try {
+    // Pull just the email column for matching rows, then dedupe in memory.
+    // Volume here is event-signup scale (hundreds), so this is cheap.
+    const { data, error } = await client
+      .from('funnel_leads')
+      .select('email')
+      .eq('source', source);
+    if (error) {
+      console.error('countLeadsBySource failed:', error.message);
+      return null;
+    }
+    const distinct = new Set((data ?? []).map((r) => (r.email || '').toLowerCase().trim()));
+    distinct.delete('');
+    return distinct.size;
+  } catch (e) {
+    console.error('countLeadsBySource threw:', e instanceof Error ? e.message : String(e));
+    return null;
+  }
+}
+
 export async function saveLeadToSupabase(
   lead: LeadPayload
 ): Promise<{ ok: boolean; error?: string }> {

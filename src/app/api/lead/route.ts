@@ -1,7 +1,7 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { sendLeadToCrm, sendToSlack } from '@/lib/crm';
 import { sendConfirmationEmail } from '@/lib/email';
-import { saveLeadToSupabase } from '@/lib/supabase-leads';
+import { saveLeadToSupabase, countLeadsBySource, MINDY_LAUNCH_ZOOM_CAP } from '@/lib/supabase-leads';
 
 export async function POST(request: NextRequest) {
   try {
@@ -42,6 +42,22 @@ export async function POST(request: NextRequest) {
       source: lead.source,
     });
 
+    // 3b) Mindy Launch scarcity: after the backup insert, compute this signup's
+    //     position so the thank-you page can show Zoom (first N) vs YouTube.
+    //     Distinct-by-email count INCLUDES the row we just wrote. Only for this
+    //     source — every other funnel skips the extra query.
+    let mindyLaunch: { position: number; getsZoom: boolean; zoomCap: number } | null = null;
+    if (lead.source === 'mindy-launch') {
+      const count = await countLeadsBySource('mindy-launch');
+      if (count !== null) {
+        mindyLaunch = {
+          position: count,
+          getsZoom: count <= MINDY_LAUNCH_ZOOM_CAP,
+          zoomCap: MINDY_LAUNCH_ZOOM_CAP,
+        };
+      }
+    }
+
     // Log for debugging (including A/B test data)
     console.log('New lead:', {
       email: lead.email,
@@ -50,7 +66,8 @@ export async function POST(request: NextRequest) {
       crm: crmResults.ghl?.ok,
       supabase: supabaseResult.ok,
       slack: slackResult.ok,
-      emailSent: emailResult.ok
+      emailSent: emailResult.ok,
+      mindyLaunch,
     });
 
     // 4) Response so front-end can redirect
@@ -60,6 +77,7 @@ export async function POST(request: NextRequest) {
       supabase: supabaseResult,
       slack: slackResult,
       email: emailResult,
+      mindyLaunch,
     });
   } catch (error) {
     console.error('Lead API error:', error);
