@@ -36,31 +36,70 @@ const client =
  */
 export const MINDY_LAUNCH_ZOOM_CAP = 150;
 
+type LeadRow = {
+  email: string | null;
+};
+
+function normalizeEmail(email: string | null | undefined): string {
+  return (email || '').toLowerCase().trim();
+}
+
+async function getLeadRowsBySource(source: string): Promise<LeadRow[] | null> {
+  if (!client) return null;
+  try {
+    // Ordered oldest-first so per-email event caps use the first persisted signup.
+    const { data, error } = await client
+      .from('funnel_leads')
+      .select('email,created_at')
+      .eq('source', source)
+      .order('created_at', { ascending: true });
+    if (error) {
+      console.error('getLeadRowsBySource failed:', error.message);
+      return null;
+    }
+    return data ?? [];
+  } catch (e) {
+    console.error('getLeadRowsBySource threw:', e instanceof Error ? e.message : String(e));
+    return null;
+  }
+}
+
 /**
  * Count distinct signups for a funnel source. Distinct-by-email so a refresh
  * or double-submit doesn't inflate the count (which would wrongly push a real
  * person past the Zoom cap). Returns null on any failure — callers fail soft.
  */
 export async function countLeadsBySource(source: string): Promise<number | null> {
-  if (!client) return null;
-  try {
-    // Pull just the email column for matching rows, then dedupe in memory.
-    // Volume here is event-signup scale (hundreds), so this is cheap.
-    const { data, error } = await client
-      .from('funnel_leads')
-      .select('email')
-      .eq('source', source);
-    if (error) {
-      console.error('countLeadsBySource failed:', error.message);
-      return null;
-    }
-    const distinct = new Set((data ?? []).map((r) => (r.email || '').toLowerCase().trim()));
-    distinct.delete('');
-    return distinct.size;
-  } catch (e) {
-    console.error('countLeadsBySource threw:', e instanceof Error ? e.message : String(e));
-    return null;
+  const rows = await getLeadRowsBySource(source);
+  if (rows === null) return null;
+  const distinct = new Set(rows.map((r) => normalizeEmail(r.email)));
+  distinct.delete('');
+  return distinct.size;
+}
+
+/**
+ * Return this email's first distinct signup position for a funnel source.
+ * This avoids revoking an early registrant's cap-limited benefit when they
+ * submit the form again after the aggregate event count has passed the cap.
+ */
+export async function getLeadPositionBySource(source: string, email: string): Promise<number | null> {
+  const target = normalizeEmail(email);
+  if (!target) return null;
+
+  const rows = await getLeadRowsBySource(source);
+  if (rows === null) return null;
+
+  const seen = new Set<string>();
+  let position = 0;
+  for (const row of rows) {
+    const normalized = normalizeEmail(row.email);
+    if (!normalized || seen.has(normalized)) continue;
+    seen.add(normalized);
+    position += 1;
+    if (normalized === target) return position;
   }
+
+  return null;
 }
 
 export async function saveLeadToSupabase(
