@@ -23,7 +23,7 @@ export const metadata = generateSeo({
 // before the buyer lands on Stripe or the external bundle shop.
 const CHECKOUT_MONTHLY = '/checkout/mindy-pro-monthly'; // $149/mo
 const CHECKOUT_ANNUAL = '/checkout/mindy-pro-annual';  // $1,490/yr
-const CHECKOUT_ULTIMATE_BUNDLE = '/checkout/ultimate-giant-bundle'; // $1,497 bundle
+const CHECKOUT_FOUNDERS_LIFETIME = 'https://getmindy.ai/checkout/founders-lifetime'; // $4,997 public anchor
 const FREE_SIGNUP_URL = 'https://getmindy.ai/alerts/signup';
 // ?recover=1 tells /briefings to render the email gate (Enter your email /
 // Email me a secure link) instead of auto-bouncing to /alerts/signup.
@@ -363,63 +363,60 @@ export default function Home() {
             </Link>
           </div>
 
-          {/* Lifetime Upgrade — Ultimate Giant Bundle */}
+          {/* Lifetime — Founders $4,997 (public anchor; bootcamp alumni rate is email-only) */}
           <div className="mt-6 bg-gradient-to-br from-amber-500/10 via-purple-900/20 to-slate-900 border border-amber-400/40 rounded-2xl p-8">
             <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-6">
               <div className="flex-1">
                 <div className="inline-block mb-3">
                   <span className="bg-amber-400 text-slate-900 text-xs font-bold px-3 py-1 rounded-full uppercase tracking-wider">
-                    Lifetime Upgrade
+                    Founders Lifetime
                   </span>
                 </div>
                 <h3 className="text-2xl md:text-3xl font-bold text-white mb-2">
-                  Ultimate Giant Bundle
+                  Own Mindy Forever
                 </h3>
                 <p className="text-slate-300 mb-4">
-                  Every premium GovCon tool at the highest tier — Market Assassin Premium, Content
-                  Reaper Full Fix, Federal Contractor Database, and Recompete Tracker.
+                  Full Mindy Pro for life — daily briefings, recompete alerts, forecasts, proposal assist,
+                  contractor database, and every future feature. Same lifetime price our course buyers trusted.
                 </p>
                 <ul className="grid grid-cols-1 sm:grid-cols-2 gap-x-6 gap-y-2 mb-4">
                   <li className="flex items-start gap-2 text-slate-300 text-sm">
                     <span className="text-amber-400 mt-0.5">✓</span>
-                    <span>Market Assassin Premium (8 reports)</span>
+                    <span>AI-matched daily opportunity briefings</span>
                   </li>
                   <li className="flex items-start gap-2 text-slate-300 text-sm">
                     <span className="text-amber-400 mt-0.5">✓</span>
-                    <span>Content Reaper Full Fix</span>
+                    <span>Recompete + competitor tracking</span>
                   </li>
                   <li className="flex items-start gap-2 text-slate-300 text-sm">
                     <span className="text-amber-400 mt-0.5">✓</span>
-                    <span>Federal Contractor Database (3,500+)</span>
+                    <span>7,600+ agency forecasts</span>
                   </li>
                   <li className="flex items-start gap-2 text-slate-300 text-sm">
                     <span className="text-amber-400 mt-0.5">✓</span>
-                    <span>Recompete Contracts Tracker</span>
+                    <span>Proposal Assist + Pricing Intel</span>
                   </li>
                   <li className="flex items-start gap-2 text-slate-300 text-sm">
                     <span className="text-amber-400 mt-0.5">✓</span>
-                    <span>Lifetime access — one-time payment</span>
+                    <span>One payment — no renewals, ever</span>
                   </li>
                   <li className="flex items-start gap-2 text-slate-300 text-sm">
                     <span className="text-amber-400 mt-0.5">✓</span>
-                    <span>Save $291 vs. buying separately</span>
+                    <span>100 founding seats — then this closes</span>
                   </li>
                 </ul>
               </div>
               <div className="md:text-right md:min-w-[220px]">
-                <div className="mb-1">
-                  <span className="text-slate-500 line-through text-lg">$1,788</span>
-                </div>
                 <div className="flex items-baseline gap-2 md:justify-end mb-1">
-                  <span className="text-4xl font-bold text-white">$1,497</span>
+                  <span className="text-4xl font-bold text-white">$4,997</span>
                   <span className="text-slate-400 text-sm">one-time</span>
                 </div>
-                <p className="text-amber-300 text-sm mb-4">Lifetime access</p>
+                <p className="text-amber-300 text-sm mb-4">Founders Lifetime · 100 seats</p>
                 <Link
-                  href={CHECKOUT_ULTIMATE_BUNDLE}
+                  href={CHECKOUT_FOUNDERS_LIFETIME}
                   className="inline-block w-full md:w-auto px-6 py-3 bg-amber-400 hover:bg-amber-300 text-slate-900 rounded-xl font-bold text-center transition-colors shadow-lg shadow-amber-500/20"
                 >
-                  Get Lifetime Access →
+                  Become a Founding Member →
                 </Link>
               </div>
             </div>
