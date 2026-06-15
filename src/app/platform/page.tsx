@@ -397,7 +397,7 @@ export default function Home() {
               <span className="text-xl font-bold text-green-500">Giants</span>
             </div>
             <div className="flex flex-wrap justify-center gap-6 text-sm">
-              <a href="tel:7864770477" className="text-slate-400 hover:text-white transition">786-477-0477</a>
+              <a href="tel:5082906692" className="text-slate-400 hover:text-white transition">508-290-6692</a>
               <a href="mailto:hello@govconedu.com" className="text-slate-400 hover:text-white transition">hello@govconedu.com</a>
               <Link href="/privacy-policy" className="text-slate-400 hover:text-white transition">Privacy</Link>
               <Link href="/terms" className="text-slate-400 hover:text-white transition">Terms</Link>

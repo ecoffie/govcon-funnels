@@ -527,7 +527,7 @@ export default function Home() {
             <span className="text-slate-500">by GovCon Giants</span>
           </div>
           <p className="text-slate-500 text-sm mb-4">
-            <a href="tel:7864770477" className="text-slate-400 hover:text-white transition">786-477-0477</a>
+            <a href="tel:5082906692" className="text-slate-400 hover:text-white transition">508-290-6692</a>
             <span className="mx-4">•</span>
             <a href="mailto:hello@govconedu.com" className="text-slate-400 hover:text-white transition">hello@govconedu.com</a>
             <span className="mx-4">•</span>
