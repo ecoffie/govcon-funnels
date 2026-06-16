@@ -19,6 +19,10 @@ type LeadPayload = {
   [key: string]: unknown;
 };
 
+type LeadEmailRow = {
+  email?: string | null;
+};
+
 const url = (process.env.NEXT_PUBLIC_SUPABASE_URL || process.env.SUPABASE_URL || '').trim();
 const serviceKey = (process.env.SUPABASE_SERVICE_ROLE_KEY || '').trim();
 
@@ -35,6 +39,43 @@ const client =
  * Shared by /api/lead (position on signup) and /api/mindy-launch/spots.
  */
 export const MINDY_LAUNCH_ZOOM_CAP = 150;
+
+function normalizeEmail(email: string | null | undefined): string {
+  return (email ?? '').toLowerCase().trim();
+}
+
+export function countDistinctLeadEmails(rows: LeadEmailRow[]): number {
+  const distinct = new Set(rows.map((row) => normalizeEmail(row.email)));
+  distinct.delete('');
+  return distinct.size;
+}
+
+/**
+ * Given rows already ordered from oldest to newest, return the signup rank for
+ * an email after collapsing duplicates. This keeps early registrants from
+ * losing Zoom access if they submit again after the cap has filled.
+ */
+export function getDistinctSignupPosition(
+  rows: LeadEmailRow[],
+  email: string
+): number | null {
+  const target = normalizeEmail(email);
+  if (!target) return null;
+
+  const seen = new Set<string>();
+  let position = 0;
+
+  for (const row of rows) {
+    const current = normalizeEmail(row.email);
+    if (!current || seen.has(current)) continue;
+
+    seen.add(current);
+    position += 1;
+    if (current === target) return position;
+  }
+
+  return null;
+}
 
 /**
  * Count distinct signups for a funnel source. Distinct-by-email so a refresh
@@ -54,11 +95,36 @@ export async function countLeadsBySource(source: string): Promise<number | null>
       console.error('countLeadsBySource failed:', error.message);
       return null;
     }
-    const distinct = new Set((data ?? []).map((r) => (r.email || '').toLowerCase().trim()));
-    distinct.delete('');
-    return distinct.size;
+    return countDistinctLeadEmails(data ?? []);
   } catch (e) {
     console.error('countLeadsBySource threw:', e instanceof Error ? e.message : String(e));
+    return null;
+  }
+}
+
+/**
+ * Return this email's distinct signup position for a source. The query is
+ * ordered by the table's creation timestamp so duplicate submissions reuse the
+ * person's first persisted position instead of the current aggregate count.
+ */
+export async function getLeadSignupPosition(
+  source: string,
+  email: string
+): Promise<number | null> {
+  if (!client) return null;
+  try {
+    const { data, error } = await client
+      .from('funnel_leads')
+      .select('email, created_at')
+      .eq('source', source)
+      .order('created_at', { ascending: true });
+    if (error) {
+      console.error('getLeadSignupPosition failed:', error.message);
+      return null;
+    }
+    return getDistinctSignupPosition(data ?? [], email);
+  } catch (e) {
+    console.error('getLeadSignupPosition threw:', e instanceof Error ? e.message : String(e));
     return null;
   }
 }
