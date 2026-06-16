@@ -63,6 +63,49 @@ export async function countLeadsBySource(source: string): Promise<number | null>
   }
 }
 
+/**
+ * Return the submitted email's first distinct signup position for a source.
+ * This keeps scarce entitlements stable when an early registrant submits again
+ * after the aggregate count has moved past the cap.
+ */
+export async function getLeadPositionBySource(source: string, email: string): Promise<number | null> {
+  if (!client) return null;
+
+  const targetEmail = email.toLowerCase().trim();
+  if (!targetEmail) return null;
+
+  try {
+    const { data, error } = await client
+      .from('funnel_leads')
+      .select('email,created_at')
+      .eq('source', source)
+      .order('created_at', { ascending: true });
+
+    if (error) {
+      console.error('getLeadPositionBySource failed:', error.message);
+      return null;
+    }
+
+    const seen = new Set<string>();
+    let position = 0;
+    for (const row of data ?? []) {
+      const rowEmail = (row.email || '').toLowerCase().trim();
+      if (!rowEmail || seen.has(rowEmail)) continue;
+
+      seen.add(rowEmail);
+      position += 1;
+      if (rowEmail === targetEmail) {
+        return position;
+      }
+    }
+
+    return null;
+  } catch (e) {
+    console.error('getLeadPositionBySource threw:', e instanceof Error ? e.message : String(e));
+    return null;
+  }
+}
+
 export async function saveLeadToSupabase(
   lead: LeadPayload
 ): Promise<{ ok: boolean; error?: string }> {
