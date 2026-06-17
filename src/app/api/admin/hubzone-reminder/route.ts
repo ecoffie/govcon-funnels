@@ -1,6 +1,11 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { getHubzoneRegistrations } from '@/lib/hubzone-registrations';
-import { sendHubzoneReminderEmail, sendHubzoneSpeakerEmail, sendHubzoneRegisterEmail } from '@/lib/email';
+import {
+  sendHubzoneReminderEmail,
+  sendHubzoneSpeakerEmail,
+  sendHubzoneRegisterEmail,
+  sendHubzoneRegisterPlaintext,
+} from '@/lib/email';
 import { extractPassword, isAuthorized } from '@/lib/admin-auth';
 
 export const runtime = 'nodejs';
@@ -84,9 +89,12 @@ export async function GET(request: NextRequest) {
     const preview = searchParams.get('preview');
     const previewTo = searchParams.get('to')?.trim();
     if (preview === 'register' && previewTo) {
-      const res = await sendHubzoneRegisterEmail({ to: previewTo, name: 'there' });
+      const asText = searchParams.get('format') === 'text';
+      const res = asText
+        ? await sendHubzoneRegisterPlaintext({ to: previewTo, name: 'there' })
+        : await sendHubzoneRegisterEmail({ to: previewTo, name: 'there' });
       return NextResponse.json(
-        { mode: 'preview', design: 'register', to: previewTo, result: res },
+        { mode: 'preview', design: 'register', format: asText ? 'text' : 'html', to: previewTo, result: res },
         { headers: { 'Cache-Control': 'no-store' } }
       );
     }

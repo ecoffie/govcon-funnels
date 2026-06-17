@@ -1229,3 +1229,51 @@ export async function sendHubzoneRegisterEmail(params: EmailParams): Promise<Ema
 </body></html>`;
   return sendEmail(params.to, `Starts tonight at 6 PM ET — last chance to register (free)`, html);
 }
+
+/**
+ * Plain-text version of the HUBZone list-blast (for teams who want a text
+ * copy to paste into their own tool). Sent as a <pre> block so line breaks
+ * survive, but the content is plain text the team can copy verbatim.
+ */
+export const HUBZONE_REGISTER_PLAINTEXT = `Subject: Starts tonight at 6 PM ET — last chance to register (free)
+
+Hi {{first_name}},
+
+Tonight we go live with a FREE roundtable for small businesses entering or
+scaling in the federal market — and there's still time to grab a seat.
+
+No slides, no lecture — quick intros, an open discussion across three experts,
+then a full 1/2-hour live Q&A where you can put your situation in front of
+people who've actually done it.
+
+WHEN: Wednesday, June 17 - 6:00-8:00 PM EST (live on Zoom, includes Q&A)
+
+>> RESERVE YOUR FREE SEAT: https://govcongiants.com/hubzone
+
+We'll email your join link as soon as you register.
+
+THREE PILLARS. FOUR VOICES WHO'VE BUILT IT:
+- The Agency Pillar - Todd Rogers (LTR): inside the government buyer side -
+  IDVs and how agencies actually evaluate and buy.
+- The Funding Pillar - Chad Eberly (Encore Funding): specialized capital built
+  for federal contractors, without traditional bank restrictions.
+- The Teaming Pillar - Tim Hagerty (TeamingPro): find and secure teaming
+  partners through automation - skip the 12-18 month wait.
+- Live 1/2-hour Q&A, moderated by Eric Coffie. Bring your toughest question.
+
+Can't make it live? Register anyway — we run the full two hours.
+
+Register free before 6 PM: https://govcongiants.com/hubzone
+
+Hosted by GovCon Giants in partnership with Encore Funding, TeamingPro, and
+Logical Technology and Research.
+govcongiants.com/hubzone`;
+
+export async function sendHubzoneRegisterPlaintext(params: EmailParams): Promise<EmailResult> {
+  const esc = HUBZONE_REGISTER_PLAINTEXT
+    .replace(/&/g, '&amp;')
+    .replace(/</g, '&lt;')
+    .replace(/>/g, '&gt;');
+  const html = `<pre style="font-family:-apple-system,monospace;font-size:14px;line-height:1.5;white-space:pre-wrap;color:#1e293b;">${esc}</pre>`;
+  return sendEmail(params.to, `[PLAIN TEXT SAMPLE] HUBZone register email for your team`, html);
+}
