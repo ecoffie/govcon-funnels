@@ -969,6 +969,13 @@ export async function sendHubzoneReminderEmail(params: EmailParams): Promise<Ema
           <ul style="color: #475569; font-size: 14px; line-height: 1.8; margin: 0; padding-left: 20px;"><li>Update your Zoom app so you join in one click.</li><li>Bring the one funding or teaming question that&rsquo;s blocking you right now.</li><li>Can&rsquo;t make the start? Join late &mdash; we run the full two hours.</li></ul>
         </td></tr></table>
       </td></tr>
+      <tr><td style="padding: 24px 32px 0;">
+        <table width="100%" cellpadding="0" cellspacing="0" style="background-color: #fff7ed; border: 2px solid #fed7aa; border-radius: 12px;"><tr><td style="padding: 22px 24px;">
+          <p style="color: #9a3412; font-size: 12px; font-weight: 700; text-transform: uppercase; letter-spacing: 1.5px; margin: 0 0 6px;">Attendee perk</p>
+          <p style="color: #0f172a; font-size: 17px; font-weight: 800; margin: 0 0 6px;">Find out how much working capital your federal contracts qualify for &mdash; free.</p>
+          <p style="color: #475569; font-size: 14px; line-height: 1.6; margin: 0;">Stick around: tonight&rsquo;s attendees can book a no-cost working-capital assessment with Encore Funding. The first 10 to book this week get a same-week call. We&rsquo;ll share the link live.</p>
+        </td></tr></table>
+      </td></tr>
       <tr><td style="padding: 32px;">
         <table width="100%" cellpadding="0" cellspacing="0"><tr><td align="center">
           <a href="${HUBZONE_ZOOM_URL}" style="display: inline-block; background-color: #ea580c; color: #ffffff; padding: 16px 32px; border-radius: 10px; text-decoration: none; font-weight: 800; font-size: 16px;">Join the Webinar</a>
