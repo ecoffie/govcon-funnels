@@ -5,11 +5,11 @@
 **Hosts:** Eric Coffie + Tim Hagerty (TeamingPro), Chad Eberly (Encore Funding), Todd Rogers (LTR)
 
 ## Zoom Details (source of truth)
-- **Join link:** https://us06web.zoom.us/j/87112164591?pwd=bakXu7g8fbSUVCjEKpDcIRxPUH5XwH.1
-- **Meeting ID:** 871 1216 4591
-- **Passcode:** 467983
-- **One-tap mobile:** +13052241968,,87112164591#,,,,*467983# US
-- **Dial-in (NY):** +19292056099,,87112164591#,,,,*467983# US
+- **Join link:** `[HUBZONE_ZOOM_URL]`
+- **Meeting ID:** `[HUBZONE_ZOOM_MEETING_ID]`
+- **Passcode:** `[HUBZONE_ZOOM_PASSCODE]`
+- **One-tap mobile:** `[HUBZONE_ZOOM_ONE_TAP]`
+- **Dial-in (NY):** `[HUBZONE_ZOOM_DIAL_IN]`
 
 ## Send schedule (day-of)
 | When | Channel | Audience | How |
@@ -51,8 +51,8 @@ Quick logistics for tonight's roundtable. We go live at **6:00 PM ET**.
 **Green room / soundcheck: 5:30 PM ET** — please join 30 min early so we can test audio/video and set the order.
 
 **Join (panelist — same link):**
-https://us06web.zoom.us/j/87112164591?pwd=bakXu7g8fbSUVCjEKpDcIRxPUH5XwH.1
-Meeting ID: 871 1216 4591 · Passcode: 467983
+`[HUBZONE_ZOOM_URL]`
+Meeting ID: `[HUBZONE_ZOOM_MEETING_ID]` · Passcode: `[HUBZONE_ZOOM_PASSCODE]`
 
 **Run of show (~2 hrs):**
 - 5:30 — Green room, soundcheck, confirm order
@@ -81,10 +81,10 @@ Hi {{first_name}},
 Tonight's the night. **From Interested To Procurement Ready** goes live at **6:00 PM ET** — and here's the join link we promised.
 
 👉 **JOIN THE WEBINAR:**
-https://us06web.zoom.us/j/87112164591?pwd=bakXu7g8fbSUVCjEKpDcIRxPUH5XwH.1
+`[HUBZONE_ZOOM_URL]`
 
 **Wednesday, June 17 · 6:00–8:00 PM EST** (incl. ½-hour live Q&A)
-Meeting ID: 871 1216 4591 · Passcode: 467983
+Meeting ID: `[HUBZONE_ZOOM_MEETING_ID]` · Passcode: `[HUBZONE_ZOOM_PASSCODE]`
 
 This is a **live working session** — the part you can't get from a replay is the **Q&A**, where you can put your situation in front of four people who've actually done this:
 - **Agency** — Todd Rogers: industry technical expert on IDVs & the government buyer side
@@ -102,13 +102,13 @@ Can't make the start? Join late — we run the full two hours.
 See you tonight,
 Eric Coffie & the GovCon Giants team
 
-> Joining by phone? Dial +1 305 224 1968, then enter 871 1216 4591 # and passcode 467983 #.
+> Joining by phone? Dial `[HUBZONE_ZOOM_DIAL_IN]`, then enter `[HUBZONE_ZOOM_MEETING_ID]` # and passcode `[HUBZONE_ZOOM_PASSCODE]` #.
 
 ---
 
 ## DRAFT #3 — ATTENDEE SMS (send ~5:15–5:30 PM ET)
 
-> GovCon Giants: Your HUBZone webinar "From Interested to Procurement Ready" starts at 6 PM ET (in ~30 min). Join here: https://us06web.zoom.us/j/87112164591?pwd=bakXu7g8fbSUVCjEKpDcIRxPUH5XwH.1 — Reply STOP to opt out.
+> GovCon Giants: Your HUBZone webinar "From Interested to Procurement Ready" starts at 6 PM ET (in ~30 min). Join here: `[HUBZONE_ZOOM_URL]` — Reply STOP to opt out.
 
 *(SMS best practice: keep it one link, one time, under 160 chars where possible. The pwd link auto-fills the passcode so no manual entry.)*
 
@@ -116,7 +116,7 @@ Eric Coffie & the GovCon Giants team
 
 ## DRAFT #4 — "WE'RE LIVE" SMS (optional, ~5:58 PM ET)
 
-> We're going live now! Join the GovCon Giants HUBZone roundtable: https://us06web.zoom.us/j/87112164591?pwd=bakXu7g8fbSUVCjEKpDcIRxPUH5XwH.1
+> We're going live now! Join the GovCon Giants HUBZone roundtable: `[HUBZONE_ZOOM_URL]`
 
 ---
 
