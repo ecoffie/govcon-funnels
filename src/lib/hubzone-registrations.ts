@@ -167,17 +167,59 @@ function countWithin(rows: Registrant[], now: Date, hours: number): number {
   }).length;
 }
 
+/**
+ * Read registrants from Supabase funnel_leads as GhlContact-shaped rows.
+ * Supabase is the source of truth — the GHL API pull is capped at 100/tag with
+ * no pagination and under-counts. Returns [] on any failure so the caller can
+ * fall back to GHL.
+ */
+async function fetchFromSupabase(): Promise<GhlContact[]> {
+  const url = (process.env.NEXT_PUBLIC_SUPABASE_URL || process.env.SUPABASE_URL || '').trim();
+  const key = (process.env.SUPABASE_SERVICE_ROLE_KEY || '').trim();
+  if (!url || !key) return [];
+  try {
+    const { createClient } = await import('@supabase/supabase-js');
+    const client = createClient(url, key, { auth: { persistSession: false } });
+    const { data, error } = await client
+      .from('funnel_leads')
+      .select('name,email,phone,source,created_at,raw')
+      .in('source', ['hubzone-webinar', 'hubzone-webinar-bottom'])
+      .order('created_at', { ascending: true });
+    if (error || !data) return [];
+    return data.map((r) => {
+      const raw = (r.raw ?? {}) as Record<string, unknown>;
+      const fullName = (r.name || (raw.name as string) || '').trim();
+      const [firstName, ...rest] = fullName.split(/\s+/);
+      return {
+        email: (r.email || '').toLowerCase(),
+        firstName: firstName || '',
+        lastName: rest.join(' '),
+        companyName: (raw.company as string) || '',
+        phone: r.phone || (raw.phone as string) || '',
+        source: r.source || '',
+        dateAdded: r.created_at || '',
+      } as GhlContact;
+    });
+  } catch {
+    return [];
+  }
+}
+
 export async function getHubzoneRegistrations(now: Date): Promise<RegistrationCommandCenter> {
-  const apiKey = process.env.GHL_API_KEY;
-  const locationId = process.env.GHL_LOCATION_ID;
-  if (!apiKey || !locationId) {
-    throw new Error('GHL_API_KEY / GHL_LOCATION_ID not configured');
+  // Source of truth: Supabase. Fall back to GHL only if Supabase is empty.
+  let contacts = await fetchFromSupabase();
+  if (contacts.length === 0) {
+    const apiKey = process.env.GHL_API_KEY;
+    const locationId = process.env.GHL_LOCATION_ID;
+    if (!apiKey || !locationId) {
+      throw new Error('No registrant source: Supabase empty and GHL not configured');
+    }
+    const results = await Promise.all(HUBZONE_TAGS.map((t) => searchByTag(t, apiKey, locationId)));
+    contacts = results.flat();
   }
 
-  // Pull both form tags in parallel, then dedupe by contact id / email.
-  const results = await Promise.all(HUBZONE_TAGS.map((t) => searchByTag(t, apiKey, locationId)));
   const byKey = new Map<string, GhlContact>();
-  for (const contact of results.flat()) {
+  for (const contact of contacts) {
     const key = (contact.id || contact.email || '').toLowerCase();
     if (key && !byKey.has(key)) byKey.set(key, contact);
   }
