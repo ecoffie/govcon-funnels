@@ -1,6 +1,6 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { getHubzoneRegistrations } from '@/lib/hubzone-registrations';
-import { sendHubzoneReminderEmail, sendHubzoneSpeakerEmail } from '@/lib/email';
+import { sendHubzoneReminderEmail, sendHubzoneSpeakerEmail, sendHubzoneRegisterEmail } from '@/lib/email';
 import { extractPassword, isAuthorized } from '@/lib/admin-auth';
 
 export const runtime = 'nodejs';
@@ -79,6 +79,18 @@ export async function GET(request: NextRequest) {
     .filter(Boolean);
 
   try {
+    // PREVIEW MODE — send the list-blast "register" design to one address.
+    //   ?preview=register&to=you@email.com
+    const preview = searchParams.get('preview');
+    const previewTo = searchParams.get('to')?.trim();
+    if (preview === 'register' && previewTo) {
+      const res = await sendHubzoneRegisterEmail({ to: previewTo, name: 'there' });
+      return NextResponse.json(
+        { mode: 'preview', design: 'register', to: previewTo, result: res },
+        { headers: { 'Cache-Control': 'no-store' } }
+      );
+    }
+
     // TEST MODE — send BOTH templates (attendee + speaker) to the test address
     if (testEmail) {
       const attendee = await sendHubzoneReminderEmail({ to: testEmail, name: 'Test Friend' });
