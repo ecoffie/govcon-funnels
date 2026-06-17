@@ -15,7 +15,8 @@ export const metadata = generateSeo({
     'small business federal contracts',
     'teaming partners',
     'federal contractor funding',
-    'US Army Corps of Engineers',
+    'IDV contracts',
+    'government buyer side',
   ],
 });
 
@@ -33,7 +34,7 @@ const pillars = [
   {
     icon: '🏛️',
     title: 'The Agency Pillar',
-    desc: 'Direct insight from the U.S. Army Corps of Engineers on what they look for when selecting small business partners.',
+    desc: 'Inside the government buyer side — how agencies use IDVs and what they actually evaluate when selecting small business partners.',
   },
 ];
 
@@ -79,9 +80,9 @@ const speakers = [
   },
   {
     name: 'Todd Rogers',
-    title: 'President & CEO, Logical Technology and Research',
+    title: 'Industry Technical Expert',
     role: 'Agency Insight',
-    bio: 'Direct insight into how LTR selects and works with small business partners.',
+    bio: 'Specializes in IDVs and the government buyer side — how agencies evaluate and buy.',
     image: '/hubzone/headshot-todd.png',
   },
 ];
@@ -173,7 +174,7 @@ export default function HubzonePage() {
               {[
                 'Find teaming partners without the 12–18 month wait',
                 'Access specialized capital for federal contractors',
-                'Hear directly from the U.S. Army Corps of Engineers',
+                'Learn the government buyer side — IDVs and how agencies evaluate',
                 'Walk away with a clear roadmap (½-hour live Q&A)',
               ].map((item) => (
                 <li key={item} className="flex items-start gap-3">

@@ -637,7 +637,7 @@ export async function sendHubzoneWebinarEmail(params: EmailParams): Promise<Emai
     'https://www.google.com/calendar/render?action=TEMPLATE' +
     '&text=' + encodeURIComponent('From Interested To Procurement Ready — HUBZone Webinar') +
     '&dates=20260617T220000Z/20260618T000000Z' +
-    '&details=' + encodeURIComponent('Live webinar for small businesses entering the federal market. Hosted by Eric Coffie with Tim Hagerty (TeamingPro), Chad Eberly (Encore Funding), and Todd Rogers (LTR). Includes ½-hour Q&A.\n\nWebinar link will be sent before the event.\n\nDetails: https://govcongiants.com/hubzone') +
+    '&details=' + encodeURIComponent('Live webinar for small businesses entering the federal market. Hosted by Eric Coffie with Tim Hagerty (TeamingPro), Chad Eberly (Encore Funding), and Todd Rogers (industry technical expert, IDVs & buyer side). Includes ½-hour Q&A.\n\nWebinar link will be sent before the event.\n\nDetails: https://govcongiants.com/hubzone') +
     '&location=' + encodeURIComponent('Online — link sent before event');
 
   const html = `<!DOCTYPE html>
@@ -750,8 +750,8 @@ export async function sendHubzoneWebinarEmail(params: EmailParams): Promise<Emai
                         <div style="width: 28px; height: 28px; background-color: #ea580c; border-radius: 50%; color: #ffffff; font-weight: 800; text-align: center; line-height: 28px; font-size: 14px;">3</div>
                       </td>
                       <td valign="top">
-                        <p style="color: #0f172a; font-size: 15px; font-weight: 700; margin: 0;">The Agency Pillar &mdash; Todd Rogers (LTR)</p>
-                        <p style="color: #64748b; font-size: 14px; margin: 4px 0 0; line-height: 1.5;">Direct insight from the U.S. Army Corps of Engineers on what they look for in small business partners.</p>
+                        <p style="color: #0f172a; font-size: 15px; font-weight: 700; margin: 0;">The Agency Pillar &mdash; Todd Rogers</p>
+                        <p style="color: #64748b; font-size: 14px; margin: 4px 0 0; line-height: 1.5;">Industry technical expert on IDVs and the government buyer side &mdash; how agencies evaluate and buy.</p>
                       </td>
                     </tr></table>
                   </td>
@@ -915,4 +915,134 @@ export async function sendFreeHandoutsEmail(params: EmailParams): Promise<EmailR
 ${proCta()}`;
 
   return sendEmail(params.to, `${firstName}, Your Free GovCon Resources Are Ready!`, emailWrapper(content));
+}
+
+/**
+ * HUBZone webinar DAY-OF reminder — carries the real Zoom join link.
+ * Branded orange/white, matches sendHubzoneWebinarEmail. Sent via the
+ * admin blast route on the day of the event (June 17, 2026).
+ */
+const HUBZONE_ZOOM_URL = 'https://us06web.zoom.us/j/87112164591?pwd=bakXu7g8fbSUVCjEKpDcIRxPUH5XwH.1';
+const HUBZONE_MEETING_ID = '871 1216 4591';
+const HUBZONE_PASSCODE = '467983';
+
+export async function sendHubzoneReminderEmail(params: EmailParams): Promise<EmailResult> {
+  const firstName = (params.name || '').split(' ')[0] || 'there';
+  const html = `<!DOCTYPE html>
+<html>
+<head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><title>Tonight at 6 PM ET — Your Zoom Link Is Inside</title></head>
+<body style="margin: 0; padding: 0; background-color: #f8fafc; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; color: #1e293b;">
+  <div style="display:none;max-height:0;overflow:hidden;opacity:0;">From Interested To Procurement Ready goes live at 6 PM ET. Your Zoom join link, Meeting ID, and dial-in are inside.</div>
+  <table width="100%" cellpadding="0" cellspacing="0" style="background-color: #f8fafc; padding: 40px 16px;"><tr><td align="center">
+    <table width="600" cellpadding="0" cellspacing="0" style="background-color: #ffffff; border-radius: 16px; overflow: hidden; box-shadow: 0 4px 20px rgba(0,0,0,0.06);">
+      <tr><td style="background: linear-gradient(135deg, #f97316 0%, #ea580c 50%, #c2410c 100%); padding: 40px 32px; text-align: center;">
+        <div style="display: inline-block; background-color: rgba(255,255,255,0.2); color: #ffffff; font-size: 12px; font-weight: 700; text-transform: uppercase; letter-spacing: 1.5px; padding: 6px 14px; border-radius: 999px; margin-bottom: 16px;">Tonight &middot; Live at 6 PM ET</div>
+        <h1 style="color: #ffffff; font-size: 30px; line-height: 1.2; font-weight: 800; margin: 0 0 12px;">We Go Live Tonight, ${firstName}!</h1>
+        <p style="color: #ffedd5; font-size: 16px; margin: 0;">From Interested To <strong style="color: #ffffff;">Procurement Ready</strong></p>
+      </td></tr>
+      <tr><td style="padding: 32px 32px 0;">
+        <table width="100%" cellpadding="0" cellspacing="0" style="background-color: #fff7ed; border: 2px solid #fed7aa; border-radius: 12px;"><tr><td style="padding: 28px 24px; text-align: center;">
+          <p style="color: #9a3412; font-size: 12px; font-weight: 700; text-transform: uppercase; letter-spacing: 1.5px; margin: 0 0 8px;">Your Join Link</p>
+          <p style="color: #1e293b; font-size: 20px; font-weight: 800; margin: 0 0 4px;">Wednesday, June 17 &middot; 6:00&ndash;8:00 PM EST</p>
+          <p style="color: #475569; font-size: 14px; margin: 0 0 20px;">Includes a live &frac12;-hour Q&amp;A</p>
+          <a href="${HUBZONE_ZOOM_URL}" style="display: inline-block; background-color: #ea580c; color: #ffffff; padding: 18px 40px; border-radius: 10px; text-decoration: none; font-weight: 800; font-size: 18px;">&#128279;&nbsp; Join the Webinar</a>
+          <p style="color: #64748b; font-size: 13px; margin: 18px 0 0; line-height: 1.6;">Meeting ID: <strong style="color:#0f172a;">${HUBZONE_MEETING_ID}</strong> &nbsp;&middot;&nbsp; Passcode: <strong style="color:#0f172a;">${HUBZONE_PASSCODE}</strong></p>
+        </td></tr></table>
+      </td></tr>
+      <tr><td style="padding: 32px 32px 0;">
+        <h2 style="color: #0f172a; font-size: 22px; font-weight: 800; margin: 0 0 12px;">Tonight&rsquo;s the night, ${firstName}.</h2>
+        <p style="color: #475569; font-size: 16px; line-height: 1.65; margin: 0 0 16px;">This is a <strong style="color: #0f172a;">live working session</strong> &mdash; and the part you can&rsquo;t get from a replay is the <strong style="color: #0f172a;">Q&amp;A</strong>, where you can put your situation in front of four people who&rsquo;ve actually done this. Bring your toughest question.</p>
+      </td></tr>
+      <tr><td style="padding: 24px 32px 0;">
+        <h3 style="color: #0f172a; font-size: 18px; font-weight: 800; margin: 0 0 16px;">Tonight&rsquo;s run of show</h3>
+        <table width="100%" cellpadding="0" cellspacing="0">
+          <tr><td style="padding: 12px 0; border-bottom: 1px solid #e2e8f0;"><table cellpadding="0" cellspacing="0"><tr><td valign="top" style="width: 36px;"><div style="width: 28px; height: 28px; background-color: #ea580c; border-radius: 50%; color: #ffffff; font-weight: 800; text-align: center; line-height: 28px; font-size: 14px;">1</div></td><td valign="top"><p style="color: #0f172a; font-size: 15px; font-weight: 700; margin: 0;">The Teaming Pillar &mdash; Tim Hagerty (TeamingPro)</p><p style="color: #64748b; font-size: 14px; margin: 4px 0 0; line-height: 1.5;">How to find and secure teaming partners through automation &mdash; skip the 12&ndash;18 month getting-to-know-you phase.</p></td></tr></table></td></tr>
+          <tr><td style="padding: 12px 0; border-bottom: 1px solid #e2e8f0;"><table cellpadding="0" cellspacing="0"><tr><td valign="top" style="width: 36px;"><div style="width: 28px; height: 28px; background-color: #ea580c; border-radius: 50%; color: #ffffff; font-weight: 800; text-align: center; line-height: 28px; font-size: 14px;">2</div></td><td valign="top"><p style="color: #0f172a; font-size: 15px; font-weight: 700; margin: 0;">The Funding Pillar &mdash; Chad Eberly (Encore Funding)</p><p style="color: #64748b; font-size: 14px; margin: 4px 0 0; line-height: 1.5;">Specialized capital built for federal contractors &mdash; manage financial demands without traditional bank restrictions.</p></td></tr></table></td></tr>
+          <tr><td style="padding: 12px 0; border-bottom: 1px solid #e2e8f0;"><table cellpadding="0" cellspacing="0"><tr><td valign="top" style="width: 36px;"><div style="width: 28px; height: 28px; background-color: #ea580c; border-radius: 50%; color: #ffffff; font-weight: 800; text-align: center; line-height: 28px; font-size: 14px;">3</div></td><td valign="top"><p style="color: #0f172a; font-size: 15px; font-weight: 700; margin: 0;">The Agency Pillar &mdash; Todd Rogers</p><p style="color: #64748b; font-size: 14px; margin: 4px 0 0; line-height: 1.5;">Industry technical expert on IDVs and the government buyer side &mdash; how agencies evaluate and buy.</p></td></tr></table></td></tr>
+          <tr><td style="padding: 12px 0;"><table cellpadding="0" cellspacing="0"><tr><td valign="top" style="width: 36px;"><div style="width: 28px; height: 28px; background-color: #ea580c; border-radius: 50%; color: #ffffff; font-weight: 800; text-align: center; line-height: 28px; font-size: 14px;">Q</div></td><td valign="top"><p style="color: #0f172a; font-size: 15px; font-weight: 700; margin: 0;">Live &frac12;-hour Q&amp;A</p><p style="color: #64748b; font-size: 14px; margin: 4px 0 0; line-height: 1.5;">Bring your questions. Eric Coffie moderates and the panel answers live.</p></td></tr></table></td></tr>
+        </table>
+      </td></tr>
+      <tr><td style="padding: 32px 32px 0;">
+        <table width="100%" cellpadding="0" cellspacing="0" style="background-color: #f8fafc; border-radius: 12px;"><tr><td style="padding: 24px;">
+          <h3 style="color: #0f172a; font-size: 16px; font-weight: 800; margin: 0 0 12px;">Two things before 6 PM</h3>
+          <ul style="color: #475569; font-size: 14px; line-height: 1.8; margin: 0; padding-left: 20px;"><li>Update your Zoom app so you join in one click.</li><li>Bring the one funding or teaming question that&rsquo;s blocking you right now.</li><li>Can&rsquo;t make the start? Join late &mdash; we run the full two hours.</li></ul>
+        </td></tr></table>
+      </td></tr>
+      <tr><td style="padding: 32px;">
+        <table width="100%" cellpadding="0" cellspacing="0"><tr><td align="center">
+          <a href="${HUBZONE_ZOOM_URL}" style="display: inline-block; background-color: #ea580c; color: #ffffff; padding: 16px 32px; border-radius: 10px; text-decoration: none; font-weight: 800; font-size: 16px;">Join the Webinar</a>
+          <p style="color: #94a3b8; font-size: 12px; margin: 14px 0 0;">Joining by phone? Dial +1 305 224 1968, then 871 1216 4591 # and passcode 467983 #.</p>
+        </td></tr></table>
+      </td></tr>
+      <tr><td style="padding: 0 32px 32px;">
+        <table width="100%" cellpadding="0" cellspacing="0" style="background-color: #fff7ed; border-radius: 12px;"><tr><td style="padding: 20px; text-align: center;">
+          <p style="color: #9a3412; font-size: 13px; font-weight: 700; text-transform: uppercase; letter-spacing: 1px; margin: 0 0 8px;">Questions?</p>
+          <p style="color: #475569; font-size: 14px; margin: 0; line-height: 1.6;">Shelly Sweedler &middot; <a href="tel:2169989021" style="color: #ea580c; text-decoration: none; font-weight: 600;">(216) 998-9021</a><br>Robinn Mikalic &middot; <a href="tel:2169989206" style="color: #ea580c; text-decoration: none; font-weight: 600;">(216) 998-9206</a></p>
+        </td></tr></table>
+      </td></tr>
+      <tr><td style="padding: 24px 32px; background-color: #f8fafc; border-top: 1px solid #e2e8f0; text-align: center;">
+        <p style="color: #64748b; font-size: 12px; margin: 0 0 6px;">Hosted by <strong style="color: #1e293b;">GovCon Giants</strong> in partnership with Encore Funding, TeamingPro, and Logical Technology and Research.</p>
+        <p style="color: #94a3b8; font-size: 11px; margin: 0;"><a href="https://govcongiants.com/hubzone" style="color: #ea580c; text-decoration: none;">govcongiants.com/hubzone</a></p>
+      </td></tr>
+    </table>
+  </td></tr></table>
+</body></html>`;
+  return sendEmail(params.to, `Tonight at 6 PM ET — your Zoom link is inside`, html);
+}
+
+/**
+ * HUBZone webinar SPEAKER email — green room + run of show + panelist link.
+ */
+export async function sendHubzoneSpeakerEmail(params: EmailParams): Promise<EmailResult> {
+  const row = (time: string, title: string, sub?: string) =>
+    `<tr><td style="padding: 10px 0; border-bottom: 1px solid #e2e8f0;"><table cellpadding="0" cellspacing="0" width="100%"><tr><td valign="top" style="width: 70px;"><span style="color:#ea580c;font-weight:800;font-size:14px;">${time}</span></td><td valign="top"><p style="color:#0f172a;font-size:14px;font-weight:700;margin:0;">${title}</p>${sub ? `<p style="color:#64748b;font-size:13px;margin:2px 0 0;">${sub}</p>` : ''}</td></tr></table></td></tr>`;
+  const html = `<!DOCTYPE html>
+<html>
+<head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><title>Tonight 6 PM ET — Host Link + Run of Show</title></head>
+<body style="margin: 0; padding: 0; background-color: #f8fafc; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; color: #1e293b;">
+  <div style="display:none;max-height:0;overflow:hidden;opacity:0;">Green room 5:30 PM ET. Your panelist link and tonight's run of show are inside.</div>
+  <table width="100%" cellpadding="0" cellspacing="0" style="background-color: #f8fafc; padding: 40px 16px;"><tr><td align="center">
+    <table width="600" cellpadding="0" cellspacing="0" style="background-color: #ffffff; border-radius: 16px; overflow: hidden; box-shadow: 0 4px 20px rgba(0,0,0,0.06);">
+      <tr><td style="background: linear-gradient(135deg, #f97316 0%, #ea580c 50%, #c2410c 100%); padding: 40px 32px; text-align: center;">
+        <div style="display: inline-block; background-color: rgba(255,255,255,0.2); color: #ffffff; font-size: 12px; font-weight: 700; text-transform: uppercase; letter-spacing: 1.5px; padding: 6px 14px; border-radius: 999px; margin-bottom: 16px;">Speakers &middot; Tonight</div>
+        <h1 style="color: #ffffff; font-size: 28px; line-height: 1.2; font-weight: 800; margin: 0 0 12px;">Green Room 5:30 &middot; Live 6:00 PM ET</h1>
+        <p style="color: #ffedd5; font-size: 16px; margin: 0;">From Interested To <strong style="color: #ffffff;">Procurement Ready</strong></p>
+      </td></tr>
+      <tr><td style="padding: 32px 32px 0;">
+        <table width="100%" cellpadding="0" cellspacing="0" style="background-color: #fff7ed; border: 2px solid #fed7aa; border-radius: 12px;"><tr><td style="padding: 28px 24px; text-align: center;">
+          <p style="color: #9a3412; font-size: 12px; font-weight: 700; text-transform: uppercase; letter-spacing: 1.5px; margin: 0 0 8px;">Join as Panelist</p>
+          <p style="color: #1e293b; font-size: 18px; font-weight: 800; margin: 0 0 16px;">Please join by <span style="color:#ea580c;">5:30 PM ET</span> for soundcheck</p>
+          <a href="${HUBZONE_ZOOM_URL}" style="display: inline-block; background-color: #ea580c; color: #ffffff; padding: 16px 36px; border-radius: 10px; text-decoration: none; font-weight: 800; font-size: 16px;">Join Zoom (Host/Panelist)</a>
+          <p style="color: #64748b; font-size: 13px; margin: 18px 0 0; line-height: 1.6;">Meeting ID: <strong style="color:#0f172a;">${HUBZONE_MEETING_ID}</strong> &nbsp;&middot;&nbsp; Passcode: <strong style="color:#0f172a;">${HUBZONE_PASSCODE}</strong></p>
+        </td></tr></table>
+      </td></tr>
+      <tr><td style="padding: 32px 32px 0;"><p style="color: #475569; font-size: 16px; line-height: 1.65; margin: 0;">Team &mdash; quick logistics for tonight&rsquo;s roundtable. We go live at <strong style="color:#0f172a;">6:00 PM ET</strong>. Please hop on at <strong style="color:#0f172a;">5:30</strong> so we can test audio/video and lock the order.</p></td></tr>
+      <tr><td style="padding: 28px 32px 0;">
+        <h3 style="color: #0f172a; font-size: 18px; font-weight: 800; margin: 0 0 16px;">Run of show</h3>
+        <table width="100%" cellpadding="0" cellspacing="0">
+          ${row('5:30', 'Green room &amp; soundcheck', 'Camera/mic test, confirm speaking order.')}
+          ${row('6:00', 'Eric opens &amp; frames the session', '~5 min welcome + agenda.')}
+          ${row('6:05', 'Teaming Pillar &middot; Tim Hagerty (TeamingPro)')}
+          ${row('6:30', 'Funding Pillar &middot; Chad Eberly (Encore Funding)')}
+          ${row('6:55', 'Agency Pillar &middot; Todd Rogers (IDVs &amp; the government buyer side)')}
+          ${row('7:20', 'Open roundtable / cross-talk')}
+          ${row('7:30', 'Live audience Q&amp;A (&frac12; hr)')}
+          <tr><td style="padding: 10px 0;"><table cellpadding="0" cellspacing="0" width="100%"><tr><td valign="top" style="width: 70px;"><span style="color:#ea580c;font-weight:800;font-size:14px;">8:00</span></td><td valign="top"><p style="color:#0f172a;font-size:14px;font-weight:700;margin:0;">Close + next steps</p></td></tr></table></td></tr>
+        </table>
+      </td></tr>
+      <tr><td style="padding: 32px 32px 0;">
+        <table width="100%" cellpadding="0" cellspacing="0" style="background-color: #f8fafc; border-radius: 12px;"><tr><td style="padding: 24px;">
+          <h3 style="color: #0f172a; font-size: 16px; font-weight: 800; margin: 0 0 12px;">A few notes</h3>
+          <ul style="color: #475569; font-size: 14px; line-height: 1.8; margin: 0; padding-left: 20px;"><li>Camera on, clean background, good light.</li><li>Mute when you&rsquo;re not speaking.</li><li>Keep segments tight (~20&ndash;25 min) so we protect the Q&amp;A.</li><li>Bring one concrete takeaway your audience can act on this week.</li></ul>
+        </td></tr></table>
+      </td></tr>
+      <tr><td style="padding: 28px 32px 32px;"><p style="color: #475569; font-size: 16px; line-height: 1.65; margin: 0;">See you at 5:30.<br><strong style="color:#0f172a;">&mdash; Eric</strong></p></td></tr>
+      <tr><td style="padding: 24px 32px; background-color: #f8fafc; border-top: 1px solid #e2e8f0; text-align: center;">
+        <p style="color: #64748b; font-size: 12px; margin: 0 0 6px;">Hosted by <strong style="color: #1e293b;">GovCon Giants</strong> in partnership with Encore Funding, TeamingPro, and Logical Technology and Research.</p>
+        <p style="color: #94a3b8; font-size: 11px; margin: 0;"><a href="https://govcongiants.com/hubzone" style="color: #ea580c; text-decoration: none;">govcongiants.com/hubzone</a></p>
+      </td></tr>
+    </table>
+  </td></tr></table>
+</body></html>`;
+  return sendEmail(params.to, `Tonight 6 PM ET — your host link + run of show (HUBZone roundtable)`, html);
 }
