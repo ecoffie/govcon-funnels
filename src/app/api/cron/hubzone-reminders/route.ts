@@ -87,7 +87,9 @@ export async function GET(req: NextRequest) {
   try {
     const summary = await getHubzoneRegistrations(new Date());
     const recipients = summary.registrants
-      .filter((r) => !r.internal && r.email)
+      // Internal-domain registrants (Encore/GCG/TeamingPro team) are INCLUDED
+      // on purpose — the team wants to receive what registrants get.
+      .filter((r) => r.email)
       .map((r) => ({ to: r.email, name: r.name }));
 
     if (dry) {

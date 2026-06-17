@@ -113,7 +113,10 @@ export async function GET(request: NextRequest) {
     // Pull the live, de-duped, test/internal-filtered registrant list
     const summary = await getHubzoneRegistrations(new Date());
     const recipients = summary.registrants
-      .filter((r) => !r.internal && r.email)
+      // Note: internal-domain registrants (Encore/GCG/TeamingPro team) are
+      // INCLUDED on purpose — the team wants to receive what registrants get.
+      // (Test/QA emails are still dropped upstream in getHubzoneRegistrations.)
+      .filter((r) => r.email)
       .filter((r) => onlyEmails.length === 0 || onlyEmails.includes(r.email.toLowerCase()))
       .map((r) => ({ to: r.email, name: r.name }));
 
