@@ -134,7 +134,6 @@ async function sendEmail(to: string, subject: string, html: string, cc?: string[
  */
 export async function sendConfirmationEmail(params: EmailParams & { source: string }): Promise<EmailResult> {
   const { to, name, source } = params;
-  const firstName = name.split(' ')[0] || 'there';
 
   switch (source) {
     case 'free-handouts':
