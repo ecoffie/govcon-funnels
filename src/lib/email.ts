@@ -1053,3 +1053,92 @@ export async function sendHubzoneSpeakerEmail(params: EmailParams & { cc?: strin
 </body></html>`;
   return sendEmail(params.to, `Tonight 6 PM ET — your host link + run of show (HUBZone roundtable)`, html, params.cc);
 }
+
+/**
+ * HUBZone — 1-HOUR reminder. Short, urgent, big Join button. Fired ~5 PM ET.
+ */
+export async function sendHubzoneOneHourEmail(params: EmailParams): Promise<EmailResult> {
+  const firstName = (params.name || '').split(' ')[0] || 'there';
+  const html = `<!DOCTYPE html>
+<html><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><title>Starts in 1 hour — HUBZone webinar</title></head>
+<body style="margin:0;padding:0;background-color:#f8fafc;font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif;color:#1e293b;">
+  <div style="display:none;max-height:0;overflow:hidden;opacity:0;">We go live at 6 PM ET. Your one-click join link is inside.</div>
+  <table width="100%" cellpadding="0" cellspacing="0" style="background-color:#f8fafc;padding:40px 16px;"><tr><td align="center">
+    <table width="600" cellpadding="0" cellspacing="0" style="background-color:#ffffff;border-radius:16px;overflow:hidden;box-shadow:0 4px 20px rgba(0,0,0,0.06);">
+      <tr><td style="background:linear-gradient(135deg,#f97316 0%,#ea580c 50%,#c2410c 100%);padding:36px 32px;text-align:center;">
+        <div style="display:inline-block;background-color:rgba(255,255,255,0.2);color:#ffffff;font-size:12px;font-weight:700;text-transform:uppercase;letter-spacing:1.5px;padding:6px 14px;border-radius:999px;margin-bottom:14px;">Starts in 1 hour</div>
+        <h1 style="color:#ffffff;font-size:28px;line-height:1.2;font-weight:800;margin:0;">See you at 6 PM ET, ${firstName}.</h1>
+      </td></tr>
+      <tr><td style="padding:32px;text-align:center;">
+        <p style="color:#475569;font-size:16px;line-height:1.6;margin:0 0 22px;">Doors are about to open for <strong style="color:#0f172a;">From Interested To Procurement Ready</strong>. One tap and you&rsquo;re in:</p>
+        <a href="${HUBZONE_ZOOM_URL}" style="display:inline-block;background-color:#ea580c;color:#ffffff;padding:18px 44px;border-radius:10px;text-decoration:none;font-weight:800;font-size:18px;">&#128279;&nbsp; Join the Webinar</a>
+        <p style="color:#64748b;font-size:13px;margin:18px 0 0;line-height:1.6;">Meeting ID: <strong style="color:#0f172a;">${HUBZONE_MEETING_ID}</strong> &nbsp;&middot;&nbsp; Passcode: <strong style="color:#0f172a;">${HUBZONE_PASSCODE}</strong></p>
+        <p style="color:#94a3b8;font-size:12px;margin:14px 0 0;">By phone: +1 305 224 1968, then 871 1216 4591 # and 467983 #.</p>
+      </td></tr>
+      <tr><td style="padding:0 32px 32px;text-align:center;"><p style="color:#94a3b8;font-size:12px;margin:0;">Hosted by <strong style="color:#1e293b;">GovCon Giants</strong> with Encore Funding, TeamingPro &amp; LTR.</p></td></tr>
+    </table>
+  </td></tr></table>
+</body></html>`;
+  return sendEmail(params.to, `Starts in 1 hour — your HUBZone webinar link`, html);
+}
+
+/**
+ * HUBZone — "WE'RE LIVE" email. Ultra-short. Fired ~5:55 PM ET.
+ */
+export async function sendHubzoneLiveEmail(params: EmailParams): Promise<EmailResult> {
+  const firstName = (params.name || '').split(' ')[0] || 'there';
+  const html = `<!DOCTYPE html>
+<html><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><title>We're live — join now</title></head>
+<body style="margin:0;padding:0;background-color:#f8fafc;font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif;color:#1e293b;">
+  <div style="display:none;max-height:0;overflow:hidden;opacity:0;">We're going live right now — tap to join.</div>
+  <table width="100%" cellpadding="0" cellspacing="0" style="background-color:#f8fafc;padding:40px 16px;"><tr><td align="center">
+    <table width="600" cellpadding="0" cellspacing="0" style="background-color:#ffffff;border-radius:16px;overflow:hidden;box-shadow:0 4px 20px rgba(0,0,0,0.06);">
+      <tr><td style="background:linear-gradient(135deg,#f97316 0%,#ea580c 50%,#c2410c 100%);padding:36px 32px;text-align:center;">
+        <h1 style="color:#ffffff;font-size:30px;line-height:1.2;font-weight:800;margin:0;">&#128308; We&rsquo;re live now, ${firstName}!</h1>
+      </td></tr>
+      <tr><td style="padding:32px;text-align:center;">
+        <p style="color:#475569;font-size:16px;line-height:1.6;margin:0 0 22px;">The HUBZone roundtable is starting. Jump in:</p>
+        <a href="${HUBZONE_ZOOM_URL}" style="display:inline-block;background-color:#ea580c;color:#ffffff;padding:18px 44px;border-radius:10px;text-decoration:none;font-weight:800;font-size:18px;">Join Now</a>
+        <p style="color:#64748b;font-size:13px;margin:18px 0 0;">Meeting ID: <strong style="color:#0f172a;">${HUBZONE_MEETING_ID}</strong> &middot; Passcode: <strong style="color:#0f172a;">${HUBZONE_PASSCODE}</strong></p>
+      </td></tr>
+    </table>
+  </td></tr></table>
+</body></html>`;
+  return sendEmail(params.to, `🔴 We're live — join the HUBZone roundtable now`, html);
+}
+
+/**
+ * HUBZone — RECORDING follow-up. Fired the morning after. Carries the Encore
+ * working-capital CTA. The recording link is a placeholder until you have it.
+ */
+export async function sendHubzoneRecordingEmail(params: EmailParams & { recordingUrl?: string }): Promise<EmailResult> {
+  const firstName = (params.name || '').split(' ')[0] || 'there';
+  const recordingUrl = params.recordingUrl || 'https://govcongiants.com/hubzone';
+  const encoreUrl = 'https://encoregov.com/?utm_source=hubzone-webinar&utm_medium=email&utm_campaign=working-capital';
+  const html = `<!DOCTYPE html>
+<html><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><title>Your HUBZone roundtable recording</title></head>
+<body style="margin:0;padding:0;background-color:#f8fafc;font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif;color:#1e293b;">
+  <div style="display:none;max-height:0;overflow:hidden;opacity:0;">The recording is ready — plus a free working-capital assessment from Encore.</div>
+  <table width="100%" cellpadding="0" cellspacing="0" style="background-color:#f8fafc;padding:40px 16px;"><tr><td align="center">
+    <table width="600" cellpadding="0" cellspacing="0" style="background-color:#ffffff;border-radius:16px;overflow:hidden;box-shadow:0 4px 20px rgba(0,0,0,0.06);">
+      <tr><td style="background:linear-gradient(135deg,#f97316 0%,#ea580c 50%,#c2410c 100%);padding:36px 32px;text-align:center;">
+        <h1 style="color:#ffffff;font-size:27px;line-height:1.2;font-weight:800;margin:0 0 8px;">Thanks for joining, ${firstName}.</h1>
+        <p style="color:#ffedd5;font-size:15px;margin:0;">Here&rsquo;s your recording &mdash; and your next step.</p>
+      </td></tr>
+      <tr><td style="padding:32px 32px 0;text-align:center;">
+        <a href="${recordingUrl}" style="display:inline-block;background-color:#0f172a;color:#ffffff;padding:15px 32px;border-radius:10px;text-decoration:none;font-weight:800;font-size:16px;">&#9654;&nbsp; Watch the Recording</a>
+      </td></tr>
+      <tr><td style="padding:28px 32px 0;">
+        <table width="100%" cellpadding="0" cellspacing="0" style="background-color:#fff7ed;border:2px solid #fed7aa;border-radius:12px;"><tr><td style="padding:24px;">
+          <p style="color:#9a3412;font-size:12px;font-weight:700;text-transform:uppercase;letter-spacing:1.5px;margin:0 0 6px;">Your next step</p>
+          <p style="color:#0f172a;font-size:18px;font-weight:800;margin:0 0 8px;">How much working capital do your federal contracts qualify for?</p>
+          <p style="color:#475569;font-size:14px;line-height:1.6;margin:0 0 16px;">Find out free. Encore Funding will run a no-cost working-capital assessment on your federal work &mdash; no obligation. First 10 to book this week get a same-week call.</p>
+          <a href="${encoreUrl}" style="display:inline-block;background-color:#ea580c;color:#ffffff;padding:14px 28px;border-radius:8px;text-decoration:none;font-weight:800;font-size:15px;">Get My Free Assessment</a>
+        </td></tr></table>
+      </td></tr>
+      <tr><td style="padding:28px 32px 32px;text-align:center;"><p style="color:#94a3b8;font-size:12px;margin:0;">Hosted by <strong style="color:#1e293b;">GovCon Giants</strong> with Encore Funding, TeamingPro &amp; LTR.</p></td></tr>
+    </table>
+  </td></tr></table>
+</body></html>`;
+  return sendEmail(params.to, `${firstName}, your HUBZone roundtable recording is inside`, html);
+}

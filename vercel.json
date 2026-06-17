@@ -385,6 +385,18 @@
     {
       "path": "/api/cron/seo-report",
       "schedule": "0 13 * * 1"
+    },
+    {
+      "path": "/api/cron/hubzone-reminders?type=one-hour",
+      "schedule": "0 21 17 6 *"
+    },
+    {
+      "path": "/api/cron/hubzone-reminders?type=live",
+      "schedule": "55 21 17 6 *"
+    },
+    {
+      "path": "/api/cron/hubzone-reminders?type=recording",
+      "schedule": "0 14 18 6 *"
     }
   ]
 }
