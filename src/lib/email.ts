@@ -1,7 +1,10 @@
 /**
- * Email utility for sending confirmation emails via SMTP
+ * Email utility. Primary transport is Resend (no Gmail login caps, better
+ * bulk deliverability); falls back to Gmail/Nodemailer if Resend is absent
+ * or errors. Same pattern as market-assassin's send-email.ts.
  */
 import nodemailer from 'nodemailer';
+import { Resend } from 'resend';
 
 const transporter = nodemailer.createTransport({
   service: 'gmail',
@@ -10,6 +13,11 @@ const transporter = nodemailer.createTransport({
     pass: process.env.SMTP_PASSWORD,
   },
 });
+
+const resendApiKey = process.env.RESEND_API_KEY?.replace(/\\n$/, '').trim();
+const resend = resendApiKey ? new Resend(resendApiKey) : null;
+// Must be a Resend-verified domain. alerts@govcongiants.com is verified.
+const RESEND_FROM = `"GovCon Giants" <${process.env.EMAIL_FROM || 'alerts@govcongiants.com'}>`;
 
 export interface EmailParams {
   to: string;
@@ -90,26 +98,48 @@ function proCta(): string {
 </div>`;
 }
 
-// Helper to send email
+// Helper to send email. Resend primary, Gmail/Nodemailer fallback.
 async function sendEmail(to: string, subject: string, html: string, cc?: string[]): Promise<EmailResult> {
-  if (!process.env.SMTP_USER || !process.env.SMTP_PASSWORD) {
-    console.error('[EMAIL] SMTP credentials not configured');
-    return { ok: false, error: 'SMTP not configured' };
+  const ccList = cc && cc.length ? cc : undefined;
+  const logCc = ccList ? ` | cc: ${ccList.join(', ')}` : '';
+
+  // 1) Resend (primary) — no Gmail login caps, better bulk deliverability.
+  if (resend) {
+    try {
+      console.log(`[EMAIL] Sending via Resend to: ${to}${logCc} | Subject: ${subject}`);
+      const { data, error } = await resend.emails.send({
+        from: RESEND_FROM,
+        to: [to],
+        cc: ccList,
+        subject,
+        html,
+        text: html.replace(/<[^>]*>/g, ''),
+      });
+      if (error) throw new Error(error.message);
+      console.log(`[EMAIL] Sent via Resend! ID: ${data?.id}`);
+      return { ok: true, messageId: data?.id, accepted: [to], rejected: [] };
+    } catch (err) {
+      const message = err instanceof Error ? err.message : String(err);
+      console.error('[EMAIL] Resend failed, falling back to Gmail:', message);
+    }
   }
 
+  // 2) Gmail/Nodemailer (fallback)
+  if (!process.env.SMTP_USER || !process.env.SMTP_PASSWORD) {
+    console.error('[EMAIL] No transport available (Resend failed/absent, SMTP not configured)');
+    return { ok: false, error: 'No email transport available' };
+  }
   try {
-    console.log(`[EMAIL] Sending to: ${to}${cc?.length ? ` | cc: ${cc.join(', ')}` : ''} | Subject: ${subject}`);
+    console.log(`[EMAIL] Sending via Gmail to: ${to}${logCc} | Subject: ${subject}`);
     await transporter.verify();
-
     const info = await transporter.sendMail({
       from: `"GovCon Giants" <${process.env.SMTP_USER}>`,
       to,
-      ...(cc && cc.length ? { cc } : {}),
+      ...(ccList ? { cc: ccList } : {}),
       subject,
       html,
     });
-
-    console.log(`[EMAIL] Sent! ID: ${info.messageId}`);
+    console.log(`[EMAIL] Sent via Gmail! ID: ${info.messageId}`);
     return {
       ok: true,
       messageId: info.messageId,
