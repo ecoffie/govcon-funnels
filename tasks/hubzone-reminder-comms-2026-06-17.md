@@ -12,14 +12,30 @@
 - **Dial-in (NY):** +19292056099,,87112164591#,,,,*467983# US
 
 ## Send schedule (day-of)
-| When | Channel | Audience | Draft |
+| When | Channel | Audience | How |
 |---|---|---|---|
-| NOW | Email | Speakers | #1 below |
-| NOW (or ~3:00 PM) | Email | All registrants | #2 below |
-| ~5:15–5:30 PM | SMS | All registrants | #3 below |
-| 5:55 PM (optional) | SMS | All registrants | #4 "we're live" below |
+| NOW | Email | Speakers | App route `&speakers=` param |
+| NOW (or ~3:00 PM) | Email | All registrants | App route `?send=1` |
+| ~5:15–5:30 PM | SMS | All registrants | GoHighLevel (draft #3) |
+| 5:55 PM (optional) | SMS | All registrants | GoHighLevel (draft #4) |
 
-Send via **GoHighLevel** bulk email + SMS to tags `hubzone-webinar` + `hubzone-webinar-bottom`.
+### Email = sent from the app (no GHL needed)
+Branded emails fire from our own Nodemailer/Gmail transport via a password-gated route.
+Pulls the live registrant list straight from GoHighLevel (`getHubzoneRegistrations`).
+
+**Route:** `GET /api/admin/hubzone-reminder`  ·  auth: `?password=<ADMIN_PASSWORD>`
+
+| Step | URL |
+|---|---|
+| 1. Dry run (count only, sends nothing) | `?dry=1` |
+| 2. Test to yourself | `?test=evankoffdev@gmail.com` |
+| 3. Real attendee blast | `?send=1` |
+| 4. Blast + speaker emails | `?send=1&speakers=tim@…,chad@…,todd@…` |
+
+Functions: `sendHubzoneReminderEmail()` (attendee) + `sendHubzoneSpeakerEmail()` in `src/lib/email.ts`.
+Gmail-throttled ~120ms/send. Todd Rogers bio corrected: industry technical expert, IDVs & buyer side.
+
+**SMS still goes through GoHighLevel** (we don't have an SMS transport) — drafts #3/#4 below.
 
 ---
 

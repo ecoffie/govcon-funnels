@@ -91,19 +91,20 @@ function proCta(): string {
 }
 
 // Helper to send email
-async function sendEmail(to: string, subject: string, html: string): Promise<EmailResult> {
+async function sendEmail(to: string, subject: string, html: string, cc?: string[]): Promise<EmailResult> {
   if (!process.env.SMTP_USER || !process.env.SMTP_PASSWORD) {
     console.error('[EMAIL] SMTP credentials not configured');
     return { ok: false, error: 'SMTP not configured' };
   }
 
   try {
-    console.log(`[EMAIL] Sending to: ${to} | Subject: ${subject}`);
+    console.log(`[EMAIL] Sending to: ${to}${cc?.length ? ` | cc: ${cc.join(', ')}` : ''} | Subject: ${subject}`);
     await transporter.verify();
 
     const info = await transporter.sendMail({
       from: `"GovCon Giants" <${process.env.SMTP_USER}>`,
       to,
+      ...(cc && cc.length ? { cc } : {}),
       subject,
       html,
     });
@@ -993,7 +994,7 @@ export async function sendHubzoneReminderEmail(params: EmailParams): Promise<Ema
 /**
  * HUBZone webinar SPEAKER email — green room + run of show + panelist link.
  */
-export async function sendHubzoneSpeakerEmail(params: EmailParams): Promise<EmailResult> {
+export async function sendHubzoneSpeakerEmail(params: EmailParams & { cc?: string[] }): Promise<EmailResult> {
   const row = (time: string, title: string, sub?: string) =>
     `<tr><td style="padding: 10px 0; border-bottom: 1px solid #e2e8f0;"><table cellpadding="0" cellspacing="0" width="100%"><tr><td valign="top" style="width: 70px;"><span style="color:#ea580c;font-weight:800;font-size:14px;">${time}</span></td><td valign="top"><p style="color:#0f172a;font-size:14px;font-weight:700;margin:0;">${title}</p>${sub ? `<p style="color:#64748b;font-size:13px;margin:2px 0 0;">${sub}</p>` : ''}</td></tr></table></td></tr>`;
   const html = `<!DOCTYPE html>
@@ -1044,5 +1045,5 @@ export async function sendHubzoneSpeakerEmail(params: EmailParams): Promise<Emai
     </table>
   </td></tr></table>
 </body></html>`;
-  return sendEmail(params.to, `Tonight 6 PM ET — your host link + run of show (HUBZone roundtable)`, html);
+  return sendEmail(params.to, `Tonight 6 PM ET — your host link + run of show (HUBZone roundtable)`, html, params.cc);
 }

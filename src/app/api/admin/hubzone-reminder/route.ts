@@ -17,18 +17,46 @@ export const maxDuration = 300;
  * Modes (query params):
  *   ?dry=1                 → count recipients only, send nothing (default-safe)
  *   ?test=you@email.com    → send ONE attendee email to that address, nothing else
- *   ?send=1                → REAL blast to all registrants
- *   ?speakers=a@x.com,b@y.com  → also send the speaker email to those addresses
- *                                (works with ?send=1; with ?dry it just lists them)
+ *   ?send=1                → REAL blast to all registrants + the speaker roster
+ *   ?send=1&attendeesonly=1 → registrants only, skip the speaker emails
+ *   ?send=1&speakersonly=1  → speaker emails only, skip the attendee blast
+ *
+ * Speaker roster is fixed below (Tim, Chad, Todd). Chad's email CCs his
+ * Encore team. Eric is host/moderator and is not emailed by this route.
  *
  * Gmail SMTP is throttled (~120ms between sends) to stay under rate limits.
  */
+
+/** Panelists for the run-of-show email. Eric hosts and isn't included here. */
+const SPEAKER_ROSTER: { name: string; to: string; cc?: string[] }[] = [
+  { name: 'Tim Hagerty', to: 'tim@teamingpro.com' },
+  {
+    name: 'Chad Eberly',
+    to: 'ceberly@encore-funding.com',
+    cc: ['dprovident@encore-funding.com', 'sschneider@encore-funding.com', 'ssweedler@encore-funding.com'],
+  },
+  { name: 'Todd Rogers', to: 'T.rogers@oneltr.com' },
+];
 const SEND_DELAY_MS = 120;
 const sleep = (ms: number) => new Promise((r) => setTimeout(r, ms));
 
+/** Constant-time-ish compare so the tracker password check doesn't leak length/timing. */
+function matches(provided: string, expected: string): boolean {
+  if (provided.length !== expected.length) return false;
+  let diff = 0;
+  for (let i = 0; i < expected.length; i++) {
+    diff |= provided.charCodeAt(i) ^ expected.charCodeAt(i);
+  }
+  return diff === 0;
+}
+
 export async function GET(request: NextRequest) {
   const provided = extractPassword(request);
-  if (!isAuthorized(provided)) {
+  // Accept EITHER the shared admin password OR the shareable HUBZone tracker
+  // password (same one that gates /api/hubzone/registrations).
+  const trackerPw = process.env.HUBZONE_TRACKER_PASSWORD;
+  const trackerOk = !!provided && !!trackerPw && matches(provided, trackerPw);
+  if (!trackerOk && !isAuthorized(provided)) {
     return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
   }
 
@@ -36,10 +64,10 @@ export async function GET(request: NextRequest) {
   const dry = searchParams.get('dry') === '1' || (!searchParams.get('send') && !searchParams.get('test'));
   const send = searchParams.get('send') === '1';
   const testEmail = searchParams.get('test')?.trim() || null;
-  const speakers = (searchParams.get('speakers') || '')
-    .split(',')
-    .map((s) => s.trim())
-    .filter(Boolean);
+  const attendeesOnly = searchParams.get('attendeesonly') === '1';
+  const speakersOnly = searchParams.get('speakersonly') === '1';
+  const doAttendees = !speakersOnly;
+  const doSpeakers = !attendeesOnly;
 
   try {
     // TEST MODE — single attendee email, no list pull needed beyond that
@@ -59,10 +87,14 @@ export async function GET(request: NextRequest) {
       return NextResponse.json(
         {
           mode: 'dry',
-          attendeeCount: recipients.length,
+          willEmailAttendees: doAttendees,
+          attendeeCount: doAttendees ? recipients.length : 0,
           sampleRecipients: recipients.slice(0, 5).map((r) => ({ name: r.name, email: r.to })),
-          speakerRecipients: speakers,
-          note: 'No emails sent. Add ?send=1 to blast attendees, &speakers=a@x.com,b@y.com to also email speakers.',
+          willEmailSpeakers: doSpeakers,
+          speakerRecipients: doSpeakers
+            ? SPEAKER_ROSTER.map((s) => ({ name: s.name, to: s.to, cc: s.cc || [] }))
+            : [],
+          note: 'No emails sent. Add ?send=1 to blast. Flags: &attendeesonly=1, &speakersonly=1.',
         },
         { headers: { 'Cache-Control': 'no-store' } }
       );
@@ -70,17 +102,21 @@ export async function GET(request: NextRequest) {
 
     // REAL SEND
     const attendeeResults: { email: string; ok: boolean; error?: string }[] = [];
-    for (const r of recipients) {
-      const res = await sendHubzoneReminderEmail(r);
-      attendeeResults.push({ email: r.to, ok: res.ok, error: res.error });
-      await sleep(SEND_DELAY_MS);
+    if (doAttendees) {
+      for (const r of recipients) {
+        const res = await sendHubzoneReminderEmail(r);
+        attendeeResults.push({ email: r.to, ok: res.ok, error: res.error });
+        await sleep(SEND_DELAY_MS);
+      }
     }
 
     const speakerResults: { email: string; ok: boolean; error?: string }[] = [];
-    for (const email of speakers) {
-      const res = await sendHubzoneSpeakerEmail({ to: email, name: 'Speaker' });
-      speakerResults.push({ email, ok: res.ok, error: res.error });
-      await sleep(SEND_DELAY_MS);
+    if (doSpeakers) {
+      for (const s of SPEAKER_ROSTER) {
+        const res = await sendHubzoneSpeakerEmail({ to: s.to, name: s.name, cc: s.cc });
+        speakerResults.push({ email: s.to, ok: res.ok, error: res.error });
+        await sleep(SEND_DELAY_MS);
+      }
     }
 
     const attendeeOk = attendeeResults.filter((r) => r.ok).length;
