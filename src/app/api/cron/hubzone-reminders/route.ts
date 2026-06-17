@@ -1,4 +1,5 @@
 import { NextRequest, NextResponse } from 'next/server';
+import { Redis } from '@upstash/redis';
 import { getHubzoneRegistrations } from '@/lib/hubzone-registrations';
 import {
   sendHubzoneOneHourEmail,
@@ -6,6 +7,30 @@ import {
   sendHubzoneRecordingEmail,
 } from '@/lib/email';
 import { extractPassword, isAuthorized } from '@/lib/admin-auth';
+
+/**
+ * Idempotency guard so the cron AND a manual backup fire can't double-send.
+ * Marks a one-time "<type> already sent" key with a 2-day TTL. Returns true if
+ * this call won the race (should send), false if already sent. Fails OPEN
+ * (returns true) if Redis is unavailable — better to risk a dup than to miss
+ * the send entirely.
+ */
+async function claimSend(type: string): Promise<boolean> {
+  const url = process.env.KV_REST_API_URL;
+  const token = process.env.KV_REST_API_TOKEN;
+  if (!url || !token) return true;
+  try {
+    const redis = new Redis({ url, token });
+    // SET NX = only sets if absent; returns "OK" when it claimed the slot.
+    const res = await redis.set(`hubzone:reminder-sent:${type}`, new Date().toISOString(), {
+      nx: true,
+      ex: 60 * 60 * 48,
+    });
+    return res === 'OK';
+  } catch {
+    return true; // fail open
+  }
+}
 
 export const runtime = 'nodejs';
 export const dynamic = 'force-dynamic';
@@ -43,6 +68,7 @@ export async function GET(req: NextRequest) {
   const { searchParams } = new URL(req.url);
   const type = searchParams.get('type') || 'one-hour';
   const dry = searchParams.get('dry') === '1';
+  const force = searchParams.get('force') === '1'; // bypass the idempotency guard
 
   const senders = {
     'one-hour': sendHubzoneOneHourEmail,
@@ -69,6 +95,17 @@ export async function GET(req: NextRequest) {
         { mode: 'dry', type, count: recipients.length },
         { headers: { 'Cache-Control': 'no-store' } }
       );
+    }
+
+    // Idempotency: cron + manual backup can both call this; only the first wins.
+    if (!force) {
+      const claimed = await claimSend(type);
+      if (!claimed) {
+        return NextResponse.json(
+          { mode: 'skipped', type, reason: 'already sent (idempotency guard); use &force=1 to override' },
+          { headers: { 'Cache-Control': 'no-store' } }
+        );
+      }
     }
 
     const results: { email: string; ok: boolean; error?: string }[] = [];
