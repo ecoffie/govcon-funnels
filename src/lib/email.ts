@@ -19,6 +19,11 @@ const resend = resendApiKey ? new Resend(resendApiKey) : null;
 // Must be a Resend-verified domain. alerts@govcongiants.com is verified.
 const RESEND_FROM = `"GovCon Giants" <${process.env.EMAIL_FROM || 'alerts@govcongiants.com'}>`;
 
+// HUBZone webinar Zoom details — used by confirmation + all reminder emails.
+const HUBZONE_ZOOM_URL = 'https://us06web.zoom.us/j/87112164591?pwd=bakXu7g8fbSUVCjEKpDcIRxPUH5XwH.1';
+const HUBZONE_MEETING_ID = '871 1216 4591';
+const HUBZONE_PASSCODE = '467983';
+
 export interface EmailParams {
   to: string;
   name: string;
@@ -668,8 +673,8 @@ export async function sendHubzoneWebinarEmail(params: EmailParams): Promise<Emai
     'https://www.google.com/calendar/render?action=TEMPLATE' +
     '&text=' + encodeURIComponent('From Interested To Procurement Ready — HUBZone Webinar') +
     '&dates=20260617T220000Z/20260618T000000Z' +
-    '&details=' + encodeURIComponent('Live webinar for small businesses entering the federal market. Hosted by Eric Coffie with Tim Hagerty (TeamingPro), Chad Eberly (Encore Funding), and Todd Rogers (industry technical expert, IDVs & buyer side). Includes ½-hour Q&A.\n\nWebinar link will be sent before the event.\n\nDetails: https://govcongiants.com/hubzone') +
-    '&location=' + encodeURIComponent('Online — link sent before event');
+    '&details=' + encodeURIComponent(`Live webinar for small businesses entering the federal market. Hosted by Eric Coffie with Tim Hagerty (TeamingPro), Chad Eberly (Encore Funding), and Todd Rogers (industry technical expert, IDVs & buyer side). Includes ½-hour Q&A.\n\nJoin Zoom: ${HUBZONE_ZOOM_URL}\nMeeting ID: ${HUBZONE_MEETING_ID} · Passcode: ${HUBZONE_PASSCODE}\n\nDetails: https://govcongiants.com/hubzone`) +
+    '&location=' + encodeURIComponent(HUBZONE_ZOOM_URL);
 
   const html = `<!DOCTYPE html>
 <html>
@@ -730,14 +735,28 @@ export async function sendHubzoneWebinarEmail(params: EmailParams): Promise<Emai
                 Welcome, ${firstName}.
               </h2>
               <p style="color: #475569; font-size: 16px; line-height: 1.65; margin: 0 0 16px;">
-                Your seat is reserved for the live webinar. We&rsquo;ll send your join link
-                <strong style="color: #0f172a;">24 hours before</strong> the event, plus a
-                final reminder <strong style="color: #0f172a;">1 hour before</strong> we go live.
+                Your seat is reserved. Your join link is right here &mdash; save this email,
+                and we&rsquo;ll also send reminders before we go live.
               </p>
               <p style="color: #475569; font-size: 16px; line-height: 1.65; margin: 0 0 8px;">
-                This is a working session. Spend the day with four people who&rsquo;ve actually
+                This is a working session. Spend the evening with four people who&rsquo;ve actually
                 built this and walk away with a clear plan.
               </p>
+            </td>
+          </tr>
+
+          <!-- Join Link -->
+          <tr>
+            <td style="padding: 24px 32px 0;">
+              <table width="100%" cellpadding="0" cellspacing="0" style="background-color: #fff7ed; border: 2px solid #fed7aa; border-radius: 12px;">
+                <tr>
+                  <td style="padding: 24px; text-align: center;">
+                    <p style="color: #9a3412; font-size: 12px; font-weight: 700; text-transform: uppercase; letter-spacing: 1.5px; margin: 0 0 12px;">Your Join Link</p>
+                    <a href="${HUBZONE_ZOOM_URL}" style="display: inline-block; background-color: #ea580c; color: #ffffff; padding: 16px 36px; border-radius: 10px; text-decoration: none; font-weight: 800; font-size: 17px;">&#128279;&nbsp; Join the Webinar</a>
+                    <p style="color: #64748b; font-size: 13px; margin: 16px 0 0; line-height: 1.6;">Meeting ID: <strong style="color:#0f172a;">${HUBZONE_MEETING_ID}</strong> &nbsp;&middot;&nbsp; Passcode: <strong style="color:#0f172a;">${HUBZONE_PASSCODE}</strong></p>
+                  </td>
+                </tr>
+              </table>
             </td>
           </tr>
 
@@ -953,9 +972,6 @@ ${proCta()}`;
  * Branded orange/white, matches sendHubzoneWebinarEmail. Sent via the
  * admin blast route on the day of the event (June 17, 2026).
  */
-const HUBZONE_ZOOM_URL = 'https://us06web.zoom.us/j/87112164591?pwd=bakXu7g8fbSUVCjEKpDcIRxPUH5XwH.1';
-const HUBZONE_MEETING_ID = '871 1216 4591';
-const HUBZONE_PASSCODE = '467983';
 
 export async function sendHubzoneReminderEmail(params: EmailParams): Promise<EmailResult> {
   const firstName = (params.name || '').split(' ')[0] || 'there';

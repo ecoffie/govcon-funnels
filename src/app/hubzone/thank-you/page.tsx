@@ -28,6 +28,24 @@ export default function HubzoneThankYou() {
         </div>
 
         <div className="p-8 md:p-10 space-y-6">
+          {/* Live join link — available immediately on registration */}
+          <div className="bg-orange-50 border-2 border-orange-200 rounded-2xl p-6 text-center">
+            <p className="text-xs font-black uppercase tracking-widest text-[#9a3412] mb-1">Your Webinar Link</p>
+            <p className="text-slate-900 font-extrabold text-lg mb-1">Wednesday, June 17 · 6:00–8:00 PM EST</p>
+            <p className="text-sm text-slate-500 mb-4">Save this — it&apos;s also in your confirmation email.</p>
+            <a
+              href="https://us06web.zoom.us/j/87112164591?pwd=bakXu7g8fbSUVCjEKpDcIRxPUH5XwH.1"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="inline-block bg-[#ea580c] hover:bg-[#c2410c] text-white font-black text-lg px-10 py-4 rounded-xl transition-colors"
+            >
+              🔗 Join the Webinar
+            </a>
+            <p className="text-xs text-slate-500 mt-4">
+              Meeting ID: <span className="font-bold text-slate-700">871 1216 4591</span> · Passcode: <span className="font-bold text-slate-700">467983</span>
+            </p>
+          </div>
+
           {/* Spin-the-wheel reward (PROTOTYPE) */}
           <div className="bg-gradient-to-b from-orange-50 to-white rounded-2xl p-6 border border-orange-100 text-center">
             <h2 className="font-black text-slate-900 text-xl uppercase mb-1">🎡 Spin to Win</h2>
@@ -40,7 +58,7 @@ export default function HubzoneThankYou() {
             <ol className="space-y-3 text-slate-700">
               <li className="flex gap-3">
                 <span className="bg-[#ea580c] text-white font-black w-7 h-7 rounded-full flex items-center justify-center flex-shrink-0">1</span>
-                <span>Check your inbox for a confirmation email with the webinar link.</span>
+                <span>Your join link is above — and we&apos;ve emailed it to you as a backup.</span>
               </li>
               <li className="flex gap-3">
                 <span className="bg-[#ea580c] text-white font-black w-7 h-7 rounded-full flex items-center justify-center flex-shrink-0">2</span>
