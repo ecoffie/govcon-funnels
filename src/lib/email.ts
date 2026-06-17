@@ -725,8 +725,8 @@ export async function sendHubzoneWebinarEmail(params: EmailParams): Promise<Emai
                         <div style="width: 28px; height: 28px; background-color: #ea580c; border-radius: 50%; color: #ffffff; font-weight: 800; text-align: center; line-height: 28px; font-size: 14px;">1</div>
                       </td>
                       <td valign="top">
-                        <p style="color: #0f172a; font-size: 15px; font-weight: 700; margin: 0;">The Teaming Pillar &mdash; Tim Hagerty (TeamingPro)</p>
-                        <p style="color: #64748b; font-size: 14px; margin: 4px 0 0; line-height: 1.5;">How to find and secure teaming partners through automation &mdash; skip the 12&ndash;18 month getting-to-know-you phase.</p>
+                        <p style="color: #0f172a; font-size: 15px; font-weight: 700; margin: 0;">The Agency Pillar &mdash; Todd Rogers</p>
+                        <p style="color: #64748b; font-size: 14px; margin: 4px 0 0; line-height: 1.5;">Industry technical expert on IDVs and the government buyer side &mdash; how agencies evaluate and buy.</p>
                       </td>
                     </tr></table>
                   </td>
@@ -751,8 +751,8 @@ export async function sendHubzoneWebinarEmail(params: EmailParams): Promise<Emai
                         <div style="width: 28px; height: 28px; background-color: #ea580c; border-radius: 50%; color: #ffffff; font-weight: 800; text-align: center; line-height: 28px; font-size: 14px;">3</div>
                       </td>
                       <td valign="top">
-                        <p style="color: #0f172a; font-size: 15px; font-weight: 700; margin: 0;">The Agency Pillar &mdash; Todd Rogers</p>
-                        <p style="color: #64748b; font-size: 14px; margin: 4px 0 0; line-height: 1.5;">Industry technical expert on IDVs and the government buyer side &mdash; how agencies evaluate and buy.</p>
+                        <p style="color: #0f172a; font-size: 15px; font-weight: 700; margin: 0;">The Teaming Pillar &mdash; Tim Hagerty (TeamingPro)</p>
+                        <p style="color: #64748b; font-size: 14px; margin: 4px 0 0; line-height: 1.5;">How to find and secure teaming partners through automation &mdash; skip the 12&ndash;18 month getting-to-know-you phase.</p>
                       </td>
                     </tr></table>
                   </td>
@@ -1023,9 +1023,9 @@ export async function sendHubzoneSpeakerEmail(params: EmailParams & { cc?: strin
         <table width="100%" cellpadding="0" cellspacing="0">
           ${row('5:30', 'Green room &amp; soundcheck', 'Camera/mic test, confirm speaking order.')}
           ${row('6:00', 'Eric opens &amp; frames the session', '~5 min welcome + agenda.')}
-          ${row('6:05', 'Teaming Pillar &middot; Tim Hagerty (TeamingPro)')}
+          ${row('6:05', 'Agency Pillar &middot; Todd Rogers (IDVs &amp; the government buyer side)')}
           ${row('6:30', 'Funding Pillar &middot; Chad Eberly (Encore Funding)')}
-          ${row('6:55', 'Agency Pillar &middot; Todd Rogers (IDVs &amp; the government buyer side)')}
+          ${row('6:55', 'Teaming Pillar &middot; Tim Hagerty (TeamingPro)')}
           ${row('7:20', 'Open roundtable / cross-talk')}
           ${row('7:30', 'Live audience Q&amp;A (&frac12; hr)')}
           <tr><td style="padding: 10px 0;"><table cellpadding="0" cellspacing="0" width="100%"><tr><td valign="top" style="width: 70px;"><span style="color:#ea580c;font-weight:800;font-size:14px;">8:00</span></td><td valign="top"><p style="color:#0f172a;font-size:14px;font-weight:700;margin:0;">Close + next steps</p></td></tr></table></td></tr>

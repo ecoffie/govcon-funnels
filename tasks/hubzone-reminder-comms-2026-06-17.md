@@ -57,9 +57,9 @@ Meeting ID: 871 1216 4591 · Passcode: 467983
 **Run of show (~2 hrs):**
 - 5:30 — Green room, soundcheck, confirm order
 - 6:00 — Eric opens + frames the session (5 min)
-- 6:05 — Teaming Pillar · Tim Hagerty (TeamingPro)
+- 6:05 — Agency Pillar · Todd Rogers (industry technical expert, IDVs & buyer side)
 - 6:30 — Funding Pillar · Chad Eberly (Encore Funding)
-- 6:55 — Agency Pillar · Todd Rogers (LTR / USACE perspective)
+- 6:55 — Teaming Pillar · Tim Hagerty (TeamingPro)
 - 7:20 — Open roundtable / cross-talk
 - 7:30 — Live audience Q&A (½ hr)
 - 8:00 — Close + next steps
@@ -87,9 +87,9 @@ https://us06web.zoom.us/j/87112164591?pwd=bakXu7g8fbSUVCjEKpDcIRxPUH5XwH.1
 Meeting ID: 871 1216 4591 · Passcode: 467983
 
 This is a **live working session** — the part you can't get from a replay is the **Q&A**, where you can put your situation in front of four people who've actually done this:
-- **Teaming** — Tim Hagerty (TeamingPro): find + secure partners without the 12–18 month wait
+- **Agency** — Todd Rogers: industry technical expert on IDVs & the government buyer side
 - **Funding** — Chad Eberly (Encore Funding): capital built for federal contractors
-- **Agency** — Todd Rogers (LTR): what USACE actually looks for in small-business partners
+- **Teaming** — Tim Hagerty (TeamingPro): find + secure partners without the 12–18 month wait
 
 Bring your toughest question. We'll be there to answer it live.
 
