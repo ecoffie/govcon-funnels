@@ -1,6 +1,7 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { Redis } from '@upstash/redis';
 import { getHubzoneRegistrations } from '@/lib/hubzone-registrations';
+import { getHubzoneRegistrantsFromSupabase } from '@/lib/supabase-leads';
 import {
   sendHubzoneOneHourEmail,
   sendHubzoneLiveEmail,
@@ -85,12 +86,14 @@ export async function GET(req: NextRequest) {
   }
 
   try {
-    const summary = await getHubzoneRegistrations(new Date());
-    const recipients = summary.registrants
-      // Internal-domain registrants (Encore/GCG/TeamingPro team) are INCLUDED
-      // on purpose — the team wants to receive what registrants get.
-      .filter((r) => r.email)
-      .map((r) => ({ to: r.email, name: r.name }));
+    // Source of truth: Supabase funnel_leads (GHL pull is capped at 100/tag,
+    // no pagination — it under-counted). Fall back to GHL only if empty.
+    let baseList = await getHubzoneRegistrantsFromSupabase();
+    if (baseList.length === 0) {
+      const summary = await getHubzoneRegistrations(new Date());
+      baseList = summary.registrants.filter((r) => r.email).map((r) => ({ email: r.email, name: r.name }));
+    }
+    const recipients = baseList.map((r) => ({ to: r.email, name: r.name }));
 
     if (dry) {
       return NextResponse.json(

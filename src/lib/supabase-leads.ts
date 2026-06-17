@@ -63,6 +63,44 @@ export async function countLeadsBySource(source: string): Promise<number | null>
   }
 }
 
+/**
+ * Read the real HUBZone registrant list from Supabase (funnel_leads), deduped
+ * by email. This is the source of truth for sends — GHL's API pull is capped
+ * at 100/tag with no pagination and was under-counting. Drops obvious test
+ * addresses. Returns [] on failure so callers can fall back to GHL.
+ */
+const HUBZONE_SOURCES = ['hubzone-webinar', 'hubzone-webinar-bottom'];
+const TEST_EMAIL_RE = /\+|@example\.com$|(^|\b)(test|email-test)\b/i;
+
+export async function getHubzoneRegistrantsFromSupabase(): Promise<
+  { email: string; name: string }[]
+> {
+  if (!client) return [];
+  try {
+    const { data, error } = await client
+      .from('funnel_leads')
+      .select('email,name,created_at')
+      .in('source', HUBZONE_SOURCES)
+      .order('created_at', { ascending: true });
+    if (error) {
+      console.error('getHubzoneRegistrantsFromSupabase failed:', error.message);
+      return [];
+    }
+    const byEmail = new Map<string, { email: string; name: string }>();
+    for (const r of data ?? []) {
+      const email = (r.email || '').toLowerCase().trim();
+      if (!email || TEST_EMAIL_RE.test(email)) continue;
+      // First occurrence wins (earliest signup); keep a real name if present.
+      if (!byEmail.has(email)) byEmail.set(email, { email, name: (r.name || '').trim() });
+      else if (!byEmail.get(email)!.name && r.name) byEmail.get(email)!.name = r.name.trim();
+    }
+    return [...byEmail.values()];
+  } catch (e) {
+    console.error('getHubzoneRegistrantsFromSupabase threw:', e instanceof Error ? e.message : String(e));
+    return [];
+  }
+}
+
 export async function saveLeadToSupabase(
   lead: LeadPayload
 ): Promise<{ ok: boolean; error?: string }> {

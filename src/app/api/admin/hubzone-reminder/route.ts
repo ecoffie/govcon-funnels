@@ -1,5 +1,6 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { getHubzoneRegistrations } from '@/lib/hubzone-registrations';
+import { getHubzoneRegistrantsFromSupabase } from '@/lib/supabase-leads';
 import {
   sendHubzoneReminderEmail,
   sendHubzoneSpeakerEmail,
@@ -110,13 +111,19 @@ export async function GET(request: NextRequest) {
       );
     }
 
-    // Pull the live, de-duped, test/internal-filtered registrant list
-    const summary = await getHubzoneRegistrations(new Date());
-    const recipients = summary.registrants
-      // Note: internal-domain registrants (Encore/GCG/TeamingPro team) are
-      // INCLUDED on purpose — the team wants to receive what registrants get.
-      // (Test/QA emails are still dropped upstream in getHubzoneRegistrations.)
-      .filter((r) => r.email)
+    // Source of truth: Supabase funnel_leads (GHL's pull is capped at 100/tag
+    // with no pagination and was under-counting). Fall back to GHL only if
+    // Supabase returns nothing. Includes the Encore/internal team on purpose.
+    let baseList = await getHubzoneRegistrantsFromSupabase();
+    let listSource = 'supabase';
+    if (baseList.length === 0) {
+      const summary = await getHubzoneRegistrations(new Date());
+      baseList = summary.registrants
+        .filter((r) => r.email)
+        .map((r) => ({ email: r.email, name: r.name }));
+      listSource = 'ghl-fallback';
+    }
+    const recipients = baseList
       .filter((r) => onlyEmails.length === 0 || onlyEmails.includes(r.email.toLowerCase()))
       .map((r) => ({ to: r.email, name: r.name }));
 
@@ -125,6 +132,7 @@ export async function GET(request: NextRequest) {
       return NextResponse.json(
         {
           mode: 'dry',
+          listSource,
           willEmailAttendees: doAttendees,
           attendeeCount: doAttendees ? recipients.length : 0,
           sampleRecipients: recipients.slice(0, 5).map((r) => ({ name: r.name, email: r.to })),
