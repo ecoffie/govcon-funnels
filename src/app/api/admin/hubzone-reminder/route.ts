@@ -70,10 +70,15 @@ export async function GET(request: NextRequest) {
   const doSpeakers = !attendeesOnly;
 
   try {
-    // TEST MODE — single attendee email, no list pull needed beyond that
+    // TEST MODE — send BOTH templates (attendee + speaker) to the test address
     if (testEmail) {
-      const res = await sendHubzoneReminderEmail({ to: testEmail, name: 'Test Friend' });
-      return NextResponse.json({ mode: 'test', to: testEmail, result: res }, { headers: { 'Cache-Control': 'no-store' } });
+      const attendee = await sendHubzoneReminderEmail({ to: testEmail, name: 'Test Friend' });
+      await sleep(SEND_DELAY_MS);
+      const speaker = await sendHubzoneSpeakerEmail({ to: testEmail, name: 'Test Speaker' });
+      return NextResponse.json(
+        { mode: 'test', to: testEmail, attendeeEmail: attendee, speakerEmail: speaker },
+        { headers: { 'Cache-Control': 'no-store' } }
+      );
     }
 
     // Pull the live, de-duped, test/internal-filtered registrant list
