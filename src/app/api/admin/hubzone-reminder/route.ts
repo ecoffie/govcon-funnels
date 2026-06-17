@@ -27,17 +27,20 @@ export const maxDuration = 300;
  * Gmail SMTP is throttled (~120ms between sends) to stay under rate limits.
  */
 
-/** Panelists for the run-of-show email. Eric hosts and isn't included here. */
+/** Panelists for the run-of-show email. Eric hosts and isn't included here.
+ *  Branden (GCG webinar QC) is CC'd on every speaker email. */
+const GCG_QC_CC = 'branden@govcongiants.com';
 const SPEAKER_ROSTER: { name: string; to: string; cc?: string[] }[] = [
-  { name: 'Tim Hagerty', to: 'tim@teamingpro.com' },
+  { name: 'Tim Hagerty', to: 'tim@teamingpro.com', cc: [GCG_QC_CC] },
   {
     name: 'Chad Eberly',
     to: 'ceberly@encore-funding.com',
-    cc: ['dprovident@encore-funding.com', 'sschneider@encore-funding.com', 'ssweedler@encore-funding.com'],
+    cc: ['dprovident@encore-funding.com', 'sschneider@encore-funding.com', 'ssweedler@encore-funding.com', GCG_QC_CC],
   },
-  { name: 'Todd Rogers', to: 'T.rogers@oneltr.com' },
+  { name: 'Todd Rogers', to: 'T.rogers@oneltr.com', cc: [GCG_QC_CC] },
 ];
-const SEND_DELAY_MS = 120;
+// 400ms between sends — 120ms tripped Gmail's per-connection login cap (454-4.7.0) near the end of a 54-send burst.
+const SEND_DELAY_MS = 400;
 const sleep = (ms: number) => new Promise((r) => setTimeout(r, ms));
 
 /** Constant-time-ish compare so the tracker password check doesn't leak length/timing. */
@@ -68,6 +71,12 @@ export async function GET(request: NextRequest) {
   const speakersOnly = searchParams.get('speakersonly') === '1';
   const doAttendees = !speakersOnly;
   const doSpeakers = !attendeesOnly;
+  // Retry filter: &only=a@x.com,b@y.com restricts the attendee blast to just
+  // these addresses (used to re-send the few that Gmail rate-limited).
+  const onlyEmails = (searchParams.get('only') || '')
+    .split(',')
+    .map((s) => s.trim().toLowerCase())
+    .filter(Boolean);
 
   try {
     // TEST MODE — send BOTH templates (attendee + speaker) to the test address
@@ -85,6 +94,7 @@ export async function GET(request: NextRequest) {
     const summary = await getHubzoneRegistrations(new Date());
     const recipients = summary.registrants
       .filter((r) => !r.internal && r.email)
+      .filter((r) => onlyEmails.length === 0 || onlyEmails.includes(r.email.toLowerCase()))
       .map((r) => ({ to: r.email, name: r.name }));
 
     // DRY MODE — report what *would* happen
