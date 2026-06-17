@@ -57,9 +57,9 @@ Meeting ID: 871 1216 4591 · Passcode: 467983
 **Run of show (~2 hrs):**
 - 5:30 — Green room, soundcheck, confirm order
 - 6:00 — Eric opens + frames the session (5 min)
-- 6:05 — Agency Pillar · Todd Rogers (industry technical expert, IDVs & buyer side)
-- 6:30 — Funding Pillar · Chad Eberly (Encore Funding)
-- 6:55 — Teaming Pillar · Tim Hagerty (TeamingPro)
+- 6:05 — Intros, 5 min each: Todd Rogers (Agency) → Chad Eberly (Funding) → Tim Hagerty (Teaming). Todd hands the layup to Chad.
+- 6:20 — Moderated round-robin (Eric drives 3–4 themes; each panelist weighs in)
+- 7:15 — Rapid-fire / cross-talk
 - 7:20 — Open roundtable / cross-talk
 - 7:30 — Live audience Q&A (½ hr)
 - 8:00 — Close + next steps

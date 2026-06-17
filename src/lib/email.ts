@@ -952,10 +952,10 @@ export async function sendHubzoneReminderEmail(params: EmailParams): Promise<Ema
       </td></tr>
       <tr><td style="padding: 32px 32px 0;">
         <h2 style="color: #0f172a; font-size: 22px; font-weight: 800; margin: 0 0 12px;">Tonight&rsquo;s the night, ${firstName}.</h2>
-        <p style="color: #475569; font-size: 16px; line-height: 1.65; margin: 0 0 16px;">This is a <strong style="color: #0f172a;">live working session</strong> &mdash; and the part you can&rsquo;t get from a replay is the <strong style="color: #0f172a;">Q&amp;A</strong>, where you can put your situation in front of four people who&rsquo;ve actually done this. Bring your toughest question.</p>
+        <p style="color: #475569; font-size: 16px; line-height: 1.65; margin: 0 0 16px;">This is a <strong style="color: #0f172a;">live roundtable</strong>, not a lecture &mdash; quick intros, then an open discussion across all three experts, then a full <strong style="color: #0f172a;">½-hour Q&amp;A</strong> where you can put your situation in front of people who&rsquo;ve actually done this. Bring your toughest question.</p>
       </td></tr>
       <tr><td style="padding: 24px 32px 0;">
-        <h3 style="color: #0f172a; font-size: 18px; font-weight: 800; margin: 0 0 16px;">Tonight&rsquo;s run of show</h3>
+        <h3 style="color: #0f172a; font-size: 18px; font-weight: 800; margin: 0 0 16px;">Your three experts tonight</h3>
         <table width="100%" cellpadding="0" cellspacing="0">
           <tr><td style="padding: 12px 0; border-bottom: 1px solid #e2e8f0;"><table cellpadding="0" cellspacing="0"><tr><td valign="top" style="width: 36px;"><div style="width: 28px; height: 28px; background-color: #ea580c; border-radius: 50%; color: #ffffff; font-weight: 800; text-align: center; line-height: 28px; font-size: 14px;">1</div></td><td valign="top"><p style="color: #0f172a; font-size: 15px; font-weight: 700; margin: 0;">The Teaming Pillar &mdash; Tim Hagerty (TeamingPro)</p><p style="color: #64748b; font-size: 14px; margin: 4px 0 0; line-height: 1.5;">How to find and secure teaming partners through automation &mdash; skip the 12&ndash;18 month getting-to-know-you phase.</p></td></tr></table></td></tr>
           <tr><td style="padding: 12px 0; border-bottom: 1px solid #e2e8f0;"><table cellpadding="0" cellspacing="0"><tr><td valign="top" style="width: 36px;"><div style="width: 28px; height: 28px; background-color: #ea580c; border-radius: 50%; color: #ffffff; font-weight: 800; text-align: center; line-height: 28px; font-size: 14px;">2</div></td><td valign="top"><p style="color: #0f172a; font-size: 15px; font-weight: 700; margin: 0;">The Funding Pillar &mdash; Chad Eberly (Encore Funding)</p><p style="color: #64748b; font-size: 14px; margin: 4px 0 0; line-height: 1.5;">Specialized capital built for federal contractors &mdash; manage financial demands without traditional bank restrictions.</p></td></tr></table></td></tr>
@@ -1022,11 +1022,10 @@ export async function sendHubzoneSpeakerEmail(params: EmailParams & { cc?: strin
         <h3 style="color: #0f172a; font-size: 18px; font-weight: 800; margin: 0 0 16px;">Run of show</h3>
         <table width="100%" cellpadding="0" cellspacing="0">
           ${row('5:30', 'Green room &amp; soundcheck', 'Camera/mic test, confirm speaking order.')}
-          ${row('6:00', 'Eric opens &amp; frames the session', '~5 min welcome + agenda.')}
-          ${row('6:05', 'Agency Pillar &middot; Todd Rogers (IDVs &amp; the government buyer side)')}
-          ${row('6:30', 'Funding Pillar &middot; Chad Eberly (Encore Funding)')}
-          ${row('6:55', 'Teaming Pillar &middot; Tim Hagerty (TeamingPro)')}
-          ${row('7:20', 'Open roundtable / cross-talk')}
+          ${row('6:00', 'Eric opens &amp; frames the session', '~5 min welcome + the journey: win work &rarr; fund it &rarr; team to grow.')}
+          ${row('6:05', 'Intros &mdash; 5 min each', 'Todd Rogers (Agency) &rarr; Chad Eberly (Funding) &rarr; Tim Hagerty (Teaming). Todd hands the layup to Chad.')}
+          ${row('6:20', 'Moderated round-robin', 'Eric drives 3&ndash;4 themes; each panelist weighs in. The real value &mdash; cross-talk, not monologues.')}
+          ${row('7:15', 'Rapid-fire / cross-talk')}
           ${row('7:30', 'Live audience Q&amp;A (&frac12; hr)')}
           <tr><td style="padding: 10px 0;"><table cellpadding="0" cellspacing="0" width="100%"><tr><td valign="top" style="width: 70px;"><span style="color:#ea580c;font-weight:800;font-size:14px;">8:00</span></td><td valign="top"><p style="color:#0f172a;font-size:14px;font-weight:700;margin:0;">Close + next steps</p></td></tr></table></td></tr>
         </table>
