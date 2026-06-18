@@ -1206,7 +1206,7 @@ export async function sendHubzoneRecordingEmail(params: EmailParams & { recordin
         <table width="100%" cellpadding="0" cellspacing="0">
           <tr><td style="padding:8px 0;border-bottom:1px solid #e2e8f0;">
             <p style="color:#0f172a;font-size:14px;font-weight:700;margin:0;">Eric Coffie <span style="color:#64748b;font-weight:500;">&middot; GovCon Giants (Moderator)</span></p>
-            <p style="color:#64748b;font-size:13px;margin:2px 0 0;"><a href="mailto:eric@govcongiants.com" style="color:#ea580c;text-decoration:none;">eric@govcongiants.com</a></p>
+            <p style="color:#64748b;font-size:13px;margin:2px 0 0;"><a href="mailto:hello@govconedu.com" style="color:#ea580c;text-decoration:none;">hello@govconedu.com</a> &middot; <a href="tel:+15082906692" style="color:#ea580c;text-decoration:none;">+1 508-290-6692</a></p>
           </td></tr>
           <tr><td style="padding:8px 0;border-bottom:1px solid #e2e8f0;">
             <p style="color:#0f172a;font-size:14px;font-weight:700;margin:0;">Todd Rogers <span style="color:#64748b;font-weight:500;">&middot; LTR (Agency / IDVs &amp; buyer side)</span></p>
