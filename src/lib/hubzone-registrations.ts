@@ -12,6 +12,8 @@
  */
 
 const GHL_SEARCH_URL = 'https://services.leadconnectorhq.com/contacts/search';
+const GHL_SEARCH_PAGE_LIMIT = 100;
+const GHL_SEARCH_MAX_PAGES = 100;
 
 /** Tags applied by the hubzone lead forms (top + bottom of page). */
 const HUBZONE_TAGS = ['hubzone-webinar', 'hubzone-webinar-bottom'];
@@ -32,6 +34,11 @@ interface GhlContact {
   source?: string;
   dateAdded?: string;
   tags?: string[];
+}
+
+interface GhlSearchResponse {
+  contacts?: GhlContact[];
+  total?: number;
 }
 
 /** A registrant with full (gated) contact detail for the worklist. */
@@ -127,28 +134,39 @@ function formLabelFor(source: string): Registrant['formLabel'] {
 }
 
 async function searchByTag(tag: string, apiKey: string, locationId: string): Promise<GhlContact[]> {
-  const res = await fetch(GHL_SEARCH_URL, {
-    method: 'POST',
-    headers: {
-      Authorization: `Bearer ${apiKey}`,
-      'Content-Type': 'application/json',
-      Version: '2021-07-28',
-    },
-    body: JSON.stringify({
-      locationId,
-      pageLimit: 100,
-      filters: [{ field: 'tags', operator: 'contains', value: tag }],
-    }),
-    cache: 'no-store',
-  });
+  const contacts: GhlContact[] = [];
 
-  if (!res.ok) {
-    const text = await res.text();
-    throw new Error(`GHL search failed (${res.status}): ${text.slice(0, 200)}`);
+  for (let page = 1; page <= GHL_SEARCH_MAX_PAGES; page += 1) {
+    const res = await fetch(GHL_SEARCH_URL, {
+      method: 'POST',
+      headers: {
+        Authorization: `Bearer ${apiKey}`,
+        'Content-Type': 'application/json',
+        Version: '2021-07-28',
+      },
+      body: JSON.stringify({
+        locationId,
+        page,
+        pageLimit: GHL_SEARCH_PAGE_LIMIT,
+        filters: [{ field: 'tags', operator: 'contains', value: tag }],
+      }),
+      cache: 'no-store',
+    });
+
+    if (!res.ok) {
+      const text = await res.text();
+      throw new Error(`GHL search failed (${res.status}): ${text.slice(0, 200)}`);
+    }
+
+    const data = (await res.json()) as GhlSearchResponse;
+    const pageContacts = Array.isArray(data?.contacts) ? data.contacts : [];
+    contacts.push(...pageContacts);
+
+    if (pageContacts.length < GHL_SEARCH_PAGE_LIMIT) break;
+    if (typeof data.total === 'number' && contacts.length >= data.total) break;
   }
 
-  const data = await res.json();
-  return Array.isArray(data?.contacts) ? data.contacts : [];
+  return contacts;
 }
 
 const DAY_MS = 1000 * 60 * 60 * 24;
