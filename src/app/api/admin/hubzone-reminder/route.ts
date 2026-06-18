@@ -6,6 +6,7 @@ import {
   sendHubzoneSpeakerEmail,
   sendHubzoneRegisterEmail,
   sendHubzoneRegisterPlaintext,
+  sendHubzoneRecordingEmail,
 } from '@/lib/email';
 import { extractPassword, isAuthorized } from '@/lib/admin-auth';
 
@@ -85,10 +86,18 @@ export async function GET(request: NextRequest) {
     .filter(Boolean);
 
   try {
-    // PREVIEW MODE — send the list-blast "register" design to one address.
-    //   ?preview=register&to=you@email.com
+    // PREVIEW MODE — send a single design to one address.
+    //   ?preview=register&to=you@email.com   (list-blast register design)
+    //   ?preview=recording&to=you@email.com  (recording + Mindy June 27 + contacts)
     const preview = searchParams.get('preview');
     const previewTo = searchParams.get('to')?.trim();
+    if (preview === 'recording' && previewTo) {
+      const res = await sendHubzoneRecordingEmail({ to: previewTo, name: 'there' });
+      return NextResponse.json(
+        { mode: 'preview', design: 'recording', to: previewTo, result: res },
+        { headers: { 'Cache-Control': 'no-store' } }
+      );
+    }
     if (preview === 'register' && previewTo) {
       const asText = searchParams.get('format') === 'text';
       const res = asText
