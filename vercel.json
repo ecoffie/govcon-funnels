@@ -187,18 +187,8 @@
     },
     {
       "source": "/pb",
-      "destination": "/",
-      "permanent": true
-    },
-    {
-      "source": "/proposal-bootcamp",
-      "destination": "/",
-      "permanent": true
-    },
-    {
-      "source": "/proposal-bootcamp/:path*",
-      "destination": "/",
-      "permanent": true
+      "destination": "/proposal-bootcamp",
+      "permanent": false
     },
     {
       "source": "/training",
