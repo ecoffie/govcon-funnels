@@ -1,16 +1,15 @@
 'use client';
 
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import Link from 'next/link';
 import HubzoneSpinWheel from '@/components/HubzoneSpinWheel';
 
 export default function HubzoneThankYou() {
-  const [userName, setUserName] = useState('there');
-
-  useEffect(() => {
+  const [userName] = useState(() => {
+    if (typeof window === 'undefined') return 'there';
     const name = localStorage.getItem('leadName');
-    if (name) setUserName(name.split(' ')[0]);
-  }, []);
+    return name ? name.split(' ')[0] : 'there';
+  });
 
   return (
     <main className="min-h-screen bg-gradient-to-br from-[#ea580c] via-[#dc2626] to-[#9a3412] py-16 px-6">
