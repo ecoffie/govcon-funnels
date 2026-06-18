@@ -182,7 +182,7 @@ async function sendEmail(to: string, subject: string, html: string, cc?: string[
  * Send confirmation email based on funnel source
  */
 export async function sendConfirmationEmail(params: EmailParams & { source: string }): Promise<EmailResult> {
-  const { name, source } = params;
+  const { to, name, source } = params;
 
   switch (source) {
     case 'free-handouts':
