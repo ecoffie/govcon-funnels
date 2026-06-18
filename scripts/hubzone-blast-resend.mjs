@@ -3,8 +3,8 @@
 // ~50/burst; Resend has no such cap. Reads the real 151 from Supabase.
 //
 // Usage:
-//   RESEND_KEY=re_... node scripts/hubzone-blast-resend.mjs --dry
-//   RESEND_KEY=re_... node scripts/hubzone-blast-resend.mjs --send
+//   RESEND_KEY=re_... HUBZONE_ZOOM_URL=... HUBZONE_ZOOM_MEETING_ID=... HUBZONE_ZOOM_PASSCODE=... node scripts/hubzone-blast-resend.mjs --dry
+//   RESEND_KEY=re_... HUBZONE_ZOOM_URL=... HUBZONE_ZOOM_MEETING_ID=... HUBZONE_ZOOM_PASSCODE=... node scripts/hubzone-blast-resend.mjs --send
 import { createClient } from '@supabase/supabase-js';
 import { Resend } from 'resend';
 import dotenv from 'dotenv';
@@ -12,12 +12,17 @@ dotenv.config({ path: '.env.local' });
 
 const RESEND_KEY = process.env.RESEND_KEY;
 const FROM = 'GovCon Giants <alerts@mail.getmindy.ai>';
-const ZOOM = 'https://us06web.zoom.us/j/87112164591?pwd=bakXu7g8fbSUVCjEKpDcIRxPUH5XwH.1';
-const MID = '871 1216 4591';
-const PASS = '467983';
+const ZOOM = (process.env.HUBZONE_ZOOM_URL || '').trim();
+const MID = (process.env.HUBZONE_ZOOM_MEETING_ID || '').trim();
+const PASS = (process.env.HUBZONE_ZOOM_PASSCODE || '').trim();
 const DRY = process.argv.includes('--dry');
 // Which email: tonight (default) | one-hour | live
 const TYPE = (process.argv.find((a) => a.startsWith('--type='))?.split('=')[1]) || 'tonight';
+
+if (!ZOOM || !MID || !PASS) {
+  console.error('Missing HUBZONE_ZOOM_URL, HUBZONE_ZOOM_MEETING_ID, or HUBZONE_ZOOM_PASSCODE');
+  process.exit(1);
+}
 
 const url = (process.env.NEXT_PUBLIC_SUPABASE_URL || process.env.SUPABASE_URL || '').trim();
 const key = (process.env.SUPABASE_SERVICE_ROLE_KEY || '').trim();

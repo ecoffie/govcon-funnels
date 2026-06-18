@@ -19,10 +19,29 @@ const resend = resendApiKey ? new Resend(resendApiKey) : null;
 // Must be a Resend-verified domain. alerts@govcongiants.com is verified.
 const RESEND_FROM = `"GovCon Giants" <${process.env.EMAIL_FROM || 'alerts@govcongiants.com'}>`;
 
-// HUBZone webinar Zoom details — used by confirmation + all reminder emails.
-const HUBZONE_ZOOM_URL = 'https://us06web.zoom.us/j/87112164591?pwd=bakXu7g8fbSUVCjEKpDcIRxPUH5XwH.1';
-const HUBZONE_MEETING_ID = '871 1216 4591';
-const HUBZONE_PASSCODE = '467983';
+type HubzoneZoomDetails = {
+  url: string;
+  meetingId: string;
+  passcode: string;
+};
+
+function getHubzoneZoomDetails(): { ok: true; details: HubzoneZoomDetails } | { ok: false; result: EmailResult } {
+  const url = process.env.HUBZONE_ZOOM_URL?.trim();
+  const meetingId = process.env.HUBZONE_ZOOM_MEETING_ID?.trim();
+  const passcode = process.env.HUBZONE_ZOOM_PASSCODE?.trim();
+
+  if (!url || !meetingId || !passcode) {
+    return {
+      ok: false,
+      result: {
+        ok: false,
+        error: 'HUBZone Zoom details are not configured',
+      },
+    };
+  }
+
+  return { ok: true, details: { url, meetingId, passcode } };
+}
 
 export interface EmailParams {
   to: string;
@@ -668,13 +687,16 @@ export async function sendProposalResourcesEmail(params: EmailParams): Promise<E
 export async function sendHubzoneWebinarEmail(params: EmailParams): Promise<EmailResult> {
   const firstName = params.name.split(' ')[0] || 'there';
   const webinarUrl = 'https://govcongiants.com/hubzone';
+  const zoom = getHubzoneZoomDetails();
+  if (!zoom.ok) return zoom.result;
+  const { url: zoomUrl, meetingId, passcode } = zoom.details;
   // Google Calendar add-event link (June 17, 2026, 6:00–8:00 PM EDT = 22:00–00:00 UTC)
   const calendarUrl =
     'https://www.google.com/calendar/render?action=TEMPLATE' +
     '&text=' + encodeURIComponent('From Interested To Procurement Ready — HUBZone Webinar') +
     '&dates=20260617T220000Z/20260618T000000Z' +
-    '&details=' + encodeURIComponent(`Live webinar for small businesses entering the federal market. Hosted by Eric Coffie with Tim Hagerty (TeamingPro), Chad Eberly (Encore Funding), and Todd Rogers (industry technical expert, IDVs & buyer side). Includes ½-hour Q&A.\n\nJoin Zoom: ${HUBZONE_ZOOM_URL}\nMeeting ID: ${HUBZONE_MEETING_ID} · Passcode: ${HUBZONE_PASSCODE}\n\nDetails: https://govcongiants.com/hubzone`) +
-    '&location=' + encodeURIComponent(HUBZONE_ZOOM_URL);
+    '&details=' + encodeURIComponent(`Live webinar for small businesses entering the federal market. Hosted by Eric Coffie with Tim Hagerty (TeamingPro), Chad Eberly (Encore Funding), and Todd Rogers (industry technical expert, IDVs & buyer side). Includes ½-hour Q&A.\n\nJoin Zoom: ${zoomUrl}\nMeeting ID: ${meetingId} · Passcode: ${passcode}\n\nDetails: https://govcongiants.com/hubzone`) +
+    '&location=' + encodeURIComponent(zoomUrl);
 
   const html = `<!DOCTYPE html>
 <html>
@@ -752,8 +774,8 @@ export async function sendHubzoneWebinarEmail(params: EmailParams): Promise<Emai
                 <tr>
                   <td style="padding: 24px; text-align: center;">
                     <p style="color: #9a3412; font-size: 12px; font-weight: 700; text-transform: uppercase; letter-spacing: 1.5px; margin: 0 0 12px;">Your Join Link</p>
-                    <a href="${HUBZONE_ZOOM_URL}" style="display: inline-block; background-color: #ea580c; color: #ffffff; padding: 16px 36px; border-radius: 10px; text-decoration: none; font-weight: 800; font-size: 17px;">&#128279;&nbsp; Join the Webinar</a>
-                    <p style="color: #64748b; font-size: 13px; margin: 16px 0 0; line-height: 1.6;">Meeting ID: <strong style="color:#0f172a;">${HUBZONE_MEETING_ID}</strong> &nbsp;&middot;&nbsp; Passcode: <strong style="color:#0f172a;">${HUBZONE_PASSCODE}</strong></p>
+                    <a href="${zoomUrl}" style="display: inline-block; background-color: #ea580c; color: #ffffff; padding: 16px 36px; border-radius: 10px; text-decoration: none; font-weight: 800; font-size: 17px;">&#128279;&nbsp; Join the Webinar</a>
+                    <p style="color: #64748b; font-size: 13px; margin: 16px 0 0; line-height: 1.6;">Meeting ID: <strong style="color:#0f172a;">${meetingId}</strong> &nbsp;&middot;&nbsp; Passcode: <strong style="color:#0f172a;">${passcode}</strong></p>
                   </td>
                 </tr>
               </table>
@@ -975,6 +997,10 @@ ${proCta()}`;
 
 export async function sendHubzoneReminderEmail(params: EmailParams): Promise<EmailResult> {
   const firstName = (params.name || '').split(' ')[0] || 'there';
+  const zoom = getHubzoneZoomDetails();
+  if (!zoom.ok) return zoom.result;
+  const { url: zoomUrl, meetingId, passcode } = zoom.details;
+  const dialMeetingId = meetingId.replace(/\s+/g, '');
   const html = `<!DOCTYPE html>
 <html>
 <head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><title>Tonight at 6 PM ET — Your Zoom Link Is Inside</title></head>
@@ -992,8 +1018,8 @@ export async function sendHubzoneReminderEmail(params: EmailParams): Promise<Ema
           <p style="color: #9a3412; font-size: 12px; font-weight: 700; text-transform: uppercase; letter-spacing: 1.5px; margin: 0 0 8px;">Your Join Link</p>
           <p style="color: #1e293b; font-size: 20px; font-weight: 800; margin: 0 0 4px;">Wednesday, June 17 &middot; 6:00&ndash;8:00 PM EST</p>
           <p style="color: #475569; font-size: 14px; margin: 0 0 20px;">Includes a live &frac12;-hour Q&amp;A</p>
-          <a href="${HUBZONE_ZOOM_URL}" style="display: inline-block; background-color: #ea580c; color: #ffffff; padding: 18px 40px; border-radius: 10px; text-decoration: none; font-weight: 800; font-size: 18px;">&#128279;&nbsp; Join the Webinar</a>
-          <p style="color: #64748b; font-size: 13px; margin: 18px 0 0; line-height: 1.6;">Meeting ID: <strong style="color:#0f172a;">${HUBZONE_MEETING_ID}</strong> &nbsp;&middot;&nbsp; Passcode: <strong style="color:#0f172a;">${HUBZONE_PASSCODE}</strong></p>
+          <a href="${zoomUrl}" style="display: inline-block; background-color: #ea580c; color: #ffffff; padding: 18px 40px; border-radius: 10px; text-decoration: none; font-weight: 800; font-size: 18px;">&#128279;&nbsp; Join the Webinar</a>
+          <p style="color: #64748b; font-size: 13px; margin: 18px 0 0; line-height: 1.6;">Meeting ID: <strong style="color:#0f172a;">${meetingId}</strong> &nbsp;&middot;&nbsp; Passcode: <strong style="color:#0f172a;">${passcode}</strong></p>
         </td></tr></table>
       </td></tr>
       <tr><td style="padding: 32px 32px 0;">
@@ -1024,8 +1050,8 @@ export async function sendHubzoneReminderEmail(params: EmailParams): Promise<Ema
       </td></tr>
       <tr><td style="padding: 32px;">
         <table width="100%" cellpadding="0" cellspacing="0"><tr><td align="center">
-          <a href="${HUBZONE_ZOOM_URL}" style="display: inline-block; background-color: #ea580c; color: #ffffff; padding: 16px 32px; border-radius: 10px; text-decoration: none; font-weight: 800; font-size: 16px;">Join the Webinar</a>
-          <p style="color: #94a3b8; font-size: 12px; margin: 14px 0 0;">Joining by phone? Dial +1 305 224 1968, then 871 1216 4591 # and passcode 467983 #.</p>
+          <a href="${zoomUrl}" style="display: inline-block; background-color: #ea580c; color: #ffffff; padding: 16px 32px; border-radius: 10px; text-decoration: none; font-weight: 800; font-size: 16px;">Join the Webinar</a>
+          <p style="color: #94a3b8; font-size: 12px; margin: 14px 0 0;">Joining by phone? Dial +1 305 224 1968, then ${dialMeetingId} # and passcode ${passcode} #.</p>
         </td></tr></table>
       </td></tr>
       <tr><td style="padding: 0 32px 32px;">
@@ -1048,6 +1074,9 @@ export async function sendHubzoneReminderEmail(params: EmailParams): Promise<Ema
  * HUBZone webinar SPEAKER email — green room + run of show + panelist link.
  */
 export async function sendHubzoneSpeakerEmail(params: EmailParams & { cc?: string[] }): Promise<EmailResult> {
+  const zoom = getHubzoneZoomDetails();
+  if (!zoom.ok) return zoom.result;
+  const { url: zoomUrl, meetingId, passcode } = zoom.details;
   const row = (time: string, title: string, sub?: string) =>
     `<tr><td style="padding: 10px 0; border-bottom: 1px solid #e2e8f0;"><table cellpadding="0" cellspacing="0" width="100%"><tr><td valign="top" style="width: 70px;"><span style="color:#ea580c;font-weight:800;font-size:14px;">${time}</span></td><td valign="top"><p style="color:#0f172a;font-size:14px;font-weight:700;margin:0;">${title}</p>${sub ? `<p style="color:#64748b;font-size:13px;margin:2px 0 0;">${sub}</p>` : ''}</td></tr></table></td></tr>`;
   const html = `<!DOCTYPE html>
@@ -1066,8 +1095,8 @@ export async function sendHubzoneSpeakerEmail(params: EmailParams & { cc?: strin
         <table width="100%" cellpadding="0" cellspacing="0" style="background-color: #fff7ed; border: 2px solid #fed7aa; border-radius: 12px;"><tr><td style="padding: 28px 24px; text-align: center;">
           <p style="color: #9a3412; font-size: 12px; font-weight: 700; text-transform: uppercase; letter-spacing: 1.5px; margin: 0 0 8px;">Join as Panelist</p>
           <p style="color: #1e293b; font-size: 18px; font-weight: 800; margin: 0 0 16px;">Please join by <span style="color:#ea580c;">5:30 PM ET</span> for soundcheck</p>
-          <a href="${HUBZONE_ZOOM_URL}" style="display: inline-block; background-color: #ea580c; color: #ffffff; padding: 16px 36px; border-radius: 10px; text-decoration: none; font-weight: 800; font-size: 16px;">Join Zoom (Host/Panelist)</a>
-          <p style="color: #64748b; font-size: 13px; margin: 18px 0 0; line-height: 1.6;">Meeting ID: <strong style="color:#0f172a;">${HUBZONE_MEETING_ID}</strong> &nbsp;&middot;&nbsp; Passcode: <strong style="color:#0f172a;">${HUBZONE_PASSCODE}</strong></p>
+          <a href="${zoomUrl}" style="display: inline-block; background-color: #ea580c; color: #ffffff; padding: 16px 36px; border-radius: 10px; text-decoration: none; font-weight: 800; font-size: 16px;">Join Zoom (Host/Panelist)</a>
+          <p style="color: #64748b; font-size: 13px; margin: 18px 0 0; line-height: 1.6;">Meeting ID: <strong style="color:#0f172a;">${meetingId}</strong> &nbsp;&middot;&nbsp; Passcode: <strong style="color:#0f172a;">${passcode}</strong></p>
         </td></tr></table>
       </td></tr>
       <tr><td style="padding: 32px 32px 0;"><p style="color: #475569; font-size: 16px; line-height: 1.65; margin: 0;">Team &mdash; quick logistics for tonight&rsquo;s roundtable. We go live at <strong style="color:#0f172a;">6:00 PM ET</strong>. Please hop on at <strong style="color:#0f172a;">5:30</strong> so we can test audio/video and lock the order.</p></td></tr>
@@ -1105,6 +1134,10 @@ export async function sendHubzoneSpeakerEmail(params: EmailParams & { cc?: strin
  */
 export async function sendHubzoneOneHourEmail(params: EmailParams): Promise<EmailResult> {
   const firstName = (params.name || '').split(' ')[0] || 'there';
+  const zoom = getHubzoneZoomDetails();
+  if (!zoom.ok) return zoom.result;
+  const { url: zoomUrl, meetingId, passcode } = zoom.details;
+  const dialMeetingId = meetingId.replace(/\s+/g, '');
   const html = `<!DOCTYPE html>
 <html><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><title>Starts in 1 hour — HUBZone webinar</title></head>
 <body style="margin:0;padding:0;background-color:#f8fafc;font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif;color:#1e293b;">
@@ -1117,9 +1150,9 @@ export async function sendHubzoneOneHourEmail(params: EmailParams): Promise<Emai
       </td></tr>
       <tr><td style="padding:32px;text-align:center;">
         <p style="color:#475569;font-size:16px;line-height:1.6;margin:0 0 22px;">Doors are about to open for <strong style="color:#0f172a;">From Interested To Procurement Ready</strong>. One tap and you&rsquo;re in:</p>
-        <a href="${HUBZONE_ZOOM_URL}" style="display:inline-block;background-color:#ea580c;color:#ffffff;padding:18px 44px;border-radius:10px;text-decoration:none;font-weight:800;font-size:18px;">&#128279;&nbsp; Join the Webinar</a>
-        <p style="color:#64748b;font-size:13px;margin:18px 0 0;line-height:1.6;">Meeting ID: <strong style="color:#0f172a;">${HUBZONE_MEETING_ID}</strong> &nbsp;&middot;&nbsp; Passcode: <strong style="color:#0f172a;">${HUBZONE_PASSCODE}</strong></p>
-        <p style="color:#94a3b8;font-size:12px;margin:14px 0 0;">By phone: +1 305 224 1968, then 871 1216 4591 # and 467983 #.</p>
+        <a href="${zoomUrl}" style="display:inline-block;background-color:#ea580c;color:#ffffff;padding:18px 44px;border-radius:10px;text-decoration:none;font-weight:800;font-size:18px;">&#128279;&nbsp; Join the Webinar</a>
+        <p style="color:#64748b;font-size:13px;margin:18px 0 0;line-height:1.6;">Meeting ID: <strong style="color:#0f172a;">${meetingId}</strong> &nbsp;&middot;&nbsp; Passcode: <strong style="color:#0f172a;">${passcode}</strong></p>
+        <p style="color:#94a3b8;font-size:12px;margin:14px 0 0;">By phone: +1 305 224 1968, then ${dialMeetingId} # and ${passcode} #.</p>
       </td></tr>
       <tr><td style="padding:0 32px 32px;text-align:center;"><p style="color:#94a3b8;font-size:12px;margin:0;">Hosted by <strong style="color:#1e293b;">GovCon Giants</strong> with Encore Funding, TeamingPro &amp; LTR.</p></td></tr>
     </table>
@@ -1133,6 +1166,9 @@ export async function sendHubzoneOneHourEmail(params: EmailParams): Promise<Emai
  */
 export async function sendHubzoneLiveEmail(params: EmailParams): Promise<EmailResult> {
   const firstName = (params.name || '').split(' ')[0] || 'there';
+  const zoom = getHubzoneZoomDetails();
+  if (!zoom.ok) return zoom.result;
+  const { url: zoomUrl, meetingId, passcode } = zoom.details;
   const html = `<!DOCTYPE html>
 <html><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><title>We're live — join now</title></head>
 <body style="margin:0;padding:0;background-color:#f8fafc;font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif;color:#1e293b;">
@@ -1144,8 +1180,8 @@ export async function sendHubzoneLiveEmail(params: EmailParams): Promise<EmailRe
       </td></tr>
       <tr><td style="padding:32px;text-align:center;">
         <p style="color:#475569;font-size:16px;line-height:1.6;margin:0 0 22px;">The HUBZone roundtable is starting. Jump in:</p>
-        <a href="${HUBZONE_ZOOM_URL}" style="display:inline-block;background-color:#ea580c;color:#ffffff;padding:18px 44px;border-radius:10px;text-decoration:none;font-weight:800;font-size:18px;">Join Now</a>
-        <p style="color:#64748b;font-size:13px;margin:18px 0 0;">Meeting ID: <strong style="color:#0f172a;">${HUBZONE_MEETING_ID}</strong> &middot; Passcode: <strong style="color:#0f172a;">${HUBZONE_PASSCODE}</strong></p>
+        <a href="${zoomUrl}" style="display:inline-block;background-color:#ea580c;color:#ffffff;padding:18px 44px;border-radius:10px;text-decoration:none;font-weight:800;font-size:18px;">Join Now</a>
+        <p style="color:#64748b;font-size:13px;margin:18px 0 0;">Meeting ID: <strong style="color:#0f172a;">${meetingId}</strong> &middot; Passcode: <strong style="color:#0f172a;">${passcode}</strong></p>
       </td></tr>
     </table>
   </td></tr></table>
