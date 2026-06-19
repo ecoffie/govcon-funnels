@@ -87,16 +87,26 @@ export async function GET(request: NextRequest) {
     size: limit,
   });
 
-  // Check if we got an error (e.g., rate limited)
+  if (result.error) {
+    const isRateLimit = result.error.status === 429;
+    return NextResponse.json(
+      {
+        error: isRateLimit
+          ? 'SAM.gov API rate limit exceeded. Please try again later.'
+          : 'SAM.gov API is temporarily unavailable. Please try again later.',
+        details: result.error.message,
+      },
+      { status: isRateLimit ? 429 : 503 }
+    );
+  }
+
   if (result.entities.length === 0 && result.totalCount === 0 && !result.fromCache) {
-    // This could be either no results found OR an API error (rate limit, etc.)
-    // Try to provide helpful message
     return NextResponse.json({
       entities: [],
       totalRecords: 0,
       query: cageCode ? { type: 'cageCode', value: cageCode } : { type: 'companyName', value: companyName },
       fromCache: result.fromCache,
-      note: 'No results found. If you expected results, SAM.gov API may be temporarily unavailable. Please try again later.',
+      note: 'No results found.',
     });
   }
 
