@@ -5,6 +5,7 @@ import {
   checkRateLimit,
   incrementRateLimit,
   parseSAMError,
+  makeSAMRequest,
 } from '../../utils';
 
 describe('SAM Utils - Unit Tests', () => {
@@ -161,6 +162,75 @@ describe('SAM Utils - Unit Tests', () => {
       expect(parseSAMError(401, {}).retryable).toBe(false);
       expect(parseSAMError(403, {}).retryable).toBe(false);
       expect(parseSAMError(404, {}).retryable).toBe(false);
+    });
+  });
+
+  describe('makeSAMRequest', () => {
+    beforeEach(() => {
+      vi.unstubAllGlobals();
+      delete process.env.SAM_API_KEY;
+      delete process.env.SAM_ENTITY_API_KEY;
+      delete process.env.SAM_API_KEY_BACKUP;
+    });
+
+    it('tries a backup key when the primary key returns a retryable error', async () => {
+      process.env.SAM_ENTITY_API_KEY = 'primary-key';
+      process.env.SAM_API_KEY_BACKUP = 'backup-key';
+
+      const fetchMock = vi.fn()
+        .mockResolvedValueOnce(new Response(
+          JSON.stringify({ message: 'Too many requests' }),
+          { status: 429, headers: { 'Content-Type': 'application/json' } }
+        ))
+        .mockResolvedValueOnce(new Response(
+          JSON.stringify({ entityData: [], totalRecords: 0 }),
+          { status: 200, headers: { 'Content-Type': 'application/json' } }
+        ));
+      vi.stubGlobal('fetch', fetchMock);
+
+      const result = await makeSAMRequest<{ entityData: unknown[]; totalRecords: number }>(
+        {
+          apiType: 'entity',
+          baseUrl: 'https://api.sam.gov/entity-information/v3',
+          apiKey: 'primary-key',
+          cacheTTLHours: 24,
+        },
+        '/entities',
+        { samRegistered: 'Yes' },
+        { useCache: false }
+      );
+
+      expect(result.error).toBeNull();
+      expect(result.data?.totalRecords).toBe(0);
+      expect(fetchMock).toHaveBeenCalledTimes(2);
+      expect(String(fetchMock.mock.calls[0][0])).toContain('api_key=primary-key');
+      expect(String(fetchMock.mock.calls[1][0])).toContain('api_key=backup-key');
+    });
+
+    it('does not try a backup key for non-retryable request errors', async () => {
+      process.env.SAM_ENTITY_API_KEY = 'primary-key';
+      process.env.SAM_API_KEY_BACKUP = 'backup-key';
+
+      const fetchMock = vi.fn().mockResolvedValueOnce(new Response(
+        JSON.stringify({ message: 'Bad request' }),
+        { status: 400, headers: { 'Content-Type': 'application/json' } }
+      ));
+      vi.stubGlobal('fetch', fetchMock);
+
+      const result = await makeSAMRequest(
+        {
+          apiType: 'entity',
+          baseUrl: 'https://api.sam.gov/entity-information/v3',
+          apiKey: 'primary-key',
+          cacheTTLHours: 24,
+        },
+        '/entities',
+        { samRegistered: 'Yes' },
+        { useCache: false }
+      );
+
+      expect(result.error?.status).toBe(400);
+      expect(fetchMock).toHaveBeenCalledTimes(1);
     });
   });
 });
