@@ -2,22 +2,23 @@
  * Lightweight shared-secret gate for internal reporting endpoints.
  * Accepts the password via `?password=` query, `x-admin-password` header,
  * or `Authorization: Bearer <pw>`. Set PURCHASES_ADMIN_PASSWORD in the
- * environment; falls back to the ecosystem admin password if unset.
+ * environment. If no admin password is configured, auth fails closed.
  */
-const FALLBACK_PASSWORD = "galata-assassin-2026";
-
-export function getAdminPassword(): string {
-  return process.env.PURCHASES_ADMIN_PASSWORD || process.env.ADMIN_PASSWORD || FALLBACK_PASSWORD;
+export function getAdminPassword(): string | null {
+  const password = process.env.PURCHASES_ADMIN_PASSWORD || process.env.ADMIN_PASSWORD;
+  return password?.trim() || null;
 }
 
 export function isAuthorized(provided: string | null | undefined): boolean {
   if (!provided) return false;
   const expected = getAdminPassword();
-  if (provided.length !== expected.length) return false;
+  if (!expected) return false;
+  const candidate = provided.trim();
+  if (candidate.length !== expected.length) return false;
   // Constant-time-ish compare to avoid trivial timing leaks.
   let diff = 0;
   for (let i = 0; i < expected.length; i++) {
-    diff |= provided.charCodeAt(i) ^ expected.charCodeAt(i);
+    diff |= candidate.charCodeAt(i) ^ expected.charCodeAt(i);
   }
   return diff === 0;
 }
