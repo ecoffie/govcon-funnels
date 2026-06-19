@@ -438,7 +438,13 @@ export async function makeSAMRequest<T>(
     }
 
     if (result.error) {
-      // Other error, return it
+      if (result.error.fallbackAvailable) {
+        // Retryable upstream failures should use the next configured key.
+        lastError = result.error;
+        continue;
+      }
+
+      // Non-retryable errors should not be retried against backup keys.
       return { data: null, error: result.error, fromCache: false };
     }
 
