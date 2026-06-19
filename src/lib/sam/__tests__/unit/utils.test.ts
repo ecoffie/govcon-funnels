@@ -5,6 +5,7 @@ import {
   checkRateLimit,
   incrementRateLimit,
   parseSAMError,
+  makeSAMRequest,
 } from '../../utils';
 
 describe('SAM Utils - Unit Tests', () => {
@@ -161,6 +162,77 @@ describe('SAM Utils - Unit Tests', () => {
       expect(parseSAMError(401, {}).retryable).toBe(false);
       expect(parseSAMError(403, {}).retryable).toBe(false);
       expect(parseSAMError(404, {}).retryable).toBe(false);
+    });
+
+    it('marks key-specific auth errors as fallback eligible', () => {
+      expect(parseSAMError(401, {}).fallbackAvailable).toBe(true);
+      expect(parseSAMError(403, {}).fallbackAvailable).toBe(true);
+      expect(parseSAMError(400, {}).fallbackAvailable).toBe(false);
+    });
+  });
+
+  describe('makeSAMRequest key failover', () => {
+    const originalEnv = process.env;
+
+    beforeEach(() => {
+      process.env = { ...originalEnv };
+      delete process.env.SAM_ENTITY_API_KEY;
+      process.env.SAM_API_KEY = 'primary-key';
+      process.env.SAM_API_KEY_BACKUP = 'backup-key';
+      vi.restoreAllMocks();
+    });
+
+    it('tries the backup key when the primary key returns an auth error', async () => {
+      const fetchMock = vi
+        .fn()
+        .mockResolvedValueOnce(
+          new Response(JSON.stringify({ message: 'Invalid API key' }), { status: 401 })
+        )
+        .mockResolvedValueOnce(
+          new Response(JSON.stringify({ entityData: [], totalRecords: 0 }), { status: 200 })
+        );
+      vi.stubGlobal('fetch', fetchMock);
+
+      const result = await makeSAMRequest<{ entityData: unknown[]; totalRecords: number }>(
+        {
+          apiType: 'entity',
+          baseUrl: 'https://api.sam.gov/entity-information/v3',
+          apiKey: 'primary-key',
+          cacheTTLHours: 24,
+        },
+        '/entities',
+        { samRegistered: 'Yes', page: 0 },
+        { useCache: false, bypassRateLimit: true }
+      );
+
+      expect(result.error).toBeNull();
+      expect(result.data?.totalRecords).toBe(0);
+      expect(fetchMock).toHaveBeenCalledTimes(2);
+      expect(fetchMock.mock.calls[0][0]).toContain('api_key=primary-key');
+      expect(fetchMock.mock.calls[1][0]).toContain('api_key=backup-key');
+    });
+
+    it('does not try the backup key for bad request errors', async () => {
+      const fetchMock = vi.fn().mockResolvedValue(
+        new Response(JSON.stringify({ message: 'Invalid query parameter' }), { status: 400 })
+      );
+      vi.stubGlobal('fetch', fetchMock);
+
+      const result = await makeSAMRequest(
+        {
+          apiType: 'entity',
+          baseUrl: 'https://api.sam.gov/entity-information/v3',
+          apiKey: 'primary-key',
+          cacheTTLHours: 24,
+        },
+        '/entities',
+        { samRegistered: 'Yes', page: 0 },
+        { useCache: false, bypassRateLimit: true }
+      );
+
+      expect(result.error?.status).toBe(400);
+      expect(fetchMock).toHaveBeenCalledTimes(1);
+      expect(fetchMock.mock.calls[0][0]).toContain('api_key=primary-key');
     });
   });
 });

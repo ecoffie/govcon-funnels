@@ -292,7 +292,7 @@ export function parseSAMError(status: number, body: unknown): SAMError {
     status,
     message,
     retryable: status === 429 || status >= 500,
-    fallbackAvailable: status === 429 || status >= 500
+    fallbackAvailable: status === 401 || status === 403 || status === 429 || status >= 500
   };
 }
 
@@ -421,7 +421,8 @@ export async function makeSAMRequest<T>(
   const apiKeys = getAPIKeys(config.apiType);
   let lastError: SAMError | null = null;
 
-  for (const apiKey of apiKeys) {
+  for (let index = 0; index < apiKeys.length; index++) {
+    const apiKey = apiKeys[index];
     // Skip throttled keys
     const throttledUntil = throttledKeys[apiKey];
     if (throttledUntil && throttledUntil > Date.now()) {
@@ -438,7 +439,17 @@ export async function makeSAMRequest<T>(
     }
 
     if (result.error) {
-      // Other error, return it
+      lastError = result.error;
+
+      // Key-specific auth failures and retryable SAM errors should fail over
+      // when a backup key is configured. Bad request errors should still fail fast.
+      if (result.error.fallbackAvailable && index < apiKeys.length - 1) {
+        console.warn(
+          `[SAM API] Key ${apiKey.slice(0, 10)}... failed with ${result.error.status}, trying backup...`
+        );
+        continue;
+      }
+
       return { data: null, error: result.error, fromCache: false };
     }
 
