@@ -438,7 +438,12 @@ export async function makeSAMRequest<T>(
     }
 
     if (result.error) {
-      // Other error, return it
+      // Retryable upstream failures can use backup keys.
+      // Non-fallback errors (ex: bad request) should fail fast.
+      lastError = result.error;
+      if (result.error.fallbackAvailable) {
+        continue;
+      }
       return { data: null, error: result.error, fromCache: false };
     }
 
