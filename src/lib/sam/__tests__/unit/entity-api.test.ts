@@ -1,7 +1,20 @@
-import { describe, it, expect } from 'vitest';
-import { transformEntity, validateCAGECode } from '../../entity-api';
+import { afterEach, describe, it, expect, vi } from 'vitest';
+import { searchEntities, transformEntity, validateCAGECode } from '../../entity-api';
 
 describe('Entity API - Unit Tests', () => {
+  const originalFetch = globalThis.fetch;
+  const originalSamApiKey = process.env.SAM_API_KEY;
+  const originalSamEntityApiKey = process.env.SAM_ENTITY_API_KEY;
+  const originalSamBackupApiKey = process.env.SAM_API_KEY_BACKUP;
+
+  afterEach(() => {
+    globalThis.fetch = originalFetch;
+    process.env.SAM_API_KEY = originalSamApiKey;
+    process.env.SAM_ENTITY_API_KEY = originalSamEntityApiKey;
+    process.env.SAM_API_KEY_BACKUP = originalSamBackupApiKey;
+    vi.restoreAllMocks();
+  });
+
   describe('validateCAGECode', () => {
     it('accepts valid 5-char alphanumeric', () => {
       expect(validateCAGECode('1ABC2')).toBe(true);
@@ -226,6 +239,24 @@ describe('Entity API - Unit Tests', () => {
 
       expect(result.legalBusinessName).toBe('Main Company LLC');
       expect(result.dbaName).toBe('Doing Business Name');
+    });
+  });
+
+  describe('searchEntities', () => {
+    it('propagates upstream SAM failures to callers', async () => {
+      process.env.SAM_API_KEY = 'primary-key';
+      delete process.env.SAM_ENTITY_API_KEY;
+      delete process.env.SAM_API_KEY_BACKUP;
+      globalThis.fetch = vi
+        .fn()
+        .mockResolvedValueOnce(new Response(JSON.stringify({ message: 'Service unavailable' }), { status: 503 })) as typeof fetch;
+
+      const result = await searchEntities({ cageCode: '12345', size: 1 });
+
+      expect(result.entities).toEqual([]);
+      expect(result.totalCount).toBe(0);
+      expect(result.error?.status).toBe(503);
+      expect(result.error?.message).toBe('Service unavailable');
     });
   });
 });
