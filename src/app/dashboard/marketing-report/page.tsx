@@ -79,10 +79,17 @@ function delta(current: number, previous: number): { text: string; up: boolean }
   return { text: `${pct >= 0 ? '+' : ''}${pct.toFixed(0)}%`, up };
 }
 
+function reportAuthHeaders(headers: Record<string, string> = {}): Record<string, string> {
+  if (typeof window === 'undefined') return headers;
+  const password = new URLSearchParams(window.location.search).get('password');
+  return password ? { ...headers, 'x-admin-password': password } : headers;
+}
+
 export default function MarketingReportPage() {
   const [report, setReport] = useState<ReportData | null>(null);
   const [selectedWeek, setSelectedWeek] = useState<string>('');
   const [loading, setLoading] = useState(true);
+  const [loadError, setLoadError] = useState<string | null>(null);
   const [uploading, setUploading] = useState(false);
   const [seeding, setSeeding] = useState(false);
   const [uploadMsg, setUploadMsg] = useState<string | null>(null);
@@ -95,8 +102,8 @@ export default function MarketingReportPage() {
     if (week) params.set('week', week);
     params.set('history', '1');
     const url = `${base}?${params}`;
-    const res = await fetch(url);
-    if (!res.ok) throw new Error('Failed to load report');
+    const res = await fetch(url, { headers: reportAuthHeaders() });
+    if (!res.ok) throw new Error(res.status === 401 ? 'Unauthorized' : 'Failed to load report');
     return res.json();
   }, []);
 
@@ -107,17 +114,23 @@ export default function MarketingReportPage() {
         setSelectedWeek(data.current?.week_start ?? data.weeks?.[0] ?? '');
         setSectionEdits(data.sections ?? {});
       })
-      .catch(console.error)
+      .catch((err) => {
+        console.error(err);
+        setLoadError(err instanceof Error ? err.message : 'Failed to load report');
+      })
       .finally(() => setLoading(false));
   }, [fetchReport]);
 
   const onWeekChange = async (week: string) => {
     setSelectedWeek(week);
     setLoading(true);
+    setLoadError(null);
     try {
       const data = await fetchReport(week);
       setReport(data);
       setSectionEdits(data.sections ?? {});
+    } catch (err) {
+      setLoadError(err instanceof Error ? err.message : 'Failed to load report');
     } finally {
       setLoading(false);
     }
@@ -127,7 +140,10 @@ export default function MarketingReportPage() {
     setSeeding(true);
     setUploadMsg(null);
     try {
-      const res = await fetch('/api/dashboard/report/seed', { method: 'POST' });
+      const res = await fetch('/api/dashboard/report/seed', {
+        method: 'POST',
+        headers: reportAuthHeaders(),
+      });
       const data = await res.json();
       if (!res.ok) throw new Error(data.error || 'Seed failed');
       setUploadMsg(`Loaded ${data.weeksImported ?? 0} weeks. ${data.message ?? ''}`);
@@ -150,7 +166,11 @@ export default function MarketingReportPage() {
     const form = new FormData();
     form.append('file', file);
     try {
-      const res = await fetch('/api/dashboard/report/upload', { method: 'POST', body: form });
+      const res = await fetch('/api/dashboard/report/upload', {
+        method: 'POST',
+        headers: reportAuthHeaders(),
+        body: form,
+      });
       const data = await res.json();
       if (!res.ok) throw new Error(data.error || 'Upload failed');
       setUploadMsg(`Imported ${data.weeksImported ?? 0} weeks. ${data.message ?? ''}`);
@@ -173,7 +193,7 @@ export default function MarketingReportPage() {
     try {
       const res = await fetch('/api/dashboard/report/sections', {
         method: 'PATCH',
-        headers: { 'Content-Type': 'application/json' },
+        headers: reportAuthHeaders({ 'Content-Type': 'application/json' }),
         body: JSON.stringify({ week_start: selectedWeek, section: sectionKey, content }),
       });
       if (!res.ok) throw new Error('Save failed');
@@ -189,6 +209,16 @@ export default function MarketingReportPage() {
     return (
       <div className="rounded-xl border border-slate-700 bg-slate-900/70 p-8 text-center text-slate-400">
         Loading report...
+      </div>
+    );
+  }
+
+  if (loadError && !report) {
+    return (
+      <div className="rounded-xl border border-rose-900/70 bg-rose-950/40 p-8 text-center text-rose-200">
+        {loadError === 'Unauthorized'
+          ? 'Enter the internal dashboard password in the page URL to view this report.'
+          : loadError}
       </div>
     );
   }

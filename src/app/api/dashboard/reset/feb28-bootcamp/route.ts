@@ -1,11 +1,39 @@
 import { NextRequest, NextResponse } from 'next/server';
+import { constantTimeEquals } from '@/lib/admin-auth';
 import { resetTasksAndProjectsToFeb28Bootcamp } from '@/lib/db';
 import {
   notifySlackTaskChange,
   formatTemplateReleaseSummary,
 } from '@/lib/slackTasks';
 
-export async function POST(_request: NextRequest) {
+function getResetSecret(): string | null {
+  const secret = process.env.DASHBOARD_RESET_SECRET || process.env.DASHBOARD_API_SECRET;
+  return secret && secret.length > 0 ? secret : null;
+}
+
+function extractResetSecret(request: NextRequest): string | null {
+  const header = request.headers.get('x-dashboard-reset-secret');
+  if (header) return header;
+
+  const auth = request.headers.get('authorization');
+  if (auth?.startsWith('Bearer ')) return auth.slice(7);
+
+  return null;
+}
+
+export async function POST(request: NextRequest) {
+  const expectedSecret = getResetSecret();
+  if (!expectedSecret) {
+    return NextResponse.json(
+      { error: 'Dashboard reset secret not configured' },
+      { status: 503 }
+    );
+  }
+
+  if (!constantTimeEquals(extractResetSecret(request), expectedSecret)) {
+    return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
+  }
+
   try {
     const result = await resetTasksAndProjectsToFeb28Bootcamp();
     try {
