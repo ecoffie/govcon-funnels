@@ -5,6 +5,8 @@ import {
   checkRateLimit,
   incrementRateLimit,
   parseSAMError,
+  makeSAMRequest,
+  SAM_API_CONFIGS,
 } from '../../utils';
 
 describe('SAM Utils - Unit Tests', () => {
@@ -161,6 +163,72 @@ describe('SAM Utils - Unit Tests', () => {
       expect(parseSAMError(401, {}).retryable).toBe(false);
       expect(parseSAMError(403, {}).retryable).toBe(false);
       expect(parseSAMError(404, {}).retryable).toBe(false);
+    });
+  });
+
+  describe('makeSAMRequest key failover', () => {
+    it('fails over to backup key on plain HTTP 429 and succeeds', async () => {
+      process.env.SAM_ENTITY_API_KEY = 'primary-entity-key';
+      process.env.SAM_API_KEY_BACKUP = 'backup-key';
+
+      let callCount = 0;
+      vi.mocked(global.fetch).mockImplementation(async (input) => {
+        callCount++;
+        const url = String(input);
+
+        if (callCount === 1) {
+          expect(url).toContain('api_key=primary-entity-key');
+          return new Response(JSON.stringify({ message: 'Too Many Requests' }), {
+            status: 429,
+            headers: { 'Content-Type': 'application/json' },
+          });
+        }
+
+        expect(url).toContain('api_key=backup-key');
+        return new Response(
+          JSON.stringify({
+            entityData: [{ entityRegistration: { ueiSAM: 'X', cageCode: '17038', legalBusinessName: 'Booz', registrationStatus: 'Active' } }],
+            totalRecords: 1,
+          }),
+          { status: 200, headers: { 'Content-Type': 'application/json' } }
+        );
+      });
+
+      const result = await makeSAMRequest(
+        SAM_API_CONFIGS.entity,
+        '/entities',
+        { samRegistered: 'Yes', page: 0, size: 1 },
+        { useCache: false, bypassRateLimit: true }
+      );
+
+      expect(result.error).toBeNull();
+      expect(result.data?.totalRecords).toBe(1);
+      expect(callCount).toBe(2);
+    });
+
+    it('does not fail over to backup key on non-retryable HTTP 400', async () => {
+      process.env.SAM_ENTITY_API_KEY = 'primary-entity-key';
+      process.env.SAM_API_KEY_BACKUP = 'backup-key';
+
+      let callCount = 0;
+      vi.mocked(global.fetch).mockImplementation(async () => {
+        callCount++;
+        return new Response(JSON.stringify({ message: 'Bad Request' }), {
+          status: 400,
+          headers: { 'Content-Type': 'application/json' },
+        });
+      });
+
+      const result = await makeSAMRequest(
+        SAM_API_CONFIGS.entity,
+        '/entities',
+        { samRegistered: 'Yes', page: 0, size: 1 },
+        { useCache: false, bypassRateLimit: true }
+      );
+
+      expect(result.data).toBeNull();
+      expect(result.error?.status).toBe(400);
+      expect(callCount).toBe(1);
     });
   });
 });
