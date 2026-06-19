@@ -1,10 +1,15 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { searchEntities, validateCAGECode } from '@/lib/sam';
+import type { SAMError } from '@/lib/sam';
 
 // Simple in-memory rate limiting (resets on cold start, sufficient for free tool)
 const rateLimitMap = new Map<string, { count: number; resetAt: number }>();
 const RATE_LIMIT_WINDOW = 60 * 60 * 1000; // 1 hour in ms
 const RATE_LIMIT_MAX = 30; // 30 requests per hour per IP
+
+function getUpstreamStatus(error: SAMError): number {
+  return error.status === 429 ? 429 : 503;
+}
 
 function checkClientRateLimit(ip: string): { allowed: boolean; remaining: number } {
   const now = Date.now();
@@ -87,17 +92,17 @@ export async function GET(request: NextRequest) {
     size: limit,
   });
 
-  // Check if we got an error (e.g., rate limited)
-  if (result.entities.length === 0 && result.totalCount === 0 && !result.fromCache) {
-    // This could be either no results found OR an API error (rate limit, etc.)
-    // Try to provide helpful message
-    return NextResponse.json({
-      entities: [],
-      totalRecords: 0,
-      query: cageCode ? { type: 'cageCode', value: cageCode } : { type: 'companyName', value: companyName },
-      fromCache: result.fromCache,
-      note: 'No results found. If you expected results, SAM.gov API may be temporarily unavailable. Please try again later.',
-    });
+  if (result.error) {
+    const isRateLimit = result.error.status === 429;
+    return NextResponse.json(
+      {
+        error: isRateLimit
+          ? 'SAM.gov API rate limit exceeded. Please try again later.'
+          : 'SAM.gov API is temporarily unavailable. Please try again later.',
+        details: result.error.message,
+      },
+      { status: getUpstreamStatus(result.error) }
+    );
   }
 
   // Transform for client (remove any sensitive fields if needed)
