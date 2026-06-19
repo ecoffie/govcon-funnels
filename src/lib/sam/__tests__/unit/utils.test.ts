@@ -4,6 +4,7 @@ import {
   generateCacheKey,
   checkRateLimit,
   incrementRateLimit,
+  makeSAMRequest,
   parseSAMError,
 } from '../../utils';
 
@@ -161,6 +162,58 @@ describe('SAM Utils - Unit Tests', () => {
       expect(parseSAMError(401, {}).retryable).toBe(false);
       expect(parseSAMError(403, {}).retryable).toBe(false);
       expect(parseSAMError(404, {}).retryable).toBe(false);
+    });
+  });
+
+  describe('makeSAMRequest key failover', () => {
+    const config = {
+      apiType: 'entity' as const,
+      baseUrl: 'https://api.sam.gov/entity-information/v3',
+      apiKey: 'unused',
+      cacheTTLHours: 24,
+    };
+
+    beforeEach(() => {
+      process.env.SAM_ENTITY_API_KEY = 'primary-key';
+      process.env.SAM_API_KEY_BACKUP = 'backup-key';
+    });
+
+    it('tries the backup key after a fallback-eligible primary 429', async () => {
+      const fetchMock = vi.mocked(fetch);
+      fetchMock
+        .mockResolvedValueOnce(new Response(JSON.stringify({ message: 'Too many requests' }), { status: 429 }))
+        .mockResolvedValueOnce(new Response(JSON.stringify({ entityData: [], totalRecords: 0 }), { status: 200 }));
+
+      const result = await makeSAMRequest<{ entityData: unknown[]; totalRecords: number }>(
+        config,
+        '/entities',
+        { legalBusinessName: 'BOOZ' },
+        { useCache: false, bypassRateLimit: true }
+      );
+
+      expect(result.error).toBeNull();
+      expect(result.data?.totalRecords).toBe(0);
+      expect(fetchMock).toHaveBeenCalledTimes(2);
+      expect(String(fetchMock.mock.calls[0][0])).toContain('api_key=primary-key');
+      expect(String(fetchMock.mock.calls[1][0])).toContain('api_key=backup-key');
+    });
+
+    it('does not try the backup key for non-fallback request errors', async () => {
+      const fetchMock = vi.mocked(fetch);
+      fetchMock.mockResolvedValueOnce(
+        new Response(JSON.stringify({ message: 'Bad request' }), { status: 400 })
+      );
+
+      const result = await makeSAMRequest<{ entityData: unknown[]; totalRecords: number }>(
+        config,
+        '/entities',
+        { legalBusinessName: 'BOOZ' },
+        { useCache: false, bypassRateLimit: true }
+      );
+
+      expect(result.data).toBeNull();
+      expect(result.error?.status).toBe(400);
+      expect(fetchMock).toHaveBeenCalledTimes(1);
     });
   });
 });

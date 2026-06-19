@@ -1,7 +1,12 @@
-import { describe, it, expect } from 'vitest';
-import { transformEntity, validateCAGECode } from '../../entity-api';
+import { beforeEach, describe, it, expect, vi } from 'vitest';
+import { searchEntities, transformEntity, validateCAGECode } from '../../entity-api';
 
 describe('Entity API - Unit Tests', () => {
+  beforeEach(() => {
+    process.env.SAM_ENTITY_API_KEY = 'entity-primary-key';
+    delete process.env.SAM_API_KEY_BACKUP;
+  });
+
   describe('validateCAGECode', () => {
     it('accepts valid 5-char alphanumeric', () => {
       expect(validateCAGECode('1ABC2')).toBe(true);
@@ -226,6 +231,21 @@ describe('Entity API - Unit Tests', () => {
 
       expect(result.legalBusinessName).toBe('Main Company LLC');
       expect(result.dbaName).toBe('Doing Business Name');
+    });
+  });
+
+  describe('searchEntities', () => {
+    it('propagates SAM request errors instead of returning a false empty result', async () => {
+      vi.mocked(fetch).mockResolvedValueOnce(
+        new Response(JSON.stringify({ message: 'SAM.gov unavailable' }), { status: 503 })
+      );
+
+      const result = await searchEntities({ legalBusinessName: 'BOOZ', size: 1 });
+
+      expect(result.entities).toEqual([]);
+      expect(result.totalCount).toBe(0);
+      expect(result.error?.status).toBe(503);
+      expect(result.error?.message).toBe('SAM.gov unavailable');
     });
   });
 });
