@@ -5,6 +5,8 @@ import {
   checkRateLimit,
   incrementRateLimit,
   parseSAMError,
+  makeSAMRequest,
+  SAM_API_CONFIGS,
 } from '../../utils';
 
 describe('SAM Utils - Unit Tests', () => {
@@ -161,6 +163,50 @@ describe('SAM Utils - Unit Tests', () => {
       expect(parseSAMError(401, {}).retryable).toBe(false);
       expect(parseSAMError(403, {}).retryable).toBe(false);
       expect(parseSAMError(404, {}).retryable).toBe(false);
+    });
+  });
+
+  describe('makeSAMRequest', () => {
+    it('tries the backup key after a retryable primary key failure', async () => {
+      const originalEntityKey = process.env.SAM_ENTITY_API_KEY;
+      const originalBackupKey = process.env.SAM_API_KEY_BACKUP;
+      process.env.SAM_ENTITY_API_KEY = 'primary-failover-key';
+      process.env.SAM_API_KEY_BACKUP = 'backup-failover-key';
+
+      try {
+        const mockedFetch = vi.mocked(global.fetch);
+        mockedFetch
+          .mockResolvedValueOnce(new Response(JSON.stringify({ message: 'SAM down' }), { status: 503 }))
+          .mockResolvedValueOnce(new Response(JSON.stringify({ entityData: [], totalRecords: 0 }), { status: 200 }));
+
+        const result = await makeSAMRequest<{ entityData: unknown[]; totalRecords: number }>(
+          SAM_API_CONFIGS.entity,
+          '/entities',
+          { samRegistered: 'Yes' },
+          { useCache: false, bypassRateLimit: true }
+        );
+
+        expect(result.error).toBeNull();
+        expect(result.data?.totalRecords).toBe(0);
+        expect(mockedFetch).toHaveBeenCalledTimes(2);
+
+        const firstUrl = new URL(String(mockedFetch.mock.calls[0][0]));
+        const secondUrl = new URL(String(mockedFetch.mock.calls[1][0]));
+        expect(firstUrl.searchParams.get('api_key')).toBe('primary-failover-key');
+        expect(secondUrl.searchParams.get('api_key')).toBe('backup-failover-key');
+      } finally {
+        if (originalEntityKey === undefined) {
+          delete process.env.SAM_ENTITY_API_KEY;
+        } else {
+          process.env.SAM_ENTITY_API_KEY = originalEntityKey;
+        }
+
+        if (originalBackupKey === undefined) {
+          delete process.env.SAM_API_KEY_BACKUP;
+        } else {
+          process.env.SAM_API_KEY_BACKUP = originalBackupKey;
+        }
+      }
     });
   });
 });
