@@ -57,6 +57,7 @@ export interface JSearchParams {
 }
 
 const JSEARCH_API_BASE = 'https://jsearch.p.rapidapi.com';
+const SAFE_FALLBACK_APPLY_URL = 'about:blank';
 
 function getApiKey(): string {
   const key = process.env.JSEARCH_API_KEY || process.env.RAPIDAPI_KEY;
@@ -264,6 +265,27 @@ export function getRelativeTime(dateStr: string): string {
   }
 }
 
+/**
+ * Allow only safe external URLs for job application links.
+ * Untrusted feed URLs must never be rendered directly into href.
+ */
+export function sanitizeApplyUrl(url: string | null | undefined): string {
+  if (!url) {
+    return SAFE_FALLBACK_APPLY_URL;
+  }
+
+  try {
+    const parsed = new URL(url);
+    if (parsed.protocol === 'http:' || parsed.protocol === 'https:') {
+      return parsed.toString();
+    }
+  } catch {
+    // Ignore malformed URLs and use safe fallback below.
+  }
+
+  return SAFE_FALLBACK_APPLY_URL;
+}
+
 // Import Job type and categorization
 import type { Job, JobCategory } from '@/types/job';
 import { categorizeJob } from './job-categories';
@@ -295,7 +317,7 @@ export function transformJSearchJob(jsJob: JSearchJob): Job {
     remote: jsJob.job_is_remote,
     posted_date: jsJob.job_posted_at_datetime_utc,
     close_date: closeDate.toISOString(),
-    apply_url: jsJob.job_apply_link,
+    apply_url: sanitizeApplyUrl(jsJob.job_apply_link),
     description: jsJob.job_description || '',
     qualifications: jsJob.job_highlights?.Qualifications?.join(' ') || '',
     category: categorizeJob(jsJob.job_title),
