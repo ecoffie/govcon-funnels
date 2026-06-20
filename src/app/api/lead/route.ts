@@ -1,5 +1,5 @@
 import { NextRequest, NextResponse } from 'next/server';
-import { sendLeadToCrm, sendToSlack } from '@/lib/crm';
+import { sendLeadToCrm } from '@/lib/crm';
 import { sendConfirmationEmail } from '@/lib/email';
 import { saveLeadToSupabase, countLeadsBySource, MINDY_LAUNCH_ZOOM_CAP } from '@/lib/supabase-leads';
 
@@ -32,8 +32,11 @@ export async function POST(request: NextRequest) {
       saveLeadToSupabase(lead),
     ]);
 
-    // 2) Send Slack notification (email, name, what they signed up for, phone)
-    const slackResult = await sendToSlack(lead);
+    // 2) Slack notification is already sent INSIDE sendLeadToCrm (which fans out
+    //    to GHL + webhook + Slack). Do NOT call sendToSlack again here — that
+    //    double-posted every lead to #leads (~1s apart). Use the result from the
+    //    CRM fan-out instead.
+    const slackResult = crmResults.slack ?? { ok: false, error: 'slack not configured' };
 
     // 3) Send confirmation email based on funnel source
     const emailResult = await sendConfirmationEmail({
