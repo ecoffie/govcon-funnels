@@ -101,6 +101,47 @@ export async function getHubzoneRegistrantsFromSupabase(): Promise<
   }
 }
 
+/**
+ * Idempotency guard: has this exact (email, source) already been captured in the
+ * last `windowSeconds`? Used by /api/lead to short-circuit a genuine double-submit
+ * (double-click, browser retry, form re-fire) so we don't create duplicate leads in
+ * GHL/Supabase or fire a second Slack ping + confirmation email.
+ *
+ * Window-scoped (default 120s) on purpose: a SAME person legitimately re-registering
+ * weeks later (or for a different funnel) is NOT a dup. Email match is
+ * case-insensitive. Returns false on any failure → fail OPEN (never block a real
+ * signup because the dedup check errored).
+ */
+export async function recentDuplicateExists(
+  email: string,
+  source: string | undefined,
+  windowSeconds = 120
+): Promise<boolean> {
+  if (!client) return false;
+  const cleanEmail = (email || '').toLowerCase().trim();
+  if (!cleanEmail) return false;
+  try {
+    const since = new Date(Date.now() - windowSeconds * 1000).toISOString();
+    let query = client
+      .from('funnel_leads')
+      .select('email', { count: 'exact', head: true })
+      .ilike('email', cleanEmail)
+      .gte('created_at', since);
+    // Scope to the same funnel source so the same email on two DIFFERENT funnels
+    // (e.g. hubzone-webinar then mindy-launch) both go through.
+    if (source) query = query.eq('source', source);
+    const { count, error } = await query;
+    if (error) {
+      console.error('recentDuplicateExists check failed (failing open):', error.message);
+      return false;
+    }
+    return (count ?? 0) > 0;
+  } catch (e) {
+    console.error('recentDuplicateExists threw (failing open):', e instanceof Error ? e.message : String(e));
+    return false;
+  }
+}
+
 export async function saveLeadToSupabase(
   lead: LeadPayload
 ): Promise<{ ok: boolean; error?: string }> {

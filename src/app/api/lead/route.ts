@@ -1,7 +1,7 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { sendLeadToCrm } from '@/lib/crm';
 import { sendConfirmationEmail } from '@/lib/email';
-import { saveLeadToSupabase, countLeadsBySource, MINDY_LAUNCH_ZOOM_CAP } from '@/lib/supabase-leads';
+import { saveLeadToSupabase, countLeadsBySource, recentDuplicateExists, MINDY_LAUNCH_ZOOM_CAP } from '@/lib/supabase-leads';
 
 export async function POST(request: NextRequest) {
   try {
@@ -23,6 +23,23 @@ export async function POST(request: NextRequest) {
       abTestId: abTestId ?? null,
       abVariant: abVariant ?? null,
     };
+
+    // 0) Idempotency guard: if this exact (email, source) already came in within the
+    //    last 2 min, treat it as a double-submit (double-click / browser retry) and
+    //    short-circuit — don't create a second lead in GHL/Supabase or fire a second
+    //    Slack ping + confirmation email. Return success so the front-end still
+    //    redirects normally. Fails OPEN, so a check error never blocks a real signup.
+    if (await recentDuplicateExists(lead.email, lead.source)) {
+      console.log('Duplicate lead suppressed (recent submit):', { email: lead.email, source: lead.source });
+      let dupMindyLaunch: { position: number; getsZoom: boolean; zoomCap: number } | null = null;
+      if (lead.source === 'mindy-launch') {
+        const count = await countLeadsBySource('mindy-launch');
+        if (count !== null) {
+          dupMindyLaunch = { position: count, getsZoom: count <= MINDY_LAUNCH_ZOOM_CAP, zoomCap: MINDY_LAUNCH_ZOOM_CAP };
+        }
+      }
+      return NextResponse.json({ success: true, duplicate: true, mindyLaunch: dupMindyLaunch });
+    }
 
     // 1) Send to CRM first (HighLevel + optional webhook). Contact is created and tagged in GHL.
     //    Also write a backup row to Supabase (funnel_leads) so a signup is never
