@@ -370,6 +370,16 @@ export async function sendPurchaseSlackNotification(record: PurchaseRecord): Pro
   const webhookUrl = process.env.SLACK_PURCHASE_WEBHOOK_URL || process.env.SLACK_LEAD_WEBHOOK_URL;
   if (!webhookUrl) return;
 
+  // Only ping Slack for ACTIONABLE events: a real paid purchase, or a failed
+  // payment (declined card — worth following up). Abandoned/expired/open
+  // checkout sessions (status 'unknown'/'open') were spamming #leads with
+  // "Stripe purchase event: Unknown Stripe Checkout" lines that look like sales
+  // but are just people who opened a payment link and left before entering an
+  // email — no charge, no email, nothing to do. We still savePurchase() every
+  // record (the dashboard wants the funnel data); we just don't Slack-ping the
+  // non-events.
+  if (record.status !== "paid" && record.status !== "failed") return;
+
   const summary = attributionSummary(record.attribution);
   const amount = record.amount_cents == null
     ? record.product_price || "unknown amount"
