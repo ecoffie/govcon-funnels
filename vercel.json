@@ -191,16 +191,6 @@
       "permanent": true
     },
     {
-      "source": "/proposal-bootcamp",
-      "destination": "/",
-      "permanent": true
-    },
-    {
-      "source": "/proposal-bootcamp/:path*",
-      "destination": "/",
-      "permanent": true
-    },
-    {
       "source": "/training",
       "destination": "/",
       "permanent": true
