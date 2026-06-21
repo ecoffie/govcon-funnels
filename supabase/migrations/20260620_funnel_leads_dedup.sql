@@ -10,13 +10,8 @@
 -- conflict exists — see the dedup step below if CREATE INDEX errors).
 --
 -- Implementation note: date_trunc(text, timestamptz) is STABLE, not IMMUTABLE,
--- so it can't sit in a generated column / index expression directly. We bucket
--- to a char(16) minute string via to_char(... AT TIME ZONE 'UTC'), which IS
--- immutable, and make the generated column on THAT.
-
-ALTER TABLE funnel_leads
-  ADD COLUMN IF NOT EXISTS dedup_minute text
-  GENERATED ALWAYS AS (to_char(created_at AT TIME ZONE 'UTC', 'YYYY-MM-DD"T"HH24:MI')) STORED;
+-- so normalize created_at to a UTC timestamp before truncating. That keeps the
+-- expression valid for a unique index without adding a generated table column.
 
 CREATE UNIQUE INDEX IF NOT EXISTS funnel_leads_dedup_uniq
-  ON funnel_leads (lower(email), source, dedup_minute);
+  ON funnel_leads (lower(email), source, date_trunc('minute', created_at AT TIME ZONE 'UTC'));
