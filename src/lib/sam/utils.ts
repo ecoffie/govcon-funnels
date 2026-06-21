@@ -438,7 +438,10 @@ export async function makeSAMRequest<T>(
     }
 
     if (result.error) {
-      // Other error, return it
+      lastError = result.error;
+      if (result.error.fallbackAvailable) {
+        continue;
+      }
       return { data: null, error: result.error, fromCache: false };
     }
 

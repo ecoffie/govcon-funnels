@@ -1,13 +1,27 @@
-import { describe, it, expect, vi, beforeEach } from 'vitest';
+import { describe, it, expect, vi, beforeEach, afterEach } from 'vitest';
 import {
   validateCAGECode,
   generateCacheKey,
   checkRateLimit,
   incrementRateLimit,
   parseSAMError,
+  makeSAMRequest,
 } from '../../utils';
+import type { SAMAPIConfig } from '../../utils';
+
+const ORIGINAL_ENV = process.env;
 
 describe('SAM Utils - Unit Tests', () => {
+  beforeEach(() => {
+    process.env = { ...ORIGINAL_ENV };
+    vi.unstubAllGlobals();
+  });
+
+  afterEach(() => {
+    process.env = ORIGINAL_ENV;
+    vi.restoreAllMocks();
+  });
+
   describe('validateCAGECode', () => {
     it('accepts valid 5-character alphanumeric CAGE codes', () => {
       expect(validateCAGECode('1ABC2')).toBe(true);
@@ -161,6 +175,60 @@ describe('SAM Utils - Unit Tests', () => {
       expect(parseSAMError(401, {}).retryable).toBe(false);
       expect(parseSAMError(403, {}).retryable).toBe(false);
       expect(parseSAMError(404, {}).retryable).toBe(false);
+    });
+  });
+
+  describe('makeSAMRequest key failover', () => {
+    const config: SAMAPIConfig = {
+      apiType: 'entity',
+      baseUrl: 'https://api.sam.gov/entity-information/v3',
+      apiKey: 'primary-key',
+      cacheTTLHours: 24,
+    };
+
+    it('tries the backup key after a fallback-eligible primary key error', async () => {
+      process.env.SAM_ENTITY_API_KEY = 'primary-key';
+      process.env.SAM_API_KEY = 'primary-key';
+      process.env.SAM_API_KEY_BACKUP = 'backup-key';
+
+      const fetchMock = vi.fn()
+        .mockResolvedValueOnce(new Response(JSON.stringify({ message: 'Too many requests' }), { status: 429 }))
+        .mockResolvedValueOnce(new Response(JSON.stringify({ entityData: [], totalRecords: 0 }), { status: 200 }));
+      vi.stubGlobal('fetch', fetchMock);
+
+      const result = await makeSAMRequest<{ entityData: unknown[]; totalRecords: number }>(
+        config,
+        '/entities',
+        { cageCode: '12345' },
+        { useCache: false, bypassRateLimit: true }
+      );
+
+      expect(result.error).toBeNull();
+      expect(result.data).toEqual({ entityData: [], totalRecords: 0 });
+      expect(fetchMock).toHaveBeenCalledTimes(2);
+      expect(new URL(fetchMock.mock.calls[0][0] as string).searchParams.get('api_key')).toBe('primary-key');
+      expect(new URL(fetchMock.mock.calls[1][0] as string).searchParams.get('api_key')).toBe('backup-key');
+    });
+
+    it('does not retry another key for non-fallback request errors', async () => {
+      process.env.SAM_ENTITY_API_KEY = 'primary-key';
+      process.env.SAM_API_KEY = 'primary-key';
+      process.env.SAM_API_KEY_BACKUP = 'backup-key';
+
+      const fetchMock = vi.fn()
+        .mockResolvedValueOnce(new Response(JSON.stringify({ message: 'Bad request' }), { status: 400 }));
+      vi.stubGlobal('fetch', fetchMock);
+
+      const result = await makeSAMRequest(
+        config,
+        '/entities',
+        { cageCode: '12345' },
+        { useCache: false, bypassRateLimit: true }
+      );
+
+      expect(result.error?.status).toBe(400);
+      expect(fetchMock).toHaveBeenCalledTimes(1);
+      expect(new URL(fetchMock.mock.calls[0][0] as string).searchParams.get('api_key')).toBe('primary-key');
     });
   });
 });
