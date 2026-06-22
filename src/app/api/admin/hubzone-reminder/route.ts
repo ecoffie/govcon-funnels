@@ -16,8 +16,7 @@ export const maxDuration = 300;
 
 /**
  * Day-of HUBZone webinar reminder blast — sends the branded "tonight" email
- * (with the real Zoom join link) to every external registrant pulled live
- * from GoHighLevel. Also sends the speaker run-of-show email.
+ * to every registrant. Also sends the speaker run-of-show email.
  *
  * Auth: shared admin password (?password=, x-admin-password header, or Bearer).
  *
@@ -50,23 +49,9 @@ const SPEAKER_ROSTER: { name: string; to: string; cc?: string[] }[] = [
 const SEND_DELAY_MS = 400;
 const sleep = (ms: number) => new Promise((r) => setTimeout(r, ms));
 
-/** Constant-time-ish compare so the tracker password check doesn't leak length/timing. */
-function matches(provided: string, expected: string): boolean {
-  if (provided.length !== expected.length) return false;
-  let diff = 0;
-  for (let i = 0; i < expected.length; i++) {
-    diff |= provided.charCodeAt(i) ^ expected.charCodeAt(i);
-  }
-  return diff === 0;
-}
-
 export async function GET(request: NextRequest) {
   const provided = extractPassword(request);
-  // Accept EITHER the shared admin password OR the shareable HUBZone tracker
-  // password (same one that gates /api/hubzone/registrations).
-  const trackerPw = process.env.HUBZONE_TRACKER_PASSWORD;
-  const trackerOk = !!provided && !!trackerPw && matches(provided, trackerPw);
-  if (!trackerOk && !isAuthorized(provided)) {
+  if (!isAuthorized(provided)) {
     return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
   }
 
