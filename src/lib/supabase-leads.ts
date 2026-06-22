@@ -28,6 +28,10 @@ const client =
     ? createClient(url, serviceKey, { auth: { persistSession: false } })
     : null;
 
+export function escapePostgrestLikePattern(value: string): string {
+  return value.replace(/[\\%_]/g, (match) => `\\${match}`);
+}
+
 /**
  * Mindy Launch (June 27, 2026) Zoom-seat cap. First N signups get the live
  * Zoom link; everyone after watches on YouTube. Overbooked above the real
@@ -122,10 +126,11 @@ export async function recentDuplicateExists(
   if (!cleanEmail) return false;
   try {
     const since = new Date(Date.now() - windowSeconds * 1000).toISOString();
+    const emailPattern = escapePostgrestLikePattern(cleanEmail);
     let query = client
       .from('funnel_leads')
       .select('email', { count: 'exact', head: true })
-      .ilike('email', cleanEmail)
+      .ilike('email', emailPattern)
       .gte('created_at', since);
     // Scope to the same funnel source so the same email on two DIFFERENT funnels
     // (e.g. hubzone-webinar then mindy-launch) both go through.
