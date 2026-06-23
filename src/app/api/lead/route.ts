@@ -55,17 +55,10 @@ export async function POST(request: NextRequest) {
     //    CRM fan-out instead.
     const slackResult = crmResults.slack ?? { ok: false, error: 'slack not configured' };
 
-    // 3) Send confirmation email based on funnel source
-    const emailResult = await sendConfirmationEmail({
-      to: lead.email,
-      name: lead.name,
-      source: lead.source,
-    });
-
-    // 3b) Mindy Launch scarcity: after the backup insert, compute this signup's
-    //     position so the thank-you page can show Zoom (first N) vs YouTube.
-    //     Distinct-by-email count INCLUDES the row we just wrote. Only for this
-    //     source — every other funnel skips the extra query.
+    // 3) Mindy Launch scarcity: compute this signup's position FIRST (before the
+    //    confirmation email) so the email can tell them their access tier — Zoom
+    //    (first N) vs YouTube. Distinct-by-email count INCLUDES the row we just
+    //    wrote. Only for this source — every other funnel skips the extra query.
     let mindyLaunch: { position: number; getsZoom: boolean; zoomCap: number } | null = null;
     if (lead.source === 'mindy-launch') {
       const count = await countLeadsBySource('mindy-launch');
@@ -76,6 +69,35 @@ export async function POST(request: NextRequest) {
           zoomCap: MINDY_LAUNCH_ZOOM_CAP,
         };
       }
+    }
+
+    // 3b) Send confirmation email based on funnel source.
+    //     EXCEPTION: mindy-launch confirmations are owned by getmindy.ai
+    //     (market-assassin) — sent via its guarded Resend path with suppression +
+    //     deliverability tracking. We fire that cross-call below; sendConfirmationEmail
+    //     deliberately no-ops for 'mindy-launch' so we don't double-send.
+    const emailResult = await sendConfirmationEmail({
+      to: lead.email,
+      name: lead.name,
+      source: lead.source,
+    });
+
+    // 3c) Mindy Launch save-the-date: hand off the actual send to getmindy.ai so it
+    //     runs through Mindy's guarded sender (tracked in email_provider_sends).
+    //     Fire-and-forget — a send failure must NEVER block the signup/redirect.
+    if (lead.source === 'mindy-launch' && process.env.MINDY_LAUNCH_SEND_URL && process.env.MINDY_LAUNCH_SEND_SECRET) {
+      void fetch(process.env.MINDY_LAUNCH_SEND_URL, {
+        method: 'POST',
+        headers: {
+          'content-type': 'application/json',
+          authorization: `Bearer ${process.env.MINDY_LAUNCH_SEND_SECRET}`,
+        },
+        body: JSON.stringify({
+          email: lead.email,
+          name: lead.name,
+          getsZoom: mindyLaunch?.getsZoom,
+        }),
+      }).catch((e) => console.error('mindy-launch confirmation handoff failed:', e));
     }
 
     // Log for debugging (including A/B test data)
