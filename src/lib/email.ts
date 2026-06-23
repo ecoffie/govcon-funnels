@@ -187,6 +187,11 @@ export async function sendConfirmationEmail(params: EmailParams & { source: stri
     case 'hubzone-webinar':
     case 'hubzone-webinar-bottom':
       return sendHubzoneWebinarEmail({ to, name });
+    // NOTE: 'mindy-launch' confirmations are sent by getmindy.ai (market-assassin)
+    // via /api/mindy-launch/send-confirmation — see /api/lead. They intentionally do
+    // NOT fall through to the generic welcome here.
+    case 'mindy-launch':
+      return { ok: true };
     default:
       // Generic welcome email for unknown sources
       return sendGenericWelcomeEmail({ to, name, source });
@@ -904,7 +909,6 @@ export async function sendHubzoneWebinarEmail(params: EmailParams): Promise<Emai
     html
   );
 }
-
 /**
  * Free handouts email with download links for all 8 resources
  */
