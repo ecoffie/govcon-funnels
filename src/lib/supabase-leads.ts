@@ -28,6 +28,14 @@ const client =
     ? createClient(url, serviceKey, { auth: { persistSession: false } })
     : null;
 
+function normalizeEmail(email: string | null | undefined): string {
+  return (email || '').toLowerCase().trim();
+}
+
+export function escapePostgrestLikePattern(value: string): string {
+  return value.replace(/[\\%_]/g, '\\$&');
+}
+
 /**
  * Mindy Launch (June 27, 2026) Zoom-seat cap. First N signups get the live
  * Zoom link; everyone after watches on YouTube. Overbooked above the real
@@ -54,11 +62,51 @@ export async function countLeadsBySource(source: string): Promise<number | null>
       console.error('countLeadsBySource failed:', error.message);
       return null;
     }
-    const distinct = new Set((data ?? []).map((r) => (r.email || '').toLowerCase().trim()));
+    const distinct = new Set((data ?? []).map((r) => normalizeEmail(r.email)));
     distinct.delete('');
     return distinct.size;
   } catch (e) {
     console.error('countLeadsBySource threw:', e instanceof Error ? e.message : String(e));
+    return null;
+  }
+}
+
+/**
+ * Return this email's first persisted distinct signup position for a source.
+ * Scarcity entitlements must be based on the registrant's original slot, not
+ * the mutable total count at the time a duplicate submit happens.
+ */
+export async function getLeadPositionBySource(
+  source: string,
+  email: string
+): Promise<number | null> {
+  if (!client) return null;
+  const cleanSource = (source || '').trim();
+  const targetEmail = normalizeEmail(email);
+  if (!cleanSource || !targetEmail) return null;
+  try {
+    const { data, error } = await client
+      .from('funnel_leads')
+      .select('email,created_at')
+      .eq('source', cleanSource)
+      .order('created_at', { ascending: true });
+    if (error) {
+      console.error('getLeadPositionBySource failed:', error.message);
+      return null;
+    }
+
+    const seen = new Set<string>();
+    let position = 0;
+    for (const row of data ?? []) {
+      const rowEmail = normalizeEmail(row.email);
+      if (!rowEmail || seen.has(rowEmail)) continue;
+      seen.add(rowEmail);
+      position += 1;
+      if (rowEmail === targetEmail) return position;
+    }
+    return null;
+  } catch (e) {
+    console.error('getLeadPositionBySource threw:', e instanceof Error ? e.message : String(e));
     return null;
   }
 }
@@ -118,14 +166,14 @@ export async function recentDuplicateExists(
   windowSeconds = 120
 ): Promise<boolean> {
   if (!client) return false;
-  const cleanEmail = (email || '').toLowerCase().trim();
+  const cleanEmail = normalizeEmail(email);
   if (!cleanEmail) return false;
   try {
     const since = new Date(Date.now() - windowSeconds * 1000).toISOString();
     let query = client
       .from('funnel_leads')
       .select('email', { count: 'exact', head: true })
-      .ilike('email', cleanEmail)
+      .ilike('email', escapePostgrestLikePattern(cleanEmail))
       .gte('created_at', since);
     // Scope to the same funnel source so the same email on two DIFFERENT funnels
     // (e.g. hubzone-webinar then mindy-launch) both go through.

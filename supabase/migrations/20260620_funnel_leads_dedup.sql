@@ -5,18 +5,20 @@
 -- can only land once; a legitimate re-registration later (or on another funnel)
 -- is unaffected.
 --
--- Safe to run: verified only 1 historical same-minute dup in 281 rows, so this
--- won't fail on a backfill conflict (it will simply not create the index if a
--- conflict exists — see the dedup step below if CREATE INDEX errors).
---
--- Implementation note: date_trunc(text, timestamptz) is STABLE, not IMMUTABLE,
--- so it can't sit in a generated column / index expression directly. We bucket
--- to a char(16) minute string via to_char(... AT TIME ZONE 'UTC'), which IS
--- immutable, and make the generated column on THAT.
+-- Historical rows may contain same-minute duplicates, so the guard is opt-in:
+-- existing rows are stamped dedup_enforced=false, then future inserts default
+-- to true and participate in the unique index.
 
 ALTER TABLE funnel_leads
-  ADD COLUMN IF NOT EXISTS dedup_minute text
-  GENERATED ALWAYS AS (to_char(created_at AT TIME ZONE 'UTC', 'YYYY-MM-DD"T"HH24:MI')) STORED;
+  ADD COLUMN IF NOT EXISTS dedup_enforced boolean NOT NULL DEFAULT false;
+
+ALTER TABLE funnel_leads
+  ALTER COLUMN dedup_enforced SET DEFAULT true;
 
 CREATE UNIQUE INDEX IF NOT EXISTS funnel_leads_dedup_uniq
-  ON funnel_leads (lower(email), source, dedup_minute);
+  ON funnel_leads (
+    lower(email),
+    coalesce(source, ''),
+    date_trunc('minute', created_at AT TIME ZONE 'UTC')
+  )
+  WHERE dedup_enforced;
