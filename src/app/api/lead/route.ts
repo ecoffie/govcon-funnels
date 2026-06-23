@@ -1,7 +1,17 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { sendLeadToCrm } from '@/lib/crm';
 import { sendConfirmationEmail } from '@/lib/email';
-import { saveLeadToSupabase, countLeadsBySource, recentDuplicateExists, MINDY_LAUNCH_ZOOM_CAP } from '@/lib/supabase-leads';
+import { saveLeadToSupabase, getLeadPositionBySource, recentDuplicateExists, MINDY_LAUNCH_ZOOM_CAP } from '@/lib/supabase-leads';
+
+async function getMindyLaunchResult(email: string): Promise<{ position: number; getsZoom: boolean; zoomCap: number } | null> {
+  const position = await getLeadPositionBySource('mindy-launch', email);
+  if (position === null) return null;
+  return {
+    position,
+    getsZoom: position <= MINDY_LAUNCH_ZOOM_CAP,
+    zoomCap: MINDY_LAUNCH_ZOOM_CAP,
+  };
+}
 
 export async function POST(request: NextRequest) {
   try {
@@ -33,10 +43,7 @@ export async function POST(request: NextRequest) {
       console.log('Duplicate lead suppressed (recent submit):', { email: lead.email, source: lead.source });
       let dupMindyLaunch: { position: number; getsZoom: boolean; zoomCap: number } | null = null;
       if (lead.source === 'mindy-launch') {
-        const count = await countLeadsBySource('mindy-launch');
-        if (count !== null) {
-          dupMindyLaunch = { position: count, getsZoom: count <= MINDY_LAUNCH_ZOOM_CAP, zoomCap: MINDY_LAUNCH_ZOOM_CAP };
-        }
+        dupMindyLaunch = await getMindyLaunchResult(lead.email);
       }
       return NextResponse.json({ success: true, duplicate: true, mindyLaunch: dupMindyLaunch });
     }
@@ -64,18 +71,11 @@ export async function POST(request: NextRequest) {
 
     // 3b) Mindy Launch scarcity: after the backup insert, compute this signup's
     //     position so the thank-you page can show Zoom (first N) vs YouTube.
-    //     Distinct-by-email count INCLUDES the row we just wrote. Only for this
-    //     source — every other funnel skips the extra query.
+    //     Use this email's first persisted slot so later duplicate submits don't
+    //     revoke Zoom access after the public count passes the cap.
     let mindyLaunch: { position: number; getsZoom: boolean; zoomCap: number } | null = null;
     if (lead.source === 'mindy-launch') {
-      const count = await countLeadsBySource('mindy-launch');
-      if (count !== null) {
-        mindyLaunch = {
-          position: count,
-          getsZoom: count <= MINDY_LAUNCH_ZOOM_CAP,
-          zoomCap: MINDY_LAUNCH_ZOOM_CAP,
-        };
-      }
+      mindyLaunch = await getMindyLaunchResult(lead.email);
     }
 
     // Log for debugging (including A/B test data)
