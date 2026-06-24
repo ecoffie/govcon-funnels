@@ -1,8 +1,12 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { upsertSection, REPORT_SECTIONS } from '@/lib/report-db';
+import { extractPassword, isAuthorized } from '@/lib/admin-auth';
 
 export async function PATCH(request: NextRequest) {
   try {
+    if (!isAuthorized(extractPassword(request))) {
+      return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
+    }
     const body = await request.json();
     const { week_start, section, content } = body;
 

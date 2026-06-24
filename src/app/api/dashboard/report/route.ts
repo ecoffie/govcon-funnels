@@ -5,9 +5,13 @@ import {
   getWeekSections,
   getAllWeeksMetrics,
 } from '@/lib/report-db';
+import { extractPassword, isAuthorized } from '@/lib/admin-auth';
 
 export async function GET(request: NextRequest) {
   try {
+    if (!isAuthorized(extractPassword(request))) {
+      return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
+    }
     const { searchParams } = new URL(request.url);
     const weekParam = searchParams.get('week');
     const includeHistory = searchParams.get('history') === '1';
