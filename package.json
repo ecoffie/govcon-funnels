@@ -49,5 +49,13 @@
     "tsx": "^4.22.4",
     "typescript": "^5",
     "vitest": "^4.1.1"
+  },
+  "overrides": {
+    "@vercel/blob": {
+      "undici": "^6.27.0"
+    },
+    "jsdom": {
+      "undici": "^7.28.0"
+    }
   }
 }
