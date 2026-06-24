@@ -29,14 +29,6 @@ const client =
     : null;
 
 /**
- * Mindy Launch (June 27, 2026) Zoom-seat cap. First N signups get the live
- * Zoom link; everyone after watches on YouTube. Overbooked above the real
- * ~100 Zoom room cap to account for typical webinar no-show (~33%).
- * Shared by /api/lead (position on signup) and /api/mindy-launch/spots.
- */
-export const MINDY_LAUNCH_ZOOM_CAP = 150;
-
-/**
  * Count distinct signups for a funnel source. Distinct-by-email so a refresh
  * or double-submit doesn't inflate the count (which would wrongly push a real
  * person past the Zoom cap). Returns null on any failure — callers fail soft.
