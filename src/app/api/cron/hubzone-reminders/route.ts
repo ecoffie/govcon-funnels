@@ -44,8 +44,8 @@ export const maxDuration = 300;
  *   live       → "We're live now"   (cron 55 21 * * 3 = 5:55 PM EDT Wed)
  *   recording  → recording + Encore CTA (cron 0 14 * * 4 = 10 AM EDT Thu)
  *
- * Auth: Vercel cron sends `Authorization: Bearer <CRON_SECRET>`. We accept that
- * OR the admin/tracker password (?password=) for manual testing.
+ * Auth: Vercel cron sends `Authorization: Bearer <CRON_SECRET>`. Manual sends
+ * require the shared admin password; read-only tracker passwords cannot send.
  * Gmail-throttled (400ms) to avoid the 454 login-cap seen on bulk bursts.
  */
 const SEND_DELAY_MS = 400;
@@ -56,8 +56,6 @@ function authorized(req: NextRequest): boolean {
   const cronSecret = process.env.CRON_SECRET;
   if (cronSecret && auth === `Bearer ${cronSecret}`) return true;
   const provided = extractPassword(req);
-  const trackerPw = process.env.HUBZONE_TRACKER_PASSWORD;
-  if (provided && trackerPw && provided === trackerPw) return true;
   return isAuthorized(provided);
 }
 
