@@ -180,6 +180,29 @@ See `/tasks/lessons.md` for full details.
 
 ## Recent Work (Last 7 Days)
 
+### June 24, 2026 — GSC report + meta-title CTR rewrites + dependency security hardening
+
+**GSC performance check** (`npx tsx scripts/seo-report.ts`):
+- Pulls live Search Console data via the reused `mindy-bq-reader@market-assasin` service account (`GCP_SA_JSON`). **Not stored locally** — `vercel env pull .env.local` to populate, then run. Script needs `dotenv` (it's in `package.json`; run `npm install` if `node_modules` is stale).
+- 28d snapshot: clicks +202% (568), impressions +419% (119.5K), avg pos 11.3 (was 15.7), but CTR dipped 0.8%→0.5% (broader/higher-funnel impressions outran clicks). `/guides/cage-code` is the engine (+81 clicks, 31.7K impr @ 0.3% CTR).
+
+**Meta-title CTR rewrites** (4 high-impression/low-CTR guides, commit `1993c02`) — front-loaded each with its top actual GSC query, kept <~60 chars to avoid SERP truncation:
+- `cage-code`: lead with "CAGE Code Lookup" (#1 query, 5.9K impr)
+- `hubzone-certification`: lead with "HUBZone Map" + requirements
+- `sba-certifications`: trimmed 68→57 chars (was truncating)
+- `gsa-schedule`: match "how to get a gsa schedule" intent
+- Edited the `metaTitle` field only (in `src/content/guides/*.ts`), left on-page `title` (H1) unchanged. Re-fired IndexNow for all 4 **after** deploy (changes must be live before pinging or crawlers see old titles).
+
+**Dependency security hardening** (4 commits):
+- **nodemailer** `^8.0.1`→`^8.0.11` (`b28511a`) — patches SMTP/CRLF command + header injection. Residual `GHSA-p6gq` needs v9 (breaking) and the `raw` message option, which `src/lib/email.ts` doesn't use.
+- **next** `16.1.4`→`16.2.9` (`47d3c39`) — patches the 16.x DoS / cache-poisoning / XSS / middleware-bypass / SSRF advisories. Exact pin preserved. Verified `npm run build` exit 0.
+- **undici** (transitive) patched via scoped `package.json` `overrides` (`12c9166`): `@vercel/blob`→undici `^6.27.0` (runtime), `jsdom`→undici `^7.28.0` (test). Avoided `npm audit fix`, which would have switched the test stack to rolldown + added hundreds of platform binaries.
+- **xlsx unauthenticated-upload fix** (`ca88530`) — `POST /api/dashboard/report/upload` accepted unauthenticated file uploads straight into `XLSX.read()`, exposing SheetJS prototype-pollution / ReDoS (no npm fix for xlsx). **Gated all 4 dashboard report routes** (`GET /report`, `POST /seed`, `POST /upload`, `PATCH /sections`) with `src/lib/admin-auth.ts` (`extractPassword`+`isAuthorized`, same as `/api/admin/purchases`). Added a password login gate to `/dashboard/marketing-report` (sends `x-admin-password`, re-prompts on 401, session-scoped). Password = `PURCHASES_ADMIN_PASSWORD`. xlsx advisory now only reachable by an authed admin (acceptable residual).
+
+**Gotchas learned:**
+- `vercel ls --prod` status column has ANSI formatting that breaks `grep -oE` parsing — verify deploy health by curling the live URL (200) instead.
+- `www.govcongiants.com` 301-redirects to apex `govcongiants.com`; responses are gzipped — use `curl --compressed -L` when grepping `<title>`.
+
 ### June 9–10, 2026 — HUBZone Webinar Command Center + encoregov SEO
 
 **HUBZone webinar registration tracker → command center** (`/hubzone/registrations`, password-gated):
@@ -314,4 +337,4 @@ See `/tasks/work-history.md` for full history including:
 
 ---
 
-*Last Updated: June 10, 2026*
+*Last Updated: June 24, 2026*
