@@ -64,6 +64,43 @@ export async function countLeadsBySource(source: string): Promise<number | null>
 }
 
 /**
+ * Return this email's first distinct signup position for a source, ordered by
+ * persisted signup time. Used for capped events so a later retry does not
+ * revoke an early registrant's original slot.
+ */
+export async function getLeadPositionBySource(source: string, email: string): Promise<number | null> {
+  if (!client) return null;
+  const targetEmail = (email || '').toLowerCase().trim();
+  if (!targetEmail) return null;
+
+  try {
+    const { data, error } = await client
+      .from('funnel_leads')
+      .select('email,created_at')
+      .eq('source', source)
+      .order('created_at', { ascending: true });
+
+    if (error) {
+      console.error('getLeadPositionBySource failed:', error.message);
+      return null;
+    }
+
+    const seen = new Set<string>();
+    for (const row of data ?? []) {
+      const rowEmail = (row.email || '').toLowerCase().trim();
+      if (!rowEmail || seen.has(rowEmail)) continue;
+      seen.add(rowEmail);
+      if (rowEmail === targetEmail) return seen.size;
+    }
+
+    return null;
+  } catch (e) {
+    console.error('getLeadPositionBySource threw:', e instanceof Error ? e.message : String(e));
+    return null;
+  }
+}
+
+/**
  * Read the real HUBZone registrant list from Supabase (funnel_leads), deduped
  * by email. This is the source of truth for sends — GHL's API pull is capped
  * at 100/tag with no pagination and was under-counting. Drops obvious test
@@ -71,6 +108,10 @@ export async function countLeadsBySource(source: string): Promise<number | null>
  */
 const HUBZONE_SOURCES = ['hubzone-webinar', 'hubzone-webinar-bottom'];
 const TEST_EMAIL_RE = /\+|@example\.com$|(^|\b)(test|email-test)\b/i;
+
+function escapeIlikePattern(value: string): string {
+  return value.replace(/[\\%_]/g, (char) => `\\${char}`);
+}
 
 export async function getHubzoneRegistrantsFromSupabase(): Promise<
   { email: string; name: string }[]
@@ -104,8 +145,8 @@ export async function getHubzoneRegistrantsFromSupabase(): Promise<
 /**
  * Idempotency guard: has this exact (email, source) already been captured in the
  * last `windowSeconds`? Used by /api/lead to short-circuit a genuine double-submit
- * (double-click, browser retry, form re-fire) so we don't create duplicate leads in
- * GHL/Supabase or fire a second Slack ping + confirmation email.
+ * (double-click, browser retry, form re-fire) so the route can skip duplicate
+ * Supabase writes, Slack pings, and local confirmation emails.
  *
  * Window-scoped (default 120s) on purpose: a SAME person legitimately re-registering
  * weeks later (or for a different funnel) is NOT a dup. Email match is
@@ -125,7 +166,7 @@ export async function recentDuplicateExists(
     let query = client
       .from('funnel_leads')
       .select('email', { count: 'exact', head: true })
-      .ilike('email', cleanEmail)
+      .ilike('email', escapeIlikePattern(cleanEmail))
       .gte('created_at', since);
     // Scope to the same funnel source so the same email on two DIFFERENT funnels
     // (e.g. hubzone-webinar then mindy-launch) both go through.
