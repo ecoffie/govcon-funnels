@@ -10,6 +10,7 @@ import {
 } from '@/lib/supabase-leads';
 
 type MindyLaunchStatus = { position: number; getsZoom: boolean; zoomCap: number };
+type LeadSubmission = LeadPayload & Record<string, unknown>;
 
 async function getMindyLaunchStatus(email: string): Promise<MindyLaunchStatus | null> {
   const position = await getLeadPositionBySource('mindy-launch', email);
@@ -31,7 +32,7 @@ async function getMindyLaunchStatus(email: string): Promise<MindyLaunchStatus | 
 }
 
 function enqueueMindyLaunchConfirmation(
-  lead: LeadPayload,
+  lead: LeadSubmission,
   mindyLaunch: MindyLaunchStatus | null
 ): { ok: boolean; error?: string } {
   const url = process.env.MINDY_LAUNCH_SEND_URL;
@@ -67,7 +68,7 @@ export async function POST(request: NextRequest) {
       return NextResponse.json({ error: 'Email is required' }, { status: 400 });
     }
 
-    const lead: LeadPayload = {
+    const lead: LeadSubmission = {
       name: name?.trim() ?? '',
       email: email.trim(),
       phone: phone?.trim() ?? '',
