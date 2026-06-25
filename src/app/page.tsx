@@ -96,9 +96,9 @@ export default function Home() {
           </p>
           <div className="relative aspect-video overflow-hidden rounded-2xl border border-purple-500/30 shadow-2xl shadow-purple-500/20">
             <iframe
-              src="https://player.vimeo.com/video/1204629383?title=0&byline=0&portrait=0&dnt=1"
+              src="https://player.vimeo.com/video/1204629383?badge=0&autopause=0&player_id=0&app_id=122963"
               className="absolute inset-0 h-full w-full"
-              allow="autoplay; fullscreen; picture-in-picture; clipboard-write"
+              allow="autoplay; fullscreen; picture-in-picture; clipboard-write; encrypted-media; web-share"
               allowFullScreen
               title="Meet Mindy — Demo"
             />
