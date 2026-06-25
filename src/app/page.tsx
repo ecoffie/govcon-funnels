@@ -85,6 +85,27 @@ export default function Home() {
         </div>
       </section>
 
+      {/* Demo Video */}
+      <section className="bg-gradient-to-b from-slate-950 to-slate-900/50 px-4 pb-20">
+        <div className="max-w-4xl mx-auto">
+          <h2 className="text-2xl md:text-3xl font-bold text-white text-center mb-2">
+            See Mindy in Action
+          </h2>
+          <p className="text-slate-400 text-center mb-8">
+            Watch a real federal pursuit go from one keyword to a drafted proposal.
+          </p>
+          <div className="relative aspect-video overflow-hidden rounded-2xl border border-purple-500/30 shadow-2xl shadow-purple-500/20">
+            <iframe
+              src="https://player.vimeo.com/video/1204629383?title=0&byline=0&portrait=0&dnt=1"
+              className="absolute inset-0 h-full w-full"
+              allow="autoplay; fullscreen; picture-in-picture; clipboard-write"
+              allowFullScreen
+              title="Meet Mindy — Demo"
+            />
+          </div>
+        </div>
+      </section>
+
       {/* Problem Section */}
       <section className="max-w-4xl mx-auto px-4 py-20">
         <h2 className="text-3xl md:text-4xl font-bold text-white text-center mb-6">
