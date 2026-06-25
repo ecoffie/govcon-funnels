@@ -2,6 +2,7 @@
 
 import { useState, useEffect } from 'react';
 import { getVariant, trackConversion } from '@/lib/ab-test';
+import { trackLeadConversion } from '@/lib/google-ads';
 
 interface ABTestLeadFormProps {
   testId: string;
@@ -76,8 +77,11 @@ export default function ABTestLeadForm({
         // Continue even if API fails so user still gets redirect
       });
 
-      // Redirect to thank you / upsell page
-      window.location.href = redirectUrl;
+      // Fire Google Ads lead conversion, then redirect (deferred so the hit
+      // isn't dropped on page unload). Redirects immediately if unconfigured.
+      trackLeadConversion(() => {
+        window.location.href = redirectUrl;
+      });
     } catch (error) {
       console.error('Form submission error:', error);
       setIsSubmitting(false);

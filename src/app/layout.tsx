@@ -14,6 +14,9 @@ const inter = Inter({
 });
 
 const GA_ID = process.env.NEXT_PUBLIC_GA_ID;
+const GOOGLE_ADS_ID = process.env.NEXT_PUBLIC_GOOGLE_ADS_ID;
+// One gtag.js load serves both GA4 and Google Ads; use whichever id exists.
+const GTAG_LOADER_ID = GA_ID || GOOGLE_ADS_ID;
 
 export const metadata: Metadata = {
   title: {
@@ -40,20 +43,19 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className={`${inter.variable} antialiased`}>
-        {GA_ID && (
+        {GTAG_LOADER_ID && (
           <>
             <Script
-              src={`https://www.googletagmanager.com/gtag/js?id=${GA_ID}`}
+              src={`https://www.googletagmanager.com/gtag/js?id=${GTAG_LOADER_ID}`}
               strategy="afterInteractive"
             />
-            <Script id="ga4-init" strategy="afterInteractive">
+            <Script id="gtag-init" strategy="afterInteractive">
               {`
                 window.dataLayer = window.dataLayer || [];
                 function gtag(){dataLayer.push(arguments);}
                 gtag('js', new Date());
-                gtag('config', '${GA_ID}', {
-                  page_path: window.location.pathname,
-                });
+                ${GA_ID ? `gtag('config', '${GA_ID}', { page_path: window.location.pathname });` : ""}
+                ${GOOGLE_ADS_ID ? `gtag('config', '${GOOGLE_ADS_ID}');` : ""}
               `}
             </Script>
           </>

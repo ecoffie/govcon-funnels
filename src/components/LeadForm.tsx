@@ -1,6 +1,7 @@
 'use client';
 
 import { useState } from 'react';
+import { trackLeadConversion } from '@/lib/google-ads';
 
 interface LeadFormProps {
   buttonText?: string;
@@ -63,8 +64,11 @@ export default function LeadForm({
         // Continue even if API fails so user still gets redirect
       });
 
-      // Redirect to thank you / upsell page
-      window.location.href = redirectUrl;
+      // Fire Google Ads lead conversion, then redirect (deferred so the hit
+      // isn't dropped on page unload). Redirects immediately if unconfigured.
+      trackLeadConversion(() => {
+        window.location.href = redirectUrl;
+      });
     } catch (error) {
       console.error('Form submission error:', error);
       setIsSubmitting(false);
