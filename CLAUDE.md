@@ -180,6 +180,31 @@ See `/tasks/lessons.md` for full details.
 
 ## Recent Work (Last 7 Days)
 
+### June 25, 2026 — Google Ads conversion tracking (base tag + lead conversion)
+
+**Goal:** wire the site for a Google Ads campaign optimizing on **lead conversions** (not purchases).
+
+**What shipped** (commits `d0a1652` + redeploy `e9cf4fa`):
+- **Base Google Ads tag** `AW-10876444620` loads via the *existing* GA4 `gtag.js` — one loader serves both. In `src/app/layout.tsx`, the loader id is `GA_ID || GOOGLE_ADS_ID` and it emits a `config` line for whichever ids exist. Env-gated by `NEXT_PUBLIC_GOOGLE_ADS_ID` (not hardcoded).
+- **`src/lib/google-ads.ts`** (new) — conversion helper. `trackLeadConversion(onSent)` and `trackPurchaseConversion()` wrap `trackAdsConversion`. No-op (just calls `onSent`) until the matching `*_LABEL` env is set, so it never blocks form flow. Lead fire uses gtag `event_callback` to defer the redirect until the hit sends, with a 1.2s fallback so a blocked tracker can't hang a signup.
+- **Lead conversion fires on submit** in both `src/components/LeadForm.tsx` and `src/components/ABTestLeadForm.tsx` (replaced the bare `window.location.href = redirectUrl` with `trackLeadConversion(() => { window.location.href = redirectUrl })`).
+- **Purchase tracking deliberately NOT wired** — paid CTAs redirect to Stripe-hosted payment links (`buy.stripe.com/...`), so completion is off-site. `trackPurchaseConversion` exists but stays dormant. If ever needed, the accurate path is **offline conversion import** (the `gclid` is already captured by `AttributionTracker` and the Stripe webhook already has the value).
+
+**IDs / env (all in Vercel Prod + Preview):**
+- `NEXT_PUBLIC_GOOGLE_ADS_ID=AW-10876444620`
+- `NEXT_PUBLIC_GADS_LEAD_LABEL=6JcPCKe6vsUcEMy_pcIo` (Google Ads conversion action "Website Lead Form (Mindy Test)", category Submit lead form, Count = One)
+- Unused-but-supported: `NEXT_PUBLIC_GADS_PURCHASE_LABEL`
+- Conversion `send_to` = `AW-10876444620/6JcPCKe6vsUcEMy_pcIo`
+
+**TODO on the Google Ads side:** "Submit lead form" is **not yet an account-default goal** — set it as default (Goals → Settings) or attach at campaign level, else it records but doesn't drive bidding.
+
+**Verified end-to-end with Puppeteer** (`puppeteer` is in node_modules; no playwright). Scripts in session scratchpad: loaded the live page, filled the form (incl. the **required Company field** on `/hubzone` — miss it and HTML5 validation silently blocks submit), and **aborted `/api/lead`** so no junk GHL/Slack lead. Confirmed real conversion pings to `googleadservices.com/pagead/conversion/10876444620/?...&en=conversion` containing the label.
+
+**Gotchas learned:**
+- **Turbopack defeats curl-grep verification.** Client-component chunks (incl. the inlined `NEXT_PUBLIC_*` label) load via the turbopack runtime manifest, not as plain `static/chunks/x.js` strings in the HTML, and don't reliably show in `performance.getEntriesByType('resource')`. Don't try to grep bundles for an inlined env value — drive a headless browser and watch the network instead.
+- Run scratchpad node scripts with `NODE_PATH="$(pwd)/node_modules"` so they resolve the project's `puppeteer`.
+- Env var bound to the build only after a **fresh** deploy *following* the `vercel env add`; an empty commit + push is the clean trigger (avoids `vercel --prod` uploading the untracked `march-surge/` dir).
+
 ### June 24, 2026 — GSC report + meta-title CTR rewrites + dependency security hardening
 
 **GSC performance check** (`npx tsx scripts/seo-report.ts`):
@@ -337,4 +362,4 @@ See `/tasks/work-history.md` for full history including:
 
 ---
 
-*Last Updated: June 24, 2026*
+*Last Updated: June 25, 2026*
