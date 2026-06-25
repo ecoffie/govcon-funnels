@@ -3,7 +3,7 @@ import { sendLeadToCrm, sendToGoHighLevel, type LeadPayload } from '@/lib/crm';
 import { sendConfirmationEmail } from '@/lib/email';
 import { saveLeadToSupabase, recentDuplicateExists } from '@/lib/supabase-leads';
 
-function sendMindyLaunchHandoff(lead: LeadPayload) {
+function sendMindyLaunchHandoff(lead: Pick<LeadPayload, 'email' | 'name' | 'source'>) {
   if (lead.source !== 'mindy-launch' || !process.env.MINDY_LAUNCH_SEND_URL || !process.env.MINDY_LAUNCH_SEND_SECRET) {
     return;
   }
@@ -30,7 +30,7 @@ export async function POST(request: NextRequest) {
       return NextResponse.json({ error: 'Email is required' }, { status: 400 });
     }
 
-    const lead: LeadPayload = {
+    const lead = {
       name: name?.trim() ?? '',
       email: email.trim(),
       phone: phone?.trim() ?? '',
