@@ -64,6 +64,10 @@ export async function countLeadsBySource(source: string): Promise<number | null>
 const HUBZONE_SOURCES = ['hubzone-webinar', 'hubzone-webinar-bottom'];
 const TEST_EMAIL_RE = /\+|@example\.com$|(^|\b)(test|email-test)\b/i;
 
+function escapeIlikePattern(value: string): string {
+  return value.replace(/[\\%_]/g, (char) => `\\${char}`);
+}
+
 export async function getHubzoneRegistrantsFromSupabase(): Promise<
   { email: string; name: string }[]
 > {
@@ -117,7 +121,7 @@ export async function recentDuplicateExists(
     let query = client
       .from('funnel_leads')
       .select('email', { count: 'exact', head: true })
-      .ilike('email', cleanEmail)
+      .ilike('email', escapeIlikePattern(cleanEmail))
       .gte('created_at', since);
     // Scope to the same funnel source so the same email on two DIFFERENT funnels
     // (e.g. hubzone-webinar then mindy-launch) both go through.

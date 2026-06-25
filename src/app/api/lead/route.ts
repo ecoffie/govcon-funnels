@@ -1,7 +1,25 @@
 import { NextRequest, NextResponse } from 'next/server';
-import { sendLeadToCrm } from '@/lib/crm';
+import { sendLeadToCrm, sendToGoHighLevel, type LeadPayload } from '@/lib/crm';
 import { sendConfirmationEmail } from '@/lib/email';
 import { saveLeadToSupabase, recentDuplicateExists } from '@/lib/supabase-leads';
+
+function sendMindyLaunchHandoff(lead: Pick<LeadPayload, 'email' | 'name' | 'source'>) {
+  if (lead.source !== 'mindy-launch' || !process.env.MINDY_LAUNCH_SEND_URL || !process.env.MINDY_LAUNCH_SEND_SECRET) {
+    return;
+  }
+
+  void fetch(process.env.MINDY_LAUNCH_SEND_URL, {
+    method: 'POST',
+    headers: {
+      'content-type': 'application/json',
+      authorization: `Bearer ${process.env.MINDY_LAUNCH_SEND_SECRET}`,
+    },
+    body: JSON.stringify({
+      email: lead.email,
+      name: lead.name,
+    }),
+  }).catch((e) => console.error('mindy-launch confirmation handoff failed:', e));
+}
 
 export async function POST(request: NextRequest) {
   try {
@@ -25,13 +43,22 @@ export async function POST(request: NextRequest) {
     };
 
     // 0) Idempotency guard: if this exact (email, source) already came in within the
-    //    last 2 min, treat it as a double-submit (double-click / browser retry) and
-    //    short-circuit — don't create a second lead in GHL/Supabase or fire a second
-    //    Slack ping + confirmation email. Return success so the front-end still
-    //    redirects normally. Fails OPEN, so a check error never blocks a real signup.
+    //    last 2 min, treat it as a double-submit (double-click / browser retry).
+    //    Suppress duplicate Supabase/Slack/local email writes, but still retry the
+    //    idempotent downstream handoffs that may have failed after the first backup
+    //    row was saved.
     if (await recentDuplicateExists(lead.email, lead.source)) {
       console.log('Duplicate lead suppressed (recent submit):', { email: lead.email, source: lead.source });
-      return NextResponse.json({ success: true, duplicate: true });
+      const ghlResult =
+        process.env.GHL_API_KEY && process.env.GHL_LOCATION_ID
+          ? await sendToGoHighLevel(lead)
+          : undefined;
+      sendMindyLaunchHandoff(lead);
+      return NextResponse.json({
+        success: true,
+        duplicate: true,
+        crm: ghlResult ? { ghl: ghlResult } : undefined,
+      });
     }
 
     // 1) Send to CRM first (HighLevel + optional webhook). Contact is created and tagged in GHL.
@@ -62,19 +89,7 @@ export async function POST(request: NextRequest) {
     // 3c) Mindy Launch save-the-date: hand off the actual send to getmindy.ai so it
     //     runs through Mindy's guarded sender (tracked in email_provider_sends).
     //     Fire-and-forget — a send failure must NEVER block the signup/redirect.
-    if (lead.source === 'mindy-launch' && process.env.MINDY_LAUNCH_SEND_URL && process.env.MINDY_LAUNCH_SEND_SECRET) {
-      void fetch(process.env.MINDY_LAUNCH_SEND_URL, {
-        method: 'POST',
-        headers: {
-          'content-type': 'application/json',
-          authorization: `Bearer ${process.env.MINDY_LAUNCH_SEND_SECRET}`,
-        },
-        body: JSON.stringify({
-          email: lead.email,
-          name: lead.name,
-        }),
-      }).catch((e) => console.error('mindy-launch confirmation handoff failed:', e));
-    }
+    sendMindyLaunchHandoff(lead);
 
     // Log for debugging (including A/B test data)
     console.log('New lead:', {
