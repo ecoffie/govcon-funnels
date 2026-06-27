@@ -94,6 +94,43 @@ export async function getHubzoneRegistrantsFromSupabase(): Promise<
 }
 
 /**
+ * Read the real Mindy Day registrant list from Supabase (funnel_leads), deduped
+ * by email. Source of truth for the day-of webinar-link blast — same dedupe and
+ * test-email filtering as the HUBZone reader. Signups come from /api/lead with
+ * source='mindy-launch' (the govcongiants.com/mindy-launch registration page).
+ * Returns [] on failure so the blast route can report it clearly.
+ */
+const MINDY_DAY_SOURCES = ['mindy-launch'];
+
+export async function getMindyDayRegistrantsFromSupabase(): Promise<
+  { email: string; name: string }[]
+> {
+  if (!client) return [];
+  try {
+    const { data, error } = await client
+      .from('funnel_leads')
+      .select('email,name,created_at')
+      .in('source', MINDY_DAY_SOURCES)
+      .order('created_at', { ascending: true });
+    if (error) {
+      console.error('getMindyDayRegistrantsFromSupabase failed:', error.message);
+      return [];
+    }
+    const byEmail = new Map<string, { email: string; name: string }>();
+    for (const r of data ?? []) {
+      const email = (r.email || '').toLowerCase().trim();
+      if (!email || TEST_EMAIL_RE.test(email)) continue;
+      if (!byEmail.has(email)) byEmail.set(email, { email, name: (r.name || '').trim() });
+      else if (!byEmail.get(email)!.name && r.name) byEmail.get(email)!.name = r.name.trim();
+    }
+    return [...byEmail.values()];
+  } catch (e) {
+    console.error('getMindyDayRegistrantsFromSupabase threw:', e instanceof Error ? e.message : String(e));
+    return [];
+  }
+}
+
+/**
  * Idempotency guard: has this exact (email, source) already been captured in the
  * last `windowSeconds`? Used by /api/lead to short-circuit a genuine double-submit
  * (double-click, browser retry, form re-fire) so we don't create duplicate leads in

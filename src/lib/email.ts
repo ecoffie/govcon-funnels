@@ -24,6 +24,12 @@ const HUBZONE_ZOOM_URL = 'https://us06web.zoom.us/j/87112164591?pwd=bakXu7g8fbSU
 const HUBZONE_MEETING_ID = '871 1216 4591';
 const HUBZONE_PASSCODE = '467983';
 
+// Mindy Day (June 27) live-unveil join link. Default comes from env so the link
+// can change without a redeploy; the blast route may also pass an explicit
+// `joinUrl` (from ?join=) to override at send time. Falls back to the
+// registration page, which can host the player/redirect.
+const MINDY_DAY_JOIN_URL = (process.env.MINDY_DAY_JOIN_URL || 'https://govcongiants.com/mindy-launch').trim();
+
 export interface EmailParams {
   to: string;
   name: string;
@@ -1046,6 +1052,68 @@ export async function sendHubzoneReminderEmail(params: EmailParams): Promise<Ema
   </td></tr></table>
 </body></html>`;
   return sendEmail(params.to, `Tonight at 6 PM ET — your Zoom link is inside`, html);
+}
+
+/**
+ * Mindy Day (June 27) DAY-OF reminder — carries the real live join link.
+ * Mindy navy→purple branding. The join link comes from `params.joinUrl` if the
+ * blast route passes one (?join=…), otherwise from MINDY_DAY_JOIN_URL env, and
+ * finally the registration page. This is the "people are waiting for the link"
+ * email — the link is the hero of the message.
+ */
+export async function sendMindyDayReminderEmail(
+  params: EmailParams & { joinUrl?: string }
+): Promise<EmailResult> {
+  const firstName = (params.name || '').split(' ')[0] || 'there';
+  const joinUrl = (params.joinUrl || MINDY_DAY_JOIN_URL).trim();
+  const html = `<!DOCTYPE html>
+<html>
+<head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="color-scheme" content="light only"><meta name="supported-color-schemes" content="light"><title>Mindy Day is live — your join link is inside</title></head>
+<body style="margin: 0; padding: 0; background-color: #f8fafc; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; color: #1e293b;">
+  <div style="display:none;max-height:0;overflow:hidden;opacity:0;">Mindy Day is going live today — watch Mindy find real federal contracts on screen. Your one-click join link is inside.</div>
+  <table width="100%" cellpadding="0" cellspacing="0" style="background-color: #f8fafc; padding: 40px 16px;"><tr><td align="center">
+    <table width="600" cellpadding="0" cellspacing="0" style="background-color: #ffffff; border-radius: 16px; overflow: hidden; box-shadow: 0 4px 20px rgba(0,0,0,0.06);">
+      <tr><td style="background: linear-gradient(135deg, #1e3a8a 0%, #6d28d9 55%, #7c3aed 100%); padding: 40px 32px; text-align: center;">
+        <div style="display: inline-block; background-color: rgba(255,255,255,0.2); color: #ffffff; font-size: 12px; font-weight: 700; text-transform: uppercase; letter-spacing: 1.5px; padding: 6px 14px; border-radius: 999px; margin-bottom: 16px;">Today &middot; Live</div>
+        <h1 style="color: #ffffff; font-size: 30px; line-height: 1.2; font-weight: 800; margin: 0 0 12px;">It&rsquo;s Mindy Day, ${firstName}.</h1>
+        <p style="color: #ddd6fe; font-size: 16px; margin: 0;">Watch Mindy <strong style="color: #ffffff;">find you federal contracts</strong> &mdash; live.</p>
+      </td></tr>
+      <tr><td style="padding: 32px 32px 0;">
+        <table width="100%" cellpadding="0" cellspacing="0" style="background-color: #f5f3ff; border: 2px solid #ddd6fe; border-radius: 12px;"><tr><td style="padding: 28px 24px; text-align: center;">
+          <p style="color: #5b21b6; font-size: 12px; font-weight: 700; text-transform: uppercase; letter-spacing: 1.5px; margin: 0 0 8px;">Your Join Link</p>
+          <p style="color: #1e293b; font-size: 20px; font-weight: 800; margin: 0 0 4px;">Today &middot; Friday, June 27</p>
+          <p style="color: #475569; font-size: 14px; margin: 0 0 20px;">A live demo, then Q&amp;A. Save this email so you can jump straight in.</p>
+          <a href="${joinUrl}" style="display: inline-block; background-color: #7c3aed; color: #ffffff; padding: 18px 40px; border-radius: 10px; text-decoration: none; font-weight: 800; font-size: 18px;">&#128279;&nbsp; Join Mindy Day Live</a>
+          <p style="color: #64748b; font-size: 13px; margin: 18px 0 0; line-height: 1.6;">Or paste this into your browser:<br><a href="${joinUrl}" style="color:#7c3aed;text-decoration:none;word-break:break-all;">${joinUrl}</a></p>
+        </td></tr></table>
+      </td></tr>
+      <tr><td style="padding: 32px 32px 0;">
+        <h2 style="color: #0f172a; font-size: 22px; font-weight: 800; margin: 0 0 12px;">No slides to start, ${firstName}.</h2>
+        <p style="color: #475569; font-size: 16px; line-height: 1.65; margin: 0 0 16px;">We open by putting Mindy on screen and pulling a <strong style="color: #0f172a;">real expiring contract with a real dollar figure</strong> &mdash; then generating the play to win it, live. For years we taught this by hand. Now you get to watch the machine do it.</p>
+      </td></tr>
+      <tr><td style="padding: 24px 32px 0;">
+        <h3 style="color: #0f172a; font-size: 18px; font-weight: 800; margin: 0 0 16px;">What you&rsquo;ll see</h3>
+        <table width="100%" cellpadding="0" cellspacing="0">
+          <tr><td style="padding: 12px 0; border-bottom: 1px solid #e2e8f0;"><table cellpadding="0" cellspacing="0"><tr><td valign="top" style="width: 36px;"><div style="width: 28px; height: 28px; background-color: #7c3aed; border-radius: 50%; color: #ffffff; font-weight: 800; text-align: center; line-height: 28px; font-size: 14px;">1</div></td><td valign="top"><p style="color: #0f172a; font-size: 15px; font-weight: 700; margin: 0;">The live find</p><p style="color: #64748b; font-size: 14px; margin: 4px 0 0; line-height: 1.5;">A real expiring vehicle, the incumbent, and the response &mdash; surfaced on screen in seconds.</p></td></tr></table></td></tr>
+          <tr><td style="padding: 12px 0; border-bottom: 1px solid #e2e8f0;"><table cellpadding="0" cellspacing="0"><tr><td valign="top" style="width: 36px;"><div style="width: 28px; height: 28px; background-color: #7c3aed; border-radius: 50%; color: #ffffff; font-weight: 800; text-align: center; line-height: 28px; font-size: 14px;">2</div></td><td valign="top"><p style="color: #0f172a; font-size: 15px; font-weight: 700; margin: 0;">A contractor who won</p><p style="color: #64748b; font-size: 14px; margin: 4px 0 0; line-height: 1.5;">A real customer, on camera, with the contract they landed &mdash; in their own words.</p></td></tr></table></td></tr>
+          <tr><td style="padding: 12px 0; border-bottom: 1px solid #e2e8f0;"><table cellpadding="0" cellspacing="0"><tr><td valign="top" style="width: 36px;"><div style="width: 28px; height: 28px; background-color: #7c3aed; border-radius: 50%; color: #ffffff; font-weight: 800; text-align: center; line-height: 28px; font-size: 14px;">3</div></td><td valign="top"><p style="color: #0f172a; font-size: 15px; font-weight: 700; margin: 0;">The new capability, live</p><p style="color: #64748b; font-size: 14px; margin: 4px 0 0; line-height: 1.5;">Mindy finds the contracts your NAICS codes miss &mdash; demoed on real data.</p></td></tr></table></td></tr>
+          <tr><td style="padding: 12px 0;"><table cellpadding="0" cellspacing="0"><tr><td valign="top" style="width: 36px;"><div style="width: 28px; height: 28px; background-color: #7c3aed; border-radius: 50%; color: #ffffff; font-weight: 800; text-align: center; line-height: 28px; font-size: 14px;">Q</div></td><td valign="top"><p style="color: #0f172a; font-size: 15px; font-weight: 700; margin: 0;">Live Q&amp;A</p><p style="color: #64748b; font-size: 14px; margin: 4px 0 0; line-height: 1.5;">Bring your toughest market question &mdash; Eric Coffie answers live.</p></td></tr></table></td></tr>
+        </table>
+      </td></tr>
+      <tr><td style="padding: 32px;">
+        <table width="100%" cellpadding="0" cellspacing="0"><tr><td align="center">
+          <a href="${joinUrl}" style="display: inline-block; background-color: #7c3aed; color: #ffffff; padding: 16px 32px; border-radius: 10px; text-decoration: none; font-weight: 800; font-size: 16px;">Join Mindy Day Live</a>
+          <p style="color: #94a3b8; font-size: 12px; margin: 14px 0 0;">Can&rsquo;t make the start? Join late &mdash; or reply and we&rsquo;ll send you the recording.</p>
+        </td></tr></table>
+      </td></tr>
+      <tr><td style="padding: 24px 32px; background-color: #f8fafc; border-top: 1px solid #e2e8f0; text-align: center;">
+        <p style="color: #64748b; font-size: 12px; margin: 0 0 6px;">Hosted by <strong style="color: #1e293b;">GovCon Giants</strong>. Mindy is your 24/7 federal market intelligence analyst.</p>
+        <p style="color: #94a3b8; font-size: 11px; margin: 0;"><a href="https://getmindy.ai" style="color: #7c3aed; text-decoration: none;">getmindy.ai</a></p>
+      </td></tr>
+    </table>
+  </td></tr></table>
+</body></html>`;
+  return sendEmail(params.to, `It's Mindy Day — your live join link is inside`, html);
 }
 
 /**
