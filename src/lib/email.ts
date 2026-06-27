@@ -1070,51 +1070,51 @@ export async function sendMindyDayReminderEmail(
 <html>
 <head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="color-scheme" content="light only"><meta name="supported-color-schemes" content="light"><title>Mindy Day is live — your join link is inside</title></head>
 <body style="margin: 0; padding: 0; background-color: #f8fafc; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; color: #1e293b;">
-  <div style="display:none;max-height:0;overflow:hidden;opacity:0;">Mindy Day is going live today — watch Mindy find real federal contracts on screen. Your one-click join link is inside.</div>
+  <div style="display:none;max-height:0;overflow:hidden;opacity:0;">The Mindy Launch starts today at 10 AM ET — a full-day working session. Your Zoom link, Meeting ID, and passcode are inside.</div>
   <table width="100%" cellpadding="0" cellspacing="0" style="background-color: #f8fafc; padding: 40px 16px;"><tr><td align="center">
     <table width="600" cellpadding="0" cellspacing="0" style="background-color: #ffffff; border-radius: 16px; overflow: hidden; box-shadow: 0 4px 20px rgba(0,0,0,0.06);">
-      <tr><td style="background: linear-gradient(135deg, #1e3a8a 0%, #6d28d9 55%, #7c3aed 100%); padding: 40px 32px; text-align: center;">
-        <div style="display: inline-block; background-color: rgba(255,255,255,0.2); color: #ffffff; font-size: 12px; font-weight: 700; text-transform: uppercase; letter-spacing: 1.5px; padding: 6px 14px; border-radius: 999px; margin-bottom: 16px;">Today &middot; Live</div>
-        <h1 style="color: #ffffff; font-size: 30px; line-height: 1.2; font-weight: 800; margin: 0 0 12px;">It&rsquo;s Mindy Day, ${firstName}.</h1>
-        <p style="color: #ddd6fe; font-size: 16px; margin: 0;">Watch Mindy <strong style="color: #ffffff;">find you federal contracts</strong> &mdash; live.</p>
+      <tr><td style="background: linear-gradient(135deg, #1e3a8a 0%, #6d28d9 55%, #7c3aed 100%); padding: 36px 32px; text-align: center;">
+        <div style="display: inline-block; background-color: rgba(255,255,255,0.2); color: #ffffff; font-size: 12px; font-weight: 700; text-transform: uppercase; letter-spacing: 1.5px; padding: 6px 14px; border-radius: 999px; margin-bottom: 16px;">&#9679;&nbsp; Today &middot; 10 AM&ndash;1 PM ET</div>
+        <h1 style="color: #ffffff; font-size: 28px; line-height: 1.25; font-weight: 800; margin: 0 0 10px;">The Mindy Launch is today, ${firstName}.</h1>
+        <p style="color: #ddd6fe; font-size: 15px; margin: 0;">We start at 10 AM ET &mdash; a full-day working session, not a webinar.</p>
       </td></tr>
-      <tr><td style="padding: 32px 32px 0;">
-        <table width="100%" cellpadding="0" cellspacing="0" style="background-color: #f5f3ff; border: 2px solid #ddd6fe; border-radius: 12px;"><tr><td style="padding: 28px 24px; text-align: center;">
-          <p style="color: #5b21b6; font-size: 12px; font-weight: 700; text-transform: uppercase; letter-spacing: 1.5px; margin: 0 0 8px;">Your Join Link</p>
-          <p style="color: #1e293b; font-size: 20px; font-weight: 800; margin: 0 0 4px;">Today &middot; Saturday, June 27 &middot; 10:00 AM EST</p>
-          <p style="color: #475569; font-size: 14px; margin: 0 0 20px;">A live demo, then Q&amp;A. Save this email so you can jump straight in.</p>
-          <a href="${joinUrl}" style="display: inline-block; background-color: #7c3aed; color: #ffffff; padding: 18px 40px; border-radius: 10px; text-decoration: none; font-weight: 800; font-size: 18px;">&#128279;&nbsp; Join Mindy Day Live</a>
+      <tr><td style="padding: 30px 32px 8px;">
+        <p style="color: #334155; font-size: 16px; line-height: 1.65; margin: 0 0 16px;">${firstName}, today&rsquo;s the day.</p>
+        <p style="color: #334155; font-size: 16px; line-height: 1.65; margin: 0 0 16px;">We&rsquo;re walking through everything Mindy does, live &mdash; from one keyword to your first proposal. Mindy is the AI BD analyst for federal small business: she reads the solicitation, knows who holds the contract now, finds who&rsquo;s buying, and drafts the response &mdash; every number tied to real government data, not generic AI. Come do the work alongside us, with your own business.</p>
+        <p style="color: #334155; font-size: 16px; line-height: 1.65; margin: 0 0 4px;">Here&rsquo;s your link &mdash; save this email:</p>
+      </td></tr>
+      <tr><td style="padding: 8px 32px 0;">
+        <table width="100%" cellpadding="0" cellspacing="0" style="background-color: #f5f3ff; border: 2px solid #ddd6fe; border-radius: 12px;"><tr><td style="padding: 26px 24px; text-align: center;">
+          <p style="color: #1e293b; font-size: 18px; font-weight: 800; margin: 0 0 4px;">Saturday, June 27</p>
+          <p style="color: #475569; font-size: 14px; margin: 0 0 16px;">10:00 AM &ndash; 1:00 PM ET</p>
+          <a href="${joinUrl}" style="display: inline-block; background-color: #7c3aed; color: #ffffff; padding: 18px 40px; border-radius: 10px; text-decoration: none; font-weight: 800; font-size: 18px;">Join on Zoom</a>
           <p style="color: #64748b; font-size: 13px; margin: 18px 0 0; line-height: 1.6;">Meeting ID: <strong style="color:#0f172a;">892 8050 6481</strong> &nbsp;&middot;&nbsp; Passcode: <strong style="color:#0f172a;">206225</strong></p>
-          <p style="color: #64748b; font-size: 13px; margin: 8px 0 0; line-height: 1.6;">Or paste this into your browser:<br><a href="${joinUrl}" style="color:#7c3aed;text-decoration:none;word-break:break-all;">${joinUrl}</a></p>
+          <p style="color: #64748b; font-size: 13px; margin: 8px 0 0; line-height: 1.6;">Or paste this in your browser:<br><a href="${joinUrl}" style="color:#7c3aed;text-decoration:none;word-break:break-all;">${joinUrl}</a></p>
         </td></tr></table>
       </td></tr>
-      <tr><td style="padding: 32px 32px 0;">
-        <h2 style="color: #0f172a; font-size: 22px; font-weight: 800; margin: 0 0 12px;">No slides to start, ${firstName}.</h2>
-        <p style="color: #475569; font-size: 16px; line-height: 1.65; margin: 0 0 16px;">We open by putting Mindy on screen and pulling a <strong style="color: #0f172a;">real expiring contract with a real dollar figure</strong> &mdash; then generating the play to win it, live. For years we taught this by hand. Now you get to watch the machine do it.</p>
-      </td></tr>
-      <tr><td style="padding: 24px 32px 0;">
-        <h3 style="color: #0f172a; font-size: 18px; font-weight: 800; margin: 0 0 16px;">What you&rsquo;ll see</h3>
+      <tr><td style="padding: 30px 32px 4px;">
+        <h3 style="color: #0f172a; font-size: 17px; font-weight: 800; margin: 0 0 16px;">What we&rsquo;ll work through today</h3>
         <table width="100%" cellpadding="0" cellspacing="0">
-          <tr><td style="padding: 12px 0; border-bottom: 1px solid #e2e8f0;"><table cellpadding="0" cellspacing="0"><tr><td valign="top" style="width: 36px;"><div style="width: 28px; height: 28px; background-color: #7c3aed; border-radius: 50%; color: #ffffff; font-weight: 800; text-align: center; line-height: 28px; font-size: 14px;">1</div></td><td valign="top"><p style="color: #0f172a; font-size: 15px; font-weight: 700; margin: 0;">The live find</p><p style="color: #64748b; font-size: 14px; margin: 4px 0 0; line-height: 1.5;">A real expiring vehicle, the incumbent, and the response &mdash; surfaced on screen in seconds.</p></td></tr></table></td></tr>
-          <tr><td style="padding: 12px 0; border-bottom: 1px solid #e2e8f0;"><table cellpadding="0" cellspacing="0"><tr><td valign="top" style="width: 36px;"><div style="width: 28px; height: 28px; background-color: #7c3aed; border-radius: 50%; color: #ffffff; font-weight: 800; text-align: center; line-height: 28px; font-size: 14px;">2</div></td><td valign="top"><p style="color: #0f172a; font-size: 15px; font-weight: 700; margin: 0;">A contractor who won</p><p style="color: #64748b; font-size: 14px; margin: 4px 0 0; line-height: 1.5;">A real customer, on camera, with the contract they landed &mdash; in their own words.</p></td></tr></table></td></tr>
-          <tr><td style="padding: 12px 0; border-bottom: 1px solid #e2e8f0;"><table cellpadding="0" cellspacing="0"><tr><td valign="top" style="width: 36px;"><div style="width: 28px; height: 28px; background-color: #7c3aed; border-radius: 50%; color: #ffffff; font-weight: 800; text-align: center; line-height: 28px; font-size: 14px;">3</div></td><td valign="top"><p style="color: #0f172a; font-size: 15px; font-weight: 700; margin: 0;">The new capability, live</p><p style="color: #64748b; font-size: 14px; margin: 4px 0 0; line-height: 1.5;">Mindy finds the contracts your NAICS codes miss &mdash; demoed on real data.</p></td></tr></table></td></tr>
-          <tr><td style="padding: 12px 0;"><table cellpadding="0" cellspacing="0"><tr><td valign="top" style="width: 36px;"><div style="width: 28px; height: 28px; background-color: #7c3aed; border-radius: 50%; color: #ffffff; font-weight: 800; text-align: center; line-height: 28px; font-size: 14px;">Q</div></td><td valign="top"><p style="color: #0f172a; font-size: 15px; font-weight: 700; margin: 0;">Live Q&amp;A</p><p style="color: #64748b; font-size: 14px; margin: 4px 0 0; line-height: 1.5;">Bring your toughest market question &mdash; Eric Coffie answers live.</p></td></tr></table></td></tr>
+          <tr><td style="padding: 10px 0; border-bottom: 1px solid #e2e8f0;"><table cellpadding="0" cellspacing="0"><tr><td valign="top" style="width: 34px;"><div style="width: 26px; height: 26px; background-color: #7c3aed; border-radius: 50%; color: #ffffff; font-weight: 800; text-align: center; line-height: 26px; font-size: 13px;">1</div></td><td valign="top"><p style="color: #0f172a; font-size: 15px; font-weight: 700; margin: 0;">Find your federal market</p><p style="color: #64748b; font-size: 14px; margin: 3px 0 0; line-height: 1.5;">One NAICS code misses most of your market &mdash; we find the hidden 72%.</p></td></tr></table></td></tr>
+          <tr><td style="padding: 10px 0; border-bottom: 1px solid #e2e8f0;"><table cellpadding="0" cellspacing="0"><tr><td valign="top" style="width: 34px;"><div style="width: 26px; height: 26px; background-color: #7c3aed; border-radius: 50%; color: #ffffff; font-weight: 800; text-align: center; line-height: 26px; font-size: 13px;">2</div></td><td valign="top"><p style="color: #0f172a; font-size: 15px; font-weight: 700; margin: 0;">Win the recompete</p><p style="color: #64748b; font-size: 14px; margin: 3px 0 0; line-height: 1.5;">Someone already holds the work. See who before you bid.</p></td></tr></table></td></tr>
+          <tr><td style="padding: 10px 0; border-bottom: 1px solid #e2e8f0;"><table cellpadding="0" cellspacing="0"><tr><td valign="top" style="width: 34px;"><div style="width: 26px; height: 26px; background-color: #7c3aed; border-radius: 50%; color: #ffffff; font-weight: 800; text-align: center; line-height: 26px; font-size: 13px;">3</div></td><td valign="top"><p style="color: #0f172a; font-size: 15px; font-weight: 700; margin: 0;">Write the winning proposal</p><p style="color: #64748b; font-size: 14px; margin: 3px 0 0; line-height: 1.5;">ChatGPT doesn&rsquo;t know your company. Mindy reads the whole solicitation.</p></td></tr></table></td></tr>
+          <tr><td style="padding: 10px 0; border-bottom: 1px solid #e2e8f0;"><table cellpadding="0" cellspacing="0"><tr><td valign="top" style="width: 34px;"><div style="width: 26px; height: 26px; background-color: #7c3aed; border-radius: 50%; color: #ffffff; font-weight: 800; text-align: center; line-height: 26px; font-size: 13px;">4</div></td><td valign="top"><p style="color: #0f172a; font-size: 15px; font-weight: 700; margin: 0;">Know who to call</p><p style="color: #64748b; font-size: 14px; margin: 3px 0 0; line-height: 1.5;">Not &ldquo;some contacts&rdquo; &mdash; the full buying office, roles and all.</p></td></tr></table></td></tr>
+          <tr><td style="padding: 10px 0;"><table cellpadding="0" cellspacing="0"><tr><td valign="top" style="width: 34px;"><div style="width: 26px; height: 26px; background-color: #7c3aed; border-radius: 50%; color: #ffffff; font-weight: 800; text-align: center; line-height: 26px; font-size: 13px;">5</div></td><td valign="top"><p style="color: #0f172a; font-size: 15px; font-weight: 700; margin: 0;">Trust the data</p><p style="color: #64748b; font-size: 14px; margin: 3px 0 0; line-height: 1.5;">In GovCon, one made-up number loses the bid. Mindy never guesses.</p></td></tr></table></td></tr>
         </table>
       </td></tr>
-      <tr><td style="padding: 32px;">
-        <table width="100%" cellpadding="0" cellspacing="0"><tr><td align="center">
-          <a href="${joinUrl}" style="display: inline-block; background-color: #7c3aed; color: #ffffff; padding: 16px 32px; border-radius: 10px; text-decoration: none; font-weight: 800; font-size: 16px;">Join Mindy Day Live</a>
-          <p style="color: #94a3b8; font-size: 12px; margin: 14px 0 0;">Can&rsquo;t make the start? Join late &mdash; or reply and we&rsquo;ll send you the recording.</p>
-        </td></tr></table>
+      <tr><td style="padding: 26px 32px 8px;">
+        <p style="color: #334155; font-size: 16px; line-height: 1.65; margin: 0 0 16px;">Come ready to work: have your business in mind and one real keyword from your industry &mdash; we&rsquo;ll run live searches on it. Can&rsquo;t stay the whole time? Join when you can &mdash; you get the full recording and a free Mindy account either way.</p>
+        <p style="color: #334155; font-size: 16px; line-height: 1.65; margin: 0 0 4px;">See you at 10,</p>
+        <p style="color: #0f172a; font-size: 16px; line-height: 1.5; font-weight: 700; margin: 16px 0 0;">Eric Coffie</p>
+        <p style="color: #64748b; font-size: 14px; margin: 2px 0 0;">Founder, GovCon Giants</p>
       </td></tr>
-      <tr><td style="padding: 24px 32px; background-color: #f8fafc; border-top: 1px solid #e2e8f0; text-align: center;">
-        <p style="color: #64748b; font-size: 12px; margin: 0 0 6px;">Hosted by <strong style="color: #1e293b;">GovCon Giants</strong>. Mindy is your 24/7 federal market intelligence analyst.</p>
-        <p style="color: #94a3b8; font-size: 11px; margin: 0;"><a href="https://getmindy.ai" style="color: #7c3aed; text-decoration: none;">getmindy.ai</a></p>
+      <tr><td style="padding: 28px 32px; text-align: center;">
+        <p style="color: #94a3b8; font-size: 11px; margin: 0;"><a href="https://getmindy.ai" style="color: #7c3aed; text-decoration: none;">getmindy.ai</a> &middot; GovCon Giants</p>
       </td></tr>
     </table>
   </td></tr></table>
 </body></html>`;
-  return sendEmail(params.to, `It's Mindy Day — your live join link is inside`, html);
+  return sendEmail(params.to, `${firstName}, the Mindy Launch starts today at 10 AM ET — your link is inside`, html);
 }
 
 /**
