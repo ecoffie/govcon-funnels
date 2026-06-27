@@ -1081,10 +1081,11 @@ export async function sendMindyDayReminderEmail(
       <tr><td style="padding: 32px 32px 0;">
         <table width="100%" cellpadding="0" cellspacing="0" style="background-color: #f5f3ff; border: 2px solid #ddd6fe; border-radius: 12px;"><tr><td style="padding: 28px 24px; text-align: center;">
           <p style="color: #5b21b6; font-size: 12px; font-weight: 700; text-transform: uppercase; letter-spacing: 1.5px; margin: 0 0 8px;">Your Join Link</p>
-          <p style="color: #1e293b; font-size: 20px; font-weight: 800; margin: 0 0 4px;">Today &middot; Friday, June 27</p>
+          <p style="color: #1e293b; font-size: 20px; font-weight: 800; margin: 0 0 4px;">Today &middot; Saturday, June 27 &middot; 10:00 AM EST</p>
           <p style="color: #475569; font-size: 14px; margin: 0 0 20px;">A live demo, then Q&amp;A. Save this email so you can jump straight in.</p>
           <a href="${joinUrl}" style="display: inline-block; background-color: #7c3aed; color: #ffffff; padding: 18px 40px; border-radius: 10px; text-decoration: none; font-weight: 800; font-size: 18px;">&#128279;&nbsp; Join Mindy Day Live</a>
-          <p style="color: #64748b; font-size: 13px; margin: 18px 0 0; line-height: 1.6;">Or paste this into your browser:<br><a href="${joinUrl}" style="color:#7c3aed;text-decoration:none;word-break:break-all;">${joinUrl}</a></p>
+          <p style="color: #64748b; font-size: 13px; margin: 18px 0 0; line-height: 1.6;">Meeting ID: <strong style="color:#0f172a;">892 8050 6481</strong> &nbsp;&middot;&nbsp; Passcode: <strong style="color:#0f172a;">206225</strong></p>
+          <p style="color: #64748b; font-size: 13px; margin: 8px 0 0; line-height: 1.6;">Or paste this into your browser:<br><a href="${joinUrl}" style="color:#7c3aed;text-decoration:none;word-break:break-all;">${joinUrl}</a></p>
         </td></tr></table>
       </td></tr>
       <tr><td style="padding: 32px 32px 0;">
