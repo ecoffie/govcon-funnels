@@ -1,7 +1,35 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { getMindyDayRegistrantsFromSupabase } from '@/lib/supabase-leads';
-import { sendMindyDayReminderEmail } from '@/lib/email';
 import { extractPassword, isAuthorized } from '@/lib/admin-auth';
+
+/**
+ * Send one reminder through getmindy.ai's VERIFIED mail.getmindy.ai sender
+ * (same path as the confirmation), NOT the local alerts@govcongiants.com Resend
+ * path, which is unverified and spam-filtered. Endpoint + secret are derived from
+ * the confirmation handoff env.
+ */
+async function sendViaGetMindy(
+  to: string,
+  name: string,
+  variant: 'reminder' | 'live'
+): Promise<{ ok: boolean; error?: string }> {
+  const sendUrl = process.env.MINDY_LAUNCH_SEND_URL?.replace('send-confirmation', 'send-reminder');
+  const sendSecret = process.env.MINDY_LAUNCH_SEND_SECRET;
+  if (!sendUrl || !sendSecret) {
+    return { ok: false, error: 'MINDY_LAUNCH_SEND_URL / MINDY_LAUNCH_SEND_SECRET not configured' };
+  }
+  try {
+    const resp = await fetch(sendUrl, {
+      method: 'POST',
+      headers: { 'content-type': 'application/json', authorization: `Bearer ${sendSecret}` },
+      body: JSON.stringify({ email: to, name, variant }),
+    });
+    const data = (await resp.json().catch(() => ({}))) as { ok?: boolean; error?: string };
+    return { ok: resp.ok && data.ok !== false, error: data.error };
+  } catch (e) {
+    return { ok: false, error: e instanceof Error ? e.message : 'send failed' };
+  }
+}
 
 export const runtime = 'nodejs';
 export const dynamic = 'force-dynamic';
@@ -34,7 +62,6 @@ export const maxDuration = 300;
  * Resend is throttled lightly to stay friendly with the provider.
  */
 
-const FALLBACK_JOIN_URL = 'https://govcongiants.com/mindy-launch';
 const SEND_DELAY_MS = 250;
 const sleep = (ms: number) => new Promise((r) => setTimeout(r, ms));
 
@@ -48,10 +75,8 @@ export async function GET(request: NextRequest) {
   const dry = searchParams.get('dry') === '1' || (!searchParams.get('send') && !searchParams.get('test'));
   const send = searchParams.get('send') === '1';
   const testEmail = searchParams.get('test')?.trim() || null;
-  const joinOverride = searchParams.get('join')?.trim() || null;
-  // Resolve the link the email will carry: explicit ?join= wins, then env.
-  const joinUrl = joinOverride || process.env.MINDY_DAY_JOIN_URL?.trim() || FALLBACK_JOIN_URL;
-  const usingFallbackLink = joinUrl === FALLBACK_JOIN_URL;
+  // 'live' → ultra-short "we're live" email; default → punchy reminder.
+  const variant: 'reminder' | 'live' = searchParams.get('variant') === 'live' ? 'live' : 'reminder';
 
   const onlyEmails = (searchParams.get('only') || '')
     .split(',')
@@ -59,12 +84,11 @@ export async function GET(request: NextRequest) {
     .filter(Boolean);
 
   try {
-    // TEST MODE — one email to the given address. Allowed on the fallback link
-    // so you can preview the design, but the response flags it.
+    // TEST MODE — one email to the given address, via the verified getmindy.ai sender.
     if (testEmail) {
-      const res = await sendMindyDayReminderEmail({ to: testEmail, name: 'Test Friend', joinUrl });
+      const res = await sendViaGetMindy(testEmail, 'Test Friend', variant);
       return NextResponse.json(
-        { mode: 'test', to: testEmail, joinUrl, usingFallbackLink, result: res },
+        { mode: 'test', to: testEmail, variant, sender: 'getmindy.ai (verified)', result: res },
         { headers: { 'Cache-Control': 'no-store' } }
       );
     }
@@ -80,34 +104,20 @@ export async function GET(request: NextRequest) {
         {
           mode: 'dry',
           source: 'supabase:funnel_leads(source=mindy-launch)',
+          sender: 'getmindy.ai (verified mail.getmindy.ai)',
+          variant,
           recipientCount: recipients.length,
-          joinUrl,
-          usingFallbackLink,
           sampleRecipients: recipients.slice(0, 5).map((r) => ({ name: r.name, email: r.to })),
-          note: usingFallbackLink
-            ? 'No real join link set. Pass ?join=<live url> (or set MINDY_DAY_JOIN_URL). A real send is BLOCKED on the fallback link.'
-            : 'Add ?send=1 (keep &join=) to blast. Optional: &only=a@x.com,b@y.com to restrict.',
+          note: 'Add ?send=1 to blast. Optional: &variant=live, &only=a@x.com,b@y.com.',
         },
         { headers: { 'Cache-Control': 'no-store' } }
       );
     }
 
-    // SAFETY GATE — never blast the bare registration page as the "link".
-    if (usingFallbackLink) {
-      return NextResponse.json(
-        {
-          error: 'Refusing to send: no real join link provided.',
-          fix: 'Pass ?join=<live Zoom/StreamYard/YouTube url> or set MINDY_DAY_JOIN_URL.',
-          recipientCount: recipients.length,
-        },
-        { status: 400, headers: { 'Cache-Control': 'no-store' } }
-      );
-    }
-
-    // REAL SEND
+    // REAL SEND — through the verified getmindy.ai sender.
     const results: { email: string; ok: boolean; error?: string }[] = [];
     for (const r of recipients) {
-      const res = await sendMindyDayReminderEmail({ ...r, joinUrl });
+      const res = await sendViaGetMindy(r.to, r.name, variant);
       results.push({ email: r.to, ok: res.ok, error: res.error });
       await sleep(SEND_DELAY_MS);
     }
@@ -116,7 +126,8 @@ export async function GET(request: NextRequest) {
     return NextResponse.json(
       {
         mode: 'send',
-        joinUrl,
+        sender: 'getmindy.ai (verified)',
+        variant,
         sent: ok,
         failed: results.length - ok,
         total: results.length,
