@@ -1,7 +1,6 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { Redis } from '@upstash/redis';
 import { getMindyDayRegistrantsFromSupabase } from '@/lib/supabase-leads';
-import { sendMindyDayReminderEmail } from '@/lib/email';
 import { extractPassword, isAuthorized } from '@/lib/admin-auth';
 
 /**
@@ -121,10 +120,33 @@ export async function GET(req: NextRequest) {
     // 'live' fires the ultra-short "we're live now" email; the rest send the
     // punchy reminder with the agenda line.
     const variant = type === 'live' ? 'live' : 'reminder';
+
+    // Send through getmindy.ai's VERIFIED mail.getmindy.ai sender (same as the
+    // confirmation email) — NOT the local alerts@govcongiants.com path, which is
+    // unverified in Resend and gets spam-filtered. Derive the reminder endpoint
+    // from the confirmation handoff URL; reuse the same shared secret.
+    const sendUrl = process.env.MINDY_LAUNCH_SEND_URL?.replace('send-confirmation', 'send-reminder');
+    const sendSecret = process.env.MINDY_LAUNCH_SEND_SECRET;
+    if (!sendUrl || !sendSecret) {
+      return NextResponse.json(
+        { error: 'MINDY_LAUNCH_SEND_URL / MINDY_LAUNCH_SEND_SECRET not configured — cannot send via getmindy.ai.' },
+        { status: 500, headers: { 'Cache-Control': 'no-store' } }
+      );
+    }
+
     const results: { email: string; ok: boolean; error?: string }[] = [];
     for (const r of recipients) {
-      const res = await sendMindyDayReminderEmail({ ...r, joinUrl, variant });
-      results.push({ email: r.to, ok: res.ok, error: res.error });
+      try {
+        const resp = await fetch(sendUrl, {
+          method: 'POST',
+          headers: { 'content-type': 'application/json', authorization: `Bearer ${sendSecret}` },
+          body: JSON.stringify({ email: r.to, name: r.name, variant }),
+        });
+        const data = (await resp.json().catch(() => ({}))) as { ok?: boolean; error?: string };
+        results.push({ email: r.to, ok: resp.ok && data.ok !== false, error: data.error });
+      } catch (e) {
+        results.push({ email: r.to, ok: false, error: e instanceof Error ? e.message : 'send failed' });
+      }
       await sleep(SEND_DELAY_MS);
     }
 
