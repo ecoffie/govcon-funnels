@@ -118,9 +118,12 @@ export async function GET(req: NextRequest) {
       }
     }
 
+    // 'live' fires the ultra-short "we're live now" email; the rest send the
+    // punchy reminder with the agenda line.
+    const variant = type === 'live' ? 'live' : 'reminder';
     const results: { email: string; ok: boolean; error?: string }[] = [];
     for (const r of recipients) {
-      const res = await sendMindyDayReminderEmail({ ...r, joinUrl });
+      const res = await sendMindyDayReminderEmail({ ...r, joinUrl, variant });
       results.push({ email: r.to, ok: res.ok, error: res.error });
       await sleep(SEND_DELAY_MS);
     }
