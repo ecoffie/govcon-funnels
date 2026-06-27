@@ -397,6 +397,14 @@
     {
       "path": "/api/cron/hubzone-reminders?type=recording",
       "schedule": "0 14 18 6 *"
+    },
+    {
+      "path": "/api/cron/mindy-day-reminders?type=morning",
+      "schedule": "30 11 27 6 *"
+    },
+    {
+      "path": "/api/cron/mindy-day-reminders?type=live",
+      "schedule": "55 13 27 6 *"
     }
   ]
 }
