@@ -60,7 +60,20 @@ function authorized(req: NextRequest): boolean {
   return isAuthorized(extractPassword(req));
 }
 
-const VALID_TYPES = ['heads-up', 'morning', 'live'] as const;
+const VALID_TYPES = [
+  // pre-event reminders (carry the Zoom link, no pricing)
+  'heads-up', 'morning', 'live',
+  // POST-event Founders Lifetime offer sequence (pricing; no Zoom link)
+  'lifetime-deal', 'lifetime-lastcall', 'lifetime-extension', 'lifetime-finalclose',
+] as const;
+
+// Map a lifetime cron type → the offer-email phase the getmindy.ai endpoint expects.
+const LIFETIME_PHASE: Record<string, 'deal' | 'lastcall' | 'extension' | 'finalclose'> = {
+  'lifetime-deal': 'deal',
+  'lifetime-lastcall': 'lastcall',
+  'lifetime-extension': 'extension',
+  'lifetime-finalclose': 'finalclose',
+};
 
 export async function GET(req: NextRequest) {
   if (!authorized(req)) {
@@ -80,6 +93,8 @@ export async function GET(req: NextRequest) {
     );
   }
 
+  const lifetimePhase = LIFETIME_PHASE[type];
+  const isLifetime = !!lifetimePhase;
   const joinUrl = joinOverride || process.env.MINDY_DAY_JOIN_URL?.trim() || FALLBACK_JOIN_URL;
   const usingFallbackLink = joinUrl === FALLBACK_JOIN_URL;
 
@@ -89,13 +104,14 @@ export async function GET(req: NextRequest) {
 
     if (dry) {
       return NextResponse.json(
-        { mode: 'dry', type, count: recipients.length, joinUrl, usingFallbackLink },
+        { mode: 'dry', type, count: recipients.length, ...(isLifetime ? { phase: lifetimePhase } : { joinUrl, usingFallbackLink }) },
         { headers: { 'Cache-Control': 'no-store' } }
       );
     }
 
-    // SAFETY GATE — never blast the bare registration page as the "link".
-    if (usingFallbackLink) {
+    // SAFETY GATE — pre-event reminders must carry a real Zoom link, never the
+    // bare registration page. Lifetime offer emails carry no join link, so skip it.
+    if (!isLifetime && usingFallbackLink) {
       return NextResponse.json(
         {
           error: 'Refusing to send: no real join link. Set MINDY_DAY_JOIN_URL env (or pass ?join=).',
@@ -117,9 +133,11 @@ export async function GET(req: NextRequest) {
       }
     }
 
-    // 'live' fires the ultra-short "we're live now" email; the rest send the
-    // punchy reminder with the agenda line.
-    const variant = type === 'live' ? 'live' : 'reminder';
+    // Map the cron type to the send payload: lifetime-* → the offer email at the
+    // right phase; 'live' → ultra-short "we're live"; everything else → reminder.
+    const payloadBase = isLifetime
+      ? { variant: 'lifetime' as const, phase: lifetimePhase }
+      : { variant: (type === 'live' ? 'live' : 'reminder') as 'live' | 'reminder' };
 
     // Send through getmindy.ai's VERIFIED mail.getmindy.ai sender (same as the
     // confirmation email) — NOT the local alerts@govcongiants.com path, which is
@@ -140,7 +158,7 @@ export async function GET(req: NextRequest) {
         const resp = await fetch(sendUrl, {
           method: 'POST',
           headers: { 'content-type': 'application/json', authorization: `Bearer ${sendSecret}` },
-          body: JSON.stringify({ email: r.to, name: r.name, variant }),
+          body: JSON.stringify({ email: r.to, name: r.name, ...payloadBase }),
         });
         const data = (await resp.json().catch(() => ({}))) as { ok?: boolean; error?: string };
         results.push({ email: r.to, ok: resp.ok && data.ok !== false, error: data.error });

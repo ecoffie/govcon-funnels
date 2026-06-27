@@ -405,6 +405,22 @@
     {
       "path": "/api/cron/mindy-day-reminders?type=live",
       "schedule": "55 13 27 6 *"
+    },
+    {
+      "path": "/api/cron/mindy-day-reminders?type=lifetime-deal",
+      "schedule": "30 17 27 6 *"
+    },
+    {
+      "path": "/api/cron/mindy-day-reminders?type=lifetime-lastcall",
+      "schedule": "0 0 28 6 *"
+    },
+    {
+      "path": "/api/cron/mindy-day-reminders?type=lifetime-extension",
+      "schedule": "0 14 29 6 *"
+    },
+    {
+      "path": "/api/cron/mindy-day-reminders?type=lifetime-finalclose",
+      "schedule": "0 0 30 6 *"
     }
   ]
 }
