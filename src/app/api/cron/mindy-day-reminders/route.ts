@@ -122,6 +122,26 @@ export async function GET(req: NextRequest) {
       );
     }
 
+    if (recipients.length === 0) {
+      return NextResponse.json(
+        { error: 'No Mindy Day registrants found; refusing to claim this send.', type },
+        { status: 500, headers: { 'Cache-Control': 'no-store' } }
+      );
+    }
+
+    // Send through getmindy.ai's VERIFIED mail.getmindy.ai sender (same as the
+    // confirmation email) — NOT the local alerts@govcongiants.com path, which is
+    // unverified in Resend and gets spam-filtered. Derive the reminder endpoint
+    // from the confirmation handoff URL; reuse the same shared secret.
+    const sendUrl = process.env.MINDY_LAUNCH_SEND_URL?.replace('send-confirmation', 'send-reminder');
+    const sendSecret = process.env.MINDY_LAUNCH_SEND_SECRET;
+    if (!sendUrl || !sendSecret) {
+      return NextResponse.json(
+        { error: 'MINDY_LAUNCH_SEND_URL / MINDY_LAUNCH_SEND_SECRET not configured — cannot send via getmindy.ai.' },
+        { status: 500, headers: { 'Cache-Control': 'no-store' } }
+      );
+    }
+
     // Idempotency: cron + manual backup can both call this; only the first wins.
     if (!force) {
       const claimed = await claimSend(type);
@@ -138,19 +158,6 @@ export async function GET(req: NextRequest) {
     const payloadBase = isLifetime
       ? { variant: 'lifetime' as const, phase: lifetimePhase }
       : { variant: (type === 'live' ? 'live' : 'reminder') as 'live' | 'reminder' };
-
-    // Send through getmindy.ai's VERIFIED mail.getmindy.ai sender (same as the
-    // confirmation email) — NOT the local alerts@govcongiants.com path, which is
-    // unverified in Resend and gets spam-filtered. Derive the reminder endpoint
-    // from the confirmation handoff URL; reuse the same shared secret.
-    const sendUrl = process.env.MINDY_LAUNCH_SEND_URL?.replace('send-confirmation', 'send-reminder');
-    const sendSecret = process.env.MINDY_LAUNCH_SEND_SECRET;
-    if (!sendUrl || !sendSecret) {
-      return NextResponse.json(
-        { error: 'MINDY_LAUNCH_SEND_URL / MINDY_LAUNCH_SEND_SECRET not configured — cannot send via getmindy.ai.' },
-        { status: 500, headers: { 'Cache-Control': 'no-store' } }
-      );
-    }
 
     const results: { email: string; ok: boolean; error?: string }[] = [];
     for (const r of recipients) {
