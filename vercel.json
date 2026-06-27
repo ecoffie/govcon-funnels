@@ -387,39 +387,23 @@
       "schedule": "0 13 * * 1"
     },
     {
-      "path": "/api/cron/hubzone-reminders?type=one-hour",
-      "schedule": "0 21 17 6 *"
-    },
-    {
-      "path": "/api/cron/hubzone-reminders?type=live",
-      "schedule": "55 21 17 6 *"
-    },
-    {
-      "path": "/api/cron/hubzone-reminders?type=recording",
-      "schedule": "0 14 18 6 *"
-    },
-    {
-      "path": "/api/cron/mindy-day-reminders?type=morning",
-      "schedule": "30 11 27 6 *"
-    },
-    {
-      "path": "/api/cron/mindy-day-reminders?type=live",
+      "path": "/api/cron/mindy-day-reminders/live",
       "schedule": "55 13 27 6 *"
     },
     {
-      "path": "/api/cron/mindy-day-reminders?type=lifetime-deal",
+      "path": "/api/cron/mindy-day-reminders/lifetime-deal",
       "schedule": "30 17 27 6 *"
     },
     {
-      "path": "/api/cron/mindy-day-reminders?type=lifetime-lastcall",
+      "path": "/api/cron/mindy-day-reminders/lifetime-lastcall",
       "schedule": "0 0 28 6 *"
     },
     {
-      "path": "/api/cron/mindy-day-reminders?type=lifetime-extension",
+      "path": "/api/cron/mindy-day-reminders/lifetime-extension",
       "schedule": "0 14 29 6 *"
     },
     {
-      "path": "/api/cron/mindy-day-reminders?type=lifetime-finalclose",
+      "path": "/api/cron/mindy-day-reminders/lifetime-finalclose",
       "schedule": "0 0 30 6 *"
     }
   ]

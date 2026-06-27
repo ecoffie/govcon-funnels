@@ -75,13 +75,16 @@ const LIFETIME_PHASE: Record<string, 'deal' | 'lastcall' | 'extension' | 'finalc
   'lifetime-finalclose': 'finalclose',
 };
 
-export async function GET(req: NextRequest) {
+export async function GET(req: NextRequest, ctx: { params: Promise<{ type: string }> }) {
   if (!authorized(req)) {
     return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
   }
 
   const { searchParams } = new URL(req.url);
-  const type = (searchParams.get('type') || 'morning') as (typeof VALID_TYPES)[number];
+  // Type comes from the PATH segment (Vercel crons can't pass ?query=). A
+  // ?type= override is still honored for manual/admin calls.
+  const { type: typeParam } = await ctx.params;
+  const type = (searchParams.get('type') || typeParam || 'morning') as (typeof VALID_TYPES)[number];
   const dry = searchParams.get('dry') === '1';
   const force = searchParams.get('force') === '1'; // bypass the idempotency guard
   const joinOverride = searchParams.get('join')?.trim() || null;
