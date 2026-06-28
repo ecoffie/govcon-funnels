@@ -25,6 +25,7 @@ export interface GuideData {
     label: string; // small kicker above the button, e.g. "Need to look one up right now?"
     buttonText: string;
     buttonHref: string;
+    external?: boolean; // open in a new tab (set for off-site destinations like the SBA map)
   };
   sections: GuideSection[];
   faqs: GuideFaq[];

@@ -20,6 +20,12 @@ export const guide: GuideData = {
   ],
   heroSubtitle:
     'The HUBZone program carries a 3% federal contracting goal and gives certified firms a powerful 10% price evaluation preference — a unique geographic advantage that most competitors cannot match.',
+  heroCta: {
+    label: 'Want to check if a specific address qualifies right now?',
+    buttonText: 'Check the Official HUBZone Map',
+    buttonHref: 'https://maps.certify.sba.gov/hubzone/map',
+    external: true,
+  },
   sections: [
     {
       heading: 'What Is the HUBZone Program?',
@@ -166,6 +172,16 @@ export const guide: GuideData = {
       question: 'How do I know if my business is in a HUBZone?',
       answer:
         'Use the SBA\'s official HUBZone map at maps.certify.sba.gov/hubzone/map. Enter your principal office address and your employees\' residential addresses to check whether they fall within designated HUBZone areas. The map is the authoritative source — ZIP codes and city names alone are not sufficient, as HUBZone boundaries can split a single street. Check the map before applying and monitor it regularly, as designations change over time.',
+    },
+    {
+      question: 'What does "qualification valid as of" mean on the HUBZone map?',
+      answer:
+        'When you look up an address on the SBA HUBZone map, a qualifying location shows a "qualification valid as of" date — this is the date the SBA last confirmed that the address falls inside a designated HUBZone. It is essentially a timestamp on the map data, not an expiration of your eligibility. Because HUBZone boundaries are updated periodically, you should re-check the map before applying and again before any recertification, since an address that is valid today can change when designations are refreshed. Save or screenshot the map result with its "valid as of" date as part of your application documentation.',
+    },
+    {
+      question: 'Why does the HUBZone map say my address is "not qualified"?',
+      answer:
+        'A "not qualified" result means the exact address you entered does not currently fall within a designated HUBZone — typically because it sits in a census tract or county that does not meet the program\'s economic-distress thresholds, or because the area was redesignated and its boundary moved. HUBZone lines can split a single street, so try the precise street address rather than just the ZIP code or city. If your principal office is not qualified, you generally cannot certify from that location; many firms relocate their principal office (or open a qualifying office) in a nearby designated HUBZone to become eligible. Use the map to scout qualifying addresses before signing a lease.',
     },
     {
       question: 'What happens if my area loses its HUBZone designation?',

@@ -85,6 +85,9 @@ export default async function GuidePage({ params }: Props) {
               <p className="text-sm text-slate-500 mb-3">{guide.heroCta.label}</p>
               <Link
                 href={guide.heroCta.buttonHref}
+                {...(guide.heroCta.external
+                  ? { target: '_blank', rel: 'noopener' }
+                  : {})}
                 className="inline-flex items-center gap-2 bg-green-500 hover:bg-green-400 text-slate-950 font-bold text-lg px-7 py-3.5 rounded-xl transition-colors shadow-lg shadow-green-500/20 group"
               >
                 {guide.heroCta.buttonText}
