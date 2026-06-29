@@ -117,7 +117,7 @@ export const guide: GuideData = {
           <li>May signal financial distress to customer</li>
         </ul>
         <p><strong>Government invoice factoring specialists:</strong></p>
-        <p>Several companies specialize in factoring government contracts, understanding the unique requirements and payment processes.</p>
+        <p>Several companies specialize in factoring government contracts, understanding the unique requirements and payment processes. Our financing partner <a href="https://encoregov.com/government-contractor-financing" rel="noopener">Encore Funding</a> advances up to 90% of your federal invoice value, with programs for <a href="https://encoregov.com/financing/mobilization-funding" rel="noopener">mobilization funding</a> and <a href="https://encoregov.com/financing/purchase-order-financing" rel="noopener">purchase order financing</a>.</p>
       `,
     },
     {
@@ -157,6 +157,7 @@ export const guide: GuideData = {
           <li>Adequate accounting systems</li>
           <li>Personal guarantees (for small businesses)</li>
         </ul>
+        <p>Weighing your options? See how invoice financing stacks up against a <a href="https://encoregov.com/govcon-financing-vs-bank-loan" rel="noopener">bank loan</a> or a <a href="https://encoregov.com/govcon-financing-vs-line-of-credit" rel="noopener">line of credit</a> for government contractors.</p>
       `,
     },
     {
@@ -197,6 +198,7 @@ export const guide: GuideData = {
           <li>Smaller, newer businesses</li>
           <li>Through intermediary lenders</li>
         </ul>
+        <p>SBA loans are slow and credit-driven — see <a href="https://encoregov.com/govcon-financing-vs-sba-loan" rel="noopener">invoice financing vs. an SBA loan</a> for when each makes sense.</p>
       `,
     },
     {

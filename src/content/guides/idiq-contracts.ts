@@ -153,6 +153,7 @@ export const guide: GuideData = {
         </ul>
         <p><strong>Portfolio management:</strong></p>
         <p>Multiple task orders require careful resource management. Staff appropriately, don't over-commit, and maintain quality across all orders — CPARS follow you.</p>
+        <p>Task-order timing is lumpy, but payroll isn't. <a href="https://encoregov.com/financing/idiq" rel="noopener">IDIQ contract financing</a> advances your task-order invoices so a ramp-up never outruns your cash.</p>
       `,
     },
     {
