@@ -10,7 +10,7 @@ jobs:
   seo-check:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v5
 
       - name: Wait for Vercel deployment
         if: github.event_name == 'push'

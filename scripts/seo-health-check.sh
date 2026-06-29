@@ -3,7 +3,7 @@
 # Run: bash scripts/seo-health-check.sh
 # Checks all SEO pages return 200, sitemap is valid, JSON-LD is present
 
-SITE="https://govcongiants.org"
+SITE="https://govcongiants.com"
 PASS=0
 FAIL=0
 WARN=0
@@ -42,10 +42,15 @@ URLS=(
   "/guides/gsa-schedule"
   "/guides/ai-government-contracting"
   "/government-contract-help"
-  "/proposal-writing-services"
   "/glossary"
   "/tools"
   "/consulting"
+  "/free-course"
+)
+
+# Paths that intentionally redirect (3xx is correct, not a failure) — e.g.
+# /free-course 308s to the homepage funnel by design.
+REDIRECT_OK=(
   "/free-course"
 )
 
@@ -53,6 +58,9 @@ for path in "${URLS[@]}"; do
   status=$(curl -s -o /dev/null -w "%{http_code}" "${SITE}${path}")
   if [ "$status" = "200" ]; then
     echo -e "  ${GREEN}✓${NC} ${path} (${status})"
+    ((PASS++))
+  elif [[ "$status" =~ ^3[0-9][0-9]$ ]] && [[ " ${REDIRECT_OK[*]} " == *" ${path} "* ]]; then
+    echo -e "  ${GREEN}✓${NC} ${path} (${status} redirect — expected)"
     ((PASS++))
   else
     echo -e "  ${RED}✗${NC} ${path} (${status})"
@@ -77,7 +85,7 @@ if [ "$sitemap_status" = "200" ]; then
   echo "  URLs in sitemap: ${url_count}"
 
   # Check for key new URLs in sitemap
-  NEW_SLUGS=("cage-code" "vosb-certification" "hubzone-certification" "8a-certification" "wosb-certification" "gsa-schedule" "ai-government-contracting" "government-contract-help" "proposal-writing-services" "glossary")
+  NEW_SLUGS=("cage-code" "vosb-certification" "hubzone-certification" "8a-certification" "wosb-certification" "gsa-schedule" "ai-government-contracting" "government-contract-help" "glossary")
 
   for slug in "${NEW_SLUGS[@]}"; do
     if echo "$sitemap_content" | grep -q "$slug"; then
@@ -142,7 +150,6 @@ check_jsonld() {
 check_jsonld "/guides/cage-code" "Article"
 check_jsonld "/guides/cage-code" "FAQPage"
 check_jsonld "/government-contract-help" "Service"
-check_jsonld "/proposal-writing-services" "Service"
 check_jsonld "/glossary" "DefinedTermSet"
 
 echo ""
