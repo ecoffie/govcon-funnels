@@ -61,7 +61,14 @@ async function getWeekendMindyBuyerEmails(
   const out = new Set<string>();
   for (const p of purchases) {
     if ((p.site || '').toLowerCase() !== 'mindy') continue;
-    const ts = typeof p.raw_created === 'number' ? p.raw_created : Date.parse(p.created_at);
+    // created_at is a clean ISO string (ms). raw_created is Stripe epoch SECONDS,
+    // so it must NOT be compared against millisecond bounds — prefer created_at,
+    // and normalize raw_created (×1000) only as a fallback.
+    const ts = p.created_at
+      ? Date.parse(p.created_at)
+      : typeof p.raw_created === 'number'
+        ? (p.raw_created < 1e12 ? p.raw_created * 1000 : p.raw_created)
+        : NaN;
     if (!Number.isFinite(ts) || ts < since || ts > until) continue;
     const email = (p.customer_email || '').trim().toLowerCase();
     if (email) out.add(email);
