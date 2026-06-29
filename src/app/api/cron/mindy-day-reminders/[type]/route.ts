@@ -53,6 +53,18 @@ async function claimSend(type: string): Promise<boolean> {
   }
 }
 
+async function releaseSendClaim(type: string): Promise<void> {
+  const url = process.env.KV_REST_API_URL;
+  const token = process.env.KV_REST_API_TOKEN;
+  if (!url || !token) return;
+  try {
+    const redis = new Redis({ url, token });
+    await redis.del(`mindy-day:reminder-sent:${type}`);
+  } catch {
+    // Best effort: the response still reports failure so the operator can force.
+  }
+}
+
 function authorized(req: NextRequest): boolean {
   const auth = req.headers.get('authorization');
   const cronSecret = process.env.CRON_SECRET;
@@ -125,6 +137,27 @@ export async function GET(req: NextRequest, ctx: { params: Promise<{ type: strin
       );
     }
 
+    if (recipients.length === 0) {
+      return NextResponse.json(
+        {
+          error: 'Refusing to mark reminder sent: no Mindy Day recipients were loaded.',
+          type,
+        },
+        { status: 500, headers: { 'Cache-Control': 'no-store' } }
+      );
+    }
+
+    // Validate the verified sender handoff before claiming idempotency. A missing
+    // env var should be retryable, not mark the whole blast as already sent.
+    const sendUrl = process.env.MINDY_LAUNCH_SEND_URL?.replace('send-confirmation', 'send-reminder');
+    const sendSecret = process.env.MINDY_LAUNCH_SEND_SECRET;
+    if (!sendUrl || !sendSecret) {
+      return NextResponse.json(
+        { error: 'MINDY_LAUNCH_SEND_URL / MINDY_LAUNCH_SEND_SECRET not configured — cannot send via getmindy.ai.' },
+        { status: 500, headers: { 'Cache-Control': 'no-store' } }
+      );
+    }
+
     // Idempotency: cron + manual backup can both call this; only the first wins.
     if (!force) {
       const claimed = await claimSend(type);
@@ -146,15 +179,6 @@ export async function GET(req: NextRequest, ctx: { params: Promise<{ type: strin
     // confirmation email) — NOT the local alerts@govcongiants.com path, which is
     // unverified in Resend and gets spam-filtered. Derive the reminder endpoint
     // from the confirmation handoff URL; reuse the same shared secret.
-    const sendUrl = process.env.MINDY_LAUNCH_SEND_URL?.replace('send-confirmation', 'send-reminder');
-    const sendSecret = process.env.MINDY_LAUNCH_SEND_SECRET;
-    if (!sendUrl || !sendSecret) {
-      return NextResponse.json(
-        { error: 'MINDY_LAUNCH_SEND_URL / MINDY_LAUNCH_SEND_SECRET not configured — cannot send via getmindy.ai.' },
-        { status: 500, headers: { 'Cache-Control': 'no-store' } }
-      );
-    }
-
     const results: { email: string; ok: boolean; error?: string }[] = [];
     for (const r of recipients) {
       try {
@@ -172,17 +196,21 @@ export async function GET(req: NextRequest, ctx: { params: Promise<{ type: strin
     }
 
     const sent = results.filter((r) => r.ok).length;
+    const failed = results.length - sent;
+    if (failed > 0 && !force) {
+      await releaseSendClaim(type);
+    }
     return NextResponse.json(
       {
         mode: 'send',
         type,
         joinUrl,
         sent,
-        failed: results.length - sent,
+        failed,
         total: results.length,
         failures: results.filter((r) => !r.ok),
       },
-      { headers: { 'Cache-Control': 'no-store' } }
+      { status: failed > 0 ? 500 : 200, headers: { 'Cache-Control': 'no-store' } }
     );
   } catch (err) {
     const message = err instanceof Error ? err.message : 'Failed to send Mindy Day reminders';
