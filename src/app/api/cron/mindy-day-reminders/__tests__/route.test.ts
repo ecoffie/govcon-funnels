@@ -19,10 +19,12 @@ vi.mock('@/lib/admin-auth', () => ({
 }));
 
 vi.mock('@upstash/redis', () => ({
-  Redis: vi.fn().mockImplementation(() => ({
+  Redis: vi.fn().mockImplementation(function RedisMock() {
+    return {
     set: mocks.redisSet,
     del: mocks.redisDel,
-  })),
+    };
+  }),
 }));
 
 import { GET } from '../[type]/route';
