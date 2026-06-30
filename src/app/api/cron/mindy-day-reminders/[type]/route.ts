@@ -104,6 +104,8 @@ export async function GET(req: NextRequest, ctx: { params: Promise<{ type: strin
   try {
     const baseList = await getMindyDayRegistrantsFromSupabase();
     const recipients = baseList.map((r) => ({ to: r.email, name: r.name }));
+    const sendUrl = process.env.MINDY_LAUNCH_SEND_URL?.replace('send-confirmation', 'send-reminder');
+    const sendSecret = process.env.MINDY_LAUNCH_SEND_SECRET;
 
     if (dry) {
       return NextResponse.json(
@@ -122,6 +124,22 @@ export async function GET(req: NextRequest, ctx: { params: Promise<{ type: strin
           recipientCount: recipients.length,
         },
         { status: 400, headers: { 'Cache-Control': 'no-store' } }
+      );
+    }
+
+    // Refuse to claim idempotency until the downstream sender and recipient list
+    // are ready. A failed preflight should be retriable without &force=1.
+    if (recipients.length === 0) {
+      return NextResponse.json(
+        { error: 'Refusing to send: no Mindy Day recipients found.', type },
+        { status: 500, headers: { 'Cache-Control': 'no-store' } }
+      );
+    }
+
+    if (!sendUrl || !sendSecret) {
+      return NextResponse.json(
+        { error: 'MINDY_LAUNCH_SEND_URL / MINDY_LAUNCH_SEND_SECRET not configured — cannot send via getmindy.ai.' },
+        { status: 500, headers: { 'Cache-Control': 'no-store' } }
       );
     }
 
@@ -146,15 +164,6 @@ export async function GET(req: NextRequest, ctx: { params: Promise<{ type: strin
     // confirmation email) — NOT the local alerts@govcongiants.com path, which is
     // unverified in Resend and gets spam-filtered. Derive the reminder endpoint
     // from the confirmation handoff URL; reuse the same shared secret.
-    const sendUrl = process.env.MINDY_LAUNCH_SEND_URL?.replace('send-confirmation', 'send-reminder');
-    const sendSecret = process.env.MINDY_LAUNCH_SEND_SECRET;
-    if (!sendUrl || !sendSecret) {
-      return NextResponse.json(
-        { error: 'MINDY_LAUNCH_SEND_URL / MINDY_LAUNCH_SEND_SECRET not configured — cannot send via getmindy.ai.' },
-        { status: 500, headers: { 'Cache-Control': 'no-store' } }
-      );
-    }
-
     const results: { email: string; ok: boolean; error?: string }[] = [];
     for (const r of recipients) {
       try {
