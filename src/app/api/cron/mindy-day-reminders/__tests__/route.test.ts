@@ -20,10 +20,12 @@ const redisMocks = vi.hoisted(() => {
 });
 
 vi.mock('@upstash/redis', () => ({
-  Redis: vi.fn().mockImplementation(() => ({
+  Redis: vi.fn().mockImplementation(function RedisMock() {
+    return {
     set: redisMocks.set,
     del: redisMocks.del,
-  })),
+    };
+  }),
 }));
 
 vi.mock('@/lib/supabase-leads', () => ({
