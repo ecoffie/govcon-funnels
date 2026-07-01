@@ -7,24 +7,31 @@ export default function DashboardHomePage() {
         <h2 className="mb-3 text-2xl font-bold text-white">Top priority</h2>
         <div className="rounded-xl border border-slate-700 bg-slate-900/70 p-6">
           <h3 className="mb-2 text-xl font-semibold text-green-400">
-            February 28 Proposal Bootcamp
+            HUBZone Webinar
           </h3>
           <p className="mb-3 text-slate-300">
-            Feb 28 Specifics and Proposals bootcamp. Free proposal resources and
-            live 8-hour training.
+            Current active funnel: free live HUBZone webinar with registration
+            tracking, scarcity banner (first 100 get Zoom access), and follow-up.
           </p>
-          <a
-            href="https://govcongiants.com/proposal-bootcamp"
-            target="_blank"
-            rel="noopener"
-            className="inline-block rounded-md bg-green-600 px-4 py-2 font-semibold text-white hover:bg-green-500"
-          >
-            Open funnel →
-          </a>
+          <div className="flex flex-wrap gap-2">
+            <a
+              href="https://govcongiants.com/hubzone"
+              target="_blank"
+              rel="noopener"
+              className="inline-block rounded-md bg-green-600 px-4 py-2 font-semibold text-white hover:bg-green-500"
+            >
+              Open funnel →
+            </a>
+            <a
+              href="/hubzone/registrations"
+              className="inline-block rounded-md bg-slate-700 px-4 py-2 font-semibold text-white hover:bg-slate-600"
+            >
+              Registration command center →
+            </a>
+          </div>
           <p className="mt-3 text-sm text-slate-400">
-            Active funnel: Free proposal resources (IDIQ templates, Sources
-            Sought template, task order checklist) → Live 8-hour bootcamp Feb 28
-            → Upsell/Downsell offers. All leads: GHL + Slack notifications enabled.
+            Also running: Mindy re-ignite email drip (automated daily cron to
+            ~4,300 profile-incomplete alumni). All leads: GHL + Slack enabled.
           </p>
         </div>
       </section>

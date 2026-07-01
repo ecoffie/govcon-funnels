@@ -45,23 +45,19 @@ export interface SharedHomepagePremiumLevel {
   cards: SharedHomepagePremiumCard[];
 }
 
+// Active funnels = only routes that are actually live (not redirected to /).
+// The bootcamp/free-course/training funnels were retired and now 301 to /
+// (see vercel.json) — they were removed from this list 2026-07-01.
 const activeFunnels: SharedLinkItem[] = [
   { label: 'Homepage', url: 'https://govcongiants.com/' },
+  { label: 'HUBZone Webinar (hubzone)', url: 'https://govcongiants.com/hubzone' },
   { label: 'Free Resources Library', url: 'https://govcongiants.com/resources' },
-  { label: 'Training Hub', url: 'https://govcongiants.com/training' },
-  { label: 'January Bootcamp (bootcamp)', url: 'https://govcongiants.com/bootcamp' },
-  { label: 'Surge Bootcamp (surge)', url: 'https://govcongiants.com/surge' },
-  { label: 'Feb 28 Proposal Bootcamp (proposal-bootcamp)', url: 'https://govcongiants.com/proposal-bootcamp' },
-  { label: 'Free 12-Day Course (free-course)', url: 'https://govcongiants.com/free-course' },
-  { label: 'Mindy Tool (mi-free)', url: 'https://govcongiants.com/mi-free' },
   { label: 'Resource Handouts (handouts)', url: 'https://govcongiants.com/resources/handouts' },
-  {
-    label: 'Contract Vehicles Bootcamp (contract-vehicles-bootcamp)',
-    url: 'https://govcongiants.com/contract-vehicles-bootcamp',
-  },
-  { label: 'Feb 28 Bootcamp Alt (feb28-bootcamp)', url: 'https://govcongiants.com/feb-28-bootcamp' },
+  { label: 'Mindy Tool (mi-free)', url: 'https://govcongiants.com/mi-free' },
+  { label: 'Opportunity Hunter (opp)', url: 'https://govcongiants.com/opp' },
+  { label: 'Contractor Financing (funding)', url: 'https://govcongiants.com/funding' },
+  { label: 'Consulting', url: 'https://govcongiants.com/consulting' },
   { label: 'Premium Plans Overview', url: 'https://govcongiants.com/premium' },
-  { label: 'Jan 31 Bootcamp Paid (Stripe)', url: 'https://govcongiants.com/jan-31-bootcamp-paid' },
 ];
 
 const plansOverviewLevels: SharedPlanLevel[] = [
@@ -71,19 +67,19 @@ const plansOverviewLevels: SharedPlanLevel[] = [
       'New to government contracting. Structured training and a clear path to first opportunity.',
     cards: [
       {
-        title: 'Feb 28 Proposal Bootcamp',
-        link: 'https://govcongiants.com/proposal-bootcamp',
-        price: 'Live 8-hour training (Free + Paid tiers)',
-        whereSold: 'govcongiants.com/proposal-bootcamp',
+        title: 'HUBZone Webinar',
+        link: 'https://govcongiants.com/hubzone',
+        price: 'Free live webinar',
+        whereSold: 'govcongiants.com/hubzone',
         afterSignup:
-          'Free resources -> Upsell to live bootcamp -> Downsell offer -> Thank you page with access.',
+          'Register -> confirmation + scarcity (first 100 get Zoom) -> follow-up sequence -> GHL + Slack.',
       },
       {
-        title: 'Free 12-Day Course',
-        link: 'https://govcongiants.com/free-course',
+        title: 'Free Resources Library',
+        link: 'https://govcongiants.com/resources',
         price: 'Free',
-        whereSold: 'govcongiants.com/free-course',
-        afterSignup: 'Email sequence with daily lessons; GHL contact created.',
+        whereSold: 'govcongiants.com/resources (+ /resources/handouts)',
+        afterSignup: 'Lead captured with source tag; GHL contact created; Slack notification.',
       },
       {
         title: 'Pro Member Group',
@@ -143,9 +139,9 @@ export const sharedHomepageContent = {
   freeResources: [
     {
       icon: '🎓',
-      title: 'Monthly Bootcamp',
-      desc: 'Monthly training sessions with live Q&A to help start your GovCon journey.',
-      link: '/bootcamp',
+      title: 'HUBZone Webinar',
+      desc: 'Free live webinar on winning HUBZone set-aside contracts, with Q&A.',
+      link: '/hubzone',
       cta: 'Register Now ->',
     },
     {
@@ -159,7 +155,7 @@ export const sharedHomepageContent = {
       icon: '📅',
       title: 'Proposal Resources',
       desc: 'Free templates and guides to help you write winning federal proposals.',
-      link: 'https://govcongiants.com/proposal-bootcamp',
+      link: '/resources',
       cta: 'Get Resources ->',
     },
   ] as SharedHomepageResourceCard[],
@@ -169,9 +165,9 @@ export const sharedHomepageContent = {
       cards: [
         {
           icon: '📹',
-          title: 'Bootcamp Replay Access',
-          href: '/jan-31-bootcamp-paid',
-          description: 'Full replay plus handouts with lifetime access.',
+          title: 'Pro Member Plan',
+          href: '/premium/pro-member-plan',
+          description: 'Lifetime training license, community, and handouts.',
           cta: 'Get Access ->',
         },
         {
@@ -232,16 +228,16 @@ export const sharedHomepageContent = {
 export const sharedDashboardContent = {
   dashboardInfo: {
     snapshotCards: [
-      { title: 'Active Funnels', value: '12', detail: 'Lead capture pages' },
+      { title: 'Active Funnels', value: `${activeFunnels.length}`, detail: 'Live lead-capture pages' },
       { title: 'Integrations', value: '3', detail: 'GHL, Slack, Email' },
-      { title: 'Products', value: '7', detail: 'Free + Paid offers' },
+      { title: 'Top Funnel', value: 'HUBZone', detail: 'Current webinar push' },
       { title: 'Status', value: '●', detail: 'All systems operational' },
     ] as SharedDashboardCard[],
     quickLinks: [
-      { label: '🎯 Feb 28 Proposal Bootcamp', url: 'https://govcongiants.com/proposal-bootcamp' },
+      { label: '🎯 HUBZone Webinar', url: 'https://govcongiants.com/hubzone' },
       { label: '🏠 Homepage', url: 'https://govcongiants.com/' },
       { label: '📚 Resources Library', url: 'https://govcongiants.com/resources' },
-      { label: '🎓 Training Hub', url: 'https://govcongiants.com/training' },
+      { label: '🔍 Mindy (mi-free)', url: 'https://govcongiants.com/mi-free' },
       { label: '💎 Premium Plans', url: 'https://govcongiants.com/premium' },
       { label: '🛒 Shop (Pro Membership)', url: '/shop' },
       { label: '💳 Stripe Dashboard', url: 'https://dashboard.stripe.com' },
@@ -278,7 +274,7 @@ export const sharedDashboardContent = {
       },
       {
         title: 'Slack Notifications',
-        status: '✅ Connected (Feb 16, 2026)',
+        status: '✅ Connected',
         detail: 'Real-time lead notifications with name, email, phone, source',
         note: 'Env var: SLACK_LEAD_WEBHOOK_URL',
       },
@@ -290,21 +286,20 @@ export const sharedDashboardContent = {
       },
     ],
     sourceTags: [
-      'bootcamp',
-      'surge',
-      'proposal-bootcamp',
-      'free-course',
+      'hubzone-webinar',
+      'hubzone-webinar-bottom',
+      'mi-free',
       'opp',
       'handouts',
-      'feb28-bootcamp',
-      'contract-vehicles-bootcamp',
+      'funding',
+      'resources',
     ],
     envVars: [
       'GHL_API_KEY - Go High Level API key',
       'GHL_LOCATION_ID - Go High Level location ID',
       'SLACK_LEAD_WEBHOOK_URL - Slack webhook for notifications',
       'RESEND_API_KEY - Email service API key',
-      'STRIPE_SECRET_KEY - Stripe payments (paid bootcamp)',
+      'STRIPE_SECRET_KEY - Stripe payments (premium plans)',
     ],
   },
   funnelsLeadFlow: {
