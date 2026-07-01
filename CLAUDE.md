@@ -166,6 +166,18 @@ Static HTML in `public/` MUST use absolute paths:
 3. Next.js app routes
 4. Static files in `public/`
 
+### Marketing Email Format (STANDARD for ALL marketing/nurture emails)
+ClickFunnels / Russell Brunson **plain-letter** style — NOT a designed template. Approved 2026-07-01.
+- White bg, black text (#222), system sans-serif. **No** gradient header, logo banner, colored pill buttons, or graphics/images.
+- Signed personally: `— Eric`. A letter from a person, not a broadcast.
+- **Heavy inline emphasis:** `<strong>` bold for key phrases, underline for single words, **bold+underline** for the gut-punch lines.
+- **Index lists with `→` arrows** (or `*`), 2–3 short items, each with a bolded keyword — instead of graphics/bullets.
+- **P.S. line** after the signature (Brunson staple, often most-read — make it a loss-reframe stinger).
+- **CTA = underlined text link** (`→ Finish my profile`), not a button, + tiny gray "(takes about two minutes)" under it.
+- Voice: fear-of-loss / curiosity, short paragraphs, one idea per line.
+- **Why:** reads personal → higher engagement AND better inbox placement (designed HTML trips Promotions/spam; plain letters land in Primary).
+- **Reference implementation / reusable helpers** (`B`,`U`,`BU`,`LIST`,`LINK`,`PS`,`shell`): `scripts/mindy-reignite-emails.mjs`. Reuse these; don't rebuild a template.
+
 ---
 
 ## SAM.gov API Quirks
