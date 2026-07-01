@@ -28,6 +28,26 @@ export const maxDuration = 300;
 
 const GHL_BASE = 'https://services.leadconnectorhq.com';
 
+// Post a run summary (or failure) to Slack so Eric never has to check the dashboard.
+async function notifySlack(payload: { ok: boolean; summary: string; detail?: string }) {
+  const url = process.env.SLACK_LEAD_WEBHOOK_URL;
+  if (!url) return;
+  const icon = payload.ok ? ':white_check_mark:' : ':rotating_light:';
+  try {
+    await fetch(url, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        text: `${icon} *Mindy Re-Ignite drip* — ${payload.summary}`,
+        blocks: [
+          { type: 'header', text: { type: 'plain_text', text: `${payload.ok ? '✅' : '🚨'} Mindy Re-Ignite drip`, emoji: true } },
+          { type: 'section', text: { type: 'mrkdwn', text: payload.detail || payload.summary } },
+        ],
+      }),
+    });
+  } catch { /* never let Slack failure break the cron */ }
+}
+
 function authorized(req: NextRequest): boolean {
   const auth = req.headers.get('authorization');
   const cronSecret = process.env.CRON_SECRET;
@@ -76,30 +96,49 @@ export async function GET(req: NextRequest) {
   const now = new Date();
   const todayIso = now.toISOString().slice(0, 10);
 
-  // 1) Advance the sequence first (frees people out of stages before we seed more).
-  const send = await runSend(cfg, now);
+  try {
+    // 1) Advance the sequence first (frees people out of stages before we seed more).
+    const send = await runSend(cfg, now);
 
-  // 2) Ramp math: dayIndex ~ how many warm-up batches already went out.
-  //    Approximate from total enrolled (d0..done + exited) / the smallest batch.
-  const enrolledTags = [...STAGE_TAGS, DONE_TAG, EXITED_TAG];
-  let enrolled = 0;
-  for (const t of enrolledTags) enrolled += await countTag(cfg, t);
-  // Each ramp day adds a batch; infer which ramp step we're on from cumulative enrolled.
-  // (50,150,350,700,1200 cumulative → dayIndex 0..4+)
-  const CUMULATIVE = [0, 50, 150, 350, 700];
-  let dayIndex = CUMULATIVE.filter((c) => enrolled >= c).length - 1;
-  if (dayIndex < 0) dayIndex = 0;
-  const quota = seedOverride ?? seedQuotaForDay(dayIndex);
+    // 2) Ramp math: dayIndex ~ how many warm-up batches already went out.
+    //    Approximate from total enrolled (d0..done + exited) / the smallest batch.
+    const enrolledTags = [...STAGE_TAGS, DONE_TAG, EXITED_TAG];
+    let enrolled = 0;
+    for (const t of enrolledTags) enrolled += await countTag(cfg, t);
+    // Each ramp day adds a batch; infer which ramp step we're on from cumulative enrolled.
+    // (50,150,350,700 cumulative → dayIndex 0..4+)
+    const CUMULATIVE = [0, 50, 150, 350, 700];
+    let dayIndex = CUMULATIVE.filter((c) => enrolled >= c).length - 1;
+    if (dayIndex < 0) dayIndex = 0;
+    const quota = seedOverride ?? seedQuotaForDay(dayIndex);
 
-  const seed = await runSeed(cfg, quota, todayIso);
+    const seed = await runSeed(cfg, quota, todayIso);
 
-  const remaining = Math.max(0, (await countTag(cfg, AUDIENCE_TAG)) - enrolled - seed.enrolled);
+    const remaining = Math.max(0, (await countTag(cfg, AUDIENCE_TAG)) - enrolled - seed.enrolled);
 
-  return NextResponse.json({
-    success: true, dry, at: now.toISOString(),
-    advance: send,
-    seed: { quota, dayIndex, ...seed },
-    enrolledBefore: enrolled,
-    audienceRemaining: remaining,
-  });
+    // Slack summary so Eric never has to check the dashboard.
+    if (!dry) {
+      await notifySlack({
+        ok: true,
+        summary: `ran ${todayIso} — advanced ${send.advanced}, seeded ${seed.enrolled}, ${remaining} left`,
+        detail:
+          `*Ran:* ${now.toISOString()}\n` +
+          `*Advanced:* ${send.advanced} to next email · *waiting:* ${send.waiting} · *exited (completed profile):* ${send.exited} · *finished:* ${send.finished}\n` +
+          `*Seeded email 1:* ${seed.enrolled} new (quota ${quota}, ramp day ${dayIndex}) · *suppressed:* ${seed.failed}\n` +
+          `*Audience remaining:* ${remaining} of ~4,323`,
+      });
+    }
+
+    return NextResponse.json({
+      success: true, dry, at: now.toISOString(),
+      advance: send,
+      seed: { quota, dayIndex, ...seed },
+      enrolledBefore: enrolled,
+      audienceRemaining: remaining,
+    });
+  } catch (e) {
+    const msg = (e as Error)?.message || 'unknown error';
+    if (!dry) await notifySlack({ ok: false, summary: `FAILED ${todayIso}`, detail: `The drip cron errored:\n\`\`\`${msg}\`\`\`` });
+    return NextResponse.json({ success: false, error: msg }, { status: 500 });
+  }
 }

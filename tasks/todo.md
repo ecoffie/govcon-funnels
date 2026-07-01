@@ -1,12 +1,14 @@
 # TODO
 
-## 🔴 ACTIVE: Mindy Re-Ignite Drip (soft launch in progress)
+## 🟢 AUTOMATED: Mindy Re-Ignite Drip (cron live)
 
-Full state: `tasks/mindy-reignite-launch-state.md`
+Full state: `tasks/mindy-reignite-launch-state.md` | Engine: `src/lib/mindy-reignite.ts`
 
-- [ ] **TONIGHT (2026-06-30, ~after 6pm):** Check the 43-contact soft-launch cohort in GHL → Email Services → Email Analytics (filter to today). Gate: open >15% baseline + complaints ~0 → scale; else fix from-name/subjects first.
-- [ ] **2026-07-02:** Advance the 43 to email 2 → `node scripts/mindy-reignite-drip.mjs --send` (NOT before — 2-day spacing).
-- [ ] **After metrics look healthy:** scale enrollment with warm-up ramp → `--seed --limit=200` → `--limit=500` → full `--seed` (4,323 total).
+- [x] 2026-07-01: Shipped daily cron `/api/cron/mindy-reignite` (`0 14 * * *` = 9am ET). Auto-advances (2-day spacing) + seeds ramp (50→100→200→350→500/day) until ~4,323 enrolled. Posts a Slack summary each run to SLACK_LEAD_WEBHOOK_URL.
+- [x] 2026-07-01: ClickFunnels/Brunson email restyle (now the standard — see CLAUDE.md).
+- [ ] **First automated run: 2026-07-02 ~9am ET.** You'll get a Slack ✅ (or 🚨 if it failed). If NO Slack message arrives by ~9:15am ET, the cron didn't fire — check Vercel → Deployments → Crons.
+- [ ] After a few ramp days, glance at GHL Email Analytics for open rate/complaints; if reputation dips, pause seeding (lower ramp or disable the cron in vercel.json).
 
-### Done
-- [x] 2026-06-30: Resolved GHL token/location/scope (alumni `AMkIivLuREYwsX5GhAAL`, `conversations/message.write`). Smoke test sent all 5. Soft launch seeded 43 (7 expected suppression failures).
+### Other tabled work
+- Homepage redesign (Apollo-style, light+dark mockups): `tasks/mindy-homepage-redesign.md`
+- Briefing entitlement gap (466 orphans): `tasks/mindy-briefing-entitlement-gap.md`
