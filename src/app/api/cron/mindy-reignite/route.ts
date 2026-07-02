@@ -13,8 +13,11 @@
  * OR `?password=<ADMIN_PASSWORD>` for manual trigger / testing. `?dry=true` plans
  * without sending. `?seed=N` overrides the ramp quota for a manual run.
  *
- * Scheduled via vercel.json (funnels has no dispatcher; only ~1 other cron, well
- * under the 100 cap — a dedicated vercel cron is correct here).
+ * Scheduled via MINDY'S DISPATCHER (cron_jobs row "mindy-reignite-drip",
+ * daily 14:00 UTC) which fires this absolute URL cross-origin with
+ * `Authorization: Bearer <CRON_SECRET>` (funnels CRON_SECRET == Mindy's).
+ * Moved off funnels vercel.json 2026-07-02 — the raw vercel cron never fired
+ * (dayIndex stuck at 0, 0 daily runs). The dispatcher is the reliable path.
  */
 import { NextRequest, NextResponse } from 'next/server';
 import {

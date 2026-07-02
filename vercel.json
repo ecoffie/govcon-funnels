@@ -385,10 +385,6 @@
     {
       "path": "/api/cron/seo-report",
       "schedule": "0 13 * * 1"
-    },
-    {
-      "path": "/api/cron/mindy-reignite",
-      "schedule": "0 14 * * *"
     }
   ]
 }
