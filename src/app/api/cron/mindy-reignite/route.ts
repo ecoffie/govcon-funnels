@@ -52,7 +52,6 @@ function authorized(req: NextRequest): boolean {
   const auth = req.headers.get('authorization');
   const cronSecret = process.env.CRON_SECRET;
   if (cronSecret && auth === `Bearer ${cronSecret}`) return true;
-  if (req.headers.get('x-vercel-cron') === '1') return true;
   // Manual trigger / testing. This repo's admin secret is PURCHASES_ADMIN_PASSWORD
   // (there is no plain ADMIN_PASSWORD here); accept either if present.
   const pw = new URL(req.url).searchParams.get('password');
