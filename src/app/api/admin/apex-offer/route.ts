@@ -1,6 +1,6 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { getMindyDayRegistrantsFromSupabase } from '@/lib/supabase-leads';
-import { listPurchases } from '@/lib/purchase-attribution';
+import { listPurchases, type PurchaseRecord } from '@/lib/purchase-attribution';
 import { extractPassword, isAuthorized } from '@/lib/admin-auth';
 
 /**
@@ -29,6 +29,12 @@ import { extractPassword, isAuthorized } from '@/lib/admin-auth';
 const SEND_DELAY_MS = 250;
 const sleep = (ms: number) => new Promise((r) => setTimeout(r, ms));
 const DEFAULT_SINCE = '2026-06-27T00:00:00-04:00'; // Mindy Day (Sat), ET
+const MINDY_PRODUCT_IDS = new Set(['mindy-pro-monthly', 'mindy-pro-annual']);
+
+function isMindyPurchase(purchase: PurchaseRecord): boolean {
+  if ((purchase.site || '').toLowerCase() === 'mindy') return true;
+  return MINDY_PRODUCT_IDS.has((purchase.product_id || '').toLowerCase());
+}
 
 async function sendApexViaGetMindy(
   to: string,
@@ -60,7 +66,7 @@ async function getWeekendMindyBuyerEmails(
   const purchases = await listPurchases(1000);
   const out = new Set<string>();
   for (const p of purchases) {
-    if ((p.site || '').toLowerCase() !== 'mindy') continue;
+    if (!isMindyPurchase(p)) continue;
     // created_at is a clean ISO string (ms). raw_created is Stripe epoch SECONDS,
     // so it must NOT be compared against millisecond bounds — prefer created_at,
     // and normalize raw_created (×1000) only as a fallback.
