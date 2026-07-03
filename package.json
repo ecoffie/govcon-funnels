@@ -18,6 +18,7 @@
     "test:all": "npm run test:unit && npm run test:integration"
   },
   "dependencies": {
+    "@google-analytics/data": "^6.1.0",
     "@supabase/supabase-js": "^2.100.0",
     "@upstash/redis": "^1.37.0",
     "@vercel/analytics": "^2.0.1",

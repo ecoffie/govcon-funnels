@@ -47,41 +47,48 @@ export function trailing28Windows(ref: Date, lagDays = 3): {
   };
 }
 
+// Every query fn takes an optional `siteUrl` threaded down to gscQuery.
+// It defaults (in gscQuery) to govcongiants.com, so callers that omit it
+// are unchanged; multi-site callers pass the SEO_SITES site-URL string.
 async function runQuery(
   range: DateRange,
   dimensions: string[],
-  rowLimit = 1000
+  rowLimit = 1000,
+  siteUrl?: string
 ): Promise<GscRow[]> {
-  const resp = await gscQuery<GscResponse>({
-    startDate: range.startDate,
-    endDate: range.endDate,
-    dimensions,
-    rowLimit,
-    dataState: 'final',
-  });
+  const resp = await gscQuery<GscResponse>(
+    {
+      startDate: range.startDate,
+      endDate: range.endDate,
+      dimensions,
+      rowLimit,
+      dataState: 'final',
+    },
+    siteUrl
+  );
   return resp.rows ?? [];
 }
 
 /** Site-wide totals for a date range (no dimensions). */
-export async function getTotals(range: DateRange): Promise<{
+export async function getTotals(range: DateRange, siteUrl?: string): Promise<{
   clicks: number;
   impressions: number;
   ctr: number;
   position: number;
 }> {
-  const rows = await runQuery(range, []);
+  const rows = await runQuery(range, [], 1000, siteUrl);
   const r = rows[0];
   if (!r) return { clicks: 0, impressions: 0, ctr: 0, position: 0 };
   return { clicks: r.clicks, impressions: r.impressions, ctr: r.ctr, position: r.position };
 }
 
-export async function getTopPages(range: DateRange, limit = 25): Promise<GscRow[]> {
-  const rows = await runQuery(range, ['page']);
+export async function getTopPages(range: DateRange, limit = 25, siteUrl?: string): Promise<GscRow[]> {
+  const rows = await runQuery(range, ['page'], 1000, siteUrl);
   return rows.sort((a, b) => b.clicks - a.clicks).slice(0, limit);
 }
 
-export async function getTopQueries(range: DateRange, limit = 25): Promise<GscRow[]> {
-  const rows = await runQuery(range, ['query']);
+export async function getTopQueries(range: DateRange, limit = 25, siteUrl?: string): Promise<GscRow[]> {
+  const rows = await runQuery(range, ['query'], 1000, siteUrl);
   return rows.sort((a, b) => b.clicks - a.clicks).slice(0, limit);
 }
 
@@ -93,9 +100,10 @@ export async function getTopQueries(range: DateRange, limit = 25): Promise<GscRo
 export async function getCtrLosers(
   range: DateRange,
   minImpressions = 100,
-  limit = 25
+  limit = 25,
+  siteUrl?: string
 ): Promise<GscRow[]> {
-  const rows = await runQuery(range, ['page']);
+  const rows = await runQuery(range, ['page'], 1000, siteUrl);
   return rows
     .filter((r) => r.impressions >= minImpressions)
     .sort((a, b) => {
@@ -112,8 +120,8 @@ export async function getCtrLosers(
  * Queries ranking on page 2 (positions 11-20) — close to page 1, where
  * a small push often yields outsized click gains.
  */
-export async function getStriking(range: DateRange, limit = 25): Promise<GscRow[]> {
-  const rows = await runQuery(range, ['query']);
+export async function getStriking(range: DateRange, limit = 25, siteUrl?: string): Promise<GscRow[]> {
+  const rows = await runQuery(range, ['query'], 1000, siteUrl);
   return rows
     .filter((r) => r.position > 10 && r.position <= 20 && r.impressions >= 50)
     .sort((a, b) => b.impressions - a.impressions)
@@ -133,11 +141,12 @@ export interface PageDelta {
 /** Period-over-period movement by page (28d vs prior 28d). */
 export async function getPageDeltas(
   current: DateRange,
-  previous: DateRange
+  previous: DateRange,
+  siteUrl?: string
 ): Promise<PageDelta[]> {
   const [cur, prev] = await Promise.all([
-    runQuery(current, ['page']),
-    runQuery(previous, ['page']),
+    runQuery(current, ['page'], 1000, siteUrl),
+    runQuery(previous, ['page'], 1000, siteUrl),
   ]);
   const prevMap = new Map(prev.map((r) => [r.keys[0], r]));
   const curMap = new Map(cur.map((r) => [r.keys[0], r]));
