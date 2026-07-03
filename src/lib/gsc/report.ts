@@ -19,8 +19,10 @@ import {
   type GscRow,
   type PageDelta,
 } from './query';
+import { DEFAULT_SEO_SITE, type SeoSite } from '../seo-sites';
 
 export interface SeoReport {
+  site: { key: string; label: string };
   range: { current: { startDate: string; endDate: string }; previous: { startDate: string; endDate: string } };
   totals: {
     clicks: number;
@@ -43,19 +45,24 @@ export interface SeoReport {
 /**
  * Pull every section of the report. `ref` defaults to now; pass an
  * explicit Date from a caller that has one (the route does).
+ *
+ * `site` selects the property; it defaults to govcongiants.com so existing
+ * single-site callers are unchanged. Its `gscSiteUrl` is threaded into every
+ * GSC query, and its label rides along in the returned report for titling.
  */
-export async function buildReport(ref: Date): Promise<SeoReport> {
+export async function buildReport(ref: Date, site: SeoSite = DEFAULT_SEO_SITE): Promise<SeoReport> {
   const { current, previous } = trailing28Windows(ref);
+  const su = site.gscSiteUrl;
 
   const [curTotals, prevTotals, topPages, topQueries, ctrLosers, striking, deltas] =
     await Promise.all([
-      getTotals(current),
-      getTotals(previous),
-      getTopPages(current, 15),
-      getTopQueries(current, 15),
-      getCtrLosers(current, 100, 10),
-      getStriking(current, 10),
-      getPageDeltas(current, previous),
+      getTotals(current, su),
+      getTotals(previous, su),
+      getTopPages(current, 15, su),
+      getTopQueries(current, 15, su),
+      getCtrLosers(current, 100, 10, su),
+      getStriking(current, 10, su),
+      getPageDeltas(current, previous, su),
     ]);
 
   const movers = deltas.filter((d) => d.clicks + d.prevClicks >= 5);
@@ -69,6 +76,7 @@ export async function buildReport(ref: Date): Promise<SeoReport> {
     .slice(0, 8);
 
   return {
+    site: { key: site.key, label: site.label },
     range: { current, previous },
     totals: {
       clicks: curTotals.clicks,
@@ -143,7 +151,7 @@ export function toSlackBlocks(r: SeoReport): unknown[] {
   return [
     {
       type: 'header',
-      text: { type: 'plain_text', text: '📊 Weekly SEO Report — govcongiants.com', emoji: true },
+      text: { type: 'plain_text', text: `📊 Weekly SEO Report — ${r.site.label}`, emoji: true },
     },
     {
       type: 'context',

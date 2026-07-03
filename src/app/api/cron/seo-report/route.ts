@@ -15,6 +15,7 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { isAuthorized, extractPassword } from '@/lib/admin-auth';
 import { buildReport, toSlackBlocks } from '@/lib/gsc/report';
+import { SEO_SITES, resolveSeoSite } from '@/lib/seo-sites';
 
 export const dynamic = 'force-dynamic';
 export const maxDuration = 60;
@@ -38,36 +39,46 @@ export async function GET(req: NextRequest) {
     return NextResponse.json({ error: 'SLACK_LEAD_WEBHOOK_URL not set' }, { status: 500 });
   }
 
+  // ?site=<domain> reports one site; default = all sites in SEO_SITES.
+  // One site failing (e.g. a transient GSC 5xx) must not block the others,
+  // so each site posts its own Slack message and we collect per-site results.
+  const siteParam = new URL(req.url).searchParams.get('site');
+  let sites;
   try {
-    const report = await buildReport(new Date());
-    const blocks = toSlackBlocks(report);
-
-    const res = await fetch(webhookUrl, {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({
-        text: `Weekly SEO report — ${report.totals.clicks.toLocaleString()} clicks, ${report.totals.impressions.toLocaleString()} impressions (28d)`,
-        blocks,
-      }),
-    });
-
-    if (!res.ok) {
-      const errText = await res.text();
-      return NextResponse.json(
-        { error: `Slack post failed: ${res.status}`, detail: errText.slice(0, 300) },
-        { status: 502 }
-      );
-    }
-
-    return NextResponse.json({
-      ok: true,
-      posted: true,
-      totals: report.totals,
-      range: report.range.current,
-    });
+    sites = siteParam ? [resolveSeoSite(siteParam)] : SEO_SITES;
   } catch (e) {
-    const message = e instanceof Error ? e.message : String(e);
-    console.error('SEO report cron failed:', message);
-    return NextResponse.json({ error: message }, { status: 500 });
+    return NextResponse.json({ error: e instanceof Error ? e.message : String(e) }, { status: 400 });
   }
+
+  const results: Array<{ site: string; posted: boolean; error?: string; totals?: unknown }> = [];
+
+  for (const site of sites) {
+    try {
+      const report = await buildReport(new Date(), site);
+      const blocks = toSlackBlocks(report);
+
+      const res = await fetch(webhookUrl, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          text: `Weekly SEO report — ${site.label} — ${report.totals.clicks.toLocaleString()} clicks, ${report.totals.impressions.toLocaleString()} impressions (28d)`,
+          blocks,
+        }),
+      });
+
+      if (!res.ok) {
+        const errText = await res.text();
+        results.push({ site: site.key, posted: false, error: `Slack post failed: ${res.status} ${errText.slice(0, 200)}` });
+        continue;
+      }
+      results.push({ site: site.key, posted: true, totals: report.totals });
+    } catch (e) {
+      const message = e instanceof Error ? e.message : String(e);
+      console.error(`SEO report cron failed for ${site.key}:`, message);
+      results.push({ site: site.key, posted: false, error: message });
+    }
+  }
+
+  const allFailed = results.length > 0 && results.every((r) => !r.posted);
+  return NextResponse.json({ ok: !allFailed, results }, { status: allFailed ? 502 : 200 });
 }

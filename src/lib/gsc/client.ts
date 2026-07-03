@@ -67,14 +67,22 @@ function getAuth(): GoogleAuth {
 /**
  * POST to the Search Analytics query endpoint and return parsed JSON.
  * https://developers.google.com/webmaster-tools/v1/searchanalytics/query
+ *
+ * `siteUrl` selects the Search Console property. Defaults to
+ * govcongiants.com so existing single-site callers are unchanged;
+ * multi-site callers pass the exact site-URL string from SEO_SITES
+ * (e.g. "sc-domain:getmindy.ai" or the URL-prefix "https://encoregov.com/").
  */
-export async function gscQuery<T = unknown>(body: Record<string, unknown>): Promise<T> {
+export async function gscQuery<T = unknown>(
+  body: Record<string, unknown>,
+  siteUrl: string = GSC_SITE_URL
+): Promise<T> {
   const auth = getAuth();
   const token = await auth.getAccessToken();
   if (!token) throw new Error('GSC auth: could not obtain access token');
 
   const url = `https://searchconsole.googleapis.com/webmasters/v3/sites/${encodeURIComponent(
-    GSC_SITE_URL
+    siteUrl
   )}/searchAnalytics/query`;
 
   const res = await fetch(url, {
