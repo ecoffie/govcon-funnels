@@ -20,9 +20,9 @@ vi.mock('@/lib/mindy-reignite', () => ({
 }));
 
 vi.mock('@upstash/redis', () => ({
-  Redis: vi.fn().mockImplementation(() => ({
-    set: mocks.redisSet,
-  })),
+  Redis: vi.fn().mockImplementation(function Redis() {
+    return { set: mocks.redisSet };
+  }),
 }));
 
 function request(headers?: HeadersInit) {
