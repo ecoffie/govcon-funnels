@@ -36,7 +36,7 @@ export const dynamic = 'force-dynamic';
 export const maxDuration = 300;
 
 /**
- * Mindy Day (June 27) day-of webinar-link blast — sends the branded "we're live"
+ * Mindy Day (July 25) day-of webinar-link blast — sends the branded "we're live"
  * email carrying the real join link to every registrant pulled from Supabase
  * `funnel_leads` (source = 'mindy-launch', written by /api/lead when someone
  * signs up at govcongiants.com/mindy-launch).

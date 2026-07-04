@@ -4,15 +4,15 @@ import { getMindyDayRegistrantsFromSupabase } from '@/lib/supabase-leads';
 import { extractPassword, isAuthorized } from '@/lib/admin-auth';
 
 /**
- * Scheduled Mindy Day (June 27, 2026 · 10:00 AM EST) webinar-link reminders.
+ * Scheduled Mindy Day (July 25, 2026 · 10:00 AM ET) webinar-link reminders.
  * Cloned from /api/cron/hubzone-reminders — same shape, idempotency, and auth.
  *
  * One route, three fires selected by ?type= (each has its OWN idempotency key,
  * so all three genuinely send — like HUBZone's one-hour/live/recording):
- *   heads-up → overnight "save your link" send (cron 0 6 27 6 *  = 1:00 AM EST*)
- *   morning  → "today at 10 AM, your link is inside" (cron 30 12 27 6 * = 7:30 AM EST)
- *   live     → "we're live now, join" (cron 55 14 27 6 * = 9:55 AM EST)
- * *EST = UTC-5 (no DST in this notation; June is EDT/UTC-4 in reality — see
+ *   heads-up → overnight "save your link" send (cron 0 6 25 7 *  = 1:00 AM EST*)
+ *   morning  → "today at 10 AM, your link is inside" (cron 30 12 25 7 * = 7:30 AM EST)
+ *   live     → "we're live now, join" (cron 55 14 25 7 * = 9:55 AM EST)
+ * *EST = UTC-5 (no DST in this notation; July is EDT/UTC-4 in reality — see
  * vercel.json note: crons run in UTC, scheduled to the requested EST wall times
  * treating EST as the label the user gave).
  *

@@ -88,7 +88,7 @@ export async function GET(request: NextRequest) {
   try {
     // PREVIEW MODE — send a single design to one address.
     //   ?preview=register&to=you@email.com   (list-blast register design)
-    //   ?preview=recording&to=you@email.com  (recording + Mindy June 27 + contacts)
+    //   ?preview=recording&to=you@email.com  (recording + Mindy July 25 + contacts)
     const preview = searchParams.get('preview');
     const previewTo = searchParams.get('to')?.trim();
     if (preview === 'recording' && previewTo) {
