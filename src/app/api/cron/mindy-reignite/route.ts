@@ -25,11 +25,14 @@ import {
   AUDIENCE_TAG, STAGE_TAGS, DONE_TAG, EXITED_TAG,
   type DripConfig,
 } from '@/lib/mindy-reignite';
+import { Redis } from '@upstash/redis';
+import { extractPassword, isAuthorized } from '@/lib/admin-auth';
 
 export const dynamic = 'force-dynamic';
 export const maxDuration = 300;
 
 const GHL_BASE = 'https://services.leadconnectorhq.com';
+const RUN_LOCK_TTL_SECONDS = 60 * 60 * 25;
 
 // Post a run summary (or failure) to Slack so Eric never has to check the dashboard.
 async function notifySlack(payload: { ok: boolean; summary: string; detail?: string }) {
@@ -55,13 +58,23 @@ function authorized(req: NextRequest): boolean {
   const auth = req.headers.get('authorization');
   const cronSecret = process.env.CRON_SECRET;
   if (cronSecret && auth === `Bearer ${cronSecret}`) return true;
-  if (req.headers.get('x-vercel-cron') === '1') return true;
-  // Manual trigger / testing. This repo's admin secret is PURCHASES_ADMIN_PASSWORD
-  // (there is no plain ADMIN_PASSWORD here); accept either if present.
-  const pw = new URL(req.url).searchParams.get('password');
-  const adminPw = process.env.PURCHASES_ADMIN_PASSWORD || process.env.ADMIN_PASSWORD;
-  if (pw && adminPw && pw === adminPw) return true;
-  return false;
+  return isAuthorized(extractPassword(req));
+}
+
+async function claimRun(todayIso: string): Promise<boolean> {
+  const url = process.env.STORAGE_KV_REST_API_URL || process.env.KV_REST_API_URL;
+  const token = process.env.STORAGE_KV_REST_API_TOKEN || process.env.KV_REST_API_TOKEN;
+  if (!url || !token) return true;
+  try {
+    const redis = new Redis({ url, token });
+    const res = await redis.set(`mindy-reignite:run:${todayIso}`, new Date().toISOString(), {
+      nx: true,
+      ex: RUN_LOCK_TTL_SECONDS,
+    });
+    return res === 'OK';
+  } catch {
+    return true;
+  }
 }
 
 // Count contacts carrying a tag (HEAD-style: we only need totals for ramp math).
@@ -88,6 +101,7 @@ export async function GET(req: NextRequest) {
 
   const url = new URL(req.url);
   const dry = url.searchParams.get('dry') === 'true';
+  const force = url.searchParams.get('force') === '1';
   const seedOverride = Number(url.searchParams.get('seed')) || null;
 
   const token = (process.env.GHL_API_KEY || '').trim();
@@ -100,6 +114,16 @@ export async function GET(req: NextRequest) {
   const todayIso = now.toISOString().slice(0, 10);
 
   try {
+    if (!dry && !force) {
+      const claimed = await claimRun(todayIso);
+      if (!claimed) {
+        return NextResponse.json(
+          { success: true, mode: 'skipped', reason: 'already ran today; use &force=1 to override', at: now.toISOString() },
+          { headers: { 'Cache-Control': 'no-store' } },
+        );
+      }
+    }
+
     // 1) Advance the sequence first (frees people out of stages before we seed more).
     const send = await runSend(cfg, now);
 
