@@ -3,13 +3,14 @@ import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest';
 
 const mocks = vi.hoisted(() => ({
   redisSet: vi.fn(),
-  redisCtor: vi.fn(),
   runSend: vi.fn(),
   runSeed: vi.fn(),
 }));
 
 vi.mock('@upstash/redis', () => ({
-  Redis: mocks.redisCtor,
+  Redis: class {
+    set = mocks.redisSet;
+  },
 }));
 
 vi.mock('@/lib/mindy-reignite', () => ({
@@ -41,7 +42,6 @@ beforeEach(() => {
     KV_REST_API_TOKEN: 'redis-token',
   };
   mocks.redisSet.mockResolvedValue('OK');
-  mocks.redisCtor.mockImplementation(() => ({ set: mocks.redisSet }));
   mocks.runSend.mockResolvedValue({ advanced: 1, exited: 0, finished: 0, waiting: 0 });
   mocks.runSeed.mockResolvedValue({ audience: 10, eligibleNew: 10, enrolled: 5, failed: 0 });
   vi.mocked(fetch).mockResolvedValue({
