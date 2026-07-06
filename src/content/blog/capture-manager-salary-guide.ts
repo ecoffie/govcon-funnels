@@ -24,6 +24,8 @@ export const post: BlogPost = {
 
 <p>If you're considering a career in government contracting business development, capture management offers one of the highest salary potentials in the industry—with top performers earning well over $200K annually.</p>
 
+<p>Capture is one end of the win chain; the other is the <a href="/blog/proposal-manager-career-path">proposal manager</a> who turns the strategy into a compliant, submitted bid. New to the field entirely? Start with <a href="/guides/government-contracting-for-beginners">government contracting for beginners</a>, then see how to <a href="/blog/win-government-contracts-no-experience">win government contracts with no experience</a>.</p>
+
 <h2>What Does a Capture Manager Do?</h2>
 
 <p>Capture managers lead the pre-proposal phase of government contracting. Their responsibilities include:</p>

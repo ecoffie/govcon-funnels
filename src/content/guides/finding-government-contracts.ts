@@ -96,7 +96,7 @@ export const guide: GuideData = {
     {
       heading: 'Using Tools to Streamline Your Contract Search',
       content: `
-        <p>Manually searching SAM.gov every day is time-consuming and inefficient. Smart contractors use tools to automate their opportunity pipeline and focus their energy on opportunities they can actually win.</p>
+        <p>Manually searching SAM.gov every day is time-consuming and inefficient. Smart contractors use tools to automate their opportunity pipeline and focus their energy on opportunities they can actually win. A growing number now use <a href="/guides/ai-government-contracting">AI for government contracting</a> to find matched opportunities, research competitors, and draft proposals in a fraction of the time.</p>
         <p>Here's what a streamlined search process looks like:</p>
         <ul>
           <li><strong>Automated alerts</strong> — Set up saved searches on SAM.gov with email notifications. Configure alerts for your NAICS codes, keywords, and target agencies so new opportunities arrive in your inbox daily.</li>

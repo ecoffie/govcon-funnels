@@ -24,6 +24,8 @@ export const post: BlogPost = {
 
 <p>It's a demanding role, but one that pays exceptionally well: experienced proposal managers earn $160,000 to $240,000 annually, with directors and VPs earning even more.</p>
 
+<p>Proposal management is one of several high-paying paths into government contracting. If you're weighing your options, compare it with the <a href="/blog/capture-manager-salary-guide">capture manager</a> track (the strategist who wins the deal before the proposal is written) and see how people <a href="/blog/win-government-contracts-no-experience">win government contracts with no experience</a> to break in.</p>
+
 <h2>What Does a Proposal Manager Do?</h2>
 
 <p>Proposal managers own the entire proposal development lifecycle from RFP release to submission. Their core responsibilities include:</p>

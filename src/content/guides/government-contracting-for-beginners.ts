@@ -517,6 +517,14 @@ export const guide: GuideData = {
           <li><a href="/guides/proposal-writing">Proposal Writing Guide</a></li>
           <li><a href="/guides/sba-certifications">SBA Certifications Overview</a></li>
         </ul>
+
+        <h3>Careers in Government Contracting</h3>
+        <p>Not starting a business, but want to work in the field? These are among the highest-paying GovCon career tracks:</p>
+        <ul>
+          <li><a href="/blog/proposal-manager-career-path">Proposal Manager</a> — own the proposal from RFP to submission ($160K-$240K)</li>
+          <li><a href="/blog/capture-manager-salary-guide">Capture Manager</a> — win the deal before the proposal is written ($150K-$250K+)</li>
+          <li><a href="/blog/win-government-contracts-no-experience">How to win government contracts with no experience</a> — the beginner's path in</li>
+        </ul>
       `,
     },
   ],
