@@ -194,6 +194,8 @@
 
   .rows { margin-top: 16px; display: flex; flex-direction: column; gap: 11px; }
   .row { display: grid; grid-template-columns: 92px 1fr; gap: 14px; align-items: baseline; }
+  /* pull-quote rows have no label — they span the full row, not the 92px gutter */
+  .row.say { grid-template-columns: 1fr; }
   .row .k {
     font-family: var(--mono);
     font-size: 11px;
@@ -340,6 +342,21 @@
     .beat::before { display: none; }
     .row { grid-template-columns: 1fr; gap: 3px; }
     .row .k { padding-top: 0; }
+  }
+
+  /* ---------- Print / PDF ---------- *
+   * At Letter width (~7.3in printable) the nested grids collapse the value
+   * column, so the italic pull-quotes wrapped one word per line. For print,
+   * stack the label above its value and let quotes run the full card width. */
+  @media print {
+    .wrap { max-width: none; padding: 0 0 24px; }
+    .beat { grid-template-columns: 40px 1fr; gap: 18px; page-break-inside: avoid; break-inside: avoid; }
+    .beat::before { left: 39px; }
+    .row { grid-template-columns: 62px 1fr; gap: 12px; }
+    /* pull-quotes span the whole beat body — no narrow gutter */
+    .row.say { grid-template-columns: 1fr; gap: 2px; }
+    .row.say .v { max-width: none; }
+    .preflight, .coming, .recovery, .beat, .close { page-break-inside: avoid; break-inside: avoid; }
   }
 </style>
 

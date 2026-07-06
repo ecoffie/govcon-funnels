@@ -29,8 +29,8 @@
   .masthead { border-bottom: 3px solid var(--ink); padding-bottom: 22px; }
   .eyebrow { font-family: var(--mono); font-size: 12px; letter-spacing: 0.13em; text-transform: uppercase; color: var(--purple); font-weight: 600; display: flex; gap: 11px; align-items: center; flex-wrap: wrap; }
   .eyebrow .dot { width: 5px; height: 5px; border-radius: 50%; background: var(--line-cool); }
-  h1 { font-family: var(--serif); font-weight: 700; font-size: clamp(28px, 4.4vw, 39px); line-height: 1.04; letter-spacing: -0.015em; text-wrap: balance; margin: 14px 0 10px; padding-right: 0.15em; }
-  h1 .accent { padding-right: 0.12em; background: linear-gradient(105deg, var(--navy), var(--purple)); -webkit-background-clip: text; background-clip: text; color: transparent; }
+  h1 { font-family: var(--serif); font-weight: 700; font-size: clamp(29px, 4.8vw, 42px); line-height: 1.04; letter-spacing: -0.015em; text-wrap: balance; margin: 14px 0 10px; }
+  h1 .accent { background: linear-gradient(105deg, var(--navy), var(--purple)); -webkit-background-clip: text; background-clip: text; color: transparent; }
   .standfirst { font-size: 15.5px; color: var(--ink-soft); max-width: 66ch; margin: 0; }
   .standfirst strong { color: var(--ink); font-weight: 600; }
 
@@ -94,6 +94,17 @@
     .heard .grid, .ideas { grid-template-columns: 1fr; }
     .pain:nth-child(odd) { border-right: none; }
     .idea.wide { grid-column: auto; }
+  }
+
+  /* Print / PDF only — screen matches the artifact untouched.
+     At fixed Letter width the gradient (background-clip:text) glyph clips the
+     trailing "r"; nudge the size down a hair and pad the accent so it renders
+     whole. Also keep cards from splitting across a page break. */
+  @media print {
+    h1 { font-size: 38px; padding-right: 0.12em; }
+    h1 .accent { padding-right: 0.14em; }
+    .heard, .idea, .journey, .funder-note, .prompts li, .pain { break-inside: avoid; }
+    .band { break-after: avoid; }
   }
 </style>
 
