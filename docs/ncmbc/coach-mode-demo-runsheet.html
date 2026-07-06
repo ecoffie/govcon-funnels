@@ -1,0 +1,558 @@
+<title>NCMBC Demo Run-Sheet — Coach Mode</title>
+<style>
+  :root {
+    --navy: #1e3a8a;
+    --purple: #7c3aed;
+    --green: #0f9d6a;
+    --green-soft: #e5f4ee;
+    --amber: #b45309;
+    --amber-soft: #fbf0dd;
+    --paper: #f6f5f3;
+    --card: #ffffff;
+    --ink: #1a1d29;
+    --ink-soft: #52566b;
+    --line: #e4e2dd;
+    --line-cool: #d9dde8;
+    --mono: ui-monospace, "SF Mono", "SFMono-Regular", Menlo, Consolas, monospace;
+    --sans: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+    --serif: Georgia, "Times New Roman", serif;
+  }
+
+  * { box-sizing: border-box; }
+
+  body {
+    margin: 0;
+    background: var(--paper);
+    color: var(--ink);
+    font-family: var(--sans);
+    line-height: 1.55;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  .wrap {
+    max-width: 940px;
+    margin: 0 auto;
+    padding: 48px 28px 96px;
+  }
+
+  /* ---------- Masthead ---------- */
+  .masthead {
+    border-bottom: 3px solid var(--ink);
+    padding-bottom: 22px;
+    margin-bottom: 8px;
+  }
+  .eyebrow {
+    font-family: var(--mono);
+    font-size: 12px;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--purple);
+    font-weight: 600;
+    display: flex;
+    gap: 12px;
+    align-items: center;
+    flex-wrap: wrap;
+  }
+  .eyebrow .dot { width: 5px; height: 5px; border-radius: 50%; background: var(--line-cool); }
+  h1 {
+    font-family: var(--serif);
+    font-weight: 700;
+    font-size: clamp(30px, 5vw, 44px);
+    line-height: 1.04;
+    letter-spacing: -0.015em;
+    text-wrap: balance;
+    margin: 14px 0 10px;
+  }
+  h1 .accent {
+    background: linear-gradient(105deg, var(--navy), var(--purple));
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+  }
+  .standfirst {
+    font-size: 16px;
+    color: var(--ink-soft);
+    max-width: 62ch;
+    margin: 0;
+  }
+  .standfirst strong { color: var(--ink); font-weight: 600; }
+
+  /* ---------- Pre-flight strip ---------- */
+  .preflight {
+    margin: 30px 0 40px;
+    background: var(--card);
+    border: 1px solid var(--line);
+    border-left: 4px solid var(--green);
+    border-radius: 8px;
+    padding: 20px 24px;
+  }
+  .preflight h2, .section-label {
+    font-family: var(--mono);
+    font-size: 12px;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--ink-soft);
+    font-weight: 600;
+    margin: 0 0 14px;
+  }
+  .checks {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(210px, 1fr));
+    gap: 10px 26px;
+  }
+  .check {
+    display: flex;
+    gap: 10px;
+    align-items: baseline;
+    font-size: 14.5px;
+  }
+  .check .tick { color: var(--green); font-weight: 700; font-family: var(--mono); flex-shrink: 0; }
+  .check .sub { color: var(--ink-soft); font-size: 13px; }
+
+  /* ---------- Timeline / beats ---------- */
+  .flow-label {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    margin: 0 0 24px;
+  }
+  .flow-label h2 {
+    font-family: var(--mono);
+    font-size: 12px;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--ink);
+    font-weight: 700;
+    margin: 0;
+    white-space: nowrap;
+  }
+  .flow-label .rule { height: 1px; background: var(--line); flex: 1; }
+  .flow-label .clock {
+    font-family: var(--mono);
+    font-size: 12px;
+    color: var(--purple);
+    font-weight: 600;
+    white-space: nowrap;
+  }
+
+  .beats { display: flex; flex-direction: column; gap: 18px; }
+
+  .beat {
+    display: grid;
+    grid-template-columns: 52px 1fr;
+    gap: 20px;
+    background: var(--card);
+    border: 1px solid var(--line);
+    border-radius: 10px;
+    padding: 22px 24px;
+    position: relative;
+  }
+  .beat::before {
+    content: "";
+    position: absolute;
+    left: 51px;
+    top: 68px;
+    bottom: -18px;
+    width: 2px;
+    background: var(--line);
+  }
+  .beat:last-child::before { display: none; }
+
+  .num {
+    font-family: var(--serif);
+    font-size: 26px;
+    font-weight: 700;
+    color: #fff;
+    background: linear-gradient(150deg, var(--navy), var(--purple));
+    width: 40px;
+    height: 40px;
+    border-radius: 9px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    line-height: 1;
+    position: relative;
+    z-index: 1;
+    font-variant-numeric: tabular-nums;
+  }
+
+  .beat-body { min-width: 0; }
+  .beat h3 {
+    font-family: var(--serif);
+    font-size: 21px;
+    font-weight: 700;
+    letter-spacing: -0.01em;
+    margin: 2px 0 4px;
+    text-wrap: balance;
+  }
+  .beat .duration {
+    font-family: var(--mono);
+    font-size: 11.5px;
+    color: var(--ink-soft);
+    letter-spacing: 0.04em;
+  }
+
+  .rows { margin-top: 16px; display: flex; flex-direction: column; gap: 11px; }
+  .row { display: grid; grid-template-columns: 92px 1fr; gap: 14px; align-items: baseline; }
+  /* pull-quote rows have no label — they span the full row, not the 92px gutter */
+  .row.say { grid-template-columns: 1fr; }
+  .row .k {
+    font-family: var(--mono);
+    font-size: 11px;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--ink-soft);
+    padding-top: 1px;
+  }
+  .row .v { font-size: 15px; }
+  .row.say .v {
+    font-family: var(--serif);
+    font-style: italic;
+    font-size: 16.5px;
+    color: var(--navy);
+    line-height: 1.45;
+  }
+  .row.say .v::before { content: "\201C"; }
+  .row.say .v::after { content: "\201D"; }
+  kbd {
+    font-family: var(--sans);
+    font-weight: 600;
+    background: #eef0f6;
+    border: 1px solid var(--line-cool);
+    border-bottom-width: 2px;
+    border-radius: 5px;
+    padding: 1px 7px;
+    font-size: 13.5px;
+    white-space: nowrap;
+  }
+
+  .route {
+    margin-top: 14px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    flex-wrap: wrap;
+    font-family: var(--mono);
+    font-size: 12px;
+    color: var(--ink-soft);
+    padding-top: 12px;
+    border-top: 1px dashed var(--line);
+  }
+  .badge {
+    font-family: var(--mono);
+    font-size: 10.5px;
+    font-weight: 700;
+    letter-spacing: 0.06em;
+    padding: 2px 8px;
+    border-radius: 4px;
+    text-transform: uppercase;
+  }
+  .badge.live { background: var(--green-soft); color: var(--green); border: 1px solid #b9e3d1; }
+  .route code { color: var(--navy); font-weight: 600; }
+
+  /* ---------- Act 2 (optional depth) ---------- */
+  .act2-intro {
+    font-size: 15px;
+    color: var(--ink-soft);
+    max-width: 64ch;
+    margin: 0 0 24px;
+  }
+  .act2-intro strong { color: var(--ink); font-weight: 600; }
+
+  /* Optional beats read quieter than the core flow — dashed rail, no gradient num. */
+  .beat.optional { border-style: dashed; border-color: var(--line-cool); background: #fcfcfb; }
+  .beat.optional .num {
+    background: #fff;
+    color: var(--purple);
+    border: 1.5px solid var(--purple);
+    font-size: 15px;
+  }
+  .beat.optional .num.k { font-family: var(--sans); font-weight: 700; }
+  .beat.optional::before { background: repeating-linear-gradient(var(--line-cool) 0 4px, transparent 4px 8px); }
+
+  /* "Coming" roadmap chips */
+  .coming {
+    margin-top: 40px;
+    background: var(--card);
+    border: 1px solid var(--line);
+    border-radius: 10px;
+    padding: 22px 24px;
+  }
+  .coming h2 {
+    font-family: var(--mono);
+    font-size: 12px;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--ink-soft);
+    font-weight: 600;
+    margin: 0 0 6px;
+  }
+  .coming .lede { font-size: 14px; color: var(--ink-soft); margin: 0 0 16px; max-width: 60ch; }
+  .coming .lede em { font-style: italic; color: var(--navy); }
+  .chips { display: flex; flex-wrap: wrap; gap: 10px; }
+  .chip {
+    font-size: 13.5px;
+    background: #f2f0fb;
+    border: 1px solid #ddd6f5;
+    color: #4c3a86;
+    border-radius: 999px;
+    padding: 5px 14px;
+    font-weight: 500;
+  }
+  .chip .star { color: var(--amber); font-weight: 700; }
+
+  /* ---------- Recovery panel ---------- */
+  .recovery {
+    margin-top: 44px;
+    background: var(--amber-soft);
+    border: 1px solid #efd9ac;
+    border-left: 4px solid var(--amber);
+    border-radius: 8px;
+    padding: 22px 26px;
+  }
+  .recovery h2 {
+    font-family: var(--mono);
+    font-size: 12px;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--amber);
+    font-weight: 700;
+    margin: 0 0 14px;
+  }
+  .recovery ul { margin: 0; padding: 0; list-style: none; display: flex; flex-direction: column; gap: 12px; }
+  .recovery li { display: grid; grid-template-columns: max-content 1fr; gap: 14px; font-size: 14.5px; align-items: baseline; }
+  .recovery .trigger { font-weight: 600; color: var(--amber); font-family: var(--mono); font-size: 12px; letter-spacing: 0.03em; }
+
+  /* ---------- Close ---------- */
+  .close {
+    margin-top: 40px;
+    padding-top: 22px;
+    border-top: 2px solid var(--ink);
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    flex-wrap: wrap;
+    gap: 10px;
+  }
+  .close .msg { font-family: var(--serif); font-style: italic; font-size: 16px; color: var(--ink-soft); }
+  .close .stamp { font-family: var(--mono); font-size: 12px; color: var(--ink-soft); letter-spacing: 0.04em; }
+
+  @media (max-width: 620px) {
+    .beat { grid-template-columns: 1fr; gap: 12px; }
+    .beat::before { display: none; }
+    .row { grid-template-columns: 1fr; gap: 3px; }
+    .row .k { padding-top: 0; }
+  }
+
+  /* ---------- Print / PDF ---------- *
+   * At Letter width (~7.3in printable) the nested grids collapse the value
+   * column, so the italic pull-quotes wrapped one word per line. For print,
+   * stack the label above its value and let quotes run the full card width. */
+  @media print {
+    .wrap { max-width: none; padding: 0 0 24px; }
+    .beat { grid-template-columns: 40px 1fr; gap: 18px; page-break-inside: avoid; break-inside: avoid; }
+    .beat::before { left: 39px; }
+    .row { grid-template-columns: 62px 1fr; gap: 12px; }
+    /* pull-quotes span the whole beat body — no narrow gutter */
+    .row.say { grid-template-columns: 1fr; gap: 2px; }
+    .row.say .v { max-width: none; }
+    .preflight, .coming, .recovery, .beat, .close { page-break-inside: avoid; break-inside: avoid; }
+  }
+</style>
+
+<div class="wrap">
+
+  <header class="masthead">
+    <div class="eyebrow">
+      <span>Demo Run-Sheet</span><span class="dot"></span>
+      <span>NCMBC · SBA / GCAP · APEX coaches</span><span class="dot"></span>
+      <span>Monday</span>
+    </div>
+    <h1>Coach Mode, <span class="accent">start to finish</span></h1>
+    <p class="standfirst">One counselor, many client businesses — imported, searched, and worked <strong>as if you were each of them</strong>. Every beat below is tied to a route already verified live on <strong>getmindy.ai</strong>. Target run: <strong>~8 minutes</strong>, then questions.</p>
+  </header>
+
+  <section class="preflight">
+    <h2>Pre-flight — do this before they walk in</h2>
+    <div class="checks">
+      <div class="check"><span class="tick">✓</span><span>Signed into <strong>getmindy.ai/app</strong> as <span class="sub">eric@govcongiants.com</span></span></div>
+      <div class="check"><span class="tick">✓</span><span>Hard-refresh once <span class="sub">(picks up the live build; refreshes your session)</span></span></div>
+      <div class="check"><span class="tick">✓</span><span>NCMBC org active <span class="sub">org_admin · unlimited clients</span></span></div>
+      <div class="check"><span class="tick">✓</span><span>60-business NC roster on clipboard <span class="sub">ncmbc-sample-clients.txt</span></span></div>
+      <div class="check"><span class="tick">✓</span><span>Clients pre-cleared OR pre-loaded <span class="sub">decide: live import vs. already-full</span></span></div>
+      <div class="check"><span class="tick">✓</span><span>Second screen = this sheet <span class="sub">projector = the app only</span></span></div>
+    </div>
+  </section>
+
+  <div class="flow-label">
+    <h2>The Flow</h2><span class="rule"></span><span class="clock">6 beats · ~8 min</span>
+  </div>
+
+  <div class="beats">
+
+    <!-- 1 -->
+    <div class="beat">
+      <div class="num">1</div>
+      <div class="beat-body">
+        <div class="duration">≈ 60 SEC · FRAME IT</div>
+        <h3>The problem you already live with</h3>
+        <div class="rows">
+          <div class="row"><span class="k">Do</span><span class="v">Stay on the app home. Don't click yet — talk.</span></div>
+          <div class="row say"><span class="v">You each counsel dozens of small businesses. Today that's dozens of spreadsheets, logins, and sticky notes. Watch what it looks like when one counselor runs all of them from a single seat.</span></div>
+          <div class="row"><span class="k">Audience</span><span class="v">SBDC / APEX counselors — they feel the many-clients pain instantly. Name it back to them.</span></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 2 -->
+    <div class="beat">
+      <div class="num">2</div>
+      <div class="beat-body">
+        <div class="duration">≈ 90 SEC · THE HOOK</div>
+        <h3>Import the whole roster at once</h3>
+        <div class="rows">
+          <div class="row"><span class="k">Do</span><span class="v">Open <kbd>My Clients</kbd> → <kbd>Import a client roster</kbd> → paste the 60 NC businesses → <kbd>Import</kbd>.</span></div>
+          <div class="row"><span class="k">Show</span><span class="v">The progress bar chunking through, then the summary: <strong>added / duplicates / rejected</strong>. Each business became its own workspace with real NAICS + keywords seeded from its capability text.</span></div>
+          <div class="row say"><span class="v">Sixty businesses, one paste. Each one now has its own profile — not a name in a list, a real working workspace.</span></div>
+          <div class="row"><span class="k">If pre-loaded</span><span class="v">Skip the paste; scroll the populated list instead and say "this is a roster I imported earlier in one shot."</span></div>
+        </div>
+        <div class="route"><span class="badge live">Live</span><code>POST /api/app/coach</code> · action <code>bulk_import</code> · cap math unit-tested (enterprise = unlimited)</div>
+      </div>
+    </div>
+
+    <!-- 3 -->
+    <div class="beat">
+      <div class="num">3</div>
+      <div class="beat-body">
+        <div class="duration">≈ 45 SEC · SCALE</div>
+        <h3>Find one client instantly</h3>
+        <div class="rows">
+          <div class="row"><span class="k">Do</span><span class="v">Type a few letters in the client search — e.g. <kbd>caro</kbd> or <kbd>aero</kbd>.</span></div>
+          <div class="row"><span class="k">Show</span><span class="v">The list filters as you type, no lag, count stays honest. This is the "200 clients is still usable" proof.</span></div>
+          <div class="row say"><span class="v">Whether you manage six clients or six hundred, you're one search away from any of them.</span></div>
+        </div>
+        <div class="route"><span class="badge live">Live</span><code>GET /api/app/coach</code> · instant client-side filter, server paginates past 200</div>
+      </div>
+    </div>
+
+    <!-- 4 -->
+    <div class="beat">
+      <div class="num">4</div>
+      <div class="beat-body">
+        <div class="duration">≈ 90 SEC · THE "WOW"</div>
+        <h3>Become that client</h3>
+        <div class="rows">
+          <div class="row"><span class="k">Do</span><span class="v">On a client card, click <kbd>Work as [name]</kbd>.</span></div>
+          <div class="row"><span class="k">Show</span><span class="v">The whole app re-scopes to that business — their pipeline, their target agencies, their research. You're operating inside their workspace, not looking at a report about them.</span></div>
+          <div class="row say"><span class="v">Now I'm not looking at their account — I'm working in it. Everything I do here is theirs.</span></div>
+        </div>
+        <div class="route"><span class="badge live">Live</span><code>GET /api/app/workspace</code> · <code>x-active-workspace</code> switch, authorization-gated</div>
+      </div>
+    </div>
+
+    <!-- 5 -->
+    <div class="beat">
+      <div class="num">5</div>
+      <div class="beat-body">
+        <div class="duration">≈ 2 MIN · THE VALUE</div>
+        <h3>Do real work for them</h3>
+        <div class="rows">
+          <div class="row"><span class="k">Do</span><span class="v">From the switched-in client, open <kbd>Target agencies</kbd>, then <kbd>Market research</kbd>, then <kbd>Pipeline</kbd>.</span></div>
+          <div class="row"><span class="k">Show</span><span class="v">Agencies they should pursue, live opportunities for their NAICS, and a pipeline to track pursuits. Point out it's grounded in real USASpending / SAM data, not made up.</span></div>
+          <div class="row say"><span class="v">In one session you gave this client a target list, live opportunities, and a pipeline. Multiply that across your whole caseload.</span></div>
+          <div class="row"><span class="k">Depth pick</span><span class="v">Have ONE client picked in advance whose research looks strong (construction or IT/cyber). Don't gamble on a random one live.</span></div>
+        </div>
+        <div class="route"><span class="badge live">Live</span><code>/api/app/target-list</code> · <code>/api/market-scanner</code> · <code>/api/pipeline</code> — all scoped to the active client</div>
+      </div>
+    </div>
+
+    <!-- 6 -->
+    <div class="beat">
+      <div class="num">6</div>
+      <div class="beat-body">
+        <div class="duration">≈ 60 SEC · LAND IT</div>
+        <h3>Step back to the coach seat</h3>
+        <div class="rows">
+          <div class="row"><span class="k">Do</span><span class="v">Switch back out to <kbd>My Clients</kbd>. Land on the full roster view.</span></div>
+          <div class="row say"><span class="v">One counselor. One login. Every client's BD run from here — and it's built to white-label as your program's own. That's Coach Mode.</span></div>
+          <div class="row"><span class="k">Roadmap</span><span class="v">If asked "can it be OUR brand / assign counselors / report to funders?" — yes, that's Phase 2 (org-admin, assignment, funder reporting, branding). Engine's built; say "coming," don't demo it.</span></div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- ==================== ACT 2 ==================== -->
+  <div class="flow-label" style="margin-top:52px;">
+    <h2>Act 2 — if they lean in</h2><span class="rule"></span><span class="clock">optional · pick one</span>
+  </div>
+  <p class="act2-intro">Only if the room wants more. These aren't demo steps — they're the two strongest "what else does it do?" answers, both <strong>live today</strong>. Show <strong>one</strong>, not both. The proposal sells ~80% of Mindy already; these are the pieces that land hardest with counselors.</p>
+
+  <div class="beats">
+
+    <!-- A -->
+    <div class="beat optional">
+      <div class="num k">A</div>
+      <div class="beat-body">
+        <div class="duration">≈ 90 SEC · THE SLEEPER — best for an SBDC/APEX room</div>
+        <h3>Your own playbook, made searchable</h3>
+        <div class="rows">
+          <div class="row"><span class="k">Do</span><span class="v">Open <kbd>Knowledge Base</kbd>. Type a real question in the search box.</span></div>
+          <div class="row"><span class="k">Show</span><span class="v">It answers from an ingested corpus — for a partner org, that's <strong>your own internal guidance docs</strong>. This is the "Custom AI Workbench" the proposal names.</span></div>
+          <div class="row say"><span class="v">Load your center's playbooks in here and a counselor can ask "what guidance did we give construction firms in this county?" — instead of digging through a shared drive.</span></div>
+          <div class="row"><span class="k">Why it lands</span><span class="v">Counselors live in their own guidance. This turns a filing cabinet into an answer engine — the proposal's real differentiator.</span></div>
+        </div>
+        <div class="route"><span class="badge live">Live</span><code>GET /api/app/knowledge-base</code> · RAG over the org corpus · ingest their docs per-org</div>
+      </div>
+    </div>
+
+    <!-- B -->
+    <div class="beat optional">
+      <div class="num k">B</div>
+      <div class="beat-body">
+        <div class="duration">≈ 60 SEC · THE MORNING DASHBOARD</div>
+        <h3>"Who on my caseload has something due?"</h3>
+        <div class="rows">
+          <div class="row"><span class="k">Do</span><span class="v">Back on <kbd>My Clients</kbd>, scroll to the <strong>Org Tab</strong> feed under the roster.</span></div>
+          <div class="row"><span class="k">Show</span><span class="v">Across ALL your clients at once: upcoming <strong>deadlines</strong>, recent <strong>change alerts</strong>, and admin-posted <strong>internal news</strong> — one glance.</span></div>
+          <div class="row say"><span class="v">This is a counselor's Monday morning: every client's deadline across the whole caseload, red-flagged, on one screen.</span></div>
+          <div class="row"><span class="k">Note</span><span class="v">The feed shows only if your clients have tracked pursuits with deadlines — pre-seed one or two so it isn't empty.</span></div>
+        </div>
+        <div class="route"><span class="badge live">Live</span><code>GET /api/app/coach</code> · Org Tab: cross-client deadlines + changes + <code>org_news</code></div>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- Coming / roadmap -->
+  <section class="coming">
+    <h2>If they ask "can it do X?" — name it, don't demo it</h2>
+    <p class="lede">All roadmap (Phase 2 / v2), engine partly built. Say <em>"that's coming"</em> with confidence — never present these as missing. <span class="chip" style="padding:1px 9px;"><span class="star">★</span> = matters most to a funded center</span></p>
+    <div class="chips">
+      <span class="chip"><span class="star">★</span> Funder / ROI reporting <span style="opacity:.6">(NCMBC → DoD outcomes)</span></span>
+      <span class="chip"><span class="star">★</span> White-label branding <span style="opacity:.6">(your logo, colors, domain)</span></span>
+      <span class="chip">Counselor management + client assignment</span>
+      <span class="chip">Org-admin dashboard + seat billing</span>
+      <span class="chip">Deep integrations <span style="opacity:.6">(Slack · Outlook · Drive)</span></span>
+      <span class="chip">SSO / SAML</span>
+    </div>
+  </section>
+
+  <section class="recovery">
+    <h2>If something wobbles — recover, don't apologize</h2>
+    <ul>
+      <li><span class="trigger">A panel errors</span><span>Hard-refresh once (fixes an expired session — the auth self-heal is deployed) and continue. Don't debug on the projector.</span></li>
+      <li><span class="trigger">Import feels slow</span><span>It chunks in batches — narrate it: "it's provisioning a real workspace per business." Slowness reads as substance here.</span></li>
+      <li><span class="trigger">A client's research is thin</span><span>Switch to your pre-picked strong client. Never let a sparse result be the thing on screen.</span></li>
+      <li><span class="trigger">Asked about isolation</span><span>"Each client is scoped by org and workspace, enforced in the app and backstopped in the database." True, audited, and enough — don't go deeper.</span></li>
+      <li><span class="trigger">Asked about SAM "higher access"</span><span>"Award data's already live via USASpending; the SAM system account only adds subaward depth." Don't frame it as missing.</span></li>
+      <li><span class="trigger">They say "OpnGovIQ"</span><span>That's the name in the proposal — bridge without a beat: "right, that's the product you're looking at — Mindy." Don't correct, just continue.</span></li>
+    </ul>
+  </section>
+
+  <div class="close">
+    <span class="msg">Verified live end-to-end · import confirmed working in-session.</span>
+    <span class="stamp">getmindy.ai · commit fdb6b713</span>
+  </div>
+
+</div>

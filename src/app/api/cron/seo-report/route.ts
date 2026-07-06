@@ -29,6 +29,25 @@ function authorized(req: NextRequest): boolean {
   return isAuthorized(extractPassword(req));
 }
 
+/**
+ * Post a short failure notice to Slack so a site that failed to report is
+ * visible instead of just silently missing from the channel. Best-effort:
+ * if even this post fails, we swallow it (the caller already logged the error).
+ */
+async function postFailureNotice(webhookUrl: string, siteLabel: string, error: string): Promise<void> {
+  try {
+    await fetch(webhookUrl, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        text: `⚠️ Weekly SEO report — ${siteLabel} — could not be generated this run. ${error.slice(0, 300)}`,
+      }),
+    });
+  } catch (e) {
+    console.error(`SEO report: failed to post failure notice for ${siteLabel}:`, e instanceof Error ? e.message : e);
+  }
+}
+
 export async function GET(req: NextRequest) {
   if (!authorized(req)) {
     return NextResponse.json({ error: 'unauthorized' }, { status: 401 });
@@ -54,7 +73,16 @@ export async function GET(req: NextRequest) {
 
   for (const site of sites) {
     try {
-      const report = await buildReport(new Date(), site);
+      // GSC occasionally returns a transient 5xx/timeout (the biggest site,
+      // govcongiants.com, is most exposed since it's first + has the most data).
+      // Retry once before giving up so a blip doesn't silently drop a site.
+      let report;
+      try {
+        report = await buildReport(new Date(), site);
+      } catch (firstErr) {
+        console.warn(`SEO report: first attempt failed for ${site.key}, retrying once:`, firstErr instanceof Error ? firstErr.message : firstErr);
+        report = await buildReport(new Date(), site);
+      }
       const blocks = toSlackBlocks(report);
 
       const res = await fetch(webhookUrl, {
@@ -68,7 +96,9 @@ export async function GET(req: NextRequest) {
 
       if (!res.ok) {
         const errText = await res.text();
-        results.push({ site: site.key, posted: false, error: `Slack post failed: ${res.status} ${errText.slice(0, 200)}` });
+        const error = `Slack post failed: ${res.status} ${errText.slice(0, 200)}`;
+        results.push({ site: site.key, posted: false, error });
+        await postFailureNotice(webhookUrl, site.label, error);
         continue;
       }
       results.push({ site: site.key, posted: true, totals: report.totals });
@@ -76,6 +106,9 @@ export async function GET(req: NextRequest) {
       const message = e instanceof Error ? e.message : String(e);
       console.error(`SEO report cron failed for ${site.key}:`, message);
       results.push({ site: site.key, posted: false, error: message });
+      // A silent gap reads as "that site has no data." Post a short notice so a
+      // failed site is visible and self-explaining, not just missing.
+      await postFailureNotice(webhookUrl, site.label, message);
     }
   }
 

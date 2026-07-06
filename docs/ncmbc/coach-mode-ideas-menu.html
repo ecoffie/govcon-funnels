@@ -1,0 +1,270 @@
+<title>Coach Mode — Ideas from Across the Community</title>
+<style>
+  :root {
+    --navy: #1e3a8a;
+    --purple: #7c3aed;
+    --ink: #17191f;
+    --ink-soft: #565b6c;
+    --paper: #f7f6f2;
+    --card: #ffffff;
+    --line: #e6e3db;
+    --line-cool: #d8dce6;
+    --live: #0f9d6a;
+    --live-soft: #e6f5ee;
+    --live-line: #b7e2d0;
+    --prop: #7c3aed;
+    --prop-soft: #f2effb;
+    --prop-line: #ddd4f5;
+    --amber: #b45309;
+    --amber-soft: #fbf1de;
+    --mono: ui-monospace, "SF Mono", Menlo, Consolas, monospace;
+    --sans: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+    --serif: Georgia, "Times New Roman", serif;
+  }
+  * { box-sizing: border-box; }
+  body { margin: 0; background: var(--paper); color: var(--ink); font-family: var(--sans); line-height: 1.55; -webkit-font-smoothing: antialiased; }
+  .wrap { max-width: 940px; margin: 0 auto; padding: 46px 26px 90px; }
+
+  /* Masthead */
+  .masthead { border-bottom: 3px solid var(--ink); padding-bottom: 22px; }
+  .eyebrow { font-family: var(--mono); font-size: 12px; letter-spacing: 0.13em; text-transform: uppercase; color: var(--purple); font-weight: 600; display: flex; gap: 11px; align-items: center; flex-wrap: wrap; }
+  .eyebrow .dot { width: 5px; height: 5px; border-radius: 50%; background: var(--line-cool); }
+  h1 { font-family: var(--serif); font-weight: 700; font-size: clamp(29px, 4.8vw, 42px); line-height: 1.04; letter-spacing: -0.015em; text-wrap: balance; margin: 14px 0 10px; }
+  h1 .accent { background: linear-gradient(105deg, var(--navy), var(--purple)); -webkit-background-clip: text; background-clip: text; color: transparent; }
+  .standfirst { font-size: 15.5px; color: var(--ink-soft); max-width: 66ch; margin: 0; }
+  .standfirst strong { color: var(--ink); font-weight: 600; }
+
+  /* Legend */
+  .legend { display: flex; gap: 20px; flex-wrap: wrap; margin: 26px 0 6px; font-size: 13px; }
+  .legend .tag { display: inline-flex; align-items: center; gap: 7px; }
+  .pill { font-family: var(--mono); font-size: 10px; font-weight: 700; letter-spacing: 0.05em; padding: 2px 8px; border-radius: 4px; text-transform: uppercase; }
+  .pill.live { background: var(--live-soft); color: var(--live); border: 1px solid var(--live-line); }
+  .pill.prop { background: var(--prop-soft); color: var(--prop); border: 1px solid var(--prop-line); }
+
+  /* "What they told us" quote strip */
+  .heard { margin: 30px 0 42px; background: var(--card); border: 1px solid var(--line); border-radius: 10px; overflow: hidden; }
+  .heard > h2 { font-family: var(--mono); font-size: 11.5px; letter-spacing: 0.12em; text-transform: uppercase; color: var(--ink-soft); font-weight: 600; margin: 0; padding: 18px 24px 4px; }
+  .heard .src { padding: 0 24px 14px; font-size: 12.5px; color: var(--ink-soft); }
+  .heard .grid { display: grid; grid-template-columns: 1fr 1fr; }
+  .pain { padding: 16px 24px; border-top: 1px solid var(--line); }
+  .pain:nth-child(odd) { border-right: 1px solid var(--line); }
+  .pain .q { font-family: var(--serif); font-style: italic; font-size: 16px; color: var(--navy); line-height: 1.4; }
+  .pain .q::before { content: "\201C"; } .pain .q::after { content: "\201D"; }
+  .pain .fix { font-size: 13px; color: var(--ink-soft); margin-top: 7px; }
+  .pain .fix b { color: var(--live); font-weight: 600; }
+
+  /* Section headers */
+  .band { display: flex; align-items: center; gap: 14px; margin: 46px 0 18px; }
+  .band h2 { font-family: var(--serif); font-size: 24px; font-weight: 700; letter-spacing: -0.01em; margin: 0; white-space: nowrap; }
+  .band .who { font-family: var(--mono); font-size: 11px; letter-spacing: 0.1em; text-transform: uppercase; color: var(--purple); font-weight: 600; }
+  .band .rule { height: 2px; background: var(--line); flex: 1; }
+
+  /* Idea cards */
+  .ideas { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
+  .idea { background: var(--card); border: 1px solid var(--line); border-radius: 10px; padding: 17px 19px; display: flex; flex-direction: column; gap: 7px; }
+  .idea .top { display: flex; align-items: flex-start; justify-content: space-between; gap: 10px; }
+  .idea h3 { font-size: 15.5px; font-weight: 650; margin: 0; line-height: 1.3; }
+  .idea p { font-size: 13.5px; color: var(--ink-soft); margin: 0; }
+  .idea .asked { font-size: 11.5px; color: var(--ink-soft); font-style: italic; margin-top: 2px; }
+
+  /* full-width idea (for the big ones) */
+  .idea.wide { grid-column: 1 / -1; }
+
+  /* Funder callout */
+  .funder-note { margin-top: 18px; background: var(--amber-soft); border: 1px solid #efd9ac; border-left: 4px solid var(--amber); border-radius: 8px; padding: 16px 20px; font-size: 14px; }
+  .funder-note b { color: var(--amber); }
+
+  /* Journeys */
+  .journeys { display: grid; grid-template-columns: repeat(auto-fit, minmax(160px, 1fr)); gap: 12px; margin-top: 4px; }
+  .journey { background: var(--card); border: 1px solid var(--line); border-radius: 9px; padding: 14px 16px; }
+  .journey .n { font-family: var(--mono); font-size: 11px; color: var(--purple); font-weight: 700; }
+  .journey h4 { font-size: 14px; margin: 5px 0 4px; font-weight: 620; }
+  .journey p { font-size: 12.5px; color: var(--ink-soft); margin: 0; }
+
+  /* Prompt-her strip */
+  .prompts { margin-top: 46px; border-top: 2px solid var(--ink); padding-top: 22px; }
+  .prompts h2 { font-family: var(--serif); font-size: 21px; margin: 0 0 12px; }
+  .prompts ul { margin: 0; padding: 0; list-style: none; display: flex; flex-direction: column; gap: 10px; }
+  .prompts li { display: grid; grid-template-columns: 22px 1fr; gap: 10px; font-size: 15px; align-items: baseline; }
+  .prompts li .q { color: var(--purple); font-family: var(--serif); font-weight: 700; }
+
+  .foot { margin-top: 34px; font-family: var(--mono); font-size: 11px; color: var(--ink-soft); letter-spacing: 0.03em; }
+
+  @media (max-width: 640px) {
+    .heard .grid, .ideas { grid-template-columns: 1fr; }
+    .pain:nth-child(odd) { border-right: none; }
+    .idea.wide { grid-column: auto; }
+  }
+
+  /* Print / PDF only — screen matches the artifact untouched.
+     At fixed Letter width the gradient (background-clip:text) glyph clips the
+     trailing "r"; nudge the size down a hair and pad the accent so it renders
+     whole. Also keep cards from splitting across a page break. */
+  @media print {
+    h1 { font-size: 38px; padding-right: 0.12em; }
+    h1 .accent { padding-right: 0.14em; }
+    .heard, .idea, .journey, .funder-note, .prompts li, .pain { break-inside: avoid; }
+    .band { break-after: avoid; }
+  }
+</style>
+
+<div class="wrap">
+
+  <header class="masthead">
+    <div class="eyebrow"><span>Coach Mode</span><span class="dot"></span><span>Ideas menu for NCMBC</span><span class="dot"></span><span>SBDC · GCAP · APEX</span></div>
+    <h1>What other centers <span class="accent">asked us for</span></h1>
+    <p class="standfirst">A menu to react to — not a prescription. These are things <strong>other APEX / SBDC counselors and their funders</strong> told us they struggled with and wanted. You'll have your own ideas; this is here to trigger the ones you haven't thought of yet. Each is marked <strong>live today</strong> or <strong>proposed</strong> so you know what you can use Monday vs. what we'd build with you.</p>
+
+    <div class="legend">
+      <span class="tag"><span class="pill live">Live</span> In Mindy today — usable now</span>
+      <span class="tag"><span class="pill prop">Proposed</span> Asked for by others — we'd build it</span>
+    </div>
+  </header>
+
+  <!-- WHAT WE HEARD -->
+  <section class="heard">
+    <h2>What counselors told us they struggle with</h2>
+    <div class="src">Verbatim themes from an APEX center that scoped this with us (the pattern repeats across centers).</div>
+    <div class="grid">
+      <div class="pain">
+        <div class="q">Clients attend training but don't complete the actions — we can't see where they drop off.</div>
+        <div class="fix"><b>Live:</b> a workspace per client shows exactly how far each one got (profile, targets, pipeline).</div>
+      </div>
+      <div class="pain">
+        <div class="q">Each counselor does things their own way — the knowledge is trapped in people's heads.</div>
+        <div class="fix"><b>Live:</b> the Knowledge Base makes your center's playbooks searchable for every counselor.</div>
+      </div>
+      <div class="pain">
+        <div class="q">We spend too much time hunting for templates — everything's scattered across drives.</div>
+        <div class="fix"><b>Live:</b> load your guidance docs once; ask Mindy instead of digging.</div>
+      </div>
+      <div class="pain">
+        <div class="q">We can't prove our impact to funders — there's no tracking from activity to outcome.</div>
+        <div class="fix"><b>Proposed:</b> a monthly engagement + outcomes report built for grant reporting.</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FOR THE COUNSELOR -->
+  <div class="band">
+    <span class="who">Helps her →</span><h2>For the counselor</h2><span class="rule"></span>
+  </div>
+  <div class="ideas">
+    <div class="idea wide">
+      <div class="top"><h3>Run every client from one seat</h3><span class="pill live">Live</span></div>
+      <p>Each business is its own workspace — its own pipeline, target agencies, and market research. Search across your whole caseload and "work as" any one of them. Import a whole roster in one paste.</p>
+      <div class="asked">Every center that saw this wanted it first — it's the core of Coach Mode.</div>
+    </div>
+
+    <div class="idea">
+      <div class="top"><h3>Your playbooks, made searchable</h3><span class="pill live">Live</span></div>
+      <p>A private AI over <em>your</em> internal guidance docs — "what did we tell construction firms about bonding?" Counselors asked for this by name ("Custom AI Workbench").</p>
+      <div class="asked">Resonated most in the original quote: "private AI on THEIR documents, not generic."</div>
+    </div>
+
+    <div class="idea">
+      <div class="top"><h3>See where each client stalls</h3><span class="pill live">Live</span></div>
+      <p>The client list shows how far each business got — so you know who to nudge and who's ready, instead of guessing from memory.</p>
+      <div class="asked">Answers "we can't see where clients drop off."</div>
+    </div>
+
+    <div class="idea">
+      <div class="top"><h3>Task &amp; milestone tracking per client</h3><span class="pill prop">Proposed</span></div>
+      <p>Assign and track the concrete next steps for each business (SAM done, cap statement drafted, first bid submitted) — a checklist that rolls up across your caseload.</p>
+      <div class="asked">Explicitly requested: "task/milestone tracking," "activity dashboards."</div>
+    </div>
+
+    <div class="idea">
+      <div class="top"><h3>Assign counselors to clients</h3><span class="pill prop">Proposed</span></div>
+      <p>An admin view to assign each business to a specific counselor and see each counselor's book of clients — for centers with a team, not a solo.</p>
+      <div class="asked">Needed once more than one counselor is in the account.</div>
+    </div>
+
+    <div class="idea">
+      <div class="top"><h3>Standardize the "how we do it"</h3><span class="pill prop">Proposed</span></div>
+      <p>Documented playbooks + templates baked into the workspace so every counselor works the same way — the fix for "knowledge trapped in people's heads."</p>
+      <div class="asked">Requested as "playbook documentation."</div>
+    </div>
+  </div>
+
+  <!-- FOR HER CLIENTS -->
+  <div class="band">
+    <span class="who">Helps her community →</span><h2>For the small businesses she serves</h2><span class="rule"></span>
+  </div>
+  <div class="ideas">
+    <div class="idea">
+      <div class="top"><h3>Daily opportunity alerts</h3><span class="pill live">Live</span></div>
+      <p>Every client gets matched opportunities by email — free, forever. The volume play: don't miss what fits.</p>
+      <div class="asked">The #1 gap in the original quote — the other vendor didn't include it.</div>
+    </div>
+    <div class="idea">
+      <div class="top"><h3>Who's buying + who to call</h3><span class="pill live">Live</span></div>
+      <p>Market research ranks the agencies that actually spend on a client's work, then the buying offices and decision-makers there.</p>
+      <div class="asked">Also missing from the other vendor: "market intelligence, who's buying."</div>
+    </div>
+    <div class="idea">
+      <div class="top"><h3>Bid help + compliance matrix</h3><span class="pill live">Live</span></div>
+      <p>Bid/no-bid scoring, every "shall" pulled into a matrix, a drafted first response, and a .docx export — so a client's first bid isn't a blank page.</p>
+      <div class="asked">Maps to their "Proposal Response Basics" client journey.</div>
+    </div>
+    <div class="idea">
+      <div class="top"><h3>Recompetes + forecasts + teaming</h3><span class="pill live">Live</span></div>
+      <p>What's expiring (recompete targets), what's coming (forecasts), and who to team with (contractor database) — all missing from the other quote.</p>
+      <div class="asked">The full "what they didn't include" list — MI fills it.</div>
+    </div>
+
+    <div class="idea wide">
+      <div class="top"><h3>Guided client journeys (structured paths, not a blank tool)</h3><span class="pill prop">Proposed</span></div>
+      <p>Other centers asked for step-by-step paths a client walks on their own. Mindy already has three (profile → find customers → first bid); centers asked for these five:</p>
+      <div class="journeys">
+        <div class="journey"><div class="n">A</div><h4>New Entrant Readiness</h4><p>SAM → compliance → capability statement</p></div>
+        <div class="journey"><div class="n">B</div><h4>Set-Aside Path</h4><p>WOSB / HUBZone cert → targeting</p></div>
+        <div class="journey"><div class="n">C</div><h4>CMMC Level 1 Readiness</h4><p>Cyber baseline for DoD work</p></div>
+        <div class="journey"><div class="n">D</div><h4>Proposal Basics</h4><p>First response, done right <span style="color:var(--live)">(live)</span></p></div>
+        <div class="journey"><div class="n">E</div><h4>Subcontracting Match</h4><p>Find a prime to team with</p></div>
+      </div>
+      <div class="asked" style="margin-top:10px;">The exact 5 journeys an APEX center scoped. D exists today; the rest we'd build.</div>
+    </div>
+  </div>
+
+  <!-- FOR FUNDERS -->
+  <div class="band">
+    <span class="who">Helps her funders →</span><h2>For the grant / funder story</h2><span class="rule"></span>
+  </div>
+  <div class="ideas">
+    <div class="idea wide">
+      <div class="top"><h3>Monthly engagement &amp; outcomes report</h3><span class="pill prop">Proposed</span></div>
+      <p>The one every center circled: an automatic report showing clients served, actions completed, opportunities pursued, and contracts won — the activity-to-outcome trail funders ask for. Today Mindy captures the underlying activity (signups, profile completion, app usage, pipeline); the funder-ready report is the packaging on top.</p>
+      <div class="asked">Requested as "monthly report on client engagement — data for their grants."</div>
+    </div>
+    <div class="idea">
+      <div class="top"><h3>White-label as NCMBC's own</h3><span class="pill prop">Proposed</span></div>
+      <p>Your name, your logo, your colors — the tool presents as NCMBC's platform, not a third party. Reports go out white-labeled too.</p>
+      <div class="asked">Enterprise "white-label reports" — asked for by centers pitching their board.</div>
+    </div>
+    <div class="idea">
+      <div class="top"><h3>Drop-off &amp; ROI dashboard</h3><span class="pill prop">Proposed</span></div>
+      <p>Where clients stall, conversion from training to action, and outcomes — the numbers that prove the center is working, at a glance.</p>
+      <div class="asked">Directly answers "no tracking of activity → outcomes."</div>
+    </div>
+  </div>
+
+  <div class="funder-note">
+    <b>The funder angle is the wedge.</b> Every center said the same thing: they can deliver help all day, but they can't <em>prove</em> it to the people who fund them. Whoever solves the reporting story becomes indispensable — this is the feature most likely to unlock budget. Worth asking NCMBC what her funder actually requires in a report.
+  </div>
+
+  <!-- PROMPTS FOR HER -->
+  <section class="prompts">
+    <h2>Questions to spark her own ideas</h2>
+    <ul>
+      <li><span class="q">?</span><span>What does your <strong>funder</strong> actually require you to report — and how do you produce it today?</span></li>
+      <li><span class="q">?</span><span>Where do <strong>most clients stall</strong>? (If we could surface that automatically, would it change how you counsel?)</span></li>
+      <li><span class="q">?</span><span>If your <strong>whole team</strong> could see every client's status in one place, what would that change?</span></li>
+      <li><span class="q">?</span><span>Which of your <strong>own playbooks</strong> would be most valuable to make searchable for every counselor?</span></li>
+      <li><span class="q">?</span><span>Of the five client journeys — which does <strong>your community</strong> need most? (New entrant? Set-aside? CMMC?)</span></li>
+    </ul>
+  </section>
+
+  <div class="foot">Live = usable Monday · Proposed = requested by other centers, built with you · sources: APEX Illinois scoping + community BD plan</div>
+
+</div>

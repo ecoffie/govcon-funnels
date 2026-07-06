@@ -43,7 +43,7 @@ ${bodyHtml}
 ${psHtml}
 </td></tr>
 <tr><td style="padding:18px 8px 0;border-top:1px solid #eeeeee;">
-<p style="color:#999999;font-size:11px;line-height:1.5;margin:0;">GovCon Giants &middot; Mindy &middot; You're receiving this because you started a Mindy profile.<br><a href="{{unsubscribe}}" style="color:#999999;">Unsubscribe</a></p>
+<p style="color:#999999;font-size:11px;line-height:1.5;margin:0;">GovCon Giants &middot; Mindy &middot; You're receiving this because you attended a GovCon Giants bootcamp and started a Mindy profile.<br><a href="{{unsubscribe}}" style="color:#999999;">Unsubscribe</a></p>
 </td></tr>
 </table></td></tr></table></body></html>`;
 }
@@ -56,101 +56,107 @@ const LIST = (items) =>
   `</table>`;
 const STRONG = (t) => B(t);
 
+// AUDIENCE: warm GovCon Giants bootcamp alumni who started a Mindy profile and
+// went quiet without finishing it (tag mindy-profile-incomplete). The arc leans
+// on SUNK COST + belonging + last-call — "you already invested a day learning
+// this" — not "your profile is blank," because these people already did the work.
 export const STAGES = [
+  // 1 — SUNK COST: you did the hard part, don't let it go cold.
   {
     key: 'd0',
     daysAfterPrev: 0,
-    subject: '{{first}}, opportunities are matching to you right now (you just can’t see them)',
+    subject: '{{first}}, you already learned how to win these. Your account went quiet.',
     fn: (n, url) => shell(n,
-      'Your Mindy profile is blank — so the matches go to someone else.',
+      "You did the hard part already. Your Mindy account just went cold.",
       P(`${n},`) +
-      P(`Every day, federal opportunities get matched to contractors based on their profile — ${B('NAICS, set-asides, past work')}, the agencies they serve.`) +
-      P(`Yours is ${BU('blank')}.`) +
-      P(`So when an opportunity that fits you ${U('perfectly')} hits the system, Mindy can’t surface it to you. It goes to the contractor who took two minutes to finish their profile.`) +
-      P(`That’s the whole game:`) +
+      P(`You sat through a GovCon Giants bootcamp. You already know the part most contractors ${B('never')} figure out — where the real opportunities hide and how to get in front of them ${B('before')} they hit SAM.gov.`) +
+      P(`Then your Mindy account went ${U('quiet')}.`) +
+      P(`Here's what bugs me about that. The training only pays off if something's ${B('working the pipeline for you')} every day. Right now, nothing is:`) +
       LIST([
-        `The matches are happening ${B('right now')}`,
-        `They’re going to contractors with ${B('complete')} profiles`,
-        `You’re just ${BU('not in the room')}`,
+        `Matches go out ${B('daily')} — to contractors with finished profiles`,
+        `Yours is ${B('blank')}, so Mindy has nothing to match you against`,
+        `Everything you learned is ${BU('just sitting there')}`,
       ]) +
-      P(`Two minutes fixes it.`),
+      P(`You did the hard part. This is the ${U('easy')} part — two minutes that turns what you learned into opportunities landing in your inbox.`),
       url,
-      PS(`The opportunity that matched to someone else this week? It might have been ${B('yours')}.`)),
+      PS(`You didn't spend a day learning this to let it go cold. The next round of matches is coming — be in it.`)),
   },
+
+  // 2 — THE GAP: the classmates still in the game vs the ones who drifted.
   {
     key: 'd2',
     daysAfterPrev: 2,
-    subject: 'There are two worlds of federal contracting. You’re stuck in the wrong one.',
+    subject: 'The people from your bootcamp who are winning did one thing you didn’t',
     fn: (n, url) => shell(n,
-      '20–100 competitors vs 5–10. Which side are you on?',
+      "Same training. Different results. Here's the split.",
       P(`${n},`) +
-      P(`There are ${B('two worlds')} of federal contracting.`) +
-      P(`${BU('World 1')} — where most contractors are stuck:`) +
+      P(`Everyone in that room got the ${B('same')} playbook. A year later the results split hard — and it usually isn't talent or timing.`) +
+      P(`${BU('The ones landing work')} did one unglamorous thing:`) +
       LIST([
-        `${B('20–100+')} competitors per opportunity`,
-        `A ${B('2–5%')} win rate`,
-        `Everyone fighting over the same SAM.gov postings`,
+        `They let Mindy ${B('run the pipeline')} for them daily`,
+        `So opportunities that fit ${U('them')} showed up automatically`,
       ]) +
-      P(`${BU('World 2')} — matched opportunities tuned to ${U('your')} profile:`) +
-      LIST([
-        `${B('5–10')} competitors`,
-        `A ${B('15–30%')} win rate`,
-        `Most contractors don’t even know these exist`,
-      ]) +
-      P(`Mindy puts you in World 2 — but ${B('only once your profile tells it who you are')}. Right now, it can’t.`),
+      P(`${BU('The ones still stuck')} are doing it the old way — logging into SAM.gov, scrolling, guessing, competing with ${B('everybody')}.`) +
+      P(`The difference wasn't the bootcamp. It was whether they ${B('turned the tool on')} after it.`),
       url,
-      PS(`You’re not losing because you’re not good enough. You’re losing because you’re in the ${B('wrong room')}.`)),
+      PS(`You're one finished profile away from the first group.`)),
   },
+
+  // 3 — VALUE / REMINDER: what Mindy actually does for a trained operator.
   {
     key: 'd4',
     daysAfterPrev: 2,
-    subject: 'The contractors winning aren’t smarter. They just finished step one.',
+    subject: '{{first}}, remember what Mindy does while you sleep?',
     fn: (n, url) => shell(n,
-      'A blank profile costs you every match, every day.',
+      "The whole point was to stop hunting. Mindy hunts for you.",
       P(`${n},`) +
-      P(`The difference between the contractors getting matched opportunities and the ones who aren’t usually ${B('isn’t')} skill, capital, or connections.`) +
-      P(`It’s that one group ${BU('finished their profile')} and the other didn’t.`) +
-      P(`A complete profile is what lets Mindy do the work ${U('for')} you:`) +
+      P(`Quick reminder of why you started, because it's easy to forget once life gets busy.`) +
+      P(`The whole point of the bootcamp was to stop ${B('hunting')} for opportunities one by one. Mindy does that hunting ${U('for')} you — every day, in the background:`) +
       LIST([
-        `Pulls the opportunities that fit ${B('you')}`,
-        `Instead of making you dig through ${B('thousands')} that don’t`,
+        `Scans federal opportunities against ${B('your')} business`,
+        `Surfaces the ones you can actually ${B('win')}`,
+        `So you skip the ${B('thousands')} that were never a fit`,
       ]) +
-      P(`Every day it sits empty is ${B('a day of matches you’ll never see')}.`),
+      P(`But it can only do that once it knows who you are. A finished profile is the switch. ${U('Yours is still off.')}`),
       url,
-      PS(`This is the one that keeps costing you — quietly, every single day.`)),
+      PS(`A trained contractor with the tool off still loses to an average one with it on.`)),
   },
+
+  // 4 — LOSS: the uncomfortable one — what already went by.
   {
     key: 'd6',
     daysAfterPrev: 2,
-    subject: '{{first}}, here’s what matched while your profile sat empty',
+    subject: 'This is the uncomfortable email',
     fn: (n, url) => shell(n,
-      'Opportunities that fit your business — gone to someone else.',
+      "Opportunities that fit you have already come and gone.",
       P(`${n},`) +
-      P(`This is the ${B('uncomfortable')} one.`) +
-      P(`While your profile’s been blank, opportunities that could have matched your business have come and gone. Other contractors:`) +
+      P(`This is the ${B('uncomfortable')} one, so I'll keep it short.`) +
+      P(`Since your bootcamp, opportunities that fit your business have come and gone. Other contractors — some with ${U('less')} training than you now have —`) +
       LIST([
         `${B('Saw')} them`,
-        `${B('Responded')} to them`,
+        `${B('Bid')} on them`,
         `Some ${B('won')} them`,
       ]) +
-      P(`You didn’t see any of it — ${U('not')} because you weren’t qualified, but because Mindy had ${B('nothing to match you against')}.`) +
-      P(`That’s fixable. The ${BU('next')} round of matches is coming — be in it this time.`),
+      P(`You didn't see any of it. ${U('Not')} because you weren't qualified — because Mindy had ${B('nothing to match you against')}.`) +
+      P(`That stops the moment your profile's done. The ${BU('next')} round is coming.`),
       url,
-      PS(`The qualified contractor who misses the match still loses to the one who showed up. Show up.`)),
+      PS(`You can't get the last one back. You can be in the next one.`)),
   },
+
+  // 5 — LAST CALL: clean, respectful, door-closing.
   {
     key: 'd8',
     daysAfterPrev: 2,
-    subject: 'Last one — then I’ll stop emailing you about this',
+    subject: 'Last one, {{first}} — then I’ll stop',
     fn: (n, url) => shell(n,
-      'Finish your profile, or we’ll assume you’ve stepped back from contracting.',
+      "Finish your profile, or I'll assume you've stepped back and leave you be.",
       P(`${n},`) +
-      P(`I’ve sent a few of these because I ${B('genuinely')} don’t want you missing matches that are sitting right there.`) +
+      P(`I've sent a few of these because you ${B('did the work')} — you sat through the training — and it genuinely bothers me to watch that go to waste.`) +
       P(`This is the ${BU('last one')}.`) +
-      P(`If your profile’s complete, Mindy works for you — surfacing the opportunities that fit your business so you stop fighting over the ones that don’t.`) +
-      P(`If it stays blank, I’ll assume you’ve stepped back from contracting and ${B('leave you be')}.`),
+      P(`If you finish your profile, Mindy goes to work: surfacing the opportunities that fit you so you stop fighting over the ones that don't. Everything you learned finally ${U('compounds')}.`) +
+      P(`If it stays blank, I'll assume you've stepped back from contracting and ${B('leave you be')}. No hard feelings.`),
       url,
-      PS(`Two minutes now, or matches you’ll never know you missed. Your call — this is the last time I’ll ask.`)),
+      PS(`Two minutes now, or a playbook that never gets used. Your call — this is the last time I'll ask.`)),
   },
 ];
 
