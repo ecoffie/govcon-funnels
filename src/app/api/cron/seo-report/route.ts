@@ -15,6 +15,7 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { isAuthorized, extractPassword } from '@/lib/admin-auth';
 import { buildReport, toSlackBlocks } from '@/lib/gsc/report';
+import { buildStrikingActions, strikingActionsBlocks } from '@/lib/gsc/striking-actions';
 import { SEO_SITES, resolveSeoSite } from '@/lib/seo-sites';
 
 export const dynamic = 'force-dynamic';
@@ -102,6 +103,23 @@ export async function GET(req: NextRequest) {
         continue;
       }
       results.push({ site: site.key, posted: true, totals: report.totals });
+
+      // Weekly striking-distance ACTION list: page-2 pages one internal-link
+      // boost from page 1. Surfaced for approval (a human applies the fix).
+      // Best-effort — a failure here must never fail the main report above.
+      try {
+        const actions = await buildStrikingActions(new Date(), site);
+        await fetch(webhookUrl, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({
+            text: `Striking-distance targets — ${site.label} — ${actions.length} winnable page(s)`,
+            blocks: strikingActionsBlocks(site.label, actions),
+          }),
+        });
+      } catch (saErr) {
+        console.warn(`Striking-distance actions failed for ${site.key}:`, saErr instanceof Error ? saErr.message : saErr);
+      }
     } catch (e) {
       const message = e instanceof Error ? e.message : String(e);
       console.error(`SEO report cron failed for ${site.key}:`, message);
