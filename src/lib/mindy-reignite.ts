@@ -28,8 +28,11 @@ const STAMP_PREFIX = 'reignite-stamp:'; // reignite-stamp:d0:2026-07-01
 const TEST_RE = /\+|@example\.com$|(^|\b)(test|email-test)\b/i;
 
 // Warm-up ramp: how many NEW contacts to seed on the Nth day of the campaign.
-// Ramps 50→100→200→350→500, then steady 500/day until the list is drained.
-const SEED_RAMP = [50, 100, 200, 350, 500];
+// Ramps 50→100→200→350→500→750→1000, then steady 1000/day until drained.
+// The sender is already warmed (first 307 sent clean, 0 suppressions), so the
+// tail steps up past 500 to drain the ~3,800 remaining in ~5 days instead of ~8,
+// while keeping each step ≤2× the prior (reputation-safe).
+const SEED_RAMP = [50, 100, 200, 350, 500, 750, 1000];
 export function seedQuotaForDay(dayIndex: number): number {
   return SEED_RAMP[Math.min(dayIndex, SEED_RAMP.length - 1)];
 }
