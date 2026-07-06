@@ -3,9 +3,9 @@ import type { GuideData } from './index';
 export const guide: GuideData = {
   slug: 'sba-certifications',
   title: 'SBA Certifications: 8(a), SDVOSB, HUBZone, WOSB Explained',
-  metaTitle: 'Which SBA Certification? 8(a) vs SDVOSB vs HUBZone vs WOSB',
+  metaTitle: 'Which SBA Certification Is Right for You? 8(a) vs SDVOSB vs HUBZone vs WOSB (2026)',
   metaDescription:
-    'Which SBA certification is right for you? Compare 8(a), SDVOSB, HUBZone, WOSB: eligibility, benefits, $B+ in set-asides. Take our 2-min quiz to find out.',
+    'Compare 8(a), SDVOSB, HUBZone, and WOSB side by side: who qualifies, the set-aside dollars each unlocks, and how to choose. Take the 2-minute quiz to find your fit.',
   keywords: [
     '8a certification',
     'SBA certifications',

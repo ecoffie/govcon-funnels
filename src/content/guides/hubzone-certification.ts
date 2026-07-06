@@ -3,9 +3,9 @@ import type { GuideData } from './index';
 export const guide: GuideData = {
   slug: 'hubzone-certification',
   title: 'HUBZone Certification: Requirements, Map, and Application Guide',
-  metaTitle: 'HUBZone Map & Certification 2026: Requirements + How to Apply',
+  metaTitle: 'HUBZone Certification 2026: Check the Map, See If You Qualify + Apply',
   metaDescription:
-    'Find out if you qualify for HUBZone in minutes: check the free map, see all 5 requirements, and follow the step-by-step application to unlock the 10% price preference.',
+    'Do you qualify for HUBZone? Check the free map, confirm all 5 requirements, and apply step by step — the 10% price preference that wins set-aside contracts. Updated 2026.',
   keywords: [
     'hubzone certification',
     'hubzone map',

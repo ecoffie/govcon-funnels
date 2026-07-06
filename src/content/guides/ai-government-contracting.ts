@@ -3,9 +3,9 @@ import type { GuideData } from './index';
 export const guide: GuideData = {
   slug: 'ai-government-contracting',
   title: 'AI Tools for Government Contracting: How AI Is Changing GovCon',
-  metaTitle: 'AI for Government Contracting [Free Tools] — Find & Win Contracts Faster',
+  metaTitle: 'AI for Government Contracting in 2026: Free Tools to Find & Win Contracts',
   metaDescription:
-    'Use AI to find federal contracts, write proposals, and research competitors. Free tools: Mindy, Market Assassin, Content Reaper. Built for small business GovCon.',
+    'How contractors use AI to find federal opportunities, draft proposals, and research competitors in 2026. Start free with Mindy — built for small-business GovCon.',
   keywords: [
     'ai government contracting',
     'ai govcon tools',

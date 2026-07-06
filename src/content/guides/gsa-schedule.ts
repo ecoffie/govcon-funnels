@@ -3,9 +3,9 @@ import type { GuideData } from './index';
 export const guide: GuideData = {
   slug: 'gsa-schedule',
   title: 'GSA Schedule: How to Get on a GSA Contract and Win More Work',
-  metaTitle: 'How to Get a GSA Schedule (2026): Steps, Cost & Timeline',
+  metaTitle: 'How to Get a GSA Schedule in 2026: 5 Steps, Real Cost & Timeline',
   metaDescription:
-    'Complete GSA Schedule application guide: 5 steps, $5K-$15K cost breakdown, and the 3 mistakes that get 60% of applications rejected. Checklist included.',
+    'Get on a GSA Schedule the right way: the 5 steps, the true $5K–$15K cost, how long it really takes, and the 3 mistakes that get 60% of applications rejected. Free checklist.',
   keywords: [
     'gsa schedule',
     'gsa contract',
