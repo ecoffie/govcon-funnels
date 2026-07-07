@@ -1,0 +1,442 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="robots" content="noindex, nofollow">
+<title>Ep 05 · 9 Boring Businesses · Production Package</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<style>
+  :root {
+    --bg:#0c0d10; --bg-raise:#141619; --bg-card:#16191d;
+    --ink:#e8e6e1; --ink-dim:#a5abb5; --ink-faint:#6f7681;
+    --line:#262a30; --line-soft:#1d2126;
+    --money:#22c55e; --money-deep:#16a34a; --amber:#d4a24e; --slate:#8b93a1; --violet:#8b7cf0;
+    --radius:14px; --maxw:1080px;
+    --mono:ui-monospace,"SF Mono","Cascadia Code",Menlo,Consolas,monospace;
+    --sans:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
+    --display:"Helvetica Neue","Arial Black",var(--sans);
+  }
+  :root[data-theme="light"]{--bg:#f6f5f2;--bg-raise:#fff;--bg-card:#fff;--ink:#16181c;--ink-dim:#4b525c;--ink-faint:#838b96;--line:#e2e0da;--line-soft:#ecebe6;--money:#15803d;--money-deep:#166534;}
+  @media (prefers-color-scheme:light){:root:not([data-theme="dark"]){--bg:#f6f5f2;--bg-raise:#fff;--bg-card:#fff;--ink:#16181c;--ink-dim:#4b525c;--ink-faint:#838b96;--line:#e2e0da;--line-soft:#ecebe6;--money:#15803d;--money-deep:#166534;}}
+  *{box-sizing:border-box;} html{scroll-behavior:smooth;scroll-padding-top:68px;}
+  @media (prefers-reduced-motion:reduce){html{scroll-behavior:auto;}}
+  body{margin:0;background:var(--bg);color:var(--ink);font-family:var(--sans);line-height:1.6;-webkit-font-smoothing:antialiased;font-size:16px;}
+  .wrap{max-width:var(--maxw);margin:0 auto;padding:0 22px;}
+  nav{position:sticky;top:0;z-index:50;background:color-mix(in srgb,var(--bg) 88%,transparent);backdrop-filter:blur(12px);border-bottom:1px solid var(--line);}
+  .nav-inner{max-width:var(--maxw);margin:0 auto;padding:10px 22px;display:flex;align-items:center;gap:6px;overflow-x:auto;scrollbar-width:none;}
+  .nav-inner::-webkit-scrollbar{display:none;}
+  .nav-inner a{color:var(--ink-dim);text-decoration:none;white-space:nowrap;font-size:13px;font-weight:600;padding:6px 11px;border-radius:8px;transition:color .15s,background .15s;}
+  .nav-inner a:hover{color:var(--ink);background:var(--bg-raise);} .nav-inner a.tp{color:var(--money);}
+  .nav-brand{font-weight:800;font-size:13px;margin-right:8px;color:var(--ink);letter-spacing:.02em;}
+  .theme-btn{margin-left:auto;flex:none;background:var(--bg-raise);border:1px solid var(--line);color:var(--ink-dim);border-radius:8px;padding:6px 10px;font-size:12px;cursor:pointer;font-family:var(--mono);}
+  .theme-btn:hover{color:var(--ink);}
+  header{padding:62px 0 40px;border-bottom:1px solid var(--line);}
+  .eyebrow{font-family:var(--mono);font-size:12px;letter-spacing:.14em;text-transform:uppercase;color:var(--money);display:flex;flex-wrap:wrap;gap:8px 14px;margin-bottom:22px;}
+  .eyebrow span{color:var(--ink-faint);} .eyebrow b{color:var(--money);font-weight:700;}
+  h1.hero{font-family:var(--display);font-weight:800;letter-spacing:-0.02em;font-size:clamp(32px,5.4vw,58px);line-height:1.03;margin:0 0 14px;text-wrap:balance;}
+  .subhead{font-size:clamp(17px,2.4vw,21px);color:var(--ink-dim);max-width:62ch;text-wrap:pretty;}
+  .subhead strong{color:var(--ink);font-weight:600;}
+  .countbar{display:grid;grid-template-columns:repeat(auto-fit,minmax(88px,1fr));gap:8px;margin:30px 0 4px;}
+  .cnt{background:var(--bg-card);border:1px solid var(--line);border-radius:10px;padding:11px 10px;text-align:center;}
+  .cnt .r{font-family:var(--mono);font-size:10px;color:var(--ink-faint);letter-spacing:.08em;}
+  .cnt .a{font-family:var(--display);font-weight:800;font-size:clamp(15px,2.3vw,19px);color:var(--money);font-variant-numeric:tabular-nums;margin-top:2px;}
+  .cnt.one{border-color:color-mix(in srgb,var(--money) 55%,var(--line));}
+  .chips{display:flex;flex-wrap:wrap;gap:8px;margin-top:26px;}
+  .chip{font-family:var(--mono);font-size:12.5px;padding:7px 12px;border-radius:999px;border:1px solid var(--line);color:var(--ink-dim);background:var(--bg-raise);display:inline-flex;align-items:center;gap:7px;}
+  .chip b{color:var(--ink);font-weight:600;} .chip.green{border-color:color-mix(in srgb,var(--money) 45%,var(--line));} .chip.green .dot{background:var(--money);}
+  .dot{width:7px;height:7px;border-radius:50%;background:var(--slate);flex:none;} .chip.amber .dot{background:var(--amber);} .chip.violet .dot{background:var(--violet);}
+  section{padding:46px 0;border-bottom:1px solid var(--line-soft);}
+  .sec-head{display:flex;align-items:baseline;gap:14px;margin-bottom:22px;flex-wrap:wrap;}
+  .sec-kicker{font-family:var(--mono);font-size:12px;color:var(--money);letter-spacing:.1em;text-transform:uppercase;}
+  h2{font-family:var(--display);font-weight:800;font-size:clamp(24px,4vw,34px);letter-spacing:-0.015em;margin:0;text-wrap:balance;}
+  .sec-note{color:var(--ink-faint);font-size:14px;}
+  .tp-bar{display:flex;align-items:center;justify-content:space-between;gap:12px;margin-bottom:14px;flex-wrap:wrap;}
+  .copy-btn{background:var(--money);color:#06210f;border:none;font-weight:700;padding:10px 18px;border-radius:10px;cursor:pointer;font-size:14px;font-family:var(--sans);display:inline-flex;align-items:center;gap:8px;transition:transform .1s,background .15s;}
+  .copy-btn:hover{background:var(--money-deep);} .copy-btn:active{transform:translateY(1px);} .copy-btn.done{background:var(--violet);color:#fff;}
+  .tp-meta{font-family:var(--mono);font-size:12.5px;color:var(--ink-faint);}
+  .prompter{background:var(--bg-raise);border:1px solid var(--line);border-radius:var(--radius);padding:8px 4px;max-height:460px;overflow-y:auto;}
+  .prompter pre{font-family:var(--mono);font-size:15px;line-height:1.85;color:var(--ink);white-space:pre-wrap;word-wrap:break-word;margin:0;padding:18px 22px;tab-size:2;}
+  .prompter .marker{color:var(--money);font-weight:700;letter-spacing:.04em;}
+  .table-scroll{overflow-x:auto;border:1px solid var(--line);border-radius:var(--radius);}
+  table{width:100%;border-collapse:collapse;min-width:560px;}
+  th,td{text-align:left;padding:12px 16px;border-bottom:1px solid var(--line-soft);font-size:14.5px;}
+  th{font-family:var(--mono);font-size:11.5px;letter-spacing:.08em;text-transform:uppercase;color:var(--ink-faint);font-weight:600;background:var(--bg-raise);}
+  td.num{font-family:var(--mono);font-variant-numeric:tabular-nums;color:var(--money);font-weight:600;text-align:right;white-space:nowrap;}
+  tr:last-child td{border-bottom:none;} td .ok{color:var(--money);} td .flag{color:var(--amber);}
+  tr.payoff td{background:color-mix(in srgb,var(--money) 7%,transparent);}
+  .src-note{font-size:13px;color:var(--ink-faint);margin-top:12px;line-height:1.6;} .src-note code{font-family:var(--mono);color:var(--ink-dim);font-size:12px;}
+  .grid{display:grid;gap:16px;} .grid.two{grid-template-columns:repeat(auto-fit,minmax(300px,1fr));}
+  .card{background:var(--bg-card);border:1px solid var(--line);border-radius:var(--radius);padding:20px 22px;}
+  .card h3{margin:0 0 10px;font-size:16px;font-weight:700;letter-spacing:-0.01em;} .rank{font-family:var(--mono);font-size:12px;color:var(--ink-faint);}
+  ol.titles{list-style:none;counter-reset:t;margin:0;padding:0;display:grid;gap:12px;}
+  ol.titles li{counter-increment:t;background:var(--bg-card);border:1px solid var(--line);border-radius:12px;padding:16px 18px 16px 54px;position:relative;font-size:17px;font-weight:600;line-height:1.4;}
+  ol.titles li::before{content:counter(t);position:absolute;left:16px;top:16px;font-family:var(--mono);font-size:14px;color:var(--money);font-weight:700;width:24px;text-align:center;}
+  ol.titles li .flag-pill{display:inline-block;margin-left:8px;font-family:var(--mono);font-size:10.5px;letter-spacing:.06em;text-transform:uppercase;padding:3px 8px;border-radius:999px;vertical-align:middle;font-weight:700;}
+  .flag-pill.a{background:color-mix(in srgb,var(--money) 22%,transparent);color:var(--money);border:1px solid color-mix(in srgb,var(--money) 40%,transparent);}
+  .flag-pill.b{background:color-mix(in srgb,var(--violet) 22%,transparent);color:var(--violet);border:1px solid color-mix(in srgb,var(--violet) 40%,transparent);}
+  ol.titles li p{margin:6px 0 0;font-size:13px;font-weight:400;color:var(--ink-faint);}
+  .thumbs{display:grid;gap:18px;grid-template-columns:repeat(auto-fit,minmax(320px,1fr));}
+  .thumb-mock{aspect-ratio:16/9;border-radius:12px;overflow:hidden;position:relative;border:1px solid var(--line);display:flex;align-items:center;padding:22px;}
+  .thumb-a{background:radial-gradient(120% 120% at 78% 30%,#1c2b1e 0%,#0b1210 55%,#070a08 100%);}
+  .thumb-b{background:radial-gradient(120% 120% at 20% 80%,#2a2411 0%,#14110a 55%,#0a0805 100%);}
+  .thumb-mock .tx{position:relative;z-index:2;} .thumb-mock .big{font-family:var(--display);font-weight:800;line-height:.95;letter-spacing:-0.02em;font-size:clamp(28px,5.6vw,50px);color:#fff;}
+  .thumb-a .big .g{color:var(--money);} .thumb-b .big .g{color:var(--amber);}
+  .thumb-mock .sub{font-family:var(--mono);font-size:11px;letter-spacing:.1em;text-transform:uppercase;color:rgba(255,255,255,.62);margin-top:8px;}
+  .thumb-face{position:absolute;right:0;bottom:0;width:34%;height:92%;z-index:1;border-left:1px dashed rgba(255,255,255,.18);display:flex;align-items:flex-end;justify-content:center;padding-bottom:8px;}
+  .thumb-face span{font-family:var(--mono);font-size:10px;color:rgba(255,255,255,.4);text-align:center;}
+  .thumb-spec{margin-top:12px;font-size:13.5px;color:var(--ink-dim);line-height:1.6;} .thumb-spec b{color:var(--ink);}
+  ul.clean{list-style:none;margin:0;padding:0;display:grid;gap:10px;}
+  ul.clean li{padding-left:22px;position:relative;font-size:14.5px;color:var(--ink-dim);line-height:1.55;}
+  ul.clean li::before{content:"→";position:absolute;left:0;color:var(--money);font-weight:700;} ul.clean li b{color:var(--ink);font-weight:600;}
+  .shorts{display:grid;gap:12px;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));}
+  .short{background:var(--bg-card);border:1px solid var(--line);border-radius:12px;padding:15px 17px;}
+  .short .n{font-family:var(--mono);font-size:11px;color:var(--money);letter-spacing:.1em;text-transform:uppercase;} .short h4{margin:6px 0 6px;font-size:15px;font-weight:700;} .short p{margin:0;font-size:13px;color:var(--ink-faint);line-height:1.55;}
+  .desc-box{background:var(--bg-raise);border:1px solid var(--line);border-radius:var(--radius);padding:4px;}
+  .desc-box pre{font-family:var(--mono);font-size:13.5px;line-height:1.7;color:var(--ink-dim);white-space:pre-wrap;word-wrap:break-word;margin:0;padding:18px 20px;max-height:380px;overflow-y:auto;}
+  .desc-box .lnk{color:var(--money);}
+  .callout{border:1px solid color-mix(in srgb,var(--amber) 40%,var(--line));background:color-mix(in srgb,var(--amber) 8%,var(--bg-card));border-radius:var(--radius);padding:16px 20px;font-size:14px;color:var(--ink-dim);display:flex;gap:12px;align-items:flex-start;line-height:1.6;}
+  .callout .mk{color:var(--amber);font-weight:800;font-family:var(--mono);flex:none;} .callout b{color:var(--ink);}
+  footer{padding:40px 0 70px;color:var(--ink-faint);font-size:13px;} footer .mono{font-family:var(--mono);}
+  :focus-visible{outline:2px solid var(--money);outline-offset:2px;border-radius:4px;}
+</style>
+
+</head>
+<body>
+<nav><div class="nav-inner">
+  <span class="nav-brand">EP 05 · PACKAGE</span>
+  <a href="#teleprompter" class="tp">▶ Teleprompter</a>
+  <a href="#numbers">Real numbers</a><a href="#script">Annotated</a><a href="#titles">Titles</a>
+  <a href="#thumbnails">Thumbnails</a><a href="#shots">Shot list</a><a href="#shorts">5 Shorts</a><a href="#description">Description</a>
+  <button class="theme-btn" id="themeToggle" aria-label="Toggle theme">◐ theme</button>
+</div></nav>
+
+<header><div class="wrap">
+  <div class="eyebrow">GOVCON GIANTS <span>·</span> BATCH 1 <span>·</span> <b>EP 05</b> <span>·</span> WIDE-LANE SWING <span>·</span> PROVEN FORMAT <span>·</span> GOVT-FREE TITLE</div>
+  <h1 class="hero">9 Boring Businesses That Quietly Print Money</h1>
+  <p class="subhead"><strong>Your proven engagement format, widened.</strong> The old "9 boring jobs" hit 11K with 108 comments — this is the same 9→1 countdown re-skinned to "businesses" for the wider lane. Biggest number ($32.3B facilities) lands LAST. Every figure re-verified FY2024 — several were corrected down.</p>
+  <div class="countbar">
+    <div class="cnt"><div class="r">#9 Landscaping</div><div class="a">$519M</div></div>
+    <div class="cnt"><div class="r">#8 Warehousing</div><div class="a">$729M</div></div>
+    <div class="cnt"><div class="r">#7 Equip repair</div><div class="a">$672M</div></div>
+    <div class="cnt"><div class="r">#6 Staffing</div><div class="a">$946M</div></div>
+    <div class="cnt"><div class="r">#5 HVAC</div><div class="a">$1.09B</div></div>
+    <div class="cnt"><div class="r">#4 Food svc</div><div class="a">$1.23B</div></div>
+    <div class="cnt"><div class="r">#3 Janitorial</div><div class="a">$1.62B</div></div>
+    <div class="cnt"><div class="r">#2 Security</div><div class="a">$4.53B</div></div>
+    <div class="cnt one"><div class="r">#1 Facilities</div><div class="a">$32.3B</div></div>
+  </div>
+  <div class="chips">
+    <span class="chip green"><span class="dot"></span> Bucket: <b>Wide-lane swing</b></span>
+    <span class="chip"><span class="dot"></span> Runtime: <b>~8–10 min</b></span>
+    <span class="chip violet"><span class="dot"></span> CTA: <b>Free guide (email)</b></span>
+    <span class="chip green"><span class="dot"></span> Data: <b>FY2024, verified</b></span>
+    <span class="chip amber"><span class="dot"></span> UTM slug: <b>first-contract-guide</b></span>
+  </div>
+</div></header>
+
+<main class="wrap">
+
+  <section id="teleprompter">
+    <div class="sec-head"><span class="sec-kicker">Read this on camera</span><h2>▶ Teleprompter</h2>
+      <span class="sec-note">Spoken words only · countdown 9→1, hold the $32.3B for last</span></div>
+    <div class="tp-bar"><button class="copy-btn" id="copyBtn">⧉ Copy clean script</button>
+      <span class="tp-meta">~940 words · ~150 wpm · blank line = breath</span></div>
+    <div class="prompter"><pre id="tpText"><span class="marker">═══ COLD OPEN ═══</span>
+
+The most profitable businesses in America right now aren't the exciting ones.
+
+They're boring.
+
+Cleaning. Landscaping. Staffing. Cutting the grass.
+
+And a lot of the people running them have found one customer that pays on time, every time, and never runs out of money.
+
+The United States government.
+
+I pulled the real numbers — what the government actually spent, last year, on nine businesses so ordinary you'd walk right past them.
+
+Some of these will genuinely surprise you.
+
+And the last one? The last one is over thirty-two billion dollars.
+
+Let's count them down.
+
+
+<span class="marker">═══ NUMBER NINE — LANDSCAPING ═══</span>
+
+Number nine. Landscaping.
+
+Cutting grass. Trimming hedges. Maintaining grounds.
+
+Last year the federal government spent over half a billion dollars — about five hundred and twenty million — on landscaping.
+
+Not a tech company. Not a defense giant. Lawn care.
+
+Somewhere out there is a landscaping crew with a government contract, mowing the same kind of grass their competitor mows — except they're getting paid by the most reliable customer on earth.
+
+
+<span class="marker">═══ NUMBER EIGHT — WAREHOUSING ═══</span>
+
+Number eight. Warehousing and storage.
+
+Just holding stuff. Space, shelves, a forklift.
+
+Over seven hundred million dollars last year.
+
+If you've got a warehouse, the government needs somewhere to put things. That's the entire business.
+
+
+<span class="marker">═══ NUMBER SEVEN — EQUIPMENT REPAIR ═══</span>
+
+Number seven. Equipment repair and maintenance.
+
+Fixing things that break. Machines, systems, gear.
+
+Almost seven hundred million dollars.
+
+Every piece of equipment the government owns eventually breaks. Somebody gets paid to fix it. Why not you?
+
+
+<span class="marker">═══ NUMBER SIX — TEMP STAFFING ═══</span>
+
+Number six. Temporary staffing.
+
+Providing people. Filling shifts.
+
+Nearly a billion dollars — nine hundred and forty-six million.
+
+You don't even need to do the work yourself. You supply the workers. The government has been paying staffing agencies to do exactly that for decades.
+
+
+<span class="marker">═══ NUMBER FIVE — HVAC & PLUMBING ═══</span>
+
+Number five. Heating, plumbing, and air conditioning.
+
+The trades. HVAC. Pipes.
+
+Almost one point one billion dollars last year.
+
+Every federal building has heating that breaks and pipes that leak. That's not a tech problem. That's a guy with a van and a license.
+
+
+<span class="marker">═══ NUMBER FOUR — FOOD SERVICE ═══</span>
+
+Number four. Food service.
+
+Feeding people. Running cafeterias, catering, meals.
+
+One point three billion dollars.
+
+The government feeds a lot of people. Somebody's got that contract. It could be a catering business that looks exactly like one in your town.
+
+
+<span class="marker">═══ NUMBER THREE — JANITORIAL ═══</span>
+
+Number three. Janitorial services.
+
+Cleaning. Mopping floors. Taking out the trash.
+
+Over one and a half billion dollars.
+
+Let me say that again. The government spent more than one and a half billion dollars last year on cleaning.
+
+The most unglamorous business you can think of — cleaning buildings — is a billion-and-a-half-dollar-a-year market with the government alone.
+
+
+<span class="marker">═══ NUMBER TWO — SECURITY GUARDS ═══</span>
+
+Number two. Security guards.
+
+Standing watch. Guarding buildings and gates.
+
+Over four and a half billion dollars.
+
+Not high-tech surveillance. People. Guards. The government pays more than four and a half billion dollars a year for someone to stand at the door.
+
+
+<span class="marker">═══ NUMBER ONE — FACILITIES SUPPORT ═══</span>
+
+And number one.
+
+Facilities support.
+
+Basically — running and maintaining buildings. Keeping the lights on, the place operating, the whole thing working.
+
+Thirty-two point three billion dollars.
+
+Last year. On facilities.
+
+That is not a rounding error. That's bigger than the entire revenue of most companies you've heard of — spent on the least exciting work imaginable.
+
+Running buildings.
+
+
+<span class="marker">═══ THE TURN — HOW YOU'D FIND YOURS ═══</span>
+
+Now here's the point.
+
+Every single one of these is a normal business. Nothing special. Nothing high-tech.
+
+The difference between the owner getting a government check and the owner who isn't — is that one of them looked, and the other never did.
+
+So the question is: is what YOU do on a list like this?
+
+Because it probably is.
+
+All of this spending is public — but knowing where to look and what to do first is the hard part.
+
+So I put the whole starting playbook into a free guide. How to find what the government's buying in your industry, how to get in the system, and the exact first steps — no fluff, no cost.
+
+It's completely free. The link's in the description. Grab it, and you'll have the real roadmap in front of you tonight.
+
+
+<span class="marker">═══ CLOSE ═══</span>
+
+The boring businesses are winning.
+
+Not because they're special. Because they found the customer nobody else is looking at.
+
+Thirty-two billion on facilities. Four and a half billion on guards. A billion and a half on cleaning.
+
+Ordinary work. Extraordinary customer.
+
+Grab the free guide in the description — it's the roadmap to getting your first contract.
+
+And subscribe, because I'm breaking down this whole game, one video at a time.
+
+I'll see you in the next one.</pre></div>
+  </section>
+
+  <section id="numbers">
+    <div class="sec-head"><span class="sec-kicker">The 9 · verified &amp; corrected</span><h2>Real numbers</h2><span class="sec-note">Several were high — corrected down 2026-07-06</span></div>
+    <div class="table-scroll"><table>
+      <thead><tr><th>#</th><th>Business · NAICS</th><th>FY24 obligated</th><th>Old script</th><th>Status</th></tr></thead>
+      <tbody>
+        <tr><td>9</td><td>Landscaping · 561730</td><td class="num">$519M</td><td>$570M</td><td><span class="flag">corrected ↓</span></td></tr>
+        <tr><td>8</td><td>Warehousing · 493110</td><td class="num">$729M</td><td>$770M</td><td><span class="flag">corrected ↓</span></td></tr>
+        <tr><td>7</td><td>Equipment repair · 811310</td><td class="num">$672M</td><td>~$800M</td><td><span class="flag">corrected ↓</span></td></tr>
+        <tr><td>6</td><td>Temp staffing · 561320</td><td class="num">$946M</td><td>$960M</td><td><span class="ok">✓</span></td></tr>
+        <tr><td>5</td><td>HVAC / plumbing · 238220</td><td class="num">$1.09B</td><td>$1.2B</td><td><span class="flag">corrected ↓</span></td></tr>
+        <tr><td>4</td><td>Food service · 722310</td><td class="num">$1.23B</td><td>$1.3B</td><td><span class="ok">✓</span></td></tr>
+        <tr><td>3</td><td>Janitorial · 561720</td><td class="num">$1.62B</td><td>$2B</td><td><span class="flag">corrected ↓</span></td></tr>
+        <tr><td>2</td><td>Security guards · 561612</td><td class="num">$4.53B</td><td>$5.8B</td><td><span class="flag">corrected ↓</span></td></tr>
+        <tr class="payoff"><td>1</td><td><b>Facilities support · 561210</b></td><td class="num">$32.3B</td><td>$38.4B</td><td><span class="flag">corrected ↓ (payoff)</span></td></tr>
+      </tbody>
+    </table></div>
+    <p class="src-note">All pulled live from <code>market-assasin.usaspending.awards</code> (BigQuery, FY2024 obligations, US place-of-performance). <b>The old script inflated several:</b> #1 facilities was $38.4B (a broader/older pull) — real is <b>$32.3B</b>, still the standout payoff. #2 "security guards" was $5.8B because it lumped guards + systems + investigation; pure guards (561612) = <b>$4.53B</b>. Re-pull before filming as the FY closes.</p>
+  </section>
+
+  <section id="script">
+    <div class="sec-head"><span class="sec-kicker">Editor's reference</span><h2>Annotated script</h2><span class="sec-note">Countdown structure · the one CTA · Short-cut markers</span></div>
+    <div class="grid two">
+      <div class="card"><span class="rank">BEAT 01 · HOOK (0:00–0:45)</span><h3>"The boring ones are winning"</h3><p style="color:var(--ink-dim);font-size:14px;margin:0">Tease the payoff ("the last one is over $32 billion") WITHOUT naming it. <b>▸ Shorts #1.</b> Sets the countdown promise.</p></div>
+      <div class="card"><span class="rank">BEAT 02 · #9→#4 (0:45–5:00)</span><h3>The build</h3><p style="color:var(--ink-dim);font-size:14px;margin:0">Six businesses, each: name → the plain description → the number → "that could be you." Escalating $. On-screen: running counter. <b>▸ Shorts #2</b> = a punchy mid one (staffing "you don't even do the work").</p></div>
+      <div class="card"><span class="rank">BEAT 03 · #3 JANITORIAL (5:00–6:00)</span><h3>"$1.5B on CLEANING"</h3><p style="color:var(--ink-dim);font-size:14px;margin:0">The repeat-for-emphasis beat. Most shareable single stat. <b>▸ Shorts #3</b> = "the govt spent $1.5 billion on cleaning."</p></div>
+      <div class="card"><span class="rank">BEAT 04 · #1 REVEAL (6:00–7:00)</span><h3>"$32.3 billion. Facilities."</h3><p style="color:var(--ink-dim);font-size:14px;margin:0">The payoff — hold it, let it land. "Bigger than most companies you've heard of." <b>▸ Shorts #4</b> = the $32B reveal.</p></div>
+      <div class="card" style="border-color:color-mix(in srgb,var(--violet) 40%, var(--line))"><span class="rank" style="color:var(--violet)">BEAT 05 · THE TURN → FREE GUIDE (7:00–9:00)</span><h3>CTA = free guide (email)</h3><p style="color:var(--ink-dim);font-size:14px;margin:0">"Is what YOU do on this list? Probably." → the CTA is the <b>free first-contract guide</b> (email capture). Cold traffic → lead magnet, NOT a Mindy sign-up. <b>▸ Shorts #5</b> = "is your business on this list?"</p></div>
+      <div class="card"><span class="rank">BEAT 06 · CLOSE</span><h3>"Ordinary work, extraordinary customer"</h3><p style="color:var(--ink-dim);font-size:14px;margin:0">Recap the top 3, drive to the guide + subscribe.</p></div>
+    </div>
+  </section>
+
+  <section id="titles">
+    <div class="sec-head"><span class="sec-kicker">5 options · top 2 flagged for A/B</span><h2>Titles</h2><span class="sec-note">"Government" out of the swing title; the customer is revealed inside</span></div>
+    <ol class="titles">
+      <li>9 Boring Businesses That Quietly Print Money (One Customer, $32B) <span class="flag-pill a">A · primary</span><p>Your proven format + the payoff number. "One customer" = the curiosity gap.</p></li>
+      <li>The Most Boring Businesses in America Are Quietly Getting Rich <span class="flag-pill b">B · test</span><p>Pure "boring = rich" tension, no number. Tests curiosity over the stat.</p></li>
+      <li>9 Unsexy Businesses the Government Can't Stop Paying<p>Keeps "government" (search term) — a variant for the beginner-search audience.</p></li>
+      <li>I Ranked 9 Boring Businesses by How Much the Government Pays Them<p>"I ranked" data-story framing; leans into the countdown structure.</p></li>
+      <li>The $32 Billion Business Nobody Wants to Talk About (It's Cleaning Buildings)<p>Leads with the #1 payoff up front; single-number shock variant.</p></li>
+    </ol>
+  </section>
+
+  <section id="thumbnails">
+    <div class="sec-head"><span class="sec-kicker">2 concepts · 1280×720</span><h2>Thumbnails</h2><span class="sec-note">Face right-third · ≤3 words · legible at Shorts size</span></div>
+    <div class="thumbs">
+      <div><div class="thumb-mock thumb-a"><div class="tx"><div class="big">BORING <span class="g">=</span><br><span class="g">$32 BILLION</span></div><div class="sub">Concept A · boring = rich</div></div><div class="thumb-face"><span>Eric<br>face<br>~35%</span></div></div>
+        <p class="thumb-spec"><b>A — Boring = Rich.</b> "BORING = $32 BILLION" — dollars in green. Eric right third, deadpan-to-smirk. Deep green-black. <b>Best for the primary title.</b></p></div>
+      <div><div class="thumb-mock thumb-b"><div class="tx"><div class="big">$32B ON <span class="g">THIS?!</span></div><div class="sub">Concept B · the disbelief</div></div><div class="thumb-face"><span>Eric<br>face<br>~35%</span></div></div>
+        <p class="thumb-spec"><b>B — On THIS?!</b> "$32B ON THIS?!" over a mop/broom or plain building. Eric incredulous. Amber "THIS?!". Spends the payoff up front.</p></div>
+    </div>
+  </section>
+
+  <section id="shots">
+    <div class="sec-head"><span class="sec-kicker">B-roll · on-screen · CTA</span><h2>Shot list &amp; editor notes</h2></div>
+    <div class="grid two">
+      <div class="card"><h3>B-roll cues</h3><ul class="clean">
+        <li><b>Each item:</b> the literal business — mowers, forklifts, HVAC vans, cafeteria lines, mops, guards</li>
+        <li><b>Running counter</b> on screen escalating $519M → $32.3B</li>
+        <li><b>#1 reveal:</b> a big federal building, wide, imposing</li>
+        <li><b>Close:</b> ordinary small-business owner, warm</li>
+      </ul></div>
+      <div class="card"><h3>On-screen callouts</h3><ul class="clean">
+        <li>Each number FULL SCREEN as Eric says it</li>
+        <li><b>"$1,500,000,000 — CLEANING"</b> on #3</li>
+        <li><b>"$32,300,000,000"</b> all zeros on #1</li>
+        <li><b>"is what YOU do on this list?"</b> at the Turn</li>
+      </ul></div>
+      <div class="card"><h3>CTA (free guide)</h3><ul class="clean">
+        <li>The Turn points to the <b>free guide</b>, not the tool</li>
+        <li>Lower-third: "Free guide — link in description"</li>
+        <li>Optional soft screen: Mindy in the guide/nurture, not the video</li>
+      </ul></div>
+      <div class="card"><h3>End screen</h3><ul class="clean">
+        <li>Subscribe: "breaking down the whole game"</li>
+        <li>Next card → Ep 03 (Biggest Customer) or Ep 07</li>
+        <li>Guide link pinned in description + first comment</li>
+      </ul></div>
+    </div>
+  </section>
+
+  <section id="shorts">
+    <div class="sec-head"><span class="sec-kicker">Cut from the long-form · vertical · burned captions</span><h2>5 Shorts</h2><span class="sec-note">Hook in the first 1 second</span></div>
+    <div class="shorts">
+      <div class="short"><span class="n">Short 01 · the promise</span><h4>"The boring ones are winning"</h4><p>The hook + tease: "the last one is over $32 billion." Cut before the reveal.</p></div>
+      <div class="short"><span class="n">Short 02 · the disbelief</span><h4>"You supply the workers"</h4><p>Staffing — "$946M and you don't even do the work yourself." Easy-money angle.</p></div>
+      <div class="short"><span class="n">Short 03 · the stat</span><h4>"$1.5B on CLEANING"</h4><p>Janitorial. The single most shareable line. "The government spent a billion and a half on cleaning."</p></div>
+      <div class="short"><span class="n">Short 04 · the reveal</span><h4>"$32 billion on buildings"</h4><p>The #1 payoff standalone. "The most boring work imaginable — running buildings."</p></div>
+      <div class="short"><span class="n">Short 05 · participatory</span><h4>"Is your business on this list?"</h4><p>The Turn — "is what you do on a list like this? Probably." Drives to the full video + guide.</p></div>
+    </div>
+  </section>
+
+  <section id="description">
+    <div class="sec-head"><span class="sec-kicker">Paste-ready · UTM baked in</span><h2>Description, tags &amp; chapters</h2></div>
+    <div class="desc-box"><pre>The most profitable businesses in America right now are boring — and the government spends billions on them every year. I pulled the real FY2024 numbers on 9 ordinary businesses quietly getting paid by the most reliable customer on earth. #1 will surprise you.
+
+▶ FREE GUIDE — Win Your First Federal Contract (the exact first steps):
+<span class="lnk">https://getmindy.ai/youtube/first-contract-guide</span>
+
+▶ Want to see if YOUR business is on the list? The free tool's here:
+<span class="lnk">https://getmindy.ai</span>
+
+CHAPTERS
+0:00  The boring businesses are winning
+0:45  #9 Landscaping → #4 Food service
+5:00  #3 Janitorial ($1.5B on cleaning)
+6:00  #1 — $32 billion on facilities
+7:00  Is what you do on this list?
+8:30  Ordinary work, extraordinary customer
+
+Every figure is real FY2024 federal spending (USASpending.gov).
+
+#smallbusiness #entrepreneur #businessideas #boringbusiness #governmentcontracts #sidehustle #b2b #localbusiness</pre></div>
+    <p class="src-note">CTA = the <b>free guide</b> (email capture / Pere model — cold traffic). First link = live UTM entry <code>getmindy.ai/youtube/first-contract-guide</code>. Mindy is the soft second link.</p>
+  </section>
+
+</main>
+
+<footer class="wrap">
+  <div>GovCon Giants · YouTube Batch 1 · <b>Ep 05</b> · Built <span class="mono">2026-07-06</span> — 9 figures re-verified &amp; corrected, CTA set to free-guide.</div>
+  <div style="margin-top:6px" class="mono">Teleprompter backup: Eric Docs/youtube-scripts/teleprompter-9-boring-businesses-v2.txt</div>
+</footer>
+
+<script>
+(function(){
+  var root=document.documentElement,btn=document.getElementById('themeToggle');
+  btn.addEventListener('click',function(){var c=root.getAttribute('data-theme'),n;if(c==='dark')n='light';else if(c==='light')n='dark';else n=window.matchMedia('(prefers-color-scheme: dark)').matches?'light':'dark';root.setAttribute('data-theme',n);});
+  var cb=document.getElementById('copyBtn');
+  cb.addEventListener('click',function(){var el=document.getElementById('tpText');var t=el.innerText.replace(/═══.*?═══/g,'').replace(/\n{3,}/g,'\n\n').trim();navigator.clipboard.writeText(t).then(function(){cb.textContent='✓ Copied — clean spoken words';cb.classList.add('done');setTimeout(function(){cb.textContent='⧉ Copy clean script';cb.classList.remove('done');},2200);}).catch(function(){cb.textContent='⚠ Select + copy manually';});});
+})();
+</script>
+
+</body>
+</html>
