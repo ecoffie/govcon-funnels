@@ -102,23 +102,24 @@ export async function GET(req: NextRequest) {
 
     const seed = await runSeed(cfg, quota, todayIso);
 
-    // Whether MORE fresh contacts remain to seed: runSeed overpulls the audience
-    // (limit*3) and reports how many were eligible-and-new in that slice. If it
-    // found more eligible-new than it enrolled this tick, the backlog isn't
-    // drained yet. This avoids the old 6-tag full-audience sum (≈40s) entirely —
-    // no extra GHL scan, so the route finishes inside the dispatcher's await.
-    const moreToSeed = seed.eligibleNew > seed.enrolled;
+    // NOTE on backlog tracking: runSeed only overpulls quota*3 contacts, so it
+    // can't cheaply tell whether the FULL audience is drained (fresh contacts may
+    // sit deeper in GHL's return order than the sample reaches). We deliberately
+    // do NOT infer a "drained" flag from that shallow sample — it would lie. The
+    // one-time backlog drain + its true remaining count come from the LOCAL
+    // runner (scripts/mindy-reignite-drip.mjs --dry --seed scans the whole
+    // audience and prints "eligible+new N"). The cron just seeds its daily quota.
 
     // Slack summary so Eric never has to check the dashboard.
     if (!dry) {
       await notifySlack({
         ok: true,
-        summary: `ran ${todayIso} — advanced ${send.advanced}, seeded ${seed.enrolled}${moreToSeed ? ', backlog remains' : ', backlog drained'}`,
+        summary: `ran ${todayIso} — advanced ${send.advanced}, seeded ${seed.enrolled}`,
         detail:
           `*Ran:* ${now.toISOString()}\n` +
           `*Advanced:* ${send.advanced} to next email · *waiting:* ${send.waiting} · *exited (completed profile):* ${send.exited} · *finished:* ${send.finished}\n` +
           `*Seeded email 1:* ${seed.enrolled} new (quota ${quota}, ramp day ${dayIndex}) · *suppressed:* ${seed.failed}\n` +
-          `*More fresh contacts to seed?* ${moreToSeed ? 'yes' : 'no — backlog drained'}`,
+          `_Backlog drain tracked via the local runner; cron seeds the daily quota._`,
       });
     }
 
@@ -126,7 +127,6 @@ export async function GET(req: NextRequest) {
       success: true, dry, at: now.toISOString(),
       advance: send,
       seed: { quota, dayIndex, ...seed },
-      moreToSeed,
     });
   } catch (e) {
     const msg = (e as Error)?.message || 'unknown error';
