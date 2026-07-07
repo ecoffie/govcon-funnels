@@ -78,14 +78,35 @@ async function ghl(cfg: DripConfig, method: string, path: string, body?: unknown
   return json;
 }
 
+// One page of the tag search, with a bounded retry. GHL's /contacts/search
+// intermittently returns a transient 400/429/5xx under load; a single blip
+// mid-pagination must not abort the whole cron tick. Retry the same page up to
+// 4x with exponential backoff; auth errors (401/403) fail fast.
+async function searchPage(cfg: DripConfig, tag: string, page: number): Promise<Record<string, unknown>> {
+  const body = {
+    locationId: cfg.location, page, pageLimit: 100,
+    filters: [{ field: 'tags', operator: 'contains', value: tag }],
+  };
+  let lastErr: Error | undefined;
+  for (let attempt = 1; attempt <= 4; attempt++) {
+    try {
+      return await ghl(cfg, 'POST', '/contacts/search', body);
+    } catch (e) {
+      lastErr = e as Error;
+      const m = /HTTP (\d{3})/.exec(lastErr.message);
+      const code = m ? Number(m[1]) : 0;
+      if (code === 401 || code === 403) throw e;
+      await sleep(500 * 2 ** (attempt - 1)); // 0.5s, 1s, 2s, 4s
+    }
+  }
+  throw new Error(`search page ${page} for "${tag}" failed after 4 attempts: ${lastErr?.message}`);
+}
+
 async function pullByTag(cfg: DripConfig, tag: string, cap = 0): Promise<GhlContact[]> {
   const out: GhlContact[] = [];
   let page = 1;
   while (true) {
-    const data = await ghl(cfg, 'POST', '/contacts/search', {
-      locationId: cfg.location, page, pageLimit: 100,
-      filters: [{ field: 'tags', operator: 'contains', value: tag }],
-    });
+    const data = await searchPage(cfg, tag, page);
     const batch = (data.contacts || []) as GhlContact[];
     out.push(...batch);
     if (batch.length < 100) break;

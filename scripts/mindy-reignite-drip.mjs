@@ -71,17 +71,42 @@ async function ghl(method, path, body) {
   return json;
 }
 
+// One page of the tag search, with a bounded retry. GHL's /contacts/search
+// intermittently returns a transient 400 ("Error occurred while searching for
+// contact") or a 429/5xx under load — a single blip mid-pagination must NOT
+// abort a full drain. Retry the SAME page up to 4x with exponential backoff;
+// only give up (throw) if it keeps failing. Non-transient auth errors (401/403)
+// fail fast — no point retrying a bad token.
+async function searchPage(tag, page) {
+  const body = {
+    locationId: LOCATION,
+    page,
+    pageLimit: 100,
+    filters: [{ field: 'tags', operator: 'contains', value: tag }],
+  };
+  let lastErr;
+  for (let attempt = 1; attempt <= 4; attempt++) {
+    try {
+      return await ghl('POST', '/contacts/search', body);
+    } catch (e) {
+      lastErr = e;
+      const m = /HTTP (\d{3})/.exec(e.message);
+      const code = m ? Number(m[1]) : 0;
+      if (code === 401 || code === 403) throw e; // auth: retrying won't help
+      const wait = 500 * 2 ** (attempt - 1); // 0.5s, 1s, 2s, 4s
+      console.error(`  search page ${page} attempt ${attempt} failed (${code || 'net'}) — retrying in ${wait}ms`);
+      await sleep(wait);
+    }
+  }
+  throw new Error(`search page ${page} for "${tag}" failed after 4 attempts: ${lastErr?.message}`);
+}
+
 // Page through ALL contacts carrying a tag (search API caps at 100/page).
 async function pullByTag(tag, cap = 0) {
   const out = [];
   let page = 1;
   while (true) {
-    const data = await ghl('POST', '/contacts/search', {
-      locationId: LOCATION,
-      page,
-      pageLimit: 100,
-      filters: [{ field: 'tags', operator: 'contains', value: tag }],
-    });
+    const data = await searchPage(tag, page);
     const batch = data.contacts || [];
     out.push(...batch);
     if (batch.length < 100) break;
