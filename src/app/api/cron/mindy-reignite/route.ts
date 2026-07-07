@@ -22,14 +22,11 @@
 import { NextRequest, NextResponse } from 'next/server';
 import {
   runSeed, runSend, seedQuotaForDay,
-  AUDIENCE_TAG, STAGE_TAGS, DONE_TAG, EXITED_TAG,
   type DripConfig,
 } from '@/lib/mindy-reignite';
 
 export const dynamic = 'force-dynamic';
 export const maxDuration = 300;
-
-const GHL_BASE = 'https://services.leadconnectorhq.com';
 
 // Post a run summary (or failure) to Slack so Eric never has to check the dashboard.
 async function notifySlack(payload: { ok: boolean; summary: string; detail?: string }) {
@@ -64,25 +61,6 @@ function authorized(req: NextRequest): boolean {
   return false;
 }
 
-// Count contacts carrying a tag (HEAD-style: we only need totals for ramp math).
-async function countTag(cfg: DripConfig, tag: string): Promise<number> {
-  let page = 1, total = 0;
-  while (true) {
-    const res = await fetch(`${GHL_BASE}/contacts/search`, {
-      method: 'POST',
-      headers: { Authorization: `Bearer ${cfg.token}`, 'Content-Type': 'application/json', Version: '2021-07-28' },
-      body: JSON.stringify({ locationId: cfg.location, page, pageLimit: 100, filters: [{ field: 'tags', operator: 'contains', value: tag }] }),
-    });
-    if (!res.ok) break;
-    const d = await res.json();
-    const n = (d.contacts || []).length;
-    total += n;
-    if (n < 100) break;
-    page++;
-  }
-  return total;
-}
-
 export async function GET(req: NextRequest) {
   if (!authorized(req)) return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
 
@@ -101,34 +79,46 @@ export async function GET(req: NextRequest) {
 
   try {
     // 1) Advance the sequence first (frees people out of stages before we seed more).
+    //    runSend enforces the 2-day dwell via date-stamps, so it's safe daily.
     const send = await runSend(cfg, now);
 
-    // 2) Ramp math: dayIndex ~ how many warm-up batches already went out.
-    //    Approximate from total enrolled (d0..done + exited) / the smallest batch.
-    const enrolledTags = [...STAGE_TAGS, DONE_TAG, EXITED_TAG];
-    let enrolled = 0;
-    for (const t of enrolledTags) enrolled += await countTag(cfg, t);
-    // Each ramp day adds a batch; infer which ramp step we're on from cumulative enrolled.
-    // (50,150,350,700 cumulative → dayIndex 0..4+)
-    const CUMULATIVE = [0, 50, 150, 350, 700];
-    let dayIndex = CUMULATIVE.filter((c) => enrolled >= c).length - 1;
-    if (dayIndex < 0) dayIndex = 0;
-    const quota = seedOverride ?? seedQuotaForDay(dayIndex);
+    // 2) Ramp math — CALENDAR-DRIVEN, not enrolled-count-driven.
+    //    The old code summed 6 full-audience tag scans (43 pages each ≈ 40s of
+    //    pure counting) AND inferred dayIndex from cumulative enrolled — which
+    //    got STUCK at 2 when seeding stalled (enrolled never grew → dayIndex
+    //    never advanced → a self-reinforcing stall). Drive the ramp off the
+    //    calendar instead: one ramp step per real day since the campaign start.
+    //    Deterministic, un-stuckable, and needs ZERO counting.
+    const CAMPAIGN_START_MS = Date.UTC(2026, 6, 7); // 2026-07-07 = ramp day 0 (drain relaunch)
+    const dayIndex = Math.max(0, Math.floor((Date.UTC(now.getUTCFullYear(), now.getUTCMonth(), now.getUTCDate()) - CAMPAIGN_START_MS) / 86400000));
+    // Window cap: the dispatcher fully AWAITS this job (timeout_ms < 55s), and a
+    // Vercel function's own budget is finite too. Each send is ~200ms, so cap the
+    // per-tick seed so worst-case runSend + runSeed finishes well under ~50s.
+    // The one-time bulk drain of the backlog runs via the LOCAL runner
+    // (scripts/mindy-reignite-drip.mjs) per the bulk-job rule — the cron is the
+    // steady-state handler, NOT the drainer. Ramp still ramps, just clamped here.
+    const PER_TICK_SEED_CAP = 120;
+    const quota = Math.min(seedOverride ?? seedQuotaForDay(dayIndex), PER_TICK_SEED_CAP);
 
     const seed = await runSeed(cfg, quota, todayIso);
 
-    const remaining = Math.max(0, (await countTag(cfg, AUDIENCE_TAG)) - enrolled - seed.enrolled);
+    // Whether MORE fresh contacts remain to seed: runSeed overpulls the audience
+    // (limit*3) and reports how many were eligible-and-new in that slice. If it
+    // found more eligible-new than it enrolled this tick, the backlog isn't
+    // drained yet. This avoids the old 6-tag full-audience sum (≈40s) entirely —
+    // no extra GHL scan, so the route finishes inside the dispatcher's await.
+    const moreToSeed = seed.eligibleNew > seed.enrolled;
 
     // Slack summary so Eric never has to check the dashboard.
     if (!dry) {
       await notifySlack({
         ok: true,
-        summary: `ran ${todayIso} — advanced ${send.advanced}, seeded ${seed.enrolled}, ${remaining} left`,
+        summary: `ran ${todayIso} — advanced ${send.advanced}, seeded ${seed.enrolled}${moreToSeed ? ', backlog remains' : ', backlog drained'}`,
         detail:
           `*Ran:* ${now.toISOString()}\n` +
           `*Advanced:* ${send.advanced} to next email · *waiting:* ${send.waiting} · *exited (completed profile):* ${send.exited} · *finished:* ${send.finished}\n` +
           `*Seeded email 1:* ${seed.enrolled} new (quota ${quota}, ramp day ${dayIndex}) · *suppressed:* ${seed.failed}\n` +
-          `*Audience remaining:* ${remaining} of ~4,323`,
+          `*More fresh contacts to seed?* ${moreToSeed ? 'yes' : 'no — backlog drained'}`,
       });
     }
 
@@ -136,8 +126,7 @@ export async function GET(req: NextRequest) {
       success: true, dry, at: now.toISOString(),
       advance: send,
       seed: { quota, dayIndex, ...seed },
-      enrolledBefore: enrolled,
-      audienceRemaining: remaining,
+      moreToSeed,
     });
   } catch (e) {
     const msg = (e as Error)?.message || 'unknown error';
