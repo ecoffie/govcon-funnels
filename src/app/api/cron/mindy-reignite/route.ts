@@ -48,6 +48,22 @@ async function notifySlack(payload: { ok: boolean; summary: string; detail?: str
   } catch { /* never let Slack failure break the cron */ }
 }
 
+// Format a timestamp as Eric-readable ET + the UTC of record, e.g.
+// "10:02 AM ET (14:02 UTC) · Tue Jul 8". America/New_York handles EST/EDT
+// automatically. We always keep UTC in the string too so the log is unambiguous.
+function stamp(d: Date): string {
+  const et = new Intl.DateTimeFormat('en-US', {
+    timeZone: 'America/New_York', hour: 'numeric', minute: '2-digit', hour12: true,
+  }).format(d);
+  const utc = new Intl.DateTimeFormat('en-GB', {
+    timeZone: 'UTC', hour: '2-digit', minute: '2-digit', hour12: false,
+  }).format(d);
+  const day = new Intl.DateTimeFormat('en-US', {
+    timeZone: 'America/New_York', weekday: 'short', month: 'short', day: 'numeric',
+  }).format(d);
+  return `${et} ET (${utc} UTC) · ${day}`;
+}
+
 function authorized(req: NextRequest): boolean {
   const auth = req.headers.get('authorization');
   const cronSecret = process.env.CRON_SECRET;
@@ -114,9 +130,9 @@ export async function GET(req: NextRequest) {
     if (!dry) {
       await notifySlack({
         ok: true,
-        summary: `ran ${todayIso} — advanced ${send.advanced}, seeded ${seed.enrolled}`,
+        summary: `ran ${stamp(now)} — advanced ${send.advanced}, seeded ${seed.enrolled}`,
         detail:
-          `*Ran:* ${now.toISOString()}\n` +
+          `*Ran:* ${stamp(now)}\n` +
           `*Advanced:* ${send.advanced} to next email · *waiting:* ${send.waiting} · *exited (completed profile):* ${send.exited} · *finished:* ${send.finished}\n` +
           `*Seeded email 1:* ${seed.enrolled} new (quota ${quota}, ramp day ${dayIndex}) · *suppressed:* ${seed.failed}\n` +
           `_Backlog drain tracked via the local runner; cron seeds the daily quota._`,
@@ -130,7 +146,7 @@ export async function GET(req: NextRequest) {
     });
   } catch (e) {
     const msg = (e as Error)?.message || 'unknown error';
-    if (!dry) await notifySlack({ ok: false, summary: `FAILED ${todayIso}`, detail: `The drip cron errored:\n\`\`\`${msg}\`\`\`` });
+    if (!dry) await notifySlack({ ok: false, summary: `FAILED ${stamp(now)}`, detail: `The drip cron errored:\n\`\`\`${msg}\`\`\`` });
     return NextResponse.json({ success: false, error: msg }, { status: 500 });
   }
 }
