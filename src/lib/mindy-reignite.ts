@@ -47,6 +47,14 @@ export interface DripConfig {
   dry?: boolean;
 }
 
+export interface RunSendOptions {
+  /**
+   * Max contacts whose tags/messages this invocation mutates. The serverless cron
+   * runs under a bounded dispatcher window; local bulk runners can omit this.
+   */
+  workLimit?: number;
+}
+
 interface GhlContact {
   id: string;
   email?: string;
@@ -181,18 +189,24 @@ export async function runSeed(cfg: DripConfig, limit: number, todayIso: string) 
 }
 
 // Advance enrolled contacts to their next stage IF >=ADVANCE_AFTER_DAYS since their stamp.
-export async function runSend(cfg: DripConfig, now: Date) {
-  let advanced = 0, exited = 0, finished = 0, waiting = 0;
+export async function runSend(cfg: DripConfig, now: Date, options: RunSendOptions = {}) {
+  let advanced = 0, exited = 0, finished = 0, waiting = 0, backstamped = 0;
+  let workDone = 0;
+  let limitReached = false;
+  const atLimit = () => !!options.workLimit && workDone >= options.workLimit;
   for (let i = STAGES.length - 1; i >= 1; i--) {
+    if (atLimit()) { limitReached = true; break; }
     const prevTag = STAGE_TAGS[i - 1];
     const prevKey = STAGE_KEYS[i - 1];
     const cohort = await pullByTag(cfg, prevTag, 0);
     for (const c of cohort) {
+      if (atLimit()) { limitReached = true; break; }
       if (!eligible(c)) {
         if (!lower(c).includes(AUDIENCE_TAG)) { // completed profile -> exit
           await removeTag(cfg, c.id, prevTag);
           await addTag(cfg, c.id, EXITED_TAG);
           exited++;
+          workDone++;
         }
         continue;
       }
@@ -203,6 +217,8 @@ export async function runSend(cfg: DripConfig, now: Date) {
       if (!stamp) {
         await addTag(cfg, c.id, `${STAMP_PREFIX}${prevKey}:${now.toISOString().slice(0, 10)}`);
         waiting++;
+        backstamped++;
+        workDone++;
         continue;
       }
       if (daysSince(stamp, now) < ADVANCE_AFTER_DAYS) { waiting++; continue; } // not due yet
@@ -213,20 +229,31 @@ export async function runSend(cfg: DripConfig, now: Date) {
         await removeTag(cfg, c.id, prevTag);
         advanced++;
       } catch (e) { console.error(`  send fail ${c.email}: ${(e as Error).message}`); }
+      finally { workDone++; }
       await sleep(200);
     }
   }
   // Retire finishers (last stage -> done), gated by the same 2-day dwell.
-  const lastTag = STAGE_TAGS[STAGE_TAGS.length - 1];
-  const lastKey = STAGE_KEYS[STAGE_KEYS.length - 1];
-  const finishers = await pullByTag(cfg, lastTag, 0);
-  for (const c of finishers) {
-    const stamp = stampFor(c, lastKey);
-    if (!stamp) { await addTag(cfg, c.id, `${STAMP_PREFIX}${lastKey}:${now.toISOString().slice(0, 10)}`); waiting++; continue; }
-    if (daysSince(stamp, now) < ADVANCE_AFTER_DAYS) { waiting++; continue; }
-    await addTag(cfg, c.id, DONE_TAG);
-    await removeTag(cfg, c.id, lastTag);
-    finished++;
+  if (!limitReached) {
+    const lastTag = STAGE_TAGS[STAGE_TAGS.length - 1];
+    const lastKey = STAGE_KEYS[STAGE_KEYS.length - 1];
+    const finishers = await pullByTag(cfg, lastTag, 0);
+    for (const c of finishers) {
+      if (atLimit()) { limitReached = true; break; }
+      const stamp = stampFor(c, lastKey);
+      if (!stamp) {
+        await addTag(cfg, c.id, `${STAMP_PREFIX}${lastKey}:${now.toISOString().slice(0, 10)}`);
+        waiting++;
+        backstamped++;
+        workDone++;
+        continue;
+      }
+      if (daysSince(stamp, now) < ADVANCE_AFTER_DAYS) { waiting++; continue; }
+      await addTag(cfg, c.id, DONE_TAG);
+      await removeTag(cfg, c.id, lastTag);
+      finished++;
+      workDone++;
+    }
   }
-  return { advanced, exited, finished, waiting };
+  return { advanced, exited, finished, waiting, backstamped, workDone, limitReached };
 }
