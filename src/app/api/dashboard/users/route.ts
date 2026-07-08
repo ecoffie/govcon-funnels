@@ -1,8 +1,12 @@
-import { NextResponse } from 'next/server';
+import { NextRequest, NextResponse } from 'next/server';
+import { extractPassword, isAuthorized } from '@/lib/admin-auth';
 import { queryUsers } from '@/lib/db';
 
-export async function GET() {
+export async function GET(request: NextRequest) {
   try {
+    if (!isAuthorized(extractPassword(request))) {
+      return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
+    }
     const users = await queryUsers();
     return NextResponse.json(users);
   } catch (err) {

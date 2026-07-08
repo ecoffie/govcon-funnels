@@ -1,4 +1,5 @@
 import { NextRequest, NextResponse } from 'next/server';
+import { extractPassword, isAuthorized } from '@/lib/admin-auth';
 import { importUsers } from '@/lib/db';
 
 const DEFAULT_USERS = [
@@ -13,6 +14,9 @@ const DEFAULT_USERS = [
 
 export async function POST(request: NextRequest) {
   try {
+    if (!isAuthorized(extractPassword(request))) {
+      return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
+    }
     const body = await request.json().catch(() => ({}));
     const providedUsers = Array.isArray(body.users)
       ? body.users.filter(
