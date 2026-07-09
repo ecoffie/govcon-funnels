@@ -1,0 +1,439 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="robots" content="noindex, nofollow">
+<title>Ep 06 · What 2026 Orders Mean · Production Package</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<style>
+  :root {
+    --bg:#0d0c10; --bg-raise:#161419; --bg-card:#18161d;
+    --ink:#e8e6ea; --ink-dim:#aaa5b5; --ink-faint:#75707f;
+    --line:#2a2630; --line-soft:#201d26;
+    --money:#22c55e; --money-deep:#16a34a; --amber:#e0b354; --slate:#948ba1; --violet:#a78bfa;
+    --radius:14px; --maxw:1080px;
+    --mono:ui-monospace,"SF Mono","Cascadia Code",Menlo,Consolas,monospace;
+    --sans:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
+    --display:"Helvetica Neue","Arial Black",var(--sans);
+  }
+  :root[data-theme="light"]{--bg:#f5f4f7;--bg-raise:#fff;--bg-card:#fff;--ink:#18161c;--ink-dim:#4c4756;--ink-faint:#867f90;--line:#e3e0e6;--line-soft:#edeaf0;--money:#15803d;--money-deep:#166534;--amber:#a9781f;}
+  @media (prefers-color-scheme:light){:root:not([data-theme="dark"]){--bg:#f5f4f7;--bg-raise:#fff;--bg-card:#fff;--ink:#18161c;--ink-dim:#4c4756;--ink-faint:#867f90;--line:#e3e0e6;--line-soft:#edeaf0;--money:#15803d;--money-deep:#166534;--amber:#a9781f;}}
+  *{box-sizing:border-box;} html{scroll-behavior:smooth;scroll-padding-top:68px;}
+  @media (prefers-reduced-motion:reduce){html{scroll-behavior:auto;}}
+  body{margin:0;background:var(--bg);color:var(--ink);font-family:var(--sans);line-height:1.6;-webkit-font-smoothing:antialiased;font-size:16px;}
+  .wrap{max-width:var(--maxw);margin:0 auto;padding:0 22px;}
+  nav{position:sticky;top:0;z-index:50;background:color-mix(in srgb,var(--bg) 88%,transparent);backdrop-filter:blur(12px);border-bottom:1px solid var(--line);}
+  .nav-inner{max-width:var(--maxw);margin:0 auto;padding:10px 22px;display:flex;align-items:center;gap:6px;overflow-x:auto;scrollbar-width:none;}
+  .nav-inner::-webkit-scrollbar{display:none;}
+  .nav-inner a{color:var(--ink-dim);text-decoration:none;white-space:nowrap;font-size:13px;font-weight:600;padding:6px 11px;border-radius:8px;transition:color .15s,background .15s;}
+  .nav-inner a:hover{color:var(--ink);background:var(--bg-raise);} .nav-inner a.tp{color:var(--money);}
+  .nav-brand{font-weight:800;font-size:13px;margin-right:8px;color:var(--ink);letter-spacing:.02em;}
+  .theme-btn{margin-left:auto;flex:none;background:var(--bg-raise);border:1px solid var(--line);color:var(--ink-dim);border-radius:8px;padding:6px 10px;font-size:12px;cursor:pointer;font-family:var(--mono);}
+  .theme-btn:hover{color:var(--ink);}
+  header{padding:62px 0 40px;border-bottom:1px solid var(--line);}
+  .eyebrow{font-family:var(--mono);font-size:12px;letter-spacing:.14em;text-transform:uppercase;color:var(--money);display:flex;flex-wrap:wrap;gap:8px 14px;margin-bottom:22px;}
+  .eyebrow span{color:var(--ink-faint);} .eyebrow b{color:var(--money);font-weight:700;}
+  h1.hero{font-family:var(--display);font-weight:800;letter-spacing:-0.02em;font-size:clamp(34px,6vw,60px);line-height:1.02;margin:0 0 6px;text-wrap:balance;}
+  .bignum{font-family:var(--display);font-weight:800;letter-spacing:-0.03em;font-size:clamp(60px,14vw,150px);line-height:.9;margin:16px 0 4px;color:var(--money);font-variant-numeric:tabular-nums;}
+  .bignum small{font-size:.32em;color:var(--ink-dim);font-weight:700;letter-spacing:0;}
+  .subhead{font-size:clamp(17px,2.4vw,21px);color:var(--ink-dim);max-width:62ch;text-wrap:pretty;}
+  .subhead strong{color:var(--ink);font-weight:600;}
+  .chips{display:flex;flex-wrap:wrap;gap:8px;margin-top:26px;}
+  .chip{font-family:var(--mono);font-size:12.5px;padding:7px 12px;border-radius:999px;border:1px solid var(--line);color:var(--ink-dim);background:var(--bg-raise);display:inline-flex;align-items:center;gap:7px;}
+  .chip b{color:var(--ink);font-weight:600;} .chip.green{border-color:color-mix(in srgb,var(--money) 45%,var(--line));} .chip.green .dot{background:var(--money);}
+  .dot{width:7px;height:7px;border-radius:50%;background:var(--slate);flex:none;} .chip.amber .dot{background:var(--amber);} .chip.violet .dot{background:var(--violet);}
+  section{padding:46px 0;border-bottom:1px solid var(--line-soft);}
+  .sec-head{display:flex;align-items:baseline;gap:14px;margin-bottom:22px;flex-wrap:wrap;}
+  .sec-kicker{font-family:var(--mono);font-size:12px;color:var(--money);letter-spacing:.1em;text-transform:uppercase;}
+  h2{font-family:var(--display);font-weight:800;font-size:clamp(24px,4vw,34px);letter-spacing:-0.015em;margin:0;text-wrap:balance;}
+  .sec-note{color:var(--ink-faint);font-size:14px;}
+  .tp-bar{display:flex;align-items:center;justify-content:space-between;gap:12px;margin-bottom:14px;flex-wrap:wrap;}
+  .copy-btn{background:var(--money);color:#06210f;border:none;font-weight:700;padding:10px 18px;border-radius:10px;cursor:pointer;font-size:14px;font-family:var(--sans);display:inline-flex;align-items:center;gap:8px;transition:transform .1s,background .15s;}
+  .copy-btn:hover{background:var(--money-deep);} .copy-btn:active{transform:translateY(1px);} .copy-btn.done{background:var(--violet);color:#fff;}
+  .tp-meta{font-family:var(--mono);font-size:12.5px;color:var(--ink-faint);}
+  .prompter{background:var(--bg-raise);border:1px solid var(--line);border-radius:var(--radius);padding:8px 4px;max-height:460px;overflow-y:auto;}
+  .prompter pre{font-family:var(--mono);font-size:15px;line-height:1.85;color:var(--ink);white-space:pre-wrap;word-wrap:break-word;margin:0;padding:18px 22px;tab-size:2;}
+  .prompter .marker{color:var(--money);font-weight:700;letter-spacing:.04em;}
+  .table-scroll{overflow-x:auto;border:1px solid var(--line);border-radius:var(--radius);}
+  table{width:100%;border-collapse:collapse;min-width:520px;}
+  th,td{text-align:left;padding:12px 16px;border-bottom:1px solid var(--line-soft);font-size:14.5px;}
+  th{font-family:var(--mono);font-size:11.5px;letter-spacing:.08em;text-transform:uppercase;color:var(--ink-faint);font-weight:600;background:var(--bg-raise);}
+  td.num{font-family:var(--mono);font-variant-numeric:tabular-nums;color:var(--money);font-weight:600;text-align:right;white-space:nowrap;}
+  tr:last-child td{border-bottom:none;} td .ok{color:var(--money);} td .flag{color:var(--amber);}
+  .src-note{font-size:13px;color:var(--ink-faint);margin-top:12px;line-height:1.6;} .src-note code{font-family:var(--mono);color:var(--ink-dim);font-size:12px;}
+  .grid{display:grid;gap:16px;} .grid.two{grid-template-columns:repeat(auto-fit,minmax(300px,1fr));}
+  .card{background:var(--bg-card);border:1px solid var(--line);border-radius:var(--radius);padding:20px 22px;}
+  .card h3{margin:0 0 10px;font-size:16px;font-weight:700;letter-spacing:-0.01em;} .rank{font-family:var(--mono);font-size:12px;color:var(--ink-faint);}
+  .shift-flow{margin:2px 0 0;font-size:14px;color:var(--ink-dim);line-height:1.6;} .shift-flow b{color:var(--ink);font-weight:600;} .shift-flow .num{color:var(--money);font-weight:700;font-variant-numeric:tabular-nums;} .shift-flow .to{color:var(--money);font-weight:700;} .shift-flow .away{color:var(--amber);font-weight:700;}
+  .shift-care{margin:12px 0 0;font-size:12.5px;color:var(--ink-faint);font-style:italic;line-height:1.55;} .shift-care b{color:var(--ink);} .shift-care .warn{color:var(--amber);font-weight:700;}
+  .conf{font-family:var(--mono);font-size:10px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;padding:3px 8px;border-radius:999px;white-space:nowrap;margin-left:auto;}
+  .conf.v{background:color-mix(in srgb,var(--money) 18%,transparent);color:var(--money);border:1px solid color-mix(in srgb,var(--money) 40%,transparent);}
+  .conf.r{background:color-mix(in srgb,var(--amber) 18%,transparent);color:var(--amber);border:1px solid color-mix(in srgb,var(--amber) 40%,transparent);}
+  ol.titles{list-style:none;counter-reset:t;margin:0;padding:0;display:grid;gap:12px;}
+  ol.titles li{counter-increment:t;background:var(--bg-card);border:1px solid var(--line);border-radius:12px;padding:16px 18px 16px 54px;position:relative;font-size:17px;font-weight:600;line-height:1.4;}
+  ol.titles li::before{content:counter(t);position:absolute;left:16px;top:16px;font-family:var(--mono);font-size:14px;color:var(--money);font-weight:700;width:24px;text-align:center;}
+  ol.titles li .flag-pill{display:inline-block;margin-left:8px;font-family:var(--mono);font-size:10.5px;letter-spacing:.06em;text-transform:uppercase;padding:3px 8px;border-radius:999px;vertical-align:middle;font-weight:700;}
+  .flag-pill.a{background:color-mix(in srgb,var(--money) 22%,transparent);color:var(--money);border:1px solid color-mix(in srgb,var(--money) 40%,transparent);}
+  .flag-pill.b{background:color-mix(in srgb,var(--violet) 22%,transparent);color:var(--violet);border:1px solid color-mix(in srgb,var(--violet) 40%,transparent);}
+  ol.titles li p{margin:6px 0 0;font-size:13px;font-weight:400;color:var(--ink-faint);}
+  .thumbs{display:grid;gap:18px;grid-template-columns:repeat(auto-fit,minmax(320px,1fr));}
+  .thumb-mock{aspect-ratio:16/9;border-radius:12px;overflow:hidden;position:relative;border:1px solid var(--line);display:flex;align-items:center;padding:22px;}
+  .thumb-a{background:radial-gradient(120% 120% at 78% 30%,#1c2b1e 0%,#0b1210 55%,#070a08 100%);}
+  .thumb-b{background:radial-gradient(120% 120% at 22% 78%,#211a3a 0%,#12102a 55%,#0a0812 100%);}
+  .thumb-mock .tx{position:relative;z-index:2;} .thumb-mock .big{font-family:var(--display);font-weight:800;line-height:.95;letter-spacing:-0.02em;font-size:clamp(28px,5.6vw,50px);color:#fff;}
+  .thumb-a .big .g{color:var(--money);} .thumb-b .big .g{color:var(--violet);}
+  .thumb-mock .sub{font-family:var(--mono);font-size:11px;letter-spacing:.1em;text-transform:uppercase;color:rgba(255,255,255,.62);margin-top:8px;}
+  .thumb-face{position:absolute;right:0;bottom:0;width:34%;height:92%;z-index:1;border-left:1px dashed rgba(255,255,255,.18);display:flex;align-items:flex-end;justify-content:center;padding-bottom:8px;}
+  .thumb-face span{font-family:var(--mono);font-size:10px;color:rgba(255,255,255,.4);text-align:center;}
+  .thumb-spec{margin-top:12px;font-size:13.5px;color:var(--ink-dim);line-height:1.6;} .thumb-spec b{color:var(--ink);}
+  ul.clean{list-style:none;margin:0;padding:0;display:grid;gap:10px;}
+  ul.clean li{padding-left:22px;position:relative;font-size:14.5px;color:var(--ink-dim);line-height:1.55;}
+  ul.clean li::before{content:"→";position:absolute;left:0;color:var(--money);font-weight:700;} ul.clean li b{color:var(--ink);font-weight:600;}
+  .shorts{display:grid;gap:12px;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));}
+  .short{background:var(--bg-card);border:1px solid var(--line);border-radius:12px;padding:15px 17px;}
+  .short .n{font-family:var(--mono);font-size:11px;color:var(--money);letter-spacing:.1em;text-transform:uppercase;} .short h4{margin:6px 0 6px;font-size:15px;font-weight:700;} .short p{margin:0;font-size:13px;color:var(--ink-faint);line-height:1.55;} .short p b{color:var(--ink);}
+  .desc-box{background:var(--bg-raise);border:1px solid var(--line);border-radius:var(--radius);padding:4px;}
+  .desc-box pre{font-family:var(--mono);font-size:13.5px;line-height:1.7;color:var(--ink-dim);white-space:pre-wrap;word-wrap:break-word;margin:0;padding:18px 20px;max-height:380px;overflow-y:auto;}
+  .desc-box .lnk{color:var(--money);}
+  .callout{border:1px solid color-mix(in srgb,var(--amber) 40%,var(--line));background:color-mix(in srgb,var(--amber) 8%,var(--bg-card));border-radius:var(--radius);padding:16px 20px;font-size:14px;color:var(--ink-dim);display:flex;gap:12px;align-items:flex-start;line-height:1.6;}
+  .callout .mk{color:var(--amber);font-weight:800;font-family:var(--mono);flex:none;} .callout b{color:var(--ink);}
+  .nosay{display:grid;gap:0;background:var(--bg-card);border:1px solid var(--line);border-radius:var(--radius);padding:4px 20px;}
+  .nosay .item{padding:12px 0;border-bottom:1px solid var(--line-soft);font-size:14px;color:var(--ink-dim);line-height:1.55;} .nosay .item:last-child{border-bottom:none;} .nosay .item b{color:var(--ink);} .nosay .x{color:var(--amber);font-weight:800;font-family:var(--mono);}
+  footer{padding:40px 0 70px;color:var(--ink-faint);font-size:13px;} footer .mono{font-family:var(--mono);}
+  :focus-visible{outline:2px solid var(--money);outline-offset:2px;border-radius:4px;}
+</style>
+
+</head>
+<body>
+<nav><div class="nav-inner">
+  <span class="nav-brand">EP 06 · PACKAGE</span>
+  <a href="#teleprompter" class="tp">▶ Teleprompter</a>
+  <a href="#numbers">Real numbers</a><a href="#shifts">The 3 shifts</a><a href="#script">Annotated</a><a href="#nosay">🚫 Do not say</a><a href="#titles">Titles</a>
+  <a href="#thumbnails">Thumbnails</a><a href="#shots">Shot list</a><a href="#shorts">6 Shorts</a><a href="#description">Description</a>
+  <button class="theme-btn" id="themeToggle" aria-label="Toggle theme">◐ theme</button>
+</div></nav>
+
+<header><div class="wrap">
+  <div class="eyebrow">GOVCON GIANTS <span>·</span> BATCH 1 <span>·</span> <b>EP 06</b> <span>·</span> NEWS / POLICY <span>·</span> PROVEN LANE, REFRESHABLE <span>·</span> FOLLOW THE MONEY</div>
+  <h1 class="hero">What 2026's Orders Mean for Anyone Who Sells to the Government</h1>
+  <div class="bignum">$1.8B→$18B<small> DoD's faster lane (OTAs) · FY16→FY24, ~10x</small></div>
+  <p class="subhead"><strong>Rebuilt on what's actually happening to the money, not the press releases.</strong> Three real shifts: the 10x move into <strong>OTA spending</strong>, DoD's new <strong>Lynx</strong> front door for newcomers, and the <strong>SBA overhaul</strong>. Every number .gov-verified. Lynx is a READINESS/matchmaking tool — NOT a marketplace — the #1 thing to get right on camera.</p>
+  <div class="chips">
+    <span class="chip violet"><span class="dot"></span> Bucket: <b>News / Policy</b></span>
+    <span class="chip"><span class="dot"></span> Runtime: <b>~10–11 min</b></span>
+    <span class="chip green"><span class="dot"></span> CTA: <b>Free tool + guide</b></span>
+    <span class="chip green"><span class="dot"></span> Data: <b>GAO/DoD/SBA · re-confirm at film time</b></span>
+    <span class="chip amber"><span class="dot"></span> UTM slug: <b>trump-orders-2026</b></span>
+  </div>
+</div></header>
+
+<main class="wrap">
+
+  <section id="teleprompter">
+    <div class="sec-head"><span class="sec-kicker">Read this on camera</span><h2>▶ Teleprompter</h2>
+      <span class="sec-note">Spoken words only. Backup: <code>Eric Docs/youtube-scripts/teleprompter-trump-orders-2026.txt</code></span></div>
+    <div class="tp-bar"><button class="copy-btn" id="copyBtn">⧉ Copy clean script</button>
+      <span class="tp-meta">~1,355 words · ~10–11 min @ 150 wpm · blank line = breath</span></div>
+    <p class="src-note" style="margin:0 0 12px"><b style="color:var(--amber)">3 landmines:</b> Lynx = readiness/matchmaking (NOT a marketplace) · "Department of War" is a brand, not the legal name (EO 14347) · orders DIRECT, they don't FUND.</p>
+    <div class="prompter"><pre id="tpText"><span class="marker">═══ COLD OPEN ═══</span>
+
+For the last two years everybody's been arguing about government policy — who got cut, who got funded, the drama.
+
+Almost nobody's talking about the part that actually matters if you sell to the government, or you want to: the government quietly changed the way it buys.
+
+Not just what it buys — HOW it buys. A faster lane opened up. Billions of dollars moved into it. And one part of the military just built a literal front door for small businesses that have never done this before.
+
+I'm going to show you three real shifts, with the real numbers. No politics. Just where the money's moving, and how you get in front of it.
+
+
+<span class="marker">═══ THE FRAME ═══</span>
+
+One quick thing so we stay honest, because the internet is not.
+
+An executive order doesn't spend money. Only Congress can do that. What these changes do is redirect HOW the government buys and who it prioritizes.
+
+That's still enormous — hundreds of billions of dollars a year flow through these rules. When the rules change, the opportunities change. Watch that, and you're ahead of almost everyone.
+
+Three shifts. Here's the first, and it's the big one.
+
+
+<span class="marker">═══ SHIFT 1 — THE FASTER LANE (OTAs) ═══</span>
+
+For decades, selling to the government meant one painful path: the Federal Acquisition Regulation. The FAR. Two thousand pages of rules, clauses, audits. It's why people say government contracting is slow and only the big guys can play.
+
+But there's another path, and the government is pouring money into it. It's called an Other Transaction — an OT.
+
+In plain English: it's a way for the government to buy research, prototypes, and new technology OUTSIDE most of those FAR rules. Faster. More flexible. And specifically designed to work with commercial companies and startups that would never touch a traditional government contract.
+
+Here's the number that tells the whole story. In twenty sixteen, the Defense Department spent about one point eight billion dollars this way. By twenty twenty-four, it was over eighteen billion. That's roughly ten times more, in eight years.
+
+Most of that — around sixteen billion — is prototype work. New tech. Which means: if you build something, this is the lane where the government is most willing to try you without a twenty-year track record.
+
+And here's the part that should really get your attention. If you win one of these prototype deals — one that was competed fairly — the government can then turn around and award you the full production contract without making you compete all over again. Win the prototype, and the big contract can follow, directly.
+
+Now, here's the part nobody tells beginners. You don't chase these one at a time. A lot of this money flows through groups called consortiums — organized around missions like space, medical, mobility, cyber. About half of all this prototype money runs through them. You join the consortium, and you get visibility into the work.
+
+And joining is cheap. A lot of them run somewhere between free and about fifteen hundred dollars a year. That's the actual on-ramp. Not a secret. Just quiet.
+
+
+<span class="marker">═══ SHIFT 2 — THEY BUILT A FRONT DOOR (LYNX) ═══</span>
+
+Second shift. And this one's brand new — it launched at the start of twenty twenty-six.
+
+The Department of Defense — which this administration now brands the "Department of War" — through its Office of Small Business Programs, built a free platform called Lynx.
+
+Now let me be precise, because this is where people online are already getting it wrong.
+
+Lynx is NOT a store where you buy contracts. It's not a marketplace. It won't hand you an award.
+
+What it is: a front door. You go to lynxconnect-dot-io, you build a company profile, you take a readiness assessment, and it gives you a roadmap — where you stand, what gaps to close, and it matches you to partners and opportunities in the defense world.
+
+Think of it as the government finally admitting the on-ramp was too confusing — and building a guide for exactly the small, non-traditional business that has good technology but no idea how to navigate the Pentagon.
+
+It's free. It won't win the contract for you. But if you've ever thought "I make something the military could use, but I don't know where to start" — that's the door they built for you.
+
+
+<span class="marker">═══ SHIFT 3 — THE SBA GOT REBUILT ═══</span>
+
+Third shift. The Small Business Administration — the agency behind a lot of your certifications and loans — got completely restructured. Twice. Once in early twenty twenty-five, and again in twenty twenty-six.
+
+And this one's a genuine mixed bag, so I'll give it to you straight.
+
+The good, if you're trying to get certified: it got faster and simpler. There's now one unified system where you can apply for up to four certifications at once. The veteran certification backlog that used to take months got cleared out. And some requirements — like the HUBZone residency rule — got loosened.
+
+The catch: the agency itself got a lot smaller. Its workforce was cut by more than half. Its budget dropped by about a third. Offices got consolidated. Some of the local counseling and outreach programs went away.
+
+So here's the honest translation: the paperwork to get certified got faster — but the number of humans standing by to hold your hand through it got smaller. More self-service, less local help. Know that going in.
+
+
+<span class="marker">═══ THE MAP — WHERE IT'S ALL FLOWING ═══</span>
+
+Step back and look at the whole board.
+
+The biggest buckets are still the biggest. Defense — over four hundred billion dollars a year. Veterans Affairs, around sixty-seven billion. Energy, in the forties. Health, around thirty.
+
+These three shifts don't change those buckets. They change how you get into them. A faster lane you can actually use. A front door if you're new. And a certification system that got quicker, even as the help got thinner.
+
+If you can see that, you can position on it.
+
+
+<span class="marker">═══ THE TURN — HOW YOU'D WATCH IT YOURSELF ═══</span>
+
+So — how do you actually see where this money's moving, in your own industry, right now?
+
+Every one of these dollars is public. Every contract, every agency, every trend. The problem is it's scattered across government websites that are miserable to use.
+
+So I built a free tool that pulls it into one place. You type in what you do, and it shows you which agencies are spending on it and how that's trending.
+
+It's free. The link's in the description. That's how you watch the money instead of guessing.
+
+
+<span class="marker">═══ CLOSE ═══</span>
+
+Three shifts. One direction: the government made a faster lane, built a front door, and sped up the paperwork — all at the same time, mostly while nobody was watching.
+
+You don't need an opinion about the politics. You need to be positioned before the crowd figures out where the money moved.
+
+Go see where it's flowing in your world — the free tool's in the description, and so is the free starter guide.
+
+Subscribe, because the next shift is already being built — and when it lands, I'll break down exactly what it means for businesses like yours.
+
+I'll see you in the next one.</pre></div>
+  </section>
+
+  <section id="numbers">
+    <div class="sec-head"><span class="sec-kicker">Every figure the script cites</span><h2>Real numbers</h2><span class="sec-note">GAO / DoD / SBA / USASpending · verified 2026-07-06</span></div>
+    <div class="table-scroll"><table>
+      <thead><tr><th>What</th><th>Figure</th><th>Script says</th><th>Status</th></tr></thead>
+      <tbody>
+        <tr><td><b>DoD OTA obligations FY2016</b></td><td class="num">$1.8B</td><td>"about $1.8B"</td><td><span class="ok">✓ GAO</span></td></tr>
+        <tr><td><b>DoD OTA obligations FY2024</b></td><td class="num">$18B+</td><td>"over $18B"</td><td><span class="ok">✓ GAO</span></td></tr>
+        <tr><td>&nbsp;— of which prototype OTAs FY24</td><td class="num">~$16B</td><td>"around $16B"</td><td><span class="ok">✓</span></td></tr>
+        <tr><td>&nbsp;— of which production OTAs FY24</td><td class="num">~$2B</td><td>(context)</td><td><span class="ok">✓</span></td></tr>
+        <tr><td>FY21–24 total OTA (90% prototype)</td><td class="num">$62.9B</td><td>(bench)</td><td><span class="ok">✓</span></td></tr>
+        <tr><td>Share of prototype $ via consortia</td><td class="num">~50%</td><td>"about half"</td><td><span class="ok">✓</span></td></tr>
+        <tr><td>Typical OTA consortium membership</td><td class="num">$0–$1,500/yr</td><td>"free to ~$1,500/yr"</td><td><span class="ok">✓</span></td></tr>
+        <tr><td>Dept of Defense (FY24 contract $)</td><td class="num">$446.0B</td><td>"over $400B"</td><td><span class="ok">✓</span></td></tr>
+        <tr><td>Veterans Affairs</td><td class="num">$66.9B</td><td>"around $67B"</td><td><span class="ok">✓</span></td></tr>
+        <tr><td>Energy</td><td class="num">$46.0B</td><td>"in the forties"</td><td><span class="ok">✓</span></td></tr>
+        <tr><td>Health &amp; Human Services</td><td class="num">$29.9B</td><td>"around $30B"</td><td><span class="ok">✓</span></td></tr>
+      </tbody>
+    </table></div>
+    <p class="src-note">OTA figures: <code>GAO-25-107546</code> (Sept 3, 2025); consortium fees via MITRE AiDA. Follow-on production (win a <b>competed</b> prototype → no re-compete, <code>10 U.S.C. §4022(f)</code>): DoD OTA Overview Guide, 17 Dec 2025. Agency money-map: <code>USASpending.gov</code> FY2024 top agencies by contract $, pulled 2026-07-06.</p>
+    <div class="callout" style="margin-top:16px">
+      <span class="mk">⚠</span>
+      <div><b>Re-confirm at film time:</b> Lynx is new (Jan 2026) — re-check <b>lynxconnect.io</b> is live + the description before publishing. SBA reorg specifics (HUBZone/WOSB/VetCert-days) are partly <b>REPORTED</b> — re-verify any you state precisely. The OTA $1.8B→$18B growth and the agency map are locked.</div>
+    </div>
+  </section>
+
+  <section id="shifts">
+    <div class="sec-head"><span class="sec-kicker">The spine · all .gov-verified</span><h2>The 3 shifts</h2><span class="sec-note">GSA-consolidation + FAR-overhaul orders demoted to context</span></div>
+    <p class="src-note" style="margin:-6px 0 16px">These replace the old "policy moves money" generalities. Each is real, sourced, and described the way the source actually describes it. The italic line is the accuracy guardrail.</p>
+    <div class="grid">
+      <div class="card" style="border-left:3px solid var(--money)">
+        <div style="display:flex;gap:12px;align-items:baseline;flex-wrap:wrap"><span class="rank" style="color:var(--money)">SHIFT 1</span><h3 style="margin:0">The faster lane — OTAs (Other Transactions)</h3><span class="conf v">Verified</span></div>
+        <p class="shift-flow"><b>The money is moving here:</b> DoD OTA obligations <span class="num">$1.8B (FY16) → $18B+ (FY24)</span> — ~10x in 8 yrs (FY24: ~$16B prototype + ~$2B production). FY21–24 = <span class="num">$62.9B</span> total, 90% prototype; <b>consortia = ~half</b> of prototype $. Buys R&amp;D/prototypes OUTSIDE the FAR. <b>The carrot:</b> win a <i>competed</i> prototype OTA → production can be awarded with NO re-compete (10 U.S.C. §4022(f)). <b>On-ramp:</b> consortia (S2MARTS, SpEC, NAMC, MTEC), membership often <span class="num">$0–$1,500/yr</span>.</p>
+        <p class="shift-care">Source: GAO-25-107546 (Sep 2025) + DoD OTA Overview Guide (17 Dec 2025). Statutes: research §4021 / prototype §4022 (NOT the old "2371b" — renumbered 2021). <span class="warn">⚠</span> No % of OTA $ to small biz (GAO says DoD doesn't track it). ATI/NSTXL totals are pass-through to members, not kept.</p>
+      </div>
+      <div class="card" style="border-left:3px solid var(--violet)">
+        <div style="display:flex;gap:12px;align-items:baseline;flex-wrap:wrap"><span class="rank" style="color:var(--violet)">SHIFT 2</span><h3 style="margin:0">The front door — Lynx (lynxconnect.io)</h3><span class="conf r">Reported ×4</span></div>
+        <p class="shift-flow"><b>What it is:</b> a FREE business-readiness + matchmaking platform DoD launched ~Jan 2026 — profile + readiness assessment + AI roadmap + matching to partners/opportunities. Run by DoD Office of Small Business Programs. For new entrants / small / non-traditional suppliers.</p>
+        <p class="shift-care"><span class="warn">⚠ #1 LANDMINE:</span> <b>Lynx is NOT a marketplace / contract vehicle / OTA on-ramp / place you win contracts.</b> It's readiness + matchmaking. Don't attach $ or user counts (none published). Say "the Dept of Defense — which the admin now brands the 'Department of War' —" (branding, not legal name; EO 14347). <b>Confidence:</b> the .gov page is Cloudflare-blocked to scrapers, so specifics are REPORTED (4 outlets agree), not primary-VERIFIED — re-check lynxconnect.io yourself at film time. Don't confuse with the Textron "Lynx" combat vehicle.</p>
+      </div>
+      <div class="card" style="border-left:3px solid var(--amber)">
+        <div style="display:flex;gap:12px;align-items:baseline;flex-wrap:wrap"><span class="rank" style="color:var(--amber)">SHIFT 3</span><h3 style="margin:0">The SBA overhaul — faster certs, leaner agency</h3><span class="conf v">Verified</span></div>
+        <p class="shift-flow"><b>The win:</b> unified MySBA portal (4 certs at once), VetCert backlog cleared (~81→~12 days), HUBZone residency 6mo→90 days. <b>The catch:</b> <span class="away">workforce −50%+, budget −33%,</span> offices consolidated to HQ, some counseling/outreach cut. Admin: Kelly Loeffler. Two reorgs: Mar 2025 + Jun 2026.</p>
+        <p class="shift-care"><span class="warn">⚠</span> Don't conflate the two reorgs (43% Mar '25 plan vs "over 50%" cumulative Jun '26). HUBZone/WOSB specifics are REPORTED (not confirmed rule text). Don't say "SBA now runs student loans" — only announced. VetCert ~12 days is REPORTED.</p>
+      </div>
+    </div>
+    <div class="callout" style="margin-top:16px;border-color:color-mix(in srgb,var(--violet) 40%,var(--line));background:color-mix(in srgb,var(--violet) 8%,var(--bg-card))">
+      <span class="mk" style="color:var(--violet)">▸</span>
+      <div><b>Demoted to context (say briefly, don't dwell):</b> the GSA-consolidation order (EO 14240) and the FAR overhaul (EO 14275) are the <i>why</i> behind the OTA push — the FAR overhaul explicitly promotes OTs + Commercial Solutions Offerings. Mention them as the reason the faster lane is being widened; they're not their own beats anymore. Full detail: <code>REFERENCE-ota-lynx-sba-verified.md</code> + <code>REFERENCE-trump-2026-eo-verified.md</code>.</div>
+    </div>
+  </section>
+
+  <section id="script">
+    <div class="sec-head"><span class="sec-kicker">Editor's reference</span><h2>Annotated script</h2><span class="sec-note">Frame → OTA → Lynx → SBA → map → turn · Short markers</span></div>
+    <p class="src-note" style="margin:-6px 0 16px">New structure: 3 real market shifts ARE the video. Editors read this; Eric reads the prompter.</p>
+    <div class="grid two">
+      <div class="card"><span class="rank" style="color:var(--amber)">HOOK · 0:00–0:50</span><h3>"Nobody's talking about HOW it buys"</h3><p style="color:var(--ink-dim);font-size:14px;margin:0">Everybody argued about policy; a faster lane opened, billions moved into it, and the military built a front door for newcomers. "3 shifts, real numbers, no politics." On-screen: <b>"3 SHIFTS · WHERE THE MONEY MOVED"</b>.</p></div>
+      <div class="card"><span class="rank">THE FRAME · 0:50–1:40</span><h3>The honesty guardrail</h3><p style="color:var(--ink-dim);font-size:14px;margin:0">"An order can't spend a dollar — only Congress can. It redirects HOW the govt buys." Keeps the whole video credible. On-screen: "ORDERS DIRECT · CONGRESS FUNDS". <b>▸ Short #5.</b></p></div>
+      <div class="card"><span class="rank">SHIFT 1 — OTAs · 1:40–4:30</span><h3>THE big money story</h3><p style="color:var(--ink-dim);font-size:14px;margin:0">The faster lane outside the FAR. $1.8B→$18B+ in 8 yrs (~$16B prototype). On-ramp: consortia, $0–$1,500/yr. "Not a secret — just quiet." The 10x number IS the graphic. Name 2–3 real consortia. <b>▸ Short #1 (lead).</b></p></div>
+      <div class="card" style="border-color:color-mix(in srgb,var(--violet) 40%, var(--line))"><span class="rank" style="color:var(--violet)">SHIFT 2 — Lynx · 4:30–6:40</span><h3>The front door — GET THIS RIGHT</h3><p style="color:var(--ink-dim);font-size:14px;margin:0">DoD's free Lynx platform (Jan 2026): profile + readiness + roadmap + matchmaking. The precision beat: <b>"NOT a marketplace, won't hand you a contract."</b> Say the "Dept of War"=branding line carefully. lynxconnect.io. <b>▸ Short #2.</b></p></div>
+      <div class="card"><span class="rank">SHIFT 3 — SBA · 6:40–8:30</span><h3>The mixed bag</h3><p style="color:var(--ink-dim);font-size:14px;margin:0">Win: unified portal (4 certs at once), VetCert cleared, HUBZone loosened. Catch: −50%+ staff, −33% budget, fewer local resources. "Paperwork got faster; the humans to help got fewer." Split-screen "FASTER CERTS ✓ / FEWER HELPERS ✕". <b>▸ Short #3.</b></p></div>
+      <div class="card"><span class="rank">THE MAP · 8:30–9:20</span><h3>The board</h3><p style="color:var(--ink-dim);font-size:14px;margin:0">FY24 agency buckets (DoD $446B → HHS $30B). "The shifts don't change the buckets — they change how you get in." Agency bar chart backdrop, source tag. Brief.</p></div>
+      <div class="card" style="border-color:color-mix(in srgb,var(--violet) 40%, var(--line))"><span class="rank" style="color:var(--violet)">THE TURN · 9:20–10:10</span><h3>The Mindy mention (soft)</h3><p style="color:var(--ink-dim);font-size:14px;margin:0">How do you watch this money move in your industry, live? The free tool. Soft, single mention. 8–10s screen-share, public data only. Lower-third UTM URL.</p></div>
+      <div class="card"><span class="rank" style="color:var(--money)">CLOSE · 10:10–end</span><h3>CTA</h3><p style="color:var(--ink-dim);font-size:14px;margin:0">"3 shifts, one direction: faster lane, front door, quicker paperwork — mostly while nobody watched. Position before the crowd." Free tool + guide + subscribe. Sources pinned top comment.</p></div>
+    </div>
+  </section>
+
+  <section id="nosay">
+    <div class="sec-head"><span class="sec-kicker">On-camera traps the research caught</span><h2>🚫 Do not say</h2><span class="sec-note">The Lynx one corrects your own working assumption</span></div>
+    <p class="src-note" style="margin:-6px 0 16px">Say any of these and a knowledgeable commenter torches your credibility. The Lynx one is the big one.</p>
+    <div class="nosay">
+      <div class="item"><span class="x">✕</span> <b>"Lynx is a marketplace / contract vehicle / where you win contracts."</b> → It's a READINESS + MATCHMAKING tool. It won't award you anything. Say "a free front door to get ready + get matched."</div>
+      <div class="item"><span class="x">✕</span> <b>"The Department of War" is the new name.</b> → It's a branding title (EO 14347, Sept 2025). Legal name is still Department of Defense. Say "which the administration now brands the Department of War."</div>
+      <div class="item"><span class="x">✕</span> <b>Any % / count of OTA dollars going to small business.</b> → Not tracked (that's GAO's whole complaint). State the $1.8B→$18B growth; don't invent a small-biz share.</div>
+      <div class="item"><span class="x">✕</span> <b>"OTAs have no rules / no oversight."</b> → They're outside the FAR, not outside all law. Say "outside most FAR rules."</div>
+      <div class="item"><span class="x">✕</span> <b>Conflate prototype ($16B) with total ($18B) OTA spend.</b> → Keep them distinct if you cite both.</div>
+      <div class="item"><span class="x">✕</span> <b>"SBA now services student loans."</b> → Only ANNOUNCED (Mar 2025), never confirmed executed. Say "Trump announced he wanted SBA to take it over."</div>
+      <div class="item"><span class="x">✕</span> <b>"43% cut" = "over 50% cut."</b> → 43% was the Mar 2025 plan; "over 50%" is the cumulative figure in the Jun 2026 release. Don't merge them.</div>
+      <div class="item"><span class="x">✕</span> <b>"An executive order funded X."</b> → Orders DIRECT / RESHAPE. Only Congress funds.</div>
+    </div>
+  </section>
+
+  <section id="titles">
+    <div class="sec-head"><span class="sec-kicker">5 options · top 2 flagged for A/B</span><h2>Titles</h2><span class="sec-note">Money-framed, not partisan · proven hook kept as A/B #1</span></div>
+    <ol class="titles">
+      <li>What Trump's 2026 Orders Mean for Anyone Who Sells to the Government <span class="flag-pill a">A · primary</span><p>Proven hook + "anyone who sells to the government" widens past GovCon. Body now delivers the real shifts, so it's honest.</p></li>
+      <li>The Government Quietly Changed How It Buys — Here's the Faster Lane <span class="flag-pill b">B · test</span><p>Leads with the real OTA story. Curiosity + the "quiet/nobody's talking about it" lane hook.</p></li>
+      <li>The Pentagon Just Built a Front Door for Small Business (Most Don't Know)<p>Leads with Lynx — the newest, most novel beat. "Front door" is a strong concrete hook.</p></li>
+      <li>DoD Now Spends $18 Billion a Faster Way — Here's How to Get In<p>Number-forward OTA hook. The 10x growth is the proof.</p></li>
+      <li>3 Things That Changed How the Government Buys in 2026 (That Actually Help You)<p>Listicle + the 3-shift structure. The listicle format overperforms.</p></li>
+    </ol>
+  </section>
+
+  <section id="thumbnails">
+    <div class="sec-head"><span class="sec-kicker">2 concepts · 1280×720</span><h2>Thumbnails</h2><span class="sec-note">Face right-third · ≤3 words · politics-neutral</span></div>
+    <div class="thumbs">
+      <div><div class="thumb-mock thumb-a"><div class="tx"><div class="big">$1.8B →<br><span class="g">$18B</span></div><div class="sub">Concept A · the 10x jump</div></div><div class="thumb-face"><span>Eric ·<br>pointing at<br>the jump</span></div></div>
+        <p class="thumb-spec"><b>A — The 10x Jump.</b> Overlay "$1.8B → $18B", Eric pointing at the leap, eyes-wide. Green + a steep rising arrow; "$18B" as the accent — the growth IS the story. <b>Safer curiosity gap.</b></p></div>
+      <div><div class="thumb-mock thumb-b"><div class="tx"><div class="big">THE NEW<br><span class="g">FRONT DOOR</span></div><div class="sub">Concept B · the front door</div></div><div class="thumb-face"><span>Eric ·<br>gesturing<br>open-handed</span></div></div>
+        <p class="thumb-spec"><b>B — The Front Door.</b> Overlay "THE NEW FRONT DOOR", welcoming "come in" expression, a literal door/portal glow. "FRONT DOOR" accent — the Lynx angle. More original; needs the viewer intrigued by "front door." <b>Test both.</b></p></div>
+    </div>
+  </section>
+
+  <section id="shots">
+    <div class="sec-head"><span class="sec-kicker">B-roll · on-screen · CTA</span><h2>Shot list &amp; editor notes</h2></div>
+    <div class="grid two">
+      <div class="card"><h3>Beats &amp; on-screen</h3><ul class="clean">
+        <li><b>Cold open:</b> measured, non-partisan, direct-to-camera. "3 SHIFTS · WHERE THE MONEY MOVED"</li>
+        <li><b>The frame:</b> "ORDERS DIRECT · CONGRESS FUNDS" — the honesty guardrail (▸ Short #5)</li>
+        <li><b>Shift 1 · OTAs:</b> animated <b>$1.8B→$18B</b> bar (hero graphic), "outside the FAR", "$0–$1,500/yr to join", name 2–3 real consortia (▸ Short #1)</li>
+        <li><b>Shift 2 · Lynx:</b> the "NOT a marketplace" clarification MUST land; "lynxconnect.io · readiness + matchmaking" (▸ Short #2)</li>
+        <li><b>Shift 3 · SBA:</b> split-screen "FASTER CERTS ✓ / FEWER HELPERS ✕" (▸ Short #3)</li>
+        <li><b>The map:</b> agency bar chart (DoD→HHS) backdrop + source tag — keep brief</li>
+      </ul></div>
+      <div class="card"><h3>CTA (free tool + guide)</h3><ul class="clean">
+        <li>The Turn: 8–10s screen-share of the tool, <b>public data only</b>, lower-third UTM URL</li>
+        <li>Close end screen: subscribe = "catch the next shift first"</li>
+        <li>Free tool + lynxconnect.io + <b>all sources pinned in the top comment</b></li>
+        <li>Mindy = one soft mention, not the video's spine</li>
+      </ul></div>
+      <div class="card"><h3>Editor priorities</h3><ul class="clean">
+        <li>The OTA <b>$1.8B→$18B graphic is the hero</b> — make the jump feel steep</li>
+        <li>The Lynx <b>"it's NOT a store" beat</b> is the credibility moment — don't cut it for time</li>
+        <li>Keep politically neutral throughout (protects reach + reuse)</li>
+        <li>Every number gets an on-screen source tag (GAO / DoD / SBA / USASpending)</li>
+      </ul></div>
+      <div class="card"><h3>Guardrails / re-verify</h3><ul class="clean">
+        <li>Lynx is new — <b>re-verify lynxconnect.io</b> is live + the description at film time</li>
+        <li>Re-verify any precise SBA figure you state (some are REPORTED)</li>
+        <li>"Department of War" = branding, not legal name — say it carefully</li>
+        <li>Don't confuse Lynx with the Textron "Lynx" combat vehicle</li>
+      </ul></div>
+    </div>
+  </section>
+
+  <section id="shorts">
+    <div class="sec-head"><span class="sec-kicker">Cut from the long-form · vertical · burned captions</span><h2>6 Shorts</h2><span class="sec-note">Hook in the first 1 second · post one/day</span></div>
+    <div class="shorts">
+      <div class="short"><span class="n">Short 01 · from Shift 1</span><h4>"$18 billion, a faster way"</h4><p>"The government now spends $18 billion a FASTER way — around its own 2,000-page rulebook." <b>The strongest number in the batch — lead with this.</b> "$1.8B → $18B in 8 years."</p></div>
+      <div class="short"><span class="n">Short 02 · from Shift 2</span><h4>"The Pentagon built a front door"</h4><p>"…for small businesses. Most don't know it exists." Lynx — framed correctly (readiness/matchmaking, not a store). "lynxconnect.io." Novel = shareable.</p></div>
+      <div class="short"><span class="n">Short 03 · from Shift 3</span><h4>"Faster certs, fewer helpers"</h4><p>"Getting certified just got faster — but the people who help you got fewer." The SBA mixed-bag honesty. Both-sides = high comments + trust.</p></div>
+      <div class="short"><span class="n">Short 04 · from Shift 1</span><h4>"Join a consortium for $0"</h4><p>"You can join a government contracting consortium for as little as $0." The cheap on-ramp. Actionable + surprising. Drives to the OTA explainer.</p></div>
+      <div class="short"><span class="n">Short 05 · from The frame</span><h4>"An order can't spend a dollar"</h4><p>"An executive order can't spend a single dollar. Here's what it actually does." The myth-buster. Corrects a thing everyone gets wrong = high comments.</p></div>
+      <div class="short"><span class="n">Short 06 · from the Hook</span><h4>"They changed HOW it buys"</h4><p>"The government quietly changed HOW it buys in 2026 — not just what." The umbrella hook. Drives to the full video.</p></div>
+    </div>
+  </section>
+
+  <section id="description">
+    <div class="sec-head"><span class="sec-kicker">Paste-ready · UTM baked in</span><h2>Description, tags &amp; chapters</h2></div>
+    <div class="desc-box"><pre>Everybody's been arguing about government policy. Almost nobody's talking about the part that matters if you sell to the government: it quietly changed HOW it buys. A faster lane opened up and billions moved into it, the Pentagon built a free "front door" for small businesses, and the SBA got completely rebuilt. Here are the 3 real shifts — with the real numbers — and how to get in front of them. No politics, just follow the money.
+
+🔎 See where government money is moving in YOUR industry (free tool):
+<span class="lnk">https://getmindy.ai/youtube/trump-orders-2026</span>
+
+📘 Free guide — The No-B.S. Guide to Winning Your First Federal Contract:
+<span class="lnk">https://getmindy.ai/free-resources</span>
+
+⚠ ONE THING TO KNOW: Executive orders don't spend money — only Congress appropriates. What these changes do is redirect HOW the government buys. That's still billions in play.
+
+📋 THE 3 SHIFTS IN THIS VIDEO (official sources):
+• OTAs (Other Transactions) — DoD's faster-buying lane grew from $1.8B (FY16) to $18B+ (FY24) → GAO-25-107546: https://www.gao.gov/products/gao-25-107546 · DoD OTA guide: https://media.defense.gov (OTA Overview Guide, Dec 2025)
+• Lynx — DoD's free small-business readiness + matchmaking platform (NOT a marketplace): https://www.lynxconnect.io · launch: https://business.defense.gov/Engage/News/Article/4392554/
+• SBA overhaul — agency-wide reorganization + faster certifications: https://www.sba.gov/article/2026/06/05/sba-announces-agency-wide-reorganization-modernize-drive-operational-efficiency-enhance
+
+⏱ CHAPTERS
+0:00 The change nobody's talking about
+0:50 The one rule: orders direct, Congress funds
+1:40 Shift 1 — the faster lane (OTAs, $1.8B → $18B)
+4:30 Shift 2 — the Pentagon's new front door (Lynx)
+6:40 Shift 3 — the SBA got rebuilt (faster certs, leaner agency)
+8:30 The money map — where it's all flowing
+9:20 How to watch the money in your industry
+
+🔔 Subscribe — when the next big shift happens, I'll break down what it means for you.
+
+#smallbusiness #governmentcontracts #businessnews #entrepreneurship #federalspending #ota #othertransactions #defensecontracting #govcon #sba #federalcontracting #2026</pre></div>
+    <p class="src-note">First link = the UTM'd entry <code>getmindy.ai/youtube/trump-orders-2026</code> — confirm it 307-redirects with <code>utm_campaign=trump-orders-2026</code>. Second = the free guide (live). Then the real sources for each shift. <b>Before publishing:</b> re-verify <code>lynxconnect.io</code> is live + the Lynx description, and any precise SBA figure you state (some are REPORTED). Re-read the 🚫 Do-Not-Say section — the Lynx "it's not a marketplace" is the one that matters most.</p>
+  </section>
+
+</main>
+
+<footer class="wrap">
+  <div>GovCon Giants · YouTube Batch 1 · <b>Ep 06</b> · News/policy · REBUILT on 3 verified market shifts (OTA <span class="mono">$1.8B→$18B</span> · Lynx readiness platform · SBA overhaul) · GSA/FAR orders demoted to context · Lynx = readiness NOT marketplace · "Dept of War" = branding not legal name · re-verify Lynx + SBA specifics at film time.</div>
+  <div style="margin-top:6px" class="mono">Refs: REFERENCE-ota-lynx-sba-verified.md + REFERENCE-trump-2026-eo-verified.md · Teleprompter backup: Eric Docs/youtube-scripts/teleprompter-trump-orders-2026.txt</div>
+</footer>
+
+<script>
+(function(){
+  var root=document.documentElement,btn=document.getElementById('themeToggle');
+  btn.addEventListener('click',function(){var c=root.getAttribute('data-theme'),n;if(c==='dark')n='light';else if(c==='light')n='dark';else n=window.matchMedia('(prefers-color-scheme: dark)').matches?'light':'dark';root.setAttribute('data-theme',n);});
+  var cb=document.getElementById('copyBtn');
+  cb.addEventListener('click',function(){var el=document.getElementById('tpText');var t=el.innerText.replace(/═══.*?═══/g,'').replace(/\n{3,}/g,'\n\n').trim();navigator.clipboard.writeText(t).then(function(){cb.textContent='✓ Copied — clean spoken words';cb.classList.add('done');setTimeout(function(){cb.textContent='⧉ Copy clean script';cb.classList.remove('done');},2200);}).catch(function(){cb.textContent='⚠ Select + copy manually';});});
+})();
+</script>
+
+</body>
+</html>
