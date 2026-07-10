@@ -108,7 +108,40 @@ const nextConfig: NextConfig = {
     ];
   },
   async headers() {
+    // Baseline security headers applied to every route. These are the
+    // zero-functional-risk set a vendor security review expects:
+    //  - HSTS: force HTTPS for a year incl. subdomains (site is HTTPS-only
+    //    on Vercel; safe). preload-eligible.
+    //  - X-Content-Type-Options: block MIME sniffing.
+    //  - X-Frame-Options SAMEORIGIN: we only frame our own /dashboard.html;
+    //    all other iframes are US embedding YouTube/Vimeo (child direction,
+    //    unaffected). Stops clickjacking of our pages.
+    //  - Referrer-Policy: send origin cross-site, full same-origin — keeps
+    //    UTM/attribution working internally without leaking full paths out.
+    //  - Permissions-Policy: deny sensors we never use.
+    // NOTE: a full Content-Security-Policy is intentionally NOT set here — it
+    // requires whitelisting every third-party origin (GA4, Google Ads, Vimeo,
+    // YouTube, Stripe, Calendly, GHL) and a wrong list silently breaks video
+    // playback + conversion tracking. Ship CSP as a separately-tested pass.
+    const securityHeaders = [
+      {
+        key: "Strict-Transport-Security",
+        value: "max-age=31536000; includeSubDomains; preload",
+      },
+      { key: "X-Content-Type-Options", value: "nosniff" },
+      { key: "X-Frame-Options", value: "SAMEORIGIN" },
+      { key: "Referrer-Policy", value: "strict-origin-when-cross-origin" },
+      {
+        key: "Permissions-Policy",
+        value: "camera=(), microphone=(), geolocation=(), browsing-topics=()",
+      },
+    ];
+
     return [
+      {
+        source: "/:path*",
+        headers: securityHeaders,
+      },
       {
         source: "/march-surge/downloads/:path*.html",
         headers: [
