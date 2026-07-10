@@ -3,6 +3,7 @@ import { sendLeadToCrm } from '@/lib/crm';
 import { sendConfirmationEmail } from '@/lib/email';
 import { saveLeadToSupabase, recentDuplicateExists } from '@/lib/supabase-leads';
 import { enforceIpRateLimit } from '@/lib/rate-limit';
+import { maskEmail } from '@/lib/redact';
 
 export async function POST(request: NextRequest) {
   try {
@@ -38,7 +39,7 @@ export async function POST(request: NextRequest) {
     //    Slack ping + confirmation email. Return success so the front-end still
     //    redirects normally. Fails OPEN, so a check error never blocks a real signup.
     if (await recentDuplicateExists(lead.email, lead.source)) {
-      console.log('Duplicate lead suppressed (recent submit):', { email: lead.email, source: lead.source });
+      console.log('Duplicate lead suppressed (recent submit):', { email: maskEmail(lead.email), source: lead.source });
       return NextResponse.json({ success: true, duplicate: true });
     }
 
@@ -86,7 +87,7 @@ export async function POST(request: NextRequest) {
 
     // Log for debugging (including A/B test data)
     console.log('New lead:', {
-      email: lead.email,
+      email: maskEmail(lead.email),
       source: lead.source,
       abTest: lead.abTestId ? `${lead.abTestId}:${lead.abVariant}` : null,
       crm: crmResults.ghl?.ok,
