@@ -3,6 +3,7 @@
 import { useState, FormEvent } from 'react';
 import Link from 'next/link';
 import JsonLd from '@/components/JsonLd';
+import { getLeadSubmissionErrorMessage, submitLead } from '@/lib/lead-submit';
 
 const SITE_URL = 'https://govcongiants.com';
 const FREE_RESULTS_LIMIT = 15;
@@ -122,31 +123,25 @@ export default function ExpiringContractsPage() {
     if (!email.trim()) return;
 
     setIsSubmittingEmail(true);
+    setError(null);
 
     try {
       // Send to lead API
-      await fetch('/api/lead', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({
-          email: email.trim(),
-          name: '',
-          source: 'expiring-contracts',
-          tags: ['expiring-contracts', 'free-tool'],
-        }),
+      await submitLead({
+        email: email.trim(),
+        name: '',
+        source: 'expiring-contracts',
+        tags: ['expiring-contracts', 'free-tool'],
       });
 
-      // Unlock searches regardless of API success
+      // Unlock searches only after the lead endpoint accepts the signup.
       setIsUnlocked(true);
       setShowEmailGate(false);
 
       // Trigger the search
       handleSearchAfterUnlock();
-    } catch {
-      // Still unlock on error - don't block user
-      setIsUnlocked(true);
-      setShowEmailGate(false);
-      handleSearchAfterUnlock();
+    } catch (error) {
+      setError(getLeadSubmissionErrorMessage(error));
     } finally {
       setIsSubmittingEmail(false);
     }
