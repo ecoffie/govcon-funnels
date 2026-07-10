@@ -24,6 +24,7 @@ import {
   runSeed, runSend, seedQuotaForDay,
   type DripConfig,
 } from '@/lib/mindy-reignite';
+import { extractPassword, isAuthorized } from '@/lib/admin-auth';
 
 export const dynamic = 'force-dynamic';
 export const maxDuration = 300;
@@ -68,13 +69,9 @@ function authorized(req: NextRequest): boolean {
   const auth = req.headers.get('authorization');
   const cronSecret = process.env.CRON_SECRET;
   if (cronSecret && auth === `Bearer ${cronSecret}`) return true;
-  if (req.headers.get('x-vercel-cron') === '1') return true;
   // Manual trigger / testing. This repo's admin secret is PURCHASES_ADMIN_PASSWORD
   // (there is no plain ADMIN_PASSWORD here); accept either if present.
-  const pw = new URL(req.url).searchParams.get('password');
-  const adminPw = process.env.PURCHASES_ADMIN_PASSWORD || process.env.ADMIN_PASSWORD;
-  if (pw && adminPw && pw === adminPw) return true;
-  return false;
+  return isAuthorized(extractPassword(req));
 }
 
 export async function GET(req: NextRequest) {
@@ -96,7 +93,8 @@ export async function GET(req: NextRequest) {
   try {
     // 1) Advance the sequence first (frees people out of stages before we seed more).
     //    runSend enforces the 2-day dwell via date-stamps, so it's safe daily.
-    const send = await runSend(cfg, now);
+    const ADVANCE_WORK_CAP = 120;
+    const send = await runSend(cfg, now, { workLimit: ADVANCE_WORK_CAP });
 
     // 2) Ramp math — CALENDAR-DRIVEN, not enrolled-count-driven.
     //    The old code summed 6 full-audience tag scans (43 pages each ≈ 40s of
@@ -133,7 +131,7 @@ export async function GET(req: NextRequest) {
         summary: `ran ${stamp(now)} — advanced ${send.advanced}, seeded ${seed.enrolled}`,
         detail:
           `*Ran:* ${stamp(now)}\n` +
-          `*Advanced:* ${send.advanced} to next email · *waiting:* ${send.waiting} · *exited (completed profile):* ${send.exited} · *finished:* ${send.finished}\n` +
+          `*Advanced:* ${send.advanced} to next email · *waiting:* ${send.waiting} · *exited (completed profile):* ${send.exited} · *finished:* ${send.finished}${send.limitReached ? ' · *deferred:* yes (work cap reached)' : ''}\n` +
           `*Seeded email 1:* ${seed.enrolled} new (quota ${quota}, ramp day ${dayIndex}) · *suppressed:* ${seed.failed}\n` +
           `_Backlog drain tracked via the local runner; cron seeds the daily quota._`,
       });
