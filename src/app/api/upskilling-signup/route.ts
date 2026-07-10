@@ -1,7 +1,13 @@
 import { NextRequest, NextResponse } from 'next/server';
+import { enforceIpRateLimit } from '@/lib/rate-limit';
 
 export async function POST(request: NextRequest) {
   try {
+    // Per-IP rate limit: fans out to Slack + Resend. 5/min per IP is plenty
+    // for a newsletter signup. Fails open if the limiter is unavailable.
+    const limited = await enforceIpRateLimit(request, 'upskilling', 5, 60);
+    if (limited) return limited;
+
     const { email } = await request.json();
 
     if (!email?.trim()) {
