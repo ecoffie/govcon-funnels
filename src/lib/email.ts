@@ -5,6 +5,7 @@
  */
 import nodemailer from 'nodemailer';
 import { Resend } from 'resend';
+import { maskEmail } from './redact';
 
 const transporter = nodemailer.createTransport({
   service: 'gmail',
@@ -112,12 +113,13 @@ function proCta(): string {
 // Helper to send email. Resend primary, Gmail/Nodemailer fallback.
 async function sendEmail(to: string, subject: string, html: string, cc?: string[]): Promise<EmailResult> {
   const ccList = cc && cc.length ? cc : undefined;
-  const logCc = ccList ? ` | cc: ${ccList.join(', ')}` : '';
+  const logCc = ccList ? ` | cc: ${ccList.map(maskEmail).join(', ')}` : '';
+  const logTo = maskEmail(to);
 
   // 1) Resend (primary) — no Gmail login caps, better bulk deliverability.
   if (resend) {
     try {
-      console.log(`[EMAIL] Sending via Resend to: ${to}${logCc} | Subject: ${subject}`);
+      console.log(`[EMAIL] Sending via Resend to: ${logTo}${logCc} | Subject: ${subject}`);
       const { data, error } = await resend.emails.send({
         from: RESEND_FROM,
         to: [to],
@@ -141,7 +143,7 @@ async function sendEmail(to: string, subject: string, html: string, cc?: string[
     return { ok: false, error: 'No email transport available' };
   }
   try {
-    console.log(`[EMAIL] Sending via Gmail to: ${to}${logCc} | Subject: ${subject}`);
+    console.log(`[EMAIL] Sending via Gmail to: ${logTo}${logCc} | Subject: ${subject}`);
     await transporter.verify();
     const info = await transporter.sendMail({
       from: `"GovCon Giants" <${process.env.SMTP_USER}>`,
@@ -634,7 +636,7 @@ export async function sendProposalResourcesEmail(params: EmailParams): Promise<E
 
   try {
     // Verify SMTP connection first
-    console.log(`[EMAIL] Attempting to send to: ${to}`);
+    console.log(`[EMAIL] Attempting to send to: ${maskEmail(to)}`);
     console.log(`[EMAIL] SMTP_USER configured: ${process.env.SMTP_USER ? 'yes' : 'no'}`);
     console.log(`[EMAIL] SMTP_PASSWORD configured: ${process.env.SMTP_PASSWORD ? 'yes (length: ' + process.env.SMTP_PASSWORD.length + ')' : 'no'}`);
 
@@ -653,8 +655,8 @@ export async function sendProposalResourcesEmail(params: EmailParams): Promise<E
     console.log(`[EMAIL] Message sent successfully!`);
     console.log(`[EMAIL] Message ID: ${info.messageId}`);
     console.log(`[EMAIL] Response: ${info.response}`);
-    console.log(`[EMAIL] Accepted: ${JSON.stringify(info.accepted)}`);
-    console.log(`[EMAIL] Rejected: ${JSON.stringify(info.rejected)}`);
+    console.log(`[EMAIL] Accepted: ${(info.accepted ?? []).length} recipient(s)`);
+    console.log(`[EMAIL] Rejected: ${(info.rejected ?? []).length} recipient(s)`);
 
     return {
       ok: true,

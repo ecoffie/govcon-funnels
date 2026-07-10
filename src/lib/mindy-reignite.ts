@@ -15,6 +15,7 @@
 // batches that step up over time, then steady until the audience is drained.
 
 import { STAGES, renderStage } from './mindy-reignite-emails.mjs';
+import { maskEmail } from './redact';
 
 const GHL_BASE = 'https://services.leadconnectorhq.com';
 const GHL_VERSION = '2021-07-28';
@@ -174,7 +175,7 @@ export async function runSeed(cfg: DripConfig, limit: number, todayIso: string) 
       await addTag(cfg, c.id, STAGE_TAGS[0]);
       await addTag(cfg, c.id, `${STAMP_PREFIX}${STAGE_KEYS[0]}:${todayIso}`);
       sent++;
-    } catch (e) { failed++; console.error(`  seed fail ${c.email}: ${(e as Error).message}`); }
+    } catch (e) { failed++; console.error(`  seed fail ${maskEmail(c.email)}: ${(e as Error).message}`); }
     await sleep(200);
   }
   return { audience: audience.length, eligibleNew: fresh.length, enrolled: sent, failed };
@@ -212,7 +213,7 @@ export async function runSend(cfg: DripConfig, now: Date) {
         await addTag(cfg, c.id, `${STAMP_PREFIX}${STAGE_KEYS[i]}:${now.toISOString().slice(0, 10)}`);
         await removeTag(cfg, c.id, prevTag);
         advanced++;
-      } catch (e) { console.error(`  send fail ${c.email}: ${(e as Error).message}`); }
+      } catch (e) { console.error(`  send fail ${maskEmail(c.email)}: ${(e as Error).message}`); }
       await sleep(200);
     }
   }

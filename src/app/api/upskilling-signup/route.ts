@@ -1,5 +1,6 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { enforceIpRateLimit } from '@/lib/rate-limit';
+import { maskEmail } from '@/lib/redact';
 
 export async function POST(request: NextRequest) {
   try {
@@ -46,7 +47,7 @@ export async function POST(request: NextRequest) {
       });
     }
 
-    console.log('Upskilling signup:', cleanEmail);
+    console.log('Upskilling signup:', maskEmail(cleanEmail));
 
     return NextResponse.json({ success: true });
   } catch (error) {
