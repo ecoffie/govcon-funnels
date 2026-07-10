@@ -1,0 +1,382 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="robots" content="noindex, nofollow">
+<title>Ep 09 · 7 Contracting Scams · Production Package</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<style>
+  :root {
+    --bg:#0d0c10; --bg-raise:#161419; --bg-card:#18161d;
+    --ink:#e8e6ea; --ink-dim:#aaa5b5; --ink-faint:#75707f;
+    --line:#2a2630; --line-soft:#201d26;
+    --money:#22c55e; --money-deep:#16a34a; --amber:#e0b354; --slate:#948ba1; --violet:#a78bfa;
+    --radius:14px; --maxw:1080px;
+    --mono:ui-monospace,"SF Mono","Cascadia Code",Menlo,Consolas,monospace;
+    --sans:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
+    --display:"Helvetica Neue","Arial Black",var(--sans);
+  }
+  :root[data-theme="light"]{--bg:#f5f4f7;--bg-raise:#fff;--bg-card:#fff;--ink:#18161c;--ink-dim:#4c4756;--ink-faint:#867f90;--line:#e3e0e6;--line-soft:#edeaf0;--money:#15803d;--money-deep:#166534;--amber:#a9781f;}
+  @media (prefers-color-scheme:light){:root:not([data-theme="dark"]){--bg:#f5f4f7;--bg-raise:#fff;--bg-card:#fff;--ink:#18161c;--ink-dim:#4c4756;--ink-faint:#867f90;--line:#e3e0e6;--line-soft:#edeaf0;--money:#15803d;--money-deep:#166534;--amber:#a9781f;}}
+  *{box-sizing:border-box;} html{scroll-behavior:smooth;scroll-padding-top:68px;}
+  @media (prefers-reduced-motion:reduce){html{scroll-behavior:auto;}}
+  body{margin:0;background:var(--bg);color:var(--ink);font-family:var(--sans);line-height:1.6;-webkit-font-smoothing:antialiased;font-size:16px;}
+  .wrap{max-width:var(--maxw);margin:0 auto;padding:0 22px;}
+  nav{position:sticky;top:0;z-index:50;background:color-mix(in srgb,var(--bg) 88%,transparent);backdrop-filter:blur(12px);border-bottom:1px solid var(--line);}
+  .nav-inner{max-width:var(--maxw);margin:0 auto;padding:10px 22px;display:flex;align-items:center;gap:6px;overflow-x:auto;scrollbar-width:none;}
+  .nav-inner::-webkit-scrollbar{display:none;}
+  .nav-inner a{color:var(--ink-dim);text-decoration:none;white-space:nowrap;font-size:13px;font-weight:600;padding:6px 11px;border-radius:8px;transition:color .15s,background .15s;}
+  .nav-inner a:hover{color:var(--ink);background:var(--bg-raise);} .nav-inner a.tp{color:var(--money);}
+  .nav-brand{font-weight:800;font-size:13px;margin-right:8px;color:var(--ink);letter-spacing:.02em;}
+  .theme-btn{margin-left:auto;flex:none;background:var(--bg-raise);border:1px solid var(--line);color:var(--ink-dim);border-radius:8px;padding:6px 10px;font-size:12px;cursor:pointer;font-family:var(--mono);}
+  .theme-btn:hover{color:var(--ink);}
+  header{padding:62px 0 40px;border-bottom:1px solid var(--line);}
+  .eyebrow{font-family:var(--mono);font-size:12px;letter-spacing:.14em;text-transform:uppercase;color:var(--money);display:flex;flex-wrap:wrap;gap:8px 14px;margin-bottom:22px;}
+  .eyebrow span{color:var(--ink-faint);} .eyebrow b{color:var(--money);font-weight:700;}
+  h1.hero{font-family:var(--display);font-weight:800;letter-spacing:-0.02em;font-size:clamp(34px,6vw,60px);line-height:1.02;margin:0 0 6px;text-wrap:balance;}
+  .bignum{font-family:var(--display);font-weight:800;letter-spacing:-0.03em;font-size:clamp(60px,14vw,150px);line-height:.9;margin:16px 0 4px;color:var(--money);font-variant-numeric:tabular-nums;}
+  .bignum small{font-size:.32em;color:var(--ink-dim);font-weight:700;letter-spacing:0;}
+  .subhead{font-size:clamp(17px,2.4vw,21px);color:var(--ink-dim);max-width:62ch;text-wrap:pretty;}
+  .subhead strong{color:var(--ink);font-weight:600;}
+  .chips{display:flex;flex-wrap:wrap;gap:8px;margin-top:26px;}
+  .chip{font-family:var(--mono);font-size:12.5px;padding:7px 12px;border-radius:999px;border:1px solid var(--line);color:var(--ink-dim);background:var(--bg-raise);display:inline-flex;align-items:center;gap:7px;}
+  .chip b{color:var(--ink);font-weight:600;} .chip.green{border-color:color-mix(in srgb,var(--money) 45%,var(--line));} .chip.green .dot{background:var(--money);}
+  .dot{width:7px;height:7px;border-radius:50%;background:var(--slate);flex:none;} .chip.amber .dot{background:var(--amber);} .chip.violet .dot{background:var(--violet);}
+  section{padding:46px 0;border-bottom:1px solid var(--line-soft);}
+  .sec-head{display:flex;align-items:baseline;gap:14px;margin-bottom:22px;flex-wrap:wrap;}
+  .sec-kicker{font-family:var(--mono);font-size:12px;color:var(--money);letter-spacing:.1em;text-transform:uppercase;}
+  h2{font-family:var(--display);font-weight:800;font-size:clamp(24px,4vw,34px);letter-spacing:-0.015em;margin:0;text-wrap:balance;}
+  .sec-note{color:var(--ink-faint);font-size:14px;}
+  .tp-bar{display:flex;align-items:center;justify-content:space-between;gap:12px;margin-bottom:14px;flex-wrap:wrap;}
+  .copy-btn{background:var(--money);color:#06210f;border:none;font-weight:700;padding:10px 18px;border-radius:10px;cursor:pointer;font-size:14px;font-family:var(--sans);display:inline-flex;align-items:center;gap:8px;transition:transform .1s,background .15s;}
+  .copy-btn:hover{background:var(--money-deep);} .copy-btn:active{transform:translateY(1px);} .copy-btn.done{background:var(--violet);color:#fff;}
+  .tp-meta{font-family:var(--mono);font-size:12.5px;color:var(--ink-faint);}
+  .prompter{background:var(--bg-raise);border:1px solid var(--line);border-radius:var(--radius);padding:8px 4px;max-height:460px;overflow-y:auto;}
+  .prompter pre{font-family:var(--mono);font-size:15px;line-height:1.85;color:var(--ink);white-space:pre-wrap;word-wrap:break-word;margin:0;padding:18px 22px;tab-size:2;}
+  .prompter .marker{color:var(--money);font-weight:700;letter-spacing:.04em;}
+  .table-scroll{overflow-x:auto;border:1px solid var(--line);border-radius:var(--radius);}
+  table{width:100%;border-collapse:collapse;min-width:520px;}
+  th,td{text-align:left;padding:12px 16px;border-bottom:1px solid var(--line-soft);font-size:14.5px;}
+  th{font-family:var(--mono);font-size:11.5px;letter-spacing:.08em;text-transform:uppercase;color:var(--ink-faint);font-weight:600;background:var(--bg-raise);}
+  td.num{font-family:var(--mono);font-variant-numeric:tabular-nums;color:var(--money);font-weight:600;text-align:right;white-space:nowrap;}
+  tr:last-child td{border-bottom:none;} td .ok{color:var(--money);} td .flag{color:var(--amber);}
+  .src-note{font-size:13px;color:var(--ink-faint);margin-top:12px;line-height:1.6;} .src-note code{font-family:var(--mono);color:var(--ink-dim);font-size:12px;}
+  .grid{display:grid;gap:16px;} .grid.two{grid-template-columns:repeat(auto-fit,minmax(300px,1fr));}
+  .card{background:var(--bg-card);border:1px solid var(--line);border-radius:var(--radius);padding:20px 22px;}
+  .card h3{margin:0 0 10px;font-size:16px;font-weight:700;letter-spacing:-0.01em;} .rank{font-family:var(--mono);font-size:12px;color:var(--ink-faint);}
+  ol.titles{list-style:none;counter-reset:t;margin:0;padding:0;display:grid;gap:12px;}
+  ol.titles li{counter-increment:t;background:var(--bg-card);border:1px solid var(--line);border-radius:12px;padding:16px 18px 16px 54px;position:relative;font-size:17px;font-weight:600;line-height:1.4;}
+  ol.titles li::before{content:counter(t);position:absolute;left:16px;top:16px;font-family:var(--mono);font-size:14px;color:var(--money);font-weight:700;width:24px;text-align:center;}
+  ol.titles li .flag-pill{display:inline-block;margin-left:8px;font-family:var(--mono);font-size:10.5px;letter-spacing:.06em;text-transform:uppercase;padding:3px 8px;border-radius:999px;vertical-align:middle;font-weight:700;}
+  .flag-pill.a{background:color-mix(in srgb,var(--money) 22%,transparent);color:var(--money);border:1px solid color-mix(in srgb,var(--money) 40%,transparent);}
+  .flag-pill.b{background:color-mix(in srgb,var(--violet) 22%,transparent);color:var(--violet);border:1px solid color-mix(in srgb,var(--violet) 40%,transparent);}
+  ol.titles li p{margin:6px 0 0;font-size:13px;font-weight:400;color:var(--ink-faint);}
+  .thumbs{display:grid;gap:18px;grid-template-columns:repeat(auto-fit,minmax(320px,1fr));}
+  .thumb-mock{aspect-ratio:16/9;border-radius:12px;overflow:hidden;position:relative;border:1px solid var(--line);display:flex;align-items:center;padding:22px;}
+  .thumb-a{background:radial-gradient(120% 120% at 78% 30%,#1c2b1e 0%,#0b1210 55%,#070a08 100%);}
+  .thumb-b{background:radial-gradient(120% 120% at 22% 78%,#2a2411 0%,#14110a 55%,#0a0805 100%);}
+  .thumb-mock .tx{position:relative;z-index:2;} .thumb-mock .big{font-family:var(--display);font-weight:800;line-height:.95;letter-spacing:-0.02em;font-size:clamp(28px,5.6vw,50px);color:#fff;}
+  .thumb-a .big .g{color:var(--money);} .thumb-b .big .g{color:var(--amber);}
+  .thumb-mock .sub{font-family:var(--mono);font-size:11px;letter-spacing:.1em;text-transform:uppercase;color:rgba(255,255,255,.62);margin-top:8px;}
+  .thumb-face{position:absolute;right:0;bottom:0;width:34%;height:92%;z-index:1;border-left:1px dashed rgba(255,255,255,.18);display:flex;align-items:flex-end;justify-content:center;padding-bottom:8px;}
+  .thumb-face span{font-family:var(--mono);font-size:10px;color:rgba(255,255,255,.4);text-align:center;}
+  .thumb-spec{margin-top:12px;font-size:13.5px;color:var(--ink-dim);line-height:1.6;} .thumb-spec b{color:var(--ink);}
+  ul.clean{list-style:none;margin:0;padding:0;display:grid;gap:10px;}
+  ul.clean li{padding-left:22px;position:relative;font-size:14.5px;color:var(--ink-dim);line-height:1.55;}
+  ul.clean li::before{content:"→";position:absolute;left:0;color:var(--money);font-weight:700;} ul.clean li b{color:var(--ink);font-weight:600;}
+  .shorts{display:grid;gap:12px;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));}
+  .short{background:var(--bg-card);border:1px solid var(--line);border-radius:12px;padding:15px 17px;}
+  .short .n{font-family:var(--mono);font-size:11px;color:var(--money);letter-spacing:.1em;text-transform:uppercase;} .short h4{margin:6px 0 6px;font-size:15px;font-weight:700;} .short p{margin:0;font-size:13px;color:var(--ink-faint);line-height:1.55;}
+  .desc-box{background:var(--bg-raise);border:1px solid var(--line);border-radius:var(--radius);padding:4px;}
+  .desc-box pre{font-family:var(--mono);font-size:13.5px;line-height:1.7;color:var(--ink-dim);white-space:pre-wrap;word-wrap:break-word;margin:0;padding:18px 20px;max-height:380px;overflow-y:auto;}
+  .desc-box .lnk{color:var(--money);}
+  .callout{border:1px solid color-mix(in srgb,var(--amber) 40%,var(--line));background:color-mix(in srgb,var(--amber) 8%,var(--bg-card));border-radius:var(--radius);padding:16px 20px;font-size:14px;color:var(--ink-dim);display:flex;gap:12px;align-items:flex-start;line-height:1.6;}
+  .callout .mk{color:var(--amber);font-weight:800;font-family:var(--mono);flex:none;} .callout b{color:var(--ink);}
+  footer{padding:40px 0 70px;color:var(--ink-faint);font-size:13px;} footer .mono{font-family:var(--mono);}
+  :focus-visible{outline:2px solid var(--money);outline-offset:2px;border-radius:4px;}
+</style>
+
+</head>
+<body>
+<nav><div class="nav-inner">
+  <span class="nav-brand">EP 09 · PACKAGE</span>
+  <a href="#teleprompter" class="tp">▶ Teleprompter</a>
+  <a href="#numbers">Real numbers</a><a href="#script">Annotated</a><a href="#titles">Titles</a>
+  <a href="#thumbnails">Thumbnails</a><a href="#shots">Shot list</a><a href="#shorts">5 Shorts</a><a href="#description">Description</a>
+  <button class="theme-btn" id="themeToggle" aria-label="Toggle theme">◐ theme</button>
+</div></nav>
+
+<header><div class="wrap">
+  <div class="eyebrow">GOVCON GIANTS <span>·</span> BATCH 1 <span>·</span> <b>EP 09</b> <span>·</span> INSIDER / TRUST <span>·</span> PROTECTIVE WARNING <span>·</span> NO-DOLLAR HERO</div>
+  <h1 class="hero">Seven Scams. One Fee You Should Never Pay.</h1>
+  <div class="bignum">7<small> scams · one free fix</small></div>
+  <p class="subhead"><strong>Protective, trust-building content — the "save this and send it to someone" video.</strong> No outrage number, no exposé. The anchor fact is a genuine public truth: <strong>SAM.gov registration is free</strong>, and the whole scam pattern is charging you for things that were free the whole time. Positions Eric as the honest insider — the highest-trust bucket in the batch.</p>
+  <div class="chips">
+    <span class="chip green"><span class="dot"></span> Bucket: <b>Insider / trust</b></span>
+    <span class="chip"><span class="dot"></span> Runtime: <b>~9–11 min</b></span>
+    <span class="chip violet"><span class="dot"></span> CTA: <b>Free tool + guide</b></span>
+    <span class="chip green"><span class="dot"></span> Facts: <b>public truths, verified</b></span>
+    <span class="chip amber"><span class="dot"></span> UTM slug: <b>first-contract-guide</b></span>
+  </div>
+</div></header>
+
+<main class="wrap">
+
+  <section id="teleprompter">
+    <div class="sec-head"><span class="sec-kicker">Read this on camera</span><h2>▶ Teleprompter</h2>
+      <span class="sec-note">Spoken words only. Backup: <code>Eric Docs/youtube-scripts/teleprompter-7-scams.txt</code></span></div>
+    <div class="tp-bar"><button class="copy-btn" id="copyBtn">⧉ Copy clean script</button>
+      <span class="tp-meta">~680 words · ~150 wpm · blank line = breath</span></div>
+    <div class="prompter"><pre id="tpText"><span class="marker">═══ COLD OPEN ═══</span>
+
+There is a lot of money in government contracting. Hundreds of billions of dollars.
+
+And wherever there's that much money, there are people trying to take a cut of yours before you ever earn a dime.
+
+I've watched good, honest business owners get taken — not because they were foolish, but because nobody warned them.
+
+So this is your warning. Seven scams in government contracting, and the one fee you should never, ever pay.
+
+Save this. Send it to anyone you know who's getting started.
+
+
+<span class="marker">═══ NUMBER ONE — PAYING TO REGISTER ═══</span>
+
+Number one, and this is the big one.
+
+Anyone who tries to charge you to register in SAM.gov is running a scam.
+
+SAM.gov registration is free. Completely free. You do it yourself, directly on the government site.
+
+But there are companies — official-looking ones — that will call you, email you, even send you letters, offering to "register you" for hundreds or even thousands of dollars.
+
+They're charging you for something the government does for nothing. Never pay it. That's the one fee you should never pay.
+
+
+<span class="marker">═══ NUMBER TWO — FAKE RENEWAL NOTICES ═══</span>
+
+Number two. Fake renewal notices.
+
+Once you're registered, you'll start getting official-looking notices saying your registration is expiring and you need to pay to renew.
+
+Same trick. Renewing is free, on the government site. These notices are designed to look scary and official so you panic and pay.
+
+If it asks for a payment to renew your SAM registration — it's not the government. Delete it.
+
+
+<span class="marker">═══ NUMBER THREE — GUARANTEED CONTRACTS ═══</span>
+
+Number three. Anyone guaranteeing you a contract.
+
+Nobody can guarantee you'll win a government contract. Nobody.
+
+If someone promises guaranteed awards in exchange for a fee, they're lying. The government awards contracts through a competitive process. There's no secret backdoor you can buy.
+
+A guarantee is the single clearest sign you're talking to a scammer.
+
+
+<span class="marker">═══ NUMBER FOUR — FAKE OPPORTUNITY EMAILS ═══</span>
+
+Number four. Fake opportunity emails.
+
+You'll get emails claiming there's an urgent contract "perfect for you" — just click here, or pay a fee to access it, or hand over your information.
+
+Real opportunities are posted publicly and freely. If an "exclusive opportunity" requires a payment or a suspicious link to see it, it's bait.
+
+
+<span class="marker">═══ NUMBER FIVE — OVERPRICED "CERTIFICATION HELP" ═══</span>
+
+Number five. Overpriced certification help.
+
+Getting certified — as a small business, woman-owned, veteran-owned — is done through the government, and the certification itself doesn't cost a fee.
+
+Now, legitimate consultants do exist who help with paperwork, and that can be worth it. But be careful. Some charge outrageous prices for something you can often do yourself with a little patience. Know what it should cost before you hand over money.
+
+
+<span class="marker">═══ NUMBER SIX — THE "INSIDER LIST" ═══</span>
+
+Number six. The secret insider list.
+
+Somebody selling you a "secret list of contracts nobody else knows about."
+
+There is no secret list. The opportunities are public. That's the law. Anyone selling secrecy is selling you something that's already free.
+
+
+<span class="marker">═══ NUMBER SEVEN — UPFRONT "SETUP" FEES ═══</span>
+
+Number seven. Big upfront setup fees.
+
+Be very cautious of anyone demanding a large payment upfront to "set up your whole government contracting business" with vague promises of what you'll get.
+
+Real help is specific and transparent. Vague and expensive and upfront is the pattern of a scam.
+
+
+<span class="marker">═══ THE TURN — THE FREE TOOLS ARE THE REAL ONES ═══</span>
+
+Here's the throughline of all seven.
+
+The real tools in this world are free. SAM.gov is free. The opportunity data is public. The certifications don't charge a fee.
+
+The scam is always someone charging you for access to something that was free the whole time.
+
+That's actually why I built a free tool — to pull all that public data into one place so you don't need to pay anyone to see it. You type in what you do, it shows you what the government's buying.
+
+It's free. The link's in the description. Real tools, no fee.
+
+
+<span class="marker">═══ CLOSE ═══</span>
+
+Protect yourself. And protect the people around you who are just getting started.
+
+The money in this world is real — but so are the people trying to take yours before you earn it.
+
+Now you know the seven. Never pay for what's free.
+
+The free tool and the free starter guide are in the description.
+
+Subscribe, and share this with someone who needs it. I'll see you in the next one.</pre></div>
+  </section>
+
+  <section id="numbers">
+    <div class="sec-head"><span class="sec-kicker">The anchor facts</span><h2>Real numbers</h2><span class="sec-note">Public truths — GENERATED, verify before film</span></div>
+    <div class="table-scroll"><table>
+      <thead><tr><th>Claim in script</th><th>The truth</th><th>Source of truth</th><th>Status</th></tr></thead>
+      <tbody>
+        <tr><td><b>SAM.gov registration cost</b></td><td class="num">$0</td><td>SAM.gov (register + renew yourself)</td><td><span class="ok">✓ free</span></td></tr>
+        <tr><td><b>SAM.gov renewal cost</b></td><td class="num">$0</td><td>SAM.gov (annual, self-service)</td><td><span class="ok">✓ free</span></td></tr>
+        <tr><td>SBA certification fee (WOSB / VOSB / 8(a) etc.)</td><td class="num">$0</td><td>certify.SBA.gov — no fee to obtain</td><td><span class="ok">✓ free</span></td></tr>
+        <tr><td>Contract opportunities are public</td><td class="num">by law</td><td>SAM.gov / FAR public posting</td><td><span class="ok">✓ true</span></td></tr>
+        <tr><td>Anyone can "guarantee" an award</td><td>No</td><td>competitive award process (FAR)</td><td><span class="flag">no such thing</span></td></tr>
+      </tbody>
+    </table></div>
+    <p class="src-note"><b>No dollar-outrage figure for this episode</b> — it's a protective/trust piece, not a spending exposé. The one hard, load-bearing fact is that <b>SAM.gov registration and renewal are free</b> (the "pay us to register you" scam is the anchor of Scam #1). SBA certifications carry no fee to obtain; opportunities are public by law. <b>No invented statistics or dollar figures.</b> The "hundreds of billions in government contracting" line in the cold open is a directional, uncontested framing (not a cited figure) — leave it qualitative on screen.</p>
+    <div class="callout" style="margin-top:16px">
+      <span class="mk">⚠</span>
+      <div><b>Legal/tone guardrail:</b> <b>Do NOT name any specific company as a scammer.</b> Describe the <b>pattern</b> (charging for what's free, guaranteed awards, secret lists), never a brand. Keep the tone protective and helpful — you're warning, not accusing. Acknowledge that <b>legitimate consultants do exist</b> (the script does this in Scam #5) so it never reads as "all paid help is a scam."</div>
+    </div>
+  </section>
+
+  <section id="script">
+    <div class="sec-head"><span class="sec-kicker">Editor's reference · GENERATED</span><h2>Annotated script</h2><span class="sec-note">Beats · the throughline · CTA · Short markers</span></div>
+    <div class="grid two">
+      <div class="card"><span class="rank">BEAT 01 · HOOK (0:00–0:45)</span><h3>"This is your warning"</h3><p style="color:var(--ink-dim);font-size:14px;margin:0">Money attracts predators → "seven scams, one fee you should never pay." The "save this / send it" ask plants a share seed early. <b>▸ Shorts #1.</b></p></div>
+      <div class="card" style="border-color:color-mix(in srgb,var(--money) 40%, var(--line))"><span class="rank" style="color:var(--money)">BEAT 02 · SCAM #1 — PAY TO REGISTER</span><h3>"SAM.gov is free"</h3><p style="color:var(--ink-dim);font-size:14px;margin:0">The anchor. The one fee you should never pay. On-screen: <b>SAM.gov registration = $0</b>. This is the strongest, most shareable single fact in the video. <b>▸ Shorts #2.</b></p></div>
+      <div class="card"><span class="rank">BEAT 03 · SCAMS #2–#4</span><h3>Fake renewals · guarantees · fake opps</h3><p style="color:var(--ink-dim);font-size:14px;margin:0">Rapid-fire trio. Renewal is free too; nobody can guarantee an award; real opportunities are public and free. Tight pacing, one lower-third per scam. <b>▸ Shorts #3</b> = "nobody can guarantee a contract."</p></div>
+      <div class="card"><span class="rank">BEAT 04 · SCAMS #5–#7</span><h3>Cert help · secret list · setup fees</h3><p style="color:var(--ink-dim);font-size:14px;margin:0">Certs have no fee (but legit help exists — say so); there's no secret list (opps are public by law); vague/expensive/upfront = the scam pattern. <b>▸ Shorts #4</b> = "there is no secret list."</p></div>
+      <div class="card" style="border-color:color-mix(in srgb,var(--violet) 40%, var(--line))"><span class="rank" style="color:var(--violet)">BEAT 05 · THE TURN → FREE TOOL + GUIDE</span><h3>"The real tools are free"</h3><p style="color:var(--ink-dim);font-size:14px;margin:0">The throughline: scams charge for what's free. That's WHY the free tool exists — pulls public data into one place. <b>ONE soft Mindy mention here</b>, framed as the honest free alternative. CTA = free guide (email) + free tool. <b>▸ Shorts #5.</b></p></div>
+      <div class="card"><span class="rank">BEAT 06 · CLOSE</span><h3>"Never pay for what's free"</h3><p style="color:var(--ink-dim);font-size:14px;margin:0">Protect yourself + protect others. Recap the promise, drive to the free tool + guide, and ask for the subscribe + share.</p></div>
+    </div>
+  </section>
+
+  <section id="titles">
+    <div class="sec-head"><span class="sec-kicker">5 options · top 2 flagged for A/B</span><h2>Titles</h2><span class="sec-note">GENERATED from the script — needs Eric's review</span></div>
+    <div class="callout" style="margin-bottom:18px">
+      <span class="mk">✎</span>
+      <div><b>No pre-approved package existed for Ep 09</b> — only a teleprompter script. Everything below <b>#numbers</b> (titles, thumbnails, shot list, shorts, description) was <b>generated from the script</b> to fit the batch style. <b>Eric should review/approve before this ships.</b></div>
+    </div>
+    <ol class="titles">
+      <li>7 Government Contracting Scams (And the One Fee You Should NEVER Pay) <span class="flag-pill a">A · primary</span><p>Number + protective promise + curiosity gap on "the one fee." The clearest expression of the video. Searchable ("government contracting scams").</p></li>
+      <li>They're Charging You for Something the Government Gives Away FREE <span class="flag-pill b">B · test</span><p>Leads with the throughline emotion (being ripped off) instead of the list. Higher relatability, softer on the keyword.</p></li>
+      <li>Never Pay to Register in SAM.gov (It's Free) — And 6 Other Scams<p>Puts the single strongest, most-searched fact right in the title. Great for the SAM.gov audience specifically.</p></li>
+      <li>If Someone "Guarantees" You a Government Contract, It's a Scam<p>Leads with the most viscerally obvious red flag. Works as a standalone hook if the list framing underperforms.</p></li>
+      <li>The 7 Scams Every New Government Contractor Falls For<p>"Every new contractor falls for" — identity + inevitability. Broad, curiosity-forward.</p></li>
+    </ol>
+  </section>
+
+  <section id="thumbnails">
+    <div class="sec-head"><span class="sec-kicker">2 concepts · 1280×720 · GENERATED</span><h2>Thumbnails</h2><span class="sec-note">NO real brands · face right-third · ≤3 words</span></div>
+    <div class="thumbs">
+      <div><div class="thumb-mock thumb-a"><div class="tx"><div class="big">7 SCAMS<br><span class="g">DON'T PAY</span></div><div class="sub">Concept A · the warning</div></div><div class="thumb-face"><span>Eric<br>face<br>~35%</span></div></div>
+        <p class="thumb-spec"><b>A — The Warning.</b> "7 SCAMS / DON'T PAY" — Eric serious, palm-up "stop" gesture. Green "DON'T PAY". Optional red ⚠ badge. <b>Best for the primary title.</b></p></div>
+      <div><div class="thumb-mock thumb-b"><div class="tx"><div class="big">IT'S<br><span class="g">FREE.</span></div><div class="sub">Concept B · the anchor fact</div></div><div class="thumb-face"><span>Eric<br>face<br>~35%</span></div></div>
+        <p class="thumb-spec"><b>B — It's Free.</b> Huge "IT'S FREE." over a faux "invoice / renewal notice" stamped VOID or SCAM. Amber "FREE". Drives the SAM.gov / renewal angle. No real logos or letterheads.</p></div>
+    </div>
+  </section>
+
+  <section id="shots">
+    <div class="sec-head"><span class="sec-kicker">B-roll · on-screen · CTA · GENERATED</span><h2>Shot list &amp; editor notes</h2></div>
+    <div class="grid two">
+      <div class="card"><h3>B-roll cues</h3><ul class="clean">
+        <li><b>Hook:</b> money/cash imagery + a shadowy "hand reaching for a wallet" (generic stock — the predator framing)</li>
+        <li><b>Each scam:</b> a mock invoice / official-looking letter / scary "EXPIRING" email — clearly fake, stamped SCAM or VOID</li>
+        <li><b>SAM.gov #1:</b> the real SAM.gov site with a "$0 / FREE" callout over the register button</li>
+        <li><b>The turn:</b> the free tool on screen — clean, calm, "real tools, no fee"</li>
+      </ul></div>
+      <div class="card"><h3>On-screen callouts</h3><ul class="clean">
+        <li><b>SAM.gov registration = FREE ($0)</b> — the anchor card</li>
+        <li>Numbered chapter stamps: <b>SCAM 1 … SCAM 7</b></li>
+        <li><b>"Renewing is free too."</b></li>
+        <li><b>"No one can guarantee a contract."</b> / <b>"There is no secret list."</b></li>
+      </ul></div>
+      <div class="card"><h3>CTA (free tool + guide)</h3><ul class="clean">
+        <li>The Turn points to the <b>free tool</b> + the <b>free starter guide</b> (email capture)</li>
+        <li>Lower-third: "Free tool + free guide — link in description"</li>
+        <li><b>ONE soft Mindy mention</b> — framed as the honest, free alternative to the scams</li>
+      </ul></div>
+      <div class="card"><h3>Guardrails</h3><ul class="clean">
+        <li><b>Never name a real company</b> as a scammer — describe the pattern only</li>
+        <li><b>Acknowledge legit consultants exist</b> (Scam #5) — don't smear all paid help</li>
+        <li>Keep <b>"hundreds of billions"</b> qualitative — don't stamp a fake precise figure</li>
+      </ul></div>
+    </div>
+  </section>
+
+  <section id="shorts">
+    <div class="sec-head"><span class="sec-kicker">Cut from the long-form · vertical · burned captions · GENERATED</span><h2>5 Shorts</h2><span class="sec-note">Hook in the first 1 second</span></div>
+    <div class="shorts">
+      <div class="short"><span class="n">Short 01 · the warning</span><h4>"The one fee you should never pay"</h4><p>The cold open. "Wherever there's this much money, someone's trying to take yours first." Sets up the seven.</p></div>
+      <div class="short"><span class="n">Short 02 · the anchor</span><h4>"SAM.gov is FREE"</h4><p>"Anyone charging you to register in SAM.gov is running a scam — it's free, you do it yourself." The most shareable fact.</p></div>
+      <div class="short"><span class="n">Short 03 · the guarantee</span><h4>"Nobody can guarantee a contract"</h4><p>"If someone promises a guaranteed award for a fee, they're lying — there's no backdoor you can buy."</p></div>
+      <div class="short"><span class="n">Short 04 · the secret list</span><h4>"There is no secret list"</h4><p>"Anyone selling a 'secret list of contracts' is selling you something that's already public and free. That's the law."</p></div>
+      <div class="short"><span class="n">Short 05 · CTA</span><h4>"The real tools are free"</h4><p>The throughline + the turn — the scam is charging for what's free; drives to the free tool + guide.</p></div>
+    </div>
+  </section>
+
+  <section id="description">
+    <div class="sec-head"><span class="sec-kicker">Paste-ready · UTM baked in · GENERATED</span><h2>Description, tags &amp; chapters</h2></div>
+    <div class="desc-box"><pre>There's a lot of money in government contracting — and wherever there's money, there are people trying to take a cut of yours before you earn a dime. In this video I break down 7 common government contracting scams, and the one fee you should never, ever pay. Save it, and send it to anyone you know who's just getting started.
+
+The throughline: the real tools in this world are free. SAM.gov is free. Opportunities are public. The scam is always someone charging you for access to something that was free the whole time.
+
+▶ FREE GUIDE — Win Your First Federal Contract (the exact first steps):
+<span class="lnk">https://getmindy.ai/youtube/first-contract-guide</span>
+
+▶ Free tool — type in what you do, see what the government's buying (no fee):
+<span class="lnk">https://getmindy.ai</span>
+
+CHAPTERS
+0:00  Your warning: 7 scams, 1 fee to never pay
+0:45  Scam #1 — Paying to register in SAM.gov (it's FREE)
+2:00  Scam #2 — Fake renewal notices
+2:45  Scam #3 — "Guaranteed" contracts
+3:30  Scam #4 — Fake opportunity emails
+4:15  Scam #5 — Overpriced certification help
+5:15  Scam #6 — The "secret insider list"
+6:00  Scam #7 — Big upfront setup fees
+6:45  The throughline: the real tools are free
+8:00  Protect yourself — and share this
+
+SAM.gov registration and renewal are free. SBA certifications have no fee to obtain. Federal opportunities are public by law. Not legal advice — just a heads-up from someone who's watched good people get taken.
+
+#governmentcontracts #smallbusiness #entrepreneur #scamalert #samgov #federalcontracting #businesstips #startup</pre></div>
+    <p class="src-note">CTA = the <b>free guide</b> (email capture / Pere model — cold traffic) + the <b>free tool</b>. First link = live UTM entry <code>getmindy.ai/youtube/first-contract-guide</code>. Mindy is the soft second link, on-theme as "the honest free alternative." <b>Chapter timestamps are estimates</b> — set from the real edit.</p>
+  </section>
+
+</main>
+
+<footer class="wrap">
+  <div>GovCon Giants · YouTube Batch 1 · <b>Ep 09</b> · Built <span class="mono">2026-07-09</span> — teleprompter ported from source; numbers/annotated/titles/thumbnails/shots/shorts/description GENERATED from the script (need Eric's review). Anchor fact: SAM.gov registration + renewal are FREE.</div>
+  <div style="margin-top:6px" class="mono">Teleprompter backup: Eric Docs/youtube-scripts/teleprompter-7-scams.txt</div>
+</footer>
+
+<script>
+(function(){
+  var root=document.documentElement,btn=document.getElementById('themeToggle');
+  btn.addEventListener('click',function(){var c=root.getAttribute('data-theme'),n;if(c==='dark')n='light';else if(c==='light')n='dark';else n=window.matchMedia('(prefers-color-scheme: dark)').matches?'light':'dark';root.setAttribute('data-theme',n);});
+  var cb=document.getElementById('copyBtn');
+  cb.addEventListener('click',function(){var el=document.getElementById('tpText');var t=el.innerText.replace(/═══.*?═══/g,'').replace(/\n{3,}/g,'\n\n').trim();navigator.clipboard.writeText(t).then(function(){cb.textContent='✓ Copied — clean spoken words';cb.classList.add('done');setTimeout(function(){cb.textContent='⧉ Copy clean script';cb.classList.remove('done');},2200);}).catch(function(){cb.textContent='⚠ Select + copy manually';});});
+})();
+</script>
+
+</body>
+</html>
