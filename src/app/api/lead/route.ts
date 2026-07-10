@@ -2,9 +2,17 @@ import { NextRequest, NextResponse } from 'next/server';
 import { sendLeadToCrm } from '@/lib/crm';
 import { sendConfirmationEmail } from '@/lib/email';
 import { saveLeadToSupabase, recentDuplicateExists } from '@/lib/supabase-leads';
+import { enforceIpRateLimit } from '@/lib/rate-limit';
 
 export async function POST(request: NextRequest) {
   try {
+    // Per-IP rate limit: this endpoint fans out to GHL + Supabase + Slack +
+    // email, so it's an attractive spam-amplification target. 10/min per IP is
+    // well above any legitimate signup cadence. Fails open if the limiter is
+    // unavailable (never blocks a real signup).
+    const limited = await enforceIpRateLimit(request, 'lead', 10, 60);
+    if (limited) return limited;
+
     const body = await request.json();
     const { name, email, phone, company, source, redirectUrl, tags, abTestId, abVariant } = body;
 
