@@ -1,11 +1,18 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { resetTasksAndProjectsToFeb28Bootcamp } from '@/lib/db';
+import { extractPassword, isAuthorized } from '@/lib/admin-auth';
 import {
   notifySlackTaskChange,
   formatTemplateReleaseSummary,
 } from '@/lib/slackTasks';
 
-export async function POST(_request: NextRequest) {
+export async function POST(request: NextRequest) {
+  // Destructive: wipes/rewrites all tasks + projects. Gate hard, fail closed.
+  // (Redundant with the /api/dashboard/* middleware — defense in depth for the
+  // one route where an unauthenticated call is irreversible.)
+  if (!isAuthorized(extractPassword(request))) {
+    return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
+  }
   try {
     const result = await resetTasksAndProjectsToFeb28Bootcamp();
     try {

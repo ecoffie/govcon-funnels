@@ -698,6 +698,44 @@
     </div>
   </main>
   <script>
+    // --- Admin auth shim --------------------------------------------------
+    // The /api/dashboard/* surface is gated (src/proxy.ts, fail closed). This
+    // static page has no React context, so we attach the admin password from
+    // sessionStorage (same key the React dashboard uses) to every dashboard
+    // API call, prompting once if it isn't set. Keeps the legacy task manager
+    // working after the gate goes live.
+    (function() {
+      var PW_KEY = 'dashboard_admin_pw';
+      function getPw() {
+        try { return sessionStorage.getItem(PW_KEY) || ''; } catch (e) { return ''; }
+      }
+      function ensurePw() {
+        var pw = getPw();
+        if (pw) return pw;
+        pw = (window.prompt('Admin password (internal dashboard)') || '').trim();
+        if (pw) { try { sessionStorage.setItem(PW_KEY, pw); } catch (e) {} }
+        return pw;
+      }
+      var nativeFetch = window.fetch.bind(window);
+      window.fetch = function(input, init) {
+        var url = typeof input === 'string' ? input : (input && input.url) || '';
+        if (url.indexOf('/api/dashboard') === -1) {
+          return nativeFetch(input, init);
+        }
+        init = init || {};
+        var headers = new Headers(init.headers || {});
+        var pw = ensurePw();
+        if (pw) headers.set('x-admin-password', pw);
+        init.headers = headers;
+        return nativeFetch(input, init).then(function(res) {
+          if (res.status === 401) {
+            try { sessionStorage.removeItem(PW_KEY); } catch (e) {}
+          }
+          return res;
+        });
+      };
+    })();
+
     (function() {
       var urlParams = new URLSearchParams(window.location.search);
       var embedMode = urlParams.get('embed');
