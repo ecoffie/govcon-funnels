@@ -161,6 +161,7 @@ export const guide: GuideData = {
           <li><strong>SAM.gov Registration</strong> — Not an identifier itself, but the registration platform where you obtain both your UEI and CAGE code. Think of SAM.gov as the hub that connects all your identifiers.</li>
         </ul>
         <p>For most government contractors, you will use your <strong>UEI</strong> as your primary identifier in proposals and correspondence, while your <strong>CAGE code</strong> appears in contract documents, logistics systems, and your capability statement. Both are essential — make sure you know both numbers and include them on your <a href="/guides/capability-statement">capability statement</a>.</p>
+        <p><strong>Once your CAGE code is active, here is what comes next.</strong> If you are new to all of this, start with our guide to <a href="/guides/government-contracting-for-beginners">government contracting for beginners</a>. When you are ready to bid, learn <a href="/blog/win-government-contracts-no-experience">how to win government contracts with no experience</a> — including the <a href="/blog/win-government-contracts-no-experience">easiest government contracts to win</a> for a first-timer. And to sell to agencies through a pre-approved vehicle, see how to <a href="/guides/gsa-schedule">get on the GSA Schedule</a>.</p>
       `,
     },
   ],
