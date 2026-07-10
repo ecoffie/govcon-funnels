@@ -1,6 +1,7 @@
 'use client';
 
 import { useEffect, useMemo, useState } from 'react';
+import { useDashboardAuth } from './DashboardAuthGate';
 
 type ContextType = 'marketing' | 'delivery';
 
@@ -47,6 +48,7 @@ function formatDate(iso: string | null): string {
 }
 
 export default function DashboardTaskManager() {
+  const { authHeaders, signOut } = useDashboardAuth();
   const [context, setContext] = useState<ContextType>('marketing');
   const [projects, setProjects] = useState<Project[]>([]);
   const [tasks, setTasks] = useState<Task[]>([]);
@@ -60,11 +62,19 @@ export default function DashboardTaskManager() {
       setError('');
       try {
         const [projectsRes, tasksRes] = await Promise.all([
-          fetch(`/api/dashboard/projects?context=${context}`, { cache: 'no-store' }),
+          fetch(`/api/dashboard/projects?context=${context}`, {
+            cache: 'no-store',
+            headers: authHeaders,
+          }),
           fetch(`/api/dashboard/tasks?context=${context}&limit=200&include_done=true`, {
             cache: 'no-store',
+            headers: authHeaders,
           }),
         ]);
+        if (projectsRes.status === 401 || tasksRes.status === 401) {
+          signOut();
+          throw new Error('Session expired — please sign in again.');
+        }
         if (!projectsRes.ok || !tasksRes.ok) {
           throw new Error('Failed to load task manager data.');
         }
@@ -86,6 +96,8 @@ export default function DashboardTaskManager() {
     return () => {
       active = false;
     };
+    // authHeaders/signOut are stable per session; re-run only on context change.
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [context]);
 
   const projectById = useMemo(

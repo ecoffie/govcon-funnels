@@ -1,8 +1,10 @@
 'use client';
 
 import { useState } from 'react';
+import { useDashboardAuth } from './DashboardAuthGate';
 
 export default function DashboardAskBot() {
+  const { authHeaders, signOut } = useDashboardAuth();
   const [question, setQuestion] = useState('');
   const [answer, setAnswer] = useState('');
   const [loading, setLoading] = useState(false);
@@ -20,9 +22,14 @@ export default function DashboardAskBot() {
     try {
       const response = await fetch('/api/dashboard/ask', {
         method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
+        headers: { 'Content-Type': 'application/json', ...authHeaders },
         body: JSON.stringify({ question: q }),
       });
+      if (response.status === 401) {
+        signOut();
+        setAnswer('Session expired — please sign in again.');
+        return;
+      }
       const data = await response.json();
       if (data.answer) {
         setAnswer(String(data.answer));

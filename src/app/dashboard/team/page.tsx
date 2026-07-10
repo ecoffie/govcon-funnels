@@ -1,6 +1,7 @@
 'use client';
 
 import { useEffect, useState } from 'react';
+import { useDashboardAuth } from '../_components/DashboardAuthGate';
 
 interface User {
   id: string;
@@ -11,19 +12,26 @@ interface User {
 }
 
 export default function TeamDirectoryPage() {
+  const { authHeaders, signOut } = useDashboardAuth();
   const [users, setUsers] = useState<User[]>([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
 
   useEffect(() => {
-    fetch('/api/dashboard/users')
+    fetch('/api/dashboard/users', { headers: authHeaders })
       .then((res) => {
+        if (res.status === 401) {
+          signOut();
+          throw new Error('Session expired — please sign in again.');
+        }
         if (!res.ok) throw new Error('Failed to load team');
         return res.json();
       })
       .then(setUsers)
       .catch((err) => setError(err.message))
       .finally(() => setLoading(false));
+    // authHeaders/signOut are stable per session; load once on mount.
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   if (loading) {

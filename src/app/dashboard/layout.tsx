@@ -1,5 +1,6 @@
 import type { ReactNode } from 'react';
 import DashboardNav from './_components/DashboardNav';
+import DashboardAuthGate from './_components/DashboardAuthGate';
 
 export default function DashboardLayout({ children }: { children: ReactNode }) {
   return (
@@ -11,8 +12,10 @@ export default function DashboardLayout({ children }: { children: ReactNode }) {
         <p className="mb-6 text-slate-400">
           Internal AI workspace and task management hub.
         </p>
-        <DashboardNav />
-        {children}
+        <DashboardAuthGate>
+          <DashboardNav />
+          {children}
+        </DashboardAuthGate>
       </div>
     </main>
   );
