@@ -36,7 +36,6 @@ const SITE_URLS = [
   '/consulting',
   '/free-course',
   '/blog',
-  '/march-surge',
   // Video pages
   '/videos',
   '/videos/get-started-government-contracting',
