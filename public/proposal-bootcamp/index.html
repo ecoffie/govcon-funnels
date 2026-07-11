@@ -175,6 +175,14 @@
             margin-top: 4px;
         }
         .form-btn:hover { background: #047857; }
+        .form-error {
+            display: none;
+            margin-top: 12px;
+            color: #fca5a5;
+            font-size: 13px;
+            line-height: 1.5;
+            text-align: center;
+        }
 
         /* WHAT YOU GET */
         .downloads-section {
@@ -357,6 +365,7 @@
                 <input type="email" name="email" class="form-input full" placeholder="Email Address" required>
                 <input type="tel" name="phone" class="form-input full" placeholder="Phone Number">
                 <button type="submit" class="form-btn">Get Free Proposal Resources →</button>
+                <p id="leadFormError" class="form-error" role="alert"></p>
             </form>
         </div>
     </section>
@@ -443,9 +452,12 @@
         document.getElementById('leadForm').addEventListener('submit', async function(e) {
             e.preventDefault();
             const submitBtn = this.querySelector('button[type="submit"]');
+            const errorEl = document.getElementById('leadFormError');
             const originalText = submitBtn.textContent;
             submitBtn.textContent = 'Processing...';
             submitBtn.disabled = true;
+            errorEl.textContent = '';
+            errorEl.style.display = 'none';
 
             const firstName = this.querySelector('input[name="firstName"]').value;
             const lastName = this.querySelector('input[name="lastName"]').value;
@@ -461,7 +473,7 @@
 
             // Send to API (GoHighLevel webhook)
             try {
-                await fetch('/api/lead', {
+                const response = await fetch('/api/lead', {
                     method: 'POST',
                     headers: { 'Content-Type': 'application/json' },
                     body: JSON.stringify({
@@ -474,8 +486,24 @@
                         tags: ['feb-proposal-bootcamp']
                     })
                 });
+                if (!response.ok) {
+                    let message = 'We could not process your signup. Please try again in a moment.';
+                    if (response.status === 429) {
+                        message = 'Too many signups from this network. Please wait a minute and try again.';
+                    } else {
+                        try {
+                            const data = await response.json();
+                            if (data && data.error) message = data.error;
+                        } catch (parseErr) {}
+                    }
+                    throw new Error(message);
+                }
             } catch (err) {
-                console.log('API error (continuing anyway):', err);
+                errorEl.textContent = err.message || 'Network error. Please check your connection and try again.';
+                errorEl.style.display = 'block';
+                submitBtn.textContent = originalText;
+                submitBtn.disabled = false;
+                return;
             }
 
             // Redirect to upsell page
