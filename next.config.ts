@@ -56,7 +56,7 @@ const nextConfig: NextConfig = {
       // OH landing page → direct to tool (no funnel, tool is ungated)
       {
         source: "/opp",
-        destination: "https://mi.govcongiants.com/opportunity-hunter",
+        destination: "https://getmindy.ai/opportunity-hunter",
         permanent: true,
       },
       // Fix misleading checkout URL - accelerator is a call, not payment

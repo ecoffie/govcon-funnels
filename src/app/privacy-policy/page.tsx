@@ -19,7 +19,7 @@ export default function PrivacyPolicyPage() {
           <p className="text-gray-700 mb-6">
             GovConEdu LLC (&quot;GovCon Giants,&quot; &quot;we,&quot; &quot;us,&quot; or &quot;our&quot;) is committed to protecting your privacy.
             This Privacy Policy explains how we collect, use, disclose, and safeguard your information when you visit our
-            website govcongiants.com, shop.govcongiants.com, mi.govcongiants.com, and use our services.
+            website govcongiants.com, shop.govcongiants.com, getmindy.ai, and use our services.
           </p>
 
           <h2 className="text-2xl font-bold text-gray-900 mt-10 mb-4">1. Information We Collect</h2>

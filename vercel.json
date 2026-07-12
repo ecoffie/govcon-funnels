@@ -27,7 +27,7 @@
     {
       "source": "/:path*",
       "has": [{ "type": "host", "value": "tools.govcongiants.org" }],
-      "destination": "https://mi.govcongiants.com/:path*",
+      "destination": "https://getmindy.ai/:path*",
       "permanent": true
     },
     {
@@ -42,12 +42,12 @@
     },
     {
       "source": "/alerts",
-      "destination": "https://mi.govcongiants.com/alerts/signup",
+      "destination": "https://getmindy.ai/alerts/signup",
       "permanent": true
     },
     {
       "source": "/alerts/",
-      "destination": "https://mi.govcongiants.com/alerts/signup",
+      "destination": "https://getmindy.ai/alerts/signup",
       "permanent": true
     },
     {
@@ -222,7 +222,7 @@
     },
     {
       "source": "/tools/opportunity-hunter",
-      "destination": "https://mi.govcongiants.com/opportunity-hunter",
+      "destination": "https://getmindy.ai/opportunity-hunter",
       "permanent": true
     },
     {
