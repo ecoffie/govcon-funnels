@@ -55,10 +55,9 @@ function authorized(req: NextRequest): boolean {
   const auth = req.headers.get('authorization');
   const cronSecret = process.env.CRON_SECRET;
   if (cronSecret && auth === `Bearer ${cronSecret}`) return true;
-  const provided = extractPassword(req);
-  const trackerPw = process.env.HUBZONE_TRACKER_PASSWORD;
-  if (provided && trackerPw && provided === trackerPw) return true;
-  return isAuthorized(provided);
+  // Admin password ONLY for manual triggers — the shareable HUBZone tracker
+  // password must NOT be able to fire reminder sends.
+  return isAuthorized(extractPassword(req));
 }
 
 export async function GET(req: NextRequest) {
