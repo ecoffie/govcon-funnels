@@ -3,6 +3,7 @@
 import { useState, useEffect } from 'react';
 import { getVariant, trackConversion } from '@/lib/ab-test';
 import { trackLeadConversion } from '@/lib/google-ads';
+import { submitLead } from '@/lib/lead-submit';
 
 interface ABTestLeadFormProps {
   testId: string;
@@ -33,6 +34,7 @@ export default function ABTestLeadForm({
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [buttonText, setButtonText] = useState(fallbackButtonText);
   const [mounted, setMounted] = useState(false);
+  const [error, setError] = useState<string | null>(null);
 
   useEffect(() => {
     setMounted(true);
@@ -45,6 +47,7 @@ export default function ABTestLeadForm({
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setIsSubmitting(true);
+    setError(null);
 
     // Track A/B conversion
     trackConversion(testId, 'form_submit');
@@ -62,19 +65,15 @@ export default function ABTestLeadForm({
       localStorage.setItem('govcon_leads', JSON.stringify(leads));
       localStorage.setItem('leadName', formData.name);
 
-      // Post to API endpoint (sends to CRM: GoHighLevel and/or webhook)
-      await fetch('/api/lead', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({
-          ...formData,
-          source,
-          redirectUrl,
-          abTestId: testId,
-          abVariant: localStorage.getItem(`ab_${testId}`),
-        }),
-      }).catch(() => {
-        // Continue even if API fails so user still gets redirect
+      // Post to API endpoint (sends to CRM: GoHighLevel and/or webhook).
+      // Do not redirect on explicit failures (rate limit, validation, outage);
+      // otherwise the user looks converted while the lead never reaches CRM.
+      await submitLead({
+        ...formData,
+        source,
+        redirectUrl,
+        abTestId: testId,
+        abVariant: localStorage.getItem(`ab_${testId}`),
       });
 
       // Fire Google Ads lead conversion, then redirect (deferred so the hit
@@ -84,6 +83,7 @@ export default function ABTestLeadForm({
       });
     } catch (error) {
       console.error('Form submission error:', error);
+      setError(error instanceof Error ? error.message : 'We could not save your signup. Please try again.');
       setIsSubmitting(false);
     }
   };
@@ -122,6 +122,11 @@ export default function ABTestLeadForm({
       >
         {isSubmitting ? 'Processing...' : buttonText}
       </button>
+      {error && (
+        <p className="text-center text-sm font-medium text-red-400" role="alert">
+          {error}
+        </p>
+      )}
       <p className={helperTextClassName}>
         Instant access. No credit card required.
       </p>
