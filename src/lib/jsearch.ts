@@ -57,6 +57,20 @@ export interface JSearchParams {
 }
 
 const JSEARCH_API_BASE = 'https://jsearch.p.rapidapi.com';
+const THIRTY_DAYS_MS = 30 * 24 * 60 * 60 * 1000;
+
+function parseDateOrNull(dateValue: string | null | undefined): Date | null {
+  if (!dateValue) {
+    return null;
+  }
+
+  const parsed = new Date(dateValue);
+  if (Number.isNaN(parsed.getTime())) {
+    return null;
+  }
+
+  return parsed;
+}
 
 function getApiKey(): string {
   const key = process.env.JSEARCH_API_KEY || process.env.RAPIDAPI_KEY;
@@ -274,11 +288,11 @@ import { categorizeJob } from './job-categories';
 export function transformJSearchJob(jsJob: JSearchJob): Job {
   const location = [jsJob.job_city, jsJob.job_state].filter(Boolean).join(', ') || 'Location not specified';
 
-  // Calculate a close date (30 days from posted if not specified)
-  const postedDate = new Date(jsJob.job_posted_at_datetime_utc);
-  const closeDate = jsJob.job_offer_expiration_datetime_utc
-    ? new Date(jsJob.job_offer_expiration_datetime_utc)
-    : new Date(postedDate.getTime() + 30 * 24 * 60 * 60 * 1000);
+  // Normalize upstream dates to avoid runtime crashes when providers return invalid timestamps.
+  const postedDate = parseDateOrNull(jsJob.job_posted_at_datetime_utc) || new Date();
+  const closeDate =
+    parseDateOrNull(jsJob.job_offer_expiration_datetime_utc) ||
+    new Date(postedDate.getTime() + THIRTY_DAYS_MS);
 
   return {
     id: jsJob.job_id,
@@ -293,7 +307,7 @@ export function transformJSearchJob(jsJob: JSearchJob): Job {
     grade: null, // JSearch doesn't have GS grades
     clearance: null, // Would need to parse from description
     remote: jsJob.job_is_remote,
-    posted_date: jsJob.job_posted_at_datetime_utc,
+    posted_date: postedDate.toISOString(),
     close_date: closeDate.toISOString(),
     apply_url: jsJob.job_apply_link,
     description: jsJob.job_description || '',
