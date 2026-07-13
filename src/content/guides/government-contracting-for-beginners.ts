@@ -118,7 +118,7 @@ export const guide: GuideData = {
           <li>☐ <strong>Login.gov account</strong> — Create at <a href="https://login.gov" target="_blank" rel="noopener">login.gov</a></li>
           <li>☐ <strong>SAM.gov registration</strong> — <a href="/guides/sam-gov-registration">Complete guide here</a></li>
           <li>☐ <strong>UEI number</strong> — Obtained during SAM.gov registration</li>
-          <li>☐ <strong>CAGE code</strong> — Assigned automatically after SAM.gov approval — <a href="/guides/cage-code">Learn more</a></li>
+          <li>☐ <strong>CAGE code</strong> — Assigned automatically after SAM.gov approval — <a href="/guides/cage-code">Learn more</a> or run a free <a href="/tools/cage-code-lookup">CAGE code lookup</a></li>
           <li>☐ <strong>NAICS codes selected</strong> — <a href="https://www.census.gov/naics/" target="_blank" rel="noopener">Find your codes</a></li>
         </ul>
 
