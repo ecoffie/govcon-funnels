@@ -90,7 +90,7 @@ export const guide: GuideData = {
           <li><strong>Cooperative purchasing agreements</strong> — Programs like NASPO ValuePoint, U.S. Communities, and Sourcewell allow governments to buy from pre-competed contracts. Getting on these vehicles gives you access to thousands of government buyers.</li>
           <li><strong>Substate entities</strong> — Don't overlook transit authorities, water districts, housing authorities, and public universities. These agencies often have significant budgets and less competition.</li>
         </ul>
-        <p>Many state and local contracts have <strong>lower dollar thresholds for formal solicitations</strong>, meaning more opportunities go through simplified purchasing processes. Some jurisdictions also have their own small business preference programs, minority business enterprise (MBE) programs, and local preference policies. Register as a vendor in the states and municipalities where you operate — this alone can generate inbound opportunities via vendor notification systems.</p>
+        <p>Many state and local contracts have <strong>lower dollar thresholds for formal solicitations</strong>, meaning more opportunities go through simplified purchasing processes. Some jurisdictions also have their own small business preference programs, minority business enterprise (MBE) programs, and local preference policies. Register as a vendor in the states and municipalities where you operate — this alone can generate inbound opportunities via vendor notification systems. These low-dollar, simplified buys are often <a href="/blog/win-government-contracts-no-experience">the easiest government contracts to win</a> when you're a first-time bidder with no federal past performance.</p>
       `,
     },
     {

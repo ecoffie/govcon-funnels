@@ -155,7 +155,7 @@ export const guide: GuideData = {
         <h3>Phase 6: Start Bidding (Month 2-3)</h3>
         <ul>
           <li>☐ <strong>Respond to Sources Sought</strong> — Pre-solicitation market research</li>
-          <li>☐ <strong>Submit first quote/proposal</strong> — Start with simplified acquisitions</li>
+          <li>☐ <strong>Submit first quote/proposal</strong> — Start with simplified acquisitions, the <a href="/blog/win-government-contracts-no-experience">easiest government contracts to win</a> with no past performance</li>
           <li>☐ <strong>Register with prime contractors</strong> — For subcontracting opportunities</li>
           <li>☐ <strong>Request debriefs on losses</strong> — Learn and improve</li>
         </ul>

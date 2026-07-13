@@ -2,8 +2,8 @@
  * Weekly SEO report cron — pulls live Google Search Console data and
  * posts a summary to the #seo Slack channel.
  *
- * Scheduled by a single entry in vercel.json (Mondays 12:00 UTC = 8am ET).
- * This is the ONLY Vercel cron in the funnels repo.
+ * Scheduled by a single entry in vercel.json (Mondays 13:00 UTC = 9am ET, synced
+ * with the getmindy.ai + encoregov.com posters). This is the ONLY Vercel cron here.
  *
  * WHY chat.postMessage (not the lead webhook):
  *   #seo is fed by the "Govcon Giants" bot via chat.postMessage — market-assassin
