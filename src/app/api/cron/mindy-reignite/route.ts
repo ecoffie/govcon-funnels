@@ -10,8 +10,11 @@
  * Shared engine: src/lib/mindy-reignite.ts (same code the CLI uses).
  *
  * Auth: Vercel cron sends `Authorization: Bearer <CRON_SECRET>`. We accept that,
- * OR `?password=<ADMIN_PASSWORD>` for manual trigger / testing. `?dry=true` plans
- * without sending. `?seed=N` overrides the ramp quota for a manual run.
+ * OR `?password=<ADMIN_PASSWORD>` for manual trigger / testing. Live sends are
+ * disabled by default after the Meta-retargeting pivot; set
+ * MINDY_REIGNITE_EMAIL_ENABLED=true only if the drip is intentionally resumed.
+ * `?dry=true` plans without sending. `?seed=N` overrides the ramp quota for a
+ * manual run.
  *
  * Scheduled via MINDY'S DISPATCHER (cron_jobs row "mindy-reignite-drip",
  * daily 14:00 UTC) which fires this absolute URL cross-origin with
@@ -76,12 +79,23 @@ function authorized(req: NextRequest): boolean {
   return false;
 }
 
+function emailDripEnabled(): boolean {
+  return process.env.MINDY_REIGNITE_EMAIL_ENABLED === 'true';
+}
+
 export async function GET(req: NextRequest) {
   if (!authorized(req)) return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
 
   const url = new URL(req.url);
   const dry = url.searchParams.get('dry') === 'true';
   const seedOverride = Number(url.searchParams.get('seed')) || null;
+
+  if (!dry && !emailDripEnabled()) {
+    return NextResponse.json({
+      success: false,
+      error: 'Mindy Re-Ignite email drip is disabled. Set MINDY_REIGNITE_EMAIL_ENABLED=true to resume live sends.',
+    }, { status: 409 });
+  }
 
   const token = (process.env.GHL_API_KEY || '').trim();
   const location = (process.env.GHL_LOCATION_ID || 'AMkIivLuREYwsX5GhAAL').trim();
