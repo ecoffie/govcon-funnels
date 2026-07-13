@@ -49,6 +49,29 @@ async function postFailureNotice(webhookUrl: string, siteLabel: string, error: s
   }
 }
 
+/**
+ * Retry an async call with BACKOFF between attempts. GSC intermittently 5xx's /
+ * times out on the biggest queries (govcongiants.com), and the previous
+ * immediate retry hit the same blip on the instant re-try. Spacing the attempts
+ * gives a transient error time to clear so the site isn't silently dropped.
+ */
+async function withBackoff<T>(fn: () => Promise<T>, label: string, attempts = 3, baseDelayMs = 2500): Promise<T> {
+  let lastErr: unknown;
+  for (let i = 0; i < attempts; i++) {
+    try {
+      return await fn();
+    } catch (e) {
+      lastErr = e;
+      if (i < attempts - 1) {
+        const delay = baseDelayMs * (i + 1);
+        console.warn(`SEO report: ${label} attempt ${i + 1}/${attempts} failed, retrying in ${delay}ms:`, e instanceof Error ? e.message : e);
+        await new Promise((r) => setTimeout(r, delay));
+      }
+    }
+  }
+  throw lastErr;
+}
+
 export async function GET(req: NextRequest) {
   if (!authorized(req)) {
     return NextResponse.json({ error: 'unauthorized' }, { status: 401 });
@@ -76,14 +99,8 @@ export async function GET(req: NextRequest) {
     try {
       // GSC occasionally returns a transient 5xx/timeout (the biggest site,
       // govcongiants.com, is most exposed since it's first + has the most data).
-      // Retry once before giving up so a blip doesn't silently drop a site.
-      let report;
-      try {
-        report = await buildReport(new Date(), site);
-      } catch (firstErr) {
-        console.warn(`SEO report: first attempt failed for ${site.key}, retrying once:`, firstErr instanceof Error ? firstErr.message : firstErr);
-        report = await buildReport(new Date(), site);
-      }
+      // Retry with backoff before giving up so a blip doesn't silently drop a site.
+      const report = await withBackoff(() => buildReport(new Date(), site), site.key);
       const blocks = toSlackBlocks(report);
 
       const res = await fetch(webhookUrl, {
