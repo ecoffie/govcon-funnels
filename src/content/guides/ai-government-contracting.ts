@@ -24,6 +24,11 @@ export const guide: GuideData = {
     {
       heading: 'How AI Is Transforming Government Contracting',
       content: `
+        <div style="background: linear-gradient(135deg, rgba(16, 185, 129, 0.1) 0%, rgba(59, 130, 246, 0.1) 100%); border: 1px solid rgba(16, 185, 129, 0.3); border-radius: 12px; padding: 20px; margin: 0 0 24px;">
+          <p style="font-weight: 600; font-size: 1.1rem; margin-bottom: 8px;">Want the AI tool, not just the playbook?</p>
+          <p style="margin-bottom: 12px;">Meet <strong>Mindy</strong> — AI that scans every federal opportunity, matches it to your company profile, and surfaces the ones you can actually win. A smarter, affordable alternative to the massive government market-intelligence platforms.</p>
+          <a href="https://getmindy.ai/market-intelligence?utm_source=govcongiants&utm_medium=guide&utm_campaign=ai-govcon" target="_blank" rel="noopener" style="display: inline-block; background: #10b981; color: white; padding: 10px 20px; border-radius: 8px; text-decoration: none; font-weight: 600;">Start free with Mindy →</a>
+        </div>
         <p>Government contracting has traditionally been a manual, research-intensive business. Contractors spent hours scrolling through SAM.gov, digging through USAspending.gov data, and writing proposals from scratch for every opportunity. <strong>Artificial intelligence is changing all of that.</strong></p>
         <p>AI is leveling the playing field for small businesses that previously couldn't compete with large firms' dedicated research teams, pricing analysts, and proposal departments. With the right AI tools, a five-person company can now access competitive intelligence and proposal support that used to require an entire business development staff.</p>
         <p>Here are the key areas where AI is making the biggest impact in government contracting:</p>
@@ -49,7 +54,7 @@ export const guide: GuideData = {
           <li><strong>Pre-solicitation intelligence.</strong> AI monitors sources of information notices, RFIs, and draft solicitations to alert you to opportunities in the early stages, when engagement with the agency has the highest impact on your win probability.</li>
           <li><strong>Noise reduction.</strong> Instead of sorting through hundreds of irrelevant results, AI filters your opportunity feed to show only the solicitations where you have a realistic chance of competing and winning.</li>
         </ul>
-        <p><a href="/mi-free" target="_blank" rel="noopener"><strong>Mindy</strong></a> from GovCon Giants is built specifically for this purpose — it uses AI to scan and analyze federal opportunities, matching them to your company profile so you spend less time searching and more time pursuing the right contracts.</p>
+        <p><a href="https://getmindy.ai/market-intelligence?utm_source=govcongiants&utm_medium=guide&utm_campaign=ai-govcon" target="_blank" rel="noopener"><strong>Mindy</strong></a> from GovCon Giants is built specifically for this purpose — it uses AI to scan and analyze federal opportunities, matching them to your company profile so you spend less time searching and more time pursuing the right contracts.</p>
         <p>The difference between manual search and AI-powered discovery is the difference between casting a wide net and hoping for the best versus precision-targeting opportunities where your probability of winning is highest.</p>
       `,
     },
@@ -104,7 +109,7 @@ export const guide: GuideData = {
             <p>Content Reaper helps you create, refine, and organize proposal content, capability statements, and business development materials. Generate first drafts, check compliance against solicitation requirements, repurpose content from previous proposals, and maintain a library of your best content for reuse. It's the proposal assistant every small business needs but few can afford to hire.</p>
           </li>
           <li>
-            <strong><a href="/mi-free" target="_blank" rel="noopener">Mindy</a> — AI Opportunity Discovery</strong>
+            <strong><a href="https://getmindy.ai/market-intelligence?utm_source=govcongiants&utm_medium=guide&utm_campaign=ai-govcon" target="_blank" rel="noopener">Mindy</a> — AI Opportunity Discovery</strong>
             <p>Mindy uses AI to scan federal contract opportunities and match them to your company profile, certifications, and past performance. Get a filtered feed of opportunities where you can actually compete and win — not a firehose of irrelevant solicitations. It monitors for recompetes, tracks pre-solicitation activity, and alerts you to opportunities early in the procurement cycle.</p>
           </li>
         </ul>
