@@ -1110,7 +1110,7 @@ export async function sendMindyDayReminderEmail(
       </td></tr>
       <tr><td style="padding: 0 32px;">
         <table width="100%" cellpadding="0" cellspacing="0" style="background-color: #f5f3ff; border: 2px solid #ddd6fe; border-radius: 12px;"><tr><td style="padding: 26px 24px; text-align: center;">
-          <p style="color: #1e293b; font-size: 18px; font-weight: 800; margin: 0 0 4px;">Saturday, July 25</p>
+          <p style="color: #1e293b; font-size: 18px; font-weight: 800; margin: 0 0 4px;">Saturday, August 22</p>
           <p style="color: #475569; font-size: 14px; margin: 0 0 16px;">10:00 AM &ndash; 1:00 PM ET</p>
           <a href="${joinUrl}" style="display: inline-block; background-color: #7c3aed; color: #ffffff; padding: 18px 40px; border-radius: 10px; text-decoration: none; font-weight: 800; font-size: 18px;">Join on Zoom</a>
           <p style="color: #64748b; font-size: 13px; margin: 18px 0 0; line-height: 1.6;">Meeting ID: <strong style="color:#0f172a;">892 8050 6481</strong> &nbsp;&middot;&nbsp; Passcode: <strong style="color:#0f172a;">206225</strong></p>
@@ -1253,7 +1253,7 @@ export async function sendHubzoneRecordingEmail(params: EmailParams & { recordin
   const html = `<!DOCTYPE html>
 <html><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><title>Your HUBZone roundtable recording</title></head>
 <body style="margin:0;padding:0;background-color:#f8fafc;font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif;color:#1e293b;">
-  <div style="display:none;max-height:0;overflow:hidden;opacity:0;">The recording is ready — plus your next step: the free Mindy demo webinar on July 25.</div>
+  <div style="display:none;max-height:0;overflow:hidden;opacity:0;">The recording is ready — plus your next step: the free Mindy demo webinar on August 22.</div>
   <table width="100%" cellpadding="0" cellspacing="0" style="background-color:#f8fafc;padding:40px 16px;"><tr><td align="center">
     <table width="600" cellpadding="0" cellspacing="0" style="background-color:#ffffff;border-radius:16px;overflow:hidden;box-shadow:0 4px 20px rgba(0,0,0,0.06);">
       <tr><td style="background:linear-gradient(135deg,#f97316 0%,#ea580c 50%,#c2410c 100%);padding:36px 32px;text-align:center;">
@@ -1267,10 +1267,10 @@ export async function sendHubzoneRecordingEmail(params: EmailParams & { recordin
         <a href="${recordingUrl}" style="display:inline-block;background-color:#0f172a;color:#ffffff;padding:16px 36px;border-radius:10px;text-decoration:none;font-weight:800;font-size:17px;">&#9654;&nbsp; Watch the Recording</a>
       </td></tr>
 
-      <!-- PRIMARY CTA: Mindy July 25 -->
+      <!-- PRIMARY CTA: Mindy August 22 -->
       <tr><td style="padding:28px 32px 0;">
         <table width="100%" cellpadding="0" cellspacing="0" style="background:linear-gradient(135deg,#1e293b,#0f172a);border-radius:12px;"><tr><td style="padding:26px 24px;text-align:center;">
-          <p style="color:#fbbf24;font-size:12px;font-weight:700;text-transform:uppercase;letter-spacing:1.5px;margin:0 0 8px;">Free &amp; Live &middot; Saturday, July 25</p>
+          <p style="color:#fbbf24;font-size:12px;font-weight:700;text-transform:uppercase;letter-spacing:1.5px;margin:0 0 8px;">Free &amp; Live &middot; Saturday, August 22</p>
           <p style="color:#ffffff;font-size:21px;font-weight:800;margin:0 0 10px;">🚀 Mindy Demo Webinar</p>
           <p style="color:#cbd5e1;font-size:14px;line-height:1.6;margin:0 0 6px;">Meet <strong style="color:#ffffff;">Mindy &mdash; your 24/7 Federal Market Intelligence Analyst.</strong> She scans <strong style="color:#ffffff;">24,000+ federal opportunities daily</strong>, scores your fit, and tells you which to pursue.</p>
           <p style="color:#94a3b8;font-size:13px;font-style:italic;margin:0 0 18px;">The big contractors have armies. You have Mindy.</p>
@@ -1315,7 +1315,7 @@ export async function sendHubzoneRecordingEmail(params: EmailParams & { recordin
     </table>
   </td></tr></table>
 </body></html>`;
-  return sendEmail(params.to, `${firstName}, your HUBZone recording + what's next (free Mindy demo July 25)`, html);
+  return sendEmail(params.to, `${firstName}, your HUBZone recording + what's next (free Mindy demo August 22)`, html);
 }
 
 /**
