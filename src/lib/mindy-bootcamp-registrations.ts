@@ -20,12 +20,12 @@ const MINDY_BOOTCAMP_SOURCES = ['mindy-launch'];
 
 /** Bootcamp / Mindy Launch date — drives the countdown + pace math, and the
  *  single funnels-side source of truth for the Mindy Day date (SiteNav, reminder
- *  route, spots route read from here). Saturday, July 25, 2026 · 10 AM–1 PM ET.
+ *  route, spots route read from here). Saturday, August 22, 2026 · 10 AM–1 PM ET.
  *  NOTE: the day-of reminder CRON schedule lives in cron_jobs rows (Supabase) and
  *  must be rescheduled there separately — this constant does not drive cron timing. */
-export const BOOTCAMP_DATE_ISO = '2026-07-25';
-export const MINDY_DAY_DATE_LABEL = 'Saturday, July 25, 2026';
-export const MINDY_DAY_SHORT_DATE = 'July 25';
+export const BOOTCAMP_DATE_ISO = '2026-08-22';
+export const MINDY_DAY_DATE_LABEL = 'Saturday, August 22, 2026';
+export const MINDY_DAY_SHORT_DATE = 'August 22';
 
 /** Registration goal — 750 signups → ~500 attendees (67% show rate). */
 export const REGISTRATION_GOAL = 750;
