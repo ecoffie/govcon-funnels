@@ -2,6 +2,7 @@
 
 import { useState } from 'react';
 import { trackLeadConversion } from '@/lib/google-ads';
+import { getLeadSubmissionErrorMessage, submitLead } from '@/lib/lead-submit';
 
 interface LeadFormProps {
   buttonText?: string;
@@ -39,10 +40,12 @@ export default function LeadForm({
     company: ''
   });
   const [isSubmitting, setIsSubmitting] = useState(false);
+  const [errorMessage, setErrorMessage] = useState<string | null>(null);
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setIsSubmitting(true);
+    setErrorMessage(null);
 
     try {
       // Store in localStorage for persistence
@@ -55,14 +58,10 @@ export default function LeadForm({
       localStorage.setItem('govcon_leads', JSON.stringify(leads));
       localStorage.setItem('leadName', formData.name);
 
-      // Post to API endpoint (sends to CRM: GoHighLevel and/or webhook)
-      await fetch('/api/lead', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ ...formData, source, redirectUrl })
-      }).catch(() => {
-        // Continue even if API fails so user still gets redirect
-      });
+      // Post to API endpoint (sends to CRM: GoHighLevel and/or webhook).
+      // Do not redirect unless the server accepts the lead; otherwise rate
+      // limits can look like successful signups while no CRM record exists.
+      await submitLead({ ...formData, source, redirectUrl });
 
       // Fire Google Ads lead conversion, then redirect (deferred so the hit
       // isn't dropped on page unload). Redirects immediately if unconfigured.
@@ -71,6 +70,7 @@ export default function LeadForm({
       });
     } catch (error) {
       console.error('Form submission error:', error);
+      setErrorMessage(getLeadSubmissionErrorMessage(error));
       setIsSubmitting(false);
     }
   };
@@ -119,6 +119,11 @@ export default function LeadForm({
       >
         {isSubmitting ? 'Processing...' : buttonText}
       </button>
+      {errorMessage && (
+        <p className="text-center text-sm text-red-400" role="alert">
+          {errorMessage}
+        </p>
+      )}
       <p className={helperTextClassName}>
         Instant access. No credit card required.
       </p>
