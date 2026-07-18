@@ -22,10 +22,12 @@ function teamGate(request: NextRequest): NextResponse | null {
   if (p !== '/team' && !p.startsWith('/team/')) return null;
   const expected = process.env.TEAM_ACCESS_PASSWORD || '';
   const deny = () =>
-    new NextResponse('Authentication required — internal GovCon Giants team page.', {
+    new NextResponse('Authentication required - internal GovCon Giants team page.', {
       status: 401,
       headers: {
-        'WWW-Authenticate': 'Basic realm="GovCon Giants — Team", charset="UTF-8"',
+        // Header VALUES must be ASCII — no em-dash here or the response construction
+        // throws (500). Body below can be UTF-8; this realm cannot.
+        'WWW-Authenticate': 'Basic realm="GovCon Giants Team"',
         'Cache-Control': 'no-store',
       },
     });
