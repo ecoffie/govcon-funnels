@@ -73,19 +73,23 @@ CTA .............. (one next step)
 
 ---
 
-# Phase 2 · The Editing Blueprint™ (the editor gets this before opening Premiere)
+# Phase 2 · The Editor's Dashboard™ (ONE page before the editor touches footage)
+
+**Producers decide the story; editors amplify it.** That's how great documentaries are made — the story is *found* first (Story DNA + Movie Poster), then edited. No one opens Premiere without this page filled.
 ```
-PROJECT ............
-Movie Poster .......
-Viewer Emotion .....
-Opening ............ (the hook beat)
-Big Reveal .........
-Conflict ...........
-Teaching Moments ... 1. ___  2. ___  3. ___
-Retention Moments .. 1. ___  2. ___  3. ___
-Closing ............ (Legacy)
+STORY
+  Movie Poster ......
+VIEWER
+  Current Belief .... "____"          ← where the viewer starts
+  Desired Belief .... "____"          ← where the video leaves them
+TRANSFORMATION ...... ____ → ____
+OPPORTUNITY ......... ____
+EMOTION ............. ____  (one)
+RETENTION MOMENTS ... 0:00 ___ · 1:30 ___ · 4:20 ___ · 9:00 ___ · 14:00 ___
+THINGS TO CUT ....... repeated explanations · long intros · biography · corporate jargon · dead air
+THINGS TO AMPLIFY ... conflict · emotion · decision · belief shift · proof
 ```
-Now editing is almost mechanical — you cut to the Blueprint, not the transcript.
+Editing becomes almost mechanical — you cut to the Dashboard, not the transcript. **The single filter for every cut: *did it increase belief?*** Not entertaining, not educational — belief. The job is to move one Builder one stage on the EPS journey.
 
 ---
 

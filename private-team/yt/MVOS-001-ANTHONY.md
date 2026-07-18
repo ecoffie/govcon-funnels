@@ -51,23 +51,21 @@
 - "The government told him yes before any bank would — here's the customer that doesn't care about your credit score."
 - "Everyone rushes to be the prime; the man who supports the White House says that's exactly backwards."
 
-## 5 · Editing Blueprint™
+## 5 · Editor's Dashboard™ (the one page the editor gets before touching footage)
 ```
-PROJECT ............ Anthony Closson (Ep 083)
-Movie Poster ....... BANK SAID NO
-Viewer Emotion ..... Hope (with vindication)
-Opening ............ The $10K credit-card denial ("that's how bad the economy was")
-Big Reveal ......... Colossal today supports the White House Communications Agency
-Conflict ........... Zero dollars, 2009 economy, no one would back him
-Teaching Moments ... 1. Master subcontracting before the prime
-                     2. Joint Ventures / Mentor-Protégé (via Koprince, Ep 81)
-                     3. Know your banker by name (own the relationship)
-Retention Moments .. 1. The $10K denial
-                     2. Year two — the same bankers calling HIM
-                     3. White House / SOCOM client reveal
-                     4. "No healthcare growing up → I provide it now"
-Closing ............ Legacy — giving back to the veteran / SDV community
+STORY
+  Movie Poster ...... BANK SAID NO
+VIEWER
+  Current Belief .... "I'll never get funding — no bank will back me."
+  Desired Belief .... "I can build without funding — the government is the customer that backs me."
+TRANSFORMATION ...... Denied a $10K credit card  →  supports the White House
+OPPORTUNITY ......... Subcontractor-first + Joint Ventures (Mentor-Protégé)
+EMOTION ............. Hope (with vindication)
+RETENTION MOMENTS ... 0:00 the $10K denial · 1:30 "zero dollars, 2009" · 4:20 the subcontract-first turn + Koprince JV epiphany · 9:00 White House / SOCOM reveal · 14:00 legacy (the healthcare he never had → gives it now)
+THINGS TO CUT ....... the BRAC backstory detail · long company-history bio · corporate jargon · repeated "market is flooded" points · dead air
+THINGS TO AMPLIFY ... the bank rejection · the "year two, those bankers called ME" reversal · the decision to sub first · the belief shift (prime → sub) · the White House proof
 ```
+**Producers found this story; the editor amplifies it.** Every cut judged by one question: *did it increase belief?*
 
 ## 6 · Documentary structure
 Cold Open (the $10K denial) → Conflict (broke, 2009, no backing) → Origin (staff sergeant evaluating primes' proposals) → Turning Point (subcontract-first + the Koprince JV epiphany) → Framework (how to be a great sub → prime) → Results (White House, SOCOM, DHS) → Lessons (banker, JV, differentiate) → CTA (find one prime to sub under; study MPP).
