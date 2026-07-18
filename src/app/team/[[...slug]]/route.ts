@@ -1,7 +1,7 @@
 import { NextRequest } from 'next/server';
 import { readFile } from 'node:fs/promises';
 import path from 'node:path';
-import { getYtStats, matchEpisodeViews, type YtStats } from '@/lib/youtube-stats';
+import { getYtStats, matchEpisodeViews, getYoutubeSignups, type YtStats } from '@/lib/youtube-stats';
 
 /**
  * Serves the internal /team/* pages (YouTube Command Center + batch production hubs)
@@ -45,7 +45,9 @@ function renderLivePanel(s: YtStats): string {
 }
 
 async function serveCommandCenter(html: string): Promise<string> {
-  const stats = await getYtStats();
+  const [stats, signups] = await Promise.all([getYtStats(), getYoutubeSignups()]);
+  // Signups: null = query failed (show "—"); a map = query ran (show the count, incl. 0).
+  html = html.replace(/\{\{s:(ep\d\d)\}\}/g, (_m, ep) => (signups ? String(signups[ep] ?? 0) : '—'));
   if (!stats) {
     return html.replace(/\{\{v:ep\d\d\}\}/g, '—').replace('<!--YT_LIVE_PANEL-->', '');
   }
