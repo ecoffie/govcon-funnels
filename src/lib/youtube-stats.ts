@@ -13,10 +13,12 @@ const TTL_MS = 60 * 60 * 1000;
 export interface YtVideo {
   id: string;
   title: string;
-  views: number;
-  date: string; // YYYY-MM-DD
+  views: number;       // lifetime (Data API)
+  date: string;        // YYYY-MM-DD
   seconds: number;
   isShort: boolean;
+  views28d?: number;   // last-28-day views (Analytics API, needs OAuth)
+  retention?: number;  // averageViewPercentage 0-100 (Analytics API)
 }
 export interface YtStats {
   channelTitle: string;
@@ -24,6 +26,7 @@ export interface YtStats {
   totalViews: number;
   videoCount: number;
   videos: YtVideo[]; // most-recent uploads, sorted by views desc
+  hasAnalytics: boolean; // true when the 28d/retention layer resolved
   syncedAt: string;
 }
 
@@ -41,6 +44,48 @@ function parseISODuration(d: string): number {
   const m = /^PT(?:(\d+)H)?(?:(\d+)M)?(?:(\d+)S)?$/.exec(d || '');
   if (!m) return 0;
   return (+(m[1] || 0)) * 3600 + (+(m[2] || 0)) * 60 + (+(m[3] || 0));
+}
+
+/** Mint an OAuth access token from the stored refresh token (channel-owner grant). */
+async function getOauthToken(): Promise<string | null> {
+  const id = process.env.YT_OAUTH_CLIENT_ID;
+  const secret = process.env.YT_OAUTH_CLIENT_SECRET;
+  const refresh = process.env.YT_OAUTH_REFRESH_TOKEN;
+  if (!id || !secret || !refresh) return null;
+  try {
+    const r = await fetch('https://oauth2.googleapis.com/token', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+      body: new URLSearchParams({ client_id: id, client_secret: secret, refresh_token: refresh, grant_type: 'refresh_token' }),
+    });
+    const j = await r.json();
+    return j.access_token || null;
+  } catch { return null; }
+}
+
+/** Last-28-day views + retention (averageViewPercentage) per videoId, via YouTube Analytics. */
+async function fetchAnalytics28d(): Promise<Map<string, { views28d: number; retention: number }> | null> {
+  const token = await getOauthToken();
+  if (!token) return null;
+  try {
+    const end = new Date();
+    const start = new Date(end.getTime() - 28 * 24 * 60 * 60 * 1000);
+    const iso = (d: Date) => d.toISOString().slice(0, 10);
+    const u = new URL('https://youtubeanalytics.googleapis.com/v2/reports');
+    u.searchParams.set('ids', 'channel==MINE');
+    u.searchParams.set('startDate', iso(start));
+    u.searchParams.set('endDate', iso(end));
+    u.searchParams.set('metrics', 'views,averageViewPercentage');
+    u.searchParams.set('dimensions', 'video');
+    u.searchParams.set('sort', '-views');
+    u.searchParams.set('maxResults', '200');
+    const r = await fetch(u, { headers: { Authorization: `Bearer ${token}` } });
+    const j = await r.json();
+    if (!Array.isArray(j.rows)) return null;
+    const m = new Map<string, { views28d: number; retention: number }>();
+    for (const row of j.rows) m.set(row[0], { views28d: Number(row[1] || 0), retention: Number(row[2] || 0) });
+    return m;
+  } catch { return null; }
 }
 
 /** Fetch live stats, cached ~1h. Returns null (or stale cache) on any failure — never throws. */
@@ -83,12 +128,23 @@ export async function getYtStats(): Promise<YtStats | null> {
     }
     videos.sort((a, b) => b.views - a.views);
 
+    // Enrich with 28-day views + retention (Analytics API, OAuth). Best-effort: if the
+    // OAuth layer isn't configured or fails, lifetime views still work.
+    const analytics = await fetchAnalytics28d();
+    if (analytics) {
+      for (const v of videos) {
+        const a = analytics.get(v.id);
+        if (a) { v.views28d = a.views28d; v.retention = a.retention; }
+      }
+    }
+
     const data: YtStats = {
       channelTitle: c.snippet?.title || 'GovCon Giants',
       subs: Number(c.statistics?.subscriberCount || 0),
       totalViews: Number(c.statistics?.viewCount || 0),
       videoCount: Number(c.statistics?.videoCount || 0),
       videos,
+      hasAnalytics: !!analytics,
       syncedAt: new Date().toISOString(),
     };
     cache = { at: Date.now(), data };
