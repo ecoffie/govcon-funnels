@@ -1,0 +1,215 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex, nofollow">
+<title>YouTube Command Center · GovCon Giants</title>
+<style>
+  :root{
+    --ink:#0E0E10; --surface:#17171A; --surface2:#1F1F23; --line:#2C2C31;
+    --paper:#EDEBE6; --paper-dim:#A7A5A0; --paper-faint:#6E6D6A;
+    --fire:#E8482B; --gold:#D2A33F; --slate:#6E93B4; --good:#4FA97E; --violet:#8B7FC7;
+  }
+  *{box-sizing:border-box}
+  html{-webkit-text-size-adjust:100%}
+  body{margin:0; background:var(--ink); color:var(--paper);
+    font-family:"Helvetica Neue",Helvetica,Arial,sans-serif; font-size:16px; line-height:1.6; -webkit-font-smoothing:antialiased}
+  .num{font-variant-numeric:tabular-nums}
+  .wrap{max-width:1080px; margin:0 auto; padding:0 24px}
+  h1,h2,h3{font-weight:800; letter-spacing:-.02em; text-wrap:balance; line-height:1.1}
+  a{color:var(--gold); text-decoration:none} a:hover{text-decoration:underline}
+  .ey{font-size:11.5px; font-weight:700; letter-spacing:.2em; text-transform:uppercase; color:var(--fire)}
+
+  header{border-bottom:1px solid var(--line); padding:48px 0 30px; position:relative; overflow:hidden}
+  header::before{content:""; position:absolute; inset:0; background:radial-gradient(120% 90% at 85% -20%, rgba(139,127,199,.16), transparent 55%)}
+  header .wrap{position:relative}
+  h1{font-size:clamp(28px,5vw,46px); margin:12px 0 0}
+  .dek{color:var(--paper-dim); font-size:17px; margin:16px 0 0; max-width:70ch; line-height:1.5} .dek b{color:#fff}
+  .warn{display:inline-block; margin-top:16px; font-size:12px; color:var(--gold); border:1px solid var(--line); background:var(--surface); border-radius:6px; padding:5px 11px}
+
+  section{padding:40px 0; border-bottom:1px solid var(--line)}
+  section:last-of-type{border-bottom:none}
+  h2{font-size:clamp(20px,3vw,26px); margin:0 0 4px}
+  .lead{color:var(--paper-dim); font-size:16px; max-width:72ch; margin:0 0 20px}
+
+  /* MAP */
+  .map{display:grid; grid-template-columns:repeat(auto-fit,minmax(300px,1fr)); gap:14px; margin-top:20px}
+  .card{background:var(--surface); border:1px solid var(--line); border-radius:12px; padding:18px 20px; border-top:3px solid var(--bc)}
+  .card.repo{--bc:var(--good)} .card.art{--bc:var(--violet)} .card.drive{--bc:var(--slate)} .card.funnel{--bc:var(--gold)}
+  .card h3{font-size:15px; margin:0 0 3px; color:#fff}
+  .card .sys{font-size:10.5px; font-weight:700; letter-spacing:.08em; text-transform:uppercase; color:var(--paper-faint)}
+  .card ul{list-style:none; margin:12px 0 0; padding:0}
+  .card li{font-size:14px; padding:4px 0; border-top:1px solid var(--line2, #232327)} .card li:first-child{border-top:none}
+  .card li .m{color:var(--paper-faint); font-size:12px; display:block}
+  .tag{display:inline-block; font-size:9.5px; font-weight:700; letter-spacing:.06em; text-transform:uppercase; padding:2px 7px; border-radius:4px; vertical-align:middle; margin-left:6px}
+  .tag.dur{background:rgba(79,169,126,.16); color:var(--good)} .tag.risk{background:rgba(232,72,43,.16); color:var(--fire)}
+
+  /* SCOREBOARD */
+  .tbl-wrap{overflow-x:auto; margin-top:18px; border:1px solid var(--line); border-radius:12px}
+  table{border-collapse:collapse; width:100%; min-width:900px; font-size:13.5px}
+  th,td{text-align:left; padding:11px 12px; border-bottom:1px solid var(--line)}
+  thead th{background:var(--surface2); color:var(--paper-faint); font-size:10.5px; font-weight:700; letter-spacing:.06em; text-transform:uppercase; position:sticky; top:0}
+  tbody tr:hover{background:var(--surface)}
+  td .ti{color:#fff; font-weight:600}
+  .lane{font-size:9.5px; font-weight:700; letter-spacing:.05em; text-transform:uppercase; padding:2px 7px; border-radius:4px; white-space:nowrap}
+  .lane.W{background:rgba(139,127,199,.18); color:var(--violet)} .lane.N{background:rgba(232,72,43,.16); color:var(--fire)}
+  .lane.C{background:rgba(210,163,63,.16); color:var(--gold)} .lane.F{background:rgba(110,147,180,.16); color:var(--slate)}
+  .st{font-size:11px; font-weight:700}
+  .st.filmed{color:var(--good)} .st.ready{color:var(--gold)} .st.none{color:var(--paper-faint)} .st.live{color:var(--good)}
+  .fill{color:var(--paper-faint); font-style:italic}
+  code{font-family:"SF Mono",ui-monospace,Menlo,monospace; font-size:12px; background:var(--surface2); border:1px solid var(--line); border-radius:5px; padding:2px 6px; color:var(--gold); white-space:nowrap}
+  .copybox{background:var(--surface2); border:1px solid var(--line); border-radius:5px; padding:2px 6px; color:var(--gold); font-family:"SF Mono",ui-monospace,Menlo,monospace; font-size:11.5px}
+
+  .rule{background:var(--surface); border:1px solid var(--line); border-left:3px solid var(--violet); border-radius:12px; padding:20px 22px; margin:20px 0}
+  .rule h3{color:var(--violet); font-size:16px; margin:0 0 12px}
+  .rule .r{display:flex; gap:12px; margin:9px 0; font-size:14px}
+  .rule .r .k{flex:none; width:190px; color:#fff; font-weight:700} .rule .r .v{color:var(--paper-dim)}
+  .rule b{color:#fff}
+
+  .steps{background:var(--surface); border:1px solid var(--line); border-left:3px solid var(--good); border-radius:10px; padding:16px 20px; font-size:14.5px; color:var(--paper-dim)} .steps b{color:#fff}
+
+  footer{padding:34px 0 60px; color:var(--paper-faint); font-size:12.5px} footer code{font-size:11.5px}
+</style>
+</head>
+<body>
+
+<header>
+  <div class="wrap">
+    <div class="ey">GovCon Giants · YouTube · Command Center</div>
+    <h1>One gate for the whole YouTube engine</h1>
+    <p class="dek">Every asset in one place, and the <b>scoreboard that decides Batch 2</b>. Update a row after each publish — the winning lane tells us what to double down on. No more hunting across the repo, artifacts, and Drive.</p>
+    <span class="warn">🔒 Internal — do not share this link publicly</span>
+  </div>
+</header>
+
+<!-- ============ THE MAP ============ -->
+<section>
+  <div class="wrap">
+    <h2>The map — where everything lives</h2>
+    <p class="lead">Three systems hold the content. The <b class="num" style="color:var(--good)">repo</b> is durable (version-controlled); the <b style="color:var(--violet)">artifacts</b> are the weak link (private, random URLs — this page is the index that keeps them findable).</p>
+    <div class="map">
+
+      <div class="card repo">
+        <div class="sys">Git repo · govcongiants.com <span class="tag dur">Durable</span></div>
+        <h3>Production packages hub</h3>
+        <ul>
+          <li><a href="/team/yt-batch1-x7k9q3/">Batch 1 hub — all episode packages</a><span class="m">teleprompter · titles · thumbnails · shot list · shorts · descriptions</span></li>
+          <li><a href="/resources/first-contract-guide.html">Lead magnet — First Contract Guide</a><span class="m">public/resources/first-contract-guide.html</span></li>
+        </ul>
+      </div>
+
+      <div class="card art">
+        <div class="sys">claude.ai artifacts <span class="tag risk">Easy to lose</span></div>
+        <h3>Strategy slates</h3>
+        <ul>
+          <li><a href="https://claude.ai/code/artifact/89e197b3-eb50-46ca-bd25-04ea3ee196e6">Batch 1 · Breakout Swings (slate)</a></li>
+          <li><a href="https://claude.ai/code/artifact/e55b1668-7168-477b-832a-517596de96a1">Batch 2 · Amplify the Breakout (slate)</a><span class="m">the reallocation plan — read after Batch 1 data</span></li>
+        </ul>
+      </div>
+
+      <div class="card drive">
+        <div class="sys">Google Drive</div>
+        <h3>Raw materials + strategy</h3>
+        <ul>
+          <li><a href="https://drive.google.com/drive/folders/1e3T8A1lKf7BSYRae1xlsoFVR3_xkA6zl">YT videos Batch 1 — footage</a><span class="m">2026 Video Content › YT videos Batch 1</span></li>
+          <li><a href="https://drive.google.com/drive/folders/1DYbqWHwHgiqrvO11IB5c8FA1tVHMAd-A">8 beat shorts — reel scripts + renders</a></li>
+          <li><a href="https://docs.google.com/spreadsheets/d/1bCGpu0wXejGuH2YdN35rmOnSMdMaOc7E8rc8Z2JzSr4">YT Content Calendar (Sheet)</a></li>
+          <li>YOUTUBE-GROWTH-ENGINE-mindy.md<span class="m">Drive › Eric Docs — master strategy doc</span></li>
+        </ul>
+      </div>
+
+      <div class="card funnel">
+        <div class="sys">Funnel · getmindy.ai</div>
+        <h3>Where views become leads</h3>
+        <ul>
+          <li><a href="https://getmindy.ai/youtube/first-contract-guide">/youtube/first-contract-guide</a><span class="m">email capture — every video's CTA points here</span></li>
+          <li>Signups are attributed by <code>utm_content</code> → see the per-video links below</li>
+        </ul>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ============ SCOREBOARD ============ -->
+<section>
+  <div class="wrap">
+    <h2>The scoreboard — Batch 1</h2>
+    <p class="lead">This is the feedback engine. After each video publishes, fill <b>Published</b>, <b>Peak views</b>, and <b>/youtube signups</b>. The row closest to <b>200K views</b> is the growth breakout; the row with the most signups is the money winner. Those pick Batch 2.</p>
+    <div class="tbl-wrap">
+    <table>
+      <thead>
+        <tr>
+          <th>Ep</th><th>Title</th><th>Lane</th><th>Status</th><th>Published</th>
+          <th>Peak views</th><th>/youtube signups</th><th>Verdict</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr><td>01</td><td class="ti">News slot (TBD)</td><td><span class="lane N">News</span></td><td><span class="st none">Not started</span></td><td class="fill">—</td><td class="fill">—</td><td class="fill">—</td><td class="fill">—</td></tr>
+        <tr><td>02</td><td class="ti"><a href="/team/yt-batch1-x7k9q3/ep02.html">How I'd Win My First $100K Contract</a></td><td><span class="lane C">Converter</span></td><td><span class="st ready">Package ready</span></td><td class="fill">—</td><td class="fill">—</td><td class="fill">—</td><td class="fill">—</td></tr>
+        <tr><td>03</td><td class="ti"><a href="/team/yt-batch1-x7k9q3/ep03.html">The Biggest Customer on Earth ($183B)</a></td><td><span class="lane W">Wide</span></td><td><span class="st filmed">Filmed</span></td><td class="fill">—</td><td class="fill">—</td><td class="fill">—</td><td class="fill">—</td></tr>
+        <tr><td>04</td><td class="ti"><a href="/team/yt-batch1-x7k9q3/ep04.html">Veterans: The Government Will Literally Pay You</a></td><td><span class="lane F">Floor</span></td><td><span class="st filmed">Filmed</span></td><td class="fill">—</td><td class="fill">—</td><td class="fill">—</td><td class="fill">—</td></tr>
+        <tr><td>05</td><td class="ti"><a href="/team/yt-batch1-x7k9q3/ep05.html">9 Boring Businesses That Quietly Print Money</a></td><td><span class="lane W">Wide</span></td><td><span class="st filmed">Filmed</span></td><td class="fill">—</td><td class="fill">—</td><td class="fill">—</td><td class="fill">—</td></tr>
+        <tr><td>06</td><td class="ti"><a href="/team/yt-batch1-x7k9q3/ep06.html">What Trump's 2026 Orders Mean for You</a></td><td><span class="lane N">News</span></td><td><span class="st ready">Package ready</span></td><td class="fill">—</td><td class="fill">—</td><td class="fill">—</td><td class="fill">—</td></tr>
+        <tr><td>07</td><td class="ti"><a href="/team/yt-batch1-x7k9q3/ep07.html">The Towns Quietly Getting Rich</a></td><td><span class="lane W">Wide</span></td><td><span class="st filmed">Filmed</span></td><td class="fill">—</td><td class="fill">—</td><td class="fill">—</td><td class="fill">—</td></tr>
+        <tr><td>08</td><td class="ti"><a href="/team/yt-batch1-x7k9q3/ep08.html">Someone Got Paid $1.1B to Give Advice ($14B)</a></td><td><span class="lane W">Wide</span></td><td><span class="st filmed">Filmed</span></td><td class="fill">—</td><td class="fill">—</td><td class="fill">—</td><td class="fill">—</td></tr>
+        <tr><td>09</td><td class="ti"><a href="/team/yt-batch1-x7k9q3/ep09.html">7 Government Contracting Scams</a></td><td><span class="lane F">Floor</span></td><td><span class="st filmed">Filmed</span></td><td class="fill">—</td><td class="fill">—</td><td class="fill">—</td><td class="fill">—</td></tr>
+        <tr><td>10</td><td class="ti"><a href="/team/yt-batch1-x7k9q3/ep10.html">Type YOUR Business Into This Free Tool (Live)</a></td><td><span class="lane C">Converter</span></td><td><span class="st ready">Package ready</span></td><td class="fill">—</td><td class="fill">—</td><td class="fill">—</td><td class="fill">—</td></tr>
+      </tbody>
+    </table>
+    </div>
+    <p style="font-size:12.5px; color:var(--paper-faint); margin-top:12px">Status is inferred: <b style="color:var(--good)">Filmed</b> = raw footage present in the Drive "YT videos Batch 1" folder · <b style="color:var(--gold)">Package ready</b> = script/package built, not yet filmed. Correct as needed.</p>
+  </div>
+</section>
+
+<!-- ============ PER-VIDEO TRACKING LINKS ============ -->
+<section>
+  <div class="wrap">
+    <h2>The tracking links — one per video (this is what makes "double down" possible)</h2>
+    <p class="lead">Right now every video points to the same guide, so we can't tell which video drove a signup. Put the video's <b>own</b> link in its description / end screen. Same guide, unique <code>utm_content</code> — then the scoreboard's signup column fills itself.</p>
+    <div class="tbl-wrap">
+    <table>
+      <thead><tr><th>Ep</th><th>Put this link in the video description</th></tr></thead>
+      <tbody>
+        <tr><td>02</td><td><span class="copybox">https://getmindy.ai/youtube/first-contract-guide?utm_source=youtube&amp;utm_medium=video&amp;utm_content=ep02</span></td></tr>
+        <tr><td>03</td><td><span class="copybox">https://getmindy.ai/youtube/first-contract-guide?utm_source=youtube&amp;utm_medium=video&amp;utm_content=ep03</span></td></tr>
+        <tr><td>04</td><td><span class="copybox">https://getmindy.ai/youtube/first-contract-guide?utm_source=youtube&amp;utm_medium=video&amp;utm_content=ep04</span></td></tr>
+        <tr><td>05</td><td><span class="copybox">https://getmindy.ai/youtube/first-contract-guide?utm_source=youtube&amp;utm_medium=video&amp;utm_content=ep05</span></td></tr>
+        <tr><td>06</td><td><span class="copybox">https://getmindy.ai/youtube/first-contract-guide?utm_source=youtube&amp;utm_medium=video&amp;utm_content=ep06</span></td></tr>
+        <tr><td>07</td><td><span class="copybox">https://getmindy.ai/youtube/first-contract-guide?utm_source=youtube&amp;utm_medium=video&amp;utm_content=ep07</span></td></tr>
+        <tr><td>08</td><td><span class="copybox">https://getmindy.ai/youtube/first-contract-guide?utm_source=youtube&amp;utm_medium=video&amp;utm_content=ep08</span></td></tr>
+        <tr><td>09</td><td><span class="copybox">https://getmindy.ai/youtube/first-contract-guide?utm_source=youtube&amp;utm_medium=video&amp;utm_content=ep09</span></td></tr>
+        <tr><td>10</td><td><span class="copybox">https://getmindy.ai/youtube/first-contract-guide?utm_source=youtube&amp;utm_medium=video&amp;utm_content=ep10</span></td></tr>
+      </tbody>
+    </table>
+    </div>
+  </div>
+</section>
+
+<!-- ============ THE DOUBLE-DOWN RULE ============ -->
+<section>
+  <div class="wrap">
+    <h2>What the scoreboard decides — the Batch 2 rule</h2>
+    <div class="rule">
+      <h3>Reallocate toward the ceiling you actually hit</h3>
+      <div class="r"><span class="k">A WIDE swing breaks 200K</span><span class="v">→ make <b>5+ siblings of that exact hook</b>. This is the 1M path. (Ep 03 / 05 / 07 / 08 lane.)</span></div>
+      <div class="r"><span class="k">NEWS wins reach</span><span class="v">→ build a standing news/policy cadence — fastest to film, evergreen-refreshable. (Ep 01 / 06 lane.)</span></div>
+      <div class="r"><span class="k">A CONVERTER wins signups</span><span class="v">→ that's the money bucket — make more live-tool + case-study videos <b>even if view-peak is lower</b>. (Ep 02 / 10 lane.)</span></div>
+      <div class="r"><span class="k">Nothing breaks 100K</span><span class="v">→ go <b>wider</b>, not safer — the escalation group.</span></div>
+      <div class="r"><span class="k">Read both signals</span><span class="v"><b>Peak views = growth lane. /youtube signups = money lane.</b> They may differ — fund both, chase the breakout hardest.</span></div>
+    </div>
+    <div class="steps">
+      <b>The loop:</b> Publish Batch 1 → watch ~3–4 weeks → the winning row picks the lane → build 5+ siblings of the winner for Batch 2 → cut the flops. The winning lane's share should grow to 5–6 of the next 10. That's how the channel compounds toward 1M.
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap">
+    YouTube Command Center · GovCon Giants · internal. Durable home in the repo (<code>public/team/yt/</code>) so it can't get lost like a private artifact. Batch 2 = <a href="https://claude.ai/code/artifact/e55b1668-7168-477b-832a-517596de96a1">Amplify the Breakout</a> · full strategy: <code>Drive › Eric Docs › YOUTUBE-GROWTH-ENGINE-mindy.md</code>.
+  </div>
+</footer>
+
+</body>
+</html>
