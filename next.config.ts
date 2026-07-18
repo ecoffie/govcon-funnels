@@ -1,6 +1,11 @@
 import type { NextConfig } from "next";
 
 const nextConfig: NextConfig = {
+  // Bundle the private /team HTML (served by src/app/team/[[...slug]]/route.ts, gated
+  // by middleware) into that route's serverless function so readFile works on Vercel.
+  outputFileTracingIncludes: {
+    "/team/[[...slug]]": ["./private-team/**/*"],
+  },
   async redirects() {
     return [
       // SEO Migration: .org → .com (May 2026) - canonical is govcongiants.com (no www)
