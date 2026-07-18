@@ -99,27 +99,25 @@ export async function getYtStats(): Promise<YtStats | null> {
   }
 }
 
-/** Best-effort match of a Batch-1 episode to a live video by distinctive title keywords. */
-const EPISODE_HINTS: Record<string, string[]> = {
-  ep02: ['first $100k', 'first 100k', 'win my first', '$100k contract'],
-  ep03: ['biggest customer', '183 billion', '178 billion', 'literally paying you to win'],
-  ep04: ['veteran'],
-  ep05: ['boring business'],
-  ep06: ["trump", '2026 order', 'executive order', 'unspent'],
-  ep07: ['towns', 'getting rich'],
-  ep08: ['consultant', 'give advice', '$14 billion', '$1.1 billion'],
-  ep09: ['scam'],
-  ep10: ['type your business', 'type in your business', 'this free tool', 'watch mindy'],
+/**
+ * EXPLICIT episode → YouTube video ID map — the source of truth for the scoreboard
+ * rows. Title-guessing was removed: it mis-attributed non-Batch-1 videos to episodes
+ * (e.g. an "unused funding" video got tagged Ep03), which would corrupt the Batch-2
+ * "double down on the winner" signal. As each Batch-1 episode publishes, paste its
+ * 11-char YouTube video ID here (from youtu.be/<ID> or watch?v=<ID>). Empty = row
+ * shows "—" until mapped. The live panel below always shows real data, unmapped.
+ */
+const EPISODE_VIDEO_IDS: Record<string, string> = {
+  // ep02: '', ep03: '', ep04: '', ep05: '', ep06: '',
+  // ep07: '', ep08: '', ep09: '', ep10: '',
 };
 
 export function matchEpisodeViews(stats: YtStats): Record<string, { views: number; title: string; date: string }> {
+  const byId = new Map(stats.videos.map((v) => [v.id, v]));
   const out: Record<string, { views: number; title: string; date: string }> = {};
-  for (const [ep, hints] of Object.entries(EPISODE_HINTS)) {
-    // pick the highest-view non-Short video whose title contains any hint
-    const match = stats.videos
-      .filter((v) => !v.isShort && hints.some((h) => v.title.toLowerCase().includes(h)))
-      .sort((a, b) => b.views - a.views)[0];
-    if (match) out[ep] = { views: match.views, title: match.title, date: match.date };
+  for (const [ep, id] of Object.entries(EPISODE_VIDEO_IDS)) {
+    const v = id && byId.get(id);
+    if (v) out[ep] = { views: v.views, title: v.title, date: v.date };
   }
   return out;
 }
