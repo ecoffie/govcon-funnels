@@ -65,6 +65,7 @@ function contentType(p: string): string {
   if (p.endsWith('.png')) return 'image/png';
   if (p.endsWith('.jpg') || p.endsWith('.jpeg')) return 'image/jpeg';
   if (p.endsWith('.svg')) return 'image/svg+xml';
+  if (p.endsWith('.md') || p.endsWith('.txt')) return 'text/plain; charset=utf-8'; // view inline, don't download
   return 'application/octet-stream';
 }
 
