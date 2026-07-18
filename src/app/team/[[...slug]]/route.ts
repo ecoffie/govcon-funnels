@@ -20,18 +20,27 @@ const fmt = (n: number) => Number(n).toLocaleString('en-US');
 
 /** The live "auto-pulled from YouTube" panel injected into the command center. */
 function renderLivePanel(s: YtStats): string {
+  const A = s.hasAnalytics;
   const rows = s.videos
     .filter((v) => !v.isShort)
     .slice(0, 12)
-    .map((v, i) => `<tr><td>${i + 1}</td><td class="ti"><a href="https://youtu.be/${v.id}">${v.title.replace(/</g, '&lt;')}</a></td><td>${v.date}</td><td style="text-align:right"><b>${fmt(v.views)}</b></td></tr>`)
+    .map((v, i) => {
+      const ret = v.retention != null ? `${v.retention.toFixed(0)}%` : '—';
+      const v28 = v.views28d != null ? fmt(v.views28d) : '—';
+      return `<tr><td>${i + 1}</td><td class="ti"><a href="https://youtu.be/${v.id}">${v.title.replace(/</g, '&lt;')}</a></td><td>${v.date}</td><td style="text-align:right"><b>${fmt(v.views)}</b></td>${A ? `<td style="text-align:right">${v28}</td><td style="text-align:right">${ret}</td>` : ''}</tr>`;
+    })
     .join('');
   const synced = new Date(s.syncedAt).toISOString().slice(0, 16).replace('T', ' ') + ' UTC';
+  const extraHead = A ? '<th style="text-align:right">28-day views</th><th style="text-align:right">Retention</th>' : '';
+  const note = A
+    ? 'Lifetime totals (Data API) + 28-day views &amp; retention (Analytics API). Retention = average % of each video watched — the content-quality signal; &gt;100% on Shorts means they loop. The <b>Peak views</b> column above auto-fills once each episode\'s video ID is mapped.'
+    : 'Lifetime totals (Data API). 28-day + retention (Analytics API) not resolving right now.';
   return `
   <div class="rule" style="border-left-color:var(--good)">
     <h3 style="color:var(--good)">Live from YouTube · auto-pulled</h3>
     <p style="color:var(--paper-dim);font-size:14px;margin:0 0 14px"><b style="color:#fff">${s.channelTitle}</b> — ${fmt(s.subs)} subscribers · ${fmt(s.totalViews)} lifetime views · ${fmt(s.videoCount)} videos. Top long-form uploads by lifetime views (Shorts excluded). Synced ${synced}; refreshes hourly.</p>
-    <div class="tbl-wrap"><table><thead><tr><th>#</th><th>Video</th><th>Published</th><th style="text-align:right">Lifetime views</th></tr></thead><tbody>${rows}</tbody></table></div>
-    <p style="font-size:12px;color:var(--paper-faint);margin-top:10px">Lifetime totals (Data API). 28-day + retention need the Analytics API (OAuth) — ask to add. The <b>Peak views</b> column above auto-fills for episodes matched by title.</p>
+    <div class="tbl-wrap"><table><thead><tr><th>#</th><th>Video</th><th>Published</th><th style="text-align:right">Lifetime views</th>${extraHead}</tr></thead><tbody>${rows}</tbody></table></div>
+    <p style="font-size:12px;color:var(--paper-faint);margin-top:10px">${note}</p>
   </div>`;
 }
 
