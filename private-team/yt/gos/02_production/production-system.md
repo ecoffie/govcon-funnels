@@ -1,7 +1,7 @@
 # The GovCon Giants Production System™
 ### Layer 3 — Practices · reverse-engineered from our own winning content
 
-This is the operational half of [The GovCon Giants Method™](./THE-GOVCON-GIANTS-METHOD.md) — the *how*. The Laws are timeless; these Practices evolve as the platform does. But they are **not opinions.** Like *Good to Great*, we started with the evidence, found the patterns, and turned patterns into practice — using our own 1,759-video catalog and the natural experiments inside it (the VA video repackaged from the same footage; five transformation interviews vs. the buried long-form tail).
+This is the operational half of [The GovCon Giants Method™](../01_method/method.md) — the *how*. The Laws are timeless; these Practices evolve as the platform does. But they are **not opinions.** Like *Good to Great*, we started with the evidence, found the patterns, and turned patterns into practice — using our own 1,759-video catalog and the natural experiments inside it (the VA video repackaged from the same footage; five transformation interviews vs. the buried long-form tail).
 
 > **The rule:** we don't invent a "best practice." We find what actually changed in the data, then write it down.
 
@@ -36,16 +36,16 @@ Winners = top 10% by views-per-month (controls for age). Buried = long-form inte
 
 The system answers these, in order. ✅ = evidence-backed now · 🔬 = to reverse-engineer from transcripts next.
 
-1. **How do we analyze a transcript?** 🔬 → Run it through [Story Excavation™](./THE-GOVCON-GIANTS-METHOD.md): who-before / struggle / fear / what-almost-made-them-quit.
+1. **How do we analyze a transcript?** 🔬 → Run it through [Story Excavation™](../01_method/method.md): who-before / struggle / fear / what-almost-made-them-quit.
 2. **How do we identify Story DNA?** 🔬 → Fill all seven genes (WHO→…→LEGACY). If any is blank, keep digging.
-3. **How do we rewrite an interview into a documentary?** 🔬 → Re-order raw footage into the [Documentary Formula™](./THE-GOVCON-GIANTS-METHOD.md): Cold Open → Conflict → Origin → Turning Point → Framework → Results → Lessons → CTA.
+3. **How do we rewrite an interview into a documentary?** 🔬 → Re-order raw footage into the [Documentary Formula™](../01_method/method.md): Cold Open → Conflict → Origin → Turning Point → Framework → Results → Lessons → CTA.
 4. **How do we edit for retention?** 🔬 → *(To measure from YouTube retention curves on winners vs. losers — where do viewers drop, where do they stay.)*
 5. **How do we build opening hooks?** 🔬 → *(Reverse-engineer the first 30 seconds of the top 10 performers vs. the buried ones.)*
 6. **How do we know what to cut?** 🔬 → Cut anything that doesn't serve the one belief shift / one promise (Standard: One Promise).
 7. **How do we create Shorts?** 🔬 → One beat = one Short (conflict moment, number reveal, belief-shift line).
 8. **How do we review an edit?** ✅ Movie Poster Test™ + the Promise checklist.
-9. **How do we package a video?** ✅ **The six evidence-backed rules above** + the [Packaging Matrix™](./THE-GOVCON-GIANTS-METHOD.md).
-10. **How do we score it before publishing?** ✅ [Story Score™](./THE-GOVCON-GIANTS-METHOD.md) (>50/70 = green light) + the packaging checklist below.
+9. **How do we package a video?** ✅ **The six evidence-backed rules above** + the [Packaging Matrix™](../01_method/method.md).
+10. **How do we score it before publishing?** ✅ [Story Score™](../01_method/method.md) (>50/70 = green light) + the packaging checklist below.
 
 ---
 

@@ -1,7 +1,7 @@
 # The GovCon Giants Viral Packaging Framework™
 
 **Status:** Standing packaging law for the YouTube engine. Every episode passes through this before it publishes.
-**Home:** `private-team/yt/` — companion to the [YouTube Command Center](./index.html) scoreboard.
+**Home:** `private-team/yt/` — companion to the [YouTube Command Center](../../index.html) scoreboard.
 **Derived from:** analysis of four interviews (Anthony, Jackson, the VA veteran, Shane/Tomas) + the live channel data.
 
 ---
@@ -157,6 +157,6 @@ Run against the live Batch 1 lineup — the framework flags which titles ship so
 
 ## How this plugs into the scoreboard
 
-Make **"passes the GovCon Giants Rule"** the publish gate on the [Command Center scoreboard](./index.html): no episode goes live until its title can begin with *"Everyone thinks…"* / *"Nobody told me…"* and its thumbnail is ≤4 words. The scoreboard then measures which **lane** and which **belief shift** actually broke out — and *that* decides Batch 2.
+Make **"passes the GovCon Giants Rule"** the publish gate on the [Command Center scoreboard](../../index.html): no episode goes live until its title can begin with *"Everyone thinks…"* / *"Nobody told me…"* and its thumbnail is ≤4 words. The scoreboard then measures which **lane** and which **belief shift** actually broke out — and *that* decides Batch 2.
 
 > **In one line:** stop brainstorming every upload from scratch. Distill each interview into a **belief shift**, a **transformation**, and **one dominant emotion**. That turns isolated hits into a repeatable system — the channel's competitive advantage.

@@ -115,5 +115,5 @@ Each turns a one-off into a compounding asset:
 
 ---
 
-# First validated run → **[MVOS-001 · Anthony Closson](./MVOS-001-ANTHONY.md)**
+# First validated run → **[MVOS-001 · Anthony Closson](./mvos-001-anthony.md)**
 The minimum viable operating system, run on a real interview (Ep 083, grounded in the transcript). If it works, we don't just have a better video — we have the first validated version of the Production System, and every video after is another iteration that compounds.

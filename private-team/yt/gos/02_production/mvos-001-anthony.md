@@ -1,6 +1,6 @@
 # MVOS-001 · Anthony Closson — the first validated run
 
-*The minimum viable operating system, run on a real interview (GovCon Giants Podcast Ep 083, "Anthony Closson"). Every element below is grounded in the actual transcript — this is the proof that [Project Titan](./PROJECT-TITAN.md) works on real content, not a hypothetical.*
+*The minimum viable operating system, run on a real interview (GovCon Giants Podcast Ep 083, "Anthony Closson"). Every element below is grounded in the actual transcript — this is the proof that [Project Titan](./project-titan.md) works on real content, not a hypothetical.*
 
 ---
 

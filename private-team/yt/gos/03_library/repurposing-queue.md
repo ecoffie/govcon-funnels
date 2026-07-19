@@ -1,6 +1,6 @@
 # The Repurposing Queue — mining the back catalog
 
-**The primary use of the [Packaging Framework](./PACKAGING-FRAMEWORK.md): re-package videos you already filmed.** No new production. Same footage → framework title + ≤4-word thumbnail + transformation description → traction.
+**The primary use of the [Packaging Framework](../01_method/packaging-system.md): re-package videos you already filmed.** No new production. Same footage → framework title + ≤4-word thumbnail + transformation description → traction.
 
 ## The proof (same video, only the packaging changed)
 
@@ -88,7 +88,7 @@ Judy Bradt "prepare for your call" (1,352) · "RFI/Sources Sought + rule of two"
 
 ## Workflow (per repurposed video)
 1. Pick a starved interview with a real transformation or hidden advantage on tape.
-2. Run it through the [Pyramid](./PACKAGING-FRAMEWORK.md#pillar-9): belief shift → hidden secret → conflict → lesson → one-sentence hook.
+2. Run it through the [Pyramid](../01_method/packaging-system.md#pillar-9): belief shift → hidden secret → conflict → lesson → one-sentence hook.
 3. New title (starts with "Everyone thinks…" / "Nobody told me…"), ≤4-word thumbnail, transformation description.
 4. Optional: trim the long cut (the VA repackage went 55:36 → 43:59).
 5. Log the before→after views so we can prove the lift, same as the VA case study.
