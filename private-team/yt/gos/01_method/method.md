@@ -181,7 +181,7 @@ Story DNA → Emotion → Title → Thumbnail → Opening Hook → Shorts → Co
 - **Title** expands the promise — story, not topic ("Everyone thinks… / Nobody told me…"; never "Interview with… / Episode 131…").
 - **Thumbnail** visualizes the promise — **≤ 4 words**, one formula (OLD→NEW · NO→YES · STOP · MONEY · QUESTION).
 - **Opening** delivers the promise: *"Today you're going to meet someone who did ___ despite ___ and discovered ___ that changed everything."*
-- One emotion, one promise — three parts of one conversation. *(Pillar-level detail: [Packaging module](./PACKAGING-FRAMEWORK.md).)*
+- One emotion, one promise — three parts of one conversation. *(Pillar-level detail: [Packaging module](./packaging-system.md).)*
 
 ### Movie Poster Test™ — *is the promise compelling?*
 The final gate. *If Netflix hung one poster in Times Square, what would it say?* The promise, not the plot: `VA PAYS YOU` · `BANK SAID NO` · `BUY, DON'T BUILD` · `YOU'RE DOING 8(a) WRONG`. **If the poster doesn't make someone stop walking, the thumbnail won't make them stop scrolling.**
@@ -193,7 +193,7 @@ Cold Open → Conflict → Origin → Turning Point → Framework → Results �
 Open on the human and the conflict, never the résumé. Teach only after they care. End on the next step.
 
 ### Analytics Loop™ — *how do we improve?*
-Score every upload — **CTR · Retention · Emotion · Story Type · Title Formula · Thumbnail Formula · Opening Hook** — so we learn which Story DNA performs best and steer what we film and repurpose. Feeds the [Command Center scoreboard](./index.html).
+Score every upload — **CTR · Retention · Emotion · Story Type · Title Formula · Thumbnail Formula · Opening Hook** — so we learn which Story DNA performs best and steer what we film and repurpose. Feeds the [Command Center scoreboard](../../index.html).
 
 ### Content Bible Database™ — *how does it compound?*
 One record per story — *Story DNA · Opportunity DNA · Story Score · Movie Poster · Hook · Thumbnail · Titles · Quotes · Lessons · Results.* Three hundred interviews later, a structured library of proof no competitor has. **The database is the moat.**
@@ -268,9 +268,9 @@ The Laws are truths about the world; the **Values** are commitments about how *w
 **Case Study — the VA video (packaging only, same footage):** "31: Veterans get paid to learn government contracting" (3,979 views / 6 yrs) → "Veterans: The VA Will PAY You to Start a Business" (34,986 / 5 months). **~125× the monthly velocity, zero new filming.** Compass: *Underdog / Opportunity.* Poster: `VA PAYS YOU`. *(Anthony, Shane, Jackson join the record as they prove out — the seed of the Database.)*
 
 **Applications — where the Method is applied:**
-- **[Repurposing Queue](./REPURPOSING-QUEUE.md)** — the back-catalog engine (994 of 1,759 videos under 1K views; 356 candidates ranked). The primary near-term use: traction with zero new filming.
-- **[Batch 1 Packaging Sheet](./BATCH1-PACKAGING-SHEET.md)** — new episodes through the Matrix.
-- **[Packaging module](./PACKAGING-FRAMEWORK.md)** · **[Command Center](./index.html)** — the scoreboard that closes the Analytics Loop.
+- **[Repurposing Queue](../03_library/repurposing-queue.md)** — the back-catalog engine (994 of 1,759 videos under 1K views; 356 candidates ranked). The primary near-term use: traction with zero new filming.
+- **[Batch 1 Packaging Sheet](../02_production/batch1-packaging-sheet.md)** — new episodes through the Matrix.
+- **[Packaging module](./packaging-system.md)** · **[Command Center](../../index.html)** — the scoreboard that closes the Analytics Loop.
 
 ---
 

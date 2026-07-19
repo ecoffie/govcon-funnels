@@ -51,7 +51,7 @@ Every success story becomes evidence that inspires the next entrepreneur.
 
 ---
 
-## Our Frameworks *(detail: [01_Method](../../THE-GOVCON-GIANTS-METHOD.md))*
+## Our Frameworks *(detail: [01_Method](../01_method/method.md))*
 - **Story DNA™** — WHO → BEFORE → TRIGGER → CONFLICT → DISCOVERY → TRANSFORMATION → LEGACY
 - **Story Compass™** — Builder · Empire · Opportunity · Underdog · Contrarian · Insider · Playbook · Second Chance
 - **Story Excavation™** — the interview process that uncovers Story DNA

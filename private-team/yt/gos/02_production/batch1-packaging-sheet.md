@@ -1,6 +1,6 @@
 # Batch 1 — Locked Packaging Sheet
 
-Every episode run through the [Packaging Framework](./PACKAGING-FRAMEWORK.md) Pyramid before it ships:
+Every episode run through the [Packaging Framework](../01_method/packaging-system.md) Pyramid before it ships:
 **belief shift · one dominant emotion · ≤4-word thumbnail · story-title · one-sentence hook.**
 
 **The spine (thread one line into every cold-open or CTA):** *Every other creator teaches you how to MAKE money — nobody hands you the customer. We hand you the customer: one that's legally required to buy, can't ghost you, can't stiff you (just slower + more paperwork). Slower but bulletproof beats easy money.*
@@ -126,4 +126,4 @@ Fill against the framework when the news lands:
 - [ ] Exactly **one** dominant emotion
 - [ ] One-sentence hook written, wedge threaded into cold-open or CTA
 - [ ] `utm_content` set so the scoreboard auto-attributes signups
-- [ ] Publish date filled on the [scoreboard](./index.html)
+- [ ] Publish date filled on the [scoreboard](../../index.html)

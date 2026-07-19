@@ -38,9 +38,9 @@ GOS/
 | Module | Artifacts |
 |---|---|
 | **00_Vision** | **[Constitution](./00_vision/constitution.md)** · **[Foundations](./00_vision/foundations.md)** |
-| 01_Method | [The GovCon Giants Method™](../THE-GOVCON-GIANTS-METHOD.md) · [Packaging](../PACKAGING-FRAMEWORK.md) *(migrate into folder in v0.2)* |
-| 02_Production | [Production System™](../THE-PRODUCTION-SYSTEM.md) · [Project Titan](../PROJECT-TITAN.md) · [MVOS-001 · Anthony](../MVOS-001-ANTHONY.md) · [Batch 1 sheet](../BATCH1-PACKAGING-SHEET.md) |
-| 03_Library | [Repurposing Queue](../REPURPOSING-QUEUE.md) *(seed of the Opportunity Database)* |
+| 01_Method | [The GovCon Giants Method™](./01_method/method.md) · [Packaging System](./01_method/packaging-system.md) · **Templates:** [Story DNA Worksheet™](./01_method/templates/story-dna-worksheet.md) · [Story Score™](./01_method/templates/story-score.md) · [Movie Poster Test™](./01_method/templates/movie-poster-test.md) |
+| 02_Production | [Production System™](./02_production/production-system.md) · [Project Titan](./02_production/project-titan.md) · [MVOS-001 · Anthony](./02_production/mvos-001-anthony.md) · [Batch 1 sheet](./02_production/batch1-packaging-sheet.md) |
+| 03_Library | [Repurposing Queue](./03_library/repurposing-queue.md) *(seed of the Opportunity Database)* |
 | 04_R&D | **[Decision Journal™](./04_rnd/decision-journal.md)** · **[Failed Assumptions](./04_rnd/failed-assumptions.md)** |
 | 05_Company | *(v0.5+)* |
 | **99_Discoveries** | **[Discoveries](./99_discoveries/discoveries.md)** |
@@ -54,8 +54,8 @@ GOS/
 ## Version roadmap (ship one release at a time)
 | Version | Delivers |
 |---|---|
-| **GOS 0.1** | Architecture — Constitution, Foundations, Discoveries, Decision Journal, Failed Assumptions *(← we are here)* |
-| GOS 0.2 | Method — Story DNA worksheets, Story Score™, Movie Poster templates; migrate docs into modules |
+| GOS 0.1 | Architecture — Constitution, Foundations, Discoveries, Decision Journal, Failed Assumptions ✅ |
+| **GOS 0.2** | Method — Story DNA worksheet, Story Score™, Movie Poster Test templates + docs migrated into modules *(← we are here)* |
 | GOS 0.3 | Production — Producer / Editor / Thumbnail / Title / QA SOPs |
 | GOS 0.4 | Learning Loop™ + Experiment Log |
 | GOS 0.5 | Story Database™ + Opportunity Database™ |
