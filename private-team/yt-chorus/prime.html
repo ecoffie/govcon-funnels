@@ -1,0 +1,374 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="robots" content="noindex, nofollow">
+<title>Chorus · Stop Trying to Be the Prime · Production Package</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<style>
+  :root{--bg:#0a0d10;--bg-raise:#111519;--bg-card:#131820;--ink:#e7e9ec;--ink-dim:#a3acb8;--ink-faint:#6b7480;--line:#232a32;--line-soft:#1a2028;--money:#38bdf8;--money-deep:#0ea5e9;--go:#34d399;--amber:#d4a24e;--slate:#8b93a1;--violet:#a78bfa;--radius:14px;--maxw:1080px;--mono:ui-monospace,"SF Mono","Cascadia Code",Menlo,Consolas,monospace;--sans:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;--display:"Helvetica Neue","Arial Black",var(--sans);}
+  :root[data-theme="light"]{--bg:#f4f6f8;--bg-raise:#fff;--bg-card:#fff;--ink:#141a1f;--ink-dim:#4a545f;--ink-faint:#7d8792;--line:#e0e4e8;--line-soft:#eaeef1;--money:#0284c7;--money-deep:#0369a1;--go:#0f8a56;}
+  @media (prefers-color-scheme:light){:root:not([data-theme="dark"]){--bg:#f4f6f8;--bg-raise:#fff;--bg-card:#fff;--ink:#141a1f;--ink-dim:#4a545f;--ink-faint:#7d8792;--line:#e0e4e8;--line-soft:#eaeef1;--money:#0284c7;--money-deep:#0369a1;--go:#0f8a56;}}
+  *{box-sizing:border-box;}html{scroll-behavior:smooth;scroll-padding-top:68px;}@media (prefers-reduced-motion:reduce){html{scroll-behavior:auto;}}
+  body{margin:0;background:var(--bg);color:var(--ink);font-family:var(--sans);line-height:1.6;-webkit-font-smoothing:antialiased;font-size:16px;}
+  .wrap{max-width:var(--maxw);margin:0 auto;padding:0 22px;}
+  nav{position:sticky;top:0;z-index:50;background:color-mix(in srgb,var(--bg) 88%,transparent);backdrop-filter:blur(12px);border-bottom:1px solid var(--line);}
+  .nav-inner{max-width:var(--maxw);margin:0 auto;padding:10px 22px;display:flex;align-items:center;gap:6px;overflow-x:auto;scrollbar-width:none;}.nav-inner::-webkit-scrollbar{display:none;}
+  .nav-inner a{color:var(--ink-dim);text-decoration:none;white-space:nowrap;font-size:13px;font-weight:600;padding:6px 11px;border-radius:8px;transition:color .15s,background .15s;}
+  .nav-inner a:hover{color:var(--ink);background:var(--bg-raise);}.nav-inner a.tp{color:var(--money);}
+  .nav-brand{font-weight:800;font-size:13px;margin-right:8px;color:var(--ink);letter-spacing:.02em;}
+  .theme-btn{margin-left:auto;flex:none;background:var(--bg-raise);border:1px solid var(--line);color:var(--ink-dim);border-radius:8px;padding:6px 10px;font-size:12px;cursor:pointer;font-family:var(--mono);}.theme-btn:hover{color:var(--ink);}
+  header{padding:62px 0 40px;border-bottom:1px solid var(--line);}
+  .eyebrow{font-family:var(--mono);font-size:12px;letter-spacing:.14em;text-transform:uppercase;color:var(--money);display:flex;flex-wrap:wrap;gap:8px 14px;margin-bottom:22px;}.eyebrow span{color:var(--ink-faint);}.eyebrow b{color:var(--money);font-weight:700;}
+  h1.hero{font-family:var(--display);font-weight:800;letter-spacing:-0.02em;font-size:clamp(32px,5.4vw,56px);line-height:1.03;margin:0 0 14px;text-wrap:balance;}
+  .subhead{font-size:clamp(17px,2.4vw,21px);color:var(--ink-dim);max-width:62ch;text-wrap:pretty;}.subhead strong{color:var(--ink);font-weight:600;}
+  .steprow{display:grid;grid-template-columns:repeat(auto-fit,minmax(90px,1fr));gap:8px;margin:30px 0 4px;}
+  .st{background:var(--bg-card);border:1px solid var(--line);border-radius:10px;padding:12px 10px;}
+  .st .n{font-family:var(--mono);font-size:10px;color:var(--money);letter-spacing:.08em;}.st .t{font-size:13px;font-weight:600;margin-top:4px;color:var(--ink);}
+  .chips{display:flex;flex-wrap:wrap;gap:8px;margin-top:26px;}
+  .chip{font-family:var(--mono);font-size:12.5px;padding:7px 12px;border-radius:999px;border:1px solid var(--line);color:var(--ink-dim);background:var(--bg-raise);display:inline-flex;align-items:center;gap:7px;}.chip b{color:var(--ink);font-weight:600;}
+  .chip.go{border-color:color-mix(in srgb,var(--go) 45%,var(--line));}.chip.go .dot{background:var(--go);}
+  .dot{width:7px;height:7px;border-radius:50%;background:var(--slate);flex:none;}.chip.blue .dot{background:var(--money);}.chip.amber .dot{background:var(--amber);}
+  section{padding:46px 0;border-bottom:1px solid var(--line-soft);}
+  .sec-head{display:flex;align-items:baseline;gap:14px;margin-bottom:22px;flex-wrap:wrap;}
+  .sec-kicker{font-family:var(--mono);font-size:12px;color:var(--money);letter-spacing:.1em;text-transform:uppercase;}
+  h2{font-family:var(--display);font-weight:800;font-size:clamp(24px,4vw,34px);letter-spacing:-0.015em;margin:0;text-wrap:balance;}.sec-note{color:var(--ink-faint);font-size:14px;}
+  .tp-bar{display:flex;align-items:center;justify-content:space-between;gap:12px;margin-bottom:14px;flex-wrap:wrap;}
+  .copy-btn{background:var(--go);color:#052015;border:none;font-weight:700;padding:10px 18px;border-radius:10px;cursor:pointer;font-size:14px;font-family:var(--sans);display:inline-flex;align-items:center;gap:8px;transition:transform .1s,background .15s;}
+  .copy-btn:hover{filter:brightness(1.08);}.copy-btn:active{transform:translateY(1px);}.copy-btn.done{background:var(--violet);color:#fff;}
+  .tp-meta{font-family:var(--mono);font-size:12.5px;color:var(--ink-faint);}
+  .prompter{background:var(--bg-raise);border:1px solid var(--line);border-radius:var(--radius);padding:8px 4px;max-height:460px;overflow-y:auto;}
+  .prompter pre{font-family:var(--mono);font-size:15px;line-height:1.85;color:var(--ink);white-space:pre-wrap;word-wrap:break-word;margin:0;padding:18px 22px;tab-size:2;}
+  .prompter .marker{color:var(--money);font-weight:700;letter-spacing:.04em;}
+  .grid{display:grid;gap:16px;}.grid.two{grid-template-columns:repeat(auto-fit,minmax(300px,1fr));}
+  .card{background:var(--bg-card);border:1px solid var(--line);border-radius:var(--radius);padding:20px 22px;}
+  .card h3{margin:0 0 10px;font-size:16px;font-weight:700;letter-spacing:-0.01em;}.rank{font-family:var(--mono);font-size:12px;color:var(--ink-faint);}
+  .factbox{border:1px solid color-mix(in srgb,var(--go) 35%,var(--line));background:color-mix(in srgb,var(--go) 7%,var(--bg-card));border-radius:var(--radius);padding:18px 20px;}
+  .factbox h3{margin:0 0 12px;font-size:15px;color:var(--ink);}
+  ul.clean{list-style:none;margin:0;padding:0;display:grid;gap:10px;}
+  ul.clean li{padding-left:22px;position:relative;font-size:14.5px;color:var(--ink-dim);line-height:1.55;}
+  ul.clean li::before{content:"✓";position:absolute;left:0;color:var(--go);font-weight:700;}ul.clean li b{color:var(--ink);font-weight:600;}
+  ul.arrow{list-style:none;margin:0;padding:0;display:grid;gap:10px;}
+  ul.arrow li{padding-left:22px;position:relative;font-size:14.5px;color:var(--ink-dim);line-height:1.55;}
+  ul.arrow li::before{content:"→";position:absolute;left:0;color:var(--money);font-weight:700;}ul.arrow li b{color:var(--ink);font-weight:600;}
+  ol.titles{list-style:none;counter-reset:t;margin:0;padding:0;display:grid;gap:12px;}
+  ol.titles li{counter-increment:t;background:var(--bg-card);border:1px solid var(--line);border-radius:12px;padding:16px 18px 16px 54px;position:relative;font-size:17px;font-weight:600;line-height:1.4;}
+  ol.titles li::before{content:counter(t);position:absolute;left:16px;top:16px;font-family:var(--mono);font-size:14px;color:var(--money);font-weight:700;width:24px;text-align:center;}
+  ol.titles li .flag-pill{display:inline-block;margin-left:8px;font-family:var(--mono);font-size:10.5px;letter-spacing:.06em;text-transform:uppercase;padding:3px 8px;border-radius:999px;vertical-align:middle;font-weight:700;}
+  .flag-pill.a{background:color-mix(in srgb,var(--money) 22%,transparent);color:var(--money);border:1px solid color-mix(in srgb,var(--money) 40%,transparent);}
+  .flag-pill.b{background:color-mix(in srgb,var(--violet) 22%,transparent);color:var(--violet);border:1px solid color-mix(in srgb,var(--violet) 40%,transparent);}
+  ol.titles li p{margin:6px 0 0;font-size:13px;font-weight:400;color:var(--ink-faint);}
+  .thumbs{display:grid;gap:18px;grid-template-columns:repeat(auto-fit,minmax(320px,1fr));}
+  .thumb-mock{aspect-ratio:16/9;border-radius:12px;overflow:hidden;position:relative;border:1px solid var(--line);display:flex;align-items:center;padding:22px;}
+  .thumb-a{background:radial-gradient(120% 120% at 78% 30%,#0e2a3a 0%,#081019 55%,#05090e 100%);}
+  .thumb-b{background:radial-gradient(120% 120% at 22% 78%,#0e2a24 0%,#081512 55%,#050a08 100%);}
+  .thumb-mock .tx{position:relative;z-index:2;}.thumb-mock .big{font-family:var(--display);font-weight:800;line-height:.95;letter-spacing:-0.02em;font-size:clamp(28px,5.6vw,50px);color:#fff;}
+  .thumb-a .big .g{color:var(--money);}.thumb-b .big .g{color:var(--go);}
+  .thumb-mock .sub{font-family:var(--mono);font-size:11px;letter-spacing:.1em;text-transform:uppercase;color:rgba(255,255,255,.62);margin-top:8px;}
+  .thumb-face{position:absolute;right:0;bottom:0;width:34%;height:92%;z-index:1;border-left:1px dashed rgba(255,255,255,.18);display:flex;align-items:flex-end;justify-content:center;padding-bottom:8px;}
+  .thumb-face span{font-family:var(--mono);font-size:10px;color:rgba(255,255,255,.4);text-align:center;}
+  .thumb-spec{margin-top:12px;font-size:13.5px;color:var(--ink-dim);line-height:1.6;}.thumb-spec b{color:var(--ink);}
+  .shorts{display:grid;gap:12px;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));}
+  .short{background:var(--bg-card);border:1px solid var(--line);border-radius:12px;padding:15px 17px;}
+  .short .n{font-family:var(--mono);font-size:11px;color:var(--money);letter-spacing:.1em;text-transform:uppercase;}.short h4{margin:6px 0 6px;font-size:15px;font-weight:700;}.short p{margin:0;font-size:13px;color:var(--ink-faint);line-height:1.55;}
+  .desc-box{background:var(--bg-raise);border:1px solid var(--line);border-radius:var(--radius);padding:4px;}
+  .desc-box pre{font-family:var(--mono);font-size:13.5px;line-height:1.7;color:var(--ink-dim);white-space:pre-wrap;word-wrap:break-word;margin:0;padding:18px 20px;max-height:380px;overflow-y:auto;}.desc-box .lnk{color:var(--money);}
+  .callout{border:1px solid color-mix(in srgb,var(--violet) 40%,var(--line));background:color-mix(in srgb,var(--violet) 8%,var(--bg-card));border-radius:var(--radius);padding:16px 20px;font-size:14px;color:var(--ink-dim);display:flex;gap:12px;align-items:flex-start;line-height:1.6;}
+  .callout .mk{color:var(--violet);font-weight:800;font-family:var(--mono);flex:none;}.callout b{color:var(--ink);}
+  footer{padding:40px 0 70px;color:var(--ink-faint);font-size:13px;}footer .mono{font-family:var(--mono);}
+  :focus-visible{outline:2px solid var(--money);outline-offset:2px;border-radius:4px;}
+</style>
+
+</head>
+<body>
+<nav><div class="nav-inner">
+  <span class="nav-brand">CHORUS · PACKAGE</span>
+  <a href="#teleprompter" class="tp">▶ Teleprompter</a>
+  <a href="#facts">The 3 clips</a><a href="#titles">Titles</a>
+  <a href="#thumbnails">Thumbnails</a><a href="#shots">Shot list / EDL</a><a href="#shorts">Shorts</a><a href="#description">Description</a><a href="#flywheel">Flywheel</a>
+  <button class="theme-btn" id="themeToggle" aria-label="Toggle theme">◐ theme</button>
+</div></nav>
+
+<header><div class="wrap">
+  <div class="eyebrow">GOVCON GIANTS <span>·</span> THE CHORUS <span>·</span> <b>3 GUESTS · 1 BELIEF</b> <span>·</span> REPURPOSE (ZERO NEW FILMING) <span>·</span> WARM/COLD <span>·</span> MINDY CTA</div>
+  <h1 class="hero">Three Contractors Told Me the Same Thing: Stop Trying to Be the Prime</h1>
+  <p class="subhead"><strong>The Chorus — three unconnected guests, one law.</strong> Movie Poster: <em>SUBCONTRACT FIRST</em>. The belief shift up front — <strong>everyone rushes to be the prime</strong>, but every guest who built a real multi-million-dollar business became a <em>great subcontractor first</em>. The prime spot isn't the starting line — it's the reward. Anthony, Tomas, and Shane corroborate it in their own words, verbatim from three separate interviews. One emotion: <em>relief / permission</em>.</p>
+  <div class="steprow">
+    <div class="st"><div class="n">COLD OPEN</div><div class="t">Everyone wants the prime</div></div>
+    <div class="st"><div class="n">CLIP 1</div><div class="t">Anthony — prime = reward</div></div>
+    <div class="st"><div class="n">CLIP 2</div><div class="t">Tomas — build the blocks</div></div>
+    <div class="st"><div class="n">CLIP 3</div><div class="t">Shane — subK, then prime</div></div>
+    <div class="st"><div class="n">PATTERN</div><div class="t">3 people. Same lesson.</div></div>
+    <div class="st"><div class="n">CTA</div><div class="t">Find the subK work → Mindy</div></div>
+  </div>
+  <div class="chips">
+    <span class="chip"><span class="dot"></span> Format: <b>Chorus (2+ guests, 1 belief)</b></span>
+    <span class="chip"><span class="dot"></span> Runtime: <b>~4–6 min</b></span>
+    <span class="chip go"><span class="dot"></span> CTA: <b>getmindy.ai (find subK work)</b></span>
+    <span class="chip go"><span class="dot"></span> Clips: <b>verbatim + timestamped</b></span>
+    <span class="chip amber"><span class="dot"></span> UTM: <b>chorus-subcontract-first</b></span>
+  </div>
+</div></header>
+
+<main class="wrap">
+
+  <section id="teleprompter">
+    <div class="sec-head"><span class="sec-kicker">Read this on camera (Eric VO over the clips)</span><h2>▶ Teleprompter</h2>
+      <span class="sec-note">Eric's VO only · [CLIP] markers = drop the guest tape · clips must be exact</span></div>
+    <div class="tp-bar"><button class="copy-btn" id="copyBtn">⧉ Copy clean script</button>
+      <span class="tp-meta">~430 words · ~150 wpm · blank line = breath</span></div>
+    <div class="prompter"><pre id="tpText"><span class="marker">═══ COLD OPEN — THE BELIEF ═══</span>
+
+Everybody wants to be the prime. Your name on the contract, running the show, keeping the whole check.
+
+So here's what surprised me. I've interviewed people who actually built real government businesses — and when I asked how they did it, they didn't say "go be the prime." They said the opposite.
+
+Not one of them. Three of them. People who've never met each other. Different branches, different industries, different decades.
+
+Listen to what they told me.
+
+
+<span class="marker">═══ CLIP 1 — ANTHONY ═══</span>
+
+The first is Anthony Closson. Air Force veteran. He runs Colossal Contracting — the White House Communications Agency, DHS, SOCOM. When I asked him how he got to the prime seat, he told me you don't start there. You earn it.
+
+[CLIP: Anthony Closson — "I think people forget the fact they wanna go right to the prime spot and I want the big money... the lessons you learn on being a good subcontractor, prepare you for being good prime... Some of 'em are really tough and you get beat up by the big guys, but they have prepared me now to be the prime contractor." @06:15]
+
+
+<span class="marker">═══ TRANSITION ═══</span>
+
+Now — that could be one guy. One story. Maybe he got lucky.
+
+So here's a completely different person. Different branch. Different playbook. Tomas Santos — Navy veteran, runs Advent Services. And when everybody around him was chasing the guaranteed award, he was doing the opposite on purpose.
+
+
+<span class="marker">═══ CLIP 2 — TOMAS ═══</span>
+
+[CLIP: Tomas Santos — "for us it's not, we're more interested in building the blocks right than getting direct awards." @16:52]
+
+[CLIP: Tomas Santos — "let's face it, it's called the business development program, it's not called the direct-award program, and there's a huge difference. Some people don't understand it." @24:10]
+
+
+<span class="marker">═══ TRANSITION ═══</span>
+
+Two people. Same conclusion. Build first, get paid to learn, don't rush the award.
+
+One more. Shane Prosser bought a small service-disabled veteran-owned business and took it from one million to fifteen million. And before he ever chased a prime, look at what he did first.
+
+
+<span class="marker">═══ CLIP 3 — SHANE ═══</span>
+
+[CLIP: Shane Prosser — "He used staffing-style techniques and tactics to gain revenue as a subcontractor before eventually scaling to prime contracts... After multiple years as a subcontractor, he... secured a $10 million BPA contract with the VA." @03:53]
+
+
+<span class="marker">═══ NAME THE PATTERN ═══</span>
+
+Three different people. Different branches. Different industries. Different decades. And every single one told me the same thing.
+
+The prime spot is not where you start. It's the reward for being a great subcontractor first.
+
+Nobody who lasted ran straight at the prime. They built the blocks. They took the smaller work. They let the big guys beat them up a little — and that's exactly what prepared them to run the whole thing.
+
+So if you've been sitting on the sidelines because you're not ready to be the prime — good. You're not supposed to be. Not yet.
+
+
+<span class="marker">═══ CTA ═══</span>
+
+Here's your one next step. Go find the subcontracting work sitting underneath the big vehicles — who holds it, who's hiring subs, where you fit. That's exactly what I built Mindy to do.
+
+It's at getmindy.ai, and the link's in the description. Go find your first block.
+
+Subscribe — I break down what actually works from the people who did it. I'll see you in the next one.</pre></div>
+  </section>
+
+  <section id="facts">
+    <div class="sec-head"><span class="sec-kicker">The 3 clips — verbatim + timestamped</span><h2>The Chorus (clips must be exact)</h2><span class="sec-note">Pulled from the tapes 2026-07-20 · never paraphrase a guest on screen</span></div>
+    <div class="callout"><span class="mk">⚠</span><div><b>Editor rule:</b> each lower-third clip must match the tape word-for-word — pull the exact in/out from the source doc below, don't re-voice or trim mid-sentence. The whole format only works because it's their own words. <b>Shane's clip needs a verify pass</b> — see the amber note in his card.</div></div>
+    <div class="grid two" style="margin-top:16px">
+      <div class="factbox"><h3>① Anthony Closson — Colossal Contracting</h3>
+        <ul class="clean">
+          <li><b>Credential:</b> Air Force veteran; founder/CEO, Colossal Contracting (SDVOSB) — White House Communications Agency, DHS, SOCOM, USAF, DLA, VA</li>
+          <li><b>Verbatim @ ~06:15:</b> <i>"I think people forget the fact they wanna go right to the prime spot and I want the big money... the lessons you learn on being a good subcontractor, prepare you for being good prime... Some of 'em are really tough and you get beat up by the big guys, but they have prepared me now to be the prime contractor."</i></li>
+          <li><b>Source:</b> GovCon Giants Podcast <b>Ep 083</b> — "Anthony Clossin" transcript · Drive doc id <code style="font-family:var(--mono);font-size:12px">1sm5HyukzgZ1G25jg29OzEdGDnQNVkWVR</code></li>
+          <li><b>In-block:</b> line falls inside the <code style="font-family:var(--mono);font-size:12px">00:05:42 → 00:06:46</code> speaker block — set the in-point on "I think people forget..."</li>
+        </ul>
+      </div>
+      <div class="factbox"><h3>② Tomas Santos — Advent Services</h3>
+        <ul class="clean">
+          <li><b>Credential:</b> Navy veteran; founder/CEO/principal, Advent Services; 8(a) + Joint Venture operator (NIWC Atlantic, Naval War College)</li>
+          <li><b>Verbatim @ 16:52:</b> <i>"for us it's not, we're more interested in building the blocks right than getting direct awards."</i></li>
+          <li><b>Verbatim @ 24:10:</b> <i>"let's face it, it's called the business development program, it's not called the direct-award program, and there's a huge difference. Some people don't understand it."</i></li>
+          <li><b>Source:</b> "Navy Veteran sells company launch new firm using Joint Venture — Tomas Santos" transcript · Drive doc id <code style="font-family:var(--mono);font-size:12px">1yF6zSx_bZmsjTBIf7tYVpf0LlFa6VOjxtvC2rRT88nU</code></li>
+        </ul>
+      </div>
+      <div class="factbox" style="border-color:color-mix(in srgb,var(--amber) 45%,var(--line))"><h3>③ Shane Prosser — SDVOSB acquisition ($1M → $15M)</h3>
+        <ul class="clean">
+          <li><b>Credential:</b> Army veteran (IT/comms, Afghanistan); bought a service-disabled veteran-owned business via SBA financing, grew it 20 → 225 employees and $1M → $15M (won a $10M VA BPA)</li>
+          <li><b>Verbatim @ 03:53:</b> <i>"He used staffing-style techniques and tactics to gain revenue as a subcontractor before eventually scaling to prime contracts."</i> + @ 04:01: <i>"After multiple years as a subcontractor, he... secured a $10 million BPA contract with the VA."</i></li>
+          <li><b>Source:</b> "Buy a veteran owned business for thousands and turn it into millions" · Drive doc id <code style="font-family:var(--mono);font-size:12px">1QF7psWlUMIbrjVu2QRaP_LNgPog_Ijtm7Sr4fklBNtY</code></li>
+          <li style="color:var(--amber)"><b>[VERIFY vs tape]</b> — this transcript is <b>Eric's breakdown/recap video</b>, so the subK→prime line above is <b>Eric narrating Shane's path, not Shane's own words</b>. Before the edit, pull Shane's OWN verbatim subK→prime line from the original sit-down interview so all three clips are the guest speaking. If it can't be found, use this recap line as a lower-third caption over Shane b-roll (Eric VO), not as a "Shane says" clip.</li>
+        </ul>
+      </div>
+      <div class="card"><h3>Why the Chorus works</h3>
+        <p style="color:var(--ink-dim);font-size:14px;margin:0 0 10px">One guest is a <b>testimonial</b>. Three unconnected guests — different branches, industries, decades — independently reaching the same conclusion is a <b>pattern the viewer can't dismiss</b>. It kills survivorship bias ("one lucky guy") and "that wouldn't work for me" at the same time.</p>
+        <p style="color:var(--ink-faint);font-size:13px;margin:0">Pure repurpose: no new filming, only clips we already own, recut around one thesis. No dollar figure is asserted by us — the only numbers on screen ($1M→$15M, $10M VA BPA) are Shane's, spoken in his tape.</p>
+      </div>
+    </div>
+  </section>
+
+  <section id="titles">
+    <div class="sec-head"><span class="sec-kicker">GOS primary + A/B</span><h2>Titles</h2><span class="sec-note">Title = a promise/pattern to "you" · no episode number</span></div>
+    <ol class="titles">
+      <li>Three Contractors Told Me the Same Thing: Stop Trying to Be the Prime <span class="flag-pill a">A · primary</span><p>The Chorus framing — "three... the same thing" signals a pattern, not one opinion. Movie Poster: SUBCONTRACT FIRST.</p></li>
+      <li>I Asked 3 Millionaire Contractors How They Started — They All Said the Same Thing <span class="flag-pill b">B · test</span><p>Curiosity-forward variant — withholds the answer, "millionaire" adds stakes, "all said the same thing" is the pattern hook.</p></li>
+    </ol>
+  </section>
+
+  <section id="thumbnails">
+    <div class="sec-head"><span class="sec-kicker">Movie Poster · 1280×720</span><h2>Thumbnails</h2><span class="sec-note">Eric + 3 small guest cut-outs · ≤4 words · one emotion: relief/permission</span></div>
+    <div class="thumbs">
+      <div><div class="thumb-mock thumb-a"><div class="tx"><div class="big">SUBCONTRACT <span class="g">FIRST</span></div><div class="sub">Movie Poster · 3 guests, 1 warning</div></div><div class="thumb-face"><span>Eric<br>+ Anthony /<br>Tomas /<br>Shane<br>cut-outs</span></div></div>
+        <p class="thumb-spec"><b>Movie Poster — the pattern.</b> "SUBCONTRACT FIRST", FIRST in money-blue. <b>Eric</b> foreground (relief/permission — half-smile, open, "it's OK"), with <b>three small guest cut-out heads</b> stacked on the right third (Anthony, Tomas, Shane) so the eye reads "not one guy — three." Deep blue-black. This is the ship thumbnail.</p></div>
+      <div><div class="thumb-mock thumb-b"><div class="tx"><div class="big">NOT THE PRIME<br><span class="g">— YET</span></div><div class="sub">Alt · the permission</div></div><div class="thumb-face"><span>Eric<br>+ 3 guest<br>cut-outs</span></div></div>
+        <p class="thumb-spec"><b>Alt — the permission.</b> "NOT THE PRIME — YET", the "— YET" in green (the relief beat). Same three-cut-out treatment. A/B this against the poster; whichever holds relief/permission best at Shorts size wins.</p></div>
+    </div>
+  </section>
+
+  <section id="shots">
+    <div class="sec-head"><span class="sec-kicker">Edit Decision List · clip order · b-roll</span><h2>Shot list &amp; EDL</h2><span class="sec-note">Clip in/out = exact from the tapes · verify Shane before locking</span></div>
+    <div class="grid two">
+      <div class="card"><h3>EDL — clip order &amp; in/out</h3><ul class="arrow">
+        <li><b>00 · Cold open (Eric to cam / VO):</b> "Everybody wants to be the prime..." → belief challenge. No clip yet.</li>
+        <li><b>01 · Anthony</b> — in on <b>"I think people forget the fact they wanna go right to the prime spot..."</b> out after <b>"...prepared me now to be the prime contractor."</b> Source in-block <code style="font-family:var(--mono);font-size:12px">05:42→06:46</code>, line ~06:15. Lower-third: <b>Anthony Closson · Colossal Contracting.</b></li>
+        <li><b>02 · Eric bridge:</b> "That could be one guy... here's a completely different person."</li>
+        <li><b>03 · Tomas A</b> — in/out on <b>16:52</b>: "...building the blocks... than getting direct awards." Lower-third: <b>Tomas Santos · Advent Services (Navy vet).</b></li>
+        <li><b>04 · Tomas B</b> — in/out on <b>24:10</b>: "it's called the business development program, it's not called the direct-award program..." (can hard-cut 03→04 as one breath).</li>
+        <li><b>05 · Eric bridge:</b> "Two people, same conclusion... one more."</li>
+        <li><b>06 · Shane</b> — <span style="color:var(--amber)">[VERIFY]</span> pull Shane's OWN subK→prime line from the raw interview. Placeholder from recap: <b>03:53</b> "...revenue as a subcontractor before eventually scaling to prime contracts." Lower-third: <b>Shane Prosser · SDVOSB, $1M→$15M.</b></li>
+        <li><b>07 · Name the pattern (Eric):</b> "Three different people... the prime spot is the reward." </li>
+        <li><b>08 · CTA:</b> "Go find the subK work under the big vehicles → getmindy.ai."</li>
+      </ul></div>
+      <div class="card"><h3>B-roll &amp; on-screen cues</h3><ul class="arrow">
+        <li>Cold open: fast montage of "PRIME" on a contract cover, a name on a marquee — then a record-scratch to the three faces.</li>
+        <li>Persistent <b>counter</b> bug: "1 of 3 → 2 of 3 → 3 of 3" as each guest speaks (sells the pattern).</li>
+        <li>Anthony: b-roll of big primes / a small team; overlay <b>"prime = the reward, not the start."</b></li>
+        <li>Tomas: overlay the phrase <b>"BUSINESS development — not DIRECT-AWARD"</b> with the two words swapping emphasis.</li>
+        <li>Shane: overlay the arc <b>"$1M → $15M"</b> and <b>"subK → prime"</b>; VA/BPA lower-third only if kept in his own words.</li>
+        <li>Pattern beat: three headshots side-by-side, "Different branch / industry / decade" ticking under each.</li>
+        <li>End screen: Subscribe + next card → another veterans Chorus; Mindy link pinned in description.</li>
+      </ul></div>
+    </div>
+  </section>
+
+  <section id="shorts">
+    <div class="sec-head"><span class="sec-kicker">One short per guest line · vertical · burned captions</span><h2>Shorts</h2><span class="sec-note">Hook in the first 1 second · guest's own words</span></div>
+    <div class="shorts">
+      <div class="short"><span class="n">Short 01 · Anthony</span><h4>"You get beat up by the big guys — that's what prepares you"</h4><p>Eric cold line: "Everyone wants to be the prime. This Air Force vet who runs it now says start the other way —" cut to Anthony @06:15: "...the lessons you learn on being a good subcontractor prepare you for being good prime... you get beat up by the big guys, but they prepared me now to be the prime."</p></div>
+      <div class="short"><span class="n">Short 02 · Tomas</span><h4>"It's the business development program — not the direct-award program"</h4><p>Hook: "Everyone chasing the 8(a) wants the guaranteed award. This Navy vet did the opposite —" cut to Tomas @24:10: "it's called the business development program, it's not called the direct-award program... some people don't understand it." Tag: "he built the blocks first."</p></div>
+      <div class="short"><span class="n">Short 03 · Shane</span><h4>"He was a subcontractor for years before he ever chased a prime"</h4><p>Hook: "He took a company from $1M to $15M. Here's what he did first —" the subK-before-prime beat (@03:53). <b>[VERIFY]</b> use Shane's own-voice line once pulled; otherwise Eric VO over Shane b-roll with the $1M→$15M / $10M VA BPA arc.</p></div>
+    </div>
+  </section>
+
+  <section id="description">
+    <div class="sec-head"><span class="sec-kicker">Paste-ready · UTM baked in</span><h2>Description, tags &amp; chapters</h2></div>
+    <div class="desc-box"><pre>Everyone rushes to be the PRIME — your name on the contract, running the show, keeping the whole check. So I asked contractors who actually built real government businesses how they started. Three of them — different branches, different industries, different decades, and they've never met — told me the exact same thing: don't run at the prime. Become a great SUBCONTRACTOR first. The prime spot isn't the starting line. It's the reward.
+
+Anthony Closson (Colossal Contracting — White House, DHS, SOCOM): the lessons you learn as a good subcontractor are what prepared him to be the prime.
+Tomas Santos (Navy vet, Advent Services): "it's called the business development program, it's not the direct-award program" — he built the blocks instead of chasing awards.
+Shane Prosser (SDVOSB, $1M → $15M): years as a subcontractor before he ever pursued primes.
+
+Three different people. Same lesson. The prime is the reward for being a great subcontractor first — not the place you start.
+
+▶ Want to find the subcontracting work sitting under the big vehicles — who holds it, who's hiring subs, where you fit? That's what I built Mindy to do:
+<span class="lnk">https://getmindy.ai?utm_content=chorus-subcontract-first</span>
+
+CHAPTERS
+0:00  Everyone wants to be the prime
+0:35  Anthony — the prime is the reward, not the start
+1:40  Tomas — build the blocks, not the direct awards
+2:45  Shane — subcontractor first, then prime
+3:40  Three people. Same lesson.
+4:20  Where to find the subK work
+
+The one customer legally required to buy from you is the U.S. government — it can't ghost you, it can't stiff you. Slower, more paperwork, but bulletproof.
+
+#governmentcontracts #subcontracting #veteranowned #smallbusiness #federalcontracting #8a #sdvosb #primecontractor #govcon</pre></div>
+    <p class="src-note" style="font-size:13px;color:var(--ink-faint);margin-top:12px;line-height:1.6">CTA = <b>getmindy.ai</b> (find the subcontracting work under the big vehicles) · single primary link with <code style="font-family:var(--mono);font-size:12px">utm_content=chorus-subcontract-first</code>. One next step: go find your first block.</p>
+  </section>
+
+  <section id="flywheel">
+    <div class="sec-head"><span class="sec-kicker">Owned-channel push · fired within the hour of publish</span><h2>Flywheel — LinkedIn + list email</h2><span class="sec-note">Per launch-distribution.md · seeds first-hour watch-time</span></div>
+    <div class="grid two">
+      <div class="card"><h3>1 · LinkedIn post (native — link in FIRST comment)</h3>
+        <div class="desc-box" style="margin-top:6px"><pre>Everyone rushes to be the prime. I think that's exactly why most of them stall.
+
+I asked three contractors who actually built real government businesses how they started. Different branches. Different industries. Different decades. They've never met each other.
+
+All three told me the same thing: don't run at the prime. Be a great subcontractor first.
+
+→ Anthony (White House, DHS, SOCOM): "you get beat up by the big guys — but that's what prepared me to be the prime."
+→ Tomas (Navy vet, 8(a)): "it's the business development program, not the direct-award program." He built the blocks instead of chasing awards.
+→ Shane (took an SDVOSB from $1M to $15M): years as a subcontractor before he ever chased a prime.
+
+The prime spot isn't the starting line. It's the reward.
+
+And remember who the customer is here — the U.S. government is the one customer legally required to buy from you. It can't ghost you. It can't stiff you. Slower, sure. Bulletproof, though.
+
+So if you're not "ready" to be the prime yet — good. You're not supposed to be. Go find your first block.
+
+Full interview in the comments 👇</pre></div>
+        <p class="thumb-spec"><b>First comment:</b> the YouTube link (native text post only — no link in the body, LinkedIn suppresses those). Lead the post with a still/short clip of the three faces.</p>
+      </div>
+      <div class="card"><h3>2 · List email (25K) — plain-letter, from hello@govcongiants.com</h3>
+        <p class="thumb-spec" style="margin-top:0"><b>From:</b> Eric Coffie &lt;hello@govcongiants.com&gt; · <b>Reply-to:</b> service@govcongiants.com · <b>Subject:</b> Three of them told me the same thing · <b>Preview:</b> Stop trying to be the prime (here's what they did instead)</p>
+        <div class="desc-box" style="margin-top:6px"><pre>Subject: Three of them told me the same thing
+Preview: Stop trying to be the prime (here's what they did instead)
+
+—
+
+Quick one today.
+
+I keep meeting people who won't start because they don't feel ready to be <strong>the prime</strong> — name on the contract, running the whole thing.
+
+So I went back through my interviews and asked a simple question: how did the ones who actually made it <u>start</u>?
+
+Three of them — different branches, different industries, different decades, never met each other — told me the <strong>exact same thing</strong>:
+
+→ <strong>Anthony</strong> (White House, DHS, SOCOM): the beatings you take as a good subcontractor are what <u>prepare</u> you to be the prime.
+→ <strong>Tomas</strong> (Navy vet, 8(a)): "it's the <strong>business development</strong> program — not the direct-award program." He built the blocks first.
+→ <strong>Shane</strong> (took a company from $1M to $15M): years as a subcontractor before he ever chased a prime.
+
+Here's the part I want you to sit with: <strong><u>the prime spot isn't the starting line. It's the reward.</u></strong>
+
+If you're not ready to be the prime yet — good. You're not supposed to be. Go find your first block.
+
+→ <u>Watch the full interview</u>
+<span style="color:var(--ink-faint)">(takes about five minutes)</span>
+
+— Eric
+
+P.S. The people still "getting ready" to be the prime three years from now are the ones who skipped this step. The subcontract you take this month is the past performance that makes you the prime later. Don't wait to be picked. Go build the block.</pre></div>
+        <p class="thumb-spec"><b>Style:</b> plain letter — white bg, black text, system sans, no images/buttons/logo banner (lands in Primary, not Promotions). CTA = the underlined <b>→ Watch the full interview</b> text link to the YouTube URL. Fire within the hour of publish.</p>
+      </div>
+    </div>
+    <div class="callout" style="margin-top:16px"><span class="mk">▸</span><div><b>Timing:</b> publish the video → within the hour, send the email + post on LinkedIn (link in first comment) → first-hour watch-time + comments signal YouTube to recommend → views compound. Log the breakout on the <b>Command Center scoreboard</b> (govcongiants.com/team/yt). The email + LinkedIn are the <i>seed</i>; the scoreboard measures the <i>breakout</i>.</div></div>
+  </section>
+
+</main>
+
+<footer class="wrap">
+  <div>GovCon Giants · The Chorus · <b>Stop Trying to Be the Prime</b> · Movie Poster <span class="mono">SUBCONTRACT FIRST</span> — 3 guests / 1 belief, verbatim + timestamped clips (Anthony @06:15 · Tomas @16:52 &amp; @24:10 · Shane @03:53 [verify vs raw tape]). CTA = getmindy.ai · utm_content=chorus-subcontract-first.</div>
+  <div style="margin-top:6px" class="mono">Sources: Ep 083 Anthony Clossin (1sm5Hyukz…) · Tomas Santos (1yF6zSx_…) · Shane / Buy-a-veteran-owned-business (1QF7psWlU…).</div>
+</footer>
+
+<script>
+(function(){
+  var root=document.documentElement,btn=document.getElementById('themeToggle');
+  btn.addEventListener('click',function(){var c=root.getAttribute('data-theme'),n;if(c==='dark')n='light';else if(c==='light')n='dark';else n=window.matchMedia('(prefers-color-scheme: dark)').matches?'light':'dark';root.setAttribute('data-theme',n);});
+  var cb=document.getElementById('copyBtn');
+  cb.addEventListener('click',function(){var el=document.getElementById('tpText');var t=el.innerText.replace(/═══.*?═══/g,'').replace(/\n{3,}/g,'\n\n').trim();navigator.clipboard.writeText(t).then(function(){cb.textContent='✓ Copied — clean spoken words';cb.classList.add('done');setTimeout(function(){cb.textContent='⧉ Copy clean script';cb.classList.remove('done');},2200);}).catch(function(){cb.textContent='⚠ Select + copy manually';});});
+})();
+</script>
+
+</body>
+</html>
