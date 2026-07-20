@@ -39,7 +39,7 @@ export const guide: GuideData = {
           <li><strong>Pricing intelligence.</strong> AI analyzes historical contract pricing data to help you develop competitive price-to-win estimates based on actual award data rather than guesswork.</li>
           <li><strong>Pipeline management.</strong> AI-driven tools can track recompetes, forecast upcoming opportunities, and prioritize your capture pipeline based on data-driven win probability assessments.</li>
         </ul>
-        <p>The contractors who adopt AI tools now will have a compounding advantage over those who wait. Every month of data-driven intelligence builds on the last, making your business development operation smarter and more efficient over time.</p>
+        <p>The contractors who adopt AI tools now will have a compounding advantage over those who wait. Every month of data-driven intelligence builds on the last, making your business development operation smarter and more efficient over time. That compounding edge is exactly what <a href="/mindy-launch">Mindy AI</a> is built to give small-business contractors.</p>
       `,
     },
     {
