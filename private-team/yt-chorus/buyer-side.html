@@ -1,0 +1,406 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="robots" content="noindex, nofollow">
+<title>Chorus · The Buyer's-Side Law — They Want to Pay You · Production Package</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<style>
+  :root{--bg:#0a0d10;--bg-raise:#111519;--bg-card:#131820;--ink:#e7e9ec;--ink-dim:#a3acb8;--ink-faint:#6b7480;--line:#232a32;--line-soft:#1a2028;--money:#38bdf8;--money-deep:#0ea5e9;--go:#34d399;--amber:#d4a24e;--slate:#8b93a1;--violet:#a78bfa;--radius:14px;--maxw:1080px;--mono:ui-monospace,"SF Mono","Cascadia Code",Menlo,Consolas,monospace;--sans:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;--display:"Helvetica Neue","Arial Black",var(--sans);}
+  :root[data-theme="light"]{--bg:#f4f6f8;--bg-raise:#fff;--bg-card:#fff;--ink:#141a1f;--ink-dim:#4a545f;--ink-faint:#7d8792;--line:#e0e4e8;--line-soft:#eaeef1;--money:#0284c7;--money-deep:#0369a1;--go:#0f8a56;}
+  @media (prefers-color-scheme:light){:root:not([data-theme="dark"]){--bg:#f4f6f8;--bg-raise:#fff;--bg-card:#fff;--ink:#141a1f;--ink-dim:#4a545f;--ink-faint:#7d8792;--line:#e0e4e8;--line-soft:#eaeef1;--money:#0284c7;--money-deep:#0369a1;--go:#0f8a56;}}
+  *{box-sizing:border-box;}html{scroll-behavior:smooth;scroll-padding-top:68px;}@media (prefers-reduced-motion:reduce){html{scroll-behavior:auto;}}
+  body{margin:0;background:var(--bg);color:var(--ink);font-family:var(--sans);line-height:1.6;-webkit-font-smoothing:antialiased;font-size:16px;}
+  .wrap{max-width:var(--maxw);margin:0 auto;padding:0 22px;}
+  nav{position:sticky;top:0;z-index:50;background:color-mix(in srgb,var(--bg) 88%,transparent);backdrop-filter:blur(12px);border-bottom:1px solid var(--line);}
+  .nav-inner{max-width:var(--maxw);margin:0 auto;padding:10px 22px;display:flex;align-items:center;gap:6px;overflow-x:auto;scrollbar-width:none;}.nav-inner::-webkit-scrollbar{display:none;}
+  .nav-inner a{color:var(--ink-dim);text-decoration:none;white-space:nowrap;font-size:13px;font-weight:600;padding:6px 11px;border-radius:8px;transition:color .15s,background .15s;}
+  .nav-inner a:hover{color:var(--ink);background:var(--bg-raise);}.nav-inner a.tp{color:var(--money);}
+  .nav-brand{font-weight:800;font-size:13px;margin-right:8px;color:var(--ink);letter-spacing:.02em;}
+  .theme-btn{margin-left:auto;flex:none;background:var(--bg-raise);border:1px solid var(--line);color:var(--ink-dim);border-radius:8px;padding:6px 10px;font-size:12px;cursor:pointer;font-family:var(--mono);}.theme-btn:hover{color:var(--ink);}
+  header{padding:62px 0 40px;border-bottom:1px solid var(--line);}
+  .eyebrow{font-family:var(--mono);font-size:12px;letter-spacing:.14em;text-transform:uppercase;color:var(--money);display:flex;flex-wrap:wrap;gap:8px 14px;margin-bottom:22px;}.eyebrow span{color:var(--ink-faint);}.eyebrow b{color:var(--money);font-weight:700;}
+  h1.hero{font-family:var(--display);font-weight:800;letter-spacing:-0.02em;font-size:clamp(32px,5.4vw,56px);line-height:1.03;margin:0 0 14px;text-wrap:balance;}
+  .subhead{font-size:clamp(17px,2.4vw,21px);color:var(--ink-dim);max-width:62ch;text-wrap:pretty;}.subhead strong{color:var(--ink);font-weight:600;}
+  .steprow{display:grid;grid-template-columns:repeat(auto-fit,minmax(90px,1fr));gap:8px;margin:30px 0 4px;}
+  .st{background:var(--bg-card);border:1px solid var(--line);border-radius:10px;padding:12px 10px;}
+  .st .n{font-family:var(--mono);font-size:10px;color:var(--money);letter-spacing:.08em;}.st .t{font-size:13px;font-weight:600;margin-top:4px;color:var(--ink);}
+  .chips{display:flex;flex-wrap:wrap;gap:8px;margin-top:26px;}
+  .chip{font-family:var(--mono);font-size:12.5px;padding:7px 12px;border-radius:999px;border:1px solid var(--line);color:var(--ink-dim);background:var(--bg-raise);display:inline-flex;align-items:center;gap:7px;}.chip b{color:var(--ink);font-weight:600;}
+  .chip.go{border-color:color-mix(in srgb,var(--go) 45%,var(--line));}.chip.go .dot{background:var(--go);}
+  .dot{width:7px;height:7px;border-radius:50%;background:var(--slate);flex:none;}.chip.blue .dot{background:var(--money);}.chip.amber .dot{background:var(--amber);}
+  section{padding:46px 0;border-bottom:1px solid var(--line-soft);}
+  .sec-head{display:flex;align-items:baseline;gap:14px;margin-bottom:22px;flex-wrap:wrap;}
+  .sec-kicker{font-family:var(--mono);font-size:12px;color:var(--money);letter-spacing:.1em;text-transform:uppercase;}
+  h2{font-family:var(--display);font-weight:800;font-size:clamp(24px,4vw,34px);letter-spacing:-0.015em;margin:0;text-wrap:balance;}.sec-note{color:var(--ink-faint);font-size:14px;}
+  .tp-bar{display:flex;align-items:center;justify-content:space-between;gap:12px;margin-bottom:14px;flex-wrap:wrap;}
+  .copy-btn{background:var(--go);color:#052015;border:none;font-weight:700;padding:10px 18px;border-radius:10px;cursor:pointer;font-size:14px;font-family:var(--sans);display:inline-flex;align-items:center;gap:8px;transition:transform .1s,background .15s;}
+  .copy-btn:hover{filter:brightness(1.08);}.copy-btn:active{transform:translateY(1px);}.copy-btn.done{background:var(--violet);color:#fff;}
+  .tp-meta{font-family:var(--mono);font-size:12.5px;color:var(--ink-faint);}
+  .prompter{background:var(--bg-raise);border:1px solid var(--line);border-radius:var(--radius);padding:8px 4px;max-height:460px;overflow-y:auto;}
+  .prompter pre{font-family:var(--mono);font-size:15px;line-height:1.85;color:var(--ink);white-space:pre-wrap;word-wrap:break-word;margin:0;padding:18px 22px;tab-size:2;}
+  .prompter .marker{color:var(--money);font-weight:700;letter-spacing:.04em;}
+  .grid{display:grid;gap:16px;}.grid.two{grid-template-columns:repeat(auto-fit,minmax(300px,1fr));}
+  .card{background:var(--bg-card);border:1px solid var(--line);border-radius:var(--radius);padding:20px 22px;}
+  .card h3{margin:0 0 10px;font-size:16px;font-weight:700;letter-spacing:-0.01em;}.rank{font-family:var(--mono);font-size:12px;color:var(--ink-faint);}
+  .factbox{border:1px solid color-mix(in srgb,var(--go) 35%,var(--line));background:color-mix(in srgb,var(--go) 7%,var(--bg-card));border-radius:var(--radius);padding:18px 20px;}
+  .factbox h3{margin:0 0 12px;font-size:15px;color:var(--ink);}
+  ul.clean{list-style:none;margin:0;padding:0;display:grid;gap:10px;}
+  ul.clean li{padding-left:22px;position:relative;font-size:14.5px;color:var(--ink-dim);line-height:1.55;}
+  ul.clean li::before{content:"✓";position:absolute;left:0;color:var(--go);font-weight:700;}ul.clean li b{color:var(--ink);font-weight:600;}
+  ul.arrow{list-style:none;margin:0;padding:0;display:grid;gap:10px;}
+  ul.arrow li{padding-left:22px;position:relative;font-size:14.5px;color:var(--ink-dim);line-height:1.55;}
+  ul.arrow li::before{content:"→";position:absolute;left:0;color:var(--money);font-weight:700;}ul.arrow li b{color:var(--ink);font-weight:600;}
+  ol.titles{list-style:none;counter-reset:t;margin:0;padding:0;display:grid;gap:12px;}
+  ol.titles li{counter-increment:t;background:var(--bg-card);border:1px solid var(--line);border-radius:12px;padding:16px 18px 16px 54px;position:relative;font-size:17px;font-weight:600;line-height:1.4;}
+  ol.titles li::before{content:counter(t);position:absolute;left:16px;top:16px;font-family:var(--mono);font-size:14px;color:var(--money);font-weight:700;width:24px;text-align:center;}
+  ol.titles li .flag-pill{display:inline-block;margin-left:8px;font-family:var(--mono);font-size:10.5px;letter-spacing:.06em;text-transform:uppercase;padding:3px 8px;border-radius:999px;vertical-align:middle;font-weight:700;}
+  .flag-pill.a{background:color-mix(in srgb,var(--money) 22%,transparent);color:var(--money);border:1px solid color-mix(in srgb,var(--money) 40%,transparent);}
+  .flag-pill.b{background:color-mix(in srgb,var(--violet) 22%,transparent);color:var(--violet);border:1px solid color-mix(in srgb,var(--violet) 40%,transparent);}
+  ol.titles li p{margin:6px 0 0;font-size:13px;font-weight:400;color:var(--ink-faint);}
+  .thumbs{display:grid;gap:18px;grid-template-columns:repeat(auto-fit,minmax(320px,1fr));}
+  .thumb-mock{aspect-ratio:16/9;border-radius:12px;overflow:hidden;position:relative;border:1px solid var(--line);display:flex;align-items:center;padding:22px;}
+  .thumb-a{background:radial-gradient(120% 120% at 78% 30%,#0e2a3a 0%,#081019 55%,#05090e 100%);}
+  .thumb-b{background:radial-gradient(120% 120% at 22% 78%,#0e2a24 0%,#081512 55%,#050a08 100%);}
+  .thumb-mock .tx{position:relative;z-index:2;}.thumb-mock .big{font-family:var(--display);font-weight:800;line-height:.95;letter-spacing:-0.02em;font-size:clamp(28px,5.6vw,50px);color:#fff;}
+  .thumb-a .big .g{color:var(--money);}.thumb-b .big .g{color:var(--go);}
+  .thumb-mock .sub{font-family:var(--mono);font-size:11px;letter-spacing:.1em;text-transform:uppercase;color:rgba(255,255,255,.62);margin-top:8px;}
+  .thumb-face{position:absolute;right:0;bottom:0;width:34%;height:92%;z-index:1;border-left:1px dashed rgba(255,255,255,.18);display:flex;align-items:flex-end;justify-content:center;padding-bottom:8px;}
+  .thumb-face span{font-family:var(--mono);font-size:10px;color:rgba(255,255,255,.4);text-align:center;}
+  .thumb-spec{margin-top:12px;font-size:13.5px;color:var(--ink-dim);line-height:1.6;}.thumb-spec b{color:var(--ink);}
+  .shorts{display:grid;gap:12px;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));}
+  .short{background:var(--bg-card);border:1px solid var(--line);border-radius:12px;padding:15px 17px;}
+  .short .n{font-family:var(--mono);font-size:11px;color:var(--money);letter-spacing:.1em;text-transform:uppercase;}.short h4{margin:6px 0 6px;font-size:15px;font-weight:700;}.short p{margin:0;font-size:13px;color:var(--ink-faint);line-height:1.55;}
+  .desc-box{background:var(--bg-raise);border:1px solid var(--line);border-radius:var(--radius);padding:4px;}
+  .desc-box pre{font-family:var(--mono);font-size:13.5px;line-height:1.7;color:var(--ink-dim);white-space:pre-wrap;word-wrap:break-word;margin:0;padding:18px 20px;max-height:380px;overflow-y:auto;}.desc-box .lnk{color:var(--money);}
+  .callout{border:1px solid color-mix(in srgb,var(--violet) 40%,var(--line));background:color-mix(in srgb,var(--violet) 8%,var(--bg-card));border-radius:var(--radius);padding:16px 20px;font-size:14px;color:var(--ink-dim);display:flex;gap:12px;align-items:flex-start;line-height:1.6;}
+  .callout .mk{color:var(--violet);font-weight:800;font-family:var(--mono);flex:none;}.callout b{color:var(--ink);}
+  footer{padding:40px 0 70px;color:var(--ink-faint);font-size:13px;}footer .mono{font-family:var(--mono);}
+  :focus-visible{outline:2px solid var(--money);outline-offset:2px;border-radius:4px;}
+</style>
+
+</head>
+<body>
+<nav><div class="nav-inner">
+  <span class="nav-brand">CHORUS · BUYER'S-SIDE LAW</span>
+  <a href="#teleprompter" class="tp">▶ Teleprompter</a>
+  <a href="#facts">Clips checked</a><a href="#titles">Titles</a>
+  <a href="#thumbnails">Thumbnails</a><a href="#shots">Shot list</a><a href="#shorts">Shorts</a><a href="#description">Description</a><a href="#flywheel">Flywheel</a>
+  <button class="theme-btn" id="themeToggle" aria-label="Toggle theme">◐ theme</button>
+</div></nav>
+
+<header><div class="wrap">
+  <div class="eyebrow">GOVCON GIANTS <span>·</span> THE CHORUS <span>·</span> <b>BUYER'S-SIDE LAW</b> <span>·</span> 4-GUEST COMBINED PROOF <span>·</span> RELIEF / OPPORTUNITY <span>·</span> MINDY "KNOW WHO TO CALL" CTA</div>
+  <h1 class="hero">I Interviewed the People Who Spend the Budget — They're Begging You to Call</h1>
+  <p class="subhead"><strong>A Chorus — four government insiders, one belief.</strong> Movie Poster: <em>THEY WANT TO PAY YOU</em>. The belief shift up front — the contracting officer isn't a gatekeeper you have to get <em>past</em>. <strong>The insiders whose whole job is to spend the budget are hunting for capable small businesses and can't find enough of them.</strong> Two former contracting officers, two active small-business directors — different branches, different decades — all say the same thing: the door you thought was locked is being held open. One emotion: <em>relief / opportunity</em>.</p>
+  <div class="steprow">
+    <div class="st"><div class="n">COLD OPEN</div><div class="t">The CO = the gatekeeper myth</div></div>
+    <div class="st"><div class="n">CLIP 1</div><div class="t">Donnie — small business first</div></div>
+    <div class="st"><div class="n">CLIP 2</div><div class="t">Lori — "myth I deplore"</div></div>
+    <div class="st"><div class="n">CLIP 3</div><div class="t">Kyle — can't find enough vendors</div></div>
+    <div class="st"><div class="n">CLIP 4</div><div class="t">Leslie — "help me help you"</div></div>
+    <div class="st"><div class="n">CTA</div><div class="t">Know who to call → Mindy</div></div>
+  </div>
+  <div class="chips">
+    <span class="chip"><span class="dot"></span> Format: <b>The Chorus (4 insiders)</b></span>
+    <span class="chip"><span class="dot"></span> Runtime: <b>~6–8 min</b></span>
+    <span class="chip go"><span class="dot"></span> CTA: <b>getmindy.ai — Know Who to Call</b></span>
+    <span class="chip go"><span class="dot"></span> Clips: <b>Leslie timestamped · 3 verbatim, locate on tape</b></span>
+    <span class="chip amber"><span class="dot"></span> UTM: <b>chorus-buyer-side</b></span>
+  </div>
+</div></header>
+
+<main class="wrap">
+
+  <section id="teleprompter">
+    <div class="sec-head"><span class="sec-kicker">Read this on camera</span><h2>▶ Teleprompter</h2>
+      <span class="sec-note">Eric VO only · [CLIP] markers = a guest speaks · clips must be EXACT</span></div>
+    <div class="tp-bar"><button class="copy-btn" id="copyBtn">⧉ Copy clean script</button>
+      <span class="tp-meta">~850 words · ~150 wpm · blank line = breath</span></div>
+    <div class="prompter"><pre id="tpText"><span class="marker">═══ COLD OPEN — CHALLENGE THE BELIEF ═══</span>
+
+You've been told the contracting officer is a gatekeeper. Someone standing between you and the money, whose job is to keep you out. So you spend all your energy trying to get past them.
+
+So here's what I did. I went and interviewed the people on the OTHER side of that desk — the ones whose entire job is to spend the budget. Former contracting officers who personally signed off on billions. The small-business directors at the Navy and the National Guard.
+
+And I asked them straight up: are you trying to keep us out?
+
+Every single one of them told me the opposite. They're not guarding the door. They're holding it open — and they can't find enough of us to walk through it.
+
+Four of them. Never met each other. Listen.
+
+
+<span class="marker">═══ CLIP 1 — DONNIE HARRIS ═══</span>
+
+Start with Donnie Harris. A former federal contracting officer with what's called an unlimited warrant — meaning he personally signed off on over a billion dollars in contracts and wrote more than fifteen hundred solicitations. Nobody knows how the money actually moves better than this man. Listen to what the rules require.
+
+[CLIP: Donnie Harris — "A lot of companies now, they're mandatory source before they put out a requirement. The mandatory source is that you go to small businesses first." @locate-on-tape · Ep 152]
+
+Read that again. Before a big agency can buy something, the rules say check small business FIRST. And here's the part that haunts him after thirty years inside:
+
+[CLIP: Donnie Harris — "There's hundreds and hundreds of millions of dollars that a lot of small businesses are leaving on the table." @locate-on-tape · Ep 152]
+
+The money is sitting there. Unclaimed. Not because they won't give it to you — because not enough of you show up to take it.
+
+
+<span class="marker">═══ CLIP 2 — LORI SMITH ═══</span>
+
+Maybe you're thinking that's one guy. So here's Lori Smith — forty years as a contracting officer, a former chief contracting officer who ran a portfolio worth billions at the VA. I asked her about the belief that the whole system is rigged to keep small businesses out.
+
+[CLIP: Lori Smith — "There's this myth that I absolutely deplore — this assumption that all of government is trying to purposely keep people out. But there is no policy written out, in black and white, that says do this, and don't do this." @locate-on-tape · Ep 165]
+
+A myth she deplores. There is no rule that says keep you out. The wall you've been picturing — it isn't in the regulations.
+
+
+<span class="marker">═══ CLIP 3 — KYLE BEAGLE ═══</span>
+
+Okay — but do they actually need you? Kyle Beagle runs the small business programs for the entire National Guard Bureau. Offices in every state and territory. Here's the problem he's actually dealing with.
+
+[CLIP: Kyle Beagle — "We have a lot of rural communities that lack food service vendors… you may wanna ask about what areas are lacking certain types of businesses." @locate-on-tape · Ep 232]
+
+Whole regions where they can't get enough bids on construction. Bases that can't find someone to cater a weekend drill. He is not turning vendors away. He is asking where the vendors ARE.
+
+
+<span class="marker">═══ CLIP 4 — LESLIE FAIRCLOTH ═══</span>
+
+And then there's Leslie Faircloth — the small-business director for the Navy's training systems division. They call her the Small Business Jedi Master. When she stands in front of a room full of contractors, this is what she asks them to do.
+
+[CLIP: Leslie Faircloth — "At every event I ask them: help me help you. If you see something on this list that you're interested in — either as a prime or a sub — let me know." @21:32 · Ep 250]
+
+Help me help you. And in case you still believe she's already picked the winner before you ever walk in the room:
+
+[CLIP: Leslie Faircloth — "99.9% of the time we really don't know who we're trying to get to… we want competition." @56:39 · Ep 250]
+
+Ninety-nine point nine percent of the time, they don't know who they want. They're hoping it's you.
+
+
+<span class="marker">═══ NAME THE PATTERN ═══</span>
+
+Four people. Two former contracting officers. Two active small-business directors. Different branches. Different decades. Never met each other.
+
+And every one of them said the same thing. They are not the gate. They are the person on the other side of it — waving you through, wondering where you are.
+
+The money is legally required to be spent. The rules push it toward small business first. And the people holding the checkbook are — their words, not mine — trying to give it away, and can't find enough capable companies to take it.
+
+
+<span class="marker">═══ CTA — KNOW WHO TO CALL ═══</span>
+
+So the door isn't locked. But here's the catch. You have to know WHO to call. There's a small-business office at every command — thousands of these buyers — and the whole game is reaching the right one before the contract ever posts.
+
+That's the exact reason we built Mindy. She hands you the directory — a hundred and seventy of these small-business offices, over a hundred and twenty-five thousand real contacts, by office, with the roles decoded — so you can pick up the phone and say "help me help you" to the person who's been waiting for your call.
+
+It's at getmindy dot A-I, link's in the description.
+
+Stop trying to get past the buyer. Go call them. They want to pay you. Subscribe — I'm putting this whole thing out, one interview at a time. I'll see you in the next one.</pre></div>
+  </section>
+
+  <section id="facts">
+    <div class="sec-head"><span class="sec-kicker">Verbatim + timestamps + source doc</span><h2>Clips checked</h2><span class="sec-note">Grounded 2026-07-21 from real Drive transcripts · clips MUST be exact — pull each from the tape before locking</span></div>
+    <div class="grid two">
+      <div class="factbox"><h3>CLIP 1 · Donnie Harris — Ep 152 (&amp; Ep 11)</h3>
+        <ul class="clean">
+          <li><b>Credential:</b> former federal Contracting Officer with an <b>unlimited warrant</b> — his own words: "written… over 1,500 solicitations and probably done approved upward to a billion dollars in awards." Eric's intro: "gave out… tens of thousands of contracts."</li>
+          <li><b>Verbatim (lead):</b> "A lot of companies now, they're mandatory source before they put out a requirement. The mandatory source is that you go to small businesses first."</li>
+          <li><b>Verbatim (support):</b> "There's hundreds and hundreds of millions of dollars that a lot of small businesses are leaving on the table."</li>
+          <li><b>Timestamp:</b> <b>NOT in transcript</b> — the Drive .txt has no timecodes. <b>Editor: locate both lines on the tape before lock. Do not invent a timestamp.</b> (Ep 11 companion doc has timecodes but only for a weaker subcontracting-goals line @16:44.)</li>
+          <li><b>Source doc:</b> Drive <code style="font-family:var(--mono);font-size:12px">1YVzyP75Ak9JQZwBUMXSsrXWYoUknHlni</code> — "EP152 - Mr. Donnie Harris.txt" · companion Ep 11 doc <code style="font-family:var(--mono);font-size:12px">1zQ098nKmjXOhNwSTZMrxMprhUm4nyJU8Lb-iyNARw3w</code></li>
+        </ul>
+      </div>
+      <div class="factbox"><h3>CLIP 2 · Lori Smith — Ep 165</h3>
+        <ul class="clean">
+          <li><b>Credential:</b> ~40 years in federal contracting; former Chief Contracting Officer (Ft. Belvoir), led the VA Office of Strategic Acquisition — portfolio lifecycle value ~$89B</li>
+          <li><b>Verbatim:</b> "There's this myth that I absolutely deplore — this assumption that all of government is trying to purposely keep people out… But there is no policy written out, in black and white, that says do this, and don't do this."</li>
+          <li><b>Why it lands:</b> a 40-year CO calling the gatekeeper belief a "myth I deplore" — this is the exact belief the video breaks, in an insider's own voice</li>
+          <li><b>Timestamp:</b> <b>NOT in transcript</b> — the Drive .txt has no timecodes. <b>Editor: locate on tape. Do not invent a timestamp.</b></li>
+          <li><b>Source doc:</b> Drive <code style="font-family:var(--mono);font-size:12px">11um8bWS9MnNxgM15XHT7Icoc8LaVDTqv</code> — "EP165 - Lori Smith.txt"</li>
+        </ul>
+      </div>
+      <div class="factbox"><h3>CLIP 3 · Kyle Beagle — Ep 232</h3>
+        <ul class="clean">
+          <li><b>Credential:</b> Director, Office of Small Business Programs, <b>National Guard Bureau</b> (15+ yrs federal contracting; offices in ~54 states/territories)</li>
+          <li><b>Verbatim:</b> "We have a lot of rural communities that lack food service vendors… you may wanna ask about what areas are lacking certain types of businesses." (context: "a weakness in construction… because they don't get too many bids")</li>
+          <li><b>Verbatim (support):</b> "The Guard's a good entry point for business looking for low hanging fruit… there's a lot of stuff… all under a 100,000." + he grew small-business obligations "from the low seventies… to the low eighties" percent</li>
+          <li><b>Timestamp:</b> <b>NOT in transcript</b> — the Drive .txt has no timecodes. <b>Editor: locate on tape. Do not invent a timestamp.</b></li>
+          <li><b>Source doc:</b> Drive <code style="font-family:var(--mono);font-size:12px">1rEPL7rMGUfhFc86fUMWPm5O9w91rIXm6</code> — "EP232 - Kyle Beagle.txt"</li>
+        </ul>
+      </div>
+      <div class="factbox"><h3>CLIP 4 · Leslie Faircloth — Ep 250 <span style="color:var(--go)">✓ timestamped</span></h3>
+        <ul class="clean">
+          <li><b>Credential:</b> Director, Office of Small Business Programs, Naval Air Warfare Center Training Systems Division (NAWCTSD); Navy "Small Business Jedi Master"</li>
+          <li><b>Verbatim @21:32:</b> "At every [event] I ask them: help me help you. If you see something on this list that you're interested in — either as a prime or a sub — let me know."</li>
+          <li><b>Verbatim @56:39:</b> "99.9% of the time we really don't know who we're trying to get to… we want competition."</li>
+          <li><b>Timestamp:</b> <b>@21:32 and @56:39 — REAL timecodes</b> present in the YouTube transcript (video Iz80PBG-Mu4). Verify exact in/out on tape; the @21:32 line paraphrases "PALT" as "[event]" for a general audience — keep her exact words when cut.</li>
+          <li><b>Source doc:</b> Drive <code style="font-family:var(--mono);font-size:12px">1DORgJlzDratFuqwbKIj1lHx-rbD_dqc0wh-SlEZaN-c</code> — "250 - Leslie Faircloth" (timestamped) · clean .txt <code style="font-family:var(--mono);font-size:12px">15XUkcwR8EqfB1GzLMP5PHRMzccQQyvjt</code></li>
+        </ul>
+      </div>
+    </div>
+    <div class="callout" style="margin-top:16px"><span class="mk">!</span><div><b>The one rule for this format:</b> every clip is a real person in their own words. All four quotes are <b>verbatim from full Drive transcripts</b> (not paraphrased from episode descriptions). <b>Only Leslie's lines carry real timecodes</b> (@21:32, @56:39). Donnie, Lori, and Kyle come from un-timestamped .txt transcripts — the words are confirmed, but the <b>editor must locate each on the tape before lock. Never burn a fabricated timestamp on screen.</b> Same honest handling as the flagship's Shane clip and the Relationship Law's Eugene clip.</div></div>
+  </section>
+
+  <section id="titles">
+    <div class="sec-head"><span class="sec-kicker">GOS primary + A/B</span><h2>Titles</h2><span class="sec-note">A promise/pattern to "you" · no episode number · relief / opportunity</span></div>
+    <ol class="titles">
+      <li>I Interviewed the People Who Spend the Budget — They're Begging You to Call <span class="flag-pill a">A · primary</span><p>The Chorus promise — insiders, not gurus. "Begging you to call" flips the gatekeeper fear to opportunity. Movie Poster: THEY WANT TO PAY YOU.</p></li>
+      <li>A Contracting Officer's Confession: "I'm Trying to Give This Money Away" <span class="flag-pill b">B · test</span><p>Confession framing (leans on Donnie/Lori, the two former COs) — highest curiosity. NOTE: the on-screen clip uses their real words ("mandatory source… small business first" / "myth I deplore"); the "give it away" phrasing is the title's promise, not a fabricated quote.</p></li>
+    </ol>
+  </section>
+
+  <section id="thumbnails">
+    <div class="sec-head"><span class="sec-kicker">Movie Poster · 1280×720</span><h2>Thumbnails</h2><span class="sec-note">Eric + insider cut-outs · ≤4 words · one emotion: relief / opportunity</span></div>
+    <div class="thumbs">
+      <div><div class="thumb-mock thumb-a"><div class="tx"><div class="big">THEY WANT<br>TO <span class="g">PAY YOU</span></div><div class="sub">Movie Poster · THEY WANT TO PAY YOU</div></div><div class="thumb-face"><span>Eric +<br>4 insider<br>cut-outs</span></div></div>
+        <p class="thumb-spec"><b>Movie Poster — the door held open.</b> "THEY WANT TO PAY YOU", "PAY YOU" in money-blue. <b>Eric</b> foreground-left, <b>relieved / knowing</b> look (opportunity, not hype). Right third: a strip of <b>insider cut-outs</b> (Donnie, Lori, Kyle, Leslie) — the chorus made visible, ideally in office / uniform / badge context to read "government insider." Deep blue-black. Emotion: <b>relief / opportunity</b>. Ship thumbnail for the primary title.</p></div>
+      <div><div class="thumb-mock thumb-b"><div class="tx"><div class="big">THE BUYER IS<br><span class="g">CALLING YOU</span></div><div class="sub">Alt · the phone-ringing frame</div></div><div class="thumb-face"><span>Eric +<br>insiders<br>~34%</span></div></div>
+        <p class="thumb-spec"><b>Alt — the phone frame.</b> "THE BUYER IS CALLING YOU" with a small green ringing-phone glyph; tiny "(they can't find enough of you)" beneath. Eric + insider cut-outs on the right. Same relief/opportunity emotion — A/B against the poster.</p></div>
+    </div>
+  </section>
+
+  <section id="shots">
+    <div class="sec-head"><span class="sec-kicker">Edit Decision List · clip order + in/out · b-roll</span><h2>Shot list &amp; editor notes</h2></div>
+    <div class="grid two">
+      <div class="card"><h3>★ EDL — clip order &amp; in/out</h3><ul class="arrow">
+        <li><b>00 · Cold open (Eric to cam):</b> the CO-as-gatekeeper myth → "I asked the people who spend the budget… every one said the opposite." 0:00–0:40</li>
+        <li><b>01 · Donnie Harris</b> — Ep 152 · IN/OUT <b>[locate on tape]</b> · "mandatory source… you go to small businesses first" + "hundreds of millions… left on the table." Lower-third: <b>Donnie Harris · former Contracting Officer, unlimited warrant</b></li>
+        <li><b>02 · Lori Smith</b> — Ep 165 · IN/OUT <b>[locate on tape]</b> · "a myth I absolutely deplore… no policy that says keep people out." Lower-third: <b>Lori Smith · 40-year Contracting Officer</b></li>
+        <li><b>03 · Kyle Beagle</b> — Ep 232 · IN/OUT <b>[locate on tape]</b> · "rural communities that lack food service vendors… what areas are lacking." Lower-third: <b>Kyle Beagle · OSBP Director, National Guard Bureau</b></li>
+        <li><b>04 · Leslie Faircloth</b> — Ep 250 · IN <b>@21:32</b> ("help me help you… let me know") + IN <b>@56:39</b> ("99.9% of the time we don't know who we want… we want competition"). Lower-third: <b>Leslie Faircloth · Navy Small Business Director (NAWCTSD)</b></li>
+        <li><b>05 · Name the pattern → CTA</b> (Eric to cam). Whole runtime ~6–8 min.</li>
+      </ul></div>
+      <div class="card"><h3>B-roll — the buyer waving you in vs. the empty inbox</h3><ul class="arrow">
+        <li><b>Under the myth:</b> a contractor <b>hesitating to call</b> — hand hovering over a phone, staring at a business card, closing a laptop; a locked-looking government door / "AUTHORIZED PERSONNEL" sign — the imagined wall</li>
+        <li><b>Under the insiders:</b> a <b>buyer at a desk</b> with an open calendar, an <b>OSBP office</b> nameplate / small-business-program signage, a <b>phone ringing on an empty desk</b> — nobody's calling</li>
+        <li><b>Under Donnie:</b> a "small business set-aside" line on a solicitation highlighted; a stack of unopened bid folders — money on the table</li>
+        <li><b>Under Kyle:</b> a rural map pin, an empty catering table at a drill hall, a construction site with a "0 bids received" card — the shortage, visualized</li>
+        <li><b>Under Leslie:</b> her at a podium / industry day, hand out in a "come here" gesture; on-screen "HELP ME HELP YOU" caption</li>
+        <li><b>Contrast card on screen:</b> "YOU: trying to get past the buyer" vs "THE BUYER: trying to find you"</li>
+      </ul></div>
+      <div class="card"><h3>On-screen callouts</h3><ul class="arrow">
+        <li>Persistent lower-third: each insider's name + credential (exact)</li>
+        <li><b>"They want to pay you"</b> — stamp on the pattern beat</li>
+        <li><b>"2 former COs. 2 buyers. Same answer."</b></li>
+        <li>Timecode-safe: only burn a timestamp on screen once it's confirmed on the tape (only Leslie's @21:32 / @56:39 are confirmed today)</li>
+      </ul></div>
+      <div class="card"><h3>End screen</h3><ul class="arrow">
+        <li>Subscribe: "the whole pattern, one interview at a time"</li>
+        <li>Next card → the full Ep 152 / 165 / 232 / 250 interviews</li>
+        <li>Mindy "Know Who to Call" pinned in description</li>
+      </ul></div>
+    </div>
+  </section>
+
+  <section id="shorts">
+    <div class="sec-head"><span class="sec-kicker">One per insider · vertical · burned captions</span><h2>Shorts</h2><span class="sec-note">Hook in the first 1 second · each is a standalone proof point</span></div>
+    <div class="shorts">
+      <div class="short"><span class="n">Short 01 · Donnie</span><h4>"The rules say: small business FIRST"</h4><p>Open on Donnie: "mandatory source… you go to small businesses first," then Eric: "a CO with a billion-dollar warrant — and he says hundreds of millions get left on the table." The confession in 30 seconds.</p></div>
+      <div class="short"><span class="n">Short 02 · Lori</span><h4>"The 'they keep you out' thing is a myth"</h4><p>Lori: 40 years as a contracting officer — "a myth I absolutely deplore… there is no policy that says keep people out." Kills the gatekeeper fear from the inside.</p></div>
+      <div class="short"><span class="n">Short 03 · Kyle</span><h4>"We literally can't find enough vendors"</h4><p>Kyle (National Guard OSBP): "rural communities that lack food service vendors… areas that are lacking certain types of businesses." The shortage, in his words.</p></div>
+      <div class="short"><span class="n">Short 04 · Leslie</span><h4>"Help me help you — call me"</h4><p>Leslie @21:32: "help me help you… let me know" + @56:39 "99.9% of the time we don't know who we want — we want competition." The buyer, begging you to call.</p></div>
+    </div>
+  </section>
+
+  <section id="description">
+    <div class="sec-head"><span class="sec-kicker">Paste-ready · UTM baked in</span><h2>Description, tags &amp; chapters</h2></div>
+    <div class="desc-box"><pre>Everyone treats the contracting officer as a gatekeeper — someone you have to get PAST to reach the money. So I went and interviewed the people on the other side of the desk: the insiders whose entire job is to spend the budget. Two former contracting officers and two active small-business directors — different branches, different decades, who've never met each other. Every one of them told me the same thing. They're not keeping you out. They're hunting for capable small businesses and can't find enough of them.
+
+You'll hear it in their own words — Donnie Harris (a former CO with an "unlimited warrant" who approved over a billion dollars in awards), Lori Smith (40 years as a contracting officer), Kyle Beagle (small business director for the National Guard Bureau), and Leslie Faircloth (small business director for the Navy's training systems division).
+
+The rules push the money toward small business first. The buyers are — their words — trying to give it away, and can't find enough companies to take it. The government is the one customer legally required to buy from you. So stop trying to get past the buyer. Go call them.
+
+The whole game is knowing WHO to call — there's a small-business office at every command. That's exactly what Mindy does: the rosters by office, roles decoded — 170 OSBP commands and 125,000+ real contacts — so you reach the right buyer before the contract posts.
+
+▶ See who to call in your market — free:
+<span class="lnk">https://getmindy.ai?utm_content=chorus-buyer-side</span>
+
+CHAPTERS
+0:00  The gatekeeper myth
+0:40  Donnie Harris — the rules say small business first
+2:00  Lori Smith — "a myth I absolutely deplore"
+3:20  Kyle Beagle — we can't find enough vendors
+4:40  Leslie Faircloth — "help me help you"
+6:00  The pattern: they want to pay you
+6:45  Know who to call
+
+#governmentcontracts #federalcontracting #smallbusiness #govcon #contractingofficer #b2g #sam #setaside
+
+CTA = getmindy.ai "Know Who to Call" · utm_content=chorus-buyer-side</pre></div>
+    <p class="src-note" style="font-size:13px;color:var(--ink-faint);margin-top:12px;line-height:1.6">CTA threads Mindy's <b>"Know Who to Call"</b> pillar — the <b>170-command OSBP directory + 125K+ contacts</b>, rosters by office with roles decoded. The video's own guests ARE these OSBP buyers ("call me / help me help you") — Mindy is literally the directory of exactly those people. Single primary link · <code style="font-family:var(--mono);font-size:12px">getmindy.ai</code> · <code style="font-family:var(--mono);font-size:12px">utm_content=chorus-buyer-side</code>. Wedge threaded once. One next step: see who to call.</p>
+  </section>
+
+  <section id="flywheel">
+    <div class="sec-head"><span class="sec-kicker">Launch layer · fire within the hour of publish</span><h2>Flywheel — LinkedIn + list email</h2><span class="sec-note">Per launch-distribution.md · seeds first-hour watch-time</span></div>
+    <div class="grid two">
+      <div class="card"><h3>1 · LinkedIn post (native — link in FIRST comment)</h3>
+        <div class="desc-box" style="margin-top:6px"><pre>I asked four government insiders if they're trying to keep small businesses out.
+
+All four said the opposite.
+
+We treat the contracting officer like a gatekeeper — a wall between us and the money. So I interviewed the people whose actual job is to spend the budget:
+
+→ Donnie Harris — former CO with an "unlimited warrant," approved 1B+ in awards: the rules make agencies check small business FIRST… and "hundreds of millions get left on the table."
+→ Lori Smith — 40 years as a contracting officer: the idea that government is "trying to purposely keep people out" is "a myth I absolutely deplore. There is no policy that says keep you out."
+→ Kyle Beagle — small business director, National Guard Bureau: whole regions "lack food service vendors," construction jobs that "don't get too many bids." They can't find enough of us.
+→ Leslie Faircloth — small business director, Navy: "Help me help you. If you see something on this list — let me know. 99.9% of the time we really don't know who we want. We want competition."
+
+They're not guarding the door. They're holding it open — and wondering where you are.
+
+Here's the part nobody says out loud: the government is the one customer legally required to buy from you. It can't ghost you. So stop trying to get past the buyer. Go call them.
+
+Full interview in the comments 👇
+
+(first comment) ▶ Watch: https://getmindy.ai?utm_content=chorus-buyer-side</pre></div>
+        <p class="thumb-spec" style="margin-top:10px"><b>Native text post</b>, no external link in the body (LinkedIn suppresses those) — YouTube link goes in the <b>first comment</b>. Belief challenge is line 1 (above the "…see more" fold). Wedge threaded once.</p>
+      </div>
+      <div class="card"><h3>2 · List email (25K) — plain letter, from hello@govcongiants.com</h3>
+        <div class="desc-box" style="margin-top:6px"><pre><b>From:</b> Eric Coffie &lt;hello@govcongiants.com&gt;  (reply-to: service@govcongiants.com)
+<b>Subject:</b> I asked them if they're trying to keep you out
+<b>Preview:</b> Four people who spend the budget. All four said the opposite of what you think.
+
+Hey [First name],
+
+You've been told the contracting officer is a gatekeeper — someone you have to get <u>past</u> to reach the money.
+
+So I went and asked them. Four government insiders whose whole job is to spend the budget. Two former contracting officers, two active small-business directors. I asked them straight: <b>are you trying to keep us out?</b>
+
+All four told me the opposite:
+
+→ <b>Donnie Harris</b> (former CO, "unlimited warrant," 1B+ in awards): the rules make agencies go to <b>small business first</b> — and "hundreds of millions get left on the table."
+→ <b>Lori Smith</b> (40-year contracting officer): the belief that government tries to keep you out is "<b>a myth I absolutely deplore.</b> There is no policy that says keep you out."
+→ <b>Kyle Beagle</b> (National Guard small business director): whole regions that <b>can't find enough vendors</b> — bases that can't get a caterer, construction that gets no bids.
+→ <b>Leslie Faircloth</b> (Navy small business director): "<b>Help me help you</b> — let me know. 99.9% of the time we really don't know who we want."
+
+Here's the line that matters: <b><u>they're not guarding the door. They're holding it open — and wondering where you are.</u></b>
+
+The government is the one customer legally required to buy from you. It can't ghost you. So the only thing standing between you and that buyer is a phone call you haven't made yet.
+
+I put all four insiders into one short video, in their own words.
+
+→ <u>Watch the full breakdown</u>
+<span style="color:var(--ink-faint)">(takes about 7 minutes)</span>
+
+— Eric
+
+P.S. Right now there's a small-business director at some command hoping someone like you calls before the deadline — and nobody does. That's the money that gets "left on the table." Better it's your table. → <u>Watch</u></pre></div>
+        <p class="thumb-spec" style="margin-top:10px">Plain-letter Brunson style — white bg, black text, no images/buttons/logo banner. Signed <b>— Eric</b>, arrow index, P.S. loss-reframe. CTA = <b>underlined text link</b> to the video with a gray "(takes about 7 minutes)". Fire within the hour of publish to seed first-hour watch-time.</p>
+      </div>
+    </div>
+    <div class="callout" style="margin-top:16px"><span class="mk">▶</span><div><b>Timing:</b> publish the video → within the hour, send the email + post on LinkedIn (link in first comment) → first-hour watch-time + comments tell YouTube to recommend → log the breakout on the Command Center scoreboard. The email/LinkedIn are the seed; the scoreboard measures the breakout.</div></div>
+  </section>
+
+</main>
+
+<footer class="wrap">
+  <div>GovCon Giants · The Chorus · <b>Buyer's-Side Law</b> · 4-insider combined proof · Movie Poster <span class="mono">THEY WANT TO PAY YOU</span> — clips verbatim from full transcripts (Donnie Ep 152 · Lori Ep 165 · Kyle Ep 232 · Leslie Ep 250 @21:32 &amp; @56:39). Only Leslie carries real timecodes; locate Donnie/Lori/Kyle on the tape before lock. CTA = getmindy.ai "Know Who to Call".</div>
+  <div style="margin-top:6px" class="mono">Grounded from Drive transcripts 2026-07-21 · clips must be exact — never burn a fabricated timestamp on screen.</div>
+</footer>
+
+<script>
+(function(){
+  var root=document.documentElement,btn=document.getElementById('themeToggle');
+  btn.addEventListener('click',function(){var c=root.getAttribute('data-theme'),n;if(c==='dark')n='light';else if(c==='light')n='dark';else n=window.matchMedia('(prefers-color-scheme: dark)').matches?'light':'dark';root.setAttribute('data-theme',n);});
+  var cb=document.getElementById('copyBtn');
+  cb.addEventListener('click',function(){var el=document.getElementById('tpText');var t=el.innerText.replace(/═══.*?═══/g,'').replace(/\n{3,}/g,'\n\n').trim();navigator.clipboard.writeText(t).then(function(){cb.textContent='✓ Copied — clean spoken words';cb.classList.add('done');setTimeout(function(){cb.textContent='⧉ Copy clean script';cb.classList.remove('done');},2200);}).catch(function(){cb.textContent='⚠ Select + copy manually';});});
+})();
+</script>
+
+</body>
+</html>
