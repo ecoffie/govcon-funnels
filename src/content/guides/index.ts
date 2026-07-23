@@ -27,6 +27,13 @@ export interface GuideData {
     buttonHref: string;
     external?: boolean; // open in a new tab (set for off-site destinations like the SBA map)
   };
+  /**
+   * Embed a live tool widget directly under the hero. Stronger than heroCta:
+   * the searcher's task is completable on the page itself (GSC shows these
+   * guides rank for tool-intent queries, so the tool must BE the page).
+   * When set, the heroCta button is not rendered.
+   */
+  embedTool?: 'cage-lookup';
   sections: GuideSection[];
   faqs: GuideFaq[];
   cta: {

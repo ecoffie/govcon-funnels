@@ -530,6 +530,11 @@ export const guide: GuideData = {
   ],
   faqs: [
     {
+      question: 'Is there a "government contracting for dummies" version of this guide?',
+      answer:
+        'This guide IS the plain-English version — government contracting for dummies, minus the jargon. The short path: 1) Register free on SAM.gov, 2) Find your NAICS codes, 3) Search open opportunities on SAM.gov, 4) Start small (micro-purchases under $15,000 and subcontracting) to build past performance, 5) Respond to Sources Sought notices to get on buyers\' radar before bids are even posted. Every step is explained in the sections above — no prior experience or certifications required to begin.',
+    },
+    {
       question: 'How much does it cost to get started in government contracting?',
       answer:
         'SAM.gov registration is completely free. The main costs are your time to complete registration, develop a capability statement, and research opportunities. Some businesses invest in training, consulting, or GSA Schedule applications, but there are no mandatory fees to become eligible for federal contracts. Beware of third-party services that charge thousands for SAM registration — you can do it yourself at no cost.',

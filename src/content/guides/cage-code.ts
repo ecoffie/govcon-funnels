@@ -25,6 +25,9 @@ export const guide: GuideData = {
     buttonText: 'Free CAGE Code Lookup — Search 600K+ Contractors',
     buttonHref: '/tools/cage-code-lookup',
   },
+  // GSC: this page's queries are overwhelmingly tool-intent ("cage code lookup"
+  // 5.3K impr/28d). The live lookup renders directly under the hero.
+  embedTool: 'cage-lookup',
   sections: [
     {
       heading: 'What Is a CAGE Code?',
@@ -97,7 +100,21 @@ export const guide: GuideData = {
         <p><strong>Verifying a Subcontractor:</strong> Before teaming with a company, verify their CAGE code is active and their SAM registration is current. An expired registration means they cannot receive government payments.</p>
         <p><strong>Completing a Proposal:</strong> Most RFPs require CAGE codes for the prime and all subcontractors. Look up and verify all team member codes before submission.</p>
         <p><strong>Checking Your Own Status:</strong> Search for your company to confirm your CAGE code is active and your registration hasn't expired. SAM registrations must be renewed annually.</p>
-        <p><strong>Researching Competitors:</strong> Look up competitor CAGE codes to research their contract history using USAspending.gov.</p>
+        <p><strong>Researching Competitors:</strong> Look up competitor CAGE codes to research their contract history using USAspending.gov. If you do this often, <a href="/guides/ai-government-contracting">AI for government contracting (GovCon AI) tools</a> can pull contractor histories, agency spending, and opportunity matches automatically instead of one manual search at a time.</p>
+      `,
+    },
+    {
+      heading: 'BINCS Is Retired — Here Is What Replaced It',
+      content: `
+        <p>Still looking for <strong>BINCS</strong> (the Business Identification Number Cross-referencing System)? It no longer exists. The Defense Logistics Agency <strong>decommissioned the BINCS website on February 25, 2016</strong> and replaced it with <strong>CAGE Search and Inquiry (CSI)</strong> on the CAGE Public website at <a href="https://cage.dla.mil" target="_blank" rel="noopener">cage.dla.mil</a>.</p>
+        <p>For more than a decade, BINCS was the standard search engine for finding manufacturers, suppliers, and contractors in the federal supply chain by CAGE code. A lot of older registration guides, embassy handbooks, and agency PDFs still link to the dead BINCS URLs (logisticsinformationservice.dla.mil/bincs or dlis.dla.mil/bincs) — if you followed one of those links, this is why it did not work.</p>
+        <p><strong>Where to search instead of BINCS:</strong></p>
+        <ul>
+          <li><strong>The lookup tool at the top of this page</strong> — search 600,000+ registered contractors by CAGE code or company name, free, no account needed</li>
+          <li><strong>DLA CAGE Search and Inquiry (CSI)</strong> at <a href="https://cage.dla.mil" target="_blank" rel="noopener">cage.dla.mil</a> — the official BINCS replacement, with search by CAGE code, UEI, legal name, phone, state, and postal code (wildcards supported). In 2022 it also replaced DUNS search with UEI search</li>
+          <li><strong>SAM.gov entity search</strong> — full registration details, certifications, and points of contact</li>
+        </ul>
+        <p>Everything BINCS did, these tools now do better. If you are validating an NCAGE code before a SAM registration (the step old guides said to do "in BINCS"), do it in CSI at cage.dla.mil instead.</p>
       `,
     },
     {
@@ -166,6 +183,11 @@ export const guide: GuideData = {
     },
   ],
   faqs: [
+    {
+      question: 'What replaced the BINCS search engine?',
+      answer:
+        'BINCS (Business Identification Number Cross-referencing System) was decommissioned by the Defense Logistics Agency on February 25, 2016. It was replaced by CAGE Search and Inquiry (CSI) on the CAGE Public website at cage.dla.mil, which searches by CAGE code, UEI, legal name, phone, state, or postal code. You can also use the free lookup tool at the top of this page or the SAM.gov entity search — both cover the same registered-contractor data BINCS used to serve.',
+    },
     {
       question: 'What is the CAGE code format?',
       answer:

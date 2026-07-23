@@ -24,6 +24,12 @@ export const post: BlogPost = {
 
 <p>It's a role that combines legal knowledge, attention to detail, and business acumen. And with salaries ranging from $110,000 to $170,000, it's one of the more stable and well-compensated career paths in GovCon.</p>
 
+<h2>What Is Contract Administration?</h2>
+
+<p><strong>Contract administration</strong> is everything that happens to a government contract <em>after</em> it's signed: managing performance, processing modifications, monitoring compliance with the FAR and contract terms, handling invoices and payments, resolving disputes, and closing the contract out properly. Contract <em>formation</em> (solicitation, evaluation, negotiation, award) gets the headlines — contract administration is the longer, quieter phase where the money is actually earned and the relationships are kept healthy.</p>
+
+<p>Both sides of the table employ people to do it: the government has Contracting Officers (COs) and Contracting Officer's Representatives (CORs), while contractors employ contracts administrators — the role this guide covers.</p>
+
 <h2>What Does a Contracts Administrator Do?</h2>
 
 <p>Contracts administrators manage the lifecycle of government contracts from award through closeout. Their work ensures compliance and protects the company from risk.</p>

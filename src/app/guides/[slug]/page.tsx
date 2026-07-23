@@ -7,6 +7,7 @@ import { JOB_CATEGORIES } from '@/lib/job-categories';
 import type { JobCategory } from '@/types/job';
 import JsonLd from '@/components/JsonLd';
 import GuideEmailCapture from '@/components/GuideEmailCapture';
+import CageCodeLookupWidget from '@/components/CageCodeLookupWidget';
 
 type Props = { params: Promise<{ slug: string }> };
 
@@ -80,7 +81,7 @@ export default async function GuidePage({ params }: Props) {
 
           {/* Above-the-fold transactional CTA (e.g. lookup tool) — only on guides
               that rank for action queries, so searchers reach the tool immediately. */}
-          {guide.heroCta && (
+          {guide.heroCta && !guide.embedTool && (
             <div className="mt-8">
               <p className="text-sm text-slate-500 mb-3">{guide.heroCta.label}</p>
               <Link
@@ -104,6 +105,14 @@ export default async function GuidePage({ params }: Props) {
           </div>
         </div>
       </section>
+
+      {/* Live tool embed — the guide ranks for tool-intent queries, so the
+          tool is the first thing under the hero (task completion on-page). */}
+      {guide.embedTool === 'cage-lookup' && (
+        <section className="px-6 pb-16 -mt-4">
+          <CageCodeLookupWidget source="cage-code-guide" />
+        </section>
+      )}
 
       {/* Table of Contents */}
       <section className="px-6 pb-16">
