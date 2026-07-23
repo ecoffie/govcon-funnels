@@ -8,6 +8,7 @@ import type { JobCategory } from '@/types/job';
 import JsonLd from '@/components/JsonLd';
 import GuideEmailCapture from '@/components/GuideEmailCapture';
 import CageCodeLookupWidget from '@/components/CageCodeLookupWidget';
+import HubzoneCheckWidget from '@/components/HubzoneCheckWidget';
 
 type Props = { params: Promise<{ slug: string }> };
 
@@ -111,6 +112,11 @@ export default async function GuidePage({ params }: Props) {
       {guide.embedTool === 'cage-lookup' && (
         <section className="px-6 pb-16 -mt-4">
           <CageCodeLookupWidget source="cage-code-guide" />
+        </section>
+      )}
+      {guide.embedTool === 'hubzone-check' && (
+        <section className="px-6 pb-16 -mt-4">
+          <HubzoneCheckWidget />
         </section>
       )}
 

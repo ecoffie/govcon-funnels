@@ -26,6 +26,9 @@ export const guide: GuideData = {
     buttonHref: 'https://maps.certify.sba.gov/hubzone/map',
     external: true,
   },
+  // GSC: this page's queries are "hubzone map" / "hubzone checker" / "hubzone
+  // by zip code" — the live address checker renders directly under the hero.
+  embedTool: 'hubzone-check',
   sections: [
     {
       heading: 'What Is the HUBZone Program?',

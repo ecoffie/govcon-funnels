@@ -33,7 +33,7 @@ export interface GuideData {
    * guides rank for tool-intent queries, so the tool must BE the page).
    * When set, the heroCta button is not rendered.
    */
-  embedTool?: 'cage-lookup';
+  embedTool?: 'cage-lookup' | 'hubzone-check';
   sections: GuideSection[];
   faqs: GuideFaq[];
   cta: {
