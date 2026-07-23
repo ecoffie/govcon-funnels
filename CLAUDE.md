@@ -192,6 +192,16 @@ See `/tasks/lessons.md` for full details.
 
 ## Recent Work (Last 7 Days)
 
+### July 23, 2026 — GSC intent-match SEO pass (verified live) + Chorus Law #3
+
+**SEO (commit `305bc0f`)** — 28d GSC drill-down showed the big CTR sinkholes are **intent mismatches, not title problems** (June 24 title rewrites didn't move CTR). Per-page query pulls via `gscQuery` + `dimensionFilterGroups`:
+- `/guides/cage-code` (35K impr, queries = "cage code lookup" family; the actual tool page had ~0 impressions): **embedded the live lookup widget under the guide hero** — extracted shared `src/components/CageCodeLookupWidget.tsx` (reused by `/tools/cage-code-lookup`), leads tagged `source=cage-code-guide`. New `GuideData.embedTool` field renders it and suppresses `heroCta`.
+- **BINCS**: the guide already ranked pos 18.7 for "bincs search engine" (143 impr) with zero mentions → added "BINCS Is Retired" section + FAQ (decommissioned **2016-02-25**, replaced by DLA CAGE Search & Inquiry at cage.dla.mil — verified via DLA sources).
+- Beginners guide FAQ targets "government contracting for dummies" (59 impr, pos 13.7); careers blog gained "What Is Contract Administration?" ("contract administration" 208 impr, pos 17.8); cage-code guide now links `/guides/ai-government-contracting` ("govcon ai" pos 10.2 striking distance — Mindy-adjacent).
+- All 4 URLs verified on live prod (grep for the new strings, not just 200) then submitted to IndexNow. gsa-schedule/naics/sba-certifications impressions turned out to be junk long-tail — deliberately skipped.
+
+**Chorus (commit `d0f8e34`)** — built Law #3 "Nobody Ever Asked Them for a Certification" (`/team/yt-chorus/cert-myth.html`), all 4 quotes verbatim from Drive transcripts (Eps 177/248/249/253), promoted to Live on the hub. Note: `/team/*` content can't be curl-verified — `TEAM_ACCESS_PASSWORD` is a sensitive Vercel env (pulls empty) and is deliberately stored nowhere locally; verify via deployment commit SHA + Eric opening the page. Next in queue: **Zero-Start Law** (needs Ep 260/Snider/Uboh transcript pulls).
+
 ### June 25, 2026 — Google Ads conversion tracking (base tag + lead conversion)
 
 **Goal:** wire the site for a Google Ads campaign optimizing on **lead conversions** (not purchases).
