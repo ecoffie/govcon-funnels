@@ -19,6 +19,26 @@ When user says: "the $82B page", "govcon funnels", "main marketing site", "the h
 
 ---
 
+## Sub-app: govcon-giants-site/ (DO NOT DELETE)
+
+`govcon-giants-site/` is a **standalone Vite + React SPA** (podcast/blog hub for the
+Govcon Giants Podcast, deployed separately at
+[podcast.govcongiants.org](https://podcast.govcongiants.org)). The user has decided it
+stays in this repo.
+
+- It has its own `package.json`, tsconfig, eslint config, and Vercel project — treat it
+  exactly like `dashboard/` and `govcon-crm2/`.
+- It is **excluded from the main app's toolchain**: root `tsconfig.json` has it in
+  `exclude`, and root `eslint.config.mjs` ignores `govcon-giants-site/**`. Do not
+  re-include it, and do not run the main app's type-check/lint against it.
+- Never copy its config files to the repo root (a Vite tsconfig at root once broke
+  main-site deploys).
+- Build/verify it only inside its own folder: `cd govcon-giants-site && npm run build`.
+- Episode data comes from the Libsyn RSS feed; regenerate with
+  `python3 govcon-giants-site/scripts/rss-to-episodes.py 150`.
+
+---
+
 ## Key Routes
 
 ### Content Pages

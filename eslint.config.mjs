@@ -12,6 +12,8 @@ const eslintConfig = defineConfig([
     "out/**",
     "build/**",
     "next-env.d.ts",
+    // Standalone Vite sub-app with its own toolchain and lint config:
+    "govcon-giants-site/**",
   ]),
 ]);
 
