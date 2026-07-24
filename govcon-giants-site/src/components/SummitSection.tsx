@@ -17,6 +17,14 @@ const topics = [
   'Artificial Intelligence',
 ];
 
+/** Verified from gcgsummit.com/speakers (2024 lineup). */
+const pastSpeakers = [
+  { name: 'Jackie Robinson Burnett', role: 'Associate Administrator, SBA' },
+  { name: 'Donna Bennett', role: 'CISO, U.S. Dept. of State' },
+  { name: 'Shannon Jackson', role: 'Executive Director (SES), HHS OSDBU' },
+  { name: 'Vonna Ordaz', role: 'Director, NRC Office of Small Business' },
+];
+
 /**
  * GCG National Summit band (home page, after the podcast strip): annual
  * Miami conference — description, stat counters, topic chips, external CTA.
@@ -67,6 +75,20 @@ export default function SummitSection() {
               ))}
             </div>
 
+            <div className="mt-8 max-w-lg">
+              <p className="text-[11px] font-semibold uppercase tracking-[0.18em] text-slate-500">
+                Past speakers include
+              </p>
+              <ul className="mt-3 grid grid-cols-1 gap-x-8 gap-y-3 sm:grid-cols-2">
+                {pastSpeakers.map((s) => (
+                  <li key={s.name}>
+                    <p className="text-sm text-slate-200">{s.name}</p>
+                    <p className="text-xs text-slate-500">{s.role}</p>
+                  </li>
+                ))}
+              </ul>
+            </div>
+
             <div className="mt-8 flex flex-wrap items-center gap-6">
               <a
                 href={SUMMIT_URL}
@@ -77,8 +99,8 @@ export default function SummitSection() {
                 Visit gcgsummit.com
                 <ArrowUpRight className="h-4 w-4" />
               </a>
-              <GhostLink to={SUMMIT_URL} external>
-                Speaker &amp; session announcements
+              <GhostLink to={`${SUMMIT_URL}/speakers/`} external>
+                Meet the speakers
               </GhostLink>
             </div>
           </motion.div>
