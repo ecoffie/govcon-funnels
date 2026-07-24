@@ -5,6 +5,7 @@ import SectionHeader from '@/components/SectionHeader';
 import StatCounter from '@/components/StatCounter';
 import ArticleCard from '@/components/ArticleCard';
 import EpisodeCard from '@/components/EpisodeCard';
+import SummitSection from '@/components/SummitSection';
 import { GhostLink } from '@/components/Buttons';
 import { articles, latestArticles } from '@/data/articles';
 import { latestEpisodes } from '@/lib/episode-utils';
@@ -281,7 +282,8 @@ function AboutBlurb() {
 /* --------------------------------- Page ----------------------------------- */
 
 /** `/` — mirrors tim.blog (home.md): full-bleed hero with email capture,
- * podcast strip, latest episodes + articles, popular articles, about blurb.
+ * podcast strip, GCG National Summit band, latest episodes + articles,
+ * popular articles, about blurb.
  * The footer already carries the newsletter band, so no extra CTA section. */
 export default function Home() {
   return (
@@ -292,6 +294,7 @@ export default function Home() {
     >
       <Hero />
       <PodcastStrip />
+      <SummitSection />
       <LatestFeed />
       <PopularArticles />
       <AboutBlurb />

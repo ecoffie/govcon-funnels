@@ -1,5 +1,5 @@
 import { Link } from 'react-router';
-import { Youtube, Twitter, Linkedin, Instagram } from 'lucide-react';
+import { Youtube, Twitter, Linkedin, Instagram, ArrowUpRight } from 'lucide-react';
 import NewsletterCapture from '@/components/NewsletterCapture';
 import { platforms } from '@/data/platforms';
 
@@ -83,6 +83,17 @@ export default function Footer() {
                   </Link>
                 </li>
               ))}
+              <li>
+                <a
+                  href="https://gcgsummit.com"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="inline-flex items-center gap-1 text-sm text-slate-400 transition-colors hover:text-brand"
+                >
+                  GCG National Summit
+                  <ArrowUpRight className="h-3.5 w-3.5" />
+                </a>
+              </li>
             </ul>
           </nav>
         </div>

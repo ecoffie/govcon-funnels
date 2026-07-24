@@ -1,13 +1,14 @@
 import { useEffect, useState } from 'react';
 import { Link, NavLink } from 'react-router';
 import { AnimatePresence, motion } from 'framer-motion';
-import { Menu, X } from 'lucide-react';
+import { Menu, X, ArrowUpRight } from 'lucide-react';
 import { NewsletterModal } from '@/components/NewsletterCapture';
 import { cn } from '@/lib/utils';
 
-const links = [
+const links: { to: string; label: string; external?: boolean }[] = [
   { to: '/podcast', label: 'Podcast' },
   { to: '/blog', label: 'Blog' },
+  { to: 'https://gcgsummit.com', label: 'Summit', external: true },
   { to: '/resources', label: 'Resources' },
   { to: '/start-here', label: 'Start Here' },
   { to: '/about', label: 'About' },
@@ -53,21 +54,34 @@ export default function Navbar() {
           </Link>
 
           <nav className="hidden items-center gap-7 lg:flex" aria-label="Primary">
-            {links.map((l) => (
-              <NavLink
-                key={l.to}
-                to={l.to}
-                className={({ isActive }) =>
-                  cn(
-                    'relative text-[15px] font-medium text-slate-400 transition-colors duration-150 hover:text-white',
-                    isActive &&
-                      'text-brand after:absolute after:-bottom-1.5 after:left-0 after:h-0.5 after:w-full after:bg-brand',
-                  )
-                }
-              >
-                {l.label}
-              </NavLink>
-            ))}
+            {links.map((l) =>
+              l.external ? (
+                <a
+                  key={l.to}
+                  href={l.to}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="relative inline-flex items-center gap-1 text-[15px] font-medium text-slate-400 transition-colors duration-150 hover:text-white"
+                >
+                  {l.label}
+                  <ArrowUpRight className="h-3.5 w-3.5" />
+                </a>
+              ) : (
+                <NavLink
+                  key={l.to}
+                  to={l.to}
+                  className={({ isActive }) =>
+                    cn(
+                      'relative text-[15px] font-medium text-slate-400 transition-colors duration-150 hover:text-white',
+                      isActive &&
+                        'text-brand after:absolute after:-bottom-1.5 after:left-0 after:h-0.5 after:w-full after:bg-brand',
+                    )
+                  }
+                >
+                  {l.label}
+                </NavLink>
+              ),
+            )}
           </nav>
 
           <div className="flex items-center gap-3">
@@ -106,18 +120,31 @@ export default function Navbar() {
                   animate={{ opacity: 1, x: 0 }}
                   transition={{ delay: 0.06 * i, duration: 0.35, ease: 'easeOut' }}
                 >
-                  <NavLink
-                    to={l.to}
-                    onClick={() => setDrawerOpen(false)}
-                    className={({ isActive }) =>
-                      cn(
-                        'font-display text-[32px] font-semibold text-white transition-colors hover:text-brand',
-                        isActive && 'text-brand',
-                      )
-                    }
-                  >
-                    {l.label}
-                  </NavLink>
+                  {l.external ? (
+                    <a
+                      href={l.to}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      onClick={() => setDrawerOpen(false)}
+                      className="inline-flex items-center gap-2 font-display text-[32px] font-semibold text-white transition-colors hover:text-brand"
+                    >
+                      {l.label}
+                      <ArrowUpRight className="h-5 w-5" />
+                    </a>
+                  ) : (
+                    <NavLink
+                      to={l.to}
+                      onClick={() => setDrawerOpen(false)}
+                      className={({ isActive }) =>
+                        cn(
+                          'font-display text-[32px] font-semibold text-white transition-colors hover:text-brand',
+                          isActive && 'text-brand',
+                        )
+                      }
+                    >
+                      {l.label}
+                    </NavLink>
+                  )}
                 </motion.div>
               ))}
               <motion.button
