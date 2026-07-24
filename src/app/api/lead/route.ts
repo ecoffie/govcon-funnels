@@ -5,7 +5,28 @@ import { saveLeadToSupabase, recentDuplicateExists } from '@/lib/supabase-leads'
 import { enforceIpRateLimit } from '@/lib/rate-limit';
 import { maskEmail } from '@/lib/redact';
 
+// Cross-origin lead capture: the podcast site (separate Vercel project, no
+// backend of its own) posts its newsletter/guide signups here. Scoped to that
+// one origin — everything else stays same-origin as before.
+const CORS_ALLOWED_ORIGINS = new Set(['https://podcast.govcongiants.org']);
+
+function corsHeaders(request: NextRequest): Record<string, string> {
+  const origin = request.headers.get('origin') ?? '';
+  if (!CORS_ALLOWED_ORIGINS.has(origin)) return {};
+  return {
+    'Access-Control-Allow-Origin': origin,
+    'Access-Control-Allow-Methods': 'POST, OPTIONS',
+    'Access-Control-Allow-Headers': 'Content-Type',
+    Vary: 'Origin',
+  };
+}
+
+export async function OPTIONS(request: NextRequest) {
+  return new NextResponse(null, { status: 204, headers: corsHeaders(request) });
+}
+
 export async function POST(request: NextRequest) {
+  const cors = corsHeaders(request);
   try {
     // Per-IP rate limit: this endpoint fans out to GHL + Supabase + Slack +
     // email, so it's an attractive spam-amplification target. 10/min per IP is
@@ -18,7 +39,7 @@ export async function POST(request: NextRequest) {
     const { name, email, phone, company, source, redirectUrl, tags, abTestId, abVariant } = body;
 
     if (!email?.trim()) {
-      return NextResponse.json({ error: 'Email is required' }, { status: 400 });
+      return NextResponse.json({ error: 'Email is required' }, { status: 400, headers: cors });
     }
 
     const lead = {
@@ -40,7 +61,7 @@ export async function POST(request: NextRequest) {
     //    redirects normally. Fails OPEN, so a check error never blocks a real signup.
     if (await recentDuplicateExists(lead.email, lead.source)) {
       console.log('Duplicate lead suppressed (recent submit):', { email: maskEmail(lead.email), source: lead.source });
-      return NextResponse.json({ success: true, duplicate: true });
+      return NextResponse.json({ success: true, duplicate: true }, { headers: cors });
     }
 
     // 1) Send to CRM first (HighLevel + optional webhook). Contact is created and tagged in GHL.
@@ -97,15 +118,18 @@ export async function POST(request: NextRequest) {
     });
 
     // 4) Response so front-end can redirect
-    return NextResponse.json({
-      success: true,
-      crm: crmResults,
-      supabase: supabaseResult,
-      slack: slackResult,
-      email: emailResult,
-    });
+    return NextResponse.json(
+      {
+        success: true,
+        crm: crmResults,
+        supabase: supabaseResult,
+        slack: slackResult,
+        email: emailResult,
+      },
+      { headers: cors }
+    );
   } catch (error) {
     console.error('Lead API error:', error);
-    return NextResponse.json({ error: 'Failed to process lead' }, { status: 500 });
+    return NextResponse.json({ error: 'Failed to process lead' }, { status: 500, headers: cors });
   }
 }

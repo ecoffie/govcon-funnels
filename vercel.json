@@ -2,31 +2,56 @@
   "redirects": [
     {
       "source": "/:path*",
-      "has": [{ "type": "host", "value": "govcongiants.org" }],
+      "has": [
+        {
+          "type": "host",
+          "value": "govcongiants.org"
+        }
+      ],
       "destination": "https://govcongiants.com/:path*",
       "permanent": true
     },
     {
       "source": "/:path*",
-      "has": [{ "type": "host", "value": "www.govcongiants.org" }],
+      "has": [
+        {
+          "type": "host",
+          "value": "www.govcongiants.org"
+        }
+      ],
       "destination": "https://govcongiants.com/:path*",
       "permanent": true
     },
     {
       "source": "/:path*",
-      "has": [{ "type": "host", "value": "www.govcongiants.com" }],
+      "has": [
+        {
+          "type": "host",
+          "value": "www.govcongiants.com"
+        }
+      ],
       "destination": "https://govcongiants.com/:path*",
       "permanent": true
     },
     {
       "source": "/:path*",
-      "has": [{ "type": "host", "value": "funnels.govcongiants.org" }],
+      "has": [
+        {
+          "type": "host",
+          "value": "funnels.govcongiants.org"
+        }
+      ],
       "destination": "https://govcongiants.com/:path*",
       "permanent": true
     },
     {
       "source": "/:path*",
-      "has": [{ "type": "host", "value": "tools.govcongiants.org" }],
+      "has": [
+        {
+          "type": "host",
+          "value": "tools.govcongiants.org"
+        }
+      ],
       "destination": "https://getmindy.ai/:path*",
       "permanent": true
     },
@@ -152,7 +177,7 @@
     },
     {
       "source": "/podcast",
-      "destination": "/resources",
+      "destination": "https://podcast.govcongiants.org/podcast",
       "permanent": true
     },
     {
@@ -262,7 +287,7 @@
     },
     {
       "source": "/podcast-1",
-      "destination": "/resources",
+      "destination": "https://podcast.govcongiants.org/podcast",
       "permanent": true
     },
     {

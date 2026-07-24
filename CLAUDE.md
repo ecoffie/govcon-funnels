@@ -192,6 +192,14 @@ See `/tasks/lessons.md` for full details.
 
 ## Recent Work (Last 7 Days)
 
+### July 24, 2026 — Podcast site cleanup + the TS-subdir deploy breakage (verified live)
+
+**podcast.govcongiants.org cleaned up & wired in.** Source now lives at `~/Projects/govcon-giants-podcast` (own repo, deploys via `vercel --prod`, Vercel project `govcon-giants-site`). What was fixed: **forms were fake** (signups went to visitor's own localStorage; zero leads ever captured) → now POST cross-origin to this repo's `/api/lead` as `source=podcast-site` with per-guide tags, success states link instant access to matching main-site guides; per-route meta via `useMeta` (blog/resources/start-here **noindexed** — they duplicate this site's job; blog holds ~30 unverified dollar figures, fact-pass before ever indexing); real robots.txt/sitemap.xml/404 (all were the SPA shell); Apple Podcasts real show URL (`id1463074357`); footer ecosystem links + privacy/terms → main site. `/api/lead` gained **CORS allowlisted to the podcast origin only** (OPTIONS + headers). Redirects `/podcast` + `/podcast-1` now 308 → `podcast.govcongiants.org/podcast` (was `/resources`). All verified on live URLs.
+
+**⚠️ THE DEPLOY LESSON:** committing the podcast SPA into this repo (`govcon-giants-site/`, 2026-07-23 20:45) **broke every govcongiants.com deploy for ~18h** — Next 16's type-check walks the whole project dir and fails on un-installed subdir deps; it **ignores tsconfig include/exclude AND .vercelignore** (all three tried). Only physically moving the app out fixed it. Never add a TS app subdir here (JS-only `govcon-crm2/` is tolerated). Tombstone: `govcon-giants-site/MOVED.md`. Local builds pass regardless (subdir node_modules exists locally) — a green local build is NOT proof the Vercel build works.
+
+**Content note:** `~/Projects/Action Plan/` = source of truth for course/lead-magnet content (The Vault, webinars, courses-28.json) — check it before authoring content; podcast-site guide magnets could be upgraded to real Vault-based deliverables (needs Eric's curation pass).
+
 ### July 23, 2026 — GSC intent-match SEO pass (verified live) + Chorus Law #3
 
 **SEO (commit `305bc0f`)** — 28d GSC drill-down showed the big CTR sinkholes are **intent mismatches, not title problems** (June 24 title rewrites didn't move CTR). Per-page query pulls via `gscQuery` + `dimensionFilterGroups`:
