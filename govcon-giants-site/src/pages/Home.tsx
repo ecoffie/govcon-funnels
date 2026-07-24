@@ -7,7 +7,7 @@ import ArticleCard from '@/components/ArticleCard';
 import EpisodeCard from '@/components/EpisodeCard';
 import { GhostLink } from '@/components/Buttons';
 import { articles, latestArticles } from '@/data/articles';
-import { latestEpisodes } from '@/data/episodes';
+import { latestEpisodes } from '@/lib/episode-utils';
 import { platforms } from '@/data/platforms';
 
 /* --------------------------------- Hero ---------------------------------- */

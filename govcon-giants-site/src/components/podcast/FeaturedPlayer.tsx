@@ -1,20 +1,25 @@
+import { useState } from 'react';
 import { motion } from 'framer-motion';
 import { ListMusic, Play } from 'lucide-react';
-import { episodes, formatEpisodeDate } from '@/data/episodes';
+import { episodes } from '@/data/episodes';
+import { formatEpisodeDate } from '@/lib/episode-utils';
+import { useExclusiveAudio } from '@/lib/useExclusiveAudio';
 
 /**
  * Featured episode player card (podcast.md §2): large landscape card on
  * bg/raised with a 4px green left border — 16:9 thumbnail left (40%),
  * content right (60%). Features the first EP-numbered long-form episode in
- * the dataset (newest-first order → the EP: 334 CMMC episode). Includes a
- * decorative scrubber whose fill eases to 8% on hover (800ms) and opens the
- * episode link on click.
+ * the dataset (newest-first order → the EP: 334 CMMC episode). The audio
+ * bar streams the episode's real MP3 on-site ("Play Episode" starts it);
+ * useExclusiveAudio guarantees only one episode plays at a time.
  */
 export default function FeaturedPlayer() {
   const episode = episodes.find((e) => /\bEP:\s*\d+/i.test(e.title)) ?? episodes[0];
+  const [imgSrc, setImgSrc] = useState(episode.image ?? '/thumb-ep-generic-2.png');
+  const audioRef = useExclusiveAudio();
 
-  const openEpisode = () => {
-    window.open(episode.link, '_blank', 'noopener,noreferrer');
+  const playEpisode = () => {
+    audioRef.current?.play();
   };
 
   const scrollToPlatforms = () => {
@@ -34,9 +39,10 @@ export default function FeaturedPlayer() {
             {/* Thumbnail */}
             <div className="relative aspect-video md:aspect-auto md:min-h-full">
               <img
-                src="/thumb-ep-generic-2.png"
+                src={imgSrc}
                 alt=""
                 loading="lazy"
+                onError={() => setImgSrc('/thumb-ep-generic-2.png')}
                 className="absolute inset-0 h-full w-full object-cover transition-transform duration-500 group-hover:scale-105"
               />
               <span className="absolute right-3 top-3 rounded-full bg-black/80 px-2.5 py-1 font-mono text-xs text-brand">
@@ -67,7 +73,7 @@ export default function FeaturedPlayer() {
               <div className="mt-6 flex flex-wrap gap-3">
                 <button
                   type="button"
-                  onClick={openEpisode}
+                  onClick={playEpisode}
                   className="inline-flex items-center justify-center gap-2 rounded-lg bg-brand px-7 py-3.5 text-[15px] font-semibold text-brand-ink transition-all duration-150 hover:-translate-y-px hover:bg-brand-hover active:scale-[0.98] cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand focus-visible:ring-offset-2 focus-visible:ring-offset-base"
                 >
                   <Play className="h-4 w-4 fill-current" />
@@ -83,20 +89,15 @@ export default function FeaturedPlayer() {
                 </button>
               </div>
 
-              {/* Decorative scrubber — fill eases 0% → 8% on hover, click opens the episode */}
-              <button
-                type="button"
-                onClick={openEpisode}
+              {/* Real on-site playback — streams the episode MP3 */}
+              <audio
+                ref={audioRef}
+                controls
+                preload="none"
+                src={episode.audioUrl}
                 aria-label={`Play ${episode.title}`}
-                className="group/scrub relative mt-7 block h-6 w-full cursor-pointer"
-              >
-                <span className="absolute inset-x-0 top-1/2 h-1 -translate-y-1/2 rounded-full bg-line" />
-                <span className="absolute left-0 top-1/2 h-1 w-full origin-left -translate-y-1/2 scale-x-0 rounded-full bg-brand transition-transform ease-out [transition-duration:800ms] group-hover/scrub:scale-x-[0.08]" />
-                <span className="absolute left-0 top-1/2 h-3 w-3 -translate-x-1/2 -translate-y-1/2 rounded-full bg-brand shadow-[0_0_12px_rgba(34,197,94,0.5)] transition-[left] ease-out [transition-duration:800ms] group-hover/scrub:left-[8%]" />
-                <span className="absolute right-0 top-full mt-1 font-mono text-[11px] text-slate-600">
-                  {episode.duration}
-                </span>
-              </button>
+                className="mt-7 h-10 w-full [color-scheme:dark]"
+              />
             </div>
           </div>
         </motion.div>
