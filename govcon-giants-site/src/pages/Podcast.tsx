@@ -1,7 +1,7 @@
 import { motion } from 'framer-motion';
 import NewsletterCapture from '@/components/NewsletterCapture';
 import ShowHeader from '@/components/podcast/ShowHeader';
-import FeaturedPlayer from '@/components/podcast/FeaturedPlayer';
+import FeaturedGuests from '@/components/podcast/FeaturedGuests';
 import EpisodeArchive from '@/components/podcast/EpisodeArchive';
 
 /* ------------------- Section 5 — Never Miss an Episode CTA ------------------- */
@@ -54,7 +54,7 @@ function EpisodeCta() {
 /* --------------------------------- Page ----------------------------------- */
 
 /** /podcast — full episode archive (podcast.md): show header, featured
- * player card, sticky filter bar, month-grouped archive, CTA band. */
+ * guests grid, sticky filter bar, month-grouped archive, CTA band. */
 export default function Podcast() {
   return (
     <motion.div
@@ -63,7 +63,7 @@ export default function Podcast() {
       transition={{ duration: 0.3, ease: 'easeOut' }}
     >
       <ShowHeader />
-      <FeaturedPlayer />
+      <FeaturedGuests />
       <EpisodeArchive />
       <EpisodeCta />
     </motion.div>
