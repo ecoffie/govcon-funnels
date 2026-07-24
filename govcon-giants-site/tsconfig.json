@@ -18,6 +18,9 @@
   },
   "exclude": [
     "node_modules",
+    "**/__tests__/**",
+    "vitest.config.ts",
+    "vitest.setup.ts",
     "govcon-giants-site",
     "govcon-crm2",
     "dashboard"
