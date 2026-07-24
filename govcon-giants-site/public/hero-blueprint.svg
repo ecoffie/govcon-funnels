@@ -1,0 +1,57 @@
+<svg width="1920" height="1080" viewBox="0 0 1920 1080" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <pattern id="grid" width="48" height="48" patternUnits="userSpaceOnUse">
+      <path d="M48 0H0V48" stroke="#1E2A45" stroke-width="1"/>
+    </pattern>
+  </defs>
+  <g opacity="0.35">
+    <rect width="1920" height="1080" fill="url(#grid)"/>
+    <!-- contract document outline -->
+    <g stroke="#1E2A45" stroke-width="2">
+      <rect x="240" y="180" width="300" height="400" rx="8"/>
+      <line x1="280" y1="240" x2="500" y2="240"/>
+      <line x1="280" y1="290" x2="500" y2="290"/>
+      <line x1="280" y1="340" x2="500" y2="340"/>
+      <line x1="280" y1="390" x2="440" y2="390"/>
+      <path d="M300 520 q20 -24 40 0 q20 24 40 0" stroke-linecap="round"/>
+      <circle cx="470" cy="510" r="34"/>
+      <path d="M470 492 l6 12 13 2 -9 9 2 13 -12 -6 -12 6 2 -13 -9 -9 13 -2 z"/>
+    </g>
+    <!-- gavel -->
+    <g stroke="#1E2A45" stroke-width="2">
+      <rect x="1420" y="220" width="170" height="70" rx="12" transform="rotate(18 1420 220)"/>
+      <line x1="1560" y1="300" x2="1700" y2="470" stroke-width="8"/>
+      <rect x="1620" y="500" width="180" height="26" rx="8"/>
+      <line x1="1400" y1="180" x2="1380" y2="140"/>
+      <line x1="1460" y1="160" x2="1450" y2="115"/>
+    </g>
+    <!-- capitol dome line art -->
+    <g stroke="#1E2A45" stroke-width="2">
+      <path d="M1330 780 A190 190 0 0 1 1710 780"/>
+      <line x1="1520" y1="590" x2="1520" y2="560"/>
+      <rect x="1500" y="560" width="40" height="34"/>
+      <line x1="1310" y1="780" x2="1730" y2="780"/>
+      <line x1="1320" y1="806" x2="1720" y2="806"/>
+      <line x1="1360" y1="806" x2="1360" y2="950"/>
+      <line x1="1420" y1="806" x2="1420" y2="950"/>
+      <line x1="1480" y1="806" x2="1480" y2="950"/>
+      <line x1="1540" y1="806" x2="1540" y2="950"/>
+      <line x1="1600" y1="806" x2="1600" y2="950"/>
+      <line x1="1660" y1="806" x2="1660" y2="950"/>
+      <line x1="1330" y1="950" x2="1710" y2="950"/>
+      <line x1="1300" y1="978" x2="1740" y2="978"/>
+      <line x1="1520" y1="780" x2="1420" y2="620"/>
+      <line x1="1520" y1="780" x2="1620" y2="620"/>
+    </g>
+    <!-- annotation marks -->
+    <g stroke="#1E2A45" stroke-width="1.5">
+      <line x1="120" y1="700" x2="120" y2="760"/>
+      <line x1="90" y1="730" x2="150" y2="730"/>
+      <circle cx="120" cy="730" r="46"/>
+      <line x1="700" y1="120" x2="900" y2="120" stroke-dasharray="8 8"/>
+      <line x1="700" y1="112" x2="700" y2="128"/>
+      <line x1="900" y1="112" x2="900" y2="128"/>
+      <circle cx="1780" cy="120" r="60" stroke-dasharray="10 8"/>
+    </g>
+  </g>
+</svg>

@@ -1,0 +1,343 @@
+export interface Episode {
+  title: string;
+  /** ISO date string (YYYY-MM-DD), parsed from the RSS pubDate */
+  date: string;
+  description: string;
+  /** e.g. "09:34" */
+  duration: string;
+  /** Libsyn episode URL */
+  link: string;
+}
+
+/** 43 real GovCon Giants Podcast episodes, newest first (embedded at build time). */
+export const episodes: Episode[] = [
+  {
+    title: "5 Ways To Find Your Federal Program Manager Before Everyone Else Does",
+    date: "2026-07-23",
+    description: "Finding federal decision makers before the RFP drops is the real edge in government contracting, and most contractors are looking in the wrong place entirely. In this episode, Randie Ward breaks down the exact hierarchy of people behind every solicitation, from the contracting officer down to the program manager and end user, and reveals a sloppy habit contracting officers don't even realize gives away who's really calling the shots. If you've been submitting proposals into the void with no contacts, this changes how you approach every opportunity going forward. Learn the difference between a ",
+    duration: "09:34",
+    link: "https://govcongiants.libsyn.com/5-ways-to-find-your-federal-program-manager-before-everyone-else-does",
+  },
+  {
+    title: "The Woman Who Wrote CMMC: The $250K \"Compliance Cost\" Is a Lie | EP: 334",
+    date: "2026-07-22",
+    description: "CMMC compliance is one of the most misunderstood requirements in government contracting, and the rumor that it costs small businesses $250,000 is simply not true. In this episode, Eric Coffie sits down with Katie Arrington, the architect behind CMMC, to break down what the real audit actually costs, why the rule was just paused for 60 days, and what small businesses need to know before making any decisions. If you have ever felt confused or priced out by CMMC headlines, this conversation sets the record straight. Key discussion points from this episode: Why the real CMMC audit costs around $20",
+    duration: "27:10",
+    link: "https://govcongiants.libsyn.com/the-woman-who-wrote-cmmc-the-250k-compliance-cost-is-a-lie-ep-334",
+  },
+  {
+    title: "The Side Door Strategy For Winning Subcontracts With Defense Primes",
+    date: "2026-07-21",
+    description: "Landing subcontracts with prime contractors like Boeing, Lockheed Martin, and L3Harris starts long before you ever pick up the phone, and most small businesses skip the steps that actually get them noticed. In this clip, a govcon entrepreneur breaks down the exact sequence he used to move from cold outreach to a signed, ongoing contract with a major defense prime. If you've been stuck trying to get a capability briefing to turn into real work, this is the roadmap. How to register on a prime contractor's vendor or partner portal before ever reaching out to their small business office Why leadin",
+    duration: "09:29",
+    link: "https://govcongiants.libsyn.com/the-side-door-strategy-for-winning-subcontracts-with-defense-primes",
+  },
+  {
+    title: "How to Find Federal Contracts Before They Hit SAM.gov With No Experience",
+    date: "2026-07-20",
+    description: "Capture management in government contracting means getting ahead of a solicitation months before it ever hits SAM.gov, and this episode breaks down exactly how to do it using FPDS data, NAICS and PSC codes, and direct outreach to program offices. Whether you're an aspiring entrepreneur trying to land your first federal contract or an active contractor looking to sharpen your business development process, this walkthrough gives you a real, repeatable framework. You'll learn how to research upcoming recompetes, build relationships before a requirement is public, and position your company as the ",
+    duration: "11:04",
+    link: "https://govcongiants.libsyn.com/how-to-find-federal-contracts-before-they-hit-samgov-with-no-experience",
+  },
+  {
+    title: "3 Subcontracting Mistakes That Can Bankrupt a Small Government Contractor Fast",
+    date: "2026-07-19",
+    description: "Government contracting subcontracting rules can make or break your first federal deal, and this episode breaks down exactly what small business owners need to know before signing with a large prime. Eric Coffie walks through real lessons learned from being subcontracted, being burned by big companies, and eventually building his own subcontracting strategy from the ground up. Whether you are new to govcon or already chasing your next teaming agreement, this conversation covers the details most contractors only learn the hard way. Key discussion points: Why working with oversized prime contract",
+    duration: "08:09",
+    link: "https://govcongiants.libsyn.com/how-one-subcontractor-turned-a-40000-dispute-into-a-federal-contracting-lesson",
+  },
+  {
+    title: "How To Build A Business Foundation When You Have No Experience At All",
+    date: "2026-07-18",
+    description: "What does hitting a target 500 yards away with iron sights have to do with building a business from nothing? In this episode, David Rambhajan breaks down the sharpshooter strategy he learned in Marine Corps boot camp and how mastering short range goals before chasing the big win changed how he approaches business, career, and opportunity. How a $5 lawn mowing job at age 14 sparked a lifelong entrepreneurial mindset Why applying for a job with zero experience and no degree still worked out How Marine Corps rifle training at 200, 300, and 500 yards teaches goal sequencing Why focusing energy on ",
+    duration: "10:55",
+    link: "https://govcongiants.libsyn.com/how-to-build-a-business-foundation-when-you-have-no-experience-at-all",
+  },
+  {
+    title: "How to Turn a $50K Line Item Into Steady Progress Payments",
+    date: "2026-07-17",
+    description: "Getting paid on a government construction contract is where most new contractors get stuck, and it usually is not about the work, it is about how you structure your billing. In this episode, Eric Coffie walks through the schedule of values line by line and shows exactly how to break a project into phases so cash flows in before the job is done. If you have ever wondered how you actually invoice the government without waiting a full year to see a dollar, this one solves it. How the schedule of values lets you bill by percentage of work completed instead of waiting for the full contract to finis",
+    duration: "11:23",
+    link: "https://govcongiants.libsyn.com/how-to-turn-a-50k-line-item-into-steady-progress-payments",
+  },
+  {
+    title: "Why Smart Contractors Use Government Work to Survive Recessions and Storm Slowdowns",
+    date: "2026-07-16",
+    description: "Recession proofing your business starts with diversifying beyond a single revenue stream, and this episode shows exactly how one roofing contractor did it by adding government subcontracting to his private sector work. After surviving a brutal recession and watching third-generation roofing companies disappear after storm cycles dried up, West Edwards turned to federal and government contract work as a hedge, and breaks down the patience, timing, and relationship strategy it took to make it pay off. Discover how a roofing company scaled from 2 million to 10 million in revenue in about three ye",
+    duration: "09:58",
+    link: "https://govcongiants.libsyn.com/why-smart-contractors-use-government-work-to-survive-recessions-and-storm-slowdowns",
+  },
+  {
+    title: "How to Use NAICS and PSC Codes to Find Government Buyers for Your Products | EP: 333",
+    date: "2026-07-15",
+    description: "Learning how to win a government contract starts with something most small businesses overlook entirely: making sure the government can actually find you. In this live GovCon Giants Q&A, Eric Coffie and co-host Maria Martinez bring real audience members on stage to troubleshoot their SAM.gov profiles, pricing strategy, and search for buyers in real time, live on air. Learn why an incomplete Dynamic Small Business Search (DSBS) profile makes you invisible to contracting officers searching by keyword Discover the difference between a capability narrative and a capability statement, and where to ",
+    duration: "01:19:53",
+    link: "https://govcongiants.libsyn.com/how-to-use-naics-and-psc-codes-to-find-government-buyers-for-your-products-ep-333",
+  },
+  {
+    title: "2 Red Flags That Mean You Should Skip That Government Contract Bid",
+    date: "2026-07-14",
+    description: "Government contracting bids aren't all created equal, and knowing which ones to walk away from can save you hours of wasted proposal work. In this clip, Ryan Atencio a government contracting expert breaks down the two clearest warning signs that a solicitation is already wired for someone else, so you can stop chasing bids you were never going to win and focus your energy where you actually have a shot. Learn why a seven day RFP deadline usually means the government already has someone lined up, and the rare exceptions when a short suspense is still worth pursuing Understand how highly specifi",
+    duration: "10:00",
+    link: "https://govcongiants.libsyn.com/2-red-flags-that-mean-you-should-skip-that-government-contract-bid",
+  },
+  {
+    title: "How Small Business Owners Can Use Subcontracting to Land Their First Federal Contract",
+    date: "2026-07-13",
+    description: "Government subcontracting is the fastest way to break into federal contracting when you have no money, no team, and no resources, and in this episode Eric Coffie shares the exact path he took the two times he was most broke in his career. Before he ever won a prime contract, Eric built his business by subcontracting for someone else, and he breaks down why that pathway still works for small business owners and aspiring entrepreneurs today. If you feel stuck trying to figure out how to break in, this episode maps out a real, repeatable route. How Eric won his first contract as a subcontractor o",
+    duration: "09:44",
+    link: "https://govcongiants.libsyn.com/how-small-business-owners-can-use-subcontracting-to-land-their-first-federal-contract",
+  },
+  {
+    title: "What It Really Takes to Land Your First Federal Subcontract With No Money",
+    date: "2026-07-12",
+    description: "Government contracting subcontracts might be the fastest path to your first six-figure win, and Eric Coffie proves it with his own story. In this episode, Randie Ward opens up about the two lowest points in his federal contracting journey, and how subcontracting pulled him out both times. If you're stuck trying to figure out how to break into govcon with no money and no track record, this is the roadmap. How Eric landed his first $1.2 million contract as a subcontractor with zero capital of his own Why subcontracting gave Eric a faster on-ramp into government contracting than bidding as a prim",
+    duration: "15:34",
+    link: "https://govcongiants.libsyn.com/what-it-really-takes-to-land-your-first-federal-subcontract-with-no-money",
+  },
+  {
+    title: "How to Choose the Right Small Business Certification for Federal Contracting Success",
+    date: "2026-07-11",
+    description: "Government contracting certifications like MBE, DBE, veteran-owned, and 8(a) can open doors, but holding a certification does not guarantee work. In this episode, David Rambhajan breaks down why so many small business owners get certified and then wait for contracts that never come, and shares the framework he used to turn certifications into a profitable, sellable government contracting business. Learn why certification alone does not equal contract wins, and what you actually need to do with it Discover the \"3 R's\" framework: resources, risk, and return, for deciding which certification fits",
+    duration: "10:37",
+    link: "https://govcongiants.libsyn.com/how-to-choose-the-right-small-business-certification-for-federal-contracting-success",
+  },
+  {
+    title: "Why Full and Open Competition Is Rigged and 8a Contracts Are Actually Fairer",
+    date: "2026-07-10",
+    description: "The 8a sole source process is one of the most misunderstood tools in federal contracting, and this episode breaks down exactly why most certified firms never use it correctly. Eric Coffie walks through real sole source award data, dispels the misinformation circulating about the program's future, and explains why understanding this process puts you ahead of the 4,000 plus 8a companies still confused about how it works. If you're sitting on a certification you haven't leveraged, this is the episode that shows you what you're missing. Learn why 8a firms received only 1.8 percent of all Departmen",
+    duration: "08:25",
+    link: "https://govcongiants.libsyn.com/why-full-and-open-competition-is-rigged-and-8a-contracts-are-actually-fairer",
+  },
+  {
+    title: "How to Draft a Winning Sources Sought Response Step by Step",
+    date: "2026-07-09",
+    description: "Sources sought responses can make or break your shot at a federal contract, and most small businesses are leaving money on the table by treating every requirement the same way. In this episode, Ryan Atencio sits down for a candid, in-the-weeds conversation on how to use AI to draft sources sought responses, build proposals from your past performance, and turn casual conversations with government customers into real task orders. If you've ever stared at a blank cover page wondering where to start, this one walks through the exact workflow. How to use AI to outline and draft a sources sought res",
+    duration: "07:30",
+    link: "https://govcongiants.libsyn.com/how-to-draft-a-winning-sources-sought-response-step-by-step",
+  },
+  {
+    title: "How She Won $5 Million In Federal Contracts With No Past Performance | EP: 332",
+    date: "2026-07-08",
+    description: "Winning your first government contract with no past performance and no capital sounds impossible, but Randy Ward did exactly that and scaled it into millions. In this episode, host Eric Coffie sits down with the President of AlchemyGov to break down how strategic partnerships and teaming let small businesses bid on contracts far bigger than they could ever chase alone. If you have been sitting on the sidelines watching the government spend more while you win nothing, this is the alternative path in. Here is what you will learn in this episode: How Randy landed her first two consulting clients ",
+    duration: "47:53",
+    link: "https://govcongiants.libsyn.com/how-she-won-5-million-in-federal-contracts-with-no-past-performance-ep-332",
+  },
+  {
+    title: "What a 20 Million Dollar Proposal Rejection Taught This Govcon Consultant About AI",
+    date: "2026-07-07",
+    description: "Government proposal writing can fall apart over a single missed sentence, and that's exactly what happened on a $20 million, five-year federal contract that proposal strategist Zach Golden still calls his \"nightmare.\" In this episode, Zach breaks down his stage-by-stage proposal process, from building a bid/no-bid matrix to using AI for compliance checks, and explains the costly lesson that changed how he reviews every requirement before submission. Key takeaways from this episode: How to build a proposal matrix that filters bid/no-bid decisions in under 15 minutes Why a missed training docume",
+    duration: "08:20",
+    link: "https://govcongiants.libsyn.com/what-a-20-million-dollar-proposal-rejection-taught-this-govcon-consultant-about-ai",
+  },
+  {
+    title: "How Subcontractors Can Build Prime Relationships by Showing Up at Federal Site Visits",
+    date: "2026-07-06",
+    description: "If you're losing federal opportunities because you keep finding solicitations after the site visit already happened or the deadline is five days out, this episode breaks down the exact saved-search workflow that fixes it. Ryan Atencio walks through how to manage SAM.gov saved searches, flag sole-source listings before wasting time on them, and turn a same-day catch into a real shot at the award. This is a hands-on, practical look at the habits that separate contractors who consistently win from the ones who are always a step behind. How to set up and clean up SAM.gov saved searches so opportun",
+    duration: "08:49",
+    link: "https://govcongiants.libsyn.com/how-subcontractors-can-build-prime-relationships-by-showing-up-at-federal-site-visits",
+  },
+  {
+    title: "The Free Government Tool Most Small Business Owners Never Knew Existed",
+    date: "2026-07-05",
+    description: "If your 8(a) application has been sitting in the SBA queue with no movement, there's a free, legal escalation tool most small business owners have never heard of: the congressional privacy release form. In this episode, Eric Coffie breaks down exactly how he used a simple digital form to trigger a congressional inquiry into a stalled SBA application, and what happened within hours of submitting it. If you're stuck waiting on certification and don't know who to call, this is the playbook. Learn how a digital privacy release form on your representative's website triggers a direct congressional i",
+    duration: "07:29",
+    link: "https://govcongiants.libsyn.com/the-free-government-tool-most-small-business-owners-never-knew-existed",
+  },
+  {
+    title: "How To Build Relationships With Contracting Officers Before The RFP Even Drops",
+    date: "2026-07-04",
+    description: "Building relationships with contracting officers before a solicitation ever drops is one of the most overlooked strategies in federal contracting, and it's exactly what separates small businesses who win from those who just show up to bid. In this clip from the Federal Help Center podcast, Randie Ward breaks down how one small business turned years of relationship building into a $2 million job order contract win, plus a federal opportunity that got shortlisted simply because the right people already knew her name. If you are tired of submitting proposals into a black hole, this episode shows ",
+    duration: "07:49",
+    link: "https://govcongiants.libsyn.com/how-to-build-relationships-with-contracting-officers-before-the-rfp-even-drops",
+  },
+  {
+    title: "What It Takes to Form an 8a Joint Venture With a Tribal Company",
+    date: "2026-07-03",
+    description: "If you're trying to win federal contracts with no past performance, this episode breaks down exactly how 8(a) joint ventures solve that problem. A govcon consultant walks through how he used JV partnerships and tribal 8(a) entities to win sole source work before his own company had a track record, and why relationships built over decades still beat any cold outreach strategy. Whether you're new to federal contracting or scaling an 8(a) firm, this is a real-world playbook for bridging the past performance gap. How to use JV partnerships to win sole source contracts before you have your own past",
+    duration: "10:21",
+    link: "https://govcongiants.libsyn.com/what-it-takes-to-form-an-8a-joint-venture-with-a-tribal-company",
+  },
+  {
+    title: "How To Know If Your Government Contract Proposal Pricing Is Actually Competitive",
+    date: "2026-07-02",
+    description: "Wondering how to price a government contract proposal so it actually wins? In this episode, Ryan Atencio breaks down the exact pricing logic he's used for nearly a decade selling directly to the government and helping other businesses do the same. If you've ever felt unsure whether your bid is too high, too low, or just right, this episode gives you a real framework to check your work. Learn how to reverse engineer a competitor's winning award price after you lose a bid, so your next proposal is sharper Discover why getting two to three quotes on every requirement reveals pricing variance that",
+    duration: "07:55",
+    link: "https://govcongiants.libsyn.com/how-to-know-if-your-government-contract-proposal-pricing-is-actually-competitive",
+  },
+  {
+    title: "Three Ways to Turn Your Existing Skills Into Real Income Right Now | EP: 331",
+    date: "2026-07-01",
+    description: "Making your first 10000 dollars doesn't require an LLC, a business plan, or any startup capital — just skills you already have and the willingness to use them differently. In this episode, Eric Coffie breaks down three real strategies he's personally used to help people generate $5,000 to $10,000 quickly, even with zero business infrastructure in place. If you've ever felt like you don't have enough resources to get started, this episode will show you exactly what's already in your hands. Learn how to package and sell a skill you already have, the same way Eric turned free YouTube content into",
+    duration: "32:28",
+    link: "https://govcongiants.libsyn.com/three-ways-to-turn-your-existing-skills-into-real-income-right-now-ep-331",
+  },
+  {
+    title: "How small business owners can use capability statements as a follow up marketing tool",
+    date: "2026-06-30",
+    description: "Most capability statements get sent once and never updated, which is exactly why government reps forget who you are. In this episode, Zach Golden walks through a live capability statement grading session, showing exactly what scores high, what gets flagged, and why trying to list too many services actually hurts your chances. If you've ever wondered whether your capability statement is actually working for you, this breakdown will show you what to fix first. Why doing 12 things instead of one specialty makes contracting officers trust you less How a real construction company's capability state",
+    duration: "08:36",
+    link: "https://govcongiants.libsyn.com/how-small-business-owners-can-use-capability-statements-as-a-follow-up-marketing-tool",
+  },
+  {
+    title: "What every small business needs to know about CMMC compliance before working with DOD",
+    date: "2026-06-29",
+    description: "If you're trying to win Department of Defense contracts, understanding PIEE, CMMC, and your SPRS score isn't optional, it's the baseline. In this episode, Randie Ward breaks down exactly how to register inside PIEE, why CMMC compliance levels matter more than ever, and why a negative SPRS score doesn't mean you're disqualified. This is the practical, no-fluff walkthrough every small business needs before bidding on DOD work. How to register inside PIEE and navigate the training tiles for SBIRS, SPRS, and WAWF Why CMMC compliance levels are now mandatory for any business working with the Depart",
+    duration: "08:18",
+    link: "https://govcongiants.libsyn.com/what-every-small-business-needs-to-know-about-cmmc-compliance-before-working-with-dod",
+  },
+  {
+    title: "The exact letter format that gets business opportunity specialists to respond fast",
+    date: "2026-06-28",
+    description: "Most 8(a) business opportunity specialists won't lift a finger for you, and it's not because the program is broken, it's because nobody taught you how to ask. In this episode, Eric Coffie breaks down the exact package he uses to turn an unresponsive SBA contact into an advocate who writes letters straight to federal agencies on his behalf. If you've ever been told \"that's not our job\" by your BOS, this episode hands you the fix. Why most 8(a) firms get ignored by their business opportunity specialist and how to flip that dynamic The 53-page advocacy package structure that proves you understand",
+    duration: "08:55",
+    link: "https://govcongiants.libsyn.com/the-exact-letter-format-that-gets-business-opportunity-specialists-to-respond-fast",
+  },
+  {
+    title: "How Small Businesses Use Set-Asides and Joint Ventures to Beat Large Incumbent Contractors",
+    date: "2026-06-27",
+    description: "Shaping a government solicitation before the RFP drops is one of the most powerful competitive moves a small business can make and in this episode, Ryan Atencio walks through a live sources sought response strategy designed to nudge an active DoD training requirement toward a small business set-aside on Seaport Next Generation. This is real BD strategy in action, not theory. How to structure a sources sought response that recommends minimum requirements, acquisition strategy, and contract type all designed to eliminate low-price technically acceptable (LPTA) races to the bottom and filter out ",
+    duration: "11:07",
+    link: "https://govcongiants.libsyn.com/how-small-businesses-use-set-asides-and-joint-ventures-to-beat-large-incumbent-contractors",
+  },
+  {
+    title: "Why HUBZone Price Preference Rarely Works in Practice and What to Do on an IDIQ Instead",
+    date: "2026-06-26",
+    description: "IDIQ contract strategy is one of the most underused paths to scaling federal revenue fast, especially when you have no past performance and no certifications to lean on. In this clip from the Federal Help Center, Eric Coffie breaks down exactly how IDIQ vehicles work in the real world, how he leveraged a single contract across multiple Navy bases, and why you do not need to be certified to get on one as a subcontractor. What you will learn in this episode: How to sub onto an IDIQ without any certifications — Eric Coffie explains that primes holding IDIQ vehicles are looking for capable vendors",
+    duration: "09:31",
+    link: "https://govcongiants.libsyn.com/why-hubzone-price-preference-rarely-works-in-practice-and-what-to-do-on-an-idiq-instead",
+  },
+  {
+    title: "What to Do When Someone Claims They Can Get You Guaranteed Government Contracts",
+    date: "2026-06-25",
+    description: "If you've ever wondered how to verify government contract outreach is legitimate, this episode breaks down exactly what to look for before you respond to that surprise DOD or Air Force email. A small business owner shares a message he received from a self-described government partner asking to \"share his account list,\" and Colin and the Federal Help Center community walk through how to separate a real opportunity from a setup. Key takeaways from this episode: How to cross-reference a contact's LinkedIn profile and sam.gov or FPDS listing to confirm they're a real government partner Why CEOs an",
+    duration: "10:57",
+    link: "https://govcongiants.libsyn.com/what-to-do-when-someone-claims-they-can-get-you-guaranteed-government-contracts",
+  },
+  {
+    title: "How to make your first $20K in government contracting with no experience or money | EP: 330",
+    date: "2026-06-24",
+    description: "Making your first $20K in government contracting with no experience, no past performance, and no capital is not just possible Eric Coffie has done it with complete beginners, including a kindergarten teacher who went on to earn six figures in the federal market. In this episode, Eric pulls a module directly out of GovCon Giants' consulting program and teaches it live, completely free, walking you through the exact five-step process he used to train Maria Martinez and his son Brandon to land their first govcon dollars. What you'll learn in this episode: The two-path approach to getting started:",
+    duration: "37:46",
+    link: "https://govcongiants.libsyn.com/how-to-make-your-first-20k-in-government-contracting-with-no-experience-or-money-ep-330",
+  },
+  {
+    title: "Why Submitting a Sources Sought Response Can Cut 80 Percent of Your Competition",
+    date: "2026-06-23",
+    description: "Learning how to write a sources sought response could be the single highest-leverage move you make in federal contracting this year. In this episode, Ryan Atencio walks through a real sources sought response he just submitted, line by line, showing exactly how to nudge a solicitation's set-aside, evaluation criteria, and contract vehicle before it ever goes live. If you've ever felt like the government writes RFPs for someone else and you're just hoping to qualify, this episode shows you how to flip that. Key discussion points from this episode include: How shaping a sources sought response ea",
+    duration: "09:54",
+    link: "https://govcongiants.libsyn.com/why-submitting-a-sources-sought-response-can-cut-80-percent-of-your-competition",
+  },
+  {
+    title: "Why Most 8(a) Businesses Never Get Sole Source Contracts and How to Fix That",
+    date: "2026-06-22",
+    description: "If you've ever read a sources sought notice and had no idea what to do with it, this episode is your roadmap. Eric Coffie breaks down exactly how 8(a) companies are supposed to \"self-market,\" why most contractors never get the sole source work they were promised, and how a single email to your SBA Business Opportunity Specialist can put your name in front of a contracting officer. Whether you're already certified, working toward 8(a), or just starting to explore federal contracting as a business model, this conversation gives you a step-by-step playbook you can use this week. Key Discussion Po",
+    duration: "14:18",
+    link: "https://govcongiants.libsyn.com/why-most-8a-businesses-never-get-sole-source-contracts-and-how-to-fix-that",
+  },
+  {
+    title: "How to Use PSC Codes to Find More Government Contract Opportunities Fast",
+    date: "2026-06-21",
+    description: "If you're trying to figure out NAICS code size standards before registering for federal contracts, this episode breaks down exactly how those numbers determine whether your business stays small or gets bumped into the large category. Randie Ward walks through real examples using janitorial and construction codes so you can see how to pick a primary NAICS code that lets your business grow without losing small business status. Whether you're brand new to govcon or already holding contracts, this is the foundational knowledge that affects every set-aside you'll ever bid on. Key Discussion Points:",
+    duration: "08:45",
+    link: "https://govcongiants.libsyn.com/how-to-use-psc-codes-to-find-more-government-contract-opportunities-fast",
+  },
+  {
+    title: "What Government Representatives Look for When They Read Your Capability Statement",
+    date: "2026-06-20",
+    description: "If you've been putting off writing your capability statement because you don't know where to start, this episode shows you exactly how to use AI to build one from scratch. Zack Golden walks through a real example with a small construction firm, turning basic business details into a polished, professional capability statement in real time. Whether you're brand new to government contracting or just need to clean up your existing document, this step-by-step walkthrough gives you a template you can use today. Key Discussion Points: How to gather your SAM.gov registration, NAICS codes, and service ",
+    duration: "09:26",
+    link: "https://govcongiants.libsyn.com/what-government-representatives-look-for-when-they-read-your-capability-statement",
+  },
+  {
+    title: "Why Sole Source Contracts Disappear After You Graduate From the 8a Program",
+    date: "2026-06-19",
+    description: "8a program graduation can completely change a small business's pipeline overnight, and most contractors don't see it coming until it's too late. In this episode, a construction company owner walks through how he built a $16 billion backlog of IDIQ contracts before hitting the $250 million 8a cap, what happened to his sole source work once he graduated, and how he later sold the company entirely. If you're a government contractor watching your 8a clock run out, this episode shows you exactly how to prepare. Key takeaways from this episode include: How one company went from $15 million to $75 mi",
+    duration: "10:35",
+    link: "https://govcongiants.libsyn.com/why-sole-source-contracts-disappear-after-you-graduate-from-the-8a-program",
+  },
+  {
+    title: "What Aspiring GovCon Consultants Can Learn From This AI Proposal Workflow",
+    date: "2026-06-18",
+    description: "If you're searching for how to find government contract opportunities and actually keep up with them, this episode is a real-time, screen-share walkthrough of exactly how it's done. Ryan Atencio shows the entire process of spotting an opportunity, evaluating it, and moving it through a pipeline, no theory, just the actual workflow. Whether you're already bidding or just trying to understand how serious contractors stay organized, this episode breaks down a system you can copy today. In this episode, you'll learn: How a custom Gemini AI gem can instantly \"shred\" a lengthy statement of work into",
+    duration: "10:22",
+    link: "https://govcongiants.libsyn.com/what-aspiring-govcon-consultants-can-learn-from-this-ai-proposal-workflow",
+  },
+  {
+    title: "How to Win Government Contracts With Zero Experience Using Strategic Networking | Ep: 329",
+    date: "2026-06-17",
+    description: "Winning government contracts with zero experience is possible and it starts with one thing most beginners overlook entirely: building intentional relationships before you ever submit a bid. In this episode, Eric Coffie breaks down why your network is your most powerful procurement tool and shares real stories of small business owners who landed multimillion dollar opportunities simply by showing up, talking to people, and making strategic connections. Here is what you will take away from this episode: Why relationship-building outperforms bid volume : Eric shares how a podcast guest in Rhode I",
+    duration: "43:47",
+    link: "https://govcongiants.libsyn.com/how-to-win-government-contracts-with-zero-experience-using-strategic-networking-ep-329",
+  },
+  {
+    title: "What to Do If You Have No Past Performance for Government Contracts Yet",
+    date: "2026-06-16",
+    description: "If you're trying to build a capability statement for government contracts that actually gets noticed, this episode is exactly what you need. Randie Ward breaks down the real, behind-the-scenes details of what makes a capability statement work, from the documents agencies actually read to the small details that get your company remembered. Whether you're brand new to procurement or refreshing your materials before your next pursuit, this conversation gives you a practical roadmap. Inside this episode, you'll learn: How to treat your capability statement as a living document that changes with ev",
+    duration: "10:12",
+    link: "https://govcongiants.libsyn.com/how-to-write-a-capability-statement-that-actually-wins-federal-contracts",
+  },
+  {
+    title: "How to Avoid the 8(a) Application Mistakes That Get Your Paperwork Rejected",
+    date: "2026-06-15",
+    description: "If you've been on the fence about pursuing 8a certification, this episode of the Federal Help Center podcast lays out exactly why 2026 is the year to apply. Eric Coffie breaks down how record-high federal spending, a shrinking industrial base, and a looming SBA audit are creating a narrow window for small businesses to lock in one of govcon's most powerful set-asides. Whether you're an active contractor weighing your next move or just starting to explore government contracting, this conversation gives you the real numbers and real strategy behind the 8a program. Learn why average 8a contract v",
+    duration: "01:20:30",
+    link: "https://govcongiants.libsyn.com/how-to-avoid-the-8a-application-mistakes-that-get-your-paperwork-rejected",
+  },
+  {
+    title: "Find Your Competitor's Contracts in 60 Seconds and Use That Intel to Win",
+    date: "2026-06-14",
+    description: "Capture management is the govcon skill most small businesses ignore, and it's exactly why they keep losing to companies that start working the opportunity before the RFP ever drops. In this episode, Ryan Atencio pulls back the curtain on his live source-sought response process, showing exactly how he shapes solicitations to scope toward his company, knock out low-price competitors, and signal to the government that his firm is the obvious choice before evaluation even begins. What you'll learn in this episode: How to use a source-sought response to nudge an acquisition toward a contract vehicl",
+    duration: "10:57",
+    link: "https://govcongiants.libsyn.com/find-your-competitors-contracts-in-60-seconds-and-use-that-intel-to-win",
+  },
+  {
+    title: "How to Find the Proposal Errors That Get Small Businesses Disqualified Every Time",
+    date: "2026-06-13",
+    description: "Government proposal mistakes are quietly disqualifying small businesses before the government ever looks at their price — and most contractors never know exactly why they lost. In this episode, Zach Golden break down real-world examples of how contradictions in solicitations and missed documentation requirements are sinking bids, and exactly how AI tools can catch those errors before you submit. What you'll learn in this episode: How to handle contradictory solicitation documents when two sections say completely different things about scope, the right move is to document it in writing and cont",
+    duration: "09:35",
+    link: "https://govcongiants.libsyn.com/how-to-find-the-proposal-errors-that-get-small-businesses-disqualified-every-time",
+  },
+  {
+    title: "Sources Sought Notices Are Free Marketing and Most Small Businesses Never Respond",
+    date: "2026-06-12",
+    description: "Sources Sought notices on SAM.gov are one of the most underused free marketing tools in federal contracting, and most small businesses scroll right past them. In this episode, Eric Coffie breaks down exactly what happens during the government's market research phase and why your SBA profile could have contracting officers reaching out to you with contract opportunities before a solicitation ever hits the street. What you'll take away from this episode: Sources Sought and RFIs are market research, not bids — most small businesses dismiss them because they say \"for market research purposes only,",
+    duration: "06:00",
+    link: "https://govcongiants.libsyn.com/sources-sought-notices-are-free-marketing-and-most-small-businesses-never-respond",
+  },
+  {
+    title: "Government Procurement Decoded | How to Read Solicitations Before Your Competition Does",
+    date: "2026-06-11",
+    description: "Understanding how the government buys is the single biggest unlock for small businesses trying to break into federal contracting. In this episode, govcon expert Ryan Atencio breaks down the mechanics of federal procurement, from the difference between a Statement of Work, Performance Work Statement, and Statement of Objectives, to why submitting proposals consistently is the fastest path to your first contract win. Why submitting proposals even when you're unsure is the repetition strategy that separates contractors who win from those who stay on the sidelines How to read a contracting officer",
+    duration: "09:55",
+    link: "https://govcongiants.libsyn.com/government-procurement-decoded-how-to-read-solicitations-before-your-competition-does",
+  },
+];
+
+/** Latest N episodes. */
+export const latestEpisodes = (n: number): Episode[] => episodes.slice(0, n);
+
+/** Rotating fallback thumbnails for episode cards. */
+export const episodeThumbs = [
+  '/thumb-ep-generic-1.png',
+  '/thumb-ep-generic-2.png',
+  '/thumb-ep-generic-3.png',
+  '/thumb-ep-generic-4.png',
+] as const;
+
+export const episodeThumb = (index: number): string =>
+  episodeThumbs[index % episodeThumbs.length];
+
+/** Format an ISO date like "Jul 23, 2026". */
+export function formatEpisodeDate(iso: string): string {
+  const d = new Date(`${iso}T00:00:00`);
+  if (Number.isNaN(d.getTime())) return iso;
+  return d.toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' });
+}
+
+/** Curated featured episodes for the home page "Start here" grid. */
+export const featuredEpisodes: Episode[] = [
+  episodes.find((e) => e.title.includes('EP: 333')),
+  episodes.find((e) => e.title.includes('EP: 332')),
+  episodes.find((e) => e.title.includes('EP: 331')),
+].filter((e): e is Episode => Boolean(e));
