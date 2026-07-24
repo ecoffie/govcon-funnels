@@ -2,7 +2,8 @@ import { useState } from 'react';
 import { motion } from 'framer-motion';
 import { Pause, Play } from 'lucide-react';
 import type { Episode } from '@/data/episodes';
-import { episodeArtwork, episodeThumb, formatEpisodeDate } from '@/lib/episode-utils';
+import EpisodeThumb from '@/components/podcast/EpisodeThumb';
+import { formatEpisodeDate } from '@/lib/episode-utils';
 import { useExclusiveAudio } from '@/lib/useExclusiveAudio';
 import { cn } from '@/lib/utils';
 
@@ -13,15 +14,14 @@ interface EpisodeCardProps {
 }
 
 /**
- * Card variant (design.md §6.4): 16:9 thumbnail (per-episode artwork with
- * generic-thumb fallback), duration chip, title, date. The center play
+ * Card variant (design.md §6.4): 16:9 branded thumbnail (EpisodeThumb — pure
+ * CSS/SVG, no RSS artwork), duration chip, title, date. The center play
  * button toggles an inline <audio> bar that streams the episode on-site;
  * useExclusiveAudio guarantees only one episode plays at a time. The title
  * still links out to the Libsyn episode page.
  */
 export default function EpisodeCard({ episode, index = 0, className }: EpisodeCardProps) {
   const [open, setOpen] = useState(false);
-  const [imgSrc, setImgSrc] = useState(episodeArtwork(episode, index));
   const audioRef = useExclusiveAudio();
 
   return (
@@ -36,13 +36,7 @@ export default function EpisodeCard({ episode, index = 0, className }: EpisodeCa
       )}
     >
       <div className="relative aspect-video overflow-hidden">
-        <img
-          src={imgSrc}
-          alt=""
-          loading="lazy"
-          onError={() => setImgSrc(episodeThumb(index))}
-          className="h-full w-full object-cover transition-transform duration-500 group-hover:scale-105"
-        />
+        <EpisodeThumb title={episode.title} className="absolute inset-0" />
         <span className="absolute right-3 top-3 rounded-full bg-black/80 px-2.5 py-1 font-mono text-xs text-brand transition-transform group-hover:scale-105">
           {episode.duration}
         </span>

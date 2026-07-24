@@ -205,7 +205,7 @@ export default function EpisodeArchive() {
       {/* --------------------- Section 4 — episode archive list --------------------- */}
       <section className="pb-16 md:pb-24">
         <div className="container-gg">
-          <div className="mx-auto max-w-[900px]">
+          <div className="mx-auto max-w-[960px]">
             {/* Result count — crossfades on change */}
             <div className="flex h-10 items-center font-mono text-xs tracking-[0.14em] text-slate-500">
               <AnimatePresence mode="wait" initial={false}>
@@ -259,20 +259,9 @@ export default function EpisodeArchive() {
                       </motion.h2>
                     </div>
                     <div>
-                      {group.eps.map((ep, i) => {
-                        const stagger = Math.min(i, 8);
-                        return (
-                          <motion.div
-                            key={ep.link}
-                            initial={{ opacity: 0, y: 40 }}
-                            whileInView={{ opacity: 1, y: 0 }}
-                            viewport={{ once: true, amount: 0.1 }}
-                            transition={{ duration: 0.5, delay: stagger * 0.06, ease: 'easeOut' }}
-                          >
-                            <EpisodeRow episode={ep} index={stagger} />
-                          </motion.div>
-                        );
-                      })}
+                      {group.eps.map((ep, i) => (
+                        <EpisodeRow key={ep.link} episode={ep} index={Math.min(i, 8)} />
+                      ))}
                     </div>
                   </div>
                 ))}

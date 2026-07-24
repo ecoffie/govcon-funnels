@@ -1,13 +1,13 @@
-import { useState } from 'react';
 import { motion } from 'framer-motion';
 import { ListMusic, Play } from 'lucide-react';
 import { episodes } from '@/data/episodes';
+import EpisodeThumb from '@/components/podcast/EpisodeThumb';
 import { formatEpisodeDate } from '@/lib/episode-utils';
 import { useExclusiveAudio } from '@/lib/useExclusiveAudio';
 
 /**
  * Featured episode player card (podcast.md §2): large landscape card on
- * bg/raised with a 4px green left border — 16:9 thumbnail left (40%),
+ * bg/raised with a 4px green left border — branded thumbnail left (40%),
  * content right (60%). Features the first EP-numbered long-form episode in
  * the dataset (newest-first order → the EP: 334 CMMC episode). The audio
  * bar streams the episode's real MP3 on-site ("Play Episode" starts it);
@@ -15,7 +15,6 @@ import { useExclusiveAudio } from '@/lib/useExclusiveAudio';
  */
 export default function FeaturedPlayer() {
   const episode = episodes.find((e) => /\bEP:\s*\d+/i.test(e.title)) ?? episodes[0];
-  const [imgSrc, setImgSrc] = useState(episode.image ?? '/thumb-ep-generic-2.png');
   const audioRef = useExclusiveAudio();
 
   const playEpisode = () => {
@@ -36,15 +35,9 @@ export default function FeaturedPlayer() {
           transition={{ duration: 0.6, ease: 'easeOut' }}
         >
           <div className="group grid overflow-hidden rounded-xl border border-line border-l-4 border-l-brand bg-raised transition-all duration-200 hover:-translate-y-1 hover:shadow-[0_8px_30px_rgba(0,0,0,0.35)] md:grid-cols-[40%_60%]">
-            {/* Thumbnail */}
+            {/* Branded thumbnail */}
             <div className="relative aspect-video md:aspect-auto md:min-h-full">
-              <img
-                src={imgSrc}
-                alt=""
-                loading="lazy"
-                onError={() => setImgSrc('/thumb-ep-generic-2.png')}
-                className="absolute inset-0 h-full w-full object-cover transition-transform duration-500 group-hover:scale-105"
-              />
+              <EpisodeThumb title={episode.title} className="absolute inset-0" />
               <span className="absolute right-3 top-3 rounded-full bg-black/80 px-2.5 py-1 font-mono text-xs text-brand">
                 {episode.duration}
               </span>
