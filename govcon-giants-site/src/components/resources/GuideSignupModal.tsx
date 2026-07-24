@@ -1,8 +1,8 @@
-import type { FormEvent } from 'react';
-import { useEffect, useState } from 'react';
+import { useEffect } from 'react';
 import { AnimatePresence, motion } from 'framer-motion';
 import { CheckCircle2, X } from 'lucide-react';
 import type { Guide } from '@/components/resources/guides';
+import { useSignup } from '@/lib/useSignup';
 
 interface GuideSignupModalProps {
   /** The guide being requested — null means closed. */
@@ -17,14 +17,12 @@ interface GuideSignupModalProps {
  * "Check your inbox — [guide name] is on its way."
  */
 export default function GuideSignupModal({ guide, onClose }: GuideSignupModalProps) {
-  const [email, setEmail] = useState('');
-  const [done, setDone] = useState(false);
+  const { email, setEmail, done, submit, reset } = useSignup(guide ? ['guide-' + guide.slug] : []);
   const open = guide !== null;
 
   useEffect(() => {
     if (!open) return;
-    setEmail('');
-    setDone(false);
+    reset();
     const onKey = (e: KeyboardEvent) => e.key === 'Escape' && onClose();
     window.addEventListener('keydown', onKey);
     document.body.style.overflow = 'hidden';
@@ -33,19 +31,6 @@ export default function GuideSignupModal({ guide, onClose }: GuideSignupModalPro
       document.body.style.overflow = '';
     };
   }, [open, onClose, guide]);
-
-  const submit = (e: FormEvent) => {
-    e.preventDefault();
-    if (!email.trim()) return;
-    try {
-      const list = JSON.parse(localStorage.getItem('gg-signups') ?? '[]') as string[];
-      list.push(email.trim());
-      localStorage.setItem('gg-signups', JSON.stringify(list));
-    } catch {
-      /* storage unavailable — still show success */
-    }
-    setDone(true);
-  };
 
   return (
     <AnimatePresence>
@@ -59,7 +44,7 @@ export default function GuideSignupModal({ guide, onClose }: GuideSignupModalPro
           onClick={onClose}
           role="dialog"
           aria-modal="true"
-          aria-label={`Get ${guide.title} by email`}
+          aria-label={`Get ${guide.title}`}
         >
           <motion.div
             initial={{ scale: 0.95, opacity: 0 }}
@@ -99,7 +84,15 @@ export default function GuideSignupModal({ guide, onClose }: GuideSignupModalPro
                   className="flex items-center gap-2 text-[15px] font-medium text-brand"
                 >
                   <CheckCircle2 className="h-5 w-5 shrink-0" />
-                  Check your inbox — {guide.title} is on its way.
+                  <span>
+                    You&apos;re in.{' '}
+                    <a
+                      href={guide.href}
+                      className="underline underline-offset-4 hover:text-white"
+                    >
+                      Open {guide.title} now →
+                    </a>
+                  </span>
                 </motion.p>
               ) : (
                 <form onSubmit={submit} className="flex flex-col gap-3">
@@ -117,7 +110,7 @@ export default function GuideSignupModal({ guide, onClose }: GuideSignupModalPro
                     type="submit"
                     className="inline-flex h-12 shrink-0 items-center justify-center gap-2 whitespace-nowrap rounded-lg bg-brand px-6 text-[15px] font-semibold text-brand-ink transition-all duration-150 hover:bg-brand-hover hover:-translate-y-px active:scale-[0.98] cursor-pointer"
                   >
-                    Email It to Me
+                    Get Instant Access
                   </button>
                 </form>
               )}

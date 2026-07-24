@@ -6,6 +6,7 @@ import StepsPath from '@/components/start-here/StepsPath';
 import QualifierCards from '@/components/start-here/QualifierCards';
 import FaqAccordion from '@/components/start-here/FaqAccordion';
 import FinalCta from '@/components/start-here/FinalCta';
+import { useMeta } from '@/lib/useMeta';
 
 /**
  * `/start-here` — new-to-GovCon onboarding (start-here.md): page header,
@@ -13,6 +14,8 @@ import FinalCta from '@/components/start-here/FinalCta';
  * starter-kit CTA band.
  */
 export default function StartHere() {
+  useMeta({ title: 'Start Here — GovCon Giants Podcast', noindex: true, canonicalPath: '/start-here' });
+
   const [modalOpen, setModalOpen] = useState(false);
 
   return (

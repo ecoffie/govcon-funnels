@@ -7,6 +7,7 @@ import { GhostLink } from '@/components/Buttons';
 import { articleCategories, articles } from '@/data/articles';
 import type { ArticleCategory } from '@/data/articles';
 import { cn } from '@/lib/utils';
+import { useMeta } from '@/lib/useMeta';
 
 type Tab = 'All' | ArticleCategory;
 
@@ -40,6 +41,8 @@ function SplitHeadline({ text, className }: { text: string; className?: string }
 }
 
 export default function Blog() {
+  useMeta({ title: 'Blog — GovCon Giants Podcast', noindex: true, canonicalPath: '/blog' });
+
   const [tab, setTab] = useState<Tab>('All');
   const filtered = tab === 'All' ? articles : articles.filter((a) => a.category === tab);
   const showFeatured = tab === 'All';

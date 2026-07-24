@@ -9,6 +9,7 @@ import { GhostLink } from '@/components/Buttons';
 import { articles, latestArticles } from '@/data/articles';
 import { latestEpisodes } from '@/lib/episode-utils';
 import { platforms } from '@/data/platforms';
+import { useMeta } from '@/lib/useMeta';
 
 /* --------------------------------- Hero ---------------------------------- */
 
@@ -284,6 +285,8 @@ function AboutBlurb() {
  * podcast strip, latest episodes + articles, popular articles, about blurb.
  * The footer already carries the newsletter band, so no extra CTA section. */
 export default function Home() {
+  useMeta({ title: 'GovCon Giants Podcast — Federal Contracting in Plain English | Eric Coffie', description: 'The GovCon Giants Podcast with Eric Coffie: 334+ episodes on winning federal contracts — RFPs, SAM.gov, 8(a), subcontracting, CMMC — in plain English. New episodes near-daily.', canonicalPath: '/' });
+
   return (
     <motion.div
       initial={{ opacity: 0, y: 12 }}

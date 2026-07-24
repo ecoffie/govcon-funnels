@@ -15,6 +15,13 @@ const companyLinks = [
   { to: '/about#press', label: 'Press' },
 ];
 
+const moreLinks = [
+  { href: 'https://govcongiants.com?utm_source=podcast-site', label: 'Main Site & 140+ Guides' },
+  { href: 'https://govcongiants.com/tools/cage-code-lookup?utm_source=podcast-site', label: 'Free CAGE Lookup Tool' },
+  { href: 'https://getmindy.ai?utm_source=podcast-site', label: 'Mindy — Market Intel AI' },
+  { href: 'https://shop.govcongiants.org?utm_source=podcast-site', label: 'Shop' },
+];
+
 const socials = [
   { href: 'https://www.youtube.com/@ericcoffie', label: 'YouTube', Icon: Youtube },
   { href: 'https://x.com/govcongiants', label: 'X / Twitter', Icon: Twitter },
@@ -34,7 +41,7 @@ export default function Footer() {
           className="mb-16"
         />
 
-        <div className="grid gap-10 md:grid-cols-[1.4fr_1fr_1fr_1fr]">
+        <div className="grid gap-10 md:grid-cols-[1.4fr_1fr_1fr_1fr_1fr]">
           <div>
             <img src="/logo.svg" alt="GovCon Giants" className="mb-4 h-7 w-auto" />
             <p className="max-w-xs text-sm leading-relaxed text-slate-400">
@@ -73,6 +80,19 @@ export default function Footer() {
             </ul>
           </nav>
 
+          <nav aria-label="More from GovCon Giants">
+            <h4 className="kicker mb-4">More</h4>
+            <ul className="space-y-2.5">
+              {moreLinks.map((l) => (
+                <li key={l.label}>
+                  <a href={l.href} className="text-sm text-slate-400 transition-colors hover:text-brand">
+                    {l.label}
+                  </a>
+                </li>
+              ))}
+            </ul>
+          </nav>
+
           <nav aria-label="Company">
             <h4 className="kicker mb-4">Company</h4>
             <ul className="space-y-2.5">
@@ -104,8 +124,8 @@ export default function Footer() {
           </div>
           <p className="font-mono text-xs text-slate-500">
             © {new Date().getFullYear()} GOVCON GIANTS · MIAMI, FL ·{' '}
-            <Link to="/privacy" className="hover:text-brand">PRIVACY</Link> ·{' '}
-            <Link to="/terms" className="hover:text-brand">TERMS</Link>
+            <a href="https://govcongiants.com/privacy" className="hover:text-brand">PRIVACY</a> ·{' '}
+            <a href="https://govcongiants.com/terms" className="hover:text-brand">TERMS</a>
           </p>
         </div>
       </div>

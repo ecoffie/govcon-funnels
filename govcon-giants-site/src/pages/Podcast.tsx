@@ -3,6 +3,7 @@ import NewsletterCapture from '@/components/NewsletterCapture';
 import ShowHeader from '@/components/podcast/ShowHeader';
 import FeaturedGuests from '@/components/podcast/FeaturedGuests';
 import EpisodeArchive from '@/components/podcast/EpisodeArchive';
+import { useMeta } from '@/lib/useMeta';
 
 /* ------------------- Section 5 — Never Miss an Episode CTA ------------------- */
 
@@ -56,6 +57,8 @@ function EpisodeCta() {
 /** /podcast — full episode archive (podcast.md): show header, featured
  * guests grid, sticky filter bar, month-grouped archive, CTA band. */
 export default function Podcast() {
+  useMeta({ title: 'All Episodes — GovCon Giants Podcast · 334+ and Counting', description: 'Every episode of the GovCon Giants Podcast: interviews with contracting officers, small-business winners, and federal insiders, plus Daily Windup shorts. Stream right here.', canonicalPath: '/podcast' });
+
   return (
     <motion.div
       initial={{ opacity: 0, y: 12 }}
