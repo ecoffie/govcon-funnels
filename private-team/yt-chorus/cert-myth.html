@@ -6,9 +6,9 @@
 <title>Chorus · Nobody Ever Asked Them for a Certification · Production Package</title>
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <style>
-  :root{--bg:#0a0d10;--bg-raise:#111519;--bg-card:#131820;--ink:#e7e9ec;--ink-dim:#a3acb8;--ink-faint:#6b7480;--line:#232a32;--line-soft:#1a2028;--money:#38bdf8;--money-deep:#0ea5e9;--go:#34d399;--amber:#d4a24e;--slate:#8b93a1;--violet:#a78bfa;--radius:14px;--maxw:1080px;--mono:ui-monospace,"SF Mono","Cascadia Code",Menlo,Consolas,monospace;--sans:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;--display:"Helvetica Neue","Arial Black",var(--sans);}
-  :root[data-theme="light"]{--bg:#f4f6f8;--bg-raise:#fff;--bg-card:#fff;--ink:#141a1f;--ink-dim:#4a545f;--ink-faint:#7d8792;--line:#e0e4e8;--line-soft:#eaeef1;--money:#0284c7;--money-deep:#0369a1;--go:#0f8a56;}
-  @media (prefers-color-scheme:light){:root:not([data-theme="dark"]){--bg:#f4f6f8;--bg-raise:#fff;--bg-card:#fff;--ink:#141a1f;--ink-dim:#4a545f;--ink-faint:#7d8792;--line:#e0e4e8;--line-soft:#eaeef1;--money:#0284c7;--money-deep:#0369a1;--go:#0f8a56;}}
+  :root{--bg:#0a0d10;--bg-raise:#111519;--bg-card:#131820;--ink:#e7e9ec;--ink-dim:#a3acb8;--ink-faint:#6b7480;--line:#232a32;--line-soft:#1a2028;--money:#38bdf8;--money-deep:#0ea5e9;--go:#34d399;--amber:#d4a24e;--red:#f87171;--slate:#8b93a1;--violet:#a78bfa;--radius:14px;--maxw:1080px;--mono:ui-monospace,"SF Mono","Cascadia Code",Menlo,Consolas,monospace;--sans:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;--display:"Helvetica Neue","Arial Black",var(--sans);}
+  :root[data-theme="light"]{--red:#c03d36;--bg:#f4f6f8;--bg-raise:#fff;--bg-card:#fff;--ink:#141a1f;--ink-dim:#4a545f;--ink-faint:#7d8792;--line:#e0e4e8;--line-soft:#eaeef1;--money:#0284c7;--money-deep:#0369a1;--go:#0f8a56;}
+  @media (prefers-color-scheme:light){:root:not([data-theme="dark"]){--red:#c03d36;--bg:#f4f6f8;--bg-raise:#fff;--bg-card:#fff;--ink:#141a1f;--ink-dim:#4a545f;--ink-faint:#7d8792;--line:#e0e4e8;--line-soft:#eaeef1;--money:#0284c7;--money-deep:#0369a1;--go:#0f8a56;}}
   *{box-sizing:border-box;}html{scroll-behavior:smooth;scroll-padding-top:68px;}@media (prefers-reduced-motion:reduce){html{scroll-behavior:auto;}}
   body{margin:0;background:var(--bg);color:var(--ink);font-family:var(--sans);line-height:1.6;-webkit-font-smoothing:antialiased;font-size:16px;}
   .wrap{max-width:var(--maxw);margin:0 auto;padding:0 22px;}
@@ -84,7 +84,7 @@
 <nav><div class="nav-inner">
   <span class="nav-brand">CHORUS · CERTIFICATION MYTH</span>
   <a href="#teleprompter" class="tp">▶ Teleprompter</a>
-  <a href="#facts">Clips checked</a><a href="#titles">Titles</a>
+  <a href="#facts">Clips checked</a><a href="#guards">Fact guards</a><a href="#titles">Titles</a>
   <a href="#thumbnails">Thumbnails</a><a href="#shots">Shot list</a><a href="#shorts">Shorts</a><a href="#description">Description</a><a href="#flywheel">Flywheel</a>
   <button class="theme-btn" id="themeToggle" aria-label="Toggle theme">◐ theme</button>
 </div></nav>
@@ -249,6 +249,48 @@ Stop waiting for permission. Nobody's checking. Subscribe — I'm putting the wh
       </div>
     </div>
     <div class="callout" style="margin-top:16px"><span class="mk">!</span><div><b>The one rule for this format:</b> every clip is a real person in their own words. All four quotes are <b>verbatim from full Drive transcripts</b> (not paraphrased from episode descriptions). <b>NONE of the four transcripts carry timecodes</b> — the words are confirmed, but the <b>editor must locate every clip on the tape before lock. Never burn a fabricated timestamp on screen.</b> <b>The one exception is the Judy Bradt Ep 99 bonus above — that transcript carries real <code style="font-family:var(--mono);font-size:12px">HH:MM:SS</code> timecodes</b> (still confirm in/out at cut; transcript timing can drift). Honesty beat stays in the script: "some money really is set aside — get certified while you're winning, not instead of winning." Same honest handling as the flagship.</div></div>
+  </section>
+
+  <section id="guards">
+    <div class="sec-head"><span class="sec-kicker">One screen · check before any number goes on camera</span><h2>Fact guards — the pre-flight</h2><span class="sec-note">The per-clip ⚠ notes above are the detail; this is the consolidated pass for the editor + thumbnail designer</span></div>
+    <div class="grid two">
+      <div class="card" style="border-color:color-mix(in srgb,var(--red,#f87171) 38%,var(--line))">
+        <h3>① Numbers that must never touch a dollar sign</h3>
+        <ul class="arrow">
+          <li><b>Sarah — 1,500,000 is a BAG COUNT.</b> The contract was <b>"a little under $100,000."</b> Safe on screen: "1.5 MILLION BREAKFAST BAGS" or "&lt;$100K CONTRACT" — <b>never blurred into "$1.5M."</b></li>
+          <li><b>Astrelain — no dollar figure exists</b> for his own ~15 USDA wins anywhere in the transcript. <b>Don't invent one.</b> Safe: "~15 USDA contracts."</li>
+          <li><b>Devoski — no dollar figure exists</b> for the Army base contract either. Safe: "a waste-management contract at an Army training base, running to 2028."</li>
+          <li><b>Devoski's 167K→70K SAM figure is HIS claim on tape</b> — attribute it to him out loud if used; never a GovCon Giants stat card.</li>
+        </ul>
+      </div>
+      <div class="card" style="border-color:color-mix(in srgb,var(--red,#f87171) 38%,var(--line))">
+        <h3>② Who won what — role and level</h3>
+        <ul class="arrow">
+          <li><b>Astrelain is a SUB on the $1B IDIQ</b>, via prime Labresia Dawson. Say <b>"part of the team on"</b> — <b>never "he won the $1B IDIQ,"</b> and never put $1B next to his name as his own win.</li>
+          <li><b>Chris's three wins are city/airport (local government), not federal.</b> That's a feature — the proof spans every level — but don't let the edit imply federal.</li>
+          <li><b>Chris is not a certified electrician</b>; he manages/subs the electrical. The only cert anywhere in his story is Texas <b>HUB</b> (a state designation) on the county side — <b>never on the three deals he won.</b></li>
+          <li><b>Judy never says "certification"</b> — she's the small-door closer, not cert testimony. (Full caveat on her card above.)</li>
+        </ul>
+      </div>
+      <div class="card">
+        <h3>③ The macro number, if the video uses one</h3>
+        <ul class="arrow">
+          <li>Repo-canonical FY2024 only (<b>Decision #013</b>): <b>$183B</b> in small-business prime dollars (SBA FY2024 Scorecard, record year), of which <b>$69.6B</b> moved through set-asides.</li>
+          <li>The honest read that supports this video: <b>most small-business dollars moved with no set-aside at all</b> — and a plain small-business set-aside needs only <b>self-certification</b>, not a program cert.</li>
+          <li><b>Do NOT reuse the "$24B SAP" number</b> from the Ep 99 intro — that's Eric's own 2020-era figure, not Judy's, and it is unverified here.</li>
+        </ul>
+      </div>
+      <div class="card">
+        <h3>④ Timecode discipline</h3>
+        <ul class="arrow">
+          <li><b>Sarah · Astrelain · Devoski · Chris — no timecodes exist.</b> Every marker is <code style="font-family:var(--mono);font-size:12px">@locate-on-tape</code>; the editor finds each line before lock.</li>
+          <li><b>Judy Ep 99 is the only exception</b> — real <code style="font-family:var(--mono);font-size:12px">HH:MM:SS</code> in the transcript. Still confirm in/out at cut; transcript timing drifts from video.</li>
+          <li><b>Never burn a fabricated timestamp on screen.</b> If a line can't be found exactly on the tape, it doesn't go in the cut.</li>
+          <li>Transcript search tips: Sarah is spelled "Bennett/Banette"; Astrelain garbles to "Astra Lynn Jo Soo/Ashlyn"; Devoski to "Dovoyski/Skeebo"; <b>"Sources Sought" renders as "source of salt/saw."</b></li>
+        </ul>
+      </div>
+    </div>
+    <div class="callout" style="margin-top:16px;border-color:color-mix(in srgb,var(--red,#f87171) 45%,var(--line));background:color-mix(in srgb,var(--red,#f87171) 8%,var(--bg-card))"><span class="mk" style="color:var(--red,#f87171)">✕</span><div><b>The claim this video must NOT make: "certifications are worthless."</b> That's false, and it will get fact-checked — some money genuinely is set aside. <b>The honest claim, and the one all four tapes actually support:</b> a certification is a <b>tiebreaker and a door into specific set-asides — not a prerequisite for your first contract</b>, and <b>none of these four buyers ever asked.</b> The script's own honesty beat carries it: <i>"get certified while you're winning, not instead of winning."</i></div></div>
   </section>
 
   <section id="titles">
