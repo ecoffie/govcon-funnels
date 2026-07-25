@@ -92,7 +92,7 @@ export default function ShowHeader() {
             <span className="kicker">THE GOVCON GIANTS PODCAST</span>
           </motion.div>
 
-          <h1 className="font-display text-[36px] font-bold leading-[1.1] tracking-[-0.02em] text-slate-900 md:text-[56px]">
+          <h1 className="font-display text-[36px] font-black leading-[1.05] tracking-[-0.02em] text-slate-900 md:text-[56px]">
             {headlineWords.map((w, i) => (
               <span key={i}>
                 <span className="inline-block overflow-hidden pb-1 align-bottom">
@@ -153,7 +153,7 @@ export default function ShowHeader() {
                 initial={{ scale: 0.7, opacity: 0 }}
                 animate={{ scale: 1, opacity: 1 }}
                 transition={{ type: 'spring', stiffness: 260, damping: 18, delay: 1.1 + i * 0.08 }}
-                className="rounded-full bg-brand-soft px-3.5 py-1.5 font-mono text-xs text-brand"
+                className="rounded-full bg-brand-soft px-3.5 py-1.5 font-narrow text-sm font-semibold uppercase tracking-[0.1em] text-brand"
               >
                 {chip}
               </motion.span>

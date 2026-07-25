@@ -52,9 +52,9 @@ export default function StatCounter({ value, prefix = '', suffix = '', label }: 
     <div ref={rootRef}>
       <span
         ref={numRef}
-        className="font-display text-5xl font-bold text-brand tabular-nums"
+        className="font-display text-6xl font-black tracking-tight text-brand tabular-nums"
       />
-      <p className="mt-2 font-mono text-xs uppercase tracking-[0.14em] text-slate-500">{label}</p>
+      <p className="mt-2 font-narrow text-sm font-semibold uppercase tracking-[0.18em] text-slate-500">{label}</p>
     </div>
   );
 }

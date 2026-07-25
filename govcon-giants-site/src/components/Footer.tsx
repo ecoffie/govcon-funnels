@@ -36,7 +36,9 @@ export default function Footer() {
 
         <div className="grid gap-10 md:grid-cols-[1.4fr_1fr_1fr_1fr]">
           <div>
-            <img src="/logo.svg" alt="GovCon Giants" className="mb-4 h-7 w-auto" />
+            <p className="mb-4 font-display text-2xl font-black tracking-tight">
+              <span className="text-slate-900">GovCon</span> <span className="text-brand">Giants</span>
+            </p>
             <p className="max-w-xs text-sm leading-relaxed text-slate-500">
               Government contracting education with one rule: give away 99.9% for free.
             </p>
@@ -51,7 +53,7 @@ export default function Footer() {
                     href={p.url}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="text-sm text-slate-500 transition-colors hover:text-brand"
+                    className="text-base text-slate-500 transition-colors hover:text-brand"
                   >
                     {p.name}
                   </a>
@@ -65,7 +67,7 @@ export default function Footer() {
             <ul className="space-y-2.5">
               {learnLinks.map((l) => (
                 <li key={l.to}>
-                  <Link to={l.to} className="text-sm text-slate-500 transition-colors hover:text-brand">
+                  <Link to={l.to} className="text-base text-slate-500 transition-colors hover:text-brand">
                     {l.label}
                   </Link>
                 </li>
@@ -78,7 +80,7 @@ export default function Footer() {
             <ul className="space-y-2.5">
               {companyLinks.map((l) => (
                 <li key={l.label}>
-                  <Link to={l.to} className="text-sm text-slate-500 transition-colors hover:text-brand">
+                  <Link to={l.to} className="text-base text-slate-500 transition-colors hover:text-brand">
                     {l.label}
                   </Link>
                 </li>
@@ -88,7 +90,7 @@ export default function Footer() {
                   href="https://gcgsummit.com"
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="inline-flex items-center gap-1 text-sm text-slate-500 transition-colors hover:text-brand"
+                  className="inline-flex items-center gap-1 text-base text-slate-500 transition-colors hover:text-brand"
                 >
                   GCG National Summit
                   <ArrowUpRight className="h-3.5 w-3.5" />

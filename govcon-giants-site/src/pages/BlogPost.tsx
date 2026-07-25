@@ -90,13 +90,13 @@ function ShareRow({ title }: { title: string }) {
   );
 }
 
-/** Lead paragraph with green Fraunces drop cap. */
+/** Lead paragraph with green Montserrat drop cap. */
 function LeadParagraph({ text }: { text: string }) {
   return (
     <p className="text-[21px] leading-[1.75] text-paper-ink">
       <span
         aria-hidden
-        className="float-left mr-2 mt-1 font-display text-[64px] font-bold leading-[0.85] text-brand"
+        className="float-left mr-2 mt-1 font-display text-[64px] font-black leading-[0.85] text-brand"
       >
         {text.charAt(0)}
       </span>
@@ -133,7 +133,7 @@ function BodyBlock({ block, h2Number }: { block: ArticleBlock; h2Number: number 
         <motion.h2
           {...bodyReveal}
           id={id}
-          className="group mt-16 scroll-mt-28 font-display text-[30px] font-bold leading-[1.2] text-paper-ink"
+          className="group mt-16 scroll-mt-28 font-display text-[30px] font-extrabold leading-[1.2] tracking-tight text-paper-ink"
         >
           <span className="mr-3 font-mono text-lg font-medium text-brand">
             {String(h2Number).padStart(2, '0')} —
@@ -234,7 +234,7 @@ export default function BlogPost() {
   if (!article) {
     return (
       <div className="container-gg py-24 text-center">
-        <h1 className="mb-4 font-display text-4xl font-bold text-slate-900">Article not found</h1>
+        <h1 className="mb-4 font-display text-4xl font-black text-slate-900">Article not found</h1>
         <Link to="/blog" className="font-semibold text-brand hover:underline">
           ← Back to the blog
         </Link>
@@ -262,7 +262,7 @@ export default function BlogPost() {
         >
           {article.category}
         </motion.span>
-        <h1 className="mt-6 font-display text-4xl font-bold leading-[1.15] text-slate-900 md:text-5xl">
+        <h1 className="mt-6 font-display text-4xl font-black leading-[1.1] tracking-tight text-slate-900 md:text-5xl">
           {article.title.split(' ').map((word, i, arr) => (
             <span key={i} className="inline-block overflow-hidden pb-1 align-bottom">
               <motion.span
@@ -382,7 +382,7 @@ export default function BlogPost() {
               className="hidden w-[120px] shrink-0 rounded-md shadow-[0_16px_40px_rgba(0,0,0,0.25)] md:block"
             />
             <div className="max-w-2xl flex-1">
-              <h3 className="mb-6 font-display text-[28px] font-semibold leading-snug text-slate-900">
+              <h3 className="mb-6 font-display text-[28px] font-extrabold leading-snug tracking-tight text-slate-900">
                 Want the 72 websites this article is <em className="italic text-brand">based on</em>?
               </h3>
               <NewsletterCapture

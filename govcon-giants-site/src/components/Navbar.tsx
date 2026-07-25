@@ -50,7 +50,9 @@ export default function Navbar() {
       >
         <div className="container-gg flex h-full items-center justify-between gap-6">
           <Link to="/" aria-label="GovCon Giants home" className="shrink-0">
-            <img src="/logo.svg" alt="GovCon Giants" className="h-7 w-auto" />
+            <span className="font-display text-[22px] font-black tracking-tight">
+              <span className="text-slate-900">GovCon</span> <span className="text-brand">Giants</span>
+            </span>
           </Link>
 
           <nav className="hidden items-center gap-7 lg:flex" aria-label="Primary">
@@ -61,7 +63,7 @@ export default function Navbar() {
                   href={l.to}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="relative inline-flex items-center gap-1 text-[15px] font-medium text-slate-500 transition-colors duration-150 hover:text-slate-900"
+                  className="relative inline-flex items-center gap-1 font-narrow text-lg font-semibold uppercase tracking-[0.06em] text-slate-500 transition-colors duration-150 hover:text-slate-900"
                 >
                   {l.label}
                   <ArrowUpRight className="h-3.5 w-3.5" />
@@ -72,7 +74,7 @@ export default function Navbar() {
                   to={l.to}
                   className={({ isActive }) =>
                     cn(
-                      'relative text-[15px] font-medium text-slate-500 transition-colors duration-150 hover:text-slate-900',
+                      'relative font-narrow text-lg font-semibold uppercase tracking-[0.06em] text-slate-500 transition-colors duration-150 hover:text-slate-900',
                       isActive &&
                         'text-brand after:absolute after:-bottom-1.5 after:left-0 after:h-0.5 after:w-full after:bg-brand',
                     )
@@ -126,7 +128,7 @@ export default function Navbar() {
                       target="_blank"
                       rel="noopener noreferrer"
                       onClick={() => setDrawerOpen(false)}
-                      className="inline-flex items-center gap-2 font-display text-[32px] font-semibold text-slate-900 transition-colors hover:text-brand"
+                      className="inline-flex items-center gap-2 font-display text-[32px] font-black tracking-tight text-slate-900 transition-colors hover:text-brand"
                     >
                       {l.label}
                       <ArrowUpRight className="h-5 w-5" />
@@ -137,7 +139,7 @@ export default function Navbar() {
                       onClick={() => setDrawerOpen(false)}
                       className={({ isActive }) =>
                         cn(
-                          'font-display text-[32px] font-semibold text-slate-900 transition-colors hover:text-brand',
+                          'font-display text-[32px] font-black tracking-tight text-slate-900 transition-colors hover:text-brand',
                           isActive && 'text-brand',
                         )
                       }

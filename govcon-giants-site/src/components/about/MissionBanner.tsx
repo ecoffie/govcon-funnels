@@ -40,7 +40,7 @@ export default function MissionBanner() {
             </span>
           </motion.div>
 
-          <h2 className="mb-8 font-display text-3xl font-bold leading-[1.15] text-white md:text-[40px]">
+          <h2 className="mb-8 font-display text-3xl font-black leading-[1.1] tracking-tight text-white md:text-[40px]">
             {['Teach', 'everyday', 'people', 'to', 'win'].map((w, i) => (
               <motion.span
                 key={w}

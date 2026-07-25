@@ -181,7 +181,7 @@ export default function StepsPath({ onOpenKit }: StepsPathProps) {
               {/* Number medallion on the rail */}
               <div
                 data-step-med
-                className="absolute left-[23px] top-0 z-10 flex h-12 w-12 -translate-x-1/2 items-center justify-center rounded-full border-2 border-brand bg-base font-display text-xl font-bold text-brand lg:left-1/2"
+                className="absolute left-[23px] top-0 z-10 flex h-12 w-12 -translate-x-1/2 items-center justify-center rounded-full border-2 border-brand bg-base font-display text-xl font-black text-brand lg:left-1/2"
                 aria-hidden
               >
                 {i + 1}
@@ -198,7 +198,7 @@ export default function StepsPath({ onOpenKit }: StepsPathProps) {
                 )}
               >
                 <p className="kicker mb-2">STEP {step.n}</p>
-                <h3 className="mb-2 font-display text-2xl font-semibold text-slate-900">
+                <h3 className="mb-2 font-display text-2xl font-extrabold tracking-tight text-slate-900">
                   {step.title}
                 </h3>
                 <p className="mb-4 text-[15px] leading-[1.7] text-slate-500">{step.body}</p>

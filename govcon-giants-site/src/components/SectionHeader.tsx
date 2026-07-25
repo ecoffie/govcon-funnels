@@ -14,7 +14,7 @@ interface SectionHeaderProps {
 }
 
 /**
- * Kicker (with 24px green rule) + Fraunces H2 + optional right-aligned
+ * Kicker (with 24px green rule) + Montserrat H2 + optional right-aligned
  * "View all →" ghost link. Reveals on scroll into view.
  */
 export default function SectionHeader({
@@ -45,7 +45,7 @@ export default function SectionHeader({
           />
           <span className="kicker">{kicker}</span>
         </div>
-        <h2 className="font-display text-3xl font-bold leading-[1.15] text-slate-900 md:text-[40px] [&_em]:italic [&_em]:text-brand">
+        <h2 className="font-display text-3xl font-black leading-[1.05] tracking-tight text-slate-900 md:text-5xl [&_em]:italic [&_em]:text-brand">
           {title}
         </h2>
       </div>

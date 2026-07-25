@@ -253,7 +253,7 @@ export default function EpisodeArchive() {
                         whileInView={{ opacity: 1 }}
                         viewport={{ once: true, amount: 0.6 }}
                         transition={{ duration: 0.3 }}
-                        className="font-mono text-sm font-medium tracking-[0.18em] text-brand"
+                        className="font-narrow text-lg font-semibold uppercase tracking-[0.2em] text-brand"
                       >
                         {group.label}
                       </motion.h2>

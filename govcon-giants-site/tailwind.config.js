@@ -5,15 +5,16 @@ module.exports = {
   theme: {
     extend: {
       fontFamily: {
-        display: ['Fraunces', 'Georgia', 'serif'],
-        sans: ['Inter', 'system-ui', 'sans-serif'],
+        display: ['Montserrat', 'system-ui', 'sans-serif'],
+        narrow: ['"Barlow Condensed"', 'system-ui', 'sans-serif'],
+        sans: ['"IBM Plex Sans"', 'system-ui', 'sans-serif'],
         mono: ['"IBM Plex Mono"', 'ui-monospace', 'monospace'],
       },
       colors: {
-        base: "#FAFAF8",
+        base: "#FAFAFA",
         raised: "#FFFFFF",
-        inset: "#F1EFEA",
-        line: "#E5E2DB",
+        inset: "#F2F2F2",
+        line: "#E4E4E4",
         brand: {
           DEFAULT: "#16A34A",
           hover: "#15803D",

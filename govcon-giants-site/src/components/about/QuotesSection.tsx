@@ -32,7 +32,7 @@ export default function QuotesSection() {
         </motion.span>
 
         <blockquote>
-          <p className="font-display text-2xl font-semibold italic leading-[1.4] text-slate-900 md:text-[32px]">
+          <p className="font-display text-2xl font-bold italic leading-[1.4] text-slate-900 md:text-[32px]">
             {words.map((w, i) => (
               <motion.span
                 key={`${w}-${i}`}

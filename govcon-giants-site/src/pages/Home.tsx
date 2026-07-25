@@ -12,42 +12,87 @@ import { featuredEpisodes } from '@/data/featuredEpisodes';
 
 /* --------------------------------- Hero ---------------------------------- */
 
+/** Green squiggle underline flourish (Moth signature), draws in on load. */
+function Squiggle({ className }: { className?: string }) {
+  return (
+    <svg viewBox="0 0 220 14" fill="none" aria-hidden className={className}>
+      <motion.path
+        d="M4 9 C 40 2, 80 12, 118 7 C 150 3, 190 10, 216 6"
+        stroke="#16A34A"
+        strokeWidth="5"
+        strokeLinecap="round"
+        initial={{ pathLength: 0 }}
+        animate={{ pathLength: 1 }}
+        transition={{ duration: 0.9, delay: 0.8, ease: 'easeOut' }}
+      />
+    </svg>
+  );
+}
+
 function Hero() {
   return (
-    <section className="-mt-[72px] border-b border-line bg-inset">
-      <div className="container-gg grid items-center gap-12 pb-16 pt-[136px] md:pb-24 md:pt-[168px] lg:grid-cols-[minmax(0,5fr)_minmax(0,7fr)] lg:gap-16">
+    <section className="-mt-[72px] overflow-hidden border-b border-line bg-inset">
+      <div className="container-gg grid items-center gap-12 pb-16 pt-[136px] md:pb-24 md:pt-[168px] lg:grid-cols-[minmax(0,7fr)_minmax(0,5fr)] lg:gap-16">
+        {/* Copy — massive staggered Montserrat headline (Moth-style) */}
         <motion.div
           initial={{ opacity: 0, y: 32 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6, ease: 'easeOut' }}
-          className="relative mx-auto w-full max-w-sm lg:max-w-none"
         >
-          <img
-            src="/eric-portrait.png"
-            alt="Eric Coffie, founder and host of GovCon Giants"
-            className="w-full rounded-xl border border-line object-cover shadow-[0_24px_60px_rgba(0,0,0,0.15)]"
-          />
-          <p className="mt-4 text-center font-mono text-[11px] uppercase tracking-[0.14em] text-slate-500">
-            Eric Coffie · Founder, GovCon Giants · Miami, FL
-          </p>
-        </motion.div>
-
-        <motion.div
-          initial={{ opacity: 0, y: 32 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6, delay: 0.15, ease: 'easeOut' }}
-        >
-          <p className="kicker mb-4">GOVERNMENT CONTRACTING, WITHOUT THE FLUFF</p>
-          <h1 className="font-display text-4xl font-bold leading-[1.1] text-slate-900 md:text-[56px]">
-            Win extraordinary <em className="italic text-brand">federal contracts</em>.
+          <p className="kicker mb-6">GOVERNMENT CONTRACTING, WITHOUT THE FLUFF</p>
+          <h1 className="font-display text-[44px] font-black uppercase leading-[0.95] tracking-tight text-slate-900 md:text-[72px] lg:text-[84px]">
+            {['Win', 'extraordinary'].map((word, i) => (
+              <span key={word} className="block overflow-hidden pb-1" style={{ paddingLeft: `${i * 0.5}em` }}>
+                <motion.span
+                  className="inline-block"
+                  initial={{ y: 48, opacity: 0 }}
+                  animate={{ y: 0, opacity: 1 }}
+                  transition={{ duration: 0.55, delay: 0.15 + i * 0.12, ease: 'easeOut' }}
+                >
+                  {word}
+                </motion.span>
+              </span>
+            ))}
+            <span className="block overflow-hidden pb-2 pl-[1em]">
+              <motion.em
+                className="inline-block normal-case italic text-brand"
+                initial={{ y: 48, opacity: 0 }}
+                animate={{ y: 0, opacity: 1 }}
+                transition={{ duration: 0.55, delay: 0.39, ease: 'easeOut' }}
+              >
+                federal contracts.
+              </motion.em>
+            </span>
           </h1>
-          <p className="mt-6 max-w-xl text-[17px] leading-[1.7] text-slate-600">
+          <Squiggle className="ml-[1em] mt-1 h-3 w-[220px] md:h-4 md:w-[320px]" />
+          <p className="mt-7 max-w-xl text-[17px] leading-[1.7] text-slate-600">
             Eric Coffie built Evankoff Construction from zero to $20M+ in government sales —
             and now teaches everyday people to do the same. Get the free Billion Dollar
             Playbook starter kit: five of the 72 federal websites Eric uses to find buyers,
             partners, and contracts.
           </p>
           <NewsletterCapture variant="hero" className="mt-8 max-w-xl" />
+        </motion.div>
+
+        {/* Portrait — offset green frame behind, playful tilt */}
+        <motion.div
+          initial={{ opacity: 0, y: 32 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.6, delay: 0.15, ease: 'easeOut' }}
+          className="relative mx-auto w-full max-w-sm lg:max-w-none"
+        >
+          <div
+            aria-hidden
+            className="absolute inset-0 -rotate-2 rounded-xl border-2 border-brand"
+          />
+          <img
+            src="/eric-portrait.png"
+            alt="Eric Coffie, founder and host of GovCon Giants"
+            className="relative w-full rotate-1 rounded-xl border border-line object-cover shadow-[0_24px_60px_rgba(0,0,0,0.15)]"
+          />
+          <p className="mt-4 text-center font-narrow text-sm font-semibold uppercase tracking-[0.18em] text-slate-500">
+            Eric Coffie · Founder, GovCon Giants · Miami, FL
+          </p>
         </motion.div>
       </div>
     </section>
@@ -137,14 +182,14 @@ function PopularArticles() {
                 transition={{ duration: 0.45, delay: i * 0.08, ease: 'easeOut' }}
               >
                 <Link to={`/blog/${article.slug}`} className="group flex items-start gap-5 py-5">
-                  <span className="font-display text-3xl font-bold text-line transition-colors group-hover:text-brand">
+                  <span className="font-display text-3xl font-black text-line transition-colors group-hover:text-brand">
                     {String(i + 1).padStart(2, '0')}
                   </span>
                   <span>
                     <span className="mb-1 block font-mono text-[11px] uppercase tracking-[0.14em] text-slate-500">
                       {article.category} · {article.readTime} read
                     </span>
-                    <span className="block font-display text-[20px] font-semibold leading-snug text-slate-900 transition-colors group-hover:text-brand">
+                    <span className="block font-display text-[20px] font-extrabold leading-snug tracking-tight text-slate-900 transition-colors group-hover:text-brand">
                       {article.title}
                     </span>
                   </span>
@@ -181,7 +226,7 @@ function AboutBlurb() {
             />
             <span className="kicker">ABOUT ERIC COFFIE</span>
           </div>
-          <h2 className="font-display text-[32px] font-bold leading-[1.15] text-slate-900 md:text-[40px]">
+          <h2 className="font-display text-[32px] font-black leading-[1.1] tracking-tight text-slate-900 md:text-[40px]">
             From zero to <em className="italic text-brand">$20M+</em> in government sales.
           </h2>
           <p className="mt-5 max-w-lg text-[17px] leading-[1.7] text-slate-600">

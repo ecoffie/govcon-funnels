@@ -34,11 +34,11 @@ export default function GuestCard({ episode, index }: { episode: FeaturedEpisode
       </div>
 
       <div className="flex flex-1 flex-col p-5">
-        <h3 className="font-display text-lg font-semibold leading-snug text-slate-900">
+        <h3 className="font-display text-xl font-extrabold tracking-tight text-slate-900">
           {episode.guest}
         </h3>
         <p className="mt-1 text-xs leading-relaxed text-slate-500">{episode.role}</p>
-        <p className="mt-1 text-xs font-semibold uppercase tracking-[0.14em] text-brand">
+        <p className="mt-1 font-narrow text-sm font-semibold uppercase tracking-[0.18em] text-brand">
           {episode.agency}
         </p>
 
@@ -69,14 +69,14 @@ export default function GuestCard({ episode, index }: { episode: FeaturedEpisode
               <Play className="ml-0.5 h-4 w-4 fill-current" />
             )}
           </button>
-          <span className="rounded-full border border-line bg-inset px-2.5 py-1 font-mono text-xs text-slate-600">
+          <span className="rounded-full border border-line bg-inset px-3 py-1 font-narrow text-sm font-semibold uppercase tracking-wider text-slate-600">
             {episode.duration}
           </span>
           <a
             href={episode.link}
             target="_blank"
             rel="noopener noreferrer"
-            className="group/link ml-auto inline-flex items-center gap-1 font-mono text-xs tracking-[0.14em] text-slate-500 transition-colors hover:text-brand"
+            className="group/link ml-auto inline-flex items-center gap-1 font-narrow text-sm font-semibold uppercase tracking-[0.14em] text-slate-500 transition-colors hover:text-brand"
           >
             LIBSYN
             <ArrowUpRight className="h-3.5 w-3.5 transition-transform duration-150 group-hover/link:-translate-y-0.5 group-hover/link:translate-x-0.5" />

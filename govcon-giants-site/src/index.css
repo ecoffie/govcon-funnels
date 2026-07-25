@@ -56,7 +56,7 @@
     overflow: hidden;
   }
   body {
-    @apply bg-base text-slate-700 font-sans antialiased;
+    @apply bg-base font-sans text-[#303030] antialiased;
   }
   ::selection {
     @apply bg-brand/30 text-slate-900;
@@ -84,7 +84,7 @@
     text-wrap: balance;
   }
   .kicker {
-    @apply font-mono text-xs font-semibold uppercase tracking-[0.18em] text-brand;
+    @apply font-narrow text-sm font-semibold uppercase tracking-[0.22em] text-brand;
   }
   @media (prefers-reduced-motion: reduce) {
     *,

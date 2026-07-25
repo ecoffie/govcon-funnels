@@ -42,7 +42,7 @@ export default function PathHeader() {
           <span className="kicker">NEW TO GOVCON? START HERE</span>
         </div>
 
-        <h1 className="mb-6 max-w-[820px] font-display text-4xl font-bold leading-[1.1] tracking-[-0.01em] text-slate-900 md:text-[56px]">
+        <h1 className="mb-6 max-w-[820px] font-display text-4xl font-black leading-[1.05] tracking-[-0.01em] text-slate-900 md:text-[56px]">
           {['Zero', 'experience?'].map((w, i) => (
             <motion.span
               key={w}

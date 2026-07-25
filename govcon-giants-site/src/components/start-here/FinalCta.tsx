@@ -28,7 +28,7 @@ export default function FinalCta() {
             transition={{ type: 'spring', stiffness: 90, damping: 14 }}
             className="mx-auto mb-8 w-[140px] animate-float-y rounded-lg shadow-[0_20px_50px_rgba(0,0,0,0.25)] lg:absolute lg:-left-56 lg:top-1/2 lg:mb-0 lg:-translate-y-1/2"
           />
-          <h2 className="mb-4 font-display text-3xl font-bold text-slate-900 md:text-[40px]">
+          <h2 className="mb-4 font-display text-3xl font-black tracking-tight text-slate-900 md:text-[40px]">
             {['Your', 'first', 'play', 'is'].map((w, i) => (
               <motion.span
                 key={w}
