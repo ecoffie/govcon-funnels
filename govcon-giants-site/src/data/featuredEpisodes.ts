@@ -64,7 +64,7 @@ export const featuredEpisodes: FeaturedEpisode[] = [
     "duration": "01:02:48",
     "link": "https://govcongiants.libsyn.com/296-260b-navy-100000-jobs-the-government-contract-gold-rush-before-its-gone-with-erik-raven",
     "audioUrl": "https://traffic.libsyn.com/secure/govcongiants/EP296_-_FULL_Audio_updated_-_Encore_3.mp3?dest-id=1224122",
-    "blurb": "In this Govcon Giants episode, I sat down with Erik Raven, former Under Secretary of the Navy (2022–2024) and longtime defense budget insider, to uncover how a $260B department with nearly 900,000 people actually buys…"
+    "blurb": "In this GovCon Giants episode, I sat down with Erik Raven, former Under Secretary of the Navy (2022–2024) and longtime defense budget insider, to uncover how a $260B department with nearly 900,000 people actually buys…"
   },
   {
     "guest": "Ashley D. Bell",
