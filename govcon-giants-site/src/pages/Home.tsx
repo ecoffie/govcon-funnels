@@ -4,11 +4,11 @@ import NewsletterCapture from '@/components/NewsletterCapture';
 import SectionHeader from '@/components/SectionHeader';
 import StatCounter from '@/components/StatCounter';
 import ArticleCard from '@/components/ArticleCard';
-import EpisodeCard from '@/components/EpisodeCard';
+import GuestCard from '@/components/podcast/GuestCard';
 import SummitSection from '@/components/SummitSection';
 import { GhostLink } from '@/components/Buttons';
 import { articles, latestArticles } from '@/data/articles';
-import { latestEpisodes } from '@/lib/episode-utils';
+import { featuredEpisodes } from '@/data/featuredEpisodes';
 import { platforms } from '@/data/platforms';
 
 /* --------------------------------- Hero ---------------------------------- */
@@ -136,18 +136,18 @@ function LatestFeed() {
     <section className="py-16 md:py-24">
       <div className="container-gg">
         <SectionHeader
-          kicker="NEW THIS WEEK"
+          kicker="CONVERSATIONS WITH GOVERNMENT INSIDERS"
           title={
             <>
-              The latest <em>episodes</em>
+              Featured <em>episodes</em>
             </>
           }
           linkTo="/podcast"
           linkLabel="All episodes"
         />
-        <div className="grid gap-6 md:grid-cols-3">
-          {latestEpisodes(3).map((episode, i) => (
-            <EpisodeCard key={episode.link} episode={episode} index={i} />
+        <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+          {featuredEpisodes.map((episode, i) => (
+            <GuestCard key={episode.link} episode={episode} index={i} />
           ))}
         </div>
 
@@ -282,8 +282,8 @@ function AboutBlurb() {
 /* --------------------------------- Page ----------------------------------- */
 
 /** `/` — mirrors tim.blog (home.md): full-bleed hero with email capture,
- * podcast strip, GCG National Summit band, latest episodes + articles,
- * popular articles, about blurb.
+ * podcast strip, GCG National Summit band, featured guest episodes + latest
+ * articles, popular articles, about blurb.
  * The footer already carries the newsletter band, so no extra CTA section. */
 export default function Home() {
   return (
