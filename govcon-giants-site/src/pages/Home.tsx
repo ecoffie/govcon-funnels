@@ -95,7 +95,7 @@ function Hero() {
         >
           <p className="kicker mb-6">GOVERNMENT CONTRACTING, WITHOUT THE FLUFF</p>
           <h1 className="font-display text-[44px] font-black uppercase leading-[0.95] tracking-tight text-slate-900 md:text-[72px] lg:text-[84px]">
-            {['Win', 'extraordinary'].map((word, i) => (
+            {['Everyday', 'People.'].map((word, i) => (
               <span key={word} className="block overflow-hidden pb-1" style={{ paddingLeft: `${i * 0.5}em` }}>
                 <motion.span
                   className="inline-block"
@@ -109,12 +109,12 @@ function Hero() {
             ))}
             <span className="block overflow-hidden pb-2 pl-[1em]">
               <motion.em
-                className="inline-block normal-case italic text-brand"
+                className="inline-block text-[0.62em] normal-case italic text-brand"
                 initial={{ y: 48, opacity: 0 }}
                 animate={{ y: 0, opacity: 1 }}
                 transition={{ duration: 0.55, delay: 0.39, ease: 'easeOut' }}
               >
-                federal contracts.
+                extraordinary federal contracts.
               </motion.em>
             </span>
           </h1>
