@@ -20,7 +20,7 @@ const topics = [
 
 /** Verified from gcgsummit.com/speakers (2024 lineup). */
 const pastSpeakers = [
-  { name: 'Jackie Robinson Burnett', role: 'Associate Administrator, SBA' },
+  { name: 'Jackie Robinson-Burnette', role: 'Associate Administrator, SBA' },
   { name: 'Donna Bennett', role: 'CISO, U.S. Dept. of State' },
   { name: 'Shannon Jackson', role: 'Executive Director (SES), HHS OSDBU' },
   { name: 'Vonna Ordaz', role: 'Director, NRC Office of Small Business' },

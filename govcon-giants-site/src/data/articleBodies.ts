@@ -610,7 +610,7 @@ export const articleBodies: Record<string, ArticleBlock[]> = {
     { type: 'h2', text: 'Day 90 and beyond' },
     {
       type: 'p',
-      text: 'Ninety days in, the honest scoreboard looks like this: active SAM registration, a finished capability statement, a target agency picked from spending data, three-plus buyer conversations, at least one bid submitted, and a debrief scheduled or received. That is a real GovCon business in formation — built with free tools. From here, the game is repetition: more responses, more relationships, more bids. Consider your first certification (8(a), HUBZone, WOSW, SDVOSB — whichever fits) in quarter two, and revisit subcontracting as paid on-the-job training. The giants in this industry all started exactly where you are standing. The difference is they started.',
+      text: 'Ninety days in, the honest scoreboard looks like this: active SAM registration, a finished capability statement, a target agency picked from spending data, three-plus buyer conversations, at least one bid submitted, and a debrief scheduled or received. That is a real GovCon business in formation — built with free tools. From here, the game is repetition: more responses, more relationships, more bids. Consider your first certification (8(a), HUBZone, WOSB, SDVOSB — whichever fits) in quarter two, and revisit subcontracting as paid on-the-job training. The giants in this industry all started exactly where you are standing. The difference is they started.',
     },
     {
       type: 'takeaways',

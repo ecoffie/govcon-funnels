@@ -28,7 +28,7 @@ export const featuredEpisodes: FeaturedEpisode[] = [
     "duration": "01:15:03",
     "link": "https://govcongiants.libsyn.com/simplifying-federal-certifications-a-game-changer-for-small-businesses",
     "audioUrl": "https://traffic.libsyn.com/secure/govcongiants/8_-_Jackie_-_New_Intro_Ad.mp3?dest-id=1224122",
-    "blurb": "In this very special episode of the GovCon Giants podcast, we have Jackie Robinson Burnett, the Associate Administrator of Government Contracting at the SBA, a leader poised to revolutionize small business access to…"
+    "blurb": "In this very special episode of the GovCon Giants podcast, we have Jackie Robinson-Burnette, the Associate Administrator of Government Contracting at the SBA, a leader poised to revolutionize small business access to…"
   },
   {
     "guest": "Wayne Berry",
@@ -64,7 +64,7 @@ export const featuredEpisodes: FeaturedEpisode[] = [
     "duration": "01:02:48",
     "link": "https://govcongiants.libsyn.com/296-260b-navy-100000-jobs-the-government-contract-gold-rush-before-its-gone-with-erik-raven",
     "audioUrl": "https://traffic.libsyn.com/secure/govcongiants/EP296_-_FULL_Audio_updated_-_Encore_3.mp3?dest-id=1224122",
-    "blurb": "In this Govcon Giants episode, I sat down with Eric Raven, former Under Secretary of the Navy (2022–2024) and longtime defense budget insider, to uncover how a $260B department with nearly 900,000 people actually buys…"
+    "blurb": "In this Govcon Giants episode, I sat down with Erik Raven, former Under Secretary of the Navy (2022–2024) and longtime defense budget insider, to uncover how a $260B department with nearly 900,000 people actually buys…"
   },
   {
     "guest": "Ashley D. Bell",
@@ -88,6 +88,6 @@ export const featuredEpisodes: FeaturedEpisode[] = [
     "duration": "01:03:46",
     "link": "https://govcongiants.libsyn.com/307-after-32-years-as-a-contracting-officer-heres-why-most-small-businesses-lose-with-shelley-hall",
     "audioUrl": "https://traffic.libsyn.com/secure/govcongiants/EP307_-_Encore_1_-_FULL_AUdio.mp3?dest-id=1224122",
-    "blurb": "In this episode of the Govcon Giants Podcast , Eric Coffie sits down with Shelley Hall , a former warranted contracting officer with 32 years inside the federal government and now VP of Client Services at Skyway…"
+    "blurb": "In this episode of the GovCon Giants Podcast, Eric Coffie sits down with Shelley Hall, a former warranted contracting officer with 32 years inside the federal government and now VP of Client Services at Skyway…"
   }
 ];
