@@ -50,7 +50,7 @@ function Row({ link }: { link: DirectoryLink }) {
     </>
   );
   const cls =
-    'group flex items-center gap-2 text-[15px] text-slate-300 transition-colors duration-150 hover:text-brand';
+    'group flex items-center gap-2 text-[15px] text-slate-600 transition-colors duration-150 hover:text-brand';
   if (link.external) {
     return (
       <a href={link.to} target="_blank" rel="noopener noreferrer" className={cls}>

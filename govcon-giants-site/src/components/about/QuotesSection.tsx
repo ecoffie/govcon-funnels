@@ -17,7 +17,7 @@ export default function QuotesSection() {
         src="/pattern-stars.svg"
         alt=""
         aria-hidden
-        className="pointer-events-none absolute inset-0 h-full w-full object-cover opacity-70"
+        className="pointer-events-none absolute inset-0 h-full w-full object-cover opacity-25"
       />
       <div className="relative mx-auto max-w-[860px] px-6 text-center md:px-10">
         <motion.span
@@ -32,7 +32,7 @@ export default function QuotesSection() {
         </motion.span>
 
         <blockquote>
-          <p className="font-display text-2xl font-semibold italic leading-[1.4] text-white md:text-[32px]">
+          <p className="font-display text-2xl font-semibold italic leading-[1.4] text-slate-900 md:text-[32px]">
             {words.map((w, i) => (
               <motion.span
                 key={`${w}-${i}`}

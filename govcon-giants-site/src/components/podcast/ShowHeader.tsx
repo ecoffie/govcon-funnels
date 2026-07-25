@@ -61,7 +61,7 @@ export default function ShowHeader() {
             initial={{ scale: 0.8, opacity: 0, rotate: 6 }}
             animate={{ scale: 1, opacity: 1, rotate: 3 }}
             transition={{ type: 'spring', stiffness: 120, damping: 14, delay: 0.85 }}
-            className="absolute -bottom-6 right-4 w-24 rounded-lg border border-line bg-inset p-1.5 shadow-[0_16px_40px_rgba(0,0,0,0.5)] md:-right-6 md:w-28"
+            className="absolute -bottom-6 right-4 w-24 rounded-lg border border-line bg-inset p-1.5 shadow-[0_16px_40px_rgba(0,0,0,0.18)] md:-right-6 md:w-28"
           >
             <img
               src="/podcast-cover.png"
@@ -92,7 +92,7 @@ export default function ShowHeader() {
             <span className="kicker">THE GOVCON GIANTS PODCAST</span>
           </motion.div>
 
-          <h1 className="font-display text-[36px] font-bold leading-[1.1] tracking-[-0.02em] text-white md:text-[56px]">
+          <h1 className="font-display text-[36px] font-bold leading-[1.1] tracking-[-0.02em] text-slate-900 md:text-[56px]">
             {headlineWords.map((w, i) => (
               <span key={i}>
                 <span className="inline-block overflow-hidden pb-1 align-bottom">
@@ -114,7 +114,7 @@ export default function ShowHeader() {
             initial={{ opacity: 0, y: 16 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.4, delay: 0.6, ease: 'easeOut' }}
-            className="mt-6 max-w-xl text-lg leading-[1.7] text-slate-300"
+            className="mt-6 max-w-xl text-lg leading-[1.7] text-slate-600"
           >
             250,000+ listens. Near-daily drops. Short tactical hits from The Daily Windup
             plus long-form interviews with contracting officers, 8(a) graduates, and primes.
@@ -136,9 +136,9 @@ export default function ShowHeader() {
                 initial={{ opacity: 0, y: 24 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.4, delay: 0.75 + i * 0.06, ease: 'easeOut' }}
-                className="group inline-flex items-center gap-2 rounded-lg border border-line bg-transparent px-4 py-2.5 text-sm font-semibold text-white transition-colors duration-150 hover:border-brand hover:text-brand"
+                className="group inline-flex items-center gap-2 rounded-lg border border-line bg-transparent px-4 py-2.5 text-sm font-semibold text-slate-900 transition-colors duration-150 hover:border-brand hover:text-brand"
               >
-                <p.icon className="h-4 w-4 text-slate-400 transition-colors group-hover:text-brand" />
+                <p.icon className="h-4 w-4 text-slate-500 transition-colors group-hover:text-brand" />
                 {p.name}
                 <ArrowUpRight className="h-3.5 w-3.5 text-slate-600 transition-all duration-150 group-hover:translate-x-0.5 group-hover:text-brand" />
               </motion.a>

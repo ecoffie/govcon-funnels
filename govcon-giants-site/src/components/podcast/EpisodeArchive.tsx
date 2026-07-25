@@ -138,14 +138,14 @@ export default function EpisodeArchive() {
               onChange={(e) => setQuery(e.target.value)}
               placeholder="Search episodes… e.g. CMMC, 8(a), subcontracting"
               aria-label="Search episodes"
-              className="h-11 w-full rounded-lg border border-line bg-raised pl-10 pr-9 text-sm text-white placeholder:text-slate-500 transition-colors focus:border-brand focus:outline-none focus:ring-2 focus:ring-brand/40"
+              className="h-11 w-full rounded-lg border border-line bg-raised pl-10 pr-9 text-sm text-slate-900 placeholder:text-slate-500 transition-colors focus:border-brand focus:outline-none focus:ring-2 focus:ring-brand/40"
             />
             {query && (
               <button
                 type="button"
                 onClick={() => setQuery('')}
                 aria-label="Clear search"
-                className="absolute right-2 top-1/2 -translate-y-1/2 rounded-full p-1 text-slate-500 transition-colors hover:text-white cursor-pointer"
+                className="absolute right-2 top-1/2 -translate-y-1/2 rounded-full p-1 text-slate-500 transition-colors hover:text-slate-900 cursor-pointer"
               >
                 <X className="h-4 w-4" />
               </button>
@@ -178,7 +178,7 @@ export default function EpisodeArchive() {
                   <span
                     className={cn(
                       'relative z-10 transition-colors duration-150',
-                      isActive ? 'font-semibold text-brand-ink' : 'text-slate-400 hover:text-white',
+                      isActive ? 'font-semibold text-brand-ink' : 'text-slate-500 hover:text-slate-900',
                     )}
                   >
                     {t.label}
@@ -193,7 +193,7 @@ export default function EpisodeArchive() {
           <button
             type="button"
             onClick={() => setSort((s) => (s === 'newest' ? 'oldest' : 'newest'))}
-            className="ml-auto inline-flex shrink-0 items-center gap-2 rounded-lg border border-line bg-raised px-3.5 py-2.5 font-mono text-[13px] text-slate-300 transition-colors hover:border-brand hover:text-brand cursor-pointer"
+            className="ml-auto inline-flex shrink-0 items-center gap-2 rounded-lg border border-line bg-raised px-3.5 py-2.5 font-mono text-[13px] text-slate-600 transition-colors hover:border-brand hover:text-brand cursor-pointer"
             aria-label={`Sort episodes, currently ${sort}`}
           >
             <ArrowUpDown className="h-3.5 w-3.5" />
@@ -276,7 +276,7 @@ export default function EpisodeArchive() {
                   <button
                     type="button"
                     onClick={loadMore}
-                    className="inline-flex items-center justify-center gap-2 rounded-lg border border-line bg-transparent px-7 py-3.5 text-[15px] font-semibold text-white transition-all duration-150 hover:border-brand hover:text-brand cursor-pointer"
+                    className="inline-flex items-center justify-center gap-2 rounded-lg border border-line bg-transparent px-7 py-3.5 text-[15px] font-semibold text-slate-900 transition-all duration-150 hover:border-brand hover:text-brand cursor-pointer"
                   >
                     Load more episodes
                     <span className="font-mono text-xs text-slate-500">

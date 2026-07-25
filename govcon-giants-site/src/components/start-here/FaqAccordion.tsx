@@ -49,10 +49,10 @@ export default function FaqAccordion() {
               transition={{ duration: 0.4, delay: i * 0.06, ease: 'easeOut' }}
             >
               <AccordionItem value={`item-${i}`} className="border-line">
-                <AccordionTrigger className="text-[17px] font-medium text-white hover:text-brand hover:no-underline [&>svg]:text-brand">
+                <AccordionTrigger className="text-[17px] font-medium text-slate-900 hover:text-brand hover:no-underline [&>svg]:text-brand">
                   {f.q}
                 </AccordionTrigger>
-                <AccordionContent className="text-[15px] leading-[1.7] text-slate-300">
+                <AccordionContent className="text-[15px] leading-[1.7] text-slate-600">
                   {f.a}
                 </AccordionContent>
               </AccordionItem>

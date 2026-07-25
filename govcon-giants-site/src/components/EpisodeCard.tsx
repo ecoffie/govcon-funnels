@@ -31,7 +31,7 @@ export default function EpisodeCard({ episode, index = 0, className }: EpisodeCa
       viewport={{ once: true, amount: 0.15 }}
       transition={{ duration: 0.55, delay: index * 0.12, ease: 'easeOut' }}
       className={cn(
-        'group overflow-hidden rounded-xl border border-line bg-raised transition-all duration-200 hover:-translate-y-1 hover:border-brand hover:shadow-[0_8px_30px_rgba(0,0,0,0.35)]',
+        'group overflow-hidden rounded-xl border border-line bg-raised transition-all duration-200 hover:-translate-y-1 hover:border-brand hover:shadow-[0_8px_30px_rgba(0,0,0,0.08)]',
         className,
       )}
     >
@@ -63,7 +63,7 @@ export default function EpisodeCard({ episode, index = 0, className }: EpisodeCa
       </div>
       <div className="p-5">
         <a href={episode.link} target="_blank" rel="noopener noreferrer" className="block">
-          <h3 className="mb-2 line-clamp-2 text-[17px] font-semibold leading-snug text-white transition-colors hover:text-brand">
+          <h3 className="mb-2 line-clamp-2 text-[17px] font-semibold leading-snug text-slate-900 transition-colors hover:text-brand">
             {episode.title}
           </h3>
         </a>
@@ -77,7 +77,7 @@ export default function EpisodeCard({ episode, index = 0, className }: EpisodeCa
             autoPlay
             preload="none"
             src={episode.audioUrl}
-            className="mt-4 h-10 w-full [color-scheme:dark]"
+            className="mt-4 h-10 w-full [color-scheme:light]"
           />
         )}
       </div>

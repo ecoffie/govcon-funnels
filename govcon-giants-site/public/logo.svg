@@ -1,5 +1,5 @@
 <svg width="200" height="40" viewBox="0 0 200 40" fill="none" xmlns="http://www.w3.org/2000/svg">
-  <rect x="0" y="14" width="8" height="8" rx="1" fill="#22C55E"/>
-  <text x="16" y="28" font-family="Inter, 'Helvetica Neue', Arial, sans-serif" font-weight="700" font-size="22" letter-spacing="0.5" fill="#F8FAFC">GovCon</text>
-  <text x="101" y="28" font-family="Inter, 'Helvetica Neue', Arial, sans-serif" font-weight="700" font-size="22" letter-spacing="0.5" fill="#22C55E">Giants</text>
+  <rect x="0" y="14" width="8" height="8" rx="1" fill="#16A34A"/>
+  <text x="16" y="28" font-family="Inter, 'Helvetica Neue', Arial, sans-serif" font-weight="700" font-size="22" letter-spacing="0.5" fill="#0F172A">GovCon</text>
+  <text x="101" y="28" font-family="Inter, 'Helvetica Neue', Arial, sans-serif" font-weight="700" font-size="22" letter-spacing="0.5" fill="#16A34A">Giants</text>
 </svg>

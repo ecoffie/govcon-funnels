@@ -105,7 +105,7 @@ export default function BioHero({ onOpenPlaybook }: BioHeroProps) {
             <span className="kicker">ABOUT THE FOUNDER</span>
           </div>
 
-          <h1 className="mb-4 font-display text-4xl font-bold leading-[1.1] tracking-[-0.01em] text-white md:text-[56px]">
+          <h1 className="mb-4 font-display text-4xl font-bold leading-[1.1] tracking-[-0.01em] text-slate-900 md:text-[56px]">
             <motion.span
               initial={{ opacity: 0, y: 24 }}
               animate={{ opacity: 1, y: 0 }}
@@ -132,13 +132,13 @@ export default function BioHero({ onOpenPlaybook }: BioHeroProps) {
             initial={{ opacity: 0, y: 16 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.5, delay: 0.4, ease: 'easeOut' }}
-            className="mb-8 max-w-[560px] text-[19px] leading-[1.7] text-slate-300 md:text-[21px]"
+            className="mb-8 max-w-[560px] text-[19px] leading-[1.7] text-slate-600 md:text-[21px]"
           >
             Eric built Evankoff Construction from zero to{' '}
-            <strong className="font-semibold text-white">$20M+ in government sales</strong>,
+            <strong className="font-semibold text-slate-900">$20M+ in government sales</strong>,
             helped build two 8(a) small businesses to millions in federal revenue, and
             turned one{' '}
-            <strong className="font-semibold text-white">$5M Air Force Base contract</strong>{' '}
+            <strong className="font-semibold text-slate-900">$5M Air Force Base contract</strong>{' '}
             into a platform that teaches everyday people to win extraordinary federal
             contracts.
           </motion.p>
@@ -152,7 +152,7 @@ export default function BioHero({ onOpenPlaybook }: BioHeroProps) {
             <PrimaryButton onClick={onOpenPlaybook}>Get the Free Playbook</PrimaryButton>
             <Link
               to="/podcast"
-              className="inline-flex cursor-pointer items-center justify-center gap-2 rounded-lg border border-line bg-transparent px-7 py-3.5 text-[15px] font-semibold text-white transition-all duration-150 hover:border-brand hover:text-brand focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand focus-visible:ring-offset-2 focus-visible:ring-offset-base"
+              className="inline-flex cursor-pointer items-center justify-center gap-2 rounded-lg border border-line bg-transparent px-7 py-3.5 text-[15px] font-semibold text-slate-900 transition-all duration-150 hover:border-brand hover:text-brand focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand focus-visible:ring-offset-2 focus-visible:ring-offset-base"
             >
               Listen to the Podcast
             </Link>

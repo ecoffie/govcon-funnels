@@ -28,7 +28,7 @@ export default function ArticleCard({ article, index = 0, className }: ArticleCa
     >
       <Link
         to={`/blog/${article.slug}`}
-        className="group flex h-full flex-col overflow-hidden rounded-xl border border-line bg-raised transition-all duration-200 hover:-translate-y-1 hover:border-brand hover:shadow-[0_8px_30px_rgba(0,0,0,0.35)]"
+        className="group flex h-full flex-col overflow-hidden rounded-xl border border-line bg-raised transition-all duration-200 hover:-translate-y-1 hover:border-brand hover:shadow-[0_8px_30px_rgba(0,0,0,0.08)]"
       >
         <div className="relative aspect-video overflow-hidden">
           <img
@@ -42,10 +42,10 @@ export default function ArticleCard({ article, index = 0, className }: ArticleCa
           </span>
         </div>
         <div className="flex flex-1 flex-col p-5">
-          <h3 className="mb-2 font-display text-[22px] font-semibold leading-snug text-white transition-colors group-hover:text-brand">
+          <h3 className="mb-2 font-display text-[22px] font-semibold leading-snug text-slate-900 transition-colors group-hover:text-brand">
             {article.title}
           </h3>
-          <p className="mb-4 line-clamp-2 flex-1 text-sm leading-relaxed text-slate-400">
+          <p className="mb-4 line-clamp-2 flex-1 text-sm leading-relaxed text-slate-500">
             {article.excerpt}
           </p>
           <p className="font-mono text-xs uppercase tracking-wider text-slate-500">

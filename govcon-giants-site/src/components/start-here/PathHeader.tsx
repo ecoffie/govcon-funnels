@@ -42,7 +42,7 @@ export default function PathHeader() {
           <span className="kicker">NEW TO GOVCON? START HERE</span>
         </div>
 
-        <h1 className="mb-6 max-w-[820px] font-display text-4xl font-bold leading-[1.1] tracking-[-0.01em] text-white md:text-[56px]">
+        <h1 className="mb-6 max-w-[820px] font-display text-4xl font-bold leading-[1.1] tracking-[-0.01em] text-slate-900 md:text-[56px]">
           {['Zero', 'experience?'].map((w, i) => (
             <motion.span
               key={w}
@@ -79,7 +79,7 @@ export default function PathHeader() {
           initial={{ opacity: 0, y: 16 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.5, delay: 0.45, ease: 'easeOut' }}
-          className="mb-8 max-w-[640px] text-lg leading-[1.7] text-slate-300"
+          className="mb-8 max-w-[640px] text-lg leading-[1.7] text-slate-600"
         >
           Eric built a $20M+ federal business starting from nothing. This is the exact
           order he&apos;d do it in again — five steps, all free.
@@ -99,7 +99,7 @@ export default function PathHeader() {
           </button>
           <Link
             to="/podcast"
-            className="inline-flex cursor-pointer items-center justify-center gap-2 rounded-lg border border-line bg-transparent px-7 py-3.5 text-[15px] font-semibold text-white transition-all duration-150 hover:border-brand hover:text-brand focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand focus-visible:ring-offset-2 focus-visible:ring-offset-base"
+            className="inline-flex cursor-pointer items-center justify-center gap-2 rounded-lg border border-line bg-transparent px-7 py-3.5 text-[15px] font-semibold text-slate-900 transition-all duration-150 hover:border-brand hover:text-brand focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand focus-visible:ring-offset-2 focus-visible:ring-offset-base"
           >
             Browse the Podcast
           </Link>

@@ -27,10 +27,10 @@ function EpisodeCta() {
             />
             <span className="kicker">NEVER MISS AN EPISODE</span>
           </div>
-          <h2 className="font-display text-[32px] font-bold leading-[1.15] text-white">
+          <h2 className="font-display text-[32px] font-bold leading-[1.15] text-slate-900">
             The Daily Windup, in your <em className="italic text-brand">inbox</em>.
           </h2>
-          <p className="mt-4 max-w-md text-[17px] leading-[1.7] text-slate-300">
+          <p className="mt-4 max-w-md text-[17px] leading-[1.7] text-slate-600">
             One tactical GovCon play per weekday. Free. Five minutes.
           </p>
         </motion.div>

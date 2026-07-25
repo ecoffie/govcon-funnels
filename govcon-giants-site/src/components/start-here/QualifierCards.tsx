@@ -67,13 +67,13 @@ export default function QualifierCards() {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true, amount: 0.2 }}
               transition={{ duration: 0.5, delay: i * 0.12, ease: 'easeOut' }}
-              className="rounded-xl border border-line bg-base p-6 transition-all duration-200 hover:-translate-y-1 hover:border-brand hover:shadow-[0_8px_30px_rgba(0,0,0,0.35)]"
+              className="rounded-xl border border-line bg-base p-6 transition-all duration-200 hover:-translate-y-1 hover:border-brand hover:shadow-[0_8px_30px_rgba(0,0,0,0.08)]"
             >
               <div className="mb-4">
                 <Icon />
               </div>
-              <h3 className="mb-2 font-display text-2xl font-semibold text-white">{title}</h3>
-              <p className="text-[15px] leading-[1.7] text-slate-400">{body}</p>
+              <h3 className="mb-2 font-display text-2xl font-semibold text-slate-900">{title}</h3>
+              <p className="text-[15px] leading-[1.7] text-slate-500">{body}</p>
             </motion.div>
           ))}
         </div>

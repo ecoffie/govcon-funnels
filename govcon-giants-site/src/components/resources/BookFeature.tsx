@@ -66,7 +66,7 @@ export default function BookFeature({ onGetFreeWebsites }: BookFeatureProps) {
               <img
                 src="/book-playbook.png"
                 alt="Billion Dollar Playbook — 72 Websites for Massive Scaling in the Federal Marketplace, by Eric Coffie"
-                className="w-full rounded-lg shadow-[0_24px_60px_rgba(0,0,0,0.55)]"
+                className="w-full rounded-lg shadow-[0_24px_60px_rgba(0,0,0,0.25)]"
                 loading="lazy"
               />
             </motion.div>
@@ -77,7 +77,7 @@ export default function BookFeature({ onGetFreeWebsites }: BookFeatureProps) {
             whileInView={{ scale: 1, opacity: 1 }}
             viewport={{ once: true }}
             transition={{ type: 'spring', stiffness: 200, damping: 12, delay: 0.3 }}
-            className="absolute -right-2 top-4 rounded-md bg-gold px-3 py-1.5 font-mono text-[11px] font-semibold tracking-[0.14em] text-base shadow-[0_8px_24px_rgba(0,0,0,0.4)]"
+            className="absolute -right-2 top-4 rounded-md bg-gold px-3 py-1.5 font-mono text-[11px] font-semibold tracking-[0.14em] text-slate-900 shadow-[0_8px_24px_rgba(0,0,0,0.2)]"
           >
             72 WEBSITES
           </motion.span>
@@ -103,14 +103,14 @@ export default function BookFeature({ onGetFreeWebsites }: BookFeatureProps) {
 
           <motion.h2
             variants={{ hidden: { opacity: 0, y: 24 }, show: { opacity: 1, y: 0, transition: { duration: 0.45, ease: EASE } } }}
-            className="font-display text-3xl font-bold leading-[1.15] text-white md:text-[40px]"
+            className="font-display text-3xl font-bold leading-[1.15] text-slate-900 md:text-[40px]"
           >
             Billion Dollar <em className="italic text-brand">Playbook</em>
           </motion.h2>
 
           <motion.p
             variants={{ hidden: { opacity: 0, y: 24 }, show: { opacity: 1, y: 0, transition: { duration: 0.45, ease: EASE } } }}
-            className="mt-4 max-w-xl text-[17px] leading-[1.7] text-slate-300"
+            className="mt-4 max-w-xl text-[17px] leading-[1.7] text-slate-600"
           >
             72 Websites for Massive Scaling in the Federal Marketplace — the exact
             sites Eric used to go from zero to $20M+ in government sales.
@@ -121,7 +121,7 @@ export default function BookFeature({ onGetFreeWebsites }: BookFeatureProps) {
             className="mt-7 space-y-3.5"
           >
             {bullets.map((b) => (
-              <li key={b} className="flex items-start gap-3 text-base leading-relaxed text-slate-200">
+              <li key={b} className="flex items-start gap-3 text-base leading-relaxed text-slate-600">
                 <span className="mt-[7px] h-2 w-2 shrink-0 bg-brand" aria-hidden />
                 {b}
               </li>

@@ -4,34 +4,34 @@
 
 @layer base {
   :root {
-    --background: 222 47% 8%;
-    --foreground: 210 40% 98%;
-    --card: 222 47% 11%;
-    --card-foreground: 210 40% 98%;
-    --popover: 222 47% 11%;
-    --popover-foreground: 210 40% 98%;
-    --primary: 142 71% 45%;
-    --primary-foreground: 144 80% 10%;
-    --secondary: 222 40% 16%;
-    --secondary-foreground: 210 40% 98%;
-    --muted: 222 40% 16%;
-    --muted-foreground: 215 20% 51%;
-    --accent: 222 40% 16%;
-    --accent-foreground: 210 40% 98%;
+    --background: 60 9% 98%;
+    --foreground: 222 47% 11%;
+    --card: 0 0% 100%;
+    --card-foreground: 222 47% 11%;
+    --popover: 0 0% 100%;
+    --popover-foreground: 222 47% 11%;
+    --primary: 142 76% 36%;
+    --primary-foreground: 0 0% 100%;
+    --secondary: 60 5% 94%;
+    --secondary-foreground: 222 47% 11%;
+    --muted: 60 5% 94%;
+    --muted-foreground: 215 16% 40%;
+    --accent: 60 5% 94%;
+    --accent-foreground: 222 47% 11%;
     --destructive: 0 62.8% 50%;
     --destructive-foreground: 0 0% 98%;
-    --border: 220 39% 20%;
-    --input: 220 39% 20%;
-    --ring: 142 71% 45%;
+    --border: 45 11% 89%;
+    --input: 45 11% 89%;
+    --ring: 142 76% 36%;
     --radius: 0.5rem;
-    --sidebar-background: 222 47% 11%;
-    --sidebar-foreground: 210 40% 98%;
-    --sidebar-primary: 142 71% 45%;
-    --sidebar-primary-foreground: 144 80% 10%;
-    --sidebar-accent: 222 40% 16%;
-    --sidebar-accent-foreground: 210 40% 98%;
-    --sidebar-border: 220 39% 20%;
-    --sidebar-ring: 142 71% 45%;
+    --sidebar-background: 0 0% 100%;
+    --sidebar-foreground: 222 47% 11%;
+    --sidebar-primary: 142 76% 36%;
+    --sidebar-primary-foreground: 0 0% 100%;
+    --sidebar-accent: 60 5% 94%;
+    --sidebar-accent-foreground: 222 47% 11%;
+    --sidebar-border: 45 11% 89%;
+    --sidebar-ring: 142 76% 36%;
   }
 }
 
@@ -56,23 +56,23 @@
     overflow: hidden;
   }
   body {
-    @apply bg-base text-slate-100 font-sans antialiased;
+    @apply bg-base text-slate-700 font-sans antialiased;
   }
   ::selection {
-    @apply bg-brand/30 text-white;
+    @apply bg-brand/30 text-slate-900;
   }
   ::-webkit-scrollbar {
     width: 10px;
   }
   ::-webkit-scrollbar-track {
-    background: #0a0f1e;
+    background: #fafaf8;
   }
   ::-webkit-scrollbar-thumb {
-    background: #1e2a45;
+    background: #d6d3cb;
     border-radius: 999px;
   }
   ::-webkit-scrollbar-thumb:hover {
-    background: #22c55e;
+    background: #16a34a;
   }
 }
 

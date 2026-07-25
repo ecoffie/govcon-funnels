@@ -85,13 +85,13 @@ export default function Blog() {
           </div>
           <SplitHeadline
             text="GovCon, explained in *plain *English."
-            className="max-w-3xl font-display text-4xl font-bold leading-[1.1] tracking-[-0.02em] text-white md:text-[56px]"
+            className="max-w-3xl font-display text-4xl font-bold leading-[1.1] tracking-[-0.02em] text-slate-900 md:text-[56px]"
           />
           <motion.p
             initial={{ opacity: 0, y: 16 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.4, delay: 0.3, ease: 'easeOut' }}
-            className="mt-6 max-w-2xl text-lg leading-relaxed text-slate-300"
+            className="mt-6 max-w-2xl text-lg leading-relaxed text-slate-600"
           >
             Field-manual guides on SAM.gov, 8(a), proposals, teaming, and getting paid — no
             jargon, no fluff, no paywall.
@@ -122,7 +122,7 @@ export default function Blog() {
                   onClick={() => setTab(cat)}
                   className={cn(
                     'relative cursor-pointer whitespace-nowrap py-4 font-mono text-[13px] font-medium uppercase tracking-[0.12em] transition-colors duration-150',
-                    active ? 'text-brand' : 'text-slate-500 hover:text-white',
+                    active ? 'text-brand' : 'text-slate-500 hover:text-slate-900',
                   )}
                 >
                   {cat}
@@ -148,7 +148,7 @@ export default function Blog() {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true, amount: 0.2 }}
             transition={{ duration: 0.6, ease: 'easeOut' }}
-            className="group grid overflow-hidden rounded-xl border border-line bg-raised transition-all duration-200 hover:-translate-y-1 hover:border-brand hover:shadow-[0_8px_30px_rgba(0,0,0,0.35)] md:grid-cols-[55%_45%]"
+            className="group grid overflow-hidden rounded-xl border border-line bg-raised transition-all duration-200 hover:-translate-y-1 hover:border-brand hover:shadow-[0_8px_30px_rgba(0,0,0,0.08)] md:grid-cols-[55%_45%]"
           >
             <Link
               to={`/blog/${featured.slug}`}
@@ -171,11 +171,11 @@ export default function Blog() {
                 Featured
               </span>
               <Link to={`/blog/${featured.slug}`}>
-                <h2 className="mb-4 font-display text-2xl font-semibold leading-snug text-white transition-colors hover:text-brand md:text-[32px] md:leading-[1.2]">
+                <h2 className="mb-4 font-display text-2xl font-semibold leading-snug text-slate-900 transition-colors hover:text-brand md:text-[32px] md:leading-[1.2]">
                   {featured.title}
                 </h2>
               </Link>
-              <p className="mb-6 line-clamp-3 text-[15px] leading-relaxed text-slate-400">
+              <p className="mb-6 line-clamp-3 text-[15px] leading-relaxed text-slate-500">
                 {featured.excerpt}
               </p>
               <p className="mb-6 font-mono text-xs uppercase tracking-wider text-slate-500">

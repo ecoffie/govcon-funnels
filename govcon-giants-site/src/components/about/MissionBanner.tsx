@@ -23,7 +23,7 @@ export default function MissionBanner() {
         style={{ y: bgY }}
         className="pointer-events-none absolute -top-[10%] left-0 h-[120%] w-full object-cover"
       />
-      <div className="absolute inset-0 bg-base/55" aria-hidden />
+      <div className="absolute inset-0 bg-slate-950/55" aria-hidden />
 
       <div className="container-gg relative flex min-h-[56vw] items-center justify-center py-20 text-center md:min-h-[560px]">
         <div className="max-w-[720px]">

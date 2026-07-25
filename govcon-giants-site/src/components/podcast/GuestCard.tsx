@@ -22,7 +22,7 @@ export default function GuestCard({ episode, index }: { episode: FeaturedEpisode
       whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true, amount: 0.15 }}
       transition={{ duration: 0.55, delay: index * 0.1, ease: 'easeOut' }}
-      className="group flex h-full flex-col overflow-hidden rounded-xl border border-line bg-raised transition-all duration-200 hover:-translate-y-1 hover:border-brand hover:shadow-[0_8px_30px_rgba(0,0,0,0.35)]"
+      className="group flex h-full flex-col overflow-hidden rounded-xl border border-line bg-raised transition-all duration-200 hover:-translate-y-1 hover:border-brand hover:shadow-[0_8px_30px_rgba(0,0,0,0.08)]"
     >
       <div className="relative aspect-square w-full overflow-hidden">
         <img
@@ -34,18 +34,18 @@ export default function GuestCard({ episode, index }: { episode: FeaturedEpisode
       </div>
 
       <div className="flex flex-1 flex-col p-5">
-        <h3 className="font-display text-lg font-semibold leading-snug text-white">
+        <h3 className="font-display text-lg font-semibold leading-snug text-slate-900">
           {episode.guest}
         </h3>
-        <p className="mt-1 text-xs leading-relaxed text-slate-400">{episode.role}</p>
+        <p className="mt-1 text-xs leading-relaxed text-slate-500">{episode.role}</p>
         <p className="mt-1 text-xs font-semibold uppercase tracking-[0.14em] text-brand">
           {episode.agency}
         </p>
 
-        <p className="mt-4 line-clamp-2 text-sm leading-relaxed text-slate-300">
+        <p className="mt-4 line-clamp-2 text-sm leading-relaxed text-slate-600">
           {episode.title}
         </p>
-        <p className="mt-2 line-clamp-2 flex-1 text-xs leading-relaxed text-slate-400">
+        <p className="mt-2 line-clamp-2 flex-1 text-xs leading-relaxed text-slate-500">
           {episode.blurb}
         </p>
 
@@ -60,7 +60,7 @@ export default function GuestCard({ episode, index }: { episode: FeaturedEpisode
               'flex h-10 w-10 shrink-0 items-center justify-center rounded-full border transition-all duration-150 cursor-pointer',
               open
                 ? 'border-brand bg-brand text-brand-ink'
-                : 'border-line text-slate-400 hover:border-brand hover:bg-brand hover:text-brand-ink',
+                : 'border-line text-slate-500 hover:border-brand hover:bg-brand hover:text-brand-ink',
             )}
           >
             {open ? (
@@ -69,7 +69,7 @@ export default function GuestCard({ episode, index }: { episode: FeaturedEpisode
               <Play className="ml-0.5 h-4 w-4 fill-current" />
             )}
           </button>
-          <span className="rounded-full bg-black/60 px-2.5 py-1 font-mono text-xs text-brand">
+          <span className="rounded-full border border-line bg-inset px-2.5 py-1 font-mono text-xs text-slate-600">
             {episode.duration}
           </span>
           <a
@@ -90,7 +90,7 @@ export default function GuestCard({ episode, index }: { episode: FeaturedEpisode
             autoPlay
             preload="none"
             src={episode.audioUrl}
-            className="mt-4 h-10 w-full [color-scheme:dark]"
+            className="mt-4 h-10 w-full [color-scheme:light]"
           />
         )}
       </div>

@@ -45,7 +45,7 @@ export default function SectionHeader({
           />
           <span className="kicker">{kicker}</span>
         </div>
-        <h2 className="font-display text-3xl font-bold leading-[1.15] text-white md:text-[40px] [&_em]:italic [&_em]:text-brand">
+        <h2 className="font-display text-3xl font-bold leading-[1.15] text-slate-900 md:text-[40px] [&_em]:italic [&_em]:text-brand">
           {title}
         </h2>
       </div>

@@ -30,7 +30,7 @@ export default function GuidesLibrary({ onSelect }: GuidesLibraryProps) {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true, amount: 0.2 }}
               transition={{ duration: 0.5, delay: (i % 3) * 0.1, ease: EASE }}
-              className="group relative flex cursor-pointer flex-col overflow-hidden rounded-xl border border-line bg-raised p-6 text-left transition-[transform,border-color,box-shadow] duration-200 hover:-translate-y-1 hover:border-brand hover:shadow-[0_8px_30px_rgba(0,0,0,0.35)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand"
+              className="group relative flex cursor-pointer flex-col overflow-hidden rounded-xl border border-line bg-raised p-6 text-left transition-[transform,border-color,box-shadow] duration-200 hover:-translate-y-1 hover:border-brand hover:shadow-[0_8px_30px_rgba(0,0,0,0.08)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand"
               aria-label={`Email me ${guide.title}`}
             >
               {/* top accent bar — draws left→right on hover */}
@@ -41,10 +41,10 @@ export default function GuidesLibrary({ onSelect }: GuidesLibraryProps) {
               <span className="mb-5 inline-flex h-11 w-11 items-center justify-center rounded-lg bg-brand-soft text-brand transition-transform duration-200 group-hover:rotate-[8deg]">
                 <guide.icon className="h-5 w-5" aria-hidden />
               </span>
-              <h3 className="font-display text-xl font-semibold leading-[1.25] text-white transition-colors group-hover:text-brand">
+              <h3 className="font-display text-xl font-semibold leading-[1.25] text-slate-900 transition-colors group-hover:text-brand">
                 {guide.title}
               </h3>
-              <p className="mt-2 flex-1 text-[15px] leading-relaxed text-slate-400">
+              <p className="mt-2 flex-1 text-[15px] leading-relaxed text-slate-500">
                 {guide.blurb}
               </p>
               <span className="mt-6 inline-flex items-center gap-1.5 text-[15px] font-semibold text-brand">

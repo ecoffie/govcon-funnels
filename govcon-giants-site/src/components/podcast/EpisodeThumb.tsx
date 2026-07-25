@@ -21,35 +21,35 @@ export interface EpisodeTopic {
 }
 
 const TOPIC_RULES: { keywords: string[]; topic: EpisodeTopic }[] = [
-  { keywords: ['cmmc'], topic: { label: 'CMMC', Icon: Shield, accent: '#2DD4BF' } },
-  { keywords: ['8(a)', '8a'], topic: { label: '8(A)', Icon: Award, accent: '#FBBF24' } },
+  { keywords: ['cmmc'], topic: { label: 'CMMC', Icon: Shield, accent: '#0D9488' } },
+  { keywords: ['8(a)', '8a'], topic: { label: '8(A)', Icon: Award, accent: '#D97706' } },
   {
     keywords: ['sam.gov', 'samgov'],
-    topic: { label: 'SAM.GOV', Icon: Globe, accent: '#22C55E' },
+    topic: { label: 'SAM.GOV', Icon: Globe, accent: '#16A34A' },
   },
   {
     keywords: ['subcontract', 'teaming', 'joint venture'],
-    topic: { label: 'TEAMING', Icon: Users, accent: '#34D399' },
+    topic: { label: 'TEAMING', Icon: Users, accent: '#059669' },
   },
   {
     keywords: ['proposal', 'rfp', 'rfq', 'sources sought'],
-    topic: { label: 'PROPOSALS', Icon: FileText, accent: '#FBBF24' },
+    topic: { label: 'PROPOSALS', Icon: FileText, accent: '#D97706' },
   },
   {
     keywords: ['hubzone', 'wosb', 'set-aside', 'set aside'],
-    topic: { label: 'SET-ASIDES', Icon: MapPin, accent: '#2DD4BF' },
+    topic: { label: 'SET-ASIDES', Icon: MapPin, accent: '#0D9488' },
   },
   {
     keywords: ['construction'],
-    topic: { label: 'CONSTRUCTION', Icon: HardHat, accent: '#FBBF24' },
+    topic: { label: 'CONSTRUCTION', Icon: HardHat, accent: '#D97706' },
   },
   {
     keywords: ['funding', 'invoice', 'payment', 'paid', 'billing'],
-    topic: { label: 'FUNDING', Icon: DollarSign, accent: '#34D399' },
+    topic: { label: 'FUNDING', Icon: DollarSign, accent: '#059669' },
   },
 ];
 
-const DEFAULT_TOPIC: EpisodeTopic = { label: 'GOVCON', Icon: Mic, accent: '#22C55E' };
+const DEFAULT_TOPIC: EpisodeTopic = { label: 'GOVCON', Icon: Mic, accent: '#16A34A' };
 
 /** Topic badge (icon + accent + label) derived from the episode title. */
 export function episodeTopic(title: string): EpisodeTopic {
@@ -83,7 +83,7 @@ export default function EpisodeThumb({ title, className }: EpisodeThumbProps) {
     <div className={cn('relative overflow-hidden bg-inset', className)} aria-hidden>
       {/* faint brand star pattern */}
       <div
-        className="absolute inset-0 opacity-60"
+        className="absolute inset-0 opacity-30"
         style={{ backgroundImage: 'url(/pattern-stars.svg)', backgroundSize: '160px' }}
       />
       {/* soft accent glow */}

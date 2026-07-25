@@ -52,12 +52,12 @@ export default function EpisodeRow({ episode, index = 0, className }: EpisodeRow
           </p>
 
           <a href={episode.link} target="_blank" rel="noopener noreferrer">
-            <h3 className="font-display text-[24px] font-semibold leading-[1.25] text-white transition-colors hover:text-brand md:text-[28px]">
+            <h3 className="font-display text-[24px] font-semibold leading-[1.25] text-slate-900 transition-colors hover:text-brand md:text-[28px]">
               {episode.title}
             </h3>
           </a>
 
-          <p className="mt-3 line-clamp-2 text-[15px] leading-[1.7] text-slate-400">
+          <p className="mt-3 line-clamp-2 text-[15px] leading-[1.7] text-slate-500">
             {episode.description}
           </p>
 
@@ -72,7 +72,7 @@ export default function EpisodeRow({ episode, index = 0, className }: EpisodeRow
                 'flex h-10 w-10 shrink-0 items-center justify-center rounded-full border transition-all duration-150 cursor-pointer',
                 open
                   ? 'border-brand bg-brand text-brand-ink'
-                  : 'border-line text-slate-400 hover:border-brand hover:bg-brand hover:text-brand-ink',
+                  : 'border-line text-slate-500 hover:border-brand hover:bg-brand hover:text-brand-ink',
               )}
             >
               {open ? (
@@ -102,7 +102,7 @@ export default function EpisodeRow({ episode, index = 0, className }: EpisodeRow
           autoPlay
           preload="none"
           src={episode.audioUrl}
-          className="mt-6 h-10 w-full [color-scheme:dark]"
+          className="mt-6 h-10 w-full [color-scheme:light]"
         />
       )}
     </motion.article>

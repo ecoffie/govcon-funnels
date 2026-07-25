@@ -60,7 +60,7 @@ function PageHeader() {
           </motion.span>
         </div>
 
-        <h1 className="max-w-[820px] font-display text-4xl font-bold leading-[1.1] text-white md:text-[56px]">
+        <h1 className="max-w-[820px] font-display text-4xl font-bold leading-[1.1] text-slate-900 md:text-[56px]">
           {h1Words.map((w, i) => (
             <span key={i}>
               <span className="inline-block overflow-hidden pb-1 align-bottom">
@@ -82,7 +82,7 @@ function PageHeader() {
           initial={{ opacity: 0, y: 16 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.4, delay: 0.6, ease: 'easeOut' }}
-          className="mt-5 max-w-[640px] text-lg leading-[1.7] text-slate-300"
+          className="mt-5 max-w-[640px] text-lg leading-[1.7] text-slate-600"
         >
           The book, the websites, and the free guides Eric uses to find federal
           opportunities before they hit SAM.gov.
@@ -101,7 +101,7 @@ function FinalCta() {
         src="/pattern-stars.svg"
         alt=""
         aria-hidden
-        className="pointer-events-none absolute inset-0 h-full w-full object-cover opacity-70"
+        className="pointer-events-none absolute inset-0 h-full w-full object-cover opacity-25"
       />
       <div className="container-gg relative">
         <div className="relative mx-auto max-w-[640px] text-center">
@@ -113,9 +113,9 @@ function FinalCta() {
             whileInView={{ x: 0, rotate: -6, opacity: 1 }}
             viewport={{ once: true, amount: 0.4 }}
             transition={{ type: 'spring', stiffness: 90, damping: 14 }}
-            className="mx-auto mb-8 w-28 animate-float-y rounded-lg shadow-[0_20px_50px_rgba(0,0,0,0.5)] lg:absolute lg:-left-56 lg:top-1/2 lg:mb-0 lg:w-[140px] lg:-translate-y-1/2"
+            className="mx-auto mb-8 w-28 animate-float-y rounded-lg shadow-[0_20px_50px_rgba(0,0,0,0.25)] lg:absolute lg:-left-56 lg:top-1/2 lg:mb-0 lg:w-[140px] lg:-translate-y-1/2"
           />
-          <h2 className="mb-4 font-display text-3xl font-bold text-white md:text-[40px]">
+          <h2 className="mb-4 font-display text-3xl font-bold text-slate-900 md:text-[40px]">
             {['Start', 'with', 'the'].map((w, i) => (
               <motion.span
                 key={w}
@@ -143,7 +143,7 @@ function FinalCta() {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.5, delay: 0.2, ease: 'easeOut' }}
-            className="mb-8 text-[17px] leading-[1.7] text-slate-300"
+            className="mb-8 text-[17px] leading-[1.7] text-slate-600"
           >
             Five of the 72 federal websites Eric uses to find buyers, partners, and
             contracts — free, in your inbox, today.

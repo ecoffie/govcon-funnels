@@ -26,7 +26,7 @@ function Hero() {
           <img
             src="/eric-portrait.png"
             alt="Eric Coffie, founder and host of GovCon Giants"
-            className="w-full rounded-xl border border-line object-cover shadow-[0_24px_60px_rgba(0,0,0,0.5)]"
+            className="w-full rounded-xl border border-line object-cover shadow-[0_24px_60px_rgba(0,0,0,0.15)]"
           />
           <p className="mt-4 text-center font-mono text-[11px] uppercase tracking-[0.14em] text-slate-500">
             Eric Coffie · Founder, GovCon Giants · Miami, FL
@@ -39,10 +39,10 @@ function Hero() {
           transition={{ duration: 0.6, delay: 0.15, ease: 'easeOut' }}
         >
           <p className="kicker mb-4">GOVERNMENT CONTRACTING, WITHOUT THE FLUFF</p>
-          <h1 className="font-display text-4xl font-bold leading-[1.1] text-white md:text-[56px]">
+          <h1 className="font-display text-4xl font-bold leading-[1.1] text-slate-900 md:text-[56px]">
             Win extraordinary <em className="italic text-brand">federal contracts</em>.
           </h1>
-          <p className="mt-6 max-w-xl text-[17px] leading-[1.7] text-slate-300">
+          <p className="mt-6 max-w-xl text-[17px] leading-[1.7] text-slate-600">
             Eric Coffie built Evankoff Construction from zero to $20M+ in government sales —
             and now teaches everyday people to do the same. Get the free Billion Dollar
             Playbook starter kit: five of the 72 federal websites Eric uses to find buyers,
@@ -82,10 +82,10 @@ function PodcastStrip() {
             />
             <span className="kicker">THE PODCAST</span>
           </div>
-          <h2 className="font-display text-[32px] font-bold leading-[1.15] text-white md:text-[40px]">
+          <h2 className="font-display text-[32px] font-bold leading-[1.15] text-slate-900 md:text-[40px]">
             The GovCon Giants <em className="italic text-brand">Podcast</em>
           </h2>
-          <p className="mt-4 max-w-md text-[17px] leading-[1.7] text-slate-300">
+          <p className="mt-4 max-w-md text-[17px] leading-[1.7] text-slate-600">
             250K+ listens and counting. Near-daily episodes — The Daily Windup short-form
             plays plus long-form interviews — on RFPs, SAM.gov, 8(a), subcontracting, CMMC,
             and everything between.
@@ -117,7 +117,7 @@ function PodcastStrip() {
                 <span className="block font-mono text-[11px] uppercase tracking-[0.14em] text-slate-500">
                   Listen on
                 </span>
-                <span className="block text-[17px] font-semibold text-white transition-colors group-hover:text-brand">
+                <span className="block text-[17px] font-semibold text-slate-900 transition-colors group-hover:text-brand">
                   {p.name}
                 </span>
               </span>
@@ -210,7 +210,7 @@ function PopularArticles() {
                     <span className="mb-1 block font-mono text-[11px] uppercase tracking-[0.14em] text-slate-500">
                       {article.category} · {article.readTime} read
                     </span>
-                    <span className="block font-display text-[20px] font-semibold leading-snug text-white transition-colors group-hover:text-brand">
+                    <span className="block font-display text-[20px] font-semibold leading-snug text-slate-900 transition-colors group-hover:text-brand">
                       {article.title}
                     </span>
                   </span>
@@ -247,10 +247,10 @@ function AboutBlurb() {
             />
             <span className="kicker">ABOUT ERIC COFFIE</span>
           </div>
-          <h2 className="font-display text-[32px] font-bold leading-[1.15] text-white md:text-[40px]">
+          <h2 className="font-display text-[32px] font-bold leading-[1.15] text-slate-900 md:text-[40px]">
             From zero to <em className="italic text-brand">$20M+</em> in government sales.
           </h2>
-          <p className="mt-5 max-w-lg text-[17px] leading-[1.7] text-slate-300">
+          <p className="mt-5 max-w-lg text-[17px] leading-[1.7] text-slate-600">
             Eric Coffie built Evankoff Construction from nothing into $20M+ in federal
             sales, helped build two 8(a) small businesses to millions in revenue, and won a
             $5M Air Force Base contract that funded this platform. Since starting the GovCon

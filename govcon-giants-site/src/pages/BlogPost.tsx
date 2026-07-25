@@ -207,7 +207,7 @@ function BodyBlock({ block, h2Number }: { block: ArticleBlock; h2Number: number 
           </p>
           <ul className="space-y-3">
             {block.items.map((item, i) => (
-              <li key={i} className="flex gap-3 text-[15px] leading-relaxed text-slate-200">
+              <li key={i} className="flex gap-3 text-[15px] leading-relaxed text-slate-600">
                 <Check className="mt-0.5 h-5 w-5 shrink-0 text-brand" />
                 <span>{item}</span>
               </li>
@@ -234,7 +234,7 @@ export default function BlogPost() {
   if (!article) {
     return (
       <div className="container-gg py-24 text-center">
-        <h1 className="mb-4 font-display text-4xl font-bold text-white">Article not found</h1>
+        <h1 className="mb-4 font-display text-4xl font-bold text-slate-900">Article not found</h1>
         <Link to="/blog" className="font-semibold text-brand hover:underline">
           ← Back to the blog
         </Link>
@@ -262,7 +262,7 @@ export default function BlogPost() {
         >
           {article.category}
         </motion.span>
-        <h1 className="mt-6 font-display text-4xl font-bold leading-[1.15] text-white md:text-5xl">
+        <h1 className="mt-6 font-display text-4xl font-bold leading-[1.15] text-slate-900 md:text-5xl">
           {article.title.split(' ').map((word, i, arr) => (
             <span key={i} className="inline-block overflow-hidden pb-1 align-bottom">
               <motion.span
@@ -311,7 +311,7 @@ export default function BlogPost() {
       <div
         aria-hidden
         className="mt-16 h-20"
-        style={{ background: 'linear-gradient(to bottom, #0A0F1E, #FAF8F4)' }}
+        style={{ background: 'linear-gradient(to bottom, #FAFAF8, #FAF8F4)' }}
       />
       <section className="bg-paper">
         <div className="mx-auto w-full max-w-[680px] space-y-7 px-6 py-16 md:py-20">
@@ -361,7 +361,7 @@ export default function BlogPost() {
       <div
         aria-hidden
         className="h-20"
-        style={{ background: 'linear-gradient(to bottom, #FAF8F4, #0A0F1E)' }}
+        style={{ background: 'linear-gradient(to bottom, #FAF8F4, #FAFAF8)' }}
       />
       <section className="bg-base">
         <div className="container-gg py-16 md:py-20">
@@ -379,10 +379,10 @@ export default function BlogPost() {
               whileInView={{ opacity: 1, y: 0, rotate: -6 }}
               viewport={{ once: true, amount: 0.4 }}
               transition={{ duration: 0.6, ease: 'easeOut' }}
-              className="hidden w-[120px] shrink-0 rounded-md shadow-[0_16px_40px_rgba(0,0,0,0.5)] md:block"
+              className="hidden w-[120px] shrink-0 rounded-md shadow-[0_16px_40px_rgba(0,0,0,0.25)] md:block"
             />
             <div className="max-w-2xl flex-1">
-              <h3 className="mb-6 font-display text-[28px] font-semibold leading-snug text-white">
+              <h3 className="mb-6 font-display text-[28px] font-semibold leading-snug text-slate-900">
                 Want the 72 websites this article is <em className="italic text-brand">based on</em>?
               </h3>
               <NewsletterCapture
@@ -421,7 +421,7 @@ export default function BlogPost() {
                 <p className="mb-2 font-mono text-xs uppercase tracking-[0.18em] text-slate-500 transition-colors group-hover:text-brand">
                   ← Prev
                 </p>
-                <p className="text-[15px] font-semibold leading-snug text-slate-300 transition-colors group-hover:text-white">
+                <p className="text-[15px] font-semibold leading-snug text-slate-600 transition-colors group-hover:text-slate-900">
                   {prev.title}
                 </p>
               </Link>
@@ -433,7 +433,7 @@ export default function BlogPost() {
                 <p className="mb-2 font-mono text-xs uppercase tracking-[0.18em] text-slate-500 transition-colors group-hover:text-brand">
                   Next →
                 </p>
-                <p className="text-[15px] font-semibold leading-snug text-slate-300 transition-colors group-hover:text-white">
+                <p className="text-[15px] font-semibold leading-snug text-slate-600 transition-colors group-hover:text-slate-900">
                   {next.title}
                 </p>
               </Link>

@@ -198,10 +198,10 @@ export default function StepsPath({ onOpenKit }: StepsPathProps) {
                 )}
               >
                 <p className="kicker mb-2">STEP {step.n}</p>
-                <h3 className="mb-2 font-display text-2xl font-semibold text-white">
+                <h3 className="mb-2 font-display text-2xl font-semibold text-slate-900">
                   {step.title}
                 </h3>
-                <p className="mb-4 text-[15px] leading-[1.7] text-slate-400">{step.body}</p>
+                <p className="mb-4 text-[15px] leading-[1.7] text-slate-500">{step.body}</p>
                 {step.modal ? (
                   <button
                     onClick={onOpenKit}

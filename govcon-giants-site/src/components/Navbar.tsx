@@ -45,7 +45,7 @@ export default function Navbar() {
         transition={{ duration: 0.3, ease: 'easeOut' }}
         className={cn(
           'fixed inset-x-0 top-0 z-[70] border-b border-line bg-base/85 backdrop-blur-[12px] transition-[height,box-shadow] duration-300',
-          scrolled ? 'h-14 shadow-[0_4px_24px_rgba(0,0,0,0.45)]' : 'h-[72px]',
+          scrolled ? 'h-14 shadow-[0_4px_24px_rgba(0,0,0,0.12)]' : 'h-[72px]',
         )}
       >
         <div className="container-gg flex h-full items-center justify-between gap-6">
@@ -61,7 +61,7 @@ export default function Navbar() {
                   href={l.to}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="relative inline-flex items-center gap-1 text-[15px] font-medium text-slate-400 transition-colors duration-150 hover:text-white"
+                  className="relative inline-flex items-center gap-1 text-[15px] font-medium text-slate-500 transition-colors duration-150 hover:text-slate-900"
                 >
                   {l.label}
                   <ArrowUpRight className="h-3.5 w-3.5" />
@@ -72,7 +72,7 @@ export default function Navbar() {
                   to={l.to}
                   className={({ isActive }) =>
                     cn(
-                      'relative text-[15px] font-medium text-slate-400 transition-colors duration-150 hover:text-white',
+                      'relative text-[15px] font-medium text-slate-500 transition-colors duration-150 hover:text-slate-900',
                       isActive &&
                         'text-brand after:absolute after:-bottom-1.5 after:left-0 after:h-0.5 after:w-full after:bg-brand',
                     )
@@ -94,7 +94,7 @@ export default function Navbar() {
             <button
               onClick={() => setDrawerOpen((v) => !v)}
               aria-label={drawerOpen ? 'Close menu' : 'Open menu'}
-              className="rounded-lg p-2 text-slate-300 transition-colors hover:text-white cursor-pointer lg:hidden"
+              className="rounded-lg p-2 text-slate-600 transition-colors hover:text-slate-900 cursor-pointer lg:hidden"
             >
               {drawerOpen ? <X className="h-6 w-6" /> : <Menu className="h-6 w-6" />}
             </button>
@@ -126,7 +126,7 @@ export default function Navbar() {
                       target="_blank"
                       rel="noopener noreferrer"
                       onClick={() => setDrawerOpen(false)}
-                      className="inline-flex items-center gap-2 font-display text-[32px] font-semibold text-white transition-colors hover:text-brand"
+                      className="inline-flex items-center gap-2 font-display text-[32px] font-semibold text-slate-900 transition-colors hover:text-brand"
                     >
                       {l.label}
                       <ArrowUpRight className="h-5 w-5" />
@@ -137,7 +137,7 @@ export default function Navbar() {
                       onClick={() => setDrawerOpen(false)}
                       className={({ isActive }) =>
                         cn(
-                          'font-display text-[32px] font-semibold text-white transition-colors hover:text-brand',
+                          'font-display text-[32px] font-semibold text-slate-900 transition-colors hover:text-brand',
                           isActive && 'text-brand',
                         )
                       }
