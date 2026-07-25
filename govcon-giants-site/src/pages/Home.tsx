@@ -129,11 +129,11 @@ function PodcastStrip() {
   );
 }
 
-/* ------------------------------ Latest feed ------------------------------ */
+/* ---------------------------- Featured episodes --------------------------- */
 
-function LatestFeed() {
+function FeaturedStrip() {
   return (
-    <section className="py-16 md:py-24">
+    <section className="border-b border-line py-16 md:py-24">
       <div className="container-gg">
         <SectionHeader
           kicker="CONVERSATIONS WITH GOVERNMENT INSIDERS"
@@ -150,7 +150,17 @@ function LatestFeed() {
             <GuestCard key={episode.link} episode={episode} index={i} />
           ))}
         </div>
+      </div>
+    </section>
+  );
+}
 
+/* ------------------------------ Latest feed ------------------------------ */
+
+function LatestFeed() {
+  return (
+    <section className="py-16 md:py-24">
+      <div className="container-gg">
         <SectionHeader
           kicker="FROM THE BLOG"
           title={
@@ -160,7 +170,6 @@ function LatestFeed() {
           }
           linkTo="/blog"
           linkLabel="All articles"
-          className="mt-16 md:mt-20"
         />
         <div className="grid gap-6 md:grid-cols-3">
           {latestArticles(3).map((article, i) => (
@@ -281,9 +290,9 @@ function AboutBlurb() {
 
 /* --------------------------------- Page ----------------------------------- */
 
-/** `/` — mirrors tim.blog (home.md): full-bleed hero with email capture,
- * podcast strip, GCG National Summit band, featured guest episodes + latest
- * articles, popular articles, about blurb.
+/** `/` — full-bleed hero with email capture, featured guest episodes,
+ * GCG National Summit band, latest + popular articles, podcast listen-on
+ * strip, about blurb.
  * The footer already carries the newsletter band, so no extra CTA section. */
 export default function Home() {
   return (
@@ -293,10 +302,11 @@ export default function Home() {
       transition={{ duration: 0.3, ease: 'easeOut' }}
     >
       <Hero />
-      <PodcastStrip />
+      <FeaturedStrip />
       <SummitSection />
       <LatestFeed />
       <PopularArticles />
+      <PodcastStrip />
       <AboutBlurb />
     </motion.div>
   );
