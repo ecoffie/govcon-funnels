@@ -9,7 +9,6 @@ import SummitSection from '@/components/SummitSection';
 import { GhostLink } from '@/components/Buttons';
 import { articles, latestArticles } from '@/data/articles';
 import { featuredEpisodes } from '@/data/featuredEpisodes';
-import { platforms } from '@/data/platforms';
 
 /* --------------------------------- Hero ---------------------------------- */
 
@@ -49,80 +48,6 @@ function Hero() {
             partners, and contracts.
           </p>
           <NewsletterCapture variant="hero" className="mt-8 max-w-xl" />
-        </motion.div>
-      </div>
-    </section>
-  );
-}
-
-/* ------------------------------ Podcast strip ---------------------------- */
-
-const listenPlatforms = platforms.filter((p) =>
-  ['Apple Podcasts', 'Spotify', 'YouTube'].includes(p.name),
-);
-
-function PodcastStrip() {
-  return (
-    <section className="border-b border-line bg-raised py-16 md:py-24">
-      <div className="container-gg grid items-center gap-10 lg:grid-cols-2 lg:gap-16">
-        <motion.div
-          initial={{ opacity: 0, y: 32 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true, amount: 0.3 }}
-          transition={{ duration: 0.5, ease: 'easeOut' }}
-        >
-          <div className="mb-4 flex items-center gap-3">
-            <motion.span
-              initial={{ scaleX: 0 }}
-              whileInView={{ scaleX: 1 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.3, ease: 'easeOut' }}
-              className="h-0.5 w-6 origin-left bg-brand"
-              aria-hidden
-            />
-            <span className="kicker">THE PODCAST</span>
-          </div>
-          <h2 className="font-display text-[32px] font-bold leading-[1.15] text-slate-900 md:text-[40px]">
-            The GovCon Giants <em className="italic text-brand">Podcast</em>
-          </h2>
-          <p className="mt-4 max-w-md text-[17px] leading-[1.7] text-slate-600">
-            250K+ listens and counting. Near-daily episodes — The Daily Windup short-form
-            plays plus long-form interviews — on RFPs, SAM.gov, 8(a), subcontracting, CMMC,
-            and everything between.
-          </p>
-          <GhostLink to="/podcast" className="mt-6">
-            Browse the full archive
-          </GhostLink>
-        </motion.div>
-
-        <motion.div
-          initial={{ opacity: 0, y: 32 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true, amount: 0.3 }}
-          transition={{ duration: 0.5, delay: 0.1, ease: 'easeOut' }}
-          className="flex flex-col gap-3"
-        >
-          {listenPlatforms.map((p) => (
-            <a
-              key={p.name}
-              href={p.url}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="group flex items-center gap-4 rounded-xl border border-line bg-base px-5 py-4 transition-all duration-150 hover:-translate-y-px hover:border-brand"
-            >
-              <span className="flex h-11 w-11 shrink-0 items-center justify-center rounded-lg bg-brand-soft text-brand transition-colors group-hover:bg-brand group-hover:text-brand-ink">
-                <p.icon className="h-5 w-5" />
-              </span>
-              <span className="flex-1">
-                <span className="block font-mono text-[11px] uppercase tracking-[0.14em] text-slate-500">
-                  Listen on
-                </span>
-                <span className="block text-[17px] font-semibold text-slate-900 transition-colors group-hover:text-brand">
-                  {p.name}
-                </span>
-              </span>
-            </a>
-          ))}
         </motion.div>
       </div>
     </section>
@@ -306,7 +231,6 @@ export default function Home() {
       <SummitSection />
       <LatestFeed />
       <PopularArticles />
-      <PodcastStrip />
       <AboutBlurb />
     </motion.div>
   );
