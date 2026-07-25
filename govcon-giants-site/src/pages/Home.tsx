@@ -1,10 +1,11 @@
 import { motion } from 'framer-motion';
 import { Link } from 'react-router';
+import { ArrowRight } from 'lucide-react';
 import NewsletterCapture from '@/components/NewsletterCapture';
 import SectionHeader from '@/components/SectionHeader';
 import StatCounter from '@/components/StatCounter';
 import ArticleCard from '@/components/ArticleCard';
-import GuestCard from '@/components/podcast/GuestCard';
+import GuestRow from '@/components/podcast/GuestRow';
 import SummitSection from '@/components/SummitSection';
 import { GhostLink } from '@/components/Buttons';
 import { articles, latestArticles } from '@/data/articles';
@@ -99,6 +100,102 @@ function Hero() {
   );
 }
 
+/* ------------------------ Experience: 3 image tiles ----------------------- */
+
+const experienceTiles: {
+  title: string;
+  desc: string;
+  img: string;
+  to: string;
+  external?: boolean;
+}[] = [
+  {
+    title: 'Listen to the Podcast',
+    desc: '250K+ listens — near-daily plays and long-form interviews.',
+    img: '/podcast-cover.png',
+    to: '/podcast',
+  },
+  {
+    title: 'Attend the Summit',
+    desc: 'The annual Contracting Connections + Technology Summit in Miami.',
+    img: '/about-timeline-flag.png',
+    to: 'https://gcgsummit.com',
+    external: true,
+  },
+  {
+    title: 'Get the Playbook',
+    desc: '72 websites for massive scaling in the federal marketplace.',
+    img: '/book-playbook.png',
+    to: '/resources',
+  },
+];
+
+/** "Experience GovCon Giants" — three tall image tiles (Moth homepage §2):
+ * podcast / summit / playbook, hairline borders, hover lift + green accent. */
+function ExperienceTiles() {
+  return (
+    <section className="border-b border-line py-16 md:py-24">
+      <div className="container-gg">
+        <SectionHeader
+          kicker="PODCAST · EVENTS · EDUCATION"
+          title={
+            <>
+              Experience <em>GovCon Giants</em>
+            </>
+          }
+        />
+        <div className="grid gap-6 md:grid-cols-3">
+          {experienceTiles.map((tile, i) => {
+            const inner = (
+              <>
+                <div className="relative aspect-[4/5] overflow-hidden bg-inset">
+                  <img
+                    src={tile.img}
+                    alt=""
+                    loading="lazy"
+                    className="h-full w-full object-cover transition-transform duration-500 group-hover:scale-105"
+                  />
+                </div>
+                <div className="p-5 md:p-6">
+                  <h3 className="font-display text-2xl font-extrabold tracking-tight text-slate-900 transition-colors group-hover:text-brand">
+                    {tile.title}
+                  </h3>
+                  <p className="mt-2 text-[15px] leading-relaxed text-slate-500">{tile.desc}</p>
+                  <span className="mt-4 inline-flex items-center gap-1.5 font-narrow text-sm font-semibold uppercase tracking-[0.14em] text-brand">
+                    Explore
+                    <ArrowRight className="h-4 w-4 transition-transform duration-150 group-hover:translate-x-1" />
+                  </span>
+                </div>
+              </>
+            );
+            const cls =
+              'group block overflow-hidden rounded-xl border border-line bg-raised transition-all duration-200 hover:-translate-y-1 hover:border-brand hover:shadow-[0_8px_30px_rgba(0,0,0,0.08)]';
+            return (
+              <motion.div
+                key={tile.title}
+                initial={{ opacity: 0, y: 40 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true, amount: 0.15 }}
+                transition={{ duration: 0.55, delay: i * 0.12, ease: 'easeOut' }}
+              >
+                {tile.external ? (
+                  <a href={tile.to} target="_blank" rel="noopener noreferrer" className={cls}>
+                    {inner}
+                  </a>
+                ) : (
+                  <Link to={tile.to} className={cls}>
+                    {inner}
+                  </Link>
+                )}
+              </motion.div>
+            );
+          })}
+        </div>
+      </div>
+    </section>
+  );
+}
+
 /* ---------------------------- Featured episodes --------------------------- */
 
 function FeaturedStrip() {
@@ -115,9 +212,9 @@ function FeaturedStrip() {
           linkTo="/podcast"
           linkLabel="All episodes"
         />
-        <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+        <div className="border-t border-line">
           {featuredEpisodes.map((episode, i) => (
-            <GuestCard key={episode.link} episode={episode} index={i} />
+            <GuestRow key={episode.link} episode={episode} index={i} />
           ))}
         </div>
       </div>
@@ -260,9 +357,9 @@ function AboutBlurb() {
 
 /* --------------------------------- Page ----------------------------------- */
 
-/** `/` — full-bleed hero with email capture, featured guest episodes,
- * GCG National Summit band, latest + popular articles, podcast listen-on
- * strip, about blurb.
+/** `/` — Moth homepage pattern: typographic hero with email capture,
+ * "Experience GovCon Giants" 3-tile strip, featured episodes as wide rows,
+ * GCG National Summit band, latest + popular articles, about blurb.
  * The footer already carries the newsletter band, so no extra CTA section. */
 export default function Home() {
   return (
@@ -272,6 +369,7 @@ export default function Home() {
       transition={{ duration: 0.3, ease: 'easeOut' }}
     >
       <Hero />
+      <ExperienceTiles />
       <FeaturedStrip />
       <SummitSection />
       <LatestFeed />
