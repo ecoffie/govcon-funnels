@@ -104,6 +104,10 @@ module.exports = {
           "0%, 100%": { transform: "translateY(-6px) rotate(-6deg)" },
           "50%": { transform: "translateY(6px) rotate(-6deg)" },
         },
+        marquee: {
+          from: { transform: "translateX(0)" },
+          to: { transform: "translateX(-50%)" },
+        },
       },
       animation: {
         "accordion-down": "accordion-down 0.2s ease-out",
@@ -112,6 +116,7 @@ module.exports = {
         "eq-bar": "eq-bar 1.1s ease-in-out infinite",
         "pulse-ring": "pulse-ring 3s ease-out infinite",
         "float-y": "float-y 4s ease-in-out infinite",
+        marquee: "marquee 30s linear infinite",
       },
     },
   },

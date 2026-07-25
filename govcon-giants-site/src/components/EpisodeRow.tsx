@@ -3,6 +3,7 @@ import { motion } from 'framer-motion';
 import { ArrowUpRight, Pause, Play } from 'lucide-react';
 import type { Episode } from '@/data/episodes';
 import EpisodeThumb, { episodeTopic } from '@/components/podcast/EpisodeThumb';
+import EqBars from '@/components/EqBars';
 import { formatEpisodeDate } from '@/lib/episode-utils';
 import { useExclusiveAudio } from '@/lib/useExclusiveAudio';
 import { cn } from '@/lib/utils';
@@ -81,6 +82,7 @@ export default function EpisodeRow({ episode, index = 0, className }: EpisodeRow
                 <Play className="ml-0.5 h-4 w-4 fill-current" />
               )}
             </button>
+            {open && <EqBars />}
             <span className="font-narrow text-sm font-semibold uppercase tracking-wider text-slate-500">{episode.duration}</span>
             <a
               href={episode.link}

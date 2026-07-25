@@ -23,7 +23,7 @@ export default function ArticleCard({ article, index = 0, className }: ArticleCa
       initial={{ opacity: 0, y: 40 }}
       whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true, amount: 0.15 }}
-      transition={{ duration: 0.55, delay: index * 0.12, ease: 'easeOut' }}
+      transition={{ type: 'spring', stiffness: 120, damping: 20, delay: index * 0.12 }}
       className={cn('h-full', className)}
     >
       <Link

@@ -1,6 +1,14 @@
-import { motion } from 'framer-motion';
+import { useEffect, useRef, useState } from 'react';
+import {
+  AnimatePresence,
+  motion,
+  useMotionValue,
+  useScroll,
+  useSpring,
+  useTransform,
+} from 'framer-motion';
 import { Link } from 'react-router';
-import { ArrowRight } from 'lucide-react';
+import { ArrowRight, Asterisk } from 'lucide-react';
 import NewsletterCapture from '@/components/NewsletterCapture';
 import SectionHeader from '@/components/SectionHeader';
 import StatCounter from '@/components/StatCounter';
@@ -30,7 +38,52 @@ function Squiggle({ className }: { className?: string }) {
   );
 }
 
+/** Rotating GovCon topics for the hero word rotator. */
+const ROTATING_TOPICS = [
+  'RFPs',
+  'SAM.gov',
+  '8(a)',
+  'HUBZone',
+  'CMMC',
+  'Subcontracting',
+  'Proposals',
+  'Teaming',
+];
+
 function Hero() {
+  /* Word rotator — swaps the topic every 2.5s (disabled for reduced motion) */
+  const [topicIndex, setTopicIndex] = useState(0);
+  useEffect(() => {
+    if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+    const t = window.setInterval(
+      () => setTopicIndex((i) => (i + 1) % ROTATING_TOPICS.length),
+      2500,
+    );
+    return () => window.clearInterval(t);
+  }, []);
+
+  /* Portrait pointer parallax — ±6px / ±2deg springs, desktop (fine pointer) only */
+  const mx = useMotionValue(0);
+  const my = useMotionValue(0);
+  const sx = useSpring(mx, { stiffness: 150, damping: 20 });
+  const sy = useSpring(my, { stiffness: 150, damping: 20 });
+  const imgX = useTransform(sx, [-0.5, 0.5], [-6, 6]);
+  const imgY = useTransform(sy, [-0.5, 0.5], [-6, 6]);
+  const imgR = useTransform(sx, [-0.5, 0.5], [-2, 2]);
+  const frameX = useTransform(sx, [-0.5, 0.5], [8, -8]);
+  const frameY = useTransform(sy, [-0.5, 0.5], [8, -8]);
+
+  const onPortraitMove = (e: React.MouseEvent<HTMLDivElement>) => {
+    if (!window.matchMedia('(pointer: fine)').matches) return;
+    const r = e.currentTarget.getBoundingClientRect();
+    mx.set((e.clientX - r.left) / r.width - 0.5);
+    my.set((e.clientY - r.top) / r.height - 0.5);
+  };
+  const onPortraitLeave = () => {
+    mx.set(0);
+    my.set(0);
+  };
+
   return (
     <section className="-mt-[72px] overflow-hidden border-b border-line bg-inset">
       <div className="container-gg grid items-center gap-12 pb-16 pt-[136px] md:pb-24 md:pt-[168px] lg:grid-cols-[minmax(0,7fr)_minmax(0,5fr)] lg:gap-16">
@@ -72,31 +125,89 @@ function Hero() {
             Playbook starter kit: five of the 72 federal websites Eric uses to find buyers,
             partners, and contracts.
           </p>
+          {/* Word rotator — "Master" + cycling GovCon topic */}
+          <p className="mt-6 flex items-baseline gap-2.5 font-display text-[22px] font-extrabold tracking-tight text-slate-900 md:text-[26px]">
+            Master
+            <span className="relative inline-flex min-w-[230px] overflow-hidden">
+              <AnimatePresence mode="wait">
+                <motion.em
+                  key={ROTATING_TOPICS[topicIndex]}
+                  className="inline-block italic text-brand"
+                  initial={{ y: 24, opacity: 0 }}
+                  animate={{ y: 0, opacity: 1 }}
+                  exit={{ y: -24, opacity: 0 }}
+                  transition={{ duration: 0.35, ease: 'easeOut' }}
+                >
+                  {ROTATING_TOPICS[topicIndex]}
+                </motion.em>
+              </AnimatePresence>
+            </span>
+          </p>
           <NewsletterCapture variant="hero" className="mt-8 max-w-xl" />
         </motion.div>
 
-        {/* Portrait — offset green frame behind, playful tilt */}
+        {/* Portrait — offset green frame behind, playful tilt + pointer parallax */}
         <motion.div
           initial={{ opacity: 0, y: 32 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6, delay: 0.15, ease: 'easeOut' }}
           className="relative mx-auto w-full max-w-sm lg:max-w-none"
+          onMouseMove={onPortraitMove}
+          onMouseLeave={onPortraitLeave}
         >
-          <div
-            aria-hidden
-            className="absolute inset-0 -rotate-2 rounded-xl border-2 border-brand"
-          />
-          <img
-            src="/eric-portrait.png"
-            alt="Eric Coffie, founder and host of GovCon Giants"
-            className="relative w-full rotate-1 rounded-xl border border-line object-cover shadow-[0_24px_60px_rgba(0,0,0,0.15)]"
-          />
+          <motion.div style={{ x: imgX, y: imgY, rotate: imgR }} className="relative">
+            <motion.div
+              aria-hidden
+              style={{ x: frameX, y: frameY }}
+              className="absolute inset-0 -rotate-2 rounded-xl border-2 border-brand"
+            />
+            <img
+              src="/eric-portrait.png"
+              alt="Eric Coffie, founder and host of GovCon Giants"
+              className="relative w-full rotate-1 rounded-xl border border-line object-cover shadow-[0_24px_60px_rgba(0,0,0,0.15)]"
+            />
+          </motion.div>
           <p className="mt-4 text-center font-narrow text-sm font-semibold uppercase tracking-[0.18em] text-slate-500">
             Eric Coffie · Founder, GovCon Giants · Miami, FL
           </p>
         </motion.div>
       </div>
     </section>
+  );
+}
+
+/* ------------------------------ Marquee ticker ---------------------------- */
+
+const TICKER_ITEMS = [
+  '250K+ LISTENS',
+  'THE DAILY WINDUP',
+  'NEAR-DAILY EPISODES',
+  'FREE GUIDES',
+  'GCG SUMMIT MIAMI',
+];
+
+/** Full-width infinite ticker band (CSS marquee keyframes, duplicated
+ * content for a seamless wrap, pauses on hover). */
+function Ticker() {
+  const row = (hidden: boolean) => (
+    <div aria-hidden={hidden || undefined} className="flex shrink-0 items-center">
+      {TICKER_ITEMS.map((item) => (
+        <span key={item} className="flex items-center">
+          <span className="px-6 font-narrow text-lg font-semibold uppercase tracking-[0.2em] text-slate-600">
+            {item}
+          </span>
+          <Asterisk className="h-4 w-4 shrink-0 text-brand" aria-hidden />
+        </span>
+      ))}
+    </div>
+  );
+  return (
+    <div className="overflow-hidden border-b border-line bg-inset py-4">
+      <div className="flex w-max animate-marquee hover:[animation-play-state:paused]">
+        {row(false)}
+        {row(true)}
+      </div>
+    </div>
   );
 }
 
@@ -130,6 +241,68 @@ const experienceTiles: {
   },
 ];
 
+/** Single experience tile — spring reveal + scroll-linked image parallax. */
+function ExperienceTile({
+  tile,
+  index,
+}: {
+  tile: (typeof experienceTiles)[number];
+  index: number;
+}) {
+  const ref = useRef<HTMLDivElement>(null);
+  const { scrollYProgress } = useScroll({
+    target: ref,
+    offset: ['start end', 'end start'],
+  });
+  const imgY = useTransform(scrollYProgress, [0, 1], [20, -20]);
+
+  const inner = (
+    <>
+      <div className="relative aspect-[4/5] overflow-hidden bg-inset">
+        <motion.div style={{ y: imgY }} className="absolute -inset-y-[8%] inset-x-0">
+          <img
+            src={tile.img}
+            alt=""
+            loading="lazy"
+            className="h-full w-full object-cover transition-transform duration-500 group-hover:scale-105"
+          />
+        </motion.div>
+      </div>
+      <div className="p-5 md:p-6">
+        <h3 className="font-display text-2xl font-extrabold tracking-tight text-slate-900 transition-colors group-hover:text-brand">
+          {tile.title}
+        </h3>
+        <p className="mt-2 text-[15px] leading-relaxed text-slate-500">{tile.desc}</p>
+        <span className="mt-4 inline-flex items-center gap-1.5 font-narrow text-sm font-semibold uppercase tracking-[0.14em] text-brand">
+          Explore
+          <ArrowRight className="h-4 w-4 transition-transform duration-150 group-hover:translate-x-1" />
+        </span>
+      </div>
+    </>
+  );
+  const cls =
+    'group block overflow-hidden rounded-xl border border-line bg-raised transition-all duration-200 hover:-translate-y-1 hover:border-brand hover:shadow-[0_8px_30px_rgba(0,0,0,0.08)]';
+  return (
+    <motion.div
+      ref={ref}
+      initial={{ opacity: 0, y: 40 }}
+      whileInView={{ opacity: 1, y: 0 }}
+      viewport={{ once: true, amount: 0.15 }}
+      transition={{ type: 'spring', stiffness: 120, damping: 20, delay: index * 0.12 }}
+    >
+      {tile.external ? (
+        <a href={tile.to} target="_blank" rel="noopener noreferrer" className={cls}>
+          {inner}
+        </a>
+      ) : (
+        <Link to={tile.to} className={cls}>
+          {inner}
+        </Link>
+      )}
+    </motion.div>
+  );
+}
+
 /** "Experience GovCon Giants" — three tall image tiles (Moth homepage §2):
  * podcast / summit / playbook, hairline borders, hover lift + green accent. */
 function ExperienceTiles() {
@@ -145,51 +318,9 @@ function ExperienceTiles() {
           }
         />
         <div className="grid gap-6 md:grid-cols-3">
-          {experienceTiles.map((tile, i) => {
-            const inner = (
-              <>
-                <div className="relative aspect-[4/5] overflow-hidden bg-inset">
-                  <img
-                    src={tile.img}
-                    alt=""
-                    loading="lazy"
-                    className="h-full w-full object-cover transition-transform duration-500 group-hover:scale-105"
-                  />
-                </div>
-                <div className="p-5 md:p-6">
-                  <h3 className="font-display text-2xl font-extrabold tracking-tight text-slate-900 transition-colors group-hover:text-brand">
-                    {tile.title}
-                  </h3>
-                  <p className="mt-2 text-[15px] leading-relaxed text-slate-500">{tile.desc}</p>
-                  <span className="mt-4 inline-flex items-center gap-1.5 font-narrow text-sm font-semibold uppercase tracking-[0.14em] text-brand">
-                    Explore
-                    <ArrowRight className="h-4 w-4 transition-transform duration-150 group-hover:translate-x-1" />
-                  </span>
-                </div>
-              </>
-            );
-            const cls =
-              'group block overflow-hidden rounded-xl border border-line bg-raised transition-all duration-200 hover:-translate-y-1 hover:border-brand hover:shadow-[0_8px_30px_rgba(0,0,0,0.08)]';
-            return (
-              <motion.div
-                key={tile.title}
-                initial={{ opacity: 0, y: 40 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true, amount: 0.15 }}
-                transition={{ duration: 0.55, delay: i * 0.12, ease: 'easeOut' }}
-              >
-                {tile.external ? (
-                  <a href={tile.to} target="_blank" rel="noopener noreferrer" className={cls}>
-                    {inner}
-                  </a>
-                ) : (
-                  <Link to={tile.to} className={cls}>
-                    {inner}
-                  </Link>
-                )}
-              </motion.div>
-            );
-          })}
+          {experienceTiles.map((tile, i) => (
+            <ExperienceTile key={tile.title} tile={tile} index={i} />
+          ))}
         </div>
       </div>
     </section>
@@ -369,6 +500,7 @@ export default function Home() {
       transition={{ duration: 0.3, ease: 'easeOut' }}
     >
       <Hero />
+      <Ticker />
       <ExperienceTiles />
       <FeaturedStrip />
       <SummitSection />

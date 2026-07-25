@@ -1,7 +1,7 @@
 import type { FormEvent } from 'react';
 import { useEffect, useState } from 'react';
 import { AnimatePresence, motion } from 'framer-motion';
-import { CheckCircle2, X } from 'lucide-react';
+import { ArrowRight, CheckCircle2, X } from 'lucide-react';
 import { cn } from '@/lib/utils';
 
 type Variant = 'hero' | 'compact' | 'modal';
@@ -36,7 +36,7 @@ function useSignup() {
 const inputCls =
   'h-12 w-full rounded-lg border border-line bg-raised px-4 text-[15px] text-slate-900 placeholder:text-slate-500 transition-colors focus:border-brand focus:outline-none focus:ring-2 focus:ring-brand/40';
 const btnCls =
-  'inline-flex h-12 shrink-0 items-center justify-center gap-2 whitespace-nowrap rounded-lg bg-brand px-6 text-[15px] font-semibold text-brand-ink transition-all duration-150 hover:bg-brand-hover hover:-translate-y-px active:scale-[0.98] cursor-pointer';
+  'group inline-flex h-12 shrink-0 items-center justify-center gap-2 whitespace-nowrap rounded-lg bg-brand px-6 text-[15px] font-semibold text-brand-ink transition-all duration-150 hover:bg-brand-hover hover:-translate-y-px active:scale-[0.98] cursor-pointer';
 
 function SuccessNote({ className }: { className?: string }) {
   return (
@@ -67,6 +67,7 @@ function InlineForm({ buttonLabel }: { buttonLabel: string }) {
       />
       <button type="submit" className={btnCls}>
         {buttonLabel}
+        <ArrowRight className="h-4 w-4 transition-transform duration-150 group-hover:translate-x-1" />
       </button>
     </form>
   );
@@ -195,6 +196,7 @@ export function NewsletterModal({ open, onClose }: NewsletterModalProps) {
                   />
                   <button type="submit" className={btnCls}>
                     Send Me the Starter Kit
+                    <ArrowRight className="h-4 w-4 transition-transform duration-150 group-hover:translate-x-1" />
                   </button>
                 </form>
               )}

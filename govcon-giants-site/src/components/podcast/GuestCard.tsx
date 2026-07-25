@@ -2,6 +2,7 @@ import { useState } from 'react';
 import { motion } from 'framer-motion';
 import { ArrowUpRight, Pause, Play } from 'lucide-react';
 import type { FeaturedEpisode } from '@/data/featuredEpisodes';
+import EqBars from '@/components/EqBars';
 import { useExclusiveAudio } from '@/lib/useExclusiveAudio';
 import { cn } from '@/lib/utils';
 
@@ -69,6 +70,7 @@ export default function GuestCard({ episode, index }: { episode: FeaturedEpisode
               <Play className="ml-0.5 h-4 w-4 fill-current" />
             )}
           </button>
+          {open && <EqBars />}
           <span className="rounded-full border border-line bg-inset px-3 py-1 font-narrow text-sm font-semibold uppercase tracking-wider text-slate-600">
             {episode.duration}
           </span>

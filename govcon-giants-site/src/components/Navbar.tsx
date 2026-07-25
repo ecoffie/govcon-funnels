@@ -63,7 +63,7 @@ export default function Navbar() {
                   href={l.to}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="relative inline-flex items-center gap-1 font-narrow text-lg font-semibold uppercase tracking-[0.06em] text-slate-500 transition-colors duration-150 hover:text-slate-900"
+                  className="relative inline-flex items-center gap-1 font-narrow text-lg font-semibold uppercase tracking-[0.06em] text-slate-500 transition-colors duration-150 after:absolute after:-bottom-1.5 after:left-0 after:h-0.5 after:w-full after:origin-left after:scale-x-0 after:bg-brand after:transition-transform after:duration-200 hover:text-slate-900 hover:after:scale-x-100"
                 >
                   {l.label}
                   <ArrowUpRight className="h-3.5 w-3.5" />
@@ -74,9 +74,8 @@ export default function Navbar() {
                   to={l.to}
                   className={({ isActive }) =>
                     cn(
-                      'relative font-narrow text-lg font-semibold uppercase tracking-[0.06em] text-slate-500 transition-colors duration-150 hover:text-slate-900',
-                      isActive &&
-                        'text-brand after:absolute after:-bottom-1.5 after:left-0 after:h-0.5 after:w-full after:bg-brand',
+                      'relative font-narrow text-lg font-semibold uppercase tracking-[0.06em] text-slate-500 transition-colors duration-150 after:absolute after:-bottom-1.5 after:left-0 after:h-0.5 after:w-full after:origin-left after:scale-x-0 after:bg-brand after:transition-transform after:duration-200 hover:text-slate-900 hover:after:scale-x-100',
+                      isActive && 'text-brand after:scale-x-100',
                     )
                   }
                 >

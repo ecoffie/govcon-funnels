@@ -1,4 +1,5 @@
-import { motion } from 'framer-motion';
+import { useRef } from 'react';
+import { motion, useScroll, useTransform } from 'framer-motion';
 import { ArrowUpRight } from 'lucide-react';
 import SectionHeader from '@/components/SectionHeader';
 import StatCounter from '@/components/StatCounter';
@@ -31,6 +32,14 @@ const pastSpeakers = [
  * Facts verified from gcgsummit.com only.
  */
 export default function SummitSection() {
+  /* Scroll-linked parallax on the stats panel (±20px drift while in view) */
+  const statsRef = useRef<HTMLDivElement>(null);
+  const { scrollYProgress } = useScroll({
+    target: statsRef,
+    offset: ['start end', 'end start'],
+  });
+  const statsY = useTransform(scrollYProgress, [0, 1], [20, -20]);
+
   return (
     <section className="relative overflow-hidden border-b border-line bg-inset py-16 md:py-24">
       {/* faint brand star pattern */}
@@ -94,10 +103,10 @@ export default function SummitSection() {
                 href={SUMMIT_URL}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="inline-flex items-center justify-center gap-2 rounded-lg bg-brand px-7 py-3.5 text-[15px] font-semibold text-brand-ink transition-all duration-150 hover:-translate-y-px hover:bg-brand-hover active:scale-[0.98] cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand focus-visible:ring-offset-2 focus-visible:ring-offset-base"
+                className="group inline-flex items-center justify-center gap-2 rounded-lg bg-brand px-7 py-3.5 text-[15px] font-semibold text-brand-ink transition-all duration-150 hover:-translate-y-px hover:bg-brand-hover active:scale-[0.98] cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand focus-visible:ring-offset-2 focus-visible:ring-offset-base"
               >
                 Visit gcgsummit.com
-                <ArrowUpRight className="h-4 w-4" />
+                <ArrowUpRight className="h-4 w-4 transition-transform duration-150 group-hover:-translate-y-0.5 group-hover:translate-x-0.5" />
               </a>
               <GhostLink to={`${SUMMIT_URL}/speakers/`} external>
                 Meet the speakers
@@ -106,15 +115,22 @@ export default function SummitSection() {
           </motion.div>
 
           <motion.div
+            ref={statsRef}
             initial={{ opacity: 0, y: 32 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true, amount: 0.3 }}
             transition={{ duration: 0.5, delay: 0.1, ease: 'easeOut' }}
-            className="grid grid-cols-1 gap-8 rounded-xl border border-line bg-raised p-8 sm:grid-cols-3 md:p-10"
           >
-            <StatCounter value={700} suffix="+" label="Attendees" />
-            <StatCounter value={75} suffix="+" label="Industry speakers" />
-            <StatCounter value={50} suffix="+" label="Learning sessions" />
+            {/* Parallax lives on the inner wrapper so it never fights the
+                entrance animation's `y` */}
+            <motion.div
+              style={{ y: statsY }}
+              className="grid grid-cols-1 gap-8 rounded-xl border border-line bg-raised p-8 sm:grid-cols-3 md:p-10"
+            >
+              <StatCounter value={700} suffix="+" label="Attendees" />
+              <StatCounter value={75} suffix="+" label="Industry speakers" />
+              <StatCounter value={50} suffix="+" label="Learning sessions" />
+            </motion.div>
           </motion.div>
         </div>
       </div>

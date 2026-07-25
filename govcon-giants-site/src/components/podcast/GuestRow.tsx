@@ -2,6 +2,7 @@ import { useState } from 'react';
 import { motion } from 'framer-motion';
 import { ArrowUpRight, Pause, Play } from 'lucide-react';
 import type { FeaturedEpisode } from '@/data/featuredEpisodes';
+import EqBars from '@/components/EqBars';
 import { useExclusiveAudio } from '@/lib/useExclusiveAudio';
 import { cn } from '@/lib/utils';
 
@@ -25,10 +26,10 @@ export default function GuestRow({ episode, index = 0, className }: GuestRowProp
 
   return (
     <motion.article
-      initial={{ opacity: 0, y: 24 }}
-      whileInView={{ opacity: 1, y: 0 }}
+      initial={{ opacity: 0, x: index % 2 === 0 ? -24 : 24 }}
+      whileInView={{ opacity: 1, x: 0 }}
       viewport={{ once: true, amount: 0.2 }}
-      transition={{ duration: 0.5, delay: index * 0.08, ease: 'easeOut' }}
+      transition={{ type: 'spring', stiffness: 120, damping: 20, delay: index * 0.08 }}
       className={cn('group border-b border-line py-8 md:py-10', className)}
     >
       <div className="flex flex-col gap-6 sm:flex-row sm:items-start sm:gap-8">
@@ -78,6 +79,7 @@ export default function GuestRow({ episode, index = 0, className }: GuestRowProp
                 <Play className="ml-0.5 h-4 w-4 fill-current" />
               )}
             </button>
+            {open && <EqBars />}
             <span className="rounded-full border border-line bg-inset px-3 py-1 font-narrow text-sm font-semibold uppercase tracking-wider text-slate-600">
               {episode.duration}
             </span>
