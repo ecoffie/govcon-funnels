@@ -34,7 +34,7 @@ export const featuredEpisodes: FeaturedEpisode[] = [
     "guest": "Wayne Berry",
     "role": "Senior Procurement Analyst & Small Business Specialist, NIH",
     "agency": "Dept. of Health & Human Services",
-    "photo": "/faces/wayne-berry.png",
+    "photo": "/faces/wayne-berry.jpg",
     "title": "STOP! 70,000 Contracts & You're Still Losing? Here's Why HHS Might Be Ignoring You!",
     "date": "2025-07-31",
     "duration": "07:58",
