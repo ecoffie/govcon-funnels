@@ -80,22 +80,18 @@ function Hero() {
     return () => window.clearInterval(t);
   }, []);
 
-  /* Background slideshow — 3s per candid photo, paused on hover,
+  /* Background slideshow — 3s per photo, always rotating;
      no autoplay at all for reduced-motion users (first slide only) */
   const [slide, setSlide] = useState(0);
-  const [paused, setPaused] = useState(false);
   useEffect(() => {
-    if (paused) return;
     if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
     const t = window.setInterval(() => setSlide((s) => (s + 1) % HERO_PHOTOS.length), 3000);
     return () => window.clearInterval(t);
-  }, [paused]);
+  }, []);
 
   return (
     <section
       className="relative -mt-[72px] flex min-h-[100dvh] items-end overflow-hidden border-b border-line bg-slate-950"
-      onMouseEnter={() => setPaused(true)}
-      onMouseLeave={() => setPaused(false)}
     >
       {/* Full-viewport background slideshow with Ken Burns drift */}
       <div className="absolute inset-0" aria-hidden>
