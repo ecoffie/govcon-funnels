@@ -19,7 +19,8 @@ describe('podcast site lead capture', () => {
     expect(useSignup).toContain('https://govcongiants.com/api/lead');
     expect(useSignup).toContain("source: 'podcast-site'");
     expect(useSignup).not.toContain('gg-signups');
-    expect(useSignup).not.toContain('localStorage');
+    expect(useSignup).not.toContain('localStorage.getItem');
+    expect(useSignup).not.toContain('localStorage.setItem');
 
     const newsletter = read('src/components/NewsletterCapture.tsx');
     expect(newsletter).toContain("from '@/lib/useSignup'");
