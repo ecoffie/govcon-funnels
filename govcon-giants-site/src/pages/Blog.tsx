@@ -24,7 +24,7 @@ function SplitHeadline({ text, className }: { text: string; className?: string }
         return (
           <span key={i} className="inline-block overflow-hidden pb-1 align-bottom">
             <motion.span
-              className={emphasized ? 'inline-block italic text-brand' : 'inline-block'}
+              className={emphasized ? 'inline-block italic text-green-400' : 'inline-block'}
               initial={{ y: 24, opacity: 0 }}
               animate={{ y: 0, opacity: 1 }}
               transition={{ duration: 0.5, delay: 0.05 * i, ease: 'easeOut' }}
@@ -52,46 +52,36 @@ export default function Blog() {
   return (
     <div className="bg-base">
       {/* ——— Section 1: Page header ——— */}
-      <section className="relative overflow-hidden">
-        <div
-          aria-hidden
-          className="pointer-events-none absolute inset-0"
-          style={{
-            background:
-              'radial-gradient(ellipse 80% 60% at 30% 20%, rgba(34,197,94,0.12), transparent 60%)',
-          }}
-        />
-        <div
-          aria-hidden
-          className="pointer-events-none absolute inset-0 opacity-40"
-          style={{
-            backgroundImage: 'url(/hero-blueprint.svg)',
-            backgroundSize: 'cover',
-            backgroundPosition: 'center',
-            maskImage: 'linear-gradient(to bottom, black 30%, transparent 90%)',
-            WebkitMaskImage: 'linear-gradient(to bottom, black 30%, transparent 90%)',
-          }}
-        />
+      <section className="relative overflow-hidden bg-slate-950">
+        <div aria-hidden className="absolute inset-0">
+          <img
+            src="/summit/stage-2.jpg"
+            alt=""
+            className="h-full w-full object-cover object-center"
+          />
+          <div className="absolute inset-0 bg-gradient-to-t from-black/85 via-black/60 to-black/45" />
+          <div className="absolute inset-0 bg-gradient-to-r from-black/50 to-transparent" />
+        </div>
         <div className="container-gg relative py-16 md:py-24">
           <div className="mb-5 flex items-center gap-3">
             <motion.span
               initial={{ scaleX: 0 }}
               animate={{ scaleX: 1 }}
               transition={{ duration: 0.35, ease: 'easeOut' }}
-              className="h-0.5 w-6 origin-left bg-brand"
+              className="h-0.5 w-6 origin-left bg-green-400"
               aria-hidden
             />
-            <span className="kicker">THE BLOG</span>
+            <span className="kicker !text-green-400">THE BLOG</span>
           </div>
           <SplitHeadline
             text="GovCon, explained in *plain *English."
-            className="max-w-3xl font-display text-4xl font-black leading-[1.05] tracking-[-0.02em] text-slate-900 md:text-[56px]"
+            className="max-w-3xl font-display text-4xl font-black leading-[1.05] tracking-[-0.02em] text-white md:text-[56px]"
           />
           <motion.p
             initial={{ opacity: 0, y: 16 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.4, delay: 0.3, ease: 'easeOut' }}
-            className="mt-6 max-w-2xl text-lg leading-relaxed text-slate-600"
+            className="mt-6 max-w-2xl text-lg leading-relaxed text-slate-300"
           >
             Field-manual guides on SAM.gov, 8(a), proposals, teaming, and getting paid — no
             jargon, no fluff, no paywall.
@@ -159,10 +149,10 @@ export default function Blog() {
               <motion.img
                 src={featured.thumbnail}
                 alt=""
-                initial={{ clipPath: 'inset(0 100% 0 0)' }}
-                whileInView={{ clipPath: 'inset(0 0% 0 0)' }}
+                initial={{ opacity: 0, scale: 1.04 }}
+                whileInView={{ opacity: 1, scale: 1 }}
                 viewport={{ once: true, amount: 0.3 }}
-                transition={{ duration: 0.7, ease: 'easeOut' }}
+                transition={{ duration: 0.6, ease: 'easeOut' }}
                 className="h-full w-full object-cover transition-transform duration-500 group-hover:scale-[1.04]"
               />
             </Link>

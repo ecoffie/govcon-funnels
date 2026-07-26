@@ -24,13 +24,13 @@ const h1Words: { text: string; em?: boolean }[] = [
 
 function PageHeader() {
   return (
-    <section className="relative overflow-hidden py-16 md:py-20">
+    <section className="relative overflow-hidden bg-slate-950 py-16 md:py-20">
       {/* radial glow top-right + faint blueprint grid */}
       <div
         className="pointer-events-none absolute inset-0"
         style={{
           background:
-            'radial-gradient(ellipse 60% 70% at 85% 0%, rgba(34,197,94,0.12), transparent 60%)',
+            'radial-gradient(ellipse 60% 70% at 85% 0%, rgba(34,197,94,0.18), transparent 60%)',
         }}
         aria-hidden
       />
@@ -38,7 +38,7 @@ function PageHeader() {
         src="/hero-blueprint.svg"
         alt=""
         aria-hidden
-        className="pointer-events-none absolute inset-0 h-full w-full object-cover opacity-40"
+        className="pointer-events-none absolute inset-0 h-full w-full object-cover opacity-25 invert"
       />
 
       <div className="container-gg relative">
@@ -54,13 +54,13 @@ function PageHeader() {
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             transition={{ duration: 0.3, delay: 0.1 }}
-            className="kicker"
+            className="kicker text-green-400"
           >
             RESOURCES
           </motion.span>
         </div>
 
-        <h1 className="max-w-[820px] font-display text-4xl font-black leading-[1.05] tracking-tight text-slate-900 md:text-[56px]">
+        <h1 className="max-w-[820px] font-display text-4xl font-black leading-[1.05] tracking-tight text-white md:text-[56px]">
           {h1Words.map((w, i) => (
             <span key={i}>
               <span className="inline-block overflow-hidden pb-1 align-bottom">
@@ -82,7 +82,7 @@ function PageHeader() {
           initial={{ opacity: 0, y: 16 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.4, delay: 0.6, ease: 'easeOut' }}
-          className="mt-5 max-w-[640px] text-lg leading-[1.7] text-slate-600"
+          className="mt-5 max-w-[640px] text-lg leading-[1.7] text-slate-300"
         >
           The book, the websites, and the free guides Eric uses to find federal
           opportunities before they hit SAM.gov.

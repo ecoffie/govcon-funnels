@@ -2,9 +2,8 @@ import { useState } from 'react';
 import { motion } from 'framer-motion';
 import { ArrowUpRight, Pause, Play } from 'lucide-react';
 import type { Episode } from '@/data/episodes';
-import EpisodeThumb, { episodeTopic } from '@/components/podcast/EpisodeThumb';
 import EqBars from '@/components/EqBars';
-import { formatEpisodeDate } from '@/lib/episode-utils';
+import { episodeTopic, formatEpisodeDate } from '@/lib/episode-utils';
 import { useExclusiveAudio } from '@/lib/useExclusiveAudio';
 import { cn } from '@/lib/utils';
 
@@ -15,8 +14,8 @@ interface EpisodeRowProps {
 }
 
 /**
- * Editorial list row (tim.blog/podcast style): square branded thumbnail on
- * the left, then a topic kicker + date, large Montserrat title, 2-line excerpt,
+ * Editorial list row (tim.blog/podcast style): square real face thumbnail
+ * (episode.thumb) on the left, then a topic kicker + date, large Montserrat title, 2-line excerpt,
  * and a meta row (play toggle, duration, Libsyn link). Thin divider between
  * rows, generous whitespace, no card box. Play toggles an inline <audio> bar
  * that streams the episode on-site; useExclusiveAudio guarantees only one
@@ -36,9 +35,11 @@ export default function EpisodeRow({ episode, index = 0, className }: EpisodeRow
       className={cn('group border-b border-line py-8 md:py-10', className)}
     >
       <div className="flex flex-col gap-6 sm:flex-row sm:items-start sm:gap-8">
-        <EpisodeThumb
-          title={episode.title}
-          className="aspect-square w-36 shrink-0 rounded-lg border border-line transition-colors duration-150 group-hover:border-brand/50 sm:w-[150px] md:w-[180px]"
+        <img
+          src={episode.thumb}
+          alt=""
+          loading="lazy"
+          className="aspect-square w-36 shrink-0 rounded-lg border border-line object-cover transition-colors duration-150 group-hover:border-brand/50 sm:w-[150px] md:w-[180px]"
         />
 
         <div className="min-w-0 flex-1">

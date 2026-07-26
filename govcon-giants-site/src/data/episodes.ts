@@ -11,6 +11,8 @@ export interface Episode {
   audioUrl: string;
   /** Per-episode artwork from the RSS feed, if present */
   image: string | null;
+  /** Processed face thumbnail (guest or host) in /public/episodes */
+  thumb: string;
 }
 
 /** 150 most recent GovCon Giants Podcast episodes, newest first.
@@ -23,7 +25,8 @@ export const episodes: Episode[] = [
     "duration": "09:34",
     "link": "https://govcongiants.libsyn.com/5-ways-to-find-your-federal-program-manager-before-everyone-else-does",
     "audioUrl": "https://traffic.libsyn.com/secure/govcongiants/16-12__Clip_1__Find_the_Decision_Maker_Before_They_Post_the_RFP_-_Randie_Ward_121625_.mp3?dest-id=1224122",
-    "image": "https://static.libsyn.com/p/assets/3/1/f/9/31f954c8492f28b216c3140a3186d450/FHC_Mindy_Media_podcast-20260713-cfprlauhsn.jpg"
+    "image": "https://static.libsyn.com/p/assets/3/1/f/9/31f954c8492f28b216c3140a3186d450/FHC_Mindy_Media_podcast-20260713-cfprlauhsn.jpg",
+    "thumb": "/episodes/ep-000.jpg"
   },
   {
     "title": "The Woman Who Wrote CMMC: The $250K \"Compliance Cost\" Is a Lie | EP: 334",
@@ -32,7 +35,8 @@ export const episodes: Episode[] = [
     "duration": "27:10",
     "link": "https://govcongiants.libsyn.com/the-woman-who-wrote-cmmc-the-250k-compliance-cost-is-a-lie-ep-334",
     "audioUrl": "https://traffic.libsyn.com/secure/govcongiants/Audio_2_Katie_Eric_part_2.mp3?dest-id=1224122",
-    "image": "https://static.libsyn.com/p/assets/9/c/c/c/9ccc6383bf76a23a16c3140a3186d450/ep._334.png"
+    "image": "https://static.libsyn.com/p/assets/9/c/c/c/9ccc6383bf76a23a16c3140a3186d450/ep._334.png",
+    "thumb": "/episodes/ep-001.jpg"
   },
   {
     "title": "The Side Door Strategy For Winning Subcontracts With Defense Primes",
@@ -41,7 +45,8 @@ export const episodes: Episode[] = [
     "duration": "09:29",
     "link": "https://govcongiants.libsyn.com/the-side-door-strategy-for-winning-subcontracts-with-defense-primes",
     "audioUrl": "https://traffic.libsyn.com/secure/govcongiants/New_Zack_Audio_Clip_1__Why_Your_Proposal_Lost_AI_Knows_Zack_Golden111325_.mp3?dest-id=1224122",
-    "image": "https://static.libsyn.com/p/assets/1/a/4/0/1a405bdc4b45a667d959afa2a1bf1c87/FHC_Mindy_Media_podcast-20260714-cffxzg3z7m.jpg"
+    "image": "https://static.libsyn.com/p/assets/1/a/4/0/1a405bdc4b45a667d959afa2a1bf1c87/FHC_Mindy_Media_podcast-20260714-cffxzg3z7m.jpg",
+    "thumb": "/episodes/ep-002.jpg"
   },
   {
     "title": "How to Find Federal Contracts Before They Hit SAM.gov With No Experience",
@@ -50,7 +55,8 @@ export const episodes: Episode[] = [
     "duration": "11:04",
     "link": "https://govcongiants.libsyn.com/how-to-find-federal-contracts-before-they-hit-samgov-with-no-experience",
     "audioUrl": "https://traffic.libsyn.com/secure/govcongiants/New_Clip_1_Capture_500K_Deals_Before_the_RFP_Drops__Ryan_110725_.mp3?dest-id=1224122",
-    "image": "https://static.libsyn.com/p/assets/8/0/2/b/802b632028d1a0add959afa2a1bf1c87/FHC_Mindy_Media_podcast-20260712-ltyfdt3tu4.jpg"
+    "image": "https://static.libsyn.com/p/assets/8/0/2/b/802b632028d1a0add959afa2a1bf1c87/FHC_Mindy_Media_podcast-20260712-ltyfdt3tu4.jpg",
+    "thumb": "/episodes/ep-003.jpg"
   },
   {
     "title": "3 Subcontracting Mistakes That Can Bankrupt a Small Government Contractor Fast",
@@ -59,7 +65,8 @@ export const episodes: Episode[] = [
     "duration": "08:09",
     "link": "https://govcongiants.libsyn.com/how-one-subcontractor-turned-a-40000-dispute-into-a-federal-contracting-lesson",
     "audioUrl": "https://traffic.libsyn.com/secure/govcongiants/2-12__Clip_2__0_to_100K_Subcontract_Secrets_-_Eric_Coffie_120225_.mp4?dest-id=1224122",
-    "image": "https://static.libsyn.com/p/assets/8/a/8/a/8a8a0365d11401ff16c3140a3186d450/FHC_Mindy_Media_podcast-20260712-b1vicke0ep.jpg"
+    "image": "https://static.libsyn.com/p/assets/8/a/8/a/8a8a0365d11401ff16c3140a3186d450/FHC_Mindy_Media_podcast-20260712-b1vicke0ep.jpg",
+    "thumb": "/episodes/ep-004.jpg"
   },
   {
     "title": "How To Build A Business Foundation When You Have No Experience At All",
@@ -68,7 +75,8 @@ export const episodes: Episode[] = [
     "duration": "10:55",
     "link": "https://govcongiants.libsyn.com/how-to-build-a-business-foundation-when-you-have-no-experience-at-all",
     "audioUrl": "https://traffic.libsyn.com/secure/govcongiants/7-8_Clip_1__Sharpshooter_Strategy_Building_a_Foundation_for_Success_-_David_Rambhajan_080725_.mp4?dest-id=1224122",
-    "image": "https://static.libsyn.com/p/assets/b/e/5/6/be56882bdf1651f7d959afa2a1bf1c87/FHC_Mindy_Media_podcast-20260712-aje7luuglj.jpg"
+    "image": "https://static.libsyn.com/p/assets/b/e/5/6/be56882bdf1651f7d959afa2a1bf1c87/FHC_Mindy_Media_podcast-20260712-aje7luuglj.jpg",
+    "thumb": "/episodes/ep-005.jpg"
   },
   {
     "title": "How to Turn a $50K Line Item Into Steady Progress Payments",
@@ -77,7 +85,8 @@ export const episodes: Episode[] = [
     "duration": "11:23",
     "link": "https://govcongiants.libsyn.com/how-to-turn-a-50k-line-item-into-steady-progress-payments",
     "audioUrl": "https://traffic.libsyn.com/secure/govcongiants/Clip_1__2-6_Give_me_my_MONEY_-_Eric_Coffie_060226_.mp4?dest-id=1224122",
-    "image": "https://static.libsyn.com/p/assets/e/0/7/8/e078bea4d4e84e10d959afa2a1bf1c87/FHC_Mindy_Media_podcast-20260711-04nm62slnx.jpg"
+    "image": "https://static.libsyn.com/p/assets/e/0/7/8/e078bea4d4e84e10d959afa2a1bf1c87/FHC_Mindy_Media_podcast-20260711-04nm62slnx.jpg",
+    "thumb": "/episodes/ep-006.jpg"
   },
   {
     "title": "Why Smart Contractors Use Government Work to Survive Recessions and Storm Slowdowns",
@@ -86,7 +95,8 @@ export const episodes: Episode[] = [
     "duration": "09:58",
     "link": "https://govcongiants.libsyn.com/why-smart-contractors-use-government-work-to-survive-recessions-and-storm-slowdowns",
     "audioUrl": "https://traffic.libsyn.com/secure/govcongiants/12-6_Clip_1__Be_Patient_Protect_Yourself_FHC_Training_-_West_Edwards_061225_.mp4?dest-id=1224122",
-    "image": "https://static.libsyn.com/p/assets/6/5/9/2/65927c2a680e00b916c3140a3186d450/FHC_Mindy_Media_podcast-20260712-irwu7ooqua.jpg"
+    "image": "https://static.libsyn.com/p/assets/6/5/9/2/65927c2a680e00b916c3140a3186d450/FHC_Mindy_Media_podcast-20260712-irwu7ooqua.jpg",
+    "thumb": "/episodes/ep-007.jpg"
   },
   {
     "title": "How to Use NAICS and PSC Codes to Find Government Buyers for Your Products | EP: 333",
@@ -95,7 +105,8 @@ export const episodes: Episode[] = [
     "duration": "01:19:53",
     "link": "https://govcongiants.libsyn.com/how-to-use-naics-and-psc-codes-to-find-government-buyers-for-your-products-ep-333",
     "audioUrl": "https://traffic.libsyn.com/secure/govcongiants/333_July-15_How_To_Win_Your_First_Government_Contract___Step_By_Step_Guide_To_Start_Government_Contracts.mp4?dest-id=1224122",
-    "image": "https://static.libsyn.com/p/assets/a/b/0/2/ab023373ad76792816c3140a3186d450/ep._333.png"
+    "image": "https://static.libsyn.com/p/assets/a/b/0/2/ab023373ad76792816c3140a3186d450/ep._333.png",
+    "thumb": "/episodes/ep-008.jpg"
   },
   {
     "title": "2 Red Flags That Mean You Should Skip That Government Contract Bid",
@@ -104,7 +115,8 @@ export const episodes: Episode[] = [
     "duration": "10:00",
     "link": "https://govcongiants.libsyn.com/2-red-flags-that-mean-you-should-skip-that-government-contract-bid",
     "audioUrl": "https://traffic.libsyn.com/secure/govcongiants/5-12__Clip_1_Kill__90_of_Bad_Bids_in_48_Hours_with_Ryan_Atencio_120525_.mp4?dest-id=1224122",
-    "image": "https://static.libsyn.com/p/assets/c/9/1/f/c91ffb1ab27a6213d959afa2a1bf1c87/FHC_Mindy_Media_podcast-20260712-g6mpdgalzv.jpg"
+    "image": "https://static.libsyn.com/p/assets/c/9/1/f/c91ffb1ab27a6213d959afa2a1bf1c87/FHC_Mindy_Media_podcast-20260712-g6mpdgalzv.jpg",
+    "thumb": "/episodes/ep-009.jpg"
   },
   {
     "title": "How Small Business Owners Can Use Subcontracting to Land Their First Federal Contract",
@@ -113,7 +125,8 @@ export const episodes: Episode[] = [
     "duration": "09:44",
     "link": "https://govcongiants.libsyn.com/how-small-business-owners-can-use-subcontracting-to-land-their-first-federal-contract",
     "audioUrl": "https://traffic.libsyn.com/secure/govcongiants/2-12__Clip_1__0_to_100K_Subcontract_Secrets_-_Eric_Coffie_120225_.mp4?dest-id=1224122",
-    "image": "https://static.libsyn.com/p/assets/c/8/8/9/c889ef868f3f7a83d959afa2a1bf1c87/FHC_Mindy_Media_podcast-20260711-eez5g5khyg.jpg"
+    "image": "https://static.libsyn.com/p/assets/c/8/8/9/c889ef868f3f7a83d959afa2a1bf1c87/FHC_Mindy_Media_podcast-20260711-eez5g5khyg.jpg",
+    "thumb": "/episodes/ep-010.jpg"
   },
   {
     "title": "What It Really Takes to Land Your First Federal Subcontract With No Money",
@@ -122,7 +135,8 @@ export const episodes: Episode[] = [
     "duration": "15:34",
     "link": "https://govcongiants.libsyn.com/what-it-really-takes-to-land-your-first-federal-subcontract-with-no-money",
     "audioUrl": "https://traffic.libsyn.com/secure/govcongiants/Clip_1_1-11_Small_Moves_Big_GovCon_Wins_-_Randie_Ward_110125_.mp4?dest-id=1224122",
-    "image": "https://static.libsyn.com/p/assets/d/a/e/8/dae84b4f2986b2fed959afa2a1bf1c87/FHC_Mindy_Media_podcast-20260711-egtt77nbru.jpg"
+    "image": "https://static.libsyn.com/p/assets/d/a/e/8/dae84b4f2986b2fed959afa2a1bf1c87/FHC_Mindy_Media_podcast-20260711-egtt77nbru.jpg",
+    "thumb": "/episodes/ep-011.jpg"
   },
   {
     "title": "How to Choose the Right Small Business Certification for Federal Contracting Success",
@@ -131,7 +145,8 @@ export const episodes: Episode[] = [
     "duration": "10:37",
     "link": "https://govcongiants.libsyn.com/how-to-choose-the-right-small-business-certification-for-federal-contracting-success",
     "audioUrl": "https://traffic.libsyn.com/secure/govcongiants/3-10__Clip_1__Leveraging_Government_Small_Business_Programs_-_David_Rambhajan_100325_.mp4?dest-id=1224122",
-    "image": "https://static.libsyn.com/p/assets/4/9/0/c/490c580ef819276316c3140a3186d450/FHC_Mindy_Media_podcast.jpg"
+    "image": "https://static.libsyn.com/p/assets/4/9/0/c/490c580ef819276316c3140a3186d450/FHC_Mindy_Media_podcast.jpg",
+    "thumb": "/episodes/ep-012.jpg"
   },
   {
     "title": "Why Full and Open Competition Is Rigged and 8a Contracts Are Actually Fairer",
@@ -140,7 +155,8 @@ export const episodes: Episode[] = [
     "duration": "08:25",
     "link": "https://govcongiants.libsyn.com/why-full-and-open-competition-is-rigged-and-8a-contracts-are-actually-fairer",
     "audioUrl": "https://traffic.libsyn.com/secure/govcongiants/21-1_Sources_Sought_Free_Marketing_-_Eric_Coffie_012126_1.mp3?dest-id=1224122",
-    "image": "https://static.libsyn.com/p/assets/0/2/6/8/0268dde1073b417416c3140a3186d450/1_FHC_Podcast_Artwork-20260628-5ap2cmzq8z.png"
+    "image": "https://static.libsyn.com/p/assets/0/2/6/8/0268dde1073b417416c3140a3186d450/1_FHC_Podcast_Artwork-20260628-5ap2cmzq8z.png",
+    "thumb": "/episodes/ep-013.jpg"
   },
   {
     "title": "How to Draft a Winning Sources Sought Response Step by Step",
@@ -149,7 +165,8 @@ export const episodes: Episode[] = [
     "duration": "07:30",
     "link": "https://govcongiants.libsyn.com/how-to-draft-a-winning-sources-sought-response-step-by-step",
     "audioUrl": "https://traffic.libsyn.com/secure/govcongiants/22-1_Find_Your_Competitors_Secret_Contracts_in_60_Seconds_with_Ryan_Atencio_012226-2.mp3?dest-id=1224122",
-    "image": "https://static.libsyn.com/p/assets/0/6/5/6/0656ec091e718fd216c3140a3186d450/1_FHC_Podcast_Artwork-20260628-lm5ow0b6sr.png"
+    "image": "https://static.libsyn.com/p/assets/0/6/5/6/0656ec091e718fd216c3140a3186d450/1_FHC_Podcast_Artwork-20260628-lm5ow0b6sr.png",
+    "thumb": "/episodes/ep-014.jpg"
   },
   {
     "title": "How She Won $5 Million In Federal Contracts With No Past Performance | EP: 332",
@@ -158,7 +175,8 @@ export const episodes: Episode[] = [
     "duration": "47:53",
     "link": "https://govcongiants.libsyn.com/how-she-won-5-million-in-federal-contracts-with-no-past-performance-ep-332",
     "audioUrl": "https://traffic.libsyn.com/secure/govcongiants/332_July-8_How_She_Landed_Her_First_Government_Contract_As_A_Beginner.mp4?dest-id=1224122",
-    "image": "https://static.libsyn.com/p/assets/e/2/3/c/e23c35f5795ed15216c3140a3186d450/ep._332-20260709-fgjpty5jbx.png"
+    "image": "https://static.libsyn.com/p/assets/e/2/3/c/e23c35f5795ed15216c3140a3186d450/ep._332-20260709-fgjpty5jbx.png",
+    "thumb": "/episodes/ep-015.jpg"
   },
   {
     "title": "What a 20 Million Dollar Proposal Rejection Taught This Govcon Consultant About AI",
@@ -167,7 +185,8 @@ export const episodes: Episode[] = [
     "duration": "08:20",
     "link": "https://govcongiants.libsyn.com/what-a-20-million-dollar-proposal-rejection-taught-this-govcon-consultant-about-ai",
     "audioUrl": "https://traffic.libsyn.com/secure/govcongiants/22-1_Why_Your_Proposal_Lost_AI_Knows_-_Zach_Golden_12226_2.mp3?dest-id=1224122",
-    "image": "https://static.libsyn.com/p/assets/3/4/d/8/34d8374eed27921a16c3140a3186d450/1_FHC_Podcast_Artwork-20260628-gtt7va813f.png"
+    "image": "https://static.libsyn.com/p/assets/3/4/d/8/34d8374eed27921a16c3140a3186d450/1_FHC_Podcast_Artwork-20260628-gtt7va813f.png",
+    "thumb": "/episodes/ep-016.jpg"
   },
   {
     "title": "How Subcontractors Can Build Prime Relationships by Showing Up at Federal Site Visits",
@@ -176,7 +195,8 @@ export const episodes: Episode[] = [
     "duration": "08:49",
     "link": "https://govcongiants.libsyn.com/how-subcontractors-can-build-prime-relationships-by-showing-up-at-federal-site-visits",
     "audioUrl": "https://traffic.libsyn.com/secure/govcongiants/16-1_Federal_Business_101_Cracking_the_Code_of_How_the_Government_Buys_with_Ryan_Atencio_011626_1.mp3?dest-id=1224122",
-    "image": "https://static.libsyn.com/p/assets/f/d/a/8/fda863bb58010b5016c3140a3186d450/1_FHC_Podcast_Artwork-20260628-rwh7qweaf2.png"
+    "image": "https://static.libsyn.com/p/assets/f/d/a/8/fda863bb58010b5016c3140a3186d450/1_FHC_Podcast_Artwork-20260628-rwh7qweaf2.png",
+    "thumb": "/episodes/ep-017.jpg"
   },
   {
     "title": "The Free Government Tool Most Small Business Owners Never Knew Existed",
@@ -185,7 +205,8 @@ export const episodes: Episode[] = [
     "duration": "07:29",
     "link": "https://govcongiants.libsyn.com/the-free-government-tool-most-small-business-owners-never-knew-existed",
     "audioUrl": "https://traffic.libsyn.com/secure/govcongiants/13-1_Sources_Sought_Free_Marketing_-_Eric_Coffie_011326.mp3?dest-id=1224122",
-    "image": "https://static.libsyn.com/p/assets/d/b/1/3/db135439dc4ab6f716c3140a3186d450/1_FHC_Podcast_Artwork-20260628-4196tad06u.png"
+    "image": "https://static.libsyn.com/p/assets/d/b/1/3/db135439dc4ab6f716c3140a3186d450/1_FHC_Podcast_Artwork-20260628-4196tad06u.png",
+    "thumb": "/episodes/ep-018.jpg"
   },
   {
     "title": "How To Build Relationships With Contracting Officers Before The RFP Even Drops",
@@ -194,7 +215,8 @@ export const episodes: Episode[] = [
     "duration": "07:49",
     "link": "https://govcongiants.libsyn.com/how-to-build-relationships-with-contracting-officers-before-the-rfp-even-drops",
     "audioUrl": "https://traffic.libsyn.com/secure/govcongiants/20-1_Be_Found_Before_You_Bid_-_Randie_Ward_012026.mp3?dest-id=1224122",
-    "image": "https://static.libsyn.com/p/assets/d/d/d/5/ddd518fdcbfd3e3d16c3140a3186d450/1_FHC_Podcast_Artwork-20260628-djxjwgrmc6.png"
+    "image": "https://static.libsyn.com/p/assets/d/d/d/5/ddd518fdcbfd3e3d16c3140a3186d450/1_FHC_Podcast_Artwork-20260628-djxjwgrmc6.png",
+    "thumb": "/episodes/ep-019.jpg"
   },
   {
     "title": "What It Takes to Form an 8a Joint Venture With a Tribal Company",
@@ -203,7 +225,8 @@ export const episodes: Episode[] = [
     "duration": "10:21",
     "link": "https://govcongiants.libsyn.com/what-it-takes-to-form-an-8a-joint-venture-with-a-tribal-company",
     "audioUrl": "https://traffic.libsyn.com/secure/govcongiants/12-5_Learn_How_to_Estimate_Properly_-_Eric_Coffie_051226.mp3?dest-id=1224122",
-    "image": "https://static.libsyn.com/p/assets/8/c/c/4/8cc49751b7402f3e16c3140a3186d450/1_FHC_Podcast_Artwork-20260628-sgyv5zosem.png"
+    "image": "https://static.libsyn.com/p/assets/8/c/c/4/8cc49751b7402f3e16c3140a3186d450/1_FHC_Podcast_Artwork-20260628-sgyv5zosem.png",
+    "thumb": "/episodes/ep-020.jpg"
   },
   {
     "title": "How To Know If Your Government Contract Proposal Pricing Is Actually Competitive",
@@ -212,7 +235,8 @@ export const episodes: Episode[] = [
     "duration": "07:55",
     "link": "https://govcongiants.libsyn.com/how-to-know-if-your-government-contract-proposal-pricing-is-actually-competitive",
     "audioUrl": "https://traffic.libsyn.com/secure/govcongiants/9-1_Make_the_RFP_Beg_for_YOU_with_Ryan_Atencio_010926.mp3?dest-id=1224122",
-    "image": "https://static.libsyn.com/p/assets/4/9/7/7/497765f9ea0abd8916c3140a3186d450/1_FHC_Podcast_Artwork-20260628-dz63ymyglj.png"
+    "image": "https://static.libsyn.com/p/assets/4/9/7/7/497765f9ea0abd8916c3140a3186d450/1_FHC_Podcast_Artwork-20260628-dz63ymyglj.png",
+    "thumb": "/episodes/ep-021.jpg"
   },
   {
     "title": "Three Ways to Turn Your Existing Skills Into Real Income Right Now | EP: 331",
@@ -221,7 +245,8 @@ export const episodes: Episode[] = [
     "duration": "32:28",
     "link": "https://govcongiants.libsyn.com/three-ways-to-turn-your-existing-skills-into-real-income-right-now-ep-331",
     "audioUrl": "https://traffic.libsyn.com/secure/govcongiants/331_July_1_No_Business__No_Problem__3_Ways_to_Make_10K_Fast_with_What_You_Already_Know_1.mp3?dest-id=1224122",
-    "image": "https://static.libsyn.com/p/assets/e/1/0/f/e10f527a46fb657316c3140a3186d450/ep._331.png"
+    "image": "https://static.libsyn.com/p/assets/e/1/0/f/e10f527a46fb657316c3140a3186d450/ep._331.png",
+    "thumb": "/episodes/ep-022.jpg"
   },
   {
     "title": "How small business owners can use capability statements as a follow up marketing tool",
@@ -230,7 +255,8 @@ export const episodes: Episode[] = [
     "duration": "08:36",
     "link": "https://govcongiants.libsyn.com/how-small-business-owners-can-use-capability-statements-as-a-follow-up-marketing-tool",
     "audioUrl": "https://traffic.libsyn.com/secure/govcongiants/8-1_AI_Builds_Your_100K_Capability_Statement_-_Zach_Golden_010826_1.mp3?dest-id=1224122",
-    "image": "https://static.libsyn.com/p/assets/0/f/9/2/0f9208e75a8b0a18d959afa2a1bf1c87/1_FHC_Podcast_Artwork-20260628-bd6yokhyy6.png"
+    "image": "https://static.libsyn.com/p/assets/0/f/9/2/0f9208e75a8b0a18d959afa2a1bf1c87/1_FHC_Podcast_Artwork-20260628-bd6yokhyy6.png",
+    "thumb": "/episodes/ep-023.jpg"
   },
   {
     "title": "What every small business needs to know about CMMC compliance before working with DOD",
@@ -239,7 +265,8 @@ export const episodes: Episode[] = [
     "duration": "08:18",
     "link": "https://govcongiants.libsyn.com/what-every-small-business-needs-to-know-about-cmmc-compliance-before-working-with-dod",
     "audioUrl": "https://traffic.libsyn.com/secure/govcongiants/6-1_Ready_Set_Go-_Procurement_Readiness_-_Randie_Ward_010626.mp3?dest-id=1224122",
-    "image": "https://static.libsyn.com/p/assets/1/4/1/f/141fd427e5d9d07216c3140a3186d450/1_FHC_Podcast_Artwork-20260628-r77od1a441.png"
+    "image": "https://static.libsyn.com/p/assets/1/4/1/f/141fd427e5d9d07216c3140a3186d450/1_FHC_Podcast_Artwork-20260628-r77od1a441.png",
+    "thumb": "/episodes/ep-024.jpg"
   },
   {
     "title": "The exact letter format that gets business opportunity specialists to respond fast",
@@ -248,7 +275,8 @@ export const episodes: Episode[] = [
     "duration": "08:55",
     "link": "https://govcongiants.libsyn.com/the-exact-letter-format-that-gets-business-opportunity-specialists-to-respond-fast",
     "audioUrl": "https://traffic.libsyn.com/secure/govcongiants/6-1_GSA_Schedule_388K_Air_Handler_Hack_-_Eric_Coffie_010626.mp3?dest-id=1224122",
-    "image": "https://static.libsyn.com/p/assets/0/3/1/0/0310048358661e4ad959afa2a1bf1c87/1_FHC_Podcast_Artwork.png"
+    "image": "https://static.libsyn.com/p/assets/0/3/1/0/0310048358661e4ad959afa2a1bf1c87/1_FHC_Podcast_Artwork.png",
+    "thumb": "/episodes/ep-025.jpg"
   },
   {
     "title": "How Small Businesses Use Set-Asides and Joint Ventures to Beat Large Incumbent Contractors",
@@ -257,7 +285,8 @@ export const episodes: Episode[] = [
     "duration": "11:07",
     "link": "https://govcongiants.libsyn.com/how-small-businesses-use-set-asides-and-joint-ventures-to-beat-large-incumbent-contractors",
     "audioUrl": "https://traffic.libsyn.com/secure/govcongiants/New_30-1_How_to_Get_Into_the_Room_Before_the_RFP_Drops_Legally_with_Ryan_Atencio_013026.mp3?dest-id=1224122",
-    "image": "https://static.libsyn.com/p/assets/4/6/d/1/46d17d3f1ae145f1d959afa2a1bf1c87/FHC_Podcast_Artwork-20260606-q0v8y414vx.png"
+    "image": "https://static.libsyn.com/p/assets/4/6/d/1/46d17d3f1ae145f1d959afa2a1bf1c87/FHC_Podcast_Artwork-20260606-q0v8y414vx.png",
+    "thumb": "/episodes/ep-026.jpg"
   },
   {
     "title": "Why HUBZone Price Preference Rarely Works in Practice and What to Do on an IDIQ Instead",
@@ -266,7 +295,8 @@ export const episodes: Episode[] = [
     "duration": "09:31",
     "link": "https://govcongiants.libsyn.com/why-hubzone-price-preference-rarely-works-in-practice-and-what-to-do-on-an-idiq-instead",
     "audioUrl": "https://traffic.libsyn.com/secure/govcongiants/New_Clip_2_3-2_500K_Scale_No_Experience_Needed_-_Eric_Coffie_020326.mp3?dest-id=1224122",
-    "image": "https://static.libsyn.com/p/assets/4/e/0/5/4e05b94d791a2764d959afa2a1bf1c87/FHC_Podcast_Artwork-20260614-cvvlclxqa1.png"
+    "image": "https://static.libsyn.com/p/assets/4/e/0/5/4e05b94d791a2764d959afa2a1bf1c87/FHC_Podcast_Artwork-20260614-cvvlclxqa1.png",
+    "thumb": "/episodes/ep-027.jpg"
   },
   {
     "title": "What to Do When Someone Claims They Can Get You Guaranteed Government Contracts",
@@ -275,7 +305,8 @@ export const episodes: Episode[] = [
     "duration": "10:57",
     "link": "https://govcongiants.libsyn.com/what-to-do-when-someone-claims-they-can-get-you-guaranteed-government-contracts",
     "audioUrl": "https://traffic.libsyn.com/secure/govcongiants/New_Clip_2_7-4_Tuesday_Night_Q__A_-_Colin_Nchako_040726.mp3?dest-id=1224122",
-    "image": "https://static.libsyn.com/p/assets/6/e/0/2/6e02c66517ffaf5116c3140a3186d450/FHC_Podcast_Artwork-20260614-j6xex79dbt.png"
+    "image": "https://static.libsyn.com/p/assets/6/e/0/2/6e02c66517ffaf5116c3140a3186d450/FHC_Podcast_Artwork-20260614-j6xex79dbt.png",
+    "thumb": "/episodes/ep-028.jpg"
   },
   {
     "title": "How to make your first $20K in government contracting with no experience or money | EP: 330",
@@ -284,7 +315,8 @@ export const episodes: Episode[] = [
     "duration": "37:46",
     "link": "https://govcongiants.libsyn.com/how-to-make-your-first-20k-in-government-contracting-with-no-experience-or-money-ep-330",
     "audioUrl": "https://traffic.libsyn.com/secure/govcongiants/330_June_24_How_to_make_your_first_20K_if_youre_broke__Government_Contracting.mp3?dest-id=1224122",
-    "image": "https://static.libsyn.com/p/assets/4/9/8/3/4983757d94a48924d959afa2a1bf1c87/ep._330.png"
+    "image": "https://static.libsyn.com/p/assets/4/9/8/3/4983757d94a48924d959afa2a1bf1c87/ep._330.png",
+    "thumb": "/episodes/ep-029.jpg"
   },
   {
     "title": "Why Submitting a Sources Sought Response Can Cut 80 Percent of Your Competition",
@@ -293,7 +325,8 @@ export const episodes: Episode[] = [
     "duration": "09:54",
     "link": "https://govcongiants.libsyn.com/why-submitting-a-sources-sought-response-can-cut-80-percent-of-your-competition",
     "audioUrl": "https://traffic.libsyn.com/secure/govcongiants/New_Clip_1_9-1_Make_the_RFP_Beg_for_YOU_with_Ryan_Atencio_010926.mp3?dest-id=1224122",
-    "image": "https://static.libsyn.com/p/assets/2/7/b/3/27b3ddb7fea712efd959afa2a1bf1c87/FHC_Podcast_Artwork-20260614-xhnb0ycd09.png"
+    "image": "https://static.libsyn.com/p/assets/2/7/b/3/27b3ddb7fea712efd959afa2a1bf1c87/FHC_Podcast_Artwork-20260614-xhnb0ycd09.png",
+    "thumb": "/episodes/ep-030.jpg"
   },
   {
     "title": "Why Most 8(a) Businesses Never Get Sole Source Contracts and How to Fix That",
@@ -302,7 +335,8 @@ export const episodes: Episode[] = [
     "duration": "14:18",
     "link": "https://govcongiants.libsyn.com/why-most-8a-businesses-never-get-sole-source-contracts-and-how-to-fix-that",
     "audioUrl": "https://traffic.libsyn.com/secure/govcongiants/New_eting_-_Eric_Coffie_011326.mp3?dest-id=1224122",
-    "image": "https://static.libsyn.com/p/assets/f/3/b/b/f3bbec81582f7bcbd959afa2a1bf1c87/FHC_Podcast_Artwork-20260614-gx0bqj3spk.png"
+    "image": "https://static.libsyn.com/p/assets/f/3/b/b/f3bbec81582f7bcbd959afa2a1bf1c87/FHC_Podcast_Artwork-20260614-gx0bqj3spk.png",
+    "thumb": "/episodes/ep-031.jpg"
   },
   {
     "title": "How to Use PSC Codes to Find More Government Contract Opportunities Fast",
@@ -311,7 +345,8 @@ export const episodes: Episode[] = [
     "duration": "08:45",
     "link": "https://govcongiants.libsyn.com/how-to-use-psc-codes-to-find-more-government-contract-opportunities-fast",
     "audioUrl": "https://traffic.libsyn.com/secure/govcongiants/New_Clip_1_12-1_Turn_1_NAICS_Code_Into_Contract_Opportunities_-_Randie_Ward_11226.mp3?dest-id=1224122",
-    "image": "https://static.libsyn.com/p/assets/b/c/2/c/bc2c71bd79088f8e16c3140a3186d450/FHC_Podcast_Artwork-20260614-9jp0spqiv9.png"
+    "image": "https://static.libsyn.com/p/assets/b/c/2/c/bc2c71bd79088f8e16c3140a3186d450/FHC_Podcast_Artwork-20260614-9jp0spqiv9.png",
+    "thumb": "/episodes/ep-032.jpg"
   },
   {
     "title": "What Government Representatives Look for When They Read Your Capability Statement",
@@ -320,7 +355,8 @@ export const episodes: Episode[] = [
     "duration": "09:26",
     "link": "https://govcongiants.libsyn.com/what-government-representatives-look-for-when-they-read-your-capability-statement",
     "audioUrl": "https://traffic.libsyn.com/secure/govcongiants/New_Clip_1_8-1_AI_Builds_Your_100K_Capability_Statement_-_Zach_Golden_010826.mp3?dest-id=1224122",
-    "image": "https://static.libsyn.com/p/assets/d/2/e/9/d2e95ef5c1b44e5ed959afa2a1bf1c87/FHC_Podcast_Artwork-20260614-du9x7av3we.png"
+    "image": "https://static.libsyn.com/p/assets/d/2/e/9/d2e95ef5c1b44e5ed959afa2a1bf1c87/FHC_Podcast_Artwork-20260614-du9x7av3we.png",
+    "thumb": "/episodes/ep-033.jpg"
   },
   {
     "title": "Why Sole Source Contracts Disappear After You Graduate From the 8a Program",
@@ -329,7 +365,8 @@ export const episodes: Episode[] = [
     "duration": "10:35",
     "link": "https://govcongiants.libsyn.com/why-sole-source-contracts-disappear-after-you-graduate-from-the-8a-program",
     "audioUrl": "https://traffic.libsyn.com/secure/govcongiants/New_Clip_1_12-5_Learn_How_to_Estimate_Properly_-_Eric_Coffie_-_Cecil_051226.mp3?dest-id=1224122",
-    "image": "https://static.libsyn.com/p/assets/3/a/2/5/3a25fd05df3934a016c3140a3186d450/FHC_Podcast_Artwork-20260614-r29wljt3sb.png"
+    "image": "https://static.libsyn.com/p/assets/3/a/2/5/3a25fd05df3934a016c3140a3186d450/FHC_Podcast_Artwork-20260614-r29wljt3sb.png",
+    "thumb": "/episodes/ep-034.jpg"
   },
   {
     "title": "What Aspiring GovCon Consultants Can Learn From This AI Proposal Workflow",
@@ -338,7 +375,8 @@ export const episodes: Episode[] = [
     "duration": "10:22",
     "link": "https://govcongiants.libsyn.com/what-aspiring-govcon-consultants-can-learn-from-this-ai-proposal-workflow",
     "audioUrl": "https://traffic.libsyn.com/secure/govcongiants/New_Clip_2_7-5_What_the_Gurus_Dont_Teach_The_DoW_End-User_Direct_Strategy_with_Ryan_Atencio_050726_1.mp3?dest-id=1224122",
-    "image": "https://static.libsyn.com/p/assets/2/4/5/b/245bb93572d13c1316c3140a3186d450/FHC_Podcast_Artwork-20260614-lq9mvflacf.png"
+    "image": "https://static.libsyn.com/p/assets/2/4/5/b/245bb93572d13c1316c3140a3186d450/FHC_Podcast_Artwork-20260614-lq9mvflacf.png",
+    "thumb": "/episodes/ep-035.jpg"
   },
   {
     "title": "How to Win Government Contracts With Zero Experience Using Strategic Networking | Ep: 329",
@@ -347,7 +385,8 @@ export const episodes: Episode[] = [
     "duration": "43:47",
     "link": "https://govcongiants.libsyn.com/how-to-win-government-contracts-with-zero-experience-using-strategic-networking-ep-329",
     "audioUrl": "https://traffic.libsyn.com/secure/govcongiants/New_2_329_June_17_How_to_Win_Government_Contracts_with_Zero_Experience.mp3?dest-id=1224122",
-    "image": "https://static.libsyn.com/p/assets/1/1/d/f/11dfafa6eac991b1d959afa2a1bf1c87/ep._329.png"
+    "image": "https://static.libsyn.com/p/assets/1/1/d/f/11dfafa6eac991b1d959afa2a1bf1c87/ep._329.png",
+    "thumb": "/episodes/ep-036.jpg"
   },
   {
     "title": "What to Do If You Have No Past Performance for Government Contracts Yet",
@@ -356,7 +395,8 @@ export const episodes: Episode[] = [
     "duration": "10:12",
     "link": "https://govcongiants.libsyn.com/how-to-write-a-capability-statement-that-actually-wins-federal-contracts",
     "audioUrl": "https://traffic.libsyn.com/secure/govcongiants/New_Clip_1_6-1_Ready_Set_Go-_Procurement_Readiness_-_Randie_Ward_010626.mp3?dest-id=1224122",
-    "image": "https://static.libsyn.com/p/assets/a/d/1/4/ad14c3b41001103116c3140a3186d450/FHC_Podcast_Artwork-20260614-uuzy75vnxp.png"
+    "image": "https://static.libsyn.com/p/assets/a/d/1/4/ad14c3b41001103116c3140a3186d450/FHC_Podcast_Artwork-20260614-uuzy75vnxp.png",
+    "thumb": "/episodes/ep-037.jpg"
   },
   {
     "title": "How to Avoid the 8(a) Application Mistakes That Get Your Paperwork Rejected",
@@ -365,7 +405,8 @@ export const episodes: Episode[] = [
     "duration": "01:20:30",
     "link": "https://govcongiants.libsyn.com/how-to-avoid-the-8a-application-mistakes-that-get-your-paperwork-rejected",
     "audioUrl": "https://traffic.libsyn.com/secure/govcongiants/Clip_1_6-1_GSA_Schedule_388K_Air_Handler_Hack_-_Eric_Coffie_010626.mp3?dest-id=1224122",
-    "image": "https://static.libsyn.com/p/assets/2/8/f/b/28fb67937290e36b16c3140a3186d450/FHC_Podcast_Artwork-20260614-9gdqgvguwi.png"
+    "image": "https://static.libsyn.com/p/assets/2/8/f/b/28fb67937290e36b16c3140a3186d450/FHC_Podcast_Artwork-20260614-9gdqgvguwi.png",
+    "thumb": "/episodes/ep-038.jpg"
   },
   {
     "title": "Find Your Competitor's Contracts in 60 Seconds and Use That Intel to Win",
@@ -374,7 +415,8 @@ export const episodes: Episode[] = [
     "duration": "10:57",
     "link": "https://govcongiants.libsyn.com/find-your-competitors-contracts-in-60-seconds-and-use-that-intel-to-win",
     "audioUrl": "https://traffic.libsyn.com/secure/govcongiants/22-1_Find_Your_Competitors_Secret_Contracts_in_60_Seconds_with_Ryan_Atencio_012226.mp3?dest-id=1224122",
-    "image": "https://static.libsyn.com/p/assets/5/7/b/0/57b05849a216f56e16c3140a3186d450/FHC_Podcast_Artwork-20260606-6khpg1tr1v.png"
+    "image": "https://static.libsyn.com/p/assets/5/7/b/0/57b05849a216f56e16c3140a3186d450/FHC_Podcast_Artwork-20260606-6khpg1tr1v.png",
+    "thumb": "/episodes/ep-039.jpg"
   },
   {
     "title": "How to Find the Proposal Errors That Get Small Businesses Disqualified Every Time",
@@ -383,7 +425,8 @@ export const episodes: Episode[] = [
     "duration": "09:35",
     "link": "https://govcongiants.libsyn.com/how-to-find-the-proposal-errors-that-get-small-businesses-disqualified-every-time",
     "audioUrl": "https://traffic.libsyn.com/secure/govcongiants/22-1_Why_Your_Proposal_Lost_AI_Knows_-_Zach_Golden_12226.mp3?dest-id=1224122",
-    "image": "https://static.libsyn.com/p/assets/8/6/b/2/86b2c3cc004e557d16c3140a3186d450/FHC_Podcast_Artwork-20260606-okcac0pknv.png"
+    "image": "https://static.libsyn.com/p/assets/8/6/b/2/86b2c3cc004e557d16c3140a3186d450/FHC_Podcast_Artwork-20260606-okcac0pknv.png",
+    "thumb": "/episodes/ep-040.jpg"
   },
   {
     "title": "Sources Sought Notices Are Free Marketing and Most Small Businesses Never Respond",
@@ -392,7 +435,8 @@ export const episodes: Episode[] = [
     "duration": "06:00",
     "link": "https://govcongiants.libsyn.com/sources-sought-notices-are-free-marketing-and-most-small-businesses-never-respond",
     "audioUrl": "https://traffic.libsyn.com/secure/govcongiants/21-1_Sources_Sought_Free_Marketing_-_Eric_Coffie_012126.mp3?dest-id=1224122",
-    "image": "https://static.libsyn.com/p/assets/4/a/3/a/4a3a3eea787b58bad959afa2a1bf1c87/FHC_Podcast_Artwork-20260606-f5a9cwafqy.png"
+    "image": "https://static.libsyn.com/p/assets/4/a/3/a/4a3a3eea787b58bad959afa2a1bf1c87/FHC_Podcast_Artwork-20260606-f5a9cwafqy.png",
+    "thumb": "/episodes/ep-041.jpg"
   },
   {
     "title": "Government Procurement Decoded | How to Read Solicitations Before Your Competition Does",
@@ -401,7 +445,8 @@ export const episodes: Episode[] = [
     "duration": "09:55",
     "link": "https://govcongiants.libsyn.com/government-procurement-decoded-how-to-read-solicitations-before-your-competition-does",
     "audioUrl": "https://traffic.libsyn.com/secure/govcongiants/16-1_Federal_Business_101_Cracking_the_Code_of_How_the_Government_Buys_with_Ryan_Atencio_011626.mp3?dest-id=1224122",
-    "image": "https://static.libsyn.com/p/assets/6/1/c/3/61c37438b95cff8b16c3140a3186d450/FHC_Podcast_Artwork-20260606-xs47vod295.png"
+    "image": "https://static.libsyn.com/p/assets/6/1/c/3/61c37438b95cff8b16c3140a3186d450/FHC_Podcast_Artwork-20260606-xs47vod295.png",
+    "thumb": "/episodes/ep-042.jpg"
   },
   {
     "title": "How to Find a GovCon Consulting Client Without Any Past Performance or Capital | EP: 328",
@@ -410,7 +455,8 @@ export const episodes: Episode[] = [
     "duration": "22:56",
     "link": "https://govcongiants.libsyn.com/how-to-find-a-govcon-consulting-client-without-any-past-performance-or-capital-ep-328",
     "audioUrl": "https://traffic.libsyn.com/secure/govcongiants/328_Win_Your_First_Government_Contract_with_no_Past_Performance.mp3?dest-id=1224122",
-    "image": "https://static.libsyn.com/p/assets/e/d/1/4/ed140171de8c3c87d959afa2a1bf1c87/ep._328.png"
+    "image": "https://static.libsyn.com/p/assets/e/d/1/4/ed140171de8c3c87d959afa2a1bf1c87/ep._328.png",
+    "thumb": "/episodes/ep-043.jpg"
   },
   {
     "title": "Federal Subcontracting Strategy That Gets You in Front of Project Managers Who Actually Pay",
@@ -419,7 +465,8 @@ export const episodes: Episode[] = [
     "duration": "13:37",
     "link": "https://govcongiants.libsyn.com/federal-subcontracting-strategy-that-gets-you-in-front-of-project-managers-who-actually-pay",
     "audioUrl": "https://traffic.libsyn.com/secure/govcongiants/15-1_Follow_the_Money_Find_Your_Next_Subcontract_-_Zach_Golden_11526_1.mp3?dest-id=1224122",
-    "image": "https://static.libsyn.com/p/assets/f/f/5/7/ff57f9a3fb191dcad959afa2a1bf1c87/FHC_Podcast_Artwork-20260606-axmw5ed9iv.png"
+    "image": "https://static.libsyn.com/p/assets/f/f/5/7/ff57f9a3fb191dcad959afa2a1bf1c87/FHC_Podcast_Artwork-20260606-axmw5ed9iv.png",
+    "thumb": "/episodes/ep-044.jpg"
   },
   {
     "title": "Why Building Relationships Gets You Federal Contracts Before the Competition Even Knows",
@@ -428,7 +475,8 @@ export const episodes: Episode[] = [
     "duration": "14:20",
     "link": "https://govcongiants.libsyn.com/why-building-relationships-gets-you-federal-contracts-before-the-competition-even-knows",
     "audioUrl": "https://traffic.libsyn.com/secure/govcongiants/20-1_Be_Found_Before_You_Bid_-_Randie_Ward_012026.mp4.mp3?dest-id=1224122",
-    "image": "https://static.libsyn.com/p/assets/a/b/a/7/aba7e2e103c40968d959afa2a1bf1c87/FHC_Podcast_Artwork-20260606-luw3fg41bw.png"
+    "image": "https://static.libsyn.com/p/assets/a/b/a/7/aba7e2e103c40968d959afa2a1bf1c87/FHC_Podcast_Artwork-20260606-luw3fg41bw.png",
+    "thumb": "/episodes/ep-045.jpg"
   },
   {
     "title": "How Joint Ventures and Teaming Agreements Work Without Losing Your Small Business Status",
@@ -437,7 +485,8 @@ export const episodes: Episode[] = [
     "duration": "13:33",
     "link": "https://govcongiants.libsyn.com/how-joint-ventures-and-teaming-agreements-work-without-losing-your-small-business-status",
     "audioUrl": "https://traffic.libsyn.com/secure/govcongiants/Clip_2_27-3_Joint_Ventures_Partnering__Teaming_David_Rambhajan_32727.mp3?dest-id=1224122",
-    "image": "https://static.libsyn.com/p/assets/1/9/8/c/198ccbdf60964cebd959afa2a1bf1c87/FHC_Podcast_Artwork-20260602-prc3bnvvad.png"
+    "image": "https://static.libsyn.com/p/assets/1/9/8/c/198ccbdf60964cebd959afa2a1bf1c87/FHC_Podcast_Artwork-20260602-prc3bnvvad.png",
+    "thumb": "/episodes/ep-046.jpg"
   },
   {
     "title": "The Real Reason Small Businesses Lose Government Contracts After Winning Them",
@@ -446,7 +495,8 @@ export const episodes: Episode[] = [
     "duration": "12:35",
     "link": "https://govcongiants.libsyn.com/the-real-reason-small-businesses-lose-government-contracts-after-winning-them",
     "audioUrl": "https://traffic.libsyn.com/secure/govcongiants/3-2_500K_Scale_No_Experience_Needed_-_Eric_Coffie_020326.mp3?dest-id=1224122",
-    "image": "https://static.libsyn.com/p/assets/3/c/3/e/3c3e9b1c845648d3d959afa2a1bf1c87/FHC_Podcast_Artwork-20260531-bvtj35uelv.png"
+    "image": "https://static.libsyn.com/p/assets/3/c/3/e/3c3e9b1c845648d3d959afa2a1bf1c87/FHC_Podcast_Artwork-20260531-bvtj35uelv.png",
+    "thumb": "/episodes/ep-047.jpg"
   },
   {
     "title": "What the Gurus Never Teach About End User Direct Strategy and Winning Federal Contracts",
@@ -455,7 +505,8 @@ export const episodes: Episode[] = [
     "duration": "10:22",
     "link": "https://govcongiants.libsyn.com/what-the-gurus-never-teach-about-end-user-direct-strategy-and-winning-federal-contracts",
     "audioUrl": "https://traffic.libsyn.com/secure/govcongiants/Clip_1_7-5_What_the_Gurus_Dont_Teach_The_DoW_End-User_Direct_Strategy_with_Ryan_Atencio_050726.mp3?dest-id=1224122",
-    "image": "https://static.libsyn.com/p/assets/0/d/4/b/0d4bf61d9d1ff07116c3140a3186d450/FHC_Podcast_Artwork-20260602-51dc4r191r.png"
+    "image": "https://static.libsyn.com/p/assets/0/d/4/b/0d4bf61d9d1ff07116c3140a3186d450/FHC_Podcast_Artwork-20260602-51dc4r191r.png",
+    "thumb": "/episodes/ep-048.jpg"
   },
   {
     "title": "How Smart Govcon Contractors Use BD and Capture to Build a Consistent Winning Pipeline",
@@ -464,7 +515,8 @@ export const episodes: Episode[] = [
     "duration": "09:58",
     "link": "https://govcongiants.libsyn.com/how-smart-govcon-contractors-use-bd-and-capture-to-build-a-consistent-winning-pipeline",
     "audioUrl": "https://traffic.libsyn.com/secure/govcongiants/29-4_BD_vs_Capture_Management_Framework_That_Wins_Million-Dollar_Bids_-_Zach_Golden_042926.mp3?dest-id=1224122",
-    "image": "https://static.libsyn.com/p/assets/e/5/c/4/e5c4241c747a206516c3140a3186d450/FHC_Podcast_Artwork-20260531-piipv9fbyz.png"
+    "image": "https://static.libsyn.com/p/assets/e/5/c/4/e5c4241c747a206516c3140a3186d450/FHC_Podcast_Artwork-20260531-piipv9fbyz.png",
+    "thumb": "/episodes/ep-049.jpg"
   },
   {
     "title": "He Went From Street Life to Government Contracts With Zero Connections | EP: 327",
@@ -473,7 +525,8 @@ export const episodes: Episode[] = [
     "duration": "01:32:46",
     "link": "https://govcongiants.libsyn.com/he-went-from-street-life-to-government-contracts-with-zero-connections-ep-327",
     "audioUrl": "https://traffic.libsyn.com/secure/govcongiants/Homeless_to_1M_GovCon__Julien_Harris_SPILLS_Master_Ps_LIVE.mp3?dest-id=1224122",
-    "image": "https://static.libsyn.com/p/assets/8/5/5/4/8554f22a9d5abdd216c3140a3186d450/327.png"
+    "image": "https://static.libsyn.com/p/assets/8/5/5/4/8554f22a9d5abdd216c3140a3186d450/327.png",
+    "thumb": "/episodes/ep-050.jpg"
   },
   {
     "title": "How Govcon Consultants Track Decision Makers Across Agencies Before Contracts Hit SAM.gov",
@@ -482,7 +535,8 @@ export const episodes: Episode[] = [
     "duration": "08:24",
     "link": "https://govcongiants.libsyn.com/how-govcon-consultants-track-decision-makers-across-agencies-before-contracts-hit-samgov",
     "audioUrl": "https://traffic.libsyn.com/secure/govcongiants/27-1_Find_the_Decision_Maker_Before_They_Post_the_RFP_-_Randie_Ward_012726.mp3?dest-id=1224122",
-    "image": "https://static.libsyn.com/p/assets/0/f/c/8/0fc8ef89c1062e86d959afa2a1bf1c87/FHC_Podcast_Artwork-20260531-ht0pdxn4d3.png"
+    "image": "https://static.libsyn.com/p/assets/0/f/c/8/0fc8ef89c1062e86d959afa2a1bf1c87/FHC_Podcast_Artwork-20260531-ht0pdxn4d3.png",
+    "thumb": "/episodes/ep-051.jpg"
   },
   {
     "title": "Why Subcontracting First Is the Smartest Move Before You Pursue a Prime Government Contract",
@@ -491,7 +545,8 @@ export const episodes: Episode[] = [
     "duration": "07:21",
     "link": "https://govcongiants.libsyn.com/why-subcontracting-first-is-the-smartest-move-before-you-pursue-a-prime-government-contract",
     "audioUrl": "https://traffic.libsyn.com/secure/govcongiants/7-4_Tuesday_Night_Q__A_-_Colin_Nchako_040726.mp3?dest-id=1224122",
-    "image": "https://static.libsyn.com/p/assets/b/0/c/d/b0cd5a360ba28a3816c3140a3186d450/FHC_Podcast_Artwork-20260531-1mn2t0ksaz.png"
+    "image": "https://static.libsyn.com/p/assets/b/0/c/d/b0cd5a360ba28a3816c3140a3186d450/FHC_Podcast_Artwork-20260531-1mn2t0ksaz.png",
+    "thumb": "/episodes/ep-052.jpg"
   },
   {
     "title": "Government Contracting Tools That Help Small Businesses Win More Federal Contracts Faster",
@@ -500,7 +555,8 @@ export const episodes: Episode[] = [
     "duration": "10:02",
     "link": "https://govcongiants.libsyn.com/government-contracting-tools-that-help-small-businesses-win-more-federal-contracts-faster",
     "audioUrl": "https://traffic.libsyn.com/secure/govcongiants/5-5_What_tools_should_I_be_using_that_can_help_me_grow_-_Eric_Coffie_050526.mp3?dest-id=1224122",
-    "image": "https://static.libsyn.com/p/assets/8/9/e/2/89e28773889179e6d959afa2a1bf1c87/FHC_Podcast_Artwork-20260526-cvy31e4m5x.png"
+    "image": "https://static.libsyn.com/p/assets/8/9/e/2/89e28773889179e6d959afa2a1bf1c87/FHC_Podcast_Artwork-20260526-cvy31e4m5x.png",
+    "thumb": "/episodes/ep-053.jpg"
   },
   {
     "title": "Starting a Government Contracting Consulting Business Around AI Companies in 2026",
@@ -509,7 +565,8 @@ export const episodes: Episode[] = [
     "duration": "08:30",
     "link": "https://govcongiants.libsyn.com/starting-a-government-contracting-consulting-business-around-ai-companies-in-2026",
     "audioUrl": "https://traffic.libsyn.com/secure/govcongiants/1___29-1_Decode_Million-Dollar_Proposals_in_3_Minutes_-_Zach_Golden.mp3?dest-id=1224122",
-    "image": "https://static.libsyn.com/p/assets/6/7/0/b/670b3dbebdaaa08916c3140a3186d450/FHC_Podcast_Artwork-20260526-iio39xkdtt.png"
+    "image": "https://static.libsyn.com/p/assets/6/7/0/b/670b3dbebdaaa08916c3140a3186d450/FHC_Podcast_Artwork-20260526-iio39xkdtt.png",
+    "thumb": "/episodes/ep-054.jpg"
   },
   {
     "title": "How Overhead Costs Will Kill Your Small Business if You Don't Watch Them Carefully",
@@ -518,7 +575,8 @@ export const episodes: Episode[] = [
     "duration": "09:32",
     "link": "https://govcongiants.libsyn.com/how-overhead-costs-will-kill-your-small-business-if-you-dont-watch-them-carefully",
     "audioUrl": "https://traffic.libsyn.com/secure/govcongiants/29-1_Profit_Smart__Mastering_Cash_Flow.mp3?dest-id=1224122",
-    "image": "https://static.libsyn.com/p/assets/5/0/4/3/5043db5960115087d959afa2a1bf1c87/FHC_Podcast_Artwork-20260526-y7h1isd7h4.png"
+    "image": "https://static.libsyn.com/p/assets/5/0/4/3/5043db5960115087d959afa2a1bf1c87/FHC_Podcast_Artwork-20260526-y7h1isd7h4.png",
+    "thumb": "/episodes/ep-055.jpg"
   },
   {
     "title": "Why Most Small Businesses Lose Federal Contracts Before They Even Submit a Bid",
@@ -527,7 +585,8 @@ export const episodes: Episode[] = [
     "duration": "08:20",
     "link": "https://govcongiants.libsyn.com/why-most-small-businesses-lose-federal-contracts-before-they-even-submit-a-bid",
     "audioUrl": "https://traffic.libsyn.com/secure/govcongiants/30-4_Kill_90_of_Bad_Bids_in_48_Hours_with_Ryan_Atencio_043026.mp3?dest-id=1224122",
-    "image": "https://static.libsyn.com/p/assets/e/1/c/4/e1c40f23c0b7a858d959afa2a1bf1c87/FHC_Podcast_Artwork-20260526-m5sje3oqjf.png"
+    "image": "https://static.libsyn.com/p/assets/e/1/c/4/e1c40f23c0b7a858d959afa2a1bf1c87/FHC_Podcast_Artwork-20260526-m5sje3oqjf.png",
+    "thumb": "/episodes/ep-056.jpg"
   },
   {
     "title": "8 Brutal Truths About Government Subcontracting That No One Tells Small Businesses | Ep: 326",
@@ -536,7 +595,8 @@ export const episodes: Episode[] = [
     "duration": "50:50",
     "link": "https://govcongiants.libsyn.com/8-brutal-truths-about-government-subcontracting-that-no-one-tells-small-businesses-ep-326",
     "audioUrl": "https://traffic.libsyn.com/secure/govcongiants/May_27_GCG_I_Went_From_a_Payday_Loan_to_a_4.mp3?dest-id=1224122",
-    "image": "https://static.libsyn.com/p/assets/7/2/9/4/72946e277842df0bd959afa2a1bf1c87/ep._326.png"
+    "image": "https://static.libsyn.com/p/assets/7/2/9/4/72946e277842df0bd959afa2a1bf1c87/ep._326.png",
+    "thumb": "/episodes/ep-057.jpg"
   },
   {
     "title": "What Procurement Readiness Really Looks Like Before You Walk Into Any Agency",
@@ -545,7 +605,8 @@ export const episodes: Episode[] = [
     "duration": "08:51",
     "link": "https://govcongiants.libsyn.com/what-procurement-readiness-really-looks-like-before-you-walk-into-any-agency",
     "audioUrl": "https://traffic.libsyn.com/secure/govcongiants/5-5_Ready_Set_Go_-_Procurement_Readiness_-_Randie_Ward_050526.mp3?dest-id=1224122",
-    "image": "https://static.libsyn.com/p/assets/6/c/0/a/6c0a3ebe5e8cb8d1d959afa2a1bf1c87/FHC_Podcast_Artwork-20260524-tqv93n49lx.png"
+    "image": "https://static.libsyn.com/p/assets/6/c/0/a/6c0a3ebe5e8cb8d1d959afa2a1bf1c87/FHC_Podcast_Artwork-20260524-tqv93n49lx.png",
+    "thumb": "/episodes/ep-058.jpg"
   },
   {
     "title": "How to Find Prime Contractors and Pitch Tribal 8a Firms for Subcontracts",
@@ -554,7 +615,8 @@ export const episodes: Episode[] = [
     "duration": "10:27",
     "link": "https://govcongiants.libsyn.com/how-to-find-prime-contractors-and-pitch-tribal-8a-firms-for-subcontracts",
     "audioUrl": "https://traffic.libsyn.com/secure/govcongiants/15_4_Prime_Contractor_Stalking_Method_-_5_Minutes_to_Success_-_Zach_Golden_041526.mp3?dest-id=1224122",
-    "image": "https://static.libsyn.com/p/assets/0/6/4/1/06419190d7ba0f5f16c3140a3186d450/FHC_Podcast_Artwork-20260524-jgt1aef11v.png"
+    "image": "https://static.libsyn.com/p/assets/0/6/4/1/06419190d7ba0f5f16c3140a3186d450/FHC_Podcast_Artwork-20260524-jgt1aef11v.png",
+    "thumb": "/episodes/ep-059.jpg"
   },
   {
     "title": "The Real Reason Big Primes Run Small Business Cohorts and It Is Not to Help You",
@@ -563,7 +625,8 @@ export const episodes: Episode[] = [
     "duration": "06:24",
     "link": "https://govcongiants.libsyn.com/the-real-reason-big-primes-run-small-business-cohorts-and-it-is-not-to-help-you",
     "audioUrl": "https://traffic.libsyn.com/secure/govcongiants/21_4_Get_Ready_for_Next_Quarter_-_Eric_Coffie_042126.mp3?dest-id=1224122",
-    "image": "https://static.libsyn.com/p/assets/f/4/8/9/f48952e2c5c047dd16c3140a3186d450/FHC_Podcast_Artwork-20260518-j4p0agb8b9.png"
+    "image": "https://static.libsyn.com/p/assets/f/4/8/9/f48952e2c5c047dd16c3140a3186d450/FHC_Podcast_Artwork-20260518-j4p0agb8b9.png",
+    "thumb": "/episodes/ep-060.jpg"
   },
   {
     "title": "How to build your first capability statement and get noticed by federal agencies",
@@ -572,7 +635,8 @@ export const episodes: Episode[] = [
     "duration": "11:35",
     "link": "https://govcongiants.libsyn.com/how-to-build-your-first-capability-statement-and-get-noticed-by-federal-agencies",
     "audioUrl": "https://traffic.libsyn.com/secure/govcongiants/27_4_From_Paperwork_to_Profit_Build_Your_First_Capability_Statement_-_Randie_Ward_042726.mp3?dest-id=1224122",
-    "image": "https://static.libsyn.com/p/assets/8/c/a/a/8caa1606fdf1a7f116c3140a3186d450/FHC_Podcast_Artwork-20260518-txi9uzth59.png"
+    "image": "https://static.libsyn.com/p/assets/8/c/a/a/8caa1606fdf1a7f116c3140a3186d450/FHC_Podcast_Artwork-20260518-txi9uzth59.png",
+    "thumb": "/episodes/ep-061.jpg"
   },
   {
     "title": "What a Federal Construction CEO Wants You to Know Before You Bid Your First Contract",
@@ -581,7 +645,8 @@ export const episodes: Episode[] = [
     "duration": "14:05",
     "link": "https://govcongiants.libsyn.com/how-to-grow-bonding-capacity-and-win-bigger-federal-construction-contracts-step-by-step",
     "audioUrl": "https://traffic.libsyn.com/secure/govcongiants/23-1_Sharpshooter_Strategy_Building_a_Foundation_for_Success_-_David_Rambhajan_012326.mp3?dest-id=1224122",
-    "image": "https://static.libsyn.com/p/assets/c/b/c/d/cbcd64f25eea68ab16c3140a3186d450/FHC_Podcast_Artwork-20260518-srrokiy6h3.png"
+    "image": "https://static.libsyn.com/p/assets/c/b/c/d/cbcd64f25eea68ab16c3140a3186d450/FHC_Podcast_Artwork-20260518-srrokiy6h3.png",
+    "thumb": "/episodes/ep-062.jpg"
   },
   {
     "title": "The Industry Secret to Selling High Value Supplies to the Federal Government Revealed",
@@ -590,7 +655,8 @@ export const episodes: Episode[] = [
     "duration": "08:52",
     "link": "https://govcongiants.libsyn.com/the-industry-secret-to-selling-high-value-supplies-to-the-federal-government-revealed",
     "audioUrl": "https://traffic.libsyn.com/secure/govcongiants/23_4_Build_a_Proposal_Dream_Team_Without_Begging_with_Ryan_Atencio_042326.mp3?dest-id=1224122",
-    "image": "https://static.libsyn.com/p/assets/7/d/2/7/7d27be3cba44a60c16c3140a3186d450/FHC_Podcast_Artwork-20260518-rs0ippsfmt.png"
+    "image": "https://static.libsyn.com/p/assets/7/d/2/7/7d27be3cba44a60c16c3140a3186d450/FHC_Podcast_Artwork-20260518-rs0ippsfmt.png",
+    "thumb": "/episodes/ep-063.jpg"
   },
   {
     "title": "Government Contracting Is an Inflation Hedge and Here Is Where to Find the Opportunities | EP: 325",
@@ -599,7 +665,8 @@ export const episodes: Episode[] = [
     "duration": "01:26:42",
     "link": "https://govcongiants.libsyn.com/government-contracting-is-an-inflation-hedge-and-here-is-where-to-find-the-opportunities-ep-325",
     "audioUrl": "https://traffic.libsyn.com/secure/govcongiants/324_Government_Contract_Bid_Opportunities_For_Small_Businesses_June___SAM.mp3?dest-id=1224122",
-    "image": "https://static.libsyn.com/p/assets/a/8/0/8/a808d14aa0a4539616c3140a3186d450/ep._325-20260518-5bx23vss1v.png"
+    "image": "https://static.libsyn.com/p/assets/a/8/0/8/a808d14aa0a4539616c3140a3186d450/ep._325-20260518-5bx23vss1v.png",
+    "thumb": "/episodes/ep-064.jpg"
   },
   {
     "title": "Why your existing expertise is the fastest path to your next government contract win",
@@ -608,7 +675,8 @@ export const episodes: Episode[] = [
     "duration": "13:25",
     "link": "https://govcongiants.libsyn.com/why-your-existing-expertise-is-the-fastest-path-to-your-next-government-contract-win",
     "audioUrl": "https://traffic.libsyn.com/secure/govcongiants/6-4_Identifying_Skills__Building_Expertise_-_Colin_Nchako_2_040626.mp3?dest-id=1224122",
-    "image": "https://static.libsyn.com/p/assets/3/c/c/e/3cce176c0ca50b86d959afa2a1bf1c87/FHC_Podcast_Artwork-20260518-syngvsqwg6.png"
+    "image": "https://static.libsyn.com/p/assets/3/c/c/e/3cce176c0ca50b86d959afa2a1bf1c87/FHC_Podcast_Artwork-20260518-syngvsqwg6.png",
+    "thumb": "/episodes/ep-065.jpg"
   },
   {
     "title": "Bid or No Bid? How to Choose the Right Government Contracts",
@@ -617,7 +685,8 @@ export const episodes: Episode[] = [
     "duration": "06:36",
     "link": "https://govcongiants.libsyn.com/bid-or-no-bid-how-to-choose-the-right-government-contracts",
     "audioUrl": "https://traffic.libsyn.com/secure/govcongiants/24-4_BD_vs_Capture_Management_Framework_That_Wins_Million-Dollar_Bids_-_Zach_Golden_031126.mp3?dest-id=1224122",
-    "image": "https://static.libsyn.com/p/assets/f/2/f/a/f2fae0bff1c42436d959afa2a1bf1c87/FHC_Podcast_Thumbnail-20260324-e0lo9tfopj.png"
+    "image": "https://static.libsyn.com/p/assets/f/2/f/a/f2fae0bff1c42436d959afa2a1bf1c87/FHC_Podcast_Thumbnail-20260324-e0lo9tfopj.png",
+    "thumb": "/episodes/ep-066.jpg"
   },
   {
     "title": "What Is a Contracting Officer Warrant & Why It Matters",
@@ -626,7 +695,8 @@ export const episodes: Episode[] = [
     "duration": "09:12",
     "link": "https://govcongiants.libsyn.com/what-is-a-contracting-officer-warrant-why-it-matters",
     "audioUrl": "https://traffic.libsyn.com/secure/govcongiants/3_How_much_do_you_know_-_Eric_Coffie.mp3?dest-id=1224122",
-    "image": "https://static.libsyn.com/p/assets/a/e/0/c/ae0c0e3ea846e85a16c3140a3186d450/FHC_Podcast_Thumbnail-20260318-pief5dcovt.png"
+    "image": "https://static.libsyn.com/p/assets/a/e/0/c/ae0c0e3ea846e85a16c3140a3186d450/FHC_Podcast_Thumbnail-20260318-pief5dcovt.png",
+    "thumb": "/episodes/ep-067.jpg"
   },
   {
     "title": "What It Really Takes to Win a Government Contract When You Have No Past Performance",
@@ -635,7 +705,8 @@ export const episodes: Episode[] = [
     "duration": "13:39",
     "link": "https://govcongiants.libsyn.com/what-it-really-takes-to-win-a-government-contract-when-you-have-no-past-performance",
     "audioUrl": "https://traffic.libsyn.com/secure/govcongiants/20_4_Be_Found_Before_You_Bid_-_Randie_Ward_042026.mp3?dest-id=1224122",
-    "image": "https://static.libsyn.com/p/assets/7/4/2/3/7423fe9677ba4e98d959afa2a1bf1c87/FHC_Podcast_Artwork-20260504-xuz1xfcmu7.png"
+    "image": "https://static.libsyn.com/p/assets/7/4/2/3/7423fe9677ba4e98d959afa2a1bf1c87/FHC_Podcast_Artwork-20260504-xuz1xfcmu7.png",
+    "thumb": "/episodes/ep-068.jpg"
   },
   {
     "title": "How Federal Contractors Use Community Networks to Land Teaming Partners and Win Bids",
@@ -644,7 +715,8 @@ export const episodes: Episode[] = [
     "duration": "08:48",
     "link": "https://govcongiants.libsyn.com/how-federal-contractors-use-community-networks-to-land-teaming-partners-and-win-bids",
     "audioUrl": "https://traffic.libsyn.com/secure/govcongiants/8-4_Decode_Million-Dollar_Proposals_in_3_Minutes_-_Zach_Golden_040826.mp3?dest-id=1224122",
-    "image": "https://static.libsyn.com/p/assets/9/d/9/c/9d9c8ea32331125816c3140a3186d450/FHC_Podcast_Artwork-20260511-uz085bm8nj.png"
+    "image": "https://static.libsyn.com/p/assets/9/d/9/c/9d9c8ea32331125816c3140a3186d450/FHC_Podcast_Artwork-20260511-uz085bm8nj.png",
+    "thumb": "/episodes/ep-069.jpg"
   },
   {
     "title": "The Custom Kit Strategy That Makes You the Only Vendor a Government Customer Can Call",
@@ -653,7 +725,8 @@ export const episodes: Episode[] = [
     "duration": "08:46",
     "link": "https://govcongiants.libsyn.com/the-custom-kit-strategy-that-makes-you-the-only-vendor-a-government-customer-can-call",
     "audioUrl": "https://traffic.libsyn.com/secure/govcongiants/16_4_The_Micro-Purchase_Loophole_Why_Selling_Supplies_is_the_Fastest_Way_to_Fire_Your_Boss_with_Ryan_Atencio_041626.mp3?dest-id=1224122",
-    "image": "https://static.libsyn.com/p/assets/8/4/a/4/84a4d98cd49ac1bfd959afa2a1bf1c87/FHC_Podcast_Artwork-20260511-2k4u70ws10.png"
+    "image": "https://static.libsyn.com/p/assets/8/4/a/4/84a4d98cd49ac1bfd959afa2a1bf1c87/FHC_Podcast_Artwork-20260511-2k4u70ws10.png",
+    "thumb": "/episodes/ep-070.jpg"
   },
   {
     "title": "How GovCon Giants Market Intelligence Replaces 11 Tools for Small Business Federal Contractors | EP: 324",
@@ -662,7 +735,8 @@ export const episodes: Episode[] = [
     "duration": "01:03:41",
     "link": "https://govcongiants.libsyn.com/how-govcon-giants-market-intelligence-replaces-11-tools-for-small-business-federal-contractors-ep-324",
     "audioUrl": "https://traffic.libsyn.com/secure/govcongiants/324_-_LIVE__Introducing_Daily_Market_Intelligence_Briefings.mp3?dest-id=1224122",
-    "image": "https://static.libsyn.com/p/assets/0/e/2/d/0e2dee9252f2fcc2d959afa2a1bf1c87/ep._324-20260511-eba9xoki13.png"
+    "image": "https://static.libsyn.com/p/assets/0/e/2/d/0e2dee9252f2fcc2d959afa2a1bf1c87/ep._324-20260511-eba9xoki13.png",
+    "thumb": "/episodes/ep-071.jpg"
   },
   {
     "title": "Why Knowing How Agencies Buy Is More Powerful Than Having Any Certification",
@@ -671,7 +745,8 @@ export const episodes: Episode[] = [
     "duration": "11:01",
     "link": "https://govcongiants.libsyn.com/why-knowing-how-agencies-buy-is-more-powerful-than-having-any-certification",
     "audioUrl": "https://traffic.libsyn.com/secure/govcongiants/22_4_Leveraging_Government_Small_Business_Programs_-_David_Rambhajan_042226.mp3?dest-id=1224122",
-    "image": "https://static.libsyn.com/p/assets/1/1/4/2/1142d0d0b358fa09d959afa2a1bf1c87/FHC_Podcast_Artwork-20260511-ij641u6nt5.png"
+    "image": "https://static.libsyn.com/p/assets/1/1/4/2/1142d0d0b358fa09d959afa2a1bf1c87/FHC_Podcast_Artwork-20260511-ij641u6nt5.png",
+    "thumb": "/episodes/ep-072.jpg"
   },
   {
     "title": "8a Certification Stalled: How Congress Can Escalate Your SBA Case",
@@ -680,7 +755,8 @@ export const episodes: Episode[] = [
     "duration": "10:09",
     "link": "https://govcongiants.libsyn.com/8a-certification-stalled-how-congress-can-escalate-your-sba-case",
     "audioUrl": "https://traffic.libsyn.com/secure/govcongiants/2_24_Mar_What_is_happening_in_March_2026_that_I_need_to_know__-_Eric_Coffie_032426.mp3?dest-id=1224122",
-    "image": "https://static.libsyn.com/p/assets/5/0/7/6/5076a87dc9ef9786d959afa2a1bf1c87/FHC_Podcast_Thumbnail-20260410-vqxxb08xsl.png"
+    "image": "https://static.libsyn.com/p/assets/5/0/7/6/5076a87dc9ef9786d959afa2a1bf1c87/FHC_Podcast_Thumbnail-20260410-vqxxb08xsl.png",
+    "thumb": "/episodes/ep-073.jpg"
   },
   {
     "title": "What Every Aspiring Federal Contractor Should Know Before Bidding on Their First Solicitation",
@@ -689,7 +765,8 @@ export const episodes: Episode[] = [
     "duration": "09:18",
     "link": "https://govcongiants.libsyn.com/what-every-aspiring-federal-contractor-should-know-before-bidding-on-their-first-solicitation",
     "audioUrl": "https://traffic.libsyn.com/secure/govcongiants/6-4_Identifying_Skills__Building_Expertise_-_Colin_Nchako_040626.mp3?dest-id=1224122",
-    "image": "https://static.libsyn.com/p/assets/9/3/3/d/933dcc5ba946069d16c3140a3186d450/FHC_Podcast_Artwork-20260506-rekuum71xp.png"
+    "image": "https://static.libsyn.com/p/assets/9/3/3/d/933dcc5ba946069d16c3140a3186d450/FHC_Podcast_Artwork-20260506-rekuum71xp.png",
+    "thumb": "/episodes/ep-074.jpg"
   },
   {
     "title": "New to DOD Contracting? Master PIE and CMMC Before You Bid",
@@ -698,7 +775,8 @@ export const episodes: Episode[] = [
     "duration": "07:04",
     "link": "https://govcongiants.libsyn.com/new-to-dod-contracting-master-pie-and-cmmc-before-you-bid",
     "audioUrl": "https://traffic.libsyn.com/secure/govcongiants/3_6_Ready_Set_Go_-_Procurement_Readiness_-_Randie_Ward_030526.mp3?dest-id=1224122",
-    "image": "https://static.libsyn.com/p/assets/b/b/5/2/bb52e80f04e81debd959afa2a1bf1c87/FHC_Podcast_Thumbnail-20260329-v9phdrvviq.png"
+    "image": "https://static.libsyn.com/p/assets/b/b/5/2/bb52e80f04e81debd959afa2a1bf1c87/FHC_Podcast_Thumbnail-20260329-v9phdrvviq.png",
+    "thumb": "/episodes/ep-075.jpg"
   },
   {
     "title": "Why Now Is the Best Time to Win Government Contracts While Everyone Else Is Scared",
@@ -707,7 +785,8 @@ export const episodes: Episode[] = [
     "duration": "09:58",
     "link": "https://govcongiants.libsyn.com/why-now-is-the-best-time-to-win-government-contracts-while-everyone-else-is-scared",
     "audioUrl": "https://traffic.libsyn.com/secure/govcongiants/14_4_Watch_Your_Back__-_Eric_Coffie_041426.mp3?dest-id=1224122",
-    "image": "https://static.libsyn.com/p/assets/c/8/0/5/c8054bd0de0501ec16c3140a3186d450/FHC_Podcast_Artwork-20260506-nt7cretp1d.png"
+    "image": "https://static.libsyn.com/p/assets/c/8/0/5/c8054bd0de0501ec16c3140a3186d450/FHC_Podcast_Artwork-20260506-nt7cretp1d.png",
+    "thumb": "/episodes/ep-076.jpg"
   },
   {
     "title": "Three Proposal Red Flags That Tell Contracting Officers You Used AI to Write It",
@@ -716,7 +795,8 @@ export const episodes: Episode[] = [
     "duration": "08:41",
     "link": "https://govcongiants.libsyn.com/three-proposal-red-flags-that-tell-contracting-officers-you-used-ai-to-write-it",
     "audioUrl": "https://traffic.libsyn.com/secure/govcongiants/1_Apr_Proposal_Red_Flags_Exposed_-_Zach_Golden_040126.mp3?dest-id=1224122",
-    "image": "https://static.libsyn.com/p/assets/a/7/7/5/a7752b83b5412a0dd959afa2a1bf1c87/FHC_Podcast_Artwork-20260504-zptli27j8u.png"
+    "image": "https://static.libsyn.com/p/assets/a/7/7/5/a7752b83b5412a0dd959afa2a1bf1c87/FHC_Podcast_Artwork-20260504-zptli27j8u.png",
+    "thumb": "/episodes/ep-077.jpg"
   },
   {
     "title": "Sources Sought Responses That Actually Get Noticed | EP: 323",
@@ -725,7 +805,8 @@ export const episodes: Episode[] = [
     "duration": "46:28",
     "link": "https://govcongiants.libsyn.com/sources-sought-responses-that-actually-get-noticed-ep-324",
     "audioUrl": "https://traffic.libsyn.com/secure/govcongiants/8_Encore_2_Sources_Sought_Responses_That_Actually_Get_Noticed.mp3?dest-id=1224122",
-    "image": "https://static.libsyn.com/p/assets/7/6/5/f/765fcd61a8e77e53d959afa2a1bf1c87/ep._320-20260502-pdxiw21m77.png"
+    "image": "https://static.libsyn.com/p/assets/7/6/5/f/765fcd61a8e77e53d959afa2a1bf1c87/ep._320-20260502-pdxiw21m77.png",
+    "thumb": "/episodes/ep-078.jpg"
   },
   {
     "title": "What Large Defense Primes Know About Kitting That Small Businesses Miss",
@@ -734,7 +815,8 @@ export const episodes: Episode[] = [
     "duration": "09:12",
     "link": "https://govcongiants.libsyn.com/what-large-defense-primes-know-about-kitting-that-small-businesses-miss",
     "audioUrl": "https://traffic.libsyn.com/secure/govcongiants/9-4_What_Large_Defense_Primes_Know_About_Kitting_That_Small_Businesses_Miss_040926.mp3?dest-id=1224122",
-    "image": "https://static.libsyn.com/p/assets/d/7/9/e/d79eeaa0a14baf58d959afa2a1bf1c87/FHC_Podcast_Artwork.png"
+    "image": "https://static.libsyn.com/p/assets/d/7/9/e/d79eeaa0a14baf58d959afa2a1bf1c87/FHC_Podcast_Artwork.png",
+    "thumb": "/episodes/ep-079.jpg"
   },
   {
     "title": "Sources Sought: The Legal Way to Shape Government Contracts in Your Favor",
@@ -743,7 +825,8 @@ export const episodes: Episode[] = [
     "duration": "08:11",
     "link": "https://govcongiants.libsyn.com/sources-sought-the-legal-way-to-shape-government-contracts-in-your-favor",
     "audioUrl": "https://traffic.libsyn.com/secure/govcongiants/2_3_Find_Work_Before_You_Bid-_How_to_Read_Sources_Sought__RFIs_-_Randie_Ward_02-23-26.mp3?dest-id=1224122",
-    "image": "https://static.libsyn.com/p/assets/3/1/c/c/31ccc39d6b41fe56d959afa2a1bf1c87/FHC_Podcast_Thumbnail-20260403-l97rg4we40.png"
+    "image": "https://static.libsyn.com/p/assets/3/1/c/c/31ccc39d6b41fe56d959afa2a1bf1c87/FHC_Podcast_Thumbnail-20260403-l97rg4we40.png",
+    "thumb": "/episodes/ep-080.jpg"
   },
   {
     "title": "IDIQ Contracts Explained: Capture Strategy That Actually Works",
@@ -752,7 +835,8 @@ export const episodes: Episode[] = [
     "duration": "09:23",
     "link": "https://govcongiants.libsyn.com/idiq-contracts-explained-capture-strategy-that-actually-works",
     "audioUrl": "https://traffic.libsyn.com/secure/govcongiants/4_How_much_do_you_know_-_Eric_Coffie.mp3?dest-id=1224122",
-    "image": "https://static.libsyn.com/p/assets/7/f/c/8/7fc8ebcf2fdfee65d959afa2a1bf1c87/FHC_Podcast_Thumbnail-20260318-43xkbbvo7z.png"
+    "image": "https://static.libsyn.com/p/assets/7/f/c/8/7fc8ebcf2fdfee65d959afa2a1bf1c87/FHC_Podcast_Thumbnail-20260318-43xkbbvo7z.png",
+    "thumb": "/episodes/ep-081.jpg"
   },
   {
     "title": "Why Your Capability Statement Is Costing You Federal Contracts (And How to Fix It With AI)",
@@ -761,7 +845,8 @@ export const episodes: Episode[] = [
     "duration": "09:09",
     "link": "https://govcongiants.libsyn.com/why-your-capability-statement-is-costing-you-federal-contracts-and-how-to-fix-it-with-ai",
     "audioUrl": "https://traffic.libsyn.com/secure/govcongiants/2_2_100k_Capability_Statement_in_15_Mins_using_AI_-_Zach_Golden_02-18-26.mp3?dest-id=1224122",
-    "image": "https://static.libsyn.com/p/assets/7/5/a/e/75ae714c759dd24616c3140a3186d450/FHC_Podcast_Thumbnail-20260331-ky1ubk1nm0.png"
+    "image": "https://static.libsyn.com/p/assets/7/5/a/e/75ae714c759dd24616c3140a3186d450/FHC_Podcast_Thumbnail-20260331-ky1ubk1nm0.png",
+    "thumb": "/episodes/ep-082.jpg"
   },
   {
     "title": "How Small Businesses Can Consult Their Way Into $47M Federal Deals",
@@ -770,7 +855,8 @@ export const episodes: Episode[] = [
     "duration": "10:06",
     "link": "https://govcongiants.libsyn.com/how-small-businesses-can-consult-their-way-into-47m-federal-deals",
     "audioUrl": "https://traffic.libsyn.com/secure/govcongiants/2_1_Consulting_Pivot-_2M_Pipeline_-_Eric_Coffie_02-24-26.mp3?dest-id=1224122",
-    "image": "https://static.libsyn.com/p/assets/4/7/0/5/4705da5ca860420b16c3140a3186d450/FHC_Podcast_Thumbnail-20260331-4fw3821zmr.png"
+    "image": "https://static.libsyn.com/p/assets/4/7/0/5/4705da5ca860420b16c3140a3186d450/FHC_Podcast_Thumbnail-20260331-4fw3821zmr.png",
+    "thumb": "/episodes/ep-083.jpg"
   },
   {
     "title": "Scared to Bid? How Small Businesses Win Federal Contracts Anyway",
@@ -779,7 +865,8 @@ export const episodes: Episode[] = [
     "duration": "09:09",
     "link": "https://govcongiants.libsyn.com/scared-to-bid-how-small-businesses-win-federal-contracts-anyway",
     "audioUrl": "https://traffic.libsyn.com/secure/govcongiants/2_8_Identifying_Skills__Building_Expertise_-_Colin_Nchako_030226.mp3?dest-id=1224122",
-    "image": "https://static.libsyn.com/p/assets/9/9/3/d/993d704ecd74d4e8d959afa2a1bf1c87/FHC_Podcast_Thumbnail-20260325-rnchel2cd9.png"
+    "image": "https://static.libsyn.com/p/assets/9/9/3/d/993d704ecd74d4e8d959afa2a1bf1c87/FHC_Podcast_Thumbnail-20260325-rnchel2cd9.png",
+    "thumb": "/episodes/ep-084.jpg"
   },
   {
     "title": "How to Find and Respond to SAM.gov Sources Sought Opportunities | EP: 322",
@@ -788,7 +875,8 @@ export const episodes: Episode[] = [
     "duration": "45:23",
     "link": "https://govcongiants.libsyn.com/how-to-fund-govcon-growth-without-killing-cash-flow-ep-322",
     "audioUrl": "https://traffic.libsyn.com/secure/govcongiants/7_Encore_1_How_to_Fund_GovCon_Growth_Without_Killing_Cash_Flow.mp3?dest-id=1224122",
-    "image": "https://static.libsyn.com/p/assets/0/9/c/5/09c59399681993d8d959afa2a1bf1c87/ep._320-20260429-clbyn6rpjx.png"
+    "image": "https://static.libsyn.com/p/assets/0/9/c/5/09c59399681993d8d959afa2a1bf1c87/ep._320-20260429-clbyn6rpjx.png",
+    "thumb": "/episodes/ep-085.jpg"
   },
   {
     "title": "How to Build a Capability Statement That Wins Federal Contracts",
@@ -797,7 +885,8 @@ export const episodes: Episode[] = [
     "duration": "08:25",
     "link": "https://govcongiants.libsyn.com/how-to-build-a-capability-statement-that-wins-federal-contracts",
     "audioUrl": "https://traffic.libsyn.com/secure/govcongiants/2_6_Ready_Set_Go_-_Procurement_Readiness_-_Randie_Ward_030526.mp3?dest-id=1224122",
-    "image": "https://static.libsyn.com/p/assets/1/1/1/9/1119dd74eac0ea3716c3140a3186d450/FHC_Podcast_Thumbnail-20260329-db270gazpt.png"
+    "image": "https://static.libsyn.com/p/assets/1/1/1/9/1119dd74eac0ea3716c3140a3186d450/FHC_Podcast_Thumbnail-20260329-db270gazpt.png",
+    "thumb": "/episodes/ep-086.jpg"
   },
   {
     "title": "How to Review Proposals Fast and Avoid Costly Bidding Mistakes",
@@ -806,7 +895,8 @@ export const episodes: Episode[] = [
     "duration": "06:57",
     "link": "https://govcongiants.libsyn.com/how-to-review-proposals-fast-and-avoid-costly-bidding-mistakes",
     "audioUrl": "https://traffic.libsyn.com/secure/govcongiants/2_7_Decode_Million-Dollar_Proposals_in_3_Minutes_-_Zach_Golden_030426.mp3?dest-id=1224122",
-    "image": "https://static.libsyn.com/p/assets/6/8/3/0/6830d31a6e74f11cd959afa2a1bf1c87/FHC_Podcast_Thumbnail-20260331-e7wkqhhzsq.png"
+    "image": "https://static.libsyn.com/p/assets/6/8/3/0/6830d31a6e74f11cd959afa2a1bf1c87/FHC_Podcast_Thumbnail-20260331-e7wkqhhzsq.png",
+    "thumb": "/episodes/ep-087.jpg"
   },
   {
     "title": "Federal Contract Protests Explained: When to Fight Back and When Not To",
@@ -815,7 +905,8 @@ export const episodes: Episode[] = [
     "duration": "09:40",
     "link": "https://govcongiants.libsyn.com/federal-contract-protests-explained-when-to-fight-back-and-when-not-to",
     "audioUrl": "https://traffic.libsyn.com/secure/govcongiants/2_20_Mar_Rescheduled_Find_Your_Competitors_Secret_Contracts_in_60_Seconds_with_Ryan_Atencio_032026_1.mp3?dest-id=1224122",
-    "image": "https://static.libsyn.com/p/assets/3/6/e/9/36e96172ae957bcfd959afa2a1bf1c87/FHC_Podcast_Thumbnail-20260425-pj4pkgb7rs.png"
+    "image": "https://static.libsyn.com/p/assets/3/6/e/9/36e96172ae957bcfd959afa2a1bf1c87/FHC_Podcast_Thumbnail-20260425-pj4pkgb7rs.png",
+    "thumb": "/episodes/ep-088.jpg"
   },
   {
     "title": "What Federal Buyers Actually Look at Before They Decide to Call You",
@@ -824,7 +915,8 @@ export const episodes: Episode[] = [
     "duration": "09:54",
     "link": "https://govcongiants.libsyn.com/what-federal-buyers-actually-look-at-before-they-decide-to-call-you",
     "audioUrl": "https://traffic.libsyn.com/secure/govcongiants/2_3_Ready_Set_Go_-_Procurement_Readiness_-_Randie_Ward_040626.mp3?dest-id=1224122",
-    "image": "https://static.libsyn.com/p/assets/e/1/0/c/e10cf91513cf8ef116c3140a3186d450/FHC_Podcast_Thumbnail-20260421-m76wc90x8g.png"
+    "image": "https://static.libsyn.com/p/assets/e/1/0/c/e10cf91513cf8ef116c3140a3186d450/FHC_Podcast_Thumbnail-20260421-m76wc90x8g.png",
+    "thumb": "/episodes/ep-089.jpg"
   },
   {
     "title": "How Bid Bonds Work & When You Actually Need Them",
@@ -833,7 +925,8 @@ export const episodes: Episode[] = [
     "duration": "08:52",
     "link": "https://govcongiants.libsyn.com/how-bid-bonds-work-when-you-actually-need-them",
     "audioUrl": "https://traffic.libsyn.com/secure/govcongiants/24-4_Bonding_Subcontractor_Bonds__Payment_Rules.mp3?dest-id=1224122",
-    "image": "https://static.libsyn.com/p/assets/7/4/3/9/74393c3395273eadd959afa2a1bf1c87/FHC_Podcast_Thumbnail-20260322-85tx8j365j.png"
+    "image": "https://static.libsyn.com/p/assets/7/4/3/9/74393c3395273eadd959afa2a1bf1c87/FHC_Podcast_Thumbnail-20260322-85tx8j365j.png",
+    "thumb": "/episodes/ep-090.jpg"
   },
   {
     "title": "How to Sell More Contracts While Staying CMMC Compliant",
@@ -842,7 +935,8 @@ export const episodes: Episode[] = [
     "duration": "10:02",
     "link": "https://govcongiants.libsyn.com/how-to-sell-more-contracts-while-staying-cmmc-compliant",
     "audioUrl": "https://traffic.libsyn.com/secure/govcongiants/2_5_What_the_Gurus_Dont_Teach_The_DoW_End-User_Direct_Strategy_with_Ryan_Atencio_030526.mp3?dest-id=1224122",
-    "image": "https://static.libsyn.com/p/assets/5/a/c/9/5ac96bbcf64f75fe16c3140a3186d450/FHC_Podcast_Thumbnail-20260324-06b06tj8dc.png"
+    "image": "https://static.libsyn.com/p/assets/5/a/c/9/5ac96bbcf64f75fe16c3140a3186d450/FHC_Podcast_Thumbnail-20260324-06b06tj8dc.png",
+    "thumb": "/episodes/ep-091.jpg"
   },
   {
     "title": "How to Build a Cyber Defense Strategy That Meets CMMC Without Overspending | EP: 321",
@@ -851,7 +945,8 @@ export const episodes: Episode[] = [
     "duration": "43:35",
     "link": "https://govcongiants.libsyn.com/how-to-build-a-cyber-defense-strategy-that-meets-cmmc-without-overspending",
     "audioUrl": "https://traffic.libsyn.com/secure/govcongiants/How_to_Build_a_Cyber_Defense_Strategy_That_Meets_CMMC_Without_Overspending.mp3?dest-id=1224122",
-    "image": "https://static.libsyn.com/p/assets/9/7/b/6/97b6b772b99db553d959afa2a1bf1c87/GovCon_5-20260416-bka47fa0km.png"
+    "image": "https://static.libsyn.com/p/assets/9/7/b/6/97b6b772b99db553d959afa2a1bf1c87/GovCon_5-20260416-bka47fa0km.png",
+    "thumb": "/episodes/ep-092.jpg"
   },
   {
     "title": "How to Get Better Clients in Government Contracting (BD Tips)",
@@ -860,7 +955,8 @@ export const episodes: Episode[] = [
     "duration": "07:30",
     "link": "https://govcongiants.libsyn.com/how-to-get-better-clients-in-government-contracting-bd-tips",
     "audioUrl": "https://traffic.libsyn.com/secure/govcongiants/2_BD_vs_Capture_Management_Framework_That_Wins_Million-Dollar_Bids_-_Zach_Golden_031126.mp3?dest-id=1224122",
-    "image": "https://static.libsyn.com/p/assets/6/3/5/8/63581a3951176a0816c3140a3186d450/FHC_Podcast_Thumbnail-20260324-zh8vocr5pp.png"
+    "image": "https://static.libsyn.com/p/assets/6/3/5/8/63581a3951176a0816c3140a3186d450/FHC_Podcast_Thumbnail-20260324-zh8vocr5pp.png",
+    "thumb": "/episodes/ep-093.jpg"
   },
   {
     "title": "Turn Your Hidden Skills Into a Federal Government Contract",
@@ -869,7 +965,8 @@ export const episodes: Episode[] = [
     "duration": "09:16",
     "link": "https://govcongiants.libsyn.com/turn-your-hidden-skills-into-a-federal-government-contract",
     "audioUrl": "https://traffic.libsyn.com/secure/govcongiants/2_1_Identifying_Skills__Building_Expertise_-_Colin_Nchako_02-03-26.mp3?dest-id=1224122",
-    "image": "https://static.libsyn.com/p/assets/5/a/4/c/5a4c90486dede579d959afa2a1bf1c87/FHC_Podcast_Thumbnail-20260418-jwzhht0jk9.png"
+    "image": "https://static.libsyn.com/p/assets/5/a/4/c/5a4c90486dede579d959afa2a1bf1c87/FHC_Podcast_Thumbnail-20260418-jwzhht0jk9.png",
+    "thumb": "/episodes/ep-094.jpg"
   },
   {
     "title": "What to Do When Agencies Keep Requesting Quotes Without Buying",
@@ -878,7 +975,8 @@ export const episodes: Episode[] = [
     "duration": "09:40",
     "link": "https://govcongiants.libsyn.com/what-to-do-when-agencies-keep-requesting-quotes-without-buying",
     "audioUrl": "https://traffic.libsyn.com/secure/govcongiants/2_How_much_do_you_know_-_Eric_Coffie.mp3?dest-id=1224122",
-    "image": "https://static.libsyn.com/p/assets/1/e/6/a/1e6ae8519024f380d959afa2a1bf1c87/FHC_Podcast_Thumbnail-20260318-u3adlow3xg.png"
+    "image": "https://static.libsyn.com/p/assets/1/e/6/a/1e6ae8519024f380d959afa2a1bf1c87/FHC_Podcast_Thumbnail-20260318-u3adlow3xg.png",
+    "thumb": "/episodes/ep-095.jpg"
   },
   {
     "title": "How to Win Federal Contracts When You Have No Past Performance Yet",
@@ -887,7 +985,8 @@ export const episodes: Episode[] = [
     "duration": "08:07",
     "link": "https://govcongiants.libsyn.com/how-to-win-federal-contracts-when-you-have-no-past-performance-yet",
     "audioUrl": "https://traffic.libsyn.com/secure/govcongiants/3_23_Mar_Why_Dont_You_Quit_-_Frank_Spencer_032326.mp3?dest-id=1224122",
-    "image": "https://static.libsyn.com/p/assets/d/e/c/7/dec78c6bcbd898ca16c3140a3186d450/FHC_Podcast_Thumbnail-20260415-eebmebvms6.png"
+    "image": "https://static.libsyn.com/p/assets/d/e/c/7/dec78c6bcbd898ca16c3140a3186d450/FHC_Podcast_Thumbnail-20260415-eebmebvms6.png",
+    "thumb": "/episodes/ep-096.jpg"
   },
   {
     "title": "What Firm Fixed Price and Cost Plus Contracts Mean for Your Bid Strategy",
@@ -896,7 +995,8 @@ export const episodes: Episode[] = [
     "duration": "10:28",
     "link": "https://govcongiants.libsyn.com/how-to-shape-a-solicitation-and-increase-your-probability-of-winning-federal-contracts",
     "audioUrl": "https://traffic.libsyn.com/secure/govcongiants/1_2_Apr_Federal_Business_101_Cracking_the_Code_of_How_the_Government_Buys_with_Ryan_Atencio_040226_new.mp3?dest-id=1224122",
-    "image": "https://static.libsyn.com/p/assets/f/2/a/9/f2a99d387ac536ffd959afa2a1bf1c87/FHC_Podcast_Thumbnail-20260415-xr7hxgqrwh.png"
+    "image": "https://static.libsyn.com/p/assets/f/2/a/9/f2a99d387ac536ffd959afa2a1bf1c87/FHC_Podcast_Thumbnail-20260415-xr7hxgqrwh.png",
+    "thumb": "/episodes/ep-097.jpg"
   },
   {
     "title": "How to show federal agencies you are ready before the capabilities briefing",
@@ -905,7 +1005,8 @@ export const episodes: Episode[] = [
     "duration": "09:41",
     "link": "https://govcongiants.libsyn.com/how-to-show-federal-agencies-you-are-ready-before-the-capabilities-briefing",
     "audioUrl": "https://traffic.libsyn.com/secure/govcongiants/1_3_Ready_Set_Go_-_Procurement_Readiness_-_Randie_Ward_040626.mp3?dest-id=1224122",
-    "image": "https://static.libsyn.com/p/assets/0/4/8/7/0487cd9a0494e104d959afa2a1bf1c87/FHC_Podcast_Thumbnail-20260412-d4o6lo6j3k.png"
+    "image": "https://static.libsyn.com/p/assets/0/4/8/7/0487cd9a0494e104d959afa2a1bf1c87/FHC_Podcast_Thumbnail-20260412-d4o6lo6j3k.png",
+    "thumb": "/episodes/ep-098.jpg"
   },
   {
     "title": "Break Into Government Construction Without Prime Experience | EP: 320",
@@ -914,7 +1015,8 @@ export const episodes: Episode[] = [
     "duration": "02:01:04",
     "link": "https://govcongiants.libsyn.com/break-into-government-construction-without-prime-experience-ep-325",
     "audioUrl": "https://traffic.libsyn.com/secure/govcongiants/9_Encore_3_How_to_Get_Government_Contracts_For_Construction_with_no_Experience.mp3?dest-id=1224122",
-    "image": "https://static.libsyn.com/p/assets/6/f/3/1/6f31e2790bef4a4416c3140a3186d450/ep._320.png"
+    "image": "https://static.libsyn.com/p/assets/6/f/3/1/6f31e2790bef4a4416c3140a3186d450/ep._320.png",
+    "thumb": "/episodes/ep-099.jpg"
   },
   {
     "title": "Government Subcontracting Strategy to Land Contracts and Scale Fast",
@@ -923,7 +1025,8 @@ export const episodes: Episode[] = [
     "duration": "11:24",
     "link": "https://govcongiants.libsyn.com/government-subcontracting-strategy-to-land-contracts-and-scale-fast",
     "audioUrl": "https://traffic.libsyn.com/secure/govcongiants/1_25_Mar_Building_A_Lasting_Presence_in_the_Federal_Space_-_Andre_Jerry_032526.mp3?dest-id=1224122",
-    "image": "https://static.libsyn.com/p/assets/c/4/7/f/c47fcfcd61bb48a916c3140a3186d450/FHC_Podcast_Thumbnail-20260410-tdkocdd02o.png"
+    "image": "https://static.libsyn.com/p/assets/c/4/7/f/c47fcfcd61bb48a916c3140a3186d450/FHC_Podcast_Thumbnail-20260410-tdkocdd02o.png",
+    "thumb": "/episodes/ep-100.jpg"
   },
   {
     "title": "How to Get Government Contracting Clients Using Market Data Strategy",
@@ -932,7 +1035,8 @@ export const episodes: Episode[] = [
     "duration": "09:11",
     "link": "https://govcongiants.libsyn.com/how-to-get-government-contracting-clients-using-market-data-strategy",
     "audioUrl": "https://traffic.libsyn.com/secure/govcongiants/1_25_Mar_Discovery_Calls_That_Actually_Sign_Clients_-_Zach_Golden_032526.mp3?dest-id=1224122",
-    "image": "https://static.libsyn.com/p/assets/f/9/f/9/f9f97d78bb20f5ecd959afa2a1bf1c87/FHC_Podcast_Thumbnail-20260410-9025m6v5ki.png"
+    "image": "https://static.libsyn.com/p/assets/f/9/f/9/f9f97d78bb20f5ecd959afa2a1bf1c87/FHC_Podcast_Thumbnail-20260410-9025m6v5ki.png",
+    "thumb": "/episodes/ep-101.jpg"
   },
   {
     "title": "How Small Businesses Win Federal Contracts Through Relationship Networking",
@@ -941,7 +1045,8 @@ export const episodes: Episode[] = [
     "duration": "09:08",
     "link": "https://govcongiants.libsyn.com/how-small-businesses-win-federal-contracts-through-relationship-networking",
     "audioUrl": "https://traffic.libsyn.com/secure/govcongiants/1_24_Mar_What_is_happening_in_March_2026_that_I_need_to_know__-_Eric_Coffie_032426.mp3?dest-id=1224122",
-    "image": "https://static.libsyn.com/p/assets/8/3/a/7/83a79b1c6505b80616c3140a3186d450/FHC_Podcast_Thumbnail-20260410-smw7ycf4wf.png"
+    "image": "https://static.libsyn.com/p/assets/8/3/a/7/83a79b1c6505b80616c3140a3186d450/FHC_Podcast_Thumbnail-20260410-smw7ycf4wf.png",
+    "thumb": "/episodes/ep-102.jpg"
   },
   {
     "title": "How to Find Government Contracting Points of Contact Using Free Tools",
@@ -950,7 +1055,8 @@ export const episodes: Episode[] = [
     "duration": "08:32",
     "link": "https://govcongiants.libsyn.com/how-to-find-government-contracting-points-of-contact-using-free-tools",
     "audioUrl": "https://traffic.libsyn.com/secure/govcongiants/1_23_Mar_Find_the_Decision_Maker_Before_They_Post_the_RFP_-_Randie_Ward_032326.mp3?dest-id=1224122",
-    "image": "https://static.libsyn.com/p/assets/1/e/0/d/1e0dbcdedd9263dd16c3140a3186d450/FHC_Podcast_Thumbnail-20260408-oihjiuepoj.png"
+    "image": "https://static.libsyn.com/p/assets/1/e/0/d/1e0dbcdedd9263dd16c3140a3186d450/FHC_Podcast_Thumbnail-20260408-oihjiuepoj.png",
+    "thumb": "/episodes/ep-103.jpg"
   },
   {
     "title": "Why I Started My Government Contracting Business and Why It Keeps Me From Quitting",
@@ -959,7 +1065,8 @@ export const episodes: Episode[] = [
     "duration": "09:25",
     "link": "https://govcongiants.libsyn.com/why-i-started-my-government-contracting-business-and-why-it-keeps-me-from-quitting",
     "audioUrl": "https://traffic.libsyn.com/secure/govcongiants/1_23_Mar_Why_Dont_You_Quit_-_Frank_Spencer_032326.mp3?dest-id=1224122",
-    "image": "https://static.libsyn.com/p/assets/e/0/8/8/e088f4e13795811c16c3140a3186d450/FHC_Podcast_Thumbnail-20260408-9sbcy8x7n7.png"
+    "image": "https://static.libsyn.com/p/assets/e/0/8/8/e088f4e13795811c16c3140a3186d450/FHC_Podcast_Thumbnail-20260408-9sbcy8x7n7.png",
+    "thumb": "/episodes/ep-104.jpg"
   },
   {
     "title": "Government Contract Competitor Intelligence Using SAM.gov Free Tools",
@@ -968,7 +1075,8 @@ export const episodes: Episode[] = [
     "duration": "07:56",
     "link": "https://govcongiants.libsyn.com/government-contract-competitor-intelligence-using-samgov-free-tools",
     "audioUrl": "https://traffic.libsyn.com/secure/govcongiants/1_20_Mar_Rescheduled_Find_Your_Competitors_Secret_Contracts_in_60_Seconds_with_Ryan_Atencio_032026_1.mp3?dest-id=1224122",
-    "image": "https://static.libsyn.com/p/assets/6/9/1/9/691934f3a268d279d959afa2a1bf1c87/FHC_Podcast_Thumbnail-20260404-b4wmjgqeig.png"
+    "image": "https://static.libsyn.com/p/assets/6/9/1/9/691934f3a268d279d959afa2a1bf1c87/FHC_Podcast_Thumbnail-20260404-b4wmjgqeig.png",
+    "thumb": "/episodes/ep-105.jpg"
   },
   {
     "title": "SAM.gov Search Strategy That Finds Real Opportunities | EP: 319",
@@ -977,7 +1085,8 @@ export const episodes: Episode[] = [
     "duration": "46:22",
     "link": "https://govcongiants.libsyn.com/7-questions-that-can-land-you-a-government-contract-without-a-bid-ep-319",
     "audioUrl": "https://traffic.libsyn.com/secure/govcongiants/3_SAM.gov_Search_Strategy_That_Finds_Real_Opportunities.mp3?dest-id=1224122",
-    "image": "https://static.libsyn.com/p/assets/6/4/b/f/64bfd388706a8d5f16c3140a3186d450/GovCon_1.png"
+    "image": "https://static.libsyn.com/p/assets/6/4/b/f/64bfd388706a8d5f16c3140a3186d450/GovCon_1.png",
+    "thumb": "/episodes/ep-106.jpg"
   },
   {
     "title": "Prime Contractor Teaming Strategy to Win More Government Contracts",
@@ -986,7 +1095,8 @@ export const episodes: Episode[] = [
     "duration": "08:31",
     "link": "https://govcongiants.libsyn.com/prime-contractor-teaming-strategy-to-win-more-government-contracts",
     "audioUrl": "https://traffic.libsyn.com/secure/govcongiants/1_3_Prime_Contractor_Stalking_Method_-_5_Minutes_to_Success_-_Zach_Golden_02-25-26.mp3?dest-id=1224122",
-    "image": "https://static.libsyn.com/p/assets/5/6/0/c/560ca4276de058a5d959afa2a1bf1c87/FHC_Podcast_Thumbnail-20260403-xhgu5f89vj.png"
+    "image": "https://static.libsyn.com/p/assets/5/6/0/c/560ca4276de058a5d959afa2a1bf1c87/FHC_Podcast_Thumbnail-20260403-xhgu5f89vj.png",
+    "thumb": "/episodes/ep-107.jpg"
   },
   {
     "title": "Government Contracting Skills: How to Identify and Win With What You Know",
@@ -995,7 +1105,8 @@ export const episodes: Episode[] = [
     "duration": "08:47",
     "link": "https://govcongiants.libsyn.com/government-contracting-skills-how-to-identify-and-win-with-what-you-know",
     "audioUrl": "https://traffic.libsyn.com/secure/govcongiants/1_2_Identifying_Skills__Building_Expertise_-_Colin_Nchako_02-03-26.mp3?dest-id=1224122",
-    "image": "https://static.libsyn.com/p/assets/9/a/b/b/9abb07c102f220d316c3140a3186d450/FHC_Podcast_Thumbnail-20260403-b8jfdw9ysg.png"
+    "image": "https://static.libsyn.com/p/assets/9/a/b/b/9abb07c102f220d316c3140a3186d450/FHC_Podcast_Thumbnail-20260403-b8jfdw9ysg.png",
+    "thumb": "/episodes/ep-108.jpg"
   },
   {
     "title": "Sources Sought Strategy: How Small Businesses Win Before the RFP",
@@ -1004,7 +1115,8 @@ export const episodes: Episode[] = [
     "duration": "07:42",
     "link": "https://govcongiants.libsyn.com/sources-sought-strategy-how-small-businesses-win-before-the-rfp",
     "audioUrl": "https://traffic.libsyn.com/secure/govcongiants/1_3_Find_Work_Before_You_Bid-_How_to_Read_Sources_Sought__RFIs_-_Randie_Ward_02-23-26.mp3?dest-id=1224122",
-    "image": "https://static.libsyn.com/p/assets/e/d/c/2/edc29328e196602d16c3140a3186d450/FHC_Podcast_Thumbnail-20260403-s1cjb8x3v5.png"
+    "image": "https://static.libsyn.com/p/assets/e/d/c/2/edc29328e196602d16c3140a3186d450/FHC_Podcast_Thumbnail-20260403-s1cjb8x3v5.png",
+    "thumb": "/episodes/ep-109.jpg"
   },
   {
     "title": "How to Start & Grow a Government Contracting Business: Certifications, Funding & Getting Your First Contract",
@@ -1013,7 +1125,8 @@ export const episodes: Episode[] = [
     "duration": "08:46",
     "link": "https://govcongiants.libsyn.com/how-to-start-grow-a-government-contracting-business-certifications-funding-getting-your-first-contract",
     "audioUrl": "https://traffic.libsyn.com/secure/govcongiants/1_2_Building_A_Lasting_Presence_in_the_Federal_Space_-_Andre_Jerry_02-25-26.mp3?dest-id=1224122",
-    "image": "https://static.libsyn.com/p/assets/d/b/e/8/dbe8041b4f41cf62d959afa2a1bf1c87/FHC_Podcast_Thumbnail-20260401-hy3keot6z5.png"
+    "image": "https://static.libsyn.com/p/assets/d/b/e/8/dbe8041b4f41cf62d959afa2a1bf1c87/FHC_Podcast_Thumbnail-20260401-hy3keot6z5.png",
+    "thumb": "/episodes/ep-110.jpg"
   },
   {
     "title": "What Federal Contractors Must Know About Background Checks & Base Access",
@@ -1022,7 +1135,8 @@ export const episodes: Episode[] = [
     "duration": "11:23",
     "link": "https://govcongiants.libsyn.com/what-federal-contractors-must-know-about-background-checks-base-access",
     "audioUrl": "https://traffic.libsyn.com/secure/govcongiants/1_2_Live_QA_-_Bring_Your_Hard_Questions_-_Eric_Coffie_03-03-26.mp3?dest-id=1224122",
-    "image": "https://static.libsyn.com/p/assets/3/0/3/f/303fff565610ca27d959afa2a1bf1c87/FHC_Podcast_Thumbnail-20260331-e1y7tuu861.png"
+    "image": "https://static.libsyn.com/p/assets/3/0/3/f/303fff565610ca27d959afa2a1bf1c87/FHC_Podcast_Thumbnail-20260331-e1y7tuu861.png",
+    "thumb": "/episodes/ep-111.jpg"
   },
   {
     "title": "Build a $100K Capability Statement in 15 Minutes Using AI Tools",
@@ -1031,7 +1145,8 @@ export const episodes: Episode[] = [
     "duration": "08:28",
     "link": "https://govcongiants.libsyn.com/build-a-100k-capability-statement-in-15-minutes-using-ai-tools",
     "audioUrl": "https://traffic.libsyn.com/secure/govcongiants/1_2_100k_Capability_Statement_in_15_Mins_using_AI_-_Zach_Golden_02-18-26.mp3?dest-id=1224122",
-    "image": "https://static.libsyn.com/p/assets/7/f/5/5/7f551f1802476eb5d959afa2a1bf1c87/FHC_Podcast_Thumbnail-20260331-gmqrom59dp.png"
+    "image": "https://static.libsyn.com/p/assets/7/f/5/5/7f551f1802476eb5d959afa2a1bf1c87/FHC_Podcast_Thumbnail-20260331-gmqrom59dp.png",
+    "thumb": "/episodes/ep-112.jpg"
   },
   {
     "title": "Micro-Purchase Strategy: Fastest Way to Get Federal Revenue | EP: 318",
@@ -1040,7 +1155,8 @@ export const episodes: Episode[] = [
     "duration": "01:22:06",
     "link": "https://govcongiants.libsyn.com/why-small-businesses-should-avoid-large-rfps-and-win-micro-purchases-ep-318",
     "audioUrl": "https://traffic.libsyn.com/secure/govcongiants/Why_Bidding_on_Huge_RFPs_is_Slowing_Down_Your_Government_Business_Judy_Bradt.mp3?dest-id=1224122",
-    "image": "https://static.libsyn.com/p/assets/b/2/a/a/b2aa95d15e7c7c59d959afa2a1bf1c87/GovCon_3.png"
+    "image": "https://static.libsyn.com/p/assets/b/2/a/a/b2aa95d15e7c7c59d959afa2a1bf1c87/GovCon_3.png",
+    "thumb": "/episodes/ep-113.jpg"
   },
   {
     "title": "Building a Capability Statement That Gets You in the Room Fast",
@@ -1049,7 +1165,8 @@ export const episodes: Episode[] = [
     "duration": "08:45",
     "link": "https://govcongiants.libsyn.com/building-a-capability-statement-that-gets-you-in-the-room-fast",
     "audioUrl": "https://traffic.libsyn.com/secure/govcongiants/1_3_From_Average_to_Elite_Supplier-_Why_Most_People_Fail_to_Enter_the_DoW_Inner_Circle_with_Ryan_Atencio_02-26-26.mp3?dest-id=1224122",
-    "image": "https://static.libsyn.com/p/assets/e/7/d/9/e7d932914090ae7316c3140a3186d450/FHC_Podcast_Thumbnail-20260327-4nph7frz2q.png"
+    "image": "https://static.libsyn.com/p/assets/e/7/d/9/e7d932914090ae7316c3140a3186d450/FHC_Podcast_Thumbnail-20260327-4nph7frz2q.png",
+    "thumb": "/episodes/ep-114.jpg"
   },
   {
     "title": "How Federal Contracting Consulting Is the Fastest Path to Big Wins",
@@ -1058,7 +1175,8 @@ export const episodes: Episode[] = [
     "duration": "07:42",
     "link": "https://govcongiants.libsyn.com/how-federal-contracting-consulting-is-the-fastest-path-to-big-wins",
     "audioUrl": "https://traffic.libsyn.com/secure/govcongiants/1_1_Consulting_Pivot-_2M_Pipeline_-_Eric_Coffie_02-24-26.mp3?dest-id=1224122",
-    "image": "https://static.libsyn.com/p/assets/2/3/6/c/236c06bb514c34e516c3140a3186d450/FHC_Podcast_Thumbnail-20260327-yfsso7szoe.png"
+    "image": "https://static.libsyn.com/p/assets/2/3/6/c/236c06bb514c34e516c3140a3186d450/FHC_Podcast_Thumbnail-20260327-yfsso7szoe.png",
+    "thumb": "/episodes/ep-115.jpg"
   },
   {
     "title": "How to Identify Hidden Skills That Win You Federal Contracts Today",
@@ -1067,7 +1185,8 @@ export const episodes: Episode[] = [
     "duration": "09:37",
     "link": "https://govcongiants.libsyn.com/how-to-identify-hidden-skills-that-win-you-federal-contracts-today",
     "audioUrl": "https://traffic.libsyn.com/secure/govcongiants/8_Identifying_Skills__Building_Expertise_-_Colin_Nchako_030226.mp3?dest-id=1224122",
-    "image": "https://static.libsyn.com/p/assets/d/1/f/b/d1fb12748ccf889ad959afa2a1bf1c87/FHC_Podcast_Thumbnail-20260324-qyv636viub.png"
+    "image": "https://static.libsyn.com/p/assets/d/1/f/b/d1fb12748ccf889ad959afa2a1bf1c87/FHC_Podcast_Thumbnail-20260324-qyv636viub.png",
+    "thumb": "/episodes/ep-116.jpg"
   },
   {
     "title": "How to Get Noticed by Agencies in Federal Contracting (Beginner Guide)",
@@ -1076,7 +1195,8 @@ export const episodes: Episode[] = [
     "duration": "09:27",
     "link": "https://govcongiants.libsyn.com/how-to-get-noticed-by-agencies-in-federal-contracting-beginner-guide",
     "audioUrl": "https://traffic.libsyn.com/secure/govcongiants/1_6_Ready_Set_Go_-_Procurement_Readiness_-_Randie_Ward_030526.mp3?dest-id=1224122",
-    "image": "https://static.libsyn.com/p/assets/b/1/1/1/b111a07d003999bcd959afa2a1bf1c87/FHC_Podcast_Thumbnail-20260324-0rt447kkj4.png"
+    "image": "https://static.libsyn.com/p/assets/b/1/1/1/b111a07d003999bcd959afa2a1bf1c87/FHC_Podcast_Thumbnail-20260324-0rt447kkj4.png",
+    "thumb": "/episodes/ep-117.jpg"
   },
   {
     "title": "Decode Million-Dollar Proposals in 3 Minutes Using AI Tools",
@@ -1085,7 +1205,8 @@ export const episodes: Episode[] = [
     "duration": "07:45",
     "link": "https://govcongiants.libsyn.com/using-ai-to-break-down-federal-proposals-in-minutes",
     "audioUrl": "https://traffic.libsyn.com/secure/govcongiants/1_7_Decode_Million-Dollar_Proposals_in_3_Minutes_-_Zach_Golden_030426.mp3?dest-id=1224122",
-    "image": "https://static.libsyn.com/p/assets/3/d/d/2/3dd270d838619d1016c3140a3186d450/FHC_Podcast_Thumbnail-20260324-0g6l9o9e9l.png"
+    "image": "https://static.libsyn.com/p/assets/3/d/d/2/3dd270d838619d1016c3140a3186d450/FHC_Podcast_Thumbnail-20260324-0g6l9o9e9l.png",
+    "thumb": "/episodes/ep-118.jpg"
   },
   {
     "title": "How to Capture Government Contracts Before They Go to Bid",
@@ -1094,7 +1215,8 @@ export const episodes: Episode[] = [
     "duration": "09:51",
     "link": "https://govcongiants.libsyn.com/how-to-capture-government-contracts-before-they-go-to-bid",
     "audioUrl": "https://traffic.libsyn.com/secure/govcongiants/1_5_What_the_Gurus_Dont_Teach_The_DoW_End-User_Direct_Strategy_with_Ryan_Atencio_030526.mp3?dest-id=1224122",
-    "image": "https://static.libsyn.com/p/assets/0/6/7/2/06724d84bdeef79016c3140a3186d450/FHC_Podcast_Thumbnail-20260324-2xpoacwmqq.png"
+    "image": "https://static.libsyn.com/p/assets/0/6/7/2/06724d84bdeef79016c3140a3186d450/FHC_Podcast_Thumbnail-20260324-2xpoacwmqq.png",
+    "thumb": "/episodes/ep-119.jpg"
   },
   {
     "title": "No Past Performance? Here's How You Still Win Federal Contracts | EP: 317",
@@ -1103,7 +1225,8 @@ export const episodes: Episode[] = [
     "duration": "22:44",
     "link": "https://govcongiants.libsyn.com/why-consulting-is-the-easiest-way-to-start-government-contracting-ep-317",
     "audioUrl": "https://traffic.libsyn.com/secure/govcongiants/2_No_Past_Performance_Heres_How_You_Still_Win_Federal_Contracts.mp3?dest-id=1224122",
-    "image": "https://static.libsyn.com/p/assets/e/d/5/5/ed55f7990e05346616c3140a3186d450/GovCon.png"
+    "image": "https://static.libsyn.com/p/assets/e/d/5/5/ed55f7990e05346616c3140a3186d450/GovCon.png",
+    "thumb": "/episodes/ep-120.jpg"
   },
   {
     "title": "Why No New 8(a) Approvals & How to Win Contracts Anyway",
@@ -1112,7 +1235,8 @@ export const episodes: Episode[] = [
     "duration": "12:12",
     "link": "https://govcongiants.libsyn.com/why-no-new-8a-approvals-how-to-win-contracts-anyway",
     "audioUrl": "https://traffic.libsyn.com/secure/govcongiants/24-3_Why_No_New_8a_Approvals__How_to_Win_Contracts_Anyway.mp3?dest-id=1224122",
-    "image": "https://static.libsyn.com/p/assets/9/c/f/3/9cf3708aa550448616c3140a3186d450/FHC_Podcast_Thumbnail-20260322-zhbe2y89fk.png"
+    "image": "https://static.libsyn.com/p/assets/9/c/f/3/9cf3708aa550448616c3140a3186d450/FHC_Podcast_Thumbnail-20260322-zhbe2y89fk.png",
+    "thumb": "/episodes/ep-121.jpg"
   },
   {
     "title": "The Goal Setting Strategy That Helped Me Win My First Big Opportunity",
@@ -1121,7 +1245,8 @@ export const episodes: Episode[] = [
     "duration": "11:54",
     "link": "https://govcongiants.libsyn.com/the-goal-setting-strategy-that-helped-me-win-my-first-big-opportunity",
     "audioUrl": "https://traffic.libsyn.com/secure/govcongiants/1_Sharpshooter_030626.mp3?dest-id=1224122",
-    "image": "https://static.libsyn.com/p/assets/a/5/4/0/a540997ead9b9684d959afa2a1bf1c87/FHC_Podcast_Thumbnail-20260319-p2z6lj0cij.png"
+    "image": "https://static.libsyn.com/p/assets/a/5/4/0/a540997ead9b9684d959afa2a1bf1c87/FHC_Podcast_Thumbnail-20260319-p2z6lj0cij.png",
+    "thumb": "/episodes/ep-122.jpg"
   },
   {
     "title": "NAICS vs PSC Codes: What GovCon Beginners Must Know",
@@ -1130,7 +1255,8 @@ export const episodes: Episode[] = [
     "duration": "09:43",
     "link": "https://govcongiants.libsyn.com/naics-vs-psc-codes-what-govcon-beginners-must-know",
     "audioUrl": "https://traffic.libsyn.com/secure/govcongiants/1_-_Randie_Ward.mp3?dest-id=1224122",
-    "image": "https://static.libsyn.com/p/assets/f/0/7/0/f07059fb0992ac5016c3140a3186d450/FHC_Podcast_Thumbnail-20260318-e6x6v9ipfp.png"
+    "image": "https://static.libsyn.com/p/assets/f/0/7/0/f07059fb0992ac5016c3140a3186d450/FHC_Podcast_Thumbnail-20260318-e6x6v9ipfp.png",
+    "thumb": "/episodes/ep-123.jpg"
   },
   {
     "title": "BD vs. Capture Management: What's the Difference in Federal Contracting?",
@@ -1139,7 +1265,8 @@ export const episodes: Episode[] = [
     "duration": "08:43",
     "link": "https://govcongiants.libsyn.com/bd-vs-capture-management-whats-the-difference-in-federal-contracting",
     "audioUrl": "https://traffic.libsyn.com/secure/govcongiants/1-_Zach_Golden_031126.mp3?dest-id=1224122",
-    "image": "https://static.libsyn.com/p/assets/9/6/f/7/96f7b25a2b89003c16c3140a3186d450/FHC_Podcast_Thumbnail-20260318-tba70ejbns.png"
+    "image": "https://static.libsyn.com/p/assets/9/6/f/7/96f7b25a2b89003c16c3140a3186d450/FHC_Podcast_Thumbnail-20260318-tba70ejbns.png",
+    "thumb": "/episodes/ep-124.jpg"
   },
   {
     "title": "How to Use Sources Sought & RFIs to Win Government Contracts",
@@ -1148,7 +1275,8 @@ export const episodes: Episode[] = [
     "duration": "11:13",
     "link": "https://govcongiants.libsyn.com/how-to-use-sources-sought-rfis-to-win-government-contracts",
     "audioUrl": "https://traffic.libsyn.com/secure/govcongiants/1_Make_the_RFP_Beg_for_YOU_with_Ryan_Atencio_031226.mp3?dest-id=1224122",
-    "image": "https://static.libsyn.com/p/assets/1/f/9/2/1f92103c6196ecb7d959afa2a1bf1c87/FHC_Podcast_Thumbnail-20260318-h6mfvkjox9.png"
+    "image": "https://static.libsyn.com/p/assets/1/f/9/2/1f92103c6196ecb7d959afa2a1bf1c87/FHC_Podcast_Thumbnail-20260318-h6mfvkjox9.png",
+    "thumb": "/episodes/ep-125.jpg"
   },
   {
     "title": "How to Avoid Costly Mistakes with Wage Determinations in Federal Bids",
@@ -1157,7 +1285,8 @@ export const episodes: Episode[] = [
     "duration": "08:44",
     "link": "https://govcongiants.libsyn.com/how-to-avoid-costly-mistakes-with-wage-determinations-in-federal-bids",
     "audioUrl": "https://traffic.libsyn.com/secure/govcongiants/1_How_much_do_you_know_-_Eric_Coffie.mp3?dest-id=1224122",
-    "image": "https://static.libsyn.com/p/assets/0/f/d/3/0fd39fde2ba3684e16c3140a3186d450/FHC_Podcast_Thumbnail.png"
+    "image": "https://static.libsyn.com/p/assets/0/f/d/3/0fd39fde2ba3684e16c3140a3186d450/FHC_Podcast_Thumbnail.png",
+    "thumb": "/episodes/ep-126.jpg"
   },
   {
     "title": "316: Win Your First Government Contract in 2026 (Step-by-Step)",
@@ -1166,7 +1295,8 @@ export const episodes: Episode[] = [
     "duration": "01:20:41",
     "link": "https://govcongiants.libsyn.com/316-win-your-first-government-contract-in-2026-step-by-step",
     "audioUrl": "https://traffic.libsyn.com/secure/govcongiants/1_Win_Your_First_Government_Contract_in_2026_New.mp3?dest-id=1224122",
-    "image": "https://static.libsyn.com/p/assets/9/a/6/3/9a634190e99155afd959afa2a1bf1c87/GovCon_4.png"
+    "image": "https://static.libsyn.com/p/assets/9/a/6/3/9a634190e99155afd959afa2a1bf1c87/GovCon_4.png",
+    "thumb": "/episodes/ep-127.jpg"
   },
   {
     "title": "How UNKNOWN Contractors Make Billions Without Big Contracts",
@@ -1175,7 +1305,8 @@ export const episodes: Episode[] = [
     "duration": "07:17",
     "link": "https://govcongiants.libsyn.com/how-unknown-contractors-make-billions-without-big-contracts",
     "audioUrl": "https://traffic.libsyn.com/secure/govcongiants/EP46_-_No_Ad_FHC.mp3?dest-id=1224122",
-    "image": "https://static.libsyn.com/p/assets/8/b/3/f/8b3f75e0cdb78f4a16c3140a3186d450/The_Federal_Help_Center_Podcast_5.jpg"
+    "image": "https://static.libsyn.com/p/assets/8/b/3/f/8b3f75e0cdb78f4a16c3140a3186d450/The_Federal_Help_Center_Podcast_5.jpg",
+    "thumb": "/episodes/ep-128.jpg"
   },
   {
     "title": "The $15K to $350K Path Most Government Contractors NEVER See",
@@ -1184,7 +1315,8 @@ export const episodes: Episode[] = [
     "duration": "08:01",
     "link": "https://govcongiants.libsyn.com/the-15k-to-350k-path-most-government-contractors-never-see",
     "audioUrl": "https://traffic.libsyn.com/secure/govcongiants/EP45_-_No_Ad_FHC.mp3?dest-id=1224122",
-    "image": "https://static.libsyn.com/p/assets/2/6/d/1/26d1a389442eba2016c3140a3186d450/The_Federal_Help_Center_Podcast_5.jpg"
+    "image": "https://static.libsyn.com/p/assets/2/6/d/1/26d1a389442eba2016c3140a3186d450/The_Federal_Help_Center_Podcast_5.jpg",
+    "thumb": "/episodes/ep-129.jpg"
   },
   {
     "title": "HARSH GovCon Truth: The LOUDEST Contractor Gets the Call",
@@ -1193,7 +1325,8 @@ export const episodes: Episode[] = [
     "duration": "07:57",
     "link": "https://govcongiants.libsyn.com/harsh-govcon-truth-the-loudest-contractor-gets-the-call",
     "audioUrl": "https://traffic.libsyn.com/secure/govcongiants/EP44_-_No_Ad_FHC.mp3?dest-id=1224122",
-    "image": "https://static.libsyn.com/p/assets/2/6/8/9/2689c21d6f0bc55e16c3140a3186d450/The_Federal_Help_Center_Podcast_5.jpg"
+    "image": "https://static.libsyn.com/p/assets/2/6/8/9/2689c21d6f0bc55e16c3140a3186d450/The_Federal_Help_Center_Podcast_5.jpg",
+    "thumb": "/episodes/ep-130.jpg"
   },
   {
     "title": "Why Federal Buying Is Not Fair—and That's Good for Smart Contractors",
@@ -1202,7 +1335,8 @@ export const episodes: Episode[] = [
     "duration": "08:01",
     "link": "https://govcongiants.libsyn.com/why-federal-buying-is-not-fairand-thats-good-for-smart-contractors",
     "audioUrl": "https://traffic.libsyn.com/secure/govcongiants/EP43_-_No_Ad_FHC.mp3?dest-id=1224122",
-    "image": "https://static.libsyn.com/p/assets/8/e/1/c/8e1c641eb733a18b16c3140a3186d450/The_Federal_Help_Center_Podcast_5.jpg"
+    "image": "https://static.libsyn.com/p/assets/8/e/1/c/8e1c641eb733a18b16c3140a3186d450/The_Federal_Help_Center_Podcast_5.jpg",
+    "thumb": "/episodes/ep-131.jpg"
   },
   {
     "title": "How Contractors WIN FASTER Using Unison Marketplace (Up To $350K GovCon Deals!)",
@@ -1211,7 +1345,8 @@ export const episodes: Episode[] = [
     "duration": "07:10",
     "link": "https://govcongiants.libsyn.com/how-contractors-win-faster-using-unison-marketplace-up-to-350k-govcon-deals",
     "audioUrl": "https://traffic.libsyn.com/secure/govcongiants/EP42_-_No_Ad_FHC.mp3?dest-id=1224122",
-    "image": "https://static.libsyn.com/p/assets/8/1/6/5/8165caae2b46ba6ad959afa2a1bf1c87/The_Federal_Help_Center_Podcast_5.jpg"
+    "image": "https://static.libsyn.com/p/assets/8/1/6/5/8165caae2b46ba6ad959afa2a1bf1c87/The_Federal_Help_Center_Podcast_5.jpg",
+    "thumb": "/episodes/ep-132.jpg"
   },
   {
     "title": "The $15,000 GovCon SHORTCUT Nobody Explains Clearly!",
@@ -1220,7 +1355,8 @@ export const episodes: Episode[] = [
     "duration": "07:17",
     "link": "https://govcongiants.libsyn.com/the-15000-govcon-shortcut-nobody-explains-clearly",
     "audioUrl": "https://traffic.libsyn.com/secure/govcongiants/EP41_-_No_ad_FHC.mp3?dest-id=1224122",
-    "image": "https://static.libsyn.com/p/assets/2/3/2/f/232f20bc41675979d959afa2a1bf1c87/The_Federal_Help_Center_Podcast_5.jpg"
+    "image": "https://static.libsyn.com/p/assets/2/3/2/f/232f20bc41675979d959afa2a1bf1c87/The_Federal_Help_Center_Podcast_5.jpg",
+    "thumb": "/episodes/ep-133.jpg"
   },
   {
     "title": "How to Choose SKILLS That Actually WIN Government Contracts",
@@ -1229,7 +1365,8 @@ export const episodes: Episode[] = [
     "duration": "08:23",
     "link": "https://govcongiants.libsyn.com/how-to-choose-skills-that-actually-win-government-contracts",
     "audioUrl": "https://traffic.libsyn.com/secure/govcongiants/EP40_-_No_Ad_FHC.mp3?dest-id=1224122",
-    "image": "https://static.libsyn.com/p/assets/a/c/4/6/ac461f3b2c386aab16c3140a3186d450/The_Federal_Help_Center_Podcast_5.jpg"
+    "image": "https://static.libsyn.com/p/assets/a/c/4/6/ac461f3b2c386aab16c3140a3186d450/The_Federal_Help_Center_Podcast_5.jpg",
+    "thumb": "/episodes/ep-134.jpg"
   },
   {
     "title": "You're Sitting on SKILLS That Could Be Paying You Right Now",
@@ -1238,7 +1375,8 @@ export const episodes: Episode[] = [
     "duration": "06:28",
     "link": "https://govcongiants.libsyn.com/youre-sitting-on-skills-that-could-be-paying-you-right-now",
     "audioUrl": "https://traffic.libsyn.com/secure/govcongiants/EP39_-_No_Ad_FHC.mp3?dest-id=1224122",
-    "image": "https://static.libsyn.com/p/assets/0/a/0/a/0a0a7bd06b60824e16c3140a3186d450/The_Federal_Help_Center_Podcast_5.jpg"
+    "image": "https://static.libsyn.com/p/assets/0/a/0/a/0a0a7bd06b60824e16c3140a3186d450/The_Federal_Help_Center_Podcast_5.jpg",
+    "thumb": "/episodes/ep-135.jpg"
   },
   {
     "title": "You're LOSING Contracts Because You're Looking in the WRONG Places",
@@ -1247,7 +1385,8 @@ export const episodes: Episode[] = [
     "duration": "07:25",
     "link": "https://govcongiants.libsyn.com/youre-losing-contracts-because-youre-looking-in-the-wrong-places",
     "audioUrl": "https://traffic.libsyn.com/secure/govcongiants/EP38_-_No_Ad_FHC.mp3?dest-id=1224122",
-    "image": "https://static.libsyn.com/p/assets/1/f/8/2/1f82e10a4bca861716c3140a3186d450/The_Federal_Help_Center_Podcast_5.jpg"
+    "image": "https://static.libsyn.com/p/assets/1/f/8/2/1f82e10a4bca861716c3140a3186d450/The_Federal_Help_Center_Podcast_5.jpg",
+    "thumb": "/episodes/ep-136.jpg"
   },
   {
     "title": "You're NOT Missing Skills, You're Under-Selling Your Expertise!",
@@ -1256,7 +1395,8 @@ export const episodes: Episode[] = [
     "duration": "07:31",
     "link": "https://govcongiants.libsyn.com/youre-not-missing-skills-youre-under-selling-your-expertise",
     "audioUrl": "https://traffic.libsyn.com/secure/govcongiants/EP37_-_No_Ad_FHC.mp3?dest-id=1224122",
-    "image": "https://static.libsyn.com/p/assets/0/1/d/c/01dc82ce562bed26d959afa2a1bf1c87/The_Federal_Help_Center_Podcast_5.jpg"
+    "image": "https://static.libsyn.com/p/assets/0/1/d/c/01dc82ce562bed26d959afa2a1bf1c87/The_Federal_Help_Center_Podcast_5.jpg",
+    "thumb": "/episodes/ep-137.jpg"
   },
   {
     "title": "315: 5 Moves That Win Government Contracts in 2026 (FREE $1,500 Bootcamp Secrets)",
@@ -1265,7 +1405,8 @@ export const episodes: Episode[] = [
     "duration": "01:36:58",
     "link": "https://govcongiants.libsyn.com/315-5-moves-that-win-government-contracts-in-2026-free-1500-bootcamp-secrets",
     "audioUrl": "https://traffic.libsyn.com/secure/govcongiants/315_-_Encore_1_-_1500_Bootcamp_Secrets_FREE__5_Moves_That_Win_Contracts_in_2026_LIVE.mp3?dest-id=1224122",
-    "image": "https://static.libsyn.com/p/assets/b/7/d/a/b7da8916396f5dc516c3140a3186d450/315_-_5_Moves_That_Win_Contracts_in_2026.png"
+    "image": "https://static.libsyn.com/p/assets/b/7/d/a/b7da8916396f5dc516c3140a3186d450/315_-_5_Moves_That_Win_Contracts_in_2026.png",
+    "thumb": "/episodes/ep-138.jpg"
   },
   {
     "title": "MOST New GovCon Businesses FAIL at This One SIMPLE Step!",
@@ -1274,7 +1415,8 @@ export const episodes: Episode[] = [
     "duration": "06:50",
     "link": "https://govcongiants.libsyn.com/most-new-govcon-businesses-fail-at-this-one-simple-step",
     "audioUrl": "https://traffic.libsyn.com/secure/govcongiants/EP36_-_FHC.mp3?dest-id=1224122",
-    "image": "https://static.libsyn.com/p/assets/8/f/f/c/8ffc98d0403127ded959afa2a1bf1c87/The_Federal_Help_Center_Podcast_5.jpg"
+    "image": "https://static.libsyn.com/p/assets/8/f/f/c/8ffc98d0403127ded959afa2a1bf1c87/The_Federal_Help_Center_Podcast_5.jpg",
+    "thumb": "/episodes/ep-139.jpg"
   },
   {
     "title": "How a $2.2M Contract Was WON With ZERO Past Performance — Just One Bold Move",
@@ -1283,7 +1425,8 @@ export const episodes: Episode[] = [
     "duration": "08:30",
     "link": "https://govcongiants.libsyn.com/how-a-22m-contract-was-won-with-zero-past-performance-just-one-bold-move",
     "audioUrl": "https://traffic.libsyn.com/secure/govcongiants/EP36_-_No_Ad_FHC.mp3?dest-id=1224122",
-    "image": "https://static.libsyn.com/p/assets/9/5/d/2/95d2759aa190794f16c3140a3186d450/The_Federal_Help_Center_Podcast_5.jpg"
+    "image": "https://static.libsyn.com/p/assets/9/5/d/2/95d2759aa190794f16c3140a3186d450/The_Federal_Help_Center_Podcast_5.jpg",
+    "thumb": "/episodes/ep-140.jpg"
   },
   {
     "title": "How to WIN a $16M Federal RECOMPETE by Outsmarting the Incumbent",
@@ -1292,7 +1435,8 @@ export const episodes: Episode[] = [
     "duration": "08:42",
     "link": "https://govcongiants.libsyn.com/how-to-win-a-16m-federal-recompete-by-outsmarting-the-incumbent-0",
     "audioUrl": "https://traffic.libsyn.com/secure/govcongiants/EP34_-_No_Ad_FHC.mp3?dest-id=1224122",
-    "image": "https://static.libsyn.com/p/assets/1/9/1/5/1915cbc8348d0b7416c3140a3186d450/The_Federal_Help_Center_Podcast_5.jpg"
+    "image": "https://static.libsyn.com/p/assets/1/9/1/5/1915cbc8348d0b7416c3140a3186d450/The_Federal_Help_Center_Podcast_5.jpg",
+    "thumb": "/episodes/ep-141.jpg"
   },
   {
     "title": "From COR to Contractor: Winning High-Stakes SOCOM Contracts the Smart Way With Ryan Atencio",
@@ -1301,7 +1445,8 @@ export const episodes: Episode[] = [
     "duration": "08:26",
     "link": "https://govcongiants.libsyn.com/from-cor-to-contractor-winning-high-stakes-socom-contracts-the-smart-way-with-ryan-atencio",
     "audioUrl": "https://traffic.libsyn.com/secure/govcongiants/EP33_-_No_Ad_FHC.mp3?dest-id=1224122",
-    "image": "https://static.libsyn.com/p/assets/5/b/5/5/5b556b0c6c87a4fc16c3140a3186d450/The_Federal_Help_Center_Podcast_5.jpg"
+    "image": "https://static.libsyn.com/p/assets/5/b/5/5/5b556b0c6c87a4fc16c3140a3186d450/The_Federal_Help_Center_Podcast_5.jpg",
+    "thumb": "/episodes/ep-142.jpg"
   },
   {
     "title": "314: 8 Agency Pain Points That Can TRIPLE Your Win Rate in 2026!",
@@ -1310,7 +1455,8 @@ export const episodes: Episode[] = [
     "duration": "01:13:59",
     "link": "https://govcongiants.libsyn.com/314-8-agency-pain-points-that-can-triple-your-win-rate-in-2026",
     "audioUrl": "https://traffic.libsyn.com/secure/govcongiants/314_-_Encore_3_-_Agencies_Are_Under_Pressure_to_Buy__8_Problems_Smart_Small_Businesses_Solve.mp3?dest-id=1224122",
-    "image": "https://static.libsyn.com/p/assets/4/0/7/d/407d750baece5dd8d959afa2a1bf1c87/EP314_-__YT_Live_-_8_Pain_Points.png"
+    "image": "https://static.libsyn.com/p/assets/4/0/7/d/407d750baece5dd8d959afa2a1bf1c87/EP314_-__YT_Live_-_8_Pain_Points.png",
+    "thumb": "/episodes/ep-143.jpg"
   },
   {
     "title": "OpnGovIQ's 2-Part System Contractors NEED Before AI Contracts EXPLODE!",
@@ -1319,7 +1465,8 @@ export const episodes: Episode[] = [
     "duration": "05:42",
     "link": "https://govcongiants.libsyn.com/opngoviqs-2-part-system-contractors-need-before-ai-contracts-explode",
     "audioUrl": "https://traffic.libsyn.com/secure/govcongiants/EP32_-_No_Ad_FHC.mp3?dest-id=1224122",
-    "image": "https://static.libsyn.com/p/assets/3/6/6/e/366ef062da73ebf3d959afa2a1bf1c87/The_Federal_Help_Center_Podcast_5.jpg"
+    "image": "https://static.libsyn.com/p/assets/3/6/6/e/366ef062da73ebf3d959afa2a1bf1c87/The_Federal_Help_Center_Podcast_5.jpg",
+    "thumb": "/episodes/ep-144.jpg"
   },
   {
     "title": "How to Review 6 Federal OPPORTUNITIES in 30 Minutes Using OpnGovIQ",
@@ -1328,7 +1475,8 @@ export const episodes: Episode[] = [
     "duration": "06:45",
     "link": "https://govcongiants.libsyn.com/how-to-review-6-federal-opportunities-in-30-minutes-using-opngoviq",
     "audioUrl": "https://traffic.libsyn.com/secure/govcongiants/EP31_-_No_Ad_FHC.mp3?dest-id=1224122",
-    "image": "https://static.libsyn.com/p/assets/6/1/8/4/6184cf80f9b12156d959afa2a1bf1c87/The_Federal_Help_Center_Podcast_5.jpg"
+    "image": "https://static.libsyn.com/p/assets/6/1/8/4/6184cf80f9b12156d959afa2a1bf1c87/The_Federal_Help_Center_Podcast_5.jpg",
+    "thumb": "/episodes/ep-145.jpg"
   },
   {
     "title": "Avoid VA Proposal DISQUALIFICATION with OpnGovIQ!",
@@ -1337,7 +1485,8 @@ export const episodes: Episode[] = [
     "duration": "06:55",
     "link": "https://govcongiants.libsyn.com/avoid-va-proposal-disqualification-with-opngoviq",
     "audioUrl": "https://traffic.libsyn.com/secure/govcongiants/EP30_-_No_Ad_FHC.mp3?dest-id=1224122",
-    "image": "https://static.libsyn.com/p/assets/6/8/f/a/68fae2a3fc107fa616c3140a3186d450/The_Federal_Help_Center_Podcast_5.jpg"
+    "image": "https://static.libsyn.com/p/assets/6/8/f/a/68fae2a3fc107fa616c3140a3186d450/The_Federal_Help_Center_Podcast_5.jpg",
+    "thumb": "/episodes/ep-146.jpg"
   },
   {
     "title": "The 5-Minute RFP Skim EVERY GovCon Business NEEDS using OpnGovIQ!",
@@ -1346,7 +1495,8 @@ export const episodes: Episode[] = [
     "duration": "07:35",
     "link": "https://govcongiants.libsyn.com/the-5-minute-rfp-skim-every-govcon-business-needs-using-opengoviq",
     "audioUrl": "https://traffic.libsyn.com/secure/govcongiants/EP29_-_No_Ad_FHC.mp3?dest-id=1224122",
-    "image": "https://static.libsyn.com/p/assets/7/a/e/8/7ae85d7d0f8011b016c3140a3186d450/The_Federal_Help_Center_Podcast_5.jpg"
+    "image": "https://static.libsyn.com/p/assets/7/a/e/8/7ae85d7d0f8011b016c3140a3186d450/The_Federal_Help_Center_Podcast_5.jpg",
+    "thumb": "/episodes/ep-147.jpg"
   },
   {
     "title": "313: $26B in 8A Contracts + 1,100 Firms Suspended: Why Opportunity Is Bigger Than Ever With Sam Le",
@@ -1355,7 +1505,8 @@ export const episodes: Episode[] = [
     "duration": "50:52",
     "link": "https://govcongiants.libsyn.com/313-26b-in-8a-contracts-1100-firms-suspended-why-opportunity-is-bigger-than-ever-with-sam-le",
     "audioUrl": "https://traffic.libsyn.com/secure/govcongiants/EP213_-_Encore_2_-_Same_Le_FULL_Audio.mp3?dest-id=1224122",
-    "image": "https://static.libsyn.com/p/assets/5/3/0/b/530bca89f48693e5d959afa2a1bf1c87/EP313_-__Sam_Le.png"
+    "image": "https://static.libsyn.com/p/assets/5/3/0/b/530bca89f48693e5d959afa2a1bf1c87/EP313_-__Sam_Le.png",
+    "thumb": "/episodes/ep-148.jpg"
   },
   {
     "title": "Why YOUR NETWORK Matters More Than Your Next Bid!",
@@ -1364,6 +1515,7 @@ export const episodes: Episode[] = [
     "duration": "06:56",
     "link": "https://govcongiants.libsyn.com/why-your-network-matters-more-than-your-next-bid",
     "audioUrl": "https://traffic.libsyn.com/secure/govcongiants/EP28_-_No_Ad_FHC.mp3?dest-id=1224122",
-    "image": "https://static.libsyn.com/p/assets/1/d/4/5/1d45708e301caba6d959afa2a1bf1c87/The_Federal_Help_Center_Podcast_5.jpg"
+    "image": "https://static.libsyn.com/p/assets/1/d/4/5/1d45708e301caba6d959afa2a1bf1c87/The_Federal_Help_Center_Podcast_5.jpg",
+    "thumb": "/episodes/ep-149.jpg"
   }
 ];

@@ -14,12 +14,12 @@ function scrollToStep1() {
  */
 export default function PathHeader() {
   return (
-    <section className="relative overflow-hidden">
+    <section className="relative overflow-hidden bg-slate-950">
       <div
         className="pointer-events-none absolute inset-0"
         style={{
           background:
-            'radial-gradient(ellipse 80% 60% at 30% 20%, rgba(34,197,94,0.12), transparent 60%)',
+            'radial-gradient(ellipse 80% 60% at 30% 20%, rgba(34,197,94,0.18), transparent 60%)',
         }}
         aria-hidden
       />
@@ -27,7 +27,7 @@ export default function PathHeader() {
         src="/hero-blueprint.svg"
         alt=""
         aria-hidden
-        className="pointer-events-none absolute inset-0 h-full w-full object-cover opacity-60"
+        className="pointer-events-none absolute inset-0 h-full w-full object-cover opacity-25 invert"
       />
 
       <div className="container-gg relative pb-10 pt-16 md:pt-24">
@@ -39,10 +39,10 @@ export default function PathHeader() {
             className="h-0.5 w-6 origin-left bg-brand"
             aria-hidden
           />
-          <span className="kicker">NEW TO GOVCON? START HERE</span>
+          <span className="kicker text-green-400">NEW TO GOVCON? START HERE</span>
         </div>
 
-        <h1 className="mb-6 max-w-[820px] font-display text-4xl font-black leading-[1.05] tracking-[-0.01em] text-slate-900 md:text-[56px]">
+        <h1 className="mb-6 max-w-[820px] font-display text-4xl font-black leading-[1.05] tracking-[-0.01em] text-white md:text-[56px]">
           {['Zero', 'experience?'].map((w, i) => (
             <motion.span
               key={w}
@@ -79,7 +79,7 @@ export default function PathHeader() {
           initial={{ opacity: 0, y: 16 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.5, delay: 0.45, ease: 'easeOut' }}
-          className="mb-8 max-w-[640px] text-lg leading-[1.7] text-slate-600"
+          className="mb-8 max-w-[640px] text-lg leading-[1.7] text-slate-300"
         >
           Eric built a $20M+ federal business starting from nothing. This is the exact
           order he&apos;d do it in again — five steps, all free.
@@ -99,7 +99,7 @@ export default function PathHeader() {
           </button>
           <Link
             to="/podcast"
-            className="inline-flex cursor-pointer items-center justify-center gap-2 rounded-lg border border-line bg-transparent px-7 py-3.5 text-[15px] font-semibold text-slate-900 transition-all duration-150 hover:border-brand hover:text-brand focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand focus-visible:ring-offset-2 focus-visible:ring-offset-base"
+            className="inline-flex cursor-pointer items-center justify-center gap-2 rounded-lg border border-white/30 bg-transparent px-7 py-3.5 text-[15px] font-semibold text-white transition-all duration-150 hover:border-green-400 hover:text-green-400 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand focus-visible:ring-offset-2 focus-visible:ring-offset-base"
           >
             Browse the Podcast
           </Link>

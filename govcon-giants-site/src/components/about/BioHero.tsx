@@ -35,7 +35,7 @@ function TypeOnLine({ text }: { text: string }) {
   }, [text]);
 
   return (
-    <p className="font-mono text-sm tracking-[0.14em] text-brand" aria-label={text}>
+    <p className="font-mono text-sm tracking-[0.14em] text-green-400" aria-label={text}>
       <span aria-hidden>{text.slice(0, count)}</span>
       {count < text.length && (
         <span
@@ -57,12 +57,12 @@ interface BioHeroProps {
  */
 export default function BioHero({ onOpenPlaybook }: BioHeroProps) {
   return (
-    <section className="relative -mt-[72px] flex min-h-[80dvh] items-center overflow-hidden pt-[72px]">
+    <section className="relative -mt-[72px] flex min-h-[80dvh] items-center overflow-hidden bg-slate-950 pt-[72px]">
       <div
         className="pointer-events-none absolute inset-0"
         style={{
           background:
-            'radial-gradient(ellipse 80% 60% at 30% 20%, rgba(34,197,94,0.12), transparent 60%)',
+            'radial-gradient(ellipse 80% 60% at 30% 20%, rgba(34,197,94,0.18), transparent 60%)',
         }}
         aria-hidden
       />
@@ -70,7 +70,7 @@ export default function BioHero({ onOpenPlaybook }: BioHeroProps) {
         src="/hero-blueprint.svg"
         alt=""
         aria-hidden
-        className="pointer-events-none absolute inset-0 h-full w-full object-cover opacity-60"
+        className="pointer-events-none absolute inset-0 h-full w-full object-cover opacity-25 invert"
       />
 
       <div className="container-gg relative grid items-center gap-12 py-16 md:py-20 lg:grid-cols-[40%_60%] lg:gap-14">
@@ -82,7 +82,7 @@ export default function BioHero({ onOpenPlaybook }: BioHeroProps) {
           className="relative mx-auto w-full max-w-sm lg:mx-0"
         >
           <div
-            className="absolute -inset-4 translate-x-4 translate-y-4 rounded-xl border border-line bg-raised"
+            className="absolute -inset-4 translate-x-4 translate-y-4 rounded-xl border border-white/15 bg-white/5"
             aria-hidden
           />
           <img
@@ -102,10 +102,10 @@ export default function BioHero({ onOpenPlaybook }: BioHeroProps) {
               className="h-0.5 w-6 origin-left bg-brand"
               aria-hidden
             />
-            <span className="kicker">ABOUT THE FOUNDER</span>
+            <span className="kicker text-green-400">ABOUT THE FOUNDER</span>
           </div>
 
-          <h1 className="mb-4 font-display text-4xl font-black leading-[1.05] tracking-[-0.01em] text-slate-900 md:text-[56px]">
+          <h1 className="mb-4 font-display text-4xl font-black leading-[1.05] tracking-[-0.01em] text-white md:text-[56px]">
             <motion.span
               initial={{ opacity: 0, y: 24 }}
               animate={{ opacity: 1, y: 0 }}
@@ -132,13 +132,13 @@ export default function BioHero({ onOpenPlaybook }: BioHeroProps) {
             initial={{ opacity: 0, y: 16 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.5, delay: 0.4, ease: 'easeOut' }}
-            className="mb-8 max-w-[560px] text-[19px] leading-[1.7] text-slate-600 md:text-[21px]"
+            className="mb-8 max-w-[560px] text-[19px] leading-[1.7] text-slate-300 md:text-[21px]"
           >
             Eric built Evankoff Construction from zero to{' '}
-            <strong className="font-semibold text-slate-900">$20M+ in government sales</strong>,
+            <strong className="font-semibold text-white">$20M+ in government sales</strong>,
             helped build two 8(a) small businesses to millions in federal revenue, and
             turned one{' '}
-            <strong className="font-semibold text-slate-900">$5M Air Force Base contract</strong>{' '}
+            <strong className="font-semibold text-white">$5M Air Force Base contract</strong>{' '}
             into a platform that teaches everyday people to win extraordinary federal
             contracts.
           </motion.p>
@@ -152,7 +152,7 @@ export default function BioHero({ onOpenPlaybook }: BioHeroProps) {
             <PrimaryButton onClick={onOpenPlaybook}>Get the Free Playbook</PrimaryButton>
             <Link
               to="/podcast"
-              className="inline-flex cursor-pointer items-center justify-center gap-2 rounded-lg border border-line bg-transparent px-7 py-3.5 text-[15px] font-semibold text-slate-900 transition-all duration-150 hover:border-brand hover:text-brand focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand focus-visible:ring-offset-2 focus-visible:ring-offset-base"
+              className="inline-flex cursor-pointer items-center justify-center gap-2 rounded-lg border border-line bg-transparent px-7 py-3.5 text-[15px] font-semibold text-white transition-all duration-150 hover:border-brand hover:text-brand focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand focus-visible:ring-offset-2 focus-visible:ring-offset-base"
             >
               Listen to the Podcast
             </Link>
