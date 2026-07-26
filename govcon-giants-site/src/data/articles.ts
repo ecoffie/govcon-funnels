@@ -14,7 +14,7 @@ export interface Article {
   /** ISO date string (YYYY-MM) */
   date: string;
   readTime: string;
-  /** Thumbnail served from /public */
+  /** Real event photo from /public/summit */
   thumbnail: string;
   featured?: boolean;
 }
@@ -29,7 +29,7 @@ export const articles: Article[] = [
     category: 'Strategy',
     date: '2026-07',
     readTime: '9 min',
-    thumbnail: '/blog-thumb-samgov.png',
+    thumbnail: '/articles/sam-gov-is-not-a-strategy.jpg',
     featured: true,
   },
   {
@@ -40,7 +40,7 @@ export const articles: Article[] = [
     category: 'Certifications',
     date: '2026-07',
     readTime: '7 min',
-    thumbnail: '/blog-thumb-8a.png',
+    thumbnail: '/articles/8a-program-explained.jpg',
   },
   {
     slug: 'cmmc-real-math',
@@ -50,7 +50,7 @@ export const articles: Article[] = [
     category: 'Certifications',
     date: '2026-06',
     readTime: '6 min',
-    thumbnail: '/blog-thumb-cmmc.png',
+    thumbnail: '/articles/cmmc-real-math.jpg',
   },
   {
     slug: 'first-proposal-checklist',
@@ -60,7 +60,7 @@ export const articles: Article[] = [
     category: 'Proposals',
     date: '2026-06',
     readTime: '11 min',
-    thumbnail: '/blog-thumb-proposal.png',
+    thumbnail: '/articles/first-proposal-checklist.jpg',
   },
   {
     slug: 'subcontracting-side-door',
@@ -70,7 +70,7 @@ export const articles: Article[] = [
     category: 'Strategy',
     date: '2026-05',
     readTime: '8 min',
-    thumbnail: '/blog-thumb-subcontract.png',
+    thumbnail: '/articles/subcontracting-side-door.jpg',
   },
   {
     slug: 'teaming-agreements-101',
@@ -80,7 +80,7 @@ export const articles: Article[] = [
     category: 'Strategy',
     date: '2026-05',
     readTime: '8 min',
-    thumbnail: '/blog-thumb-teaming.png',
+    thumbnail: '/articles/teaming-agreements-101.jpg',
   },
   {
     slug: 'register-right-first-time',
@@ -90,7 +90,7 @@ export const articles: Article[] = [
     category: 'Registrations',
     date: '2026-04',
     readTime: '10 min',
-    thumbnail: '/blog-thumb-samgov.png',
+    thumbnail: '/articles/register-right-first-time.jpg',
   },
   {
     slug: 'progress-payments-guide',
@@ -100,7 +100,7 @@ export const articles: Article[] = [
     category: 'Money & Billing',
     date: '2026-04',
     readTime: '7 min',
-    thumbnail: '/blog-thumb-proposal.png',
+    thumbnail: '/articles/progress-payments-guide.jpg',
   },
   {
     slug: 'start-govcon-no-experience',
@@ -110,7 +110,7 @@ export const articles: Article[] = [
     category: 'Getting Started',
     date: '2026-03',
     readTime: '12 min',
-    thumbnail: '/blog-thumb-8a.png',
+    thumbnail: '/articles/start-govcon-no-experience.jpg',
   },
 ];
 

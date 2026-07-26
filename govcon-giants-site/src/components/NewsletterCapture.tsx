@@ -12,6 +12,8 @@ interface NewsletterCaptureProps {
   heading?: string;
   /** Kicker shown above the compact heading. */
   kicker?: string;
+  /** Dark-background styling for the hero variant (photo slideshow hero). */
+  dark?: boolean;
   className?: string;
 }
 
@@ -35,6 +37,8 @@ function useSignup() {
 
 const inputCls =
   'h-12 w-full rounded-lg border border-line bg-raised px-4 text-[15px] text-slate-900 placeholder:text-slate-500 transition-colors focus:border-brand focus:outline-none focus:ring-2 focus:ring-brand/40';
+const inputDarkCls =
+  'h-12 w-full rounded-lg border border-white/40 bg-white/10 px-4 text-[15px] text-white placeholder:text-white/50 backdrop-blur-sm transition-colors focus:border-green-400 focus:outline-none focus:ring-2 focus:ring-green-400/40';
 const btnCls =
   'group inline-flex h-12 shrink-0 items-center justify-center gap-2 whitespace-nowrap rounded-lg bg-brand px-6 text-[15px] font-semibold text-brand-ink transition-all duration-150 hover:bg-brand-hover hover:-translate-y-px active:scale-[0.98] cursor-pointer';
 
@@ -51,9 +55,9 @@ function SuccessNote({ className }: { className?: string }) {
   );
 }
 
-function InlineForm({ buttonLabel }: { buttonLabel: string }) {
+function InlineForm({ buttonLabel, dark }: { buttonLabel: string; dark?: boolean }) {
   const { email, setEmail, done, submit } = useSignup();
-  if (done) return <SuccessNote className="h-12" />;
+  if (done) return <SuccessNote className={cn('h-12', dark && 'text-green-400')} />;
   return (
     <form onSubmit={submit} className="flex w-full flex-col gap-3 sm:flex-row">
       <input
@@ -63,7 +67,7 @@ function InlineForm({ buttonLabel }: { buttonLabel: string }) {
         onChange={(e) => setEmail(e.target.value)}
         placeholder="you@company.com"
         aria-label="Email address"
-        className={inputCls}
+        className={dark ? inputDarkCls : inputCls}
       />
       <button type="submit" className={btnCls}>
         {buttonLabel}
@@ -82,13 +86,19 @@ export default function NewsletterCapture({
   variant = 'hero',
   heading = 'Get new episodes & guides first.',
   kicker = 'FREE · NO SPAM · UNSUBSCRIBE ANYTIME',
+  dark,
   className,
 }: NewsletterCaptureProps) {
   if (variant === 'hero') {
     return (
       <div className={cn('w-full', className)}>
-        <InlineForm buttonLabel="Send Me the Starter Kit" />
-        <p className="mt-3 font-mono text-[11px] tracking-[0.14em] text-slate-500">
+        <InlineForm buttonLabel="Send Me the Starter Kit" dark={dark} />
+        <p
+          className={cn(
+            'mt-3 font-mono text-[11px] tracking-[0.14em]',
+            dark ? 'text-white/60' : 'text-slate-500',
+          )}
+        >
           FREE · NO SPAM · UNSUBSCRIBE ANYTIME
         </p>
       </div>

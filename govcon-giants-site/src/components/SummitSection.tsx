@@ -39,6 +39,7 @@ export default function SummitSection() {
     offset: ['start end', 'end start'],
   });
   const statsY = useTransform(scrollYProgress, [0, 1], [20, -20]);
+  const photoY = useTransform(scrollYProgress, [0, 1], [24, -24]);
 
   return (
     <section className="relative overflow-hidden border-b border-line bg-inset py-16 md:py-24">
@@ -114,18 +115,43 @@ export default function SummitSection() {
             </div>
           </motion.div>
 
+          {/* Photo-led collage: panel shot, stats paper card overlap,
+              rotated Miami VIP-reception photo */}
           <motion.div
             ref={statsRef}
             initial={{ opacity: 0, y: 32 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true, amount: 0.3 }}
             transition={{ duration: 0.5, delay: 0.1, ease: 'easeOut' }}
+            className="relative"
           >
+            <div className="relative">
+              <div
+                aria-hidden
+                className="absolute inset-0 rotate-1 rounded-xl border-2 border-brand"
+              />
+              <div className="relative aspect-[4/3] overflow-hidden rounded-xl border border-line">
+                <motion.div style={{ y: photoY }} className="absolute -inset-y-[8%] inset-x-0">
+                  <img
+                    src="/summit/candid-wide.jpg"
+                    alt="Attendees networking between sessions at the GCG National Summit"
+                    loading="lazy"
+                    className="h-full w-full object-cover"
+                  />
+                </motion.div>
+              </div>
+              <img
+                src="/summit/candid-boat.jpg"
+                alt="GCG National Summit VIP reception on a yacht, Miami skyline"
+                loading="lazy"
+                className="absolute -bottom-10 -left-4 hidden w-44 -rotate-3 rounded-lg border border-line object-cover shadow-[0_16px_40px_rgba(0,0,0,0.2)] sm:block md:w-52"
+              />
+            </div>
             {/* Parallax lives on the inner wrapper so it never fights the
                 entrance animation's `y` */}
             <motion.div
               style={{ y: statsY }}
-              className="grid grid-cols-1 gap-8 rounded-xl border border-line bg-raised p-8 sm:grid-cols-3 md:p-10"
+              className="relative z-10 mx-4 -mt-14 grid grid-cols-1 gap-8 rounded-xl border border-line bg-raised p-8 shadow-[0_8px_30px_rgba(0,0,0,0.08)] sm:grid-cols-3 md:p-10"
             >
               <StatCounter value={700} suffix="+" label="Attendees" />
               <StatCounter value={75} suffix="+" label="Industry speakers" />
