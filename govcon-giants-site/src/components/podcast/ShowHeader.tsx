@@ -1,9 +1,22 @@
-import { motion } from 'framer-motion';
+import { useEffect, useState } from 'react';
+import { AnimatePresence, motion } from 'framer-motion';
 import { ArrowUpRight } from 'lucide-react';
 import Waveform from '@/components/podcast/Waveform';
 import { platforms } from '@/data/platforms';
 
 const EASE = [0.16, 1, 0.3, 1] as [number, number, number, number];
+
+/** Podcast hero slideshow — unique photos, none used on the homepage. */
+const HERO_SLIDES = [
+  'summit-ballroom',
+  'summit-panel',
+  'moment-02',
+  'moment-03',
+  'moment-04',
+  'moment-07',
+  'moment-08',
+  'moment-10',
+];
 
 const headlineWords: { text: string; em?: boolean }[] = [
   { text: 'Every' },
@@ -26,15 +39,34 @@ const metaChips = ['EP: 334+', 'THE DAILY WINDUP', 'INTERVIEWS', 'FREE'];
  * anchor target) and meta chips.
  */
 export default function ShowHeader() {
+  /* Background slideshow — 4s per photo, always rotating;
+     static first slide for reduced-motion users */
+  const [slide, setSlide] = useState(0);
+  useEffect(() => {
+    if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+    const t = window.setInterval(() => setSlide((s) => (s + 1) % HERO_SLIDES.length), 4000);
+    return () => window.clearInterval(t);
+  }, []);
+
   return (
     <section className="relative -mt-[72px] overflow-hidden border-b border-line bg-slate-950 pt-[72px]">
-      {/* Photo backdrop + readability scrims */}
+      {/* Photo slideshow backdrop + readability scrims */}
       <div className="absolute inset-0" aria-hidden>
-        <img
-          src="/summit/summit-ballroom.jpg"
-          alt=""
-          className="h-full w-full object-cover"
-        />
+        <AnimatePresence>
+          <motion.img
+            key={HERO_SLIDES[slide]}
+            src={`/summit/${HERO_SLIDES[slide]}.jpg`}
+            alt=""
+            className="absolute inset-0 h-full w-full object-cover object-center"
+            initial={{ opacity: 0, scale: 1 }}
+            animate={{ opacity: 1, scale: 1.04 }}
+            exit={{ opacity: 0 }}
+            transition={{
+              opacity: { duration: 1.2, ease: 'easeOut' },
+              scale: { duration: 6, ease: 'linear' },
+            }}
+          />
+        </AnimatePresence>
         <div className="absolute inset-0 bg-gradient-to-t from-black/85 via-black/60 to-black/40" />
         <div className="absolute inset-0 bg-gradient-to-r from-black/55 via-black/20 to-transparent" />
       </div>
