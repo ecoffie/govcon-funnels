@@ -117,8 +117,8 @@ export default function Footer() {
           </div>
           <p className="font-mono text-xs text-slate-500">
             © {new Date().getFullYear()} GOVCON GIANTS · MIAMI, FL ·{' '}
-            <Link to="/privacy" className="hover:text-brand">PRIVACY</Link> ·{' '}
-            <Link to="/terms" className="hover:text-brand">TERMS</Link>
+            <a href="https://govcongiants.com/privacy" className="hover:text-brand">PRIVACY</a> ·{' '}
+            <a href="https://govcongiants.com/terms" className="hover:text-brand">TERMS</a>
           </p>
         </div>
       </div>

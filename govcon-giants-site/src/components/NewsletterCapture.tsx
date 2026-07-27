@@ -1,8 +1,10 @@
-import type { FormEvent } from 'react';
-import { useEffect, useState } from 'react';
+import { useEffect } from 'react';
 import { AnimatePresence, motion } from 'framer-motion';
 import { ArrowRight, CheckCircle2, X } from 'lucide-react';
 import { cn } from '@/lib/utils';
+import { useSignup as useLeadSignup } from '@/lib/useSignup';
+
+const useSignup = () => useLeadSignup(['playbook-starter-kit']);
 
 type Variant = 'hero' | 'compact' | 'modal';
 
@@ -15,24 +17,6 @@ interface NewsletterCaptureProps {
   /** Dark-background styling for the hero variant (photo slideshow hero). */
   dark?: boolean;
   className?: string;
-}
-
-function useSignup() {
-  const [email, setEmail] = useState('');
-  const [done, setDone] = useState(false);
-  const submit = (e: FormEvent) => {
-    e.preventDefault();
-    if (!email.trim()) return;
-    try {
-      const list = JSON.parse(localStorage.getItem('gg-signups') ?? '[]') as string[];
-      list.push(email.trim());
-      localStorage.setItem('gg-signups', JSON.stringify(list));
-    } catch {
-      /* storage unavailable — still show success */
-    }
-    setDone(true);
-  };
-  return { email, setEmail, done, submit };
 }
 
 const inputCls =
@@ -49,8 +33,16 @@ function SuccessNote({ className }: { className?: string }) {
       animate={{ opacity: 1, y: 0 }}
       className={cn('flex items-center gap-2 text-[15px] font-medium text-brand', className)}
     >
-      <CheckCircle2 className="h-5 w-5" />
-      Check your inbox. The Playbook is on its way.
+      <CheckCircle2 className="h-5 w-5 shrink-0" />
+      <span>
+        You&apos;re on the list.{' '}
+        <a
+          href="https://govcongiants.com/guides/finding-government-contracts?utm_source=podcast-site&utm_content=starter-kit"
+          className="underline underline-offset-4 hover:text-slate-900"
+        >
+          Start with the free buyer-finding guide →
+        </a>
+      </span>
     </motion.p>
   );
 }
@@ -188,7 +180,7 @@ export function NewsletterModal({ open, onClose }: NewsletterModalProps) {
               </h3>
               <p className="mb-6 text-[15px] leading-relaxed text-slate-600">
                 Five of the 72 federal websites Eric uses to find buyers, partners, and
-                contracts — delivered instantly, free.
+                contracts — free, with instant access to the full guide library.
               </p>
               {done ? (
                 <SuccessNote />
