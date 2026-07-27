@@ -53,15 +53,20 @@ export default function Blog() {
     <div className="bg-base">
       {/* ——— Section 1: Page header ——— */}
       <section className="relative overflow-hidden bg-slate-950">
-        <div aria-hidden className="absolute inset-0">
-          <img
-            src="/summit/summit-audience.jpg"
-            alt=""
-            className="h-full w-full object-cover object-center"
-          />
-          <div className="absolute inset-0 bg-gradient-to-t from-black/85 via-black/60 to-black/45" />
-          <div className="absolute inset-0 bg-gradient-to-r from-black/50 to-transparent" />
-        </div>
+        <div
+          aria-hidden
+          className="pointer-events-none absolute inset-0"
+          style={{
+            background:
+              'radial-gradient(ellipse 80% 60% at 30% 20%, rgba(34,197,94,0.18), transparent 60%)',
+          }}
+        />
+        <img
+          src="/hero-blueprint.svg"
+          alt=""
+          aria-hidden
+          className="pointer-events-none absolute inset-0 h-full w-full object-cover opacity-25 invert"
+        />
         <div className="container-gg relative py-16 md:py-24">
           <div className="mb-5 flex items-center gap-3">
             <motion.span
