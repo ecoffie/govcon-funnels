@@ -77,7 +77,7 @@ export default function BookFeature({ onGetFreeWebsites }: BookFeatureProps) {
             whileInView={{ scale: 1, opacity: 1 }}
             viewport={{ once: true }}
             transition={{ type: 'spring', stiffness: 200, damping: 12, delay: 0.3 }}
-            className="absolute -right-2 top-4 rounded-md bg-gold px-3 py-1.5 font-mono text-[11px] font-semibold tracking-[0.14em] text-slate-900 shadow-[0_8px_24px_rgba(0,0,0,0.2)]"
+            className="absolute -right-2 top-4 rounded-md bg-gold px-3 py-1.5 font-mono text-[11px] font-semibold tracking-[0.14em] text-slate-900 dark:text-white shadow-[0_8px_24px_rgba(0,0,0,0.2)]"
           >
             72 WEBSITES
           </motion.span>
@@ -103,14 +103,14 @@ export default function BookFeature({ onGetFreeWebsites }: BookFeatureProps) {
 
           <motion.h2
             variants={{ hidden: { opacity: 0, y: 24 }, show: { opacity: 1, y: 0, transition: { duration: 0.45, ease: EASE } } }}
-            className="font-display text-3xl font-black leading-[1.1] tracking-tight text-slate-900 md:text-[40px]"
+            className="font-display text-3xl font-black leading-[1.1] tracking-tight text-slate-900 dark:text-white md:text-[40px]"
           >
             Billion Dollar <em className="italic text-brand">Playbook</em>
           </motion.h2>
 
           <motion.p
             variants={{ hidden: { opacity: 0, y: 24 }, show: { opacity: 1, y: 0, transition: { duration: 0.45, ease: EASE } } }}
-            className="mt-4 max-w-xl text-[17px] leading-[1.7] text-slate-600"
+            className="mt-4 max-w-xl text-[17px] leading-[1.7] text-slate-600 dark:text-slate-300"
           >
             72 Websites for Massive Scaling in the Federal Marketplace — the exact
             sites Eric used to go from zero to $20M+ in government sales.
@@ -121,7 +121,7 @@ export default function BookFeature({ onGetFreeWebsites }: BookFeatureProps) {
             className="mt-7 space-y-3.5"
           >
             {bullets.map((b) => (
-              <li key={b} className="flex items-start gap-3 text-base leading-relaxed text-slate-600">
+              <li key={b} className="flex items-start gap-3 text-base leading-relaxed text-slate-600 dark:text-slate-300">
                 <span className="mt-[7px] h-2 w-2 shrink-0 bg-brand" aria-hidden />
                 {b}
               </li>
@@ -145,7 +145,7 @@ export default function BookFeature({ onGetFreeWebsites }: BookFeatureProps) {
 
           <motion.p
             variants={{ hidden: { opacity: 0, y: 24 }, show: { opacity: 1, y: 0, transition: { duration: 0.45, ease: EASE } } }}
-            className="mt-6 font-mono text-xs tracking-[0.14em] text-slate-500"
+            className="mt-6 font-mono text-xs tracking-[0.14em] text-slate-500 dark:text-slate-400"
           >
             USED BY THOUSANDS OF FEDERAL CONTRACTORS
           </motion.p>

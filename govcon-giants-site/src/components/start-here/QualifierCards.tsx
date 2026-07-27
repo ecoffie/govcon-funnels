@@ -72,8 +72,8 @@ export default function QualifierCards() {
               <div className="mb-4">
                 <Icon />
               </div>
-              <h3 className="mb-2 font-display text-2xl font-extrabold tracking-tight text-slate-900">{title}</h3>
-              <p className="text-[15px] leading-[1.7] text-slate-500">{body}</p>
+              <h3 className="mb-2 font-display text-2xl font-extrabold tracking-tight text-slate-900 dark:text-white">{title}</h3>
+              <p className="text-[15px] leading-[1.7] text-slate-500 dark:text-slate-400">{body}</p>
             </motion.div>
           ))}
         </div>

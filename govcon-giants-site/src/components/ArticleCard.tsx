@@ -42,13 +42,13 @@ export default function ArticleCard({ article, index = 0, className }: ArticleCa
           </span>
         </div>
         <div className="flex flex-1 flex-col p-5">
-          <h3 className="mb-2 font-display text-[22px] font-extrabold leading-snug tracking-tight text-slate-900 transition-colors group-hover:text-brand">
+          <h3 className="mb-2 font-display text-[22px] font-extrabold leading-snug tracking-tight text-slate-900 dark:text-white transition-colors group-hover:text-brand">
             {article.title}
           </h3>
-          <p className="mb-4 line-clamp-2 flex-1 text-sm leading-relaxed text-slate-500">
+          <p className="mb-4 line-clamp-2 flex-1 text-sm leading-relaxed text-slate-500 dark:text-slate-400">
             {article.excerpt}
           </p>
-          <p className="font-mono text-xs uppercase tracking-wider text-slate-500">
+          <p className="font-mono text-xs uppercase tracking-wider text-slate-500 dark:text-slate-400">
             {dateLabel} · {article.readTime} read
           </p>
         </div>

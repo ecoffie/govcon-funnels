@@ -44,7 +44,7 @@ function ShareRow({ title }: { title: string }) {
   const [copied, setCopied] = useState(false);
   const url = typeof window !== 'undefined' ? window.location.href : '';
   const iconCls =
-    'cursor-pointer text-slate-500 transition-colors duration-150 hover:text-brand';
+    'cursor-pointer text-slate-500 dark:text-slate-400 transition-colors duration-150 hover:text-brand';
 
   const copy = async () => {
     try {
@@ -207,7 +207,7 @@ function BodyBlock({ block, h2Number }: { block: ArticleBlock; h2Number: number 
           </p>
           <ul className="space-y-3">
             {block.items.map((item, i) => (
-              <li key={i} className="flex gap-3 text-[15px] leading-relaxed text-slate-600">
+              <li key={i} className="flex gap-3 text-[15px] leading-relaxed text-slate-600 dark:text-slate-300">
                 <Check className="mt-0.5 h-5 w-5 shrink-0 text-brand" />
                 <span>{item}</span>
               </li>
@@ -234,7 +234,7 @@ export default function BlogPost() {
   if (!article) {
     return (
       <div className="container-gg py-24 text-center">
-        <h1 className="mb-4 font-display text-4xl font-black text-slate-900">Article not found</h1>
+        <h1 className="mb-4 font-display text-4xl font-black text-slate-900 dark:text-white">Article not found</h1>
         <Link to="/blog" className="font-semibold text-brand hover:underline">
           ← Back to the blog
         </Link>
@@ -262,7 +262,7 @@ export default function BlogPost() {
         >
           {article.category}
         </motion.span>
-        <h1 className="mt-6 font-display text-4xl font-black leading-[1.1] tracking-tight text-slate-900 md:text-5xl">
+        <h1 className="mt-6 font-display text-4xl font-black leading-[1.1] tracking-tight text-slate-900 dark:text-white md:text-5xl">
           {article.title.split(' ').map((word, i, arr) => (
             <span key={i} className="inline-block overflow-hidden pb-1 align-bottom">
               <motion.span
@@ -281,7 +281,7 @@ export default function BlogPost() {
           initial={{ opacity: 0, y: 12 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.4, delay: 0.35, ease: 'easeOut' }}
-          className="mt-6 font-mono text-[13px] uppercase tracking-[0.14em] text-slate-500"
+          className="mt-6 font-mono text-[13px] uppercase tracking-[0.14em] text-slate-500 dark:text-slate-400"
         >
           Eric Coffie · {formatDate(article.date)} · {article.readTime} read
         </motion.p>
@@ -337,10 +337,10 @@ export default function BlogPost() {
             />
             <div>
               <p className="text-base font-bold text-paper-ink">Eric Coffie</p>
-              <p className="mb-3 mt-1 font-mono text-[11px] uppercase tracking-[0.18em] text-slate-500">
+              <p className="mb-3 mt-1 font-mono text-[11px] uppercase tracking-[0.18em] text-slate-500 dark:text-slate-400">
                 Founder, GovCon Giants
               </p>
-              <p className="text-[15px] leading-[1.7] text-slate-600">
+              <p className="text-[15px] leading-[1.7] text-slate-600 dark:text-slate-300">
                 Eric has helped small businesses win billions in federal contracts through the
                 GovCon Giants Podcast, ScoreGov, and the Billion Dollar Playbook. He teaches
                 GovCon the way he learned it: in the field, with real bids and real money on the
@@ -382,7 +382,7 @@ export default function BlogPost() {
               className="hidden w-[120px] shrink-0 rounded-md shadow-[0_16px_40px_rgba(0,0,0,0.25)] md:block"
             />
             <div className="max-w-2xl flex-1">
-              <h3 className="mb-6 font-display text-[28px] font-extrabold leading-snug tracking-tight text-slate-900">
+              <h3 className="mb-6 font-display text-[28px] font-extrabold leading-snug tracking-tight text-slate-900 dark:text-white">
                 Want the 72 websites this article is <em className="italic text-brand">based on</em>?
               </h3>
               <NewsletterCapture
@@ -418,10 +418,10 @@ export default function BlogPost() {
           <div className="mt-14 flex items-start justify-between gap-6 border-t border-line pt-8">
             {prev ? (
               <Link to={`/blog/${prev.slug}`} className="group max-w-[45%]">
-                <p className="mb-2 font-mono text-xs uppercase tracking-[0.18em] text-slate-500 transition-colors group-hover:text-brand">
+                <p className="mb-2 font-mono text-xs uppercase tracking-[0.18em] text-slate-500 dark:text-slate-400 transition-colors group-hover:text-brand">
                   ← Prev
                 </p>
-                <p className="text-[15px] font-semibold leading-snug text-slate-600 transition-colors group-hover:text-slate-900">
+                <p className="text-[15px] font-semibold leading-snug text-slate-600 dark:text-slate-300 transition-colors group-hover:text-slate-900 dark:group-hover:text-white dark:hover:text-white">
                   {prev.title}
                 </p>
               </Link>
@@ -430,10 +430,10 @@ export default function BlogPost() {
             )}
             {next ? (
               <Link to={`/blog/${next.slug}`} className="group max-w-[45%] text-right">
-                <p className="mb-2 font-mono text-xs uppercase tracking-[0.18em] text-slate-500 transition-colors group-hover:text-brand">
+                <p className="mb-2 font-mono text-xs uppercase tracking-[0.18em] text-slate-500 dark:text-slate-400 transition-colors group-hover:text-brand">
                   Next →
                 </p>
-                <p className="text-[15px] font-semibold leading-snug text-slate-600 transition-colors group-hover:text-slate-900">
+                <p className="text-[15px] font-semibold leading-snug text-slate-600 dark:text-slate-300 transition-colors group-hover:text-slate-900 dark:group-hover:text-white dark:hover:text-white">
                   {next.title}
                 </p>
               </Link>

@@ -67,11 +67,11 @@ export default function EpisodeCard({ episode, index = 0, className }: EpisodeCa
       </div>
       <div className="p-5">
         <a href={episode.link} target="_blank" rel="noopener noreferrer" className="block">
-          <h3 className="mb-2 line-clamp-2 text-[17px] font-semibold leading-snug text-slate-900 transition-colors hover:text-brand">
+          <h3 className="mb-2 line-clamp-2 text-[17px] font-semibold leading-snug text-slate-900 dark:text-white transition-colors hover:text-brand">
             {episode.title}
           </h3>
         </a>
-        <p className="font-mono text-[13px] text-slate-500">
+        <p className="font-mono text-[13px] text-slate-500 dark:text-slate-400">
           {formatEpisodeDate(episode.date)}
         </p>
         {open && (

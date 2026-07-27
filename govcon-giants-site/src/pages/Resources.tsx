@@ -115,7 +115,7 @@ function FinalCta() {
             transition={{ type: 'spring', stiffness: 90, damping: 14 }}
             className="mx-auto mb-8 w-28 animate-float-y rounded-lg shadow-[0_20px_50px_rgba(0,0,0,0.25)] lg:absolute lg:-left-56 lg:top-1/2 lg:mb-0 lg:w-[140px] lg:-translate-y-1/2"
           />
-          <h2 className="mb-4 font-display text-3xl font-black tracking-tight text-slate-900 md:text-[40px]">
+          <h2 className="mb-4 font-display text-3xl font-black tracking-tight text-slate-900 dark:text-white md:text-[40px]">
             {['Start', 'with', 'the'].map((w, i) => (
               <motion.span
                 key={w}
@@ -143,7 +143,7 @@ function FinalCta() {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.5, delay: 0.2, ease: 'easeOut' }}
-            className="mb-8 text-[17px] leading-[1.7] text-slate-600"
+            className="mb-8 text-[17px] leading-[1.7] text-slate-600 dark:text-slate-300"
           >
             Five of the 72 federal websites Eric uses to find buyers, partners, and
             contracts — free, in your inbox, today.

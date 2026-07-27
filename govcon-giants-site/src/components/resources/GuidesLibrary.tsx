@@ -41,10 +41,10 @@ export default function GuidesLibrary({ onSelect }: GuidesLibraryProps) {
               <span className="mb-5 inline-flex h-11 w-11 items-center justify-center rounded-lg bg-brand-soft text-brand transition-transform duration-200 group-hover:rotate-[8deg]">
                 <guide.icon className="h-5 w-5" aria-hidden />
               </span>
-              <h3 className="font-display text-xl font-extrabold leading-[1.2] tracking-tight text-slate-900 transition-colors group-hover:text-brand">
+              <h3 className="font-display text-xl font-extrabold leading-[1.2] tracking-tight text-slate-900 dark:text-white transition-colors group-hover:text-brand">
                 {guide.title}
               </h3>
-              <p className="mt-2 flex-1 text-[15px] leading-relaxed text-slate-500">
+              <p className="mt-2 flex-1 text-[15px] leading-relaxed text-slate-500 dark:text-slate-400">
                 {guide.blurb}
               </p>
               <span className="mt-6 inline-flex items-center gap-1.5 text-[15px] font-semibold text-brand">

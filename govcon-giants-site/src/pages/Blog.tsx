@@ -117,7 +117,7 @@ export default function Blog() {
                   onClick={() => setTab(cat)}
                   className={cn(
                     'relative cursor-pointer whitespace-nowrap py-4 font-mono text-[13px] font-medium uppercase tracking-[0.12em] transition-colors duration-150',
-                    active ? 'text-brand' : 'text-slate-500 hover:text-slate-900',
+                    active ? 'text-brand' : 'text-slate-500 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white',
                   )}
                 >
                   {cat}
@@ -166,14 +166,14 @@ export default function Blog() {
                 Featured
               </span>
               <Link to={`/blog/${featured.slug}`}>
-                <h2 className="mb-4 font-display text-2xl font-extrabold leading-snug tracking-tight text-slate-900 transition-colors hover:text-brand md:text-[32px] md:leading-[1.15]">
+                <h2 className="mb-4 font-display text-2xl font-extrabold leading-snug tracking-tight text-slate-900 dark:text-white transition-colors hover:text-brand md:text-[32px] md:leading-[1.15]">
                   {featured.title}
                 </h2>
               </Link>
-              <p className="mb-6 line-clamp-3 text-[15px] leading-relaxed text-slate-500">
+              <p className="mb-6 line-clamp-3 text-[15px] leading-relaxed text-slate-500 dark:text-slate-400">
                 {featured.excerpt}
               </p>
-              <p className="mb-6 font-mono text-xs uppercase tracking-wider text-slate-500">
+              <p className="mb-6 font-mono text-xs uppercase tracking-wider text-slate-500 dark:text-slate-400">
                 {featDate} · {featured.readTime} read
               </p>
               <GhostLink to={`/blog/${featured.slug}`}>Read article</GhostLink>

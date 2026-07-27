@@ -47,19 +47,19 @@ export default function EpisodeRow({ episode, index = 0, className }: EpisodeRow
           <p className="mb-3 flex items-center gap-2 font-narrow text-sm font-semibold uppercase tracking-[0.2em]">
             <topic.Icon className="h-3.5 w-3.5" style={{ color: topic.accent }} />
             <span style={{ color: topic.accent }}>{topic.label}</span>
-            <span className="text-slate-600" aria-hidden>
+            <span className="text-slate-600 dark:text-slate-300" aria-hidden>
               ·
             </span>
-            <span className="font-medium text-slate-500">{formatEpisodeDate(episode.date)}</span>
+            <span className="font-medium text-slate-500 dark:text-slate-400">{formatEpisodeDate(episode.date)}</span>
           </p>
 
           <a href={episode.link} target="_blank" rel="noopener noreferrer">
-            <h3 className="font-display text-[24px] font-extrabold leading-[1.15] tracking-tight text-slate-900 transition-colors hover:text-brand md:text-[28px]">
+            <h3 className="font-display text-[24px] font-extrabold leading-[1.15] tracking-tight text-slate-900 dark:text-white transition-colors hover:text-brand md:text-[28px]">
               {episode.title}
             </h3>
           </a>
 
-          <p className="mt-3 line-clamp-2 text-[15px] leading-[1.7] text-slate-500">
+          <p className="mt-3 line-clamp-2 text-[15px] leading-[1.7] text-slate-500 dark:text-slate-400">
             {episode.description}
           </p>
 
@@ -74,7 +74,7 @@ export default function EpisodeRow({ episode, index = 0, className }: EpisodeRow
                 'flex h-10 w-10 shrink-0 items-center justify-center rounded-full border transition-all duration-150 cursor-pointer',
                 open
                   ? 'border-brand bg-brand text-brand-ink'
-                  : 'border-line text-slate-500 hover:border-brand hover:bg-brand hover:text-brand-ink',
+                  : 'border-line text-slate-500 dark:text-slate-400 hover:border-brand hover:bg-brand hover:text-brand-ink',
               )}
             >
               {open ? (
@@ -84,12 +84,12 @@ export default function EpisodeRow({ episode, index = 0, className }: EpisodeRow
               )}
             </button>
             {open && <EqBars />}
-            <span className="font-narrow text-sm font-semibold uppercase tracking-wider text-slate-500">{episode.duration}</span>
+            <span className="font-narrow text-sm font-semibold uppercase tracking-wider text-slate-500 dark:text-slate-400">{episode.duration}</span>
             <a
               href={episode.link}
               target="_blank"
               rel="noopener noreferrer"
-              className="group/link ml-auto inline-flex items-center gap-1 font-narrow text-sm font-semibold uppercase tracking-[0.14em] text-slate-500 transition-colors hover:text-brand"
+              className="group/link ml-auto inline-flex items-center gap-1 font-narrow text-sm font-semibold uppercase tracking-[0.14em] text-slate-500 dark:text-slate-400 transition-colors hover:text-brand"
             >
               LISTEN ON LIBSYN
               <ArrowUpRight className="h-3.5 w-3.5 transition-transform duration-150 group-hover/link:-translate-y-0.5 group-hover/link:translate-x-0.5" />

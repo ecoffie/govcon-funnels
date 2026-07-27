@@ -45,17 +45,17 @@ export default function GuestRow({ episode, index = 0, className }: GuestRowProp
           <p className="mb-2 font-narrow text-sm font-semibold uppercase tracking-[0.2em] text-brand">
             {episode.agency}
           </p>
-          <h3 className="font-display text-[24px] font-extrabold leading-[1.15] tracking-tight text-slate-900 md:text-[28px]">
+          <h3 className="font-display text-[24px] font-extrabold leading-[1.15] tracking-tight text-slate-900 dark:text-white md:text-[28px]">
             {episode.guest}
           </h3>
-          <p className="mt-1 text-sm leading-relaxed text-slate-500">{episode.role}</p>
+          <p className="mt-1 text-sm leading-relaxed text-slate-500 dark:text-slate-400">{episode.role}</p>
 
           <a href={episode.link} target="_blank" rel="noopener noreferrer">
-            <p className="mt-3 text-[17px] font-semibold leading-snug text-slate-900 transition-colors hover:text-brand">
+            <p className="mt-3 text-[17px] font-semibold leading-snug text-slate-900 dark:text-white transition-colors hover:text-brand">
               {episode.title}
             </p>
           </a>
-          <p className="mt-2 line-clamp-1 text-[15px] leading-[1.7] text-slate-500">
+          <p className="mt-2 line-clamp-1 text-[15px] leading-[1.7] text-slate-500 dark:text-slate-400">
             {episode.blurb}
           </p>
 
@@ -70,7 +70,7 @@ export default function GuestRow({ episode, index = 0, className }: GuestRowProp
                 'flex h-10 w-10 shrink-0 items-center justify-center rounded-full border transition-all duration-150 cursor-pointer',
                 open
                   ? 'border-brand bg-brand text-brand-ink'
-                  : 'border-line text-slate-500 hover:border-brand hover:bg-brand hover:text-brand-ink',
+                  : 'border-line text-slate-500 dark:text-slate-400 hover:border-brand hover:bg-brand hover:text-brand-ink',
               )}
             >
               {open ? (
@@ -80,14 +80,14 @@ export default function GuestRow({ episode, index = 0, className }: GuestRowProp
               )}
             </button>
             {open && <EqBars />}
-            <span className="rounded-full border border-line bg-inset px-3 py-1 font-narrow text-sm font-semibold uppercase tracking-wider text-slate-600">
+            <span className="rounded-full border border-line bg-inset px-3 py-1 font-narrow text-sm font-semibold uppercase tracking-wider text-slate-600 dark:text-slate-300">
               {episode.duration}
             </span>
             <a
               href={episode.link}
               target="_blank"
               rel="noopener noreferrer"
-              className="group/link ml-auto inline-flex items-center gap-1 font-narrow text-sm font-semibold uppercase tracking-[0.14em] text-slate-500 transition-colors hover:text-brand"
+              className="group/link ml-auto inline-flex items-center gap-1 font-narrow text-sm font-semibold uppercase tracking-[0.14em] text-slate-500 dark:text-slate-400 transition-colors hover:text-brand"
             >
               Listen on Libsyn
               <ArrowUpRight className="h-3.5 w-3.5 transition-transform duration-150 group-hover/link:-translate-y-0.5 group-hover/link:translate-x-0.5" />

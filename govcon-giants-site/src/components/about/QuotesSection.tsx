@@ -32,7 +32,7 @@ export default function QuotesSection() {
         </motion.span>
 
         <blockquote>
-          <p className="font-display text-2xl font-bold italic leading-[1.4] text-slate-900 md:text-[32px]">
+          <p className="font-display text-2xl font-bold italic leading-[1.4] text-slate-900 dark:text-white md:text-[32px]">
             {words.map((w, i) => (
               <motion.span
                 key={`${w}-${i}`}
@@ -52,7 +52,7 @@ export default function QuotesSection() {
             whileInView={{ opacity: 1 }}
             viewport={{ once: true }}
             transition={{ duration: 0.5, delay: 0.6 }}
-            className="mt-6 font-mono text-xs tracking-[0.18em] text-slate-500"
+            className="mt-6 font-mono text-xs tracking-[0.18em] text-slate-500 dark:text-slate-400"
           >
             — ERIC COFFIE
           </motion.footer>

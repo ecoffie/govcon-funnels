@@ -211,10 +211,10 @@ export default function StoryTimeline() {
                   className="lg:absolute lg:inset-0 lg:flex lg:flex-col lg:justify-center"
                 >
                   <p className="kicker mb-3">{b.year}</p>
-                  <h3 className="mb-4 font-display text-[28px] font-extrabold leading-[1.2] tracking-tight text-slate-900">
+                  <h3 className="mb-4 font-display text-[28px] font-extrabold leading-[1.2] tracking-tight text-slate-900 dark:text-white">
                     {b.title}
                   </h3>
-                  <p className="max-w-[520px] text-base leading-[1.7] text-slate-600">
+                  <p className="max-w-[520px] text-base leading-[1.7] text-slate-600 dark:text-slate-300">
                     {b.body}
                   </p>
                 </article>

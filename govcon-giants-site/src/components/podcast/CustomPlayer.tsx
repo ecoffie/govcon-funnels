@@ -126,7 +126,7 @@ export default function CustomPlayer({ src, fallbackDuration, onPlayingChange }:
   const progress = duration ? (current / duration) * 100 : 0;
 
   const skipBtnCls =
-    'relative flex h-10 w-10 shrink-0 items-center justify-center rounded-full border border-line text-slate-500 transition-all duration-150 hover:border-brand hover:text-brand cursor-pointer';
+    'relative flex h-10 w-10 shrink-0 items-center justify-center rounded-full border border-line text-slate-500 dark:text-slate-400 transition-all duration-150 hover:border-brand hover:text-brand cursor-pointer';
 
   return (
     <div>
@@ -209,13 +209,13 @@ export default function CustomPlayer({ src, fallbackDuration, onPlayingChange }:
           />
         </div>
 
-        <span className="shrink-0 font-mono text-xs tabular-nums text-slate-500">
+        <span className="shrink-0 font-mono text-xs tabular-nums text-slate-500 dark:text-slate-400">
           {formatTime(current)} / {duration ? formatTime(duration) : fallbackDuration}
         </span>
       </div>
 
       {error && (
-        <p className="mt-2 text-sm text-slate-500">
+        <p className="mt-2 text-sm text-slate-500 dark:text-slate-400">
           Audio unavailable right now — listen on Libsyn instead.
         </p>
       )}

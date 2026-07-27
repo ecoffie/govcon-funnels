@@ -162,7 +162,7 @@ export default function BioHero({ onOpenPlaybook }: BioHeroProps) {
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             transition={{ duration: 0.5, delay: 0.75 }}
-            className="mt-6 font-mono text-xs tracking-[0.18em] text-slate-500"
+            className="mt-6 font-mono text-xs tracking-[0.18em] text-slate-500 dark:text-slate-400"
           >
             MIAMI, FL · EST. 2017
           </motion.p>

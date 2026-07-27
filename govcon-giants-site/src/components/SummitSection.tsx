@@ -68,7 +68,7 @@ export default function SummitSection() {
             viewport={{ once: true, amount: 0.3 }}
             transition={{ duration: 0.5, ease: 'easeOut' }}
           >
-            <p className="max-w-lg text-[17px] leading-[1.7] text-slate-600">
+            <p className="max-w-lg text-[17px] leading-[1.7] text-slate-600 dark:text-slate-300">
               The Contracting Connections + Technology Summit, held annually in Miami, FL.
               One room full of government leaders, prime contractors, small business owners,
               and industry experts — built for making the connections that turn into contracts.
@@ -78,7 +78,7 @@ export default function SummitSection() {
               {topics.map((topic) => (
                 <span
                   key={topic}
-                  className="rounded-full border border-line px-3.5 py-1.5 text-xs text-slate-500"
+                  className="rounded-full border border-line px-3.5 py-1.5 text-xs text-slate-500 dark:text-slate-400"
                 >
                   {topic}
                 </span>
@@ -86,14 +86,14 @@ export default function SummitSection() {
             </div>
 
             <div className="mt-8 max-w-lg">
-              <p className="text-[11px] font-semibold uppercase tracking-[0.18em] text-slate-500">
+              <p className="text-[11px] font-semibold uppercase tracking-[0.18em] text-slate-500 dark:text-slate-400">
                 Past speakers include
               </p>
               <ul className="mt-3 grid grid-cols-1 gap-x-8 gap-y-3 sm:grid-cols-2">
                 {pastSpeakers.map((s) => (
                   <li key={s.name}>
-                    <p className="text-sm font-medium text-slate-900">{s.name}</p>
-                    <p className="text-xs text-slate-500">{s.role}</p>
+                    <p className="text-sm font-medium text-slate-900 dark:text-white">{s.name}</p>
+                    <p className="text-xs text-slate-500 dark:text-slate-400">{s.role}</p>
                   </li>
                 ))}
               </ul>

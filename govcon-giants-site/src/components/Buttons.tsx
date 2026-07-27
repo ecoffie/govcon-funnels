@@ -32,7 +32,7 @@ export function SecondaryButton({ children, className, ...props }: ButtonProps) 
     <button
       className={cn(
         base,
-        'border border-line bg-transparent px-7 py-3.5 text-[15px] text-slate-900 hover:border-brand hover:text-brand',
+        'border border-line bg-transparent px-7 py-3.5 text-[15px] text-slate-900 dark:text-white hover:border-brand hover:text-brand',
         className,
       )}
       {...props}

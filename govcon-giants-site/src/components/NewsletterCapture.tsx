@@ -36,7 +36,7 @@ function useSignup() {
 }
 
 const inputCls =
-  'h-12 w-full rounded-lg border border-line bg-raised px-4 text-[15px] text-slate-900 placeholder:text-slate-500 transition-colors focus:border-brand focus:outline-none focus:ring-2 focus:ring-brand/40';
+  'h-12 w-full rounded-lg border border-line bg-raised px-4 text-[15px] text-slate-900 dark:text-white placeholder:text-slate-500 transition-colors focus:border-brand focus:outline-none focus:ring-2 focus:ring-brand/40';
 const inputDarkCls =
   'h-12 w-full rounded-lg border border-white/40 bg-white/10 px-4 text-[15px] text-white placeholder:text-white/50 backdrop-blur-sm transition-colors focus:border-green-400 focus:outline-none focus:ring-2 focus:ring-green-400/40';
 const btnCls =
@@ -96,7 +96,7 @@ export default function NewsletterCapture({
         <p
           className={cn(
             'mt-3 font-mono text-[11px] tracking-[0.14em]',
-            dark ? 'text-white/60' : 'text-slate-500',
+            dark ? 'text-white/60' : 'text-slate-500 dark:text-slate-400',
           )}
         >
           FREE · NO SPAM · UNSUBSCRIBE ANYTIME
@@ -114,7 +114,7 @@ export default function NewsletterCapture({
         )}
       >
         <p className="kicker mb-2">{kicker}</p>
-        <h3 className="mb-5 font-display text-2xl font-extrabold tracking-tight text-slate-900">{heading}</h3>
+        <h3 className="mb-5 font-display text-2xl font-extrabold tracking-tight text-slate-900 dark:text-white">{heading}</h3>
         <InlineForm buttonLabel="Send Me the Starter Kit" />
       </div>
     );
@@ -169,7 +169,7 @@ export function NewsletterModal({ open, onClose }: NewsletterModalProps) {
             <button
               onClick={onClose}
               aria-label="Close"
-              className="absolute right-3 top-3 z-10 rounded-full p-1.5 text-slate-500 transition-colors hover:bg-line hover:text-slate-900 cursor-pointer"
+              className="absolute right-3 top-3 z-10 rounded-full p-1.5 text-slate-500 dark:text-slate-400 transition-colors hover:bg-line hover:text-slate-900 dark:hover:text-white cursor-pointer"
             >
               <X className="h-5 w-5" />
             </button>
@@ -183,10 +183,10 @@ export function NewsletterModal({ open, onClose }: NewsletterModalProps) {
             </div>
             <div className="p-6 md:p-8">
               <p className="kicker mb-2">FREE STARTER KIT</p>
-              <h3 className="mb-2 font-display text-2xl font-black tracking-tight text-slate-900 md:text-3xl">
+              <h3 className="mb-2 font-display text-2xl font-black tracking-tight text-slate-900 dark:text-white md:text-3xl">
                 The Billion Dollar <em className="italic text-brand">Playbook</em>
               </h3>
-              <p className="mb-6 text-[15px] leading-relaxed text-slate-600">
+              <p className="mb-6 text-[15px] leading-relaxed text-slate-600 dark:text-slate-300">
                 Five of the 72 federal websites Eric uses to find buyers, partners, and
                 contracts — delivered instantly, free.
               </p>
@@ -210,7 +210,7 @@ export function NewsletterModal({ open, onClose }: NewsletterModalProps) {
                   </button>
                 </form>
               )}
-              <p className="mt-4 font-mono text-[11px] tracking-[0.14em] text-slate-500">
+              <p className="mt-4 font-mono text-[11px] tracking-[0.14em] text-slate-500 dark:text-slate-400">
                 FREE · NO SPAM · UNSUBSCRIBE ANYTIME
               </p>
             </div>

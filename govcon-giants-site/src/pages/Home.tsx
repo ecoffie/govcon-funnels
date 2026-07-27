@@ -50,7 +50,7 @@ const ROTATING_TOPICS = [
 /** Candid summit photography — shared by the hero slideshow and the marquee. */
 const HERO_PHOTOS = [
   'stage-2',
-  'candid-network-1',
+  'summit-ballroom',
   'stage-1',
   'candid-session',
   'stage-6',
@@ -241,7 +241,7 @@ function LogoMarquee() {
   );
   return (
     <section className="border-b border-line bg-base py-8 md:py-10" aria-label="Past summit sponsors and partners">
-      <p className="mb-6 text-center font-narrow text-sm font-semibold uppercase tracking-[0.22em] text-slate-500">
+      <p className="mb-6 text-center font-narrow text-sm font-semibold uppercase tracking-[0.22em] text-slate-500 dark:text-slate-400">
         PAST SPONSORS &amp; PARTNERS
       </p>
       <div className="overflow-hidden">
@@ -312,10 +312,10 @@ function ExperienceTile({
         </motion.div>
       </div>
       <div className="p-5 md:p-6">
-        <h3 className="font-display text-2xl font-extrabold tracking-tight text-slate-900 transition-colors group-hover:text-brand">
+        <h3 className="font-display text-2xl font-extrabold tracking-tight text-slate-900 dark:text-white transition-colors group-hover:text-brand">
           {tile.title}
         </h3>
-        <p className="mt-2 text-[15px] leading-relaxed text-slate-500">{tile.desc}</p>
+        <p className="mt-2 text-[15px] leading-relaxed text-slate-500 dark:text-slate-400">{tile.desc}</p>
         <span className="mt-4 inline-flex items-center gap-1.5 font-narrow text-sm font-semibold uppercase tracking-[0.14em] text-brand">
           Explore
           <ArrowRight className="h-4 w-4 transition-transform duration-150 group-hover:translate-x-1" />
@@ -413,7 +413,7 @@ function FeaturedStrip() {
   }, [hovered, playing, active]);
 
   const arrowBtnCls =
-    'flex h-12 w-12 items-center justify-center rounded-full border border-line text-slate-600 transition-all duration-150 hover:border-brand hover:bg-brand hover:text-brand-ink cursor-pointer';
+    'flex h-12 w-12 items-center justify-center rounded-full border border-line text-slate-600 dark:text-slate-300 transition-all duration-150 hover:border-brand hover:bg-brand hover:text-brand-ink cursor-pointer';
 
   return (
     <section
@@ -462,28 +462,28 @@ function FeaturedStrip() {
                 <p className="font-narrow text-sm font-semibold uppercase tracking-[0.2em] text-brand">
                   {episode.agency}
                 </p>
-                <h3 className="mt-2 font-display text-4xl font-black tracking-tight text-slate-900 md:text-5xl">
+                <h3 className="mt-2 font-display text-4xl font-black tracking-tight text-slate-900 dark:text-white md:text-5xl">
                   {episode.guest}
                 </h3>
-                <p className="mt-2 text-[15px] leading-relaxed text-slate-500">{episode.role}</p>
+                <p className="mt-2 text-[15px] leading-relaxed text-slate-500 dark:text-slate-400">{episode.role}</p>
                 <a href={episode.link} target="_blank" rel="noopener noreferrer">
-                  <p className="mt-5 text-lg font-semibold leading-snug text-slate-900 transition-colors hover:text-brand">
+                  <p className="mt-5 text-lg font-semibold leading-snug text-slate-900 dark:text-white transition-colors hover:text-brand">
                     {episode.title}
                   </p>
                 </a>
-                <p className="mt-2 line-clamp-3 text-[15px] leading-[1.7] text-slate-500">
+                <p className="mt-2 line-clamp-3 text-[15px] leading-[1.7] text-slate-500 dark:text-slate-400">
                   {episode.blurb}
                 </p>
 
                 <div className="mt-6 flex items-center gap-4">
-                  <span className="rounded-full border border-line bg-inset px-3 py-1 font-narrow text-sm font-semibold uppercase tracking-wider text-slate-600">
+                  <span className="rounded-full border border-line bg-inset px-3 py-1 font-narrow text-sm font-semibold uppercase tracking-wider text-slate-600 dark:text-slate-300">
                     {episode.duration}
                   </span>
                   <a
                     href={episode.link}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="group/link inline-flex items-center gap-1 font-narrow text-sm font-semibold uppercase tracking-[0.14em] text-slate-500 transition-colors hover:text-brand"
+                    className="group/link inline-flex items-center gap-1 font-narrow text-sm font-semibold uppercase tracking-[0.14em] text-slate-500 dark:text-slate-400 transition-colors hover:text-brand"
                   >
                     Listen on Libsyn
                     <ArrowUpRight className="h-3.5 w-3.5 transition-transform duration-150 group-hover/link:-translate-y-0.5 group-hover/link:translate-x-0.5" />
@@ -580,10 +580,10 @@ function PopularArticles() {
                     {String(i + 1).padStart(2, '0')}
                   </span>
                   <span>
-                    <span className="mb-1 block font-mono text-[11px] uppercase tracking-[0.14em] text-slate-500">
+                    <span className="mb-1 block font-mono text-[11px] uppercase tracking-[0.14em] text-slate-500 dark:text-slate-400">
                       {article.category} · {article.readTime} read
                     </span>
-                    <span className="block font-display text-[20px] font-extrabold leading-snug tracking-tight text-slate-900 transition-colors group-hover:text-brand">
+                    <span className="block font-display text-[20px] font-extrabold leading-snug tracking-tight text-slate-900 dark:text-white transition-colors group-hover:text-brand">
                       {article.title}
                     </span>
                   </span>

@@ -44,13 +44,13 @@ function Row({ link }: { link: DirectoryLink }) {
     <>
       {link.label}
       <ArrowUpRight
-        className="h-3.5 w-3.5 shrink-0 text-slate-600 transition-all duration-150 group-hover:translate-x-1 group-hover:text-brand"
+        className="h-3.5 w-3.5 shrink-0 text-slate-600 dark:text-slate-300 transition-all duration-150 group-hover:translate-x-1 group-hover:text-brand"
         aria-hidden
       />
     </>
   );
   const cls =
-    'group flex items-center gap-2 text-[15px] text-slate-600 transition-colors duration-150 hover:text-brand';
+    'group flex items-center gap-2 text-[15px] text-slate-600 dark:text-slate-300 transition-colors duration-150 hover:text-brand';
   if (link.external) {
     return (
       <a href={link.to} target="_blank" rel="noopener noreferrer" className={cls}>
