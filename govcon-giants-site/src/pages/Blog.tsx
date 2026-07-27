@@ -55,7 +55,7 @@ export default function Blog() {
       <section className="relative overflow-hidden bg-slate-950">
         <div aria-hidden className="absolute inset-0">
           <img
-            src="/summit/stage-2.jpg"
+            src="/summit/moment-05.jpg"
             alt=""
             className="h-full w-full object-cover object-center"
           />

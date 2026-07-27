@@ -31,7 +31,7 @@ export default function ShowHeader() {
       {/* Photo backdrop + readability scrims */}
       <div className="absolute inset-0" aria-hidden>
         <img
-          src="/summit/stage-6.jpg"
+          src="/summit/summit-ballroom.jpg"
           alt=""
           className="h-full w-full object-cover"
         />

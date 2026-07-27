@@ -133,7 +133,7 @@ export default function SummitSection() {
               <div className="relative aspect-[4/3] overflow-hidden rounded-xl border border-line">
                 <motion.div style={{ y: photoY }} className="absolute -inset-y-[8%] inset-x-0">
                   <img
-                    src="/summit/candid-wide.jpg"
+                    src="/summit/moment-01.jpg"
                     alt="Attendees networking between sessions at the GCG National Summit"
                     loading="lazy"
                     className="h-full w-full object-cover"
@@ -141,7 +141,7 @@ export default function SummitSection() {
                 </motion.div>
               </div>
               <img
-                src="/summit/candid-boat.jpg"
+                src="/summit/moment-09.jpg"
                 alt="GCG National Summit VIP reception on a yacht, Miami skyline"
                 loading="lazy"
                 className="absolute -bottom-10 -left-4 hidden w-44 -rotate-3 rounded-lg border border-line object-cover shadow-[0_16px_40px_rgba(0,0,0,0.2)] sm:block md:w-52"

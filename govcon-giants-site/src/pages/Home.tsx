@@ -268,7 +268,7 @@ const experienceTiles: {
   {
     title: 'Listen to the Podcast',
     desc: '250K+ listens — near-daily plays and long-form interviews.',
-    img: '/summit/stage-6.jpg',
+    img: '/summit/moment-06.jpg',
     to: '/podcast',
   },
   {
