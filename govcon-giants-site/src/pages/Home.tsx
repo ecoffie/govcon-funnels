@@ -12,6 +12,7 @@ import SectionHeader from '@/components/SectionHeader';
 import ArticleCard from '@/components/ArticleCard';
 import CustomPlayer from '@/components/podcast/CustomPlayer';
 import SummitSection from '@/components/SummitSection';
+import SpeakersSection from '@/components/SpeakersSection';
 import { articles } from '@/data/articles';
 import { featuredEpisodes } from '@/data/featuredEpisodes';
 import { cn } from '@/lib/utils';
@@ -614,6 +615,7 @@ export default function Home() {
       <LogoMarquee />
       <FeaturedStrip />
       <SummitSection />
+      <SpeakersSection />
       <ExperienceTiles />
       <PopularArticles />
     </motion.div>
