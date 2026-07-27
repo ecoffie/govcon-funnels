@@ -62,8 +62,6 @@ const HERO_PHOTOS = [
   'stage-5',
   'candid-chat',
   'stage-8',
-  'candid-laugh',
-  'candid-wide',
   'candid-boat',
   'candid-night',
 ];
