@@ -7,6 +7,7 @@ import BlogPost from '@/pages/BlogPost';
 import About from '@/pages/About';
 import Resources from '@/pages/Resources';
 import StartHere from '@/pages/StartHere';
+import NotFound from '@/pages/NotFound';
 
 export default function App() {
   return (
@@ -19,7 +20,7 @@ export default function App() {
         <Route path="about" element={<About />} />
         <Route path="resources" element={<Resources />} />
         <Route path="start-here" element={<StartHere />} />
-        <Route path="*" element={<Home />} />
+        <Route path="*" element={<NotFound />} />
       </Route>
     </Routes>
   );
