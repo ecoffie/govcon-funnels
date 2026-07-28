@@ -2,45 +2,11 @@ import { Link, Navigate, useParams } from 'react-router';
 import { motion } from 'framer-motion';
 import { ArrowLeft, ChevronLeft, ChevronRight } from 'lucide-react';
 import CustomPlayer from '@/components/podcast/CustomPlayer';
-import { episodes } from '@/data/episodes';
-import { episodeTopic, formatEpisodeDate } from '@/lib/episode-utils';
-import { platforms } from '@/data/platforms';
-import { speakers } from '@/data/speakers';
 import { featuredEpisodes } from '@/data/featuredEpisodes';
+import { speakers } from '@/data/speakers';
+import { formatEpisodeDate } from '@/lib/episode-utils';
+import { platforms } from '@/data/platforms';
 import { cn } from '@/lib/utils';
-
-/** Interview episodes whose thumb is a real guest (not Eric). */
-const GUEST_NAMES: Record<number, string> = {
-  1: 'Katie Arrington',
-  50: 'Julien Harris',
-  92: 'Lee Rossey',
-  113: 'Judy Bradt',
-  143: 'Sam Le',
-};
-
-/** Guest bio when the name matches the speakers / featured-episodes data. */
-function guestInfo(index: number) {
-  const name = GUEST_NAMES[index];
-  if (!name) return null;
-  const fromSpeakers = speakers.find((s) => s.name === name);
-  const fromFeatured = featuredEpisodes.find((e) => e.guest === name);
-  return {
-    name,
-    role: fromSpeakers?.role ?? fromFeatured?.role,
-    org: fromSpeakers?.org ?? fromFeatured?.agency,
-    credential: fromSpeakers?.credential ?? fromFeatured?.blurb,
-  };
-}
-
-/** Split a giant description string into readable paragraphs (~3 sentences each). */
-function toParagraphs(body: string): string[] {
-  const sentences = body.match(/[^.?!]+[.?!]+(?:\s|$)|[^.?!]+$/g) ?? [body];
-  const out: string[] = [];
-  for (let i = 0; i < sentences.length; i += 3) {
-    out.push(sentences.slice(i, i + 3).join(' ').trim());
-  }
-  return out.filter(Boolean);
-}
 
 const reveal = (delay = 0) => ({
   initial: { opacity: 0, y: 24 },
@@ -48,24 +14,23 @@ const reveal = (delay = 0) => ({
   transition: { type: 'spring', stiffness: 120, damping: 20, delay } as const,
 });
 
-/** `/podcast/:index` — episode detail page: header with face thumb, custom
- * player, full body prose, guest/host card, links, prev/next + related. */
-export default function EpisodePage() {
+/** `/podcast/featured/:index` — detail page for one of the 6 curated
+ * featured episodes (featuredEpisodes.ts), mirroring EpisodePage's layout. */
+export default function FeaturedEpisodePage() {
   const { index: raw } = useParams();
   const index = Number(raw);
-  if (!Number.isInteger(index) || index < 0 || index >= episodes.length) {
+  if (!Number.isInteger(index) || index < 0 || index >= featuredEpisodes.length) {
     return <Navigate to="/podcast" replace />;
   }
 
-  const episode = episodes[index];
-  const topic = episodeTopic(episode.title);
-  const guest = guestInfo(index);
-  const newer = index > 0 ? episodes[index - 1] : undefined;
-  const older = index < episodes.length - 1 ? episodes[index + 1] : undefined;
-  const related = episodes
-    .map((e, i) => ({ e, i }))
-    .filter(({ e, i }) => i !== index && episodeTopic(e.title).label === topic.label)
-    .slice(0, 3);
+  const episode = featuredEpisodes[index];
+  // Extra credential from the speakers data when the name matches
+  const speaker = speakers.find((s) => s.name === episode.guest);
+  const credential =
+    speaker?.credential ??
+    [episode.role, episode.agency].filter(Boolean).join(' · ');
+  const newer = index > 0 ? index - 1 : undefined;
+  const older = index < featuredEpisodes.length - 1 ? index + 1 : undefined;
 
   return (
     <motion.div
@@ -82,16 +47,15 @@ export default function EpisodePage() {
             className="inline-flex items-center gap-1.5 font-sans text-sm font-semibold uppercase tracking-[0.14em] text-slate-500 transition-colors hover:text-brand dark:text-slate-400"
           >
             <ArrowLeft className="h-4 w-4" />
-            All episodes
+            Featured
           </Link>
         </motion.div>
 
-        {/* Header — copy + face thumb */}
+        {/* Header — copy + face photo */}
         <div className="mt-8 grid items-center gap-10 lg:grid-cols-[minmax(0,7fr)_minmax(0,5fr)] lg:gap-16">
           <motion.div {...reveal(0.05)}>
             <p className="flex flex-wrap items-center gap-2 font-sans text-sm font-semibold uppercase tracking-[0.18em]">
-              <topic.Icon className="h-4 w-4" style={{ color: topic.accent }} />
-              <span style={{ color: topic.accent }}>{topic.label}</span>
+              <span className="text-brand">{episode.agency}</span>
               <span className="text-slate-400" aria-hidden>·</span>
               <span className="font-medium text-slate-500 dark:text-slate-400">
                 {formatEpisodeDate(episode.date)}
@@ -101,8 +65,14 @@ export default function EpisodePage() {
               </span>
             </p>
             <h1 className="mt-4 font-display text-3xl font-black leading-[1.15] tracking-normal text-slate-900 dark:text-white md:text-[40px]">
-              {episode.title}
+              {episode.guest}
             </h1>
+            <p className="mt-2 text-[15px] leading-relaxed text-slate-500 dark:text-slate-400">
+              {episode.role}
+            </p>
+            <p className="mt-5 text-lg font-semibold leading-snug text-slate-900 dark:text-white">
+              {episode.title}
+            </p>
             <div className="mt-8">
               <CustomPlayer src={episode.audioUrl} fallbackDuration={episode.duration} />
             </div>
@@ -118,56 +88,43 @@ export default function EpisodePage() {
               className="absolute inset-0 rotate-2 rounded-xl border-2 border-brand"
             />
             <img
-              src={episode.thumb}
-              alt={guest ? guest.name : 'Eric Coffie'}
+              src={episode.photo}
+              alt={episode.guest}
               className="relative aspect-square w-full rounded-xl border border-line bg-raised object-cover"
             />
           </motion.div>
         </div>
 
-        {/* Body — full episode description as prose */}
+        {/* Body — episode blurb as prose */}
         <motion.div {...reveal(0.15)} className="mt-14 max-w-prose">
           <h2 className="mb-5 font-display text-2xl font-black tracking-normal text-slate-900 dark:text-white">
             About this episode
           </h2>
-          <div className="space-y-5 text-[17px] leading-[1.8] text-slate-600 dark:text-slate-300">
-            {toParagraphs(episode.body).map((p, i) => (
-              <p key={i}>{p}</p>
-            ))}
-          </div>
+          <p className="text-[17px] leading-[1.8] text-slate-600 dark:text-slate-300">
+            {episode.blurb}
+          </p>
         </motion.div>
 
-        {/* Guest or host card */}
+        {/* Guest card */}
         <motion.div
           {...reveal(0.2)}
           className="mt-12 flex max-w-prose items-center gap-5 rounded-xl border border-line bg-raised p-6"
         >
           <img
-            src={guest ? episode.thumb : '/eric-portrait.png'}
-            alt={guest ? guest.name : 'Eric Coffie'}
+            src={episode.photo}
+            alt={episode.guest}
             className="h-20 w-20 shrink-0 rounded-full border-2 border-brand object-cover object-top"
           />
           <div className="min-w-0">
             <p className="font-sans text-xs font-semibold uppercase tracking-[0.18em] text-brand">
-              {guest ? 'Featured guest' : 'Your host'}
+              Featured guest
             </p>
             <p className="mt-1 font-display text-xl font-bold tracking-normal text-slate-900 dark:text-white">
-              {guest ? guest.name : 'Eric Coffie'}
+              {episode.guest}
             </p>
             <p className="mt-1 text-sm leading-relaxed text-slate-500 dark:text-slate-400">
-              {guest
-                ? ([guest.role, guest.org].filter(Boolean).join(' · ') ||
-                  'Guest on the GovCon Giants Podcast')
-                : 'Built Evankoff Construction from zero to $20M+ in government sales — now teaches everyday people to win federal contracts.'}
+              {credential}
             </p>
-            {!guest && (
-              <Link
-                to="/about"
-                className="mt-2 inline-block text-sm font-semibold text-brand underline-offset-4 hover:underline"
-              >
-                More about Eric →
-              </Link>
-            )}
           </div>
         </motion.div>
 
@@ -187,62 +144,28 @@ export default function EpisodePage() {
           ))}
         </motion.div>
 
-        {/* Prev / next episode nav */}
+        {/* Prev / next featured episode nav */}
         <motion.nav
           {...reveal(0.3)}
-          aria-label="More episodes"
+          aria-label="More featured episodes"
           className="mt-16 grid gap-4 border-t border-line pt-10 sm:grid-cols-2"
         >
-          {newer ? (
-            <EpisodeNavCard label="Newer episode" index={index - 1} Icon={ChevronLeft} align="left" />
+          {newer !== undefined ? (
+            <FeaturedNavCard label="Previous guest" index={newer} Icon={ChevronLeft} align="left" />
           ) : (
             <span />
           )}
-          {older && (
-            <EpisodeNavCard label="Older episode" index={index + 1} Icon={ChevronRight} align="right" />
+          {older !== undefined && (
+            <FeaturedNavCard label="Next guest" index={older} Icon={ChevronRight} align="right" />
           )}
         </motion.nav>
-
-        {/* More like this */}
-        {related.length > 0 && (
-          <motion.div {...reveal(0.35)} className="mt-14">
-            <h2 className="mb-5 font-display text-2xl font-black tracking-normal text-slate-900 dark:text-white">
-              More like this
-            </h2>
-            <div className="divide-y divide-line border-t border-line">
-              {related.map(({ e, i }) => (
-                <Link
-                  key={e.link}
-                  to={`/podcast/${i}`}
-                  className="group flex items-center gap-4 py-4"
-                >
-                  <img
-                    src={e.thumb}
-                    alt=""
-                    loading="lazy"
-                    className="h-14 w-14 shrink-0 rounded-lg border border-line object-cover"
-                  />
-                  <span className="min-w-0 flex-1">
-                    <span className="block truncate font-display text-[17px] font-bold tracking-normal text-slate-900 transition-colors group-hover:text-brand dark:text-white">
-                      {e.title}
-                    </span>
-                    <span className="mt-0.5 block font-mono text-xs text-slate-500 dark:text-slate-400">
-                      {formatEpisodeDate(e.date)} · {e.duration}
-                    </span>
-                  </span>
-                  <ChevronRight className="h-4 w-4 shrink-0 text-slate-400 transition-transform duration-150 group-hover:translate-x-1 group-hover:text-brand" />
-                </Link>
-              ))}
-            </div>
-          </motion.div>
-        )}
       </div>
     </motion.div>
   );
 }
 
-/** Prev/next mini-card linking to a sibling episode. */
-function EpisodeNavCard({
+/** Prev/next mini-card linking to a sibling featured episode. */
+function FeaturedNavCard({
   label,
   index,
   Icon,
@@ -253,10 +176,10 @@ function EpisodeNavCard({
   Icon: typeof ChevronLeft;
   align: 'left' | 'right';
 }) {
-  const episode = episodes[index];
+  const episode = featuredEpisodes[index];
   return (
     <Link
-      to={`/podcast/${index}`}
+      to={`/podcast/featured/${index}`}
       className={cn(
         'group flex items-center gap-4 rounded-xl border border-line bg-raised p-4 transition-all duration-150 hover:-translate-y-0.5 hover:border-brand',
         align === 'right' && 'sm:flex-row-reverse sm:text-right',
@@ -264,7 +187,7 @@ function EpisodeNavCard({
     >
       <Icon className="h-5 w-5 shrink-0 text-slate-400 transition-colors group-hover:text-brand" />
       <img
-        src={episode.thumb}
+        src={episode.photo}
         alt=""
         loading="lazy"
         className="h-14 w-14 shrink-0 rounded-lg border border-line object-cover"
@@ -274,7 +197,7 @@ function EpisodeNavCard({
           {label}
         </span>
         <span className="mt-0.5 block truncate text-sm font-semibold text-slate-900 dark:text-white">
-          {episode.title}
+          {episode.guest}
         </span>
       </span>
     </Link>

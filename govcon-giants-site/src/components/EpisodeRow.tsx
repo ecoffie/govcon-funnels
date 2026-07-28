@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { motion } from 'framer-motion';
 import { Link } from 'react-router';
-import { ArrowUpRight, Pause, Play } from 'lucide-react';
+import { Pause, Play } from 'lucide-react';
 import type { Episode } from '@/data/episodes';
 import EqBars from '@/components/EqBars';
 import { episodeTopic, formatEpisodeDate } from '@/lib/episode-utils';
@@ -19,7 +19,8 @@ interface EpisodeRowProps {
 /**
  * Editorial list row (tim.blog/podcast style): square real face thumbnail
  * (episode.thumb) on the left, then a topic kicker + date, large Merriweather title, 2-line excerpt,
- * and a meta row (play toggle, duration, Libsyn link). Thin divider between
+ * and a meta row (play toggle + duration — the title links to the internal
+ * detail page). Thin divider between
  * rows, generous whitespace, no card box. Play toggles an inline <audio> bar
  * that streams the episode on-site; useExclusiveAudio guarantees only one
  * episode plays at a time.
@@ -74,7 +75,7 @@ export default function EpisodeRow({ episode, index = 0, episodeIndex, className
             {episode.description}
           </p>
 
-          {/* Meta row: play toggle, duration, external link */}
+          {/* Meta row: play toggle + duration (title links to the detail page) */}
           <div className="mt-5 flex items-center gap-5">
             <button
               type="button"
@@ -96,15 +97,6 @@ export default function EpisodeRow({ episode, index = 0, episodeIndex, className
             </button>
             {open && <EqBars />}
             <span className="font-sans text-sm font-semibold uppercase tracking-wider text-slate-500 dark:text-slate-400">{episode.duration}</span>
-            <a
-              href={episode.link}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="group/link ml-auto inline-flex items-center gap-1 font-sans text-sm font-semibold uppercase tracking-[0.14em] text-slate-500 dark:text-slate-400 transition-colors hover:text-brand"
-            >
-              LISTEN ON LIBSYN
-              <ArrowUpRight className="h-3.5 w-3.5 transition-transform duration-150 group-hover/link:-translate-y-0.5 group-hover/link:translate-x-0.5" />
-            </a>
           </div>
         </div>
       </div>

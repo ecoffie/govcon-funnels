@@ -3,6 +3,7 @@ import Layout from '@/components/Layout';
 import Home from '@/pages/Home';
 import Podcast from '@/pages/Podcast';
 import EpisodePage from '@/pages/EpisodePage';
+import FeaturedEpisodePage from '@/pages/FeaturedEpisodePage';
 import Blog from '@/pages/Blog';
 import BlogPost from '@/pages/BlogPost';
 import About from '@/pages/About';
@@ -14,6 +15,7 @@ export default function App() {
       <Route element={<Layout />}>
         <Route index element={<Home />} />
         <Route path="podcast" element={<Podcast />} />
+        <Route path="podcast/featured/:index" element={<FeaturedEpisodePage />} />
         <Route path="podcast/:index" element={<EpisodePage />} />
         <Route path="blog" element={<Blog />} />
         <Route path="blog/:slug" element={<BlogPost />} />

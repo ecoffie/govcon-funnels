@@ -18,6 +18,8 @@ interface CustomPlayerProps {
   fallbackDuration: string;
   /** Lifted play/pause state (e.g. so the gallery can pause auto-rotation). */
   onPlayingChange?: (playing: boolean) => void;
+  /** Start playback as soon as the element mounts / src changes. */
+  autoPlay?: boolean;
 }
 
 /**
@@ -26,7 +28,11 @@ interface CustomPlayerProps {
  * registers with useExclusiveAudio, so starting playback here pauses every
  * other player on the page (one-at-a-time rule).
  */
-function useAudioPlayer(src: string, onPlayingChange?: (playing: boolean) => void) {
+function useAudioPlayer(
+  src: string,
+  onPlayingChange?: (playing: boolean) => void,
+  autoPlay?: boolean,
+) {
   const audioRef = useExclusiveAudio();
   const [playing, setPlaying] = useState(false);
   const [current, setCurrent] = useState(0);
@@ -37,7 +43,7 @@ function useAudioPlayer(src: string, onPlayingChange?: (playing: boolean) => voi
   const cbRef = useRef(onPlayingChange);
   cbRef.current = onPlayingChange;
 
-  // Guest switch: full reset, no autoplay
+  // Guest switch: full reset (autoplay only when explicitly requested)
   useEffect(() => {
     setPlaying(false);
     setCurrent(0);
@@ -69,6 +75,9 @@ function useAudioPlayer(src: string, onPlayingChange?: (playing: boolean) => voi
     el.addEventListener('pause', notifyPaused);
     el.addEventListener('ended', notifyPaused);
     el.addEventListener('error', onError);
+    if (autoPlay) {
+      el.play().catch(() => setError(true));
+    }
     return () => {
       el.removeEventListener('timeupdate', onTime);
       el.removeEventListener('loadedmetadata', onMeta);
@@ -77,7 +86,7 @@ function useAudioPlayer(src: string, onPlayingChange?: (playing: boolean) => voi
       el.removeEventListener('ended', notifyPaused);
       el.removeEventListener('error', onError);
     };
-  }, [audioRef]);
+  }, [audioRef, autoPlay]);
 
   const toggle = () => {
     const el = audioRef.current;
@@ -111,9 +120,9 @@ function useAudioPlayer(src: string, onPlayingChange?: (playing: boolean) => voi
  * fill), and a mono `current / total` readout that falls back to the data
  * duration string until metadata loads.
  */
-export default function CustomPlayer({ src, fallbackDuration, onPlayingChange }: CustomPlayerProps) {
+export default function CustomPlayer({ src, fallbackDuration, onPlayingChange, autoPlay }: CustomPlayerProps) {
   const { audioRef, playing, current, duration, error, toggle, skip, seekTo } =
-    useAudioPlayer(src, onPlayingChange);
+    useAudioPlayer(src, onPlayingChange, autoPlay);
   const trackRef = useRef<HTMLDivElement>(null);
 
   const seekFromPointer = (clientX: number) => {
@@ -216,7 +225,7 @@ export default function CustomPlayer({ src, fallbackDuration, onPlayingChange }:
 
       {error && (
         <p className="mt-2 text-sm text-slate-500 dark:text-slate-400">
-          Audio unavailable right now — listen on Libsyn instead.
+          Audio unavailable right now — try Apple Podcasts or Spotify instead.
         </p>
       )}
     </div>
