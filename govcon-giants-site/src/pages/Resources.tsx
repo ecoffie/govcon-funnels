@@ -60,7 +60,7 @@ function PageHeader() {
           </motion.span>
         </div>
 
-        <h1 className="max-w-[820px] font-display text-4xl font-black leading-[1.05] tracking-tight text-white md:text-[56px]">
+        <h1 className="max-w-[820px] font-display text-4xl font-black leading-[1.15] tracking-normal text-white md:text-[56px]">
           {h1Words.map((w, i) => (
             <span key={i}>
               <span className="inline-block overflow-hidden pb-1 align-bottom">
@@ -115,7 +115,7 @@ function FinalCta() {
             transition={{ type: 'spring', stiffness: 90, damping: 14 }}
             className="mx-auto mb-8 w-28 animate-float-y rounded-lg shadow-[0_20px_50px_rgba(0,0,0,0.25)] lg:absolute lg:-left-56 lg:top-1/2 lg:mb-0 lg:w-[140px] lg:-translate-y-1/2"
           />
-          <h2 className="mb-4 font-display text-3xl font-black tracking-tight text-slate-900 dark:text-white md:text-[40px]">
+          <h2 className="mb-4 font-display text-3xl font-black tracking-normal text-slate-900 dark:text-white md:text-[40px]">
             {['Start', 'with', 'the'].map((w, i) => (
               <motion.span
                 key={w}

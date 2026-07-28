@@ -5,7 +5,6 @@ import { platforms } from '@/data/platforms';
 
 const learnLinks = [
   { to: '/blog', label: 'Blog' },
-  { to: '/start-here', label: 'Start Here' },
   { to: '/resources', label: 'Resources' },
 ];
 
@@ -36,7 +35,7 @@ export default function Footer() {
 
         <div className="grid gap-10 md:grid-cols-[1.4fr_1fr_1fr_1fr]">
           <div>
-            <p className="mb-4 font-display text-2xl font-black tracking-tight">
+            <p className="mb-4 font-display text-2xl font-black tracking-normal">
               <span className="text-slate-900 dark:text-white">GovCon</span> <span className="text-brand">Giants</span>
             </p>
             <p className="max-w-xs text-sm leading-relaxed text-slate-500 dark:text-slate-400">

@@ -80,7 +80,7 @@ export default function Blog() {
           </div>
           <SplitHeadline
             text="GovCon, explained in *plain *English."
-            className="max-w-3xl font-display text-4xl font-black leading-[1.05] tracking-[-0.02em] text-white md:text-[56px]"
+            className="max-w-3xl font-display text-4xl font-black leading-[1.15] tracking-normal text-white md:text-[56px]"
           />
           <motion.p
             initial={{ opacity: 0, y: 16 }}
@@ -166,7 +166,7 @@ export default function Blog() {
                 Featured
               </span>
               <Link to={`/blog/${featured.slug}`}>
-                <h2 className="mb-4 font-display text-2xl font-extrabold leading-snug tracking-tight text-slate-900 dark:text-white transition-colors hover:text-brand md:text-[32px] md:leading-[1.15]">
+                <h2 className="mb-4 font-display text-2xl font-bold leading-snug tracking-normal text-slate-900 dark:text-white transition-colors hover:text-brand md:text-[32px] md:leading-[1.15]">
                   {featured.title}
                 </h2>
               </Link>

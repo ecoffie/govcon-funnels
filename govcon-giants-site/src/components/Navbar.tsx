@@ -12,7 +12,6 @@ const links: { to: string; label: string; external?: boolean }[] = [
   { to: '/blog', label: 'Blog' },
   { to: 'https://gcgsummit.com', label: 'Summit', external: true },
   { to: '/resources', label: 'Resources' },
-  { to: '/start-here', label: 'Start Here' },
   { to: '/about', label: 'About' },
 ];
 
@@ -53,7 +52,7 @@ export default function Navbar() {
       >
         <div className="container-gg flex h-full items-center justify-between gap-6">
           <Link to="/" aria-label="GovCon Giants home" className="shrink-0">
-            <span className="font-display text-[22px] font-black tracking-tight">
+            <span className="font-display text-[22px] font-black tracking-normal">
               <span className="text-slate-900 dark:text-white">GovCon</span> <span className="text-brand">Giants</span>
             </span>
           </Link>
@@ -66,7 +65,7 @@ export default function Navbar() {
                   href={l.to}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="relative inline-flex items-center gap-1 font-narrow text-lg font-semibold uppercase tracking-[0.06em] text-slate-500 dark:text-slate-400 transition-colors duration-150 after:absolute after:-bottom-1.5 after:left-0 after:h-0.5 after:w-full after:origin-left after:scale-x-0 after:bg-brand after:transition-transform after:duration-200 hover:text-slate-900 dark:hover:text-white hover:after:scale-x-100"
+                  className="relative inline-flex items-center gap-1 font-sans text-lg font-semibold uppercase tracking-[0.06em] text-slate-500 dark:text-slate-400 transition-colors duration-150 after:absolute after:-bottom-1.5 after:left-0 after:h-0.5 after:w-full after:origin-left after:scale-x-0 after:bg-brand after:transition-transform after:duration-200 hover:text-slate-900 dark:hover:text-white hover:after:scale-x-100"
                 >
                   {l.label}
                   <ArrowUpRight className="h-3.5 w-3.5" />
@@ -77,7 +76,7 @@ export default function Navbar() {
                   to={l.to}
                   className={({ isActive }) =>
                     cn(
-                      'relative font-narrow text-lg font-semibold uppercase tracking-[0.06em] text-slate-500 dark:text-slate-400 transition-colors duration-150 after:absolute after:-bottom-1.5 after:left-0 after:h-0.5 after:w-full after:origin-left after:scale-x-0 after:bg-brand after:transition-transform after:duration-200 hover:text-slate-900 dark:hover:text-white hover:after:scale-x-100',
+                      'relative font-sans text-lg font-semibold uppercase tracking-[0.06em] text-slate-500 dark:text-slate-400 transition-colors duration-150 after:absolute after:-bottom-1.5 after:left-0 after:h-0.5 after:w-full after:origin-left after:scale-x-0 after:bg-brand after:transition-transform after:duration-200 hover:text-slate-900 dark:hover:text-white hover:after:scale-x-100',
                       isActive && 'text-brand after:scale-x-100',
                     )
                   }
@@ -150,7 +149,7 @@ export default function Navbar() {
                       target="_blank"
                       rel="noopener noreferrer"
                       onClick={() => setDrawerOpen(false)}
-                      className="inline-flex items-center gap-2 font-display text-[32px] font-black tracking-tight text-slate-900 dark:text-white transition-colors hover:text-brand"
+                      className="inline-flex items-center gap-2 font-display text-[32px] font-black tracking-normal text-slate-900 dark:text-white transition-colors hover:text-brand"
                     >
                       {l.label}
                       <ArrowUpRight className="h-5 w-5" />
@@ -161,7 +160,7 @@ export default function Navbar() {
                       onClick={() => setDrawerOpen(false)}
                       className={({ isActive }) =>
                         cn(
-                          'font-display text-[32px] font-black tracking-tight text-slate-900 dark:text-white transition-colors hover:text-brand',
+                          'font-display text-[32px] font-black tracking-normal text-slate-900 dark:text-white transition-colors hover:text-brand',
                           isActive && 'text-brand',
                         )
                       }
@@ -191,7 +190,7 @@ export default function Navbar() {
                   onClick={() => setTheme(toggleTheme())}
                   aria-label={theme === 'dark' ? 'Switch to light mode' : 'Switch to dark mode'}
                   aria-pressed={theme === 'dark'}
-                  className="inline-flex items-center gap-2 rounded-lg border border-line px-4 py-3 font-narrow text-base font-semibold uppercase tracking-[0.08em] text-slate-600 dark:text-slate-300 cursor-pointer dark:text-slate-300"
+                  className="inline-flex items-center gap-2 rounded-lg border border-line px-4 py-3 font-sans text-base font-semibold uppercase tracking-[0.08em] text-slate-600 dark:text-slate-300 cursor-pointer dark:text-slate-300"
                 >
                   {theme === 'dark' ? <Sun className="h-5 w-5" /> : <Moon className="h-5 w-5" />}
                   {theme === 'dark' ? 'Light' : 'Dark'}

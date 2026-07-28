@@ -21,7 +21,7 @@ const metaChips = ['EP: 334+', 'THE DAILY WINDUP', 'INTERVIEWS', 'FREE'];
 /**
  * Show header (podcast.md §1): dark full-bleed photo hero in the home hero's
  * design language — stage photo with dark scrims, condensed green kicker,
- * massive white Montserrat headline with italic-green accent word, show
+ * massive white Merriweather headline with italic-green accent word, show
  * description, waveform strip, listen-on platform buttons (#listen-on
  * anchor target) and meta chips.
  */
@@ -59,12 +59,12 @@ export default function ShowHeader() {
             className="h-0.5 w-6 origin-left bg-green-400"
             aria-hidden
           />
-          <span className="font-narrow text-sm font-semibold uppercase tracking-[0.22em] text-green-400">
+          <span className="font-sans text-sm font-semibold uppercase tracking-[0.22em] text-green-400">
             THE GOVCON GIANTS PODCAST
           </span>
         </motion.div>
 
-        <h1 className="font-display text-[36px] font-black leading-[1.05] tracking-[-0.02em] text-white md:text-[64px]">
+        <h1 className="font-display text-[36px] font-black leading-[1.15] tracking-normal text-white md:text-[64px]">
           {headlineWords.map((w, i) => (
             <span key={i}>
               <span className="inline-block overflow-hidden pb-1 align-bottom">
@@ -125,7 +125,7 @@ export default function ShowHeader() {
               initial={{ scale: 0.7, opacity: 0 }}
               animate={{ scale: 1, opacity: 1 }}
               transition={{ type: 'spring', stiffness: 260, damping: 18, delay: 1.1 + i * 0.08 }}
-              className="rounded-full border border-white/15 bg-white/10 px-3.5 py-1.5 font-narrow text-sm font-semibold uppercase tracking-[0.1em] text-green-400"
+              className="rounded-full border border-white/15 bg-white/10 px-3.5 py-1.5 font-sans text-sm font-semibold uppercase tracking-[0.1em] text-green-400"
             >
               {chip}
             </motion.span>

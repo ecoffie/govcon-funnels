@@ -5,9 +5,8 @@ module.exports = {
   theme: {
     extend: {
       fontFamily: {
-        display: ['Montserrat', 'system-ui', 'sans-serif'],
-        narrow: ['"Barlow Condensed"', 'system-ui', 'sans-serif'],
-        sans: ['"IBM Plex Sans"', 'system-ui', 'sans-serif'],
+        display: ['Merriweather', 'Georgia', 'serif'],
+        sans: ['"Public Sans"', 'system-ui', 'sans-serif'],
         mono: ['"IBM Plex Mono"', 'ui-monospace', 'monospace'],
       },
       colors: {

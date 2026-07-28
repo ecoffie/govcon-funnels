@@ -114,7 +114,7 @@ export default function NewsletterCapture({
         )}
       >
         <p className="kicker mb-2">{kicker}</p>
-        <h3 className="mb-5 font-display text-2xl font-extrabold tracking-tight text-slate-900 dark:text-white">{heading}</h3>
+        <h3 className="mb-5 font-display text-2xl font-bold tracking-normal text-slate-900 dark:text-white">{heading}</h3>
         <InlineForm buttonLabel="Send Me the Starter Kit" />
       </div>
     );
@@ -183,7 +183,7 @@ export function NewsletterModal({ open, onClose }: NewsletterModalProps) {
             </div>
             <div className="p-6 md:p-8">
               <p className="kicker mb-2">FREE STARTER KIT</p>
-              <h3 className="mb-2 font-display text-2xl font-black tracking-tight text-slate-900 dark:text-white md:text-3xl">
+              <h3 className="mb-2 font-display text-2xl font-black tracking-normal text-slate-900 dark:text-white md:text-3xl">
                 The Billion Dollar <em className="italic text-brand">Playbook</em>
               </h3>
               <p className="mb-6 text-[15px] leading-relaxed text-slate-600 dark:text-slate-300">

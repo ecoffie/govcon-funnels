@@ -142,7 +142,7 @@
     text-wrap: balance;
   }
   .kicker {
-    @apply font-narrow text-sm font-semibold uppercase tracking-[0.22em] text-brand;
+    @apply font-sans text-sm font-semibold uppercase tracking-[0.18em] text-brand;
   }
   @media (prefers-reduced-motion: reduce) {
     *,

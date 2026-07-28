@@ -105,7 +105,7 @@ export default function BioHero({ onOpenPlaybook }: BioHeroProps) {
             <span className="kicker text-green-400">ABOUT THE FOUNDER</span>
           </div>
 
-          <h1 className="mb-4 font-display text-4xl font-black leading-[1.05] tracking-[-0.01em] text-white md:text-[56px]">
+          <h1 className="mb-4 font-display text-4xl font-black leading-[1.15] tracking-normal text-white md:text-[56px]">
             <motion.span
               initial={{ opacity: 0, y: 24 }}
               animate={{ opacity: 1, y: 0 }}

@@ -33,7 +33,6 @@ const columns: DirectoryColumn[] = [
     kicker: 'READ',
     links: [
       { label: 'Blog', to: '/blog' },
-      { label: 'Start Here', to: '/start-here' },
       { label: 'About Eric', to: '/about' },
     ],
   },

@@ -6,7 +6,7 @@ const EASE = [0.16, 1, 0.3, 1] as [number, number, number, number];
 
 /**
  * About §5 — full-width flag banner with dark overlay, parallax at 0.4x,
- * mission statement + pulsing primary CTA to /start-here.
+ * mission statement + pulsing primary CTA to /resources.
  */
 export default function MissionBanner() {
   const ref = useRef<HTMLElement>(null);
@@ -40,7 +40,7 @@ export default function MissionBanner() {
             </span>
           </motion.div>
 
-          <h2 className="mb-8 font-display text-3xl font-black leading-[1.1] tracking-tight text-white md:text-[40px]">
+          <h2 className="mb-8 font-display text-3xl font-black leading-[1.1] tracking-normal text-white md:text-[40px]">
             {['Teach', 'everyday', 'people', 'to', 'win'].map((w, i) => (
               <motion.span
                 key={w}
@@ -83,10 +83,10 @@ export default function MissionBanner() {
             transition={{ duration: 0.5, delay: 0.55, ease: 'easeOut' }}
           >
             <Link
-              to="/start-here"
+              to="/resources"
               className="inline-flex animate-pulse-ring items-center justify-center gap-2 rounded-lg bg-brand px-7 py-3.5 text-[15px] font-semibold text-brand-ink transition-all duration-150 hover:-translate-y-px hover:bg-brand-hover active:scale-[0.98] cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand focus-visible:ring-offset-2 focus-visible:ring-offset-base"
             >
-              Start Here — It&apos;s Free
+              Explore Free Resources
             </Link>
           </motion.div>
         </div>

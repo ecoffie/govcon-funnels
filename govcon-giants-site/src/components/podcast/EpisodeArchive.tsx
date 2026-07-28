@@ -253,14 +253,19 @@ export default function EpisodeArchive() {
                         whileInView={{ opacity: 1 }}
                         viewport={{ once: true, amount: 0.6 }}
                         transition={{ duration: 0.3 }}
-                        className="font-narrow text-lg font-semibold uppercase tracking-[0.2em] text-brand"
+                        className="font-sans text-lg font-semibold uppercase tracking-[0.2em] text-brand"
                       >
                         {group.label}
                       </motion.h2>
                     </div>
                     <div>
                       {group.eps.map((ep, i) => (
-                        <EpisodeRow key={ep.link} episode={ep} index={Math.min(i, 8)} />
+                        <EpisodeRow
+                          key={ep.link}
+                          episode={ep}
+                          index={Math.min(i, 8)}
+                          episodeIndex={episodes.indexOf(ep)}
+                        />
                       ))}
                     </div>
                   </div>

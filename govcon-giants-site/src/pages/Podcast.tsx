@@ -1,7 +1,7 @@
 import { motion } from 'framer-motion';
 import NewsletterCapture from '@/components/NewsletterCapture';
 import ShowHeader from '@/components/podcast/ShowHeader';
-import FeaturedGuests from '@/components/podcast/FeaturedGuests';
+import FeaturedGallery from '@/components/podcast/FeaturedGallery';
 import EpisodeArchive from '@/components/podcast/EpisodeArchive';
 
 /* ------------------- Section 5 — Never Miss an Episode CTA ------------------- */
@@ -27,7 +27,7 @@ function EpisodeCta() {
             />
             <span className="kicker">NEVER MISS AN EPISODE</span>
           </div>
-          <h2 className="font-display text-[32px] font-black leading-[1.1] tracking-tight text-slate-900 dark:text-white">
+          <h2 className="font-display text-[32px] font-black leading-[1.1] tracking-normal text-slate-900 dark:text-white">
             The Daily Windup, in your <em className="italic text-brand">inbox</em>.
           </h2>
           <p className="mt-4 max-w-md text-[17px] leading-[1.7] text-slate-600 dark:text-slate-300">
@@ -54,7 +54,7 @@ function EpisodeCta() {
 /* --------------------------------- Page ----------------------------------- */
 
 /** /podcast — full episode archive (podcast.md): show header, featured
- * guests grid, sticky filter bar, month-grouped archive, CTA band. */
+ * episodes gallery, sticky filter bar, month-grouped archive, CTA band. */
 export default function Podcast() {
   return (
     <motion.div
@@ -63,7 +63,7 @@ export default function Podcast() {
       transition={{ duration: 0.3, ease: 'easeOut' }}
     >
       <ShowHeader />
-      <FeaturedGuests />
+      <FeaturedGallery />
       <EpisodeArchive />
       <EpisodeCta />
     </motion.div>

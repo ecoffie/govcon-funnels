@@ -103,7 +103,7 @@ export default function BookFeature({ onGetFreeWebsites }: BookFeatureProps) {
 
           <motion.h2
             variants={{ hidden: { opacity: 0, y: 24 }, show: { opacity: 1, y: 0, transition: { duration: 0.45, ease: EASE } } }}
-            className="font-display text-3xl font-black leading-[1.1] tracking-tight text-slate-900 dark:text-white md:text-[40px]"
+            className="font-display text-3xl font-black leading-[1.1] tracking-normal text-slate-900 dark:text-white md:text-[40px]"
           >
             Billion Dollar <em className="italic text-brand">Playbook</em>
           </motion.h2>

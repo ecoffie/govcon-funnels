@@ -10,7 +10,7 @@ function TierHeading({ children }: { children: string }) {
   return (
     <div className="mb-8 flex items-center gap-3">
       <span className="h-0.5 w-6 bg-brand" aria-hidden />
-      <h3 className="font-narrow text-sm font-semibold uppercase tracking-[0.22em] text-brand">
+      <h3 className="font-sans text-sm font-semibold uppercase tracking-[0.22em] text-brand">
         {children}
       </h3>
     </div>
@@ -41,7 +41,7 @@ function SpeakerCard({ speaker, index }: { speaker: Speaker; index: number }) {
           />
         </div>
         <div className="flex flex-1 flex-col p-5">
-          <h4 className="font-display text-lg font-extrabold tracking-tight text-slate-900 transition-colors group-hover:text-brand dark:text-white">
+          <h4 className="font-display text-lg font-bold tracking-normal text-slate-900 transition-colors group-hover:text-brand dark:text-white">
             {speaker.name}
           </h4>
           <p className="mt-1 text-xs leading-relaxed text-slate-500 dark:text-slate-400">
@@ -50,7 +50,7 @@ function SpeakerCard({ speaker, index }: { speaker: Speaker; index: number }) {
           <p className="mt-2 flex-1 text-sm leading-relaxed text-slate-600 dark:text-slate-300">
             {speaker.credential}
           </p>
-          <span className="mt-4 inline-flex items-center gap-1 font-narrow text-xs font-semibold uppercase tracking-[0.14em] text-brand">
+          <span className="mt-4 inline-flex items-center gap-1 font-sans text-xs font-semibold uppercase tracking-[0.14em] text-brand">
             {speaker.tier === 'summit' ? 'Summit' : 'Episode'}
             <ArrowUpRight className="h-3.5 w-3.5 transition-transform duration-150 group-hover:-translate-y-0.5 group-hover:translate-x-0.5" />
           </span>

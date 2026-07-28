@@ -10,7 +10,7 @@ interface ArticleCardProps {
 }
 
 /** ArticleCard (design.md §6.5): 16:9 thumb with hover zoom, category chip,
- *  Montserrat title, 2-line excerpt, mono date + read time. */
+ *  Merriweather title, 2-line excerpt, mono date + read time. */
 export default function ArticleCard({ article, index = 0, className }: ArticleCardProps) {
   const [year, month] = article.date.split('-');
   const dateLabel = new Date(Number(year), Number(month) - 1).toLocaleDateString('en-US', {
@@ -42,7 +42,7 @@ export default function ArticleCard({ article, index = 0, className }: ArticleCa
           </span>
         </div>
         <div className="flex flex-1 flex-col p-5">
-          <h3 className="mb-2 font-display text-[22px] font-extrabold leading-snug tracking-tight text-slate-900 dark:text-white transition-colors group-hover:text-brand">
+          <h3 className="mb-2 font-display text-[22px] font-bold leading-snug tracking-normal text-slate-900 dark:text-white transition-colors group-hover:text-brand">
             {article.title}
           </h3>
           <p className="mb-4 line-clamp-2 flex-1 text-sm leading-relaxed text-slate-500 dark:text-slate-400">
