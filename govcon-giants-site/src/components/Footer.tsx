@@ -28,8 +28,10 @@ export default function Footer() {
       <div className="container-gg py-16 md:py-20">
         <NewsletterCapture
           variant="compact"
-          kicker="THE FREE PLAYBOOK STARTER KIT"
-          heading="Five websites that find federal buyers — free, today."
+          kicker="THE FREE ACTION PLAN"
+          heading="Your step-by-step plan to win federal contracts — free."
+          buttonLabel="Send Me the Action Plan"
+          source="footer-action-plan"
           className="mb-16"
         />
 

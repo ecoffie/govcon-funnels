@@ -1,8 +1,9 @@
 import type { FormEvent } from 'react';
 import { useEffect, useState } from 'react';
 import { AnimatePresence, motion } from 'framer-motion';
-import { CheckCircle2, X } from 'lucide-react';
+import { AlertCircle, CheckCircle2, Loader2, X } from 'lucide-react';
 import type { Guide } from '@/components/resources/guides';
+import { submitSignup } from '@/lib/signup';
 
 interface GuideSignupModalProps {
   /** The guide being requested — null means closed. */
@@ -18,13 +19,14 @@ interface GuideSignupModalProps {
  */
 export default function GuideSignupModal({ guide, onClose }: GuideSignupModalProps) {
   const [email, setEmail] = useState('');
-  const [done, setDone] = useState(false);
+  const [status, setStatus] = useState<'idle' | 'loading' | 'done' | 'error'>('idle');
+  const done = status === 'done';
   const open = guide !== null;
 
   useEffect(() => {
     if (!open) return;
     setEmail('');
-    setDone(false);
+    setStatus('idle');
     const onKey = (e: KeyboardEvent) => e.key === 'Escape' && onClose();
     window.addEventListener('keydown', onKey);
     document.body.style.overflow = 'hidden';
@@ -34,17 +36,16 @@ export default function GuideSignupModal({ guide, onClose }: GuideSignupModalPro
     };
   }, [open, onClose, guide]);
 
-  const submit = (e: FormEvent) => {
+  const submit = async (e: FormEvent) => {
     e.preventDefault();
-    if (!email.trim()) return;
+    if (!email.trim() || status === 'loading') return;
+    setStatus('loading');
     try {
-      const list = JSON.parse(localStorage.getItem('gg-signups') ?? '[]') as string[];
-      list.push(email.trim());
-      localStorage.setItem('gg-signups', JSON.stringify(list));
+      await submitSignup({ email, source: guide ? `guide:${guide.title}` : 'guide' });
+      setStatus('done');
     } catch {
-      /* storage unavailable — still show success */
+      setStatus('error');
     }
-    setDone(true);
   };
 
   return (
@@ -111,14 +112,29 @@ export default function GuideSignupModal({ guide, onClose }: GuideSignupModalPro
                     onChange={(e) => setEmail(e.target.value)}
                     placeholder="you@company.com"
                     aria-label="Email address"
+                    disabled={status === 'loading'}
                     className="h-12 w-full rounded-lg border border-line bg-raised px-4 text-[15px] text-slate-900 dark:text-white placeholder:text-slate-500 transition-colors focus:border-brand focus:outline-none focus:ring-2 focus:ring-brand/40"
                   />
                   <button
                     type="submit"
-                    className="inline-flex h-12 shrink-0 items-center justify-center gap-2 whitespace-nowrap rounded-lg bg-brand px-6 text-[15px] font-semibold text-brand-ink transition-all duration-150 hover:bg-brand-hover hover:-translate-y-px active:scale-[0.98] cursor-pointer"
+                    disabled={status === 'loading'}
+                    className="inline-flex h-12 shrink-0 items-center justify-center gap-2 whitespace-nowrap rounded-lg bg-brand px-6 text-[15px] font-semibold text-brand-ink transition-all duration-150 hover:bg-brand-hover hover:-translate-y-px active:scale-[0.98] disabled:pointer-events-none disabled:opacity-70 cursor-pointer"
                   >
-                    Email It to Me
+                    {status === 'loading' ? (
+                      <>
+                        Sending…
+                        <Loader2 className="h-4 w-4 animate-spin" />
+                      </>
+                    ) : (
+                      'Email It to Me'
+                    )}
                   </button>
+                  {status === 'error' && (
+                    <p className="flex items-center gap-1.5 text-[13px] font-medium text-red-600 dark:text-red-400">
+                      <AlertCircle className="h-4 w-4 shrink-0" />
+                      Something went wrong. Please try again.
+                    </p>
+                  )}
                 </form>
               )}
               <p className="mt-4 font-mono text-[11px] tracking-[0.14em] text-slate-500 dark:text-slate-400">

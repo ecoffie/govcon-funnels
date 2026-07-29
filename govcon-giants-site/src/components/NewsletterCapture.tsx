@@ -1,10 +1,12 @@
 import type { FormEvent } from 'react';
 import { useEffect, useState } from 'react';
 import { AnimatePresence, motion } from 'framer-motion';
-import { ArrowRight, CheckCircle2, X } from 'lucide-react';
+import { AlertCircle, ArrowRight, CheckCircle2, Loader2, X } from 'lucide-react';
 import { cn } from '@/lib/utils';
+import { submitSignup } from '@/lib/signup';
 
 type Variant = 'hero' | 'compact' | 'modal';
+type Status = 'idle' | 'loading' | 'done' | 'error';
 
 interface NewsletterCaptureProps {
   variant?: Variant;
@@ -12,27 +14,36 @@ interface NewsletterCaptureProps {
   heading?: string;
   /** Kicker shown above the compact heading. */
   kicker?: string;
+  /** Submit button label. */
+  buttonLabel?: string;
+  /** Success line shown after a submit. */
+  successMessage?: string;
+  /** Tag passed to GHL so leads can be attributed to a specific CTA. */
+  source?: string;
   /** Dark-background styling for the hero variant (photo slideshow hero). */
   dark?: boolean;
   className?: string;
 }
 
-function useSignup() {
+const DEFAULT_SUCCESS = "You're on the list — check your inbox for a confirmation email.";
+
+function useSignup(source?: string) {
   const [email, setEmail] = useState('');
-  const [done, setDone] = useState(false);
-  const submit = (e: FormEvent) => {
+  const [status, setStatus] = useState<Status>('idle');
+
+  const submit = async (e: FormEvent) => {
     e.preventDefault();
-    if (!email.trim()) return;
+    if (!email.trim() || status === 'loading') return;
+    setStatus('loading');
     try {
-      const list = JSON.parse(localStorage.getItem('gg-signups') ?? '[]') as string[];
-      list.push(email.trim());
-      localStorage.setItem('gg-signups', JSON.stringify(list));
+      await submitSignup({ email, source });
+      setStatus('done');
     } catch {
-      /* storage unavailable — still show success */
+      setStatus('error');
     }
-    setDone(true);
   };
-  return { email, setEmail, done, submit };
+
+  return { email, setEmail, status, submit };
 }
 
 const inputCls =
@@ -40,40 +51,78 @@ const inputCls =
 const inputDarkCls =
   'h-12 w-full rounded-lg border border-white/40 bg-white/10 px-4 text-[15px] text-white placeholder:text-white/50 backdrop-blur-sm transition-colors focus:border-green-400 focus:outline-none focus:ring-2 focus:ring-green-400/40';
 const btnCls =
-  'group inline-flex h-12 shrink-0 items-center justify-center gap-2 whitespace-nowrap rounded-lg bg-brand px-6 text-[15px] font-semibold text-brand-ink transition-all duration-150 hover:bg-brand-hover hover:-translate-y-px active:scale-[0.98] cursor-pointer';
+  'group inline-flex h-12 shrink-0 items-center justify-center gap-2 whitespace-nowrap rounded-lg bg-brand px-6 text-[15px] font-semibold text-brand-ink transition-all duration-150 hover:bg-brand-hover hover:-translate-y-px active:scale-[0.98] disabled:pointer-events-none disabled:opacity-70 cursor-pointer';
 
-function SuccessNote({ className }: { className?: string }) {
+function SuccessNote({ message, className }: { message: string; className?: string }) {
   return (
     <motion.p
       initial={{ opacity: 0, y: 8 }}
       animate={{ opacity: 1, y: 0 }}
       className={cn('flex items-center gap-2 text-[15px] font-medium text-brand', className)}
     >
-      <CheckCircle2 className="h-5 w-5" />
-      Check your inbox. The Playbook is on its way.
+      <CheckCircle2 className="h-5 w-5 shrink-0" />
+      {message}
     </motion.p>
   );
 }
 
-function InlineForm({ buttonLabel, dark }: { buttonLabel: string; dark?: boolean }) {
-  const { email, setEmail, done, submit } = useSignup();
-  if (done) return <SuccessNote className={cn('h-12', dark && 'text-green-400')} />;
+function ErrorNote({ dark }: { dark?: boolean }) {
   return (
-    <form onSubmit={submit} className="flex w-full flex-col gap-3 sm:flex-row">
-      <input
-        type="email"
-        required
-        value={email}
-        onChange={(e) => setEmail(e.target.value)}
-        placeholder="you@company.com"
-        aria-label="Email address"
-        className={dark ? inputDarkCls : inputCls}
-      />
-      <button type="submit" className={btnCls}>
-        {buttonLabel}
-        <ArrowRight className="h-4 w-4 transition-transform duration-150 group-hover:translate-x-1" />
-      </button>
-    </form>
+    <p
+      className={cn(
+        'mt-2 flex items-center gap-1.5 text-[13px] font-medium',
+        dark ? 'text-red-300' : 'text-red-600 dark:text-red-400',
+      )}
+    >
+      <AlertCircle className="h-4 w-4 shrink-0" />
+      Something went wrong. Please try again.
+    </p>
+  );
+}
+
+function InlineForm({
+  buttonLabel,
+  successMessage,
+  source,
+  dark,
+}: {
+  buttonLabel: string;
+  successMessage: string;
+  source?: string;
+  dark?: boolean;
+}) {
+  const { email, setEmail, status, submit } = useSignup(source);
+  if (status === 'done')
+    return <SuccessNote message={successMessage} className={cn('h-12', dark && 'text-green-400')} />;
+  return (
+    <div className="w-full">
+      <form onSubmit={submit} className="flex w-full flex-col gap-3 sm:flex-row">
+        <input
+          type="email"
+          required
+          value={email}
+          onChange={(e) => setEmail(e.target.value)}
+          placeholder="you@company.com"
+          aria-label="Email address"
+          disabled={status === 'loading'}
+          className={dark ? inputDarkCls : inputCls}
+        />
+        <button type="submit" className={btnCls} disabled={status === 'loading'}>
+          {status === 'loading' ? (
+            <>
+              Joining…
+              <Loader2 className="h-4 w-4 animate-spin" />
+            </>
+          ) : (
+            <>
+              {buttonLabel}
+              <ArrowRight className="h-4 w-4 transition-transform duration-150 group-hover:translate-x-1" />
+            </>
+          )}
+        </button>
+      </form>
+      {status === 'error' && <ErrorNote dark={dark} />}
+    </div>
   );
 }
 
@@ -81,18 +130,29 @@ function InlineForm({ buttonLabel, dark }: { buttonLabel: string; dark?: boolean
  * Reusable email capture in three variants (design.md §6.3):
  * hero — single-line form + helper line; compact — panel with green left
  * border for footer/CTA bands; modal — centered card with book cover.
+ *
+ * Submissions POST to a GHL inbound webhook (see src/lib/signup.ts), which
+ * creates the contact and sends the welcome email.
  */
 export default function NewsletterCapture({
   variant = 'hero',
   heading = 'Get new episodes & guides first.',
   kicker = 'FREE · NO SPAM · UNSUBSCRIBE ANYTIME',
+  buttonLabel = 'Join the Newsletter',
+  successMessage = DEFAULT_SUCCESS,
+  source,
   dark,
   className,
 }: NewsletterCaptureProps) {
   if (variant === 'hero') {
     return (
       <div className={cn('w-full', className)}>
-        <InlineForm buttonLabel="Send Me the Starter Kit" dark={dark} />
+        <InlineForm
+          buttonLabel={buttonLabel}
+          successMessage={successMessage}
+          source={source ?? 'hero-newsletter'}
+          dark={dark}
+        />
         <p
           className={cn(
             'mt-3 font-mono text-[11px] tracking-[0.14em]',
@@ -115,7 +175,11 @@ export default function NewsletterCapture({
       >
         <p className="kicker mb-2">{kicker}</p>
         <h3 className="mb-5 font-display text-2xl font-bold tracking-normal text-slate-900 dark:text-white">{heading}</h3>
-        <InlineForm buttonLabel="Send Me the Starter Kit" />
+        <InlineForm
+          buttonLabel={buttonLabel}
+          successMessage={successMessage}
+          source={source ?? 'compact-newsletter'}
+        />
       </div>
     );
   }
@@ -131,7 +195,7 @@ interface NewsletterModalProps {
 
 /** Modal variant — triggered by the navbar "Free Playbook" CTA. */
 export function NewsletterModal({ open, onClose }: NewsletterModalProps) {
-  const { email, setEmail, done, submit } = useSignup();
+  const { email, setEmail, status, submit } = useSignup('playbook-modal');
 
   useEffect(() => {
     if (!open) return;
@@ -190,8 +254,8 @@ export function NewsletterModal({ open, onClose }: NewsletterModalProps) {
                 Five of the 72 federal websites Eric uses to find buyers, partners, and
                 contracts — delivered instantly, free.
               </p>
-              {done ? (
-                <SuccessNote />
+              {status === 'done' ? (
+                <SuccessNote message={DEFAULT_SUCCESS} />
               ) : (
                 <form onSubmit={submit} className="flex flex-col gap-3">
                   <input
@@ -202,12 +266,23 @@ export function NewsletterModal({ open, onClose }: NewsletterModalProps) {
                     onChange={(e) => setEmail(e.target.value)}
                     placeholder="you@company.com"
                     aria-label="Email address"
+                    disabled={status === 'loading'}
                     className={inputCls}
                   />
-                  <button type="submit" className={btnCls}>
-                    Send Me the Starter Kit
-                    <ArrowRight className="h-4 w-4 transition-transform duration-150 group-hover:translate-x-1" />
+                  <button type="submit" className={btnCls} disabled={status === 'loading'}>
+                    {status === 'loading' ? (
+                      <>
+                        Joining…
+                        <Loader2 className="h-4 w-4 animate-spin" />
+                      </>
+                    ) : (
+                      <>
+                        Send Me the Starter Kit
+                        <ArrowRight className="h-4 w-4 transition-transform duration-150 group-hover:translate-x-1" />
+                      </>
+                    )}
                   </button>
+                  {status === 'error' && <ErrorNote />}
                 </form>
               )}
               <p className="mt-4 font-mono text-[11px] tracking-[0.14em] text-slate-500 dark:text-slate-400">

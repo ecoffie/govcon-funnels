@@ -2,6 +2,7 @@ import { useState } from 'react';
 import { motion } from 'framer-motion';
 import NewsletterCapture from '@/components/NewsletterCapture';
 import BookFeature from '@/components/resources/BookFeature';
+import BooksSection from '@/components/resources/BooksSection';
 import GuidesLibrary from '@/components/resources/GuidesLibrary';
 import DirectorySection from '@/components/resources/DirectorySection';
 import GuideSignupModal from '@/components/resources/GuideSignupModal';
@@ -179,7 +180,12 @@ export default function Resources() {
       transition={{ duration: 0.3, ease: 'easeOut' }}
     >
       <PageHeader />
-      <BookFeature onGetFreeWebsites={() => setActiveGuide(guides[0])} />
+      <BookFeature
+        onGetFreeWebsites={() =>
+          setActiveGuide(guides.find((g) => g.title.includes('72-Website')) ?? guides[0])
+        }
+      />
+      <BooksSection />
       <GuidesLibrary onSelect={setActiveGuide} />
       <DirectorySection />
       <FinalCta />

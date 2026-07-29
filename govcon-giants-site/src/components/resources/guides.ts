@@ -1,5 +1,5 @@
 import type { LucideIcon } from 'lucide-react';
-import { Globe, ClipboardCheck, Award, FileText, Mail, Target } from 'lucide-react';
+import { Globe, ClipboardCheck, Award, FileText, Mail, Target, Map, CalendarCheck } from 'lucide-react';
 
 export interface Guide {
   title: string;
@@ -15,6 +15,20 @@ export interface Guide {
  * proposals, subcontracting outreach, and NAICS/PSC codes.
  */
 export const guides: Guide[] = [
+  {
+    title: 'The Federal Contracting Action Plan',
+    blurb: 'Your step-by-step plan to win your first (or next) federal contract.',
+    modalCopy:
+      'The Federal Contracting Action Plan — a step-by-step roadmap that takes you from registration to your first federal award, in the order Eric teaches it. Free, straight to your inbox.',
+    icon: Map,
+  },
+  {
+    title: 'The 5-Day Consulting Challenge',
+    blurb: 'Five days, five focused steps to launch your GovCon consulting business.',
+    modalCopy:
+      'The 5-Day Consulting Challenge — one focused action each day for five days to stand up your government contracting consulting business. Free, delivered to your inbox.',
+    icon: CalendarCheck,
+  },
   {
     title: 'The 72-Website Starter Kit',
     blurb: '5 of the 72 federal websites, with a walkthrough for each.',
