@@ -1,21 +1,24 @@
+import type { ReactNode } from 'react';
 import { Link, Navigate, useParams } from 'react-router';
 import { motion } from 'framer-motion';
-import { ArrowLeft, ChevronLeft, ChevronRight } from 'lucide-react';
+import { ArrowLeft, ArrowUpRight, ChevronLeft, ChevronRight } from 'lucide-react';
 import CustomPlayer from '@/components/podcast/CustomPlayer';
 import { featuredEpisodes } from '@/data/featuredEpisodes';
 import { speakers } from '@/data/speakers';
 import { formatEpisodeDate } from '@/lib/episode-utils';
+import { parseEpisodeBody } from '@/lib/episode-content';
 import { platforms } from '@/data/platforms';
 import { cn } from '@/lib/utils';
 
 const reveal = (delay = 0) => ({
   initial: { opacity: 0, y: 24 },
-  animate: { opacity: 1, y: 0 },
+  whileInView: { opacity: 1, y: 0 },
+  viewport: { once: true, amount: 0.2 },
   transition: { type: 'spring', stiffness: 120, damping: 20, delay } as const,
 });
 
-/** `/podcast/featured/:index` — detail page for one of the 6 curated
- * featured episodes (featuredEpisodes.ts), mirroring EpisodePage's layout. */
+/** `/podcast/featured/:index` — detail page for one of the curated featured
+ * guest interviews, matching EpisodePage's show-notes layout. */
 export default function FeaturedEpisodePage() {
   const { index: raw } = useParams();
   const index = Number(raw);
@@ -24,13 +27,17 @@ export default function FeaturedEpisodePage() {
   }
 
   const episode = featuredEpisodes[index];
-  // Extra credential from the speakers data when the name matches
   const speaker = speakers.find((s) => s.name === episode.guest);
-  const credential =
-    speaker?.credential ??
-    [episode.role, episode.agency].filter(Boolean).join(' · ');
+  const credential = speaker?.credential;
+  const roleLine = [episode.role, episode.agency].filter(Boolean).join(' · ');
+  const { intro, links } = parseEpisodeBody(episode.blurb);
+
   const newer = index > 0 ? index - 1 : undefined;
   const older = index < featuredEpisodes.length - 1 ? index + 1 : undefined;
+  const others = featuredEpisodes
+    .map((e, i) => ({ e, i }))
+    .filter(({ i }) => i !== index)
+    .slice(0, 3);
 
   return (
     <motion.div
@@ -39,21 +46,19 @@ export default function FeaturedEpisodePage() {
       transition={{ duration: 0.3, ease: 'easeOut' }}
       className="py-12 md:py-16"
     >
-      <div className="container-gg max-w-[1100px]">
+      <div className="container-gg max-w-[860px]">
         {/* Back link */}
-        <motion.div {...reveal()}>
-          <Link
-            to="/podcast"
-            className="inline-flex items-center gap-1.5 font-sans text-sm font-semibold uppercase tracking-[0.14em] text-slate-500 transition-colors hover:text-brand dark:text-slate-400"
-          >
-            <ArrowLeft className="h-4 w-4" />
-            Featured
-          </Link>
-        </motion.div>
+        <Link
+          to="/podcast"
+          className="inline-flex items-center gap-1.5 font-sans text-sm font-semibold uppercase tracking-[0.14em] text-slate-500 transition-colors hover:text-brand dark:text-slate-400"
+        >
+          <ArrowLeft className="h-4 w-4" />
+          Featured
+        </Link>
 
-        {/* Header — copy + face photo */}
-        <div className="mt-8 grid items-center gap-10 lg:grid-cols-[minmax(0,7fr)_minmax(0,5fr)] lg:gap-16">
-          <motion.div {...reveal(0.05)}>
+        {/* Header */}
+        <div className="mt-8 grid items-start gap-8 sm:grid-cols-[1fr_auto] sm:gap-10">
+          <div>
             <p className="flex flex-wrap items-center gap-2 font-sans text-sm font-semibold uppercase tracking-[0.18em]">
               <span className="text-brand">{episode.agency}</span>
               <span className="text-slate-400" aria-hidden>·</span>
@@ -65,50 +70,45 @@ export default function FeaturedEpisodePage() {
               </span>
             </p>
             <h1 className="mt-4 font-display text-3xl font-black leading-[1.15] tracking-normal text-slate-900 dark:text-white md:text-[40px]">
-              {episode.guest}
-            </h1>
-            <p className="mt-2 text-[15px] leading-relaxed text-slate-500 dark:text-slate-400">
-              {episode.role}
-            </p>
-            <p className="mt-5 text-lg font-semibold leading-snug text-slate-900 dark:text-white">
               {episode.title}
-            </p>
-            <div className="mt-8">
-              <CustomPlayer src={episode.audioUrl} fallbackDuration={episode.duration} />
-            </div>
-          </motion.div>
+            </h1>
+          </div>
 
-          <motion.div
-            {...reveal(0.1)}
-            className="relative mx-auto w-full"
-            style={{ maxWidth: 'min(46vh, 380px)' }}
-          >
-            <div
-              aria-hidden
-              className="absolute inset-0 rotate-2 rounded-xl border-2 border-brand"
-            />
+          <div className="relative mx-auto w-40 shrink-0 sm:w-44">
+            <div aria-hidden className="absolute inset-0 rotate-2 rounded-xl border-2 border-brand" />
             <img
               src={episode.photo}
               alt={episode.guest}
-              className="relative aspect-square w-full rounded-xl border border-line bg-raised object-cover"
+              className="relative aspect-square w-full rounded-xl border border-line bg-raised object-cover object-top"
             />
-          </motion.div>
+          </div>
         </div>
 
-        {/* Body — episode blurb as prose */}
-        <motion.div {...reveal(0.15)} className="mt-14 max-w-prose">
-          <h2 className="mb-5 font-display text-2xl font-black tracking-normal text-slate-900 dark:text-white">
-            About this episode
-          </h2>
-          <p className="text-[17px] leading-[1.8] text-slate-600 dark:text-slate-300">
-            {episode.blurb}
-          </p>
-        </motion.div>
+        {/* Player */}
+        <div className="mt-8">
+          <CustomPlayer src={episode.audioUrl} fallbackDuration={episode.duration} />
+        </div>
 
-        {/* Guest card */}
-        <motion.div
-          {...reveal(0.2)}
-          className="mt-12 flex max-w-prose items-center gap-5 rounded-xl border border-line bg-raised p-6"
+        {/* Listen links */}
+        <div className="mt-5 flex flex-wrap items-center gap-3">
+          {platforms.map((p) => (
+            <a
+              key={p.name}
+              href={p.url}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="inline-flex items-center gap-1.5 rounded-lg border border-line px-4 py-2.5 text-sm font-semibold text-slate-500 transition-colors hover:border-brand hover:text-brand dark:text-slate-400"
+            >
+              <p.icon className="h-4 w-4" />
+              Listen on {p.name}
+            </a>
+          ))}
+        </div>
+
+        {/* Guest bio */}
+        <motion.section
+          {...reveal(0.05)}
+          className="mt-12 flex items-start gap-5 rounded-2xl border border-line bg-raised p-6 md:p-7"
         >
           <img
             src={episode.photo}
@@ -122,31 +122,51 @@ export default function FeaturedEpisodePage() {
             <p className="mt-1 font-display text-xl font-bold tracking-normal text-slate-900 dark:text-white">
               {episode.guest}
             </p>
-            <p className="mt-1 text-sm leading-relaxed text-slate-500 dark:text-slate-400">
-              {credential}
-            </p>
+            {roleLine && (
+              <p className="mt-0.5 text-sm font-medium text-slate-500 dark:text-slate-400">{roleLine}</p>
+            )}
+            {credential && (
+              <p className="mt-2 text-[15px] leading-relaxed text-slate-600 dark:text-slate-300">{credential}</p>
+            )}
           </div>
-        </motion.div>
+        </motion.section>
 
-        {/* Links row — Apple Podcasts + Spotify only */}
-        <motion.div {...reveal(0.25)} className="mt-10 flex flex-wrap items-center gap-3">
-          {platforms.map((p) => (
-            <a
-              key={p.name}
-              href={p.url}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="inline-flex items-center gap-1.5 rounded-lg border border-line px-4 py-2.5 text-sm font-semibold text-slate-500 transition-colors hover:border-brand hover:text-brand dark:text-slate-400"
-            >
-              <p.icon className="h-4 w-4" />
-              {p.name}
-            </a>
-          ))}
-        </motion.div>
+        {/* About this episode */}
+        {intro.length > 0 && (
+          <motion.section {...reveal(0.05)} className="mt-12">
+            <SectionHeading>About this episode</SectionHeading>
+            <div className="space-y-5 text-[17px] leading-[1.8] text-slate-600 dark:text-slate-300">
+              {intro.map((p, i) => (
+                <p key={i}>{p}</p>
+              ))}
+            </div>
+          </motion.section>
+        )}
 
-        {/* Prev / next featured episode nav */}
-        <motion.nav
-          {...reveal(0.3)}
+        {/* Links & resources */}
+        {links.length > 0 && (
+          <motion.section {...reveal(0.05)} className="mt-12">
+            <SectionHeading>Links &amp; resources from this episode</SectionHeading>
+            <ul className="space-y-2.5">
+              {links.map((l, i) => (
+                <li key={i}>
+                  <a
+                    href={l.url}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="group inline-flex items-start gap-2 text-[16px] font-medium text-slate-700 underline-offset-4 transition-colors hover:text-brand dark:text-slate-200"
+                  >
+                    <ArrowUpRight className="mt-1 h-4 w-4 shrink-0 text-brand transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
+                    <span className="group-hover:underline">{l.label}</span>
+                  </a>
+                </li>
+              ))}
+            </ul>
+          </motion.section>
+        )}
+
+        {/* Prev / next featured */}
+        <nav
           aria-label="More featured episodes"
           className="mt-16 grid gap-4 border-t border-line pt-10 sm:grid-cols-2"
         >
@@ -158,9 +178,50 @@ export default function FeaturedEpisodePage() {
           {older !== undefined && (
             <FeaturedNavCard label="Next guest" index={older} Icon={ChevronRight} align="right" />
           )}
-        </motion.nav>
+        </nav>
+
+        {/* More featured guests */}
+        {others.length > 0 && (
+          <section className="mt-14">
+            <SectionHeading>More featured guests</SectionHeading>
+            <div className="divide-y divide-line border-t border-line">
+              {others.map(({ e, i }) => (
+                <Link
+                  key={e.link}
+                  to={`/podcast/featured/${i}`}
+                  className="group flex items-center gap-4 py-4"
+                >
+                  <img
+                    src={e.photo}
+                    alt=""
+                    loading="lazy"
+                    className="h-14 w-14 shrink-0 rounded-lg border border-line object-cover object-top"
+                  />
+                  <span className="min-w-0 flex-1">
+                    <span className="block truncate font-display text-[17px] font-bold tracking-normal text-slate-900 transition-colors group-hover:text-brand dark:text-white">
+                      {e.guest}
+                    </span>
+                    <span className="mt-0.5 block truncate font-sans text-xs text-slate-500 dark:text-slate-400">
+                      {e.role}
+                    </span>
+                  </span>
+                  <ChevronRight className="h-4 w-4 shrink-0 text-slate-400 transition-transform duration-150 group-hover:translate-x-1 group-hover:text-brand" />
+                </Link>
+              ))}
+            </div>
+          </section>
+        )}
       </div>
     </motion.div>
+  );
+}
+
+function SectionHeading({ children }: { children: ReactNode }) {
+  return (
+    <h2 className="mb-5 flex items-center gap-3 font-display text-2xl font-black tracking-normal text-slate-900 dark:text-white">
+      <span className="h-6 w-1 rounded-full bg-brand" aria-hidden />
+      {children}
+    </h2>
   );
 }
 
@@ -190,7 +251,7 @@ function FeaturedNavCard({
         src={episode.photo}
         alt=""
         loading="lazy"
-        className="h-14 w-14 shrink-0 rounded-lg border border-line object-cover"
+        className="h-14 w-14 shrink-0 rounded-lg border border-line object-cover object-top"
       />
       <span className="min-w-0">
         <span className="block font-sans text-xs font-semibold uppercase tracking-[0.16em] text-brand">
