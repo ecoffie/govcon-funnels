@@ -131,8 +131,8 @@ function InlineForm({
  * hero — single-line form + helper line; compact — panel with green left
  * border for footer/CTA bands; modal — centered card with book cover.
  *
- * Submissions POST to a GHL inbound webhook (see src/lib/signup.ts), which
- * creates the contact and sends the welcome email.
+ * Submissions POST to govcongiants.com/api/lead (see src/lib/signup.ts), which
+ * creates the contact in GHL and notifies Slack.
  */
 export default function NewsletterCapture({
   variant = 'hero',

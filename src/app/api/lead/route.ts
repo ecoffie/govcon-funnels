@@ -33,7 +33,11 @@ export async function POST(request: NextRequest) {
     // well above any legitimate signup cadence. Fails open if the limiter is
     // unavailable (never blocks a real signup).
     const limited = await enforceIpRateLimit(request, 'lead', 10, 60);
-    if (limited) return limited;
+    if (limited) {
+      // Preserve podcast CORS on rate-limit responses so the browser can read the error.
+      Object.entries(cors).forEach(([k, v]) => limited.headers.set(k, v));
+      return limited;
+    }
 
     const body = await request.json();
     const { name, email, phone, company, source, redirectUrl, tags, abTestId, abVariant } = body;
