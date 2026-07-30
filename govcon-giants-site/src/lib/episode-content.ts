@@ -42,7 +42,10 @@ function niceLink(label: string, url: string): EpisodeLink {
 }
 
 function splitParagraphs(text: string): string[] {
-  const sentences = text.match(/[^.?!]+[.?!]+(?:\s|$)|[^.?!]+$/g) ?? [text];
+  // Split at whitespace that follows sentence punctuation. Unlike a matching
+  // regex, this never drops leading text when an abbreviation (e.g. "U.S.")
+  // puts a period mid-sentence.
+  const sentences = text.split(/(?<=[.?!])\s+/);
   const out: string[] = [];
   for (let i = 0; i < sentences.length; i += 3) {
     const p = sentences.slice(i, i + 3).join(' ').trim();
@@ -73,17 +76,24 @@ export function parseEpisodeBody(body: string): ParsedEpisode {
   const seen = new Set<string>();
   const urlRe = /https?:\/\/[^\s)]+/g;
   let m: RegExpExecArray | null;
+  let prevEnd = 0;
   while ((m = urlRe.exec(body))) {
     const url = m[0].replace(/[.,]+$/, '');
+    // Label from the text since the previous URL only — never bleed a prior
+    // link's path fragment into this one's label.
+    const between = body.slice(prevEnd, m.index).replace(/[🔗👉]/g, '');
+    prevEnd = m.index + m[0].length;
     if (seen.has(url)) continue;
     seen.add(url);
-    const pre = body.slice(Math.max(0, m.index - 60), m.index).replace(/[🔗👉]/g, '');
-    const raw = (pre.split(/[.!?]/).pop() ?? '').trim().slice(-48);
-    links.push(niceLink(raw, url));
+    const seg = (between.split(/[.!?\n]/).pop() ?? '').replace(/^[\s:–—-]+|[\s:–—-]+$/g, '');
+    const label = seg.split(/\s+/).filter(Boolean).slice(-8).join(' ');
+    links.push(niceLink(label, url));
   }
 
   // ---- intro + takeaways (from the pre-chapters text, CTA stripped) ------
-  const clean = main.split(CTA)[0].trim();
+  // Drop a trailing "Linkedin:" / "Website:" style label left dangling when the
+  // body's link list was cut off at the first URL.
+  const clean = main.split(CTA)[0].trim().replace(/\s+[A-Za-z][\w .&()-]{0,30}:$/, '');
   let intro = clean;
   const takeaways: string[] = [];
   LEAD.lastIndex = 0;

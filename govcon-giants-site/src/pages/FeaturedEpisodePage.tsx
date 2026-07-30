@@ -76,10 +76,11 @@ export default function FeaturedEpisodePage() {
 
           <div className="relative mx-auto w-40 shrink-0 sm:w-44">
             <div aria-hidden className="absolute inset-0 rotate-2 rounded-xl border-2 border-brand" />
-            <img
-              src={episode.photo}
-              alt={episode.guest}
-              className="relative aspect-square w-full rounded-xl border border-line bg-raised object-cover object-top"
+            <Avatar
+              photo={episode.photo}
+              name={episode.guest}
+              className="relative aspect-square w-full rounded-xl border border-line bg-raised"
+              textClass="text-5xl"
             />
           </div>
         </div>
@@ -110,10 +111,11 @@ export default function FeaturedEpisodePage() {
           {...reveal(0.05)}
           className="mt-12 flex items-start gap-5 rounded-2xl border border-line bg-raised p-6 md:p-7"
         >
-          <img
-            src={episode.photo}
-            alt={episode.guest}
-            className="h-20 w-20 shrink-0 rounded-full border-2 border-brand object-cover object-top"
+          <Avatar
+            photo={episode.photo}
+            name={episode.guest}
+            className="h-20 w-20 shrink-0 rounded-full border-2 border-brand"
+            textClass="text-2xl"
           />
           <div className="min-w-0">
             <p className="font-sans text-xs font-semibold uppercase tracking-[0.18em] text-brand">
@@ -227,11 +229,11 @@ export default function FeaturedEpisodePage() {
                   to={`/podcast/featured/${i}`}
                   className="group flex items-center gap-4 py-4"
                 >
-                  <img
-                    src={e.photo}
-                    alt=""
-                    loading="lazy"
-                    className="h-14 w-14 shrink-0 rounded-lg border border-line object-cover object-top"
+                  <Avatar
+                    photo={e.photo}
+                    name={e.guest}
+                    className="h-14 w-14 shrink-0 rounded-lg border border-line"
+                    textClass="text-base"
                   />
                   <span className="min-w-0 flex-1">
                     <span className="block truncate font-display text-[17px] font-bold tracking-normal text-slate-900 transition-colors group-hover:text-brand dark:text-white">
@@ -249,6 +251,44 @@ export default function FeaturedEpisodePage() {
         )}
       </div>
     </motion.div>
+  );
+}
+
+function initials(name: string) {
+  return name
+    .split(/\s+/)
+    .slice(0, 2)
+    .map((w) => w[0])
+    .join('')
+    .toUpperCase();
+}
+
+/** Guest headshot, or a branded initials avatar when no photo is on file. */
+function Avatar({
+  photo,
+  name,
+  className,
+  textClass,
+}: {
+  photo?: string;
+  name: string;
+  className: string;
+  textClass: string;
+}) {
+  if (photo) {
+    return <img src={photo} alt={name} loading="lazy" className={cn(className, 'object-cover object-top')} />;
+  }
+  return (
+    <span
+      aria-label={name}
+      className={cn(
+        className,
+        'flex items-center justify-center bg-brand-soft font-display font-black text-brand',
+        textClass,
+      )}
+    >
+      {initials(name)}
+    </span>
   );
 }
 
@@ -283,11 +323,11 @@ function FeaturedNavCard({
       )}
     >
       <Icon className="h-5 w-5 shrink-0 text-slate-400 transition-colors group-hover:text-brand" />
-      <img
-        src={episode.photo}
-        alt=""
-        loading="lazy"
-        className="h-14 w-14 shrink-0 rounded-lg border border-line object-cover object-top"
+      <Avatar
+        photo={episode.photo}
+        name={episode.guest}
+        className="h-14 w-14 shrink-0 rounded-lg border border-line"
+        textClass="text-base"
       />
       <span className="min-w-0">
         <span className="block font-sans text-xs font-semibold uppercase tracking-[0.16em] text-brand">
