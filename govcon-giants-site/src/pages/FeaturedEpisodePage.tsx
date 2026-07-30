@@ -1,7 +1,7 @@
 import type { ReactNode } from 'react';
 import { Link, Navigate, useParams } from 'react-router';
 import { motion } from 'framer-motion';
-import { ArrowLeft, ArrowUpRight, ChevronLeft, ChevronRight } from 'lucide-react';
+import { ArrowLeft, ArrowUpRight, Check, ChevronLeft, ChevronRight } from 'lucide-react';
 import CustomPlayer from '@/components/podcast/CustomPlayer';
 import { featuredEpisodes } from '@/data/featuredEpisodes';
 import { speakers } from '@/data/speakers';
@@ -30,7 +30,7 @@ export default function FeaturedEpisodePage() {
   const speaker = speakers.find((s) => s.name === episode.guest);
   const credential = speaker?.credential;
   const roleLine = [episode.role, episode.agency].filter(Boolean).join(' · ');
-  const { intro, links } = parseEpisodeBody(episode.blurb);
+  const { intro, takeaways, chapters, links } = parseEpisodeBody(episode.body || episode.blurb);
 
   const newer = index > 0 ? index - 1 : undefined;
   const older = index < featuredEpisodes.length - 1 ? index + 1 : undefined;
@@ -140,6 +140,42 @@ export default function FeaturedEpisodePage() {
                 <p key={i}>{p}</p>
               ))}
             </div>
+          </motion.section>
+        )}
+
+        {/* What you'll learn */}
+        {takeaways.length > 0 && (
+          <motion.section {...reveal(0.05)} className="mt-12">
+            <SectionHeading>In this episode, you&apos;ll learn</SectionHeading>
+            <ul className="space-y-3.5">
+              {takeaways.map((t, i) => (
+                <li key={i} className="flex items-start gap-3">
+                  <span className="mt-1 flex h-5 w-5 shrink-0 items-center justify-center rounded-full bg-brand-soft text-brand">
+                    <Check className="h-3.5 w-3.5" aria-hidden />
+                  </span>
+                  <span className="text-[16px] leading-relaxed text-slate-600 dark:text-slate-300">{t}</span>
+                </li>
+              ))}
+            </ul>
+          </motion.section>
+        )}
+
+        {/* Show notes — timestamped chapters */}
+        {chapters.length > 0 && (
+          <motion.section {...reveal(0.05)} className="mt-12">
+            <SectionHeading>Show notes &amp; timestamps</SectionHeading>
+            <ol className="divide-y divide-line overflow-hidden rounded-2xl border border-line">
+              {chapters.map((c, i) => (
+                <li key={i} className="flex items-baseline gap-4 bg-raised px-5 py-3.5">
+                  <span className="shrink-0 font-mono text-sm font-semibold tabular-nums text-brand">
+                    {c.time}
+                  </span>
+                  <span className="text-[15px] leading-relaxed text-slate-700 dark:text-slate-200">
+                    {c.label}
+                  </span>
+                </li>
+              ))}
+            </ol>
           </motion.section>
         )}
 
