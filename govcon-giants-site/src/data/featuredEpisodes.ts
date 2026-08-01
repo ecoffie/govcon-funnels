@@ -89,7 +89,7 @@ export const featuredEpisodes: FeaturedEpisode[] = [
     "guest": "Shalaya Morissette",
     "role": "Chief, Minority Business & Workforce Division",
     "agency": "U.S. Department of Energy",
-    "photo": "",
+    "photo": "/faces/shalaya-morissette.jpg",
     "title": "Scoring Major Bid Opportunities in the Department of Energy",
     "date": "2024-02-21",
     "duration": "01:36:41",
