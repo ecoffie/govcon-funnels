@@ -13,8 +13,8 @@ interface GuideSignupModalProps {
 
 /**
  * Page-specific sibling of the shared NewsletterModal (same layout, motion,
- * and localStorage signup contract) that adapts its heading, body copy, and
- * success state to the requested guide:
+ * and signup contract) that adapts its heading, body copy, and success state
+ * to the requested guide:
  * "Check your inbox — [guide name] is on its way."
  */
 export default function GuideSignupModal({ guide, onClose }: GuideSignupModalProps) {

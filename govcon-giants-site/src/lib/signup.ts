@@ -1,17 +1,17 @@
 /**
  * Newsletter / lead capture submit.
  *
- * Posts the email to a GoHighLevel (GHL) Inbound Webhook, which fans out to a
- * GHL workflow that creates/updates the contact and sends the welcome email.
- * No API keys ever touch the browser — the webhook URL is the only secret and
- * it is scoped to a single workflow.
+ * Posts to the main site's lead API (govcongiants.com/api/lead → GHL + Slack),
+ * tagged so podcast-site leads are segmentable in the CRM.
  *
- * Configure the URL with the Vite env var `VITE_GHL_NEWSLETTER_WEBHOOK`
- * (set it in the Vercel project env, then redeploy). Until it is set, submit()
- * resolves successfully without a network call so the form UX still works in
- * preview — it just doesn't create a lead yet.
+ * Why not a GHL inbound webhook env var: Vite inlines `VITE_*` at build time.
+ * When `VITE_GHL_NEWSLETTER_WEBHOOK` is unset (current podcast Vercel project),
+ * the fetch branch is dead-code-eliminated and forms silently "succeed" with
+ * zero network calls — verified live on podcast.govcongiants.org (Jul 30 2026).
+ * The main-site `/api/lead` path already has CORS allowlisted for this origin.
  */
-const WEBHOOK_URL = import.meta.env.VITE_GHL_NEWSLETTER_WEBHOOK as string | undefined;
+
+const LEAD_API = 'https://govcongiants.com/api/lead';
 
 export interface SignupPayload {
   email: string;
@@ -23,27 +23,17 @@ export async function submitSignup({ email, source }: SignupPayload): Promise<vo
   const trimmed = email.trim();
   if (!trimmed) throw new Error('Email is required');
 
-  // No webhook configured yet — succeed locally so the UX works in preview.
-  if (!WEBHOOK_URL) {
-    if (import.meta.env.DEV) {
-      // eslint-disable-next-line no-console
-      console.info('[signup] VITE_GHL_NEWSLETTER_WEBHOOK not set — skipping POST.', {
-        email: trimmed,
-        source,
-      });
-    }
-    return;
-  }
-
-  const res = await fetch(WEBHOOK_URL, {
+  const tagSource = source?.trim() || 'newsletter';
+  const res = await fetch(LEAD_API, {
     method: 'POST',
     headers: { 'Content-Type': 'application/json' },
     body: JSON.stringify({
       email: trimmed,
-      source: source ?? 'newsletter',
-      site: 'podcast.govcongiants.org',
-      submittedAt: new Date().toISOString(),
+      name: '',
+      source: 'podcast-site',
+      tags: ['podcast-site', tagSource],
     }),
+    keepalive: true,
   });
 
   if (!res.ok) {
