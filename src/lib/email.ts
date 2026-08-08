@@ -544,7 +544,7 @@ export async function sendProposalResourcesEmail(params: EmailParams): Promise<E
 
               <p style="color: #94a3b8; font-size: 16px; line-height: 1.6; margin: 0 0 30px;">
                 Hey ${firstName},<br><br>
-                Thanks for downloading the free proposal resources! Here are your 5 templates and guides for winning federal task orders and IDIQ contracts.
+                Thanks for requesting the free proposal resources! Here are your 5 templates and guides for winning federal task orders and IDIQ contracts.
               </p>
 
               <!-- Download Button -->
@@ -565,32 +565,32 @@ export async function sendProposalResourcesEmail(params: EmailParams): Promise<E
                 <table width="100%" cellpadding="0" cellspacing="0">
                   <tr>
                     <td style="padding: 12px 0; border-bottom: 1px solid #334155;">
-                      <a href="${baseUrl}/downloads/IDIQ_Task_Order_Response_Template.docx" style="color: #4ade80; text-decoration: none; font-weight: 600;">IDIQ Task Order Response Template</a>
-                      <p style="color: #64748b; font-size: 13px; margin: 4px 0 0;">Fill-in-the-blank proposal framework (.docx)</p>
+                      <a href="https://govcongiants.com/march-surge/downloads/task-order-response-template.html" style="color: #4ade80; text-decoration: none; font-weight: 600;">IDIQ Task Order Response Template</a>
+                      <p style="color: #64748b; font-size: 13px; margin: 4px 0 0;">Fill-in-the-blank proposal framework</p>
                     </td>
                   </tr>
                   <tr>
                     <td style="padding: 12px 0; border-bottom: 1px solid #334155;">
-                      <a href="${baseUrl}/downloads/Sources_Sought_Response_Template.docx" style="color: #4ade80; text-decoration: none; font-weight: 600;">Sources Sought Response Template</a>
-                      <p style="color: #64748b; font-size: 13px; margin: 4px 0 0;">Get in the top 5% of responders (.docx)</p>
+                      <a href="https://govcongiants.com/march-surge/downloads/sources-sought-response-template.html" style="color: #4ade80; text-decoration: none; font-weight: 600;">Sources Sought Response Template</a>
+                      <p style="color: #64748b; font-size: 13px; margin: 4px 0 0;">Get in the top 5% of responders</p>
                     </td>
                   </tr>
                   <tr>
                     <td style="padding: 12px 0; border-bottom: 1px solid #334155;">
-                      <a href="${baseUrl}/downloads/Task_Order_Proposal_Checklist.docx" style="color: #4ade80; text-decoration: none; font-weight: 600;">Task Order Proposal Checklist</a>
-                      <p style="color: #64748b; font-size: 13px; margin: 4px 0 0;">Pre-submit compliance checklist (.docx)</p>
+                      <a href="https://govcongiants.com/march-surge/downloads/task-order-response-template.html" style="color: #4ade80; text-decoration: none; font-weight: 600;">Task Order Proposal Checklist</a>
+                      <p style="color: #64748b; font-size: 13px; margin: 4px 0 0;">Pre-submit compliance checklist</p>
                     </td>
                   </tr>
                   <tr>
                     <td style="padding: 12px 0; border-bottom: 1px solid #334155;">
-                      <a href="${baseUrl}/downloads/10_IDIQ_Vehicles_Guide.docx" style="color: #4ade80; text-decoration: none; font-weight: 600;">10 IDIQ Vehicles Guide</a>
-                      <p style="color: #64748b; font-size: 13px; margin: 4px 0 0;">GSA MAS, OASIS+, CIO-SP4, Alliant 3 & more (.docx)</p>
+                      <a href="https://govcongiants.com/march-surge/downloads/10-idiq-vehicles-guide.html" style="color: #4ade80; text-decoration: none; font-weight: 600;">10 IDIQ Vehicles Guide</a>
+                      <p style="color: #64748b; font-size: 13px; margin: 4px 0 0;">GSA MAS, OASIS+, CIO-SP4, Alliant 3 & more</p>
                     </td>
                   </tr>
                   <tr>
                     <td style="padding: 12px 0;">
-                      <a href="${baseUrl}/downloads/Active_IDIQ_Vehicles_List.xlsx" style="color: #4ade80; text-decoration: none; font-weight: 600;">50 Active IDIQ Vehicles List</a>
-                      <p style="color: #64748b; font-size: 13px; margin: 4px 0 0;">Vehicle name, agency, NAICS, ceiling values (.xlsx)</p>
+                      <a href="https://govcongiants.com/march-surge/downloads/active-idiq-vehicles-list.html" style="color: #4ade80; text-decoration: none; font-weight: 600;">50 Active IDIQ Vehicles List</a>
+                      <p style="color: #64748b; font-size: 13px; margin: 4px 0 0;">Vehicle name, agency, NAICS, ceiling values</p>
                     </td>
                   </tr>
                 </table>
