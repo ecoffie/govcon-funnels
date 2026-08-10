@@ -4,11 +4,18 @@ import { ArrowUpDown, Search, X } from 'lucide-react';
 import EpisodeRow from '@/components/EpisodeRow';
 import type { Episode } from '@/data/episodes';
 import { episodes } from '@/data/episodes';
+import { resolveGuest } from '@/lib/episode-guests';
 import { cn } from '@/lib/utils';
 
 const PAGE_SIZE = 12;
 
+/** Episodes that feature an identifiable guest (not Eric solo). */
+const GUEST_LINKS = new Set(
+  episodes.filter((e, i) => resolveGuest(i, e.title, e.description) !== null).map((e) => e.link),
+);
+
 type SortDir = 'newest' | 'oldest';
+type Scope = 'guests' | 'all';
 
 /** Topic filter keyword map (podcast.md §Data) — lowercase substring matchers over title + description. */
 const TOPICS: { label: string; keywords: string[] }[] = [
@@ -47,9 +54,10 @@ export default function EpisodeArchive() {
   const [debouncedQuery, setDebouncedQuery] = useState('');
   const [topic, setTopic] = useState('All');
   const [sort, setSort] = useState<SortDir>('newest');
+  const [scope, setScope] = useState<Scope>('guests');
   // Pagination is keyed to the filter signature: when filters change the key
   // changes and the count falls back to PAGE_SIZE — no reset effect needed.
-  const filterKey = `${debouncedQuery}|${topic}|${sort}`;
+  const filterKey = `${debouncedQuery}|${topic}|${sort}|${scope}`;
   const [pagination, setPagination] = useState({ key: filterKey, count: PAGE_SIZE });
   const visibleCount = pagination.key === filterKey ? pagination.count : PAGE_SIZE;
   const sentinelRef = useRef<HTMLDivElement>(null);
@@ -64,6 +72,7 @@ export default function EpisodeArchive() {
     const q = debouncedQuery.trim().toLowerCase();
     const active = TOPICS.find((t) => t.label === topic) ?? TOPICS[0];
     const matches = episodes.filter((ep) => {
+      if (scope === 'guests' && !GUEST_LINKS.has(ep.link)) return false;
       const hay = `${ep.title} ${ep.description}`.toLowerCase();
       if (q && !hay.includes(q)) return false;
       if (active.keywords.length > 0 && !active.keywords.some((k) => hay.includes(k))) {
@@ -74,7 +83,7 @@ export default function EpisodeArchive() {
     return matches.sort((a, b) =>
       sort === 'newest' ? b.date.localeCompare(a.date) : a.date.localeCompare(b.date),
     );
-  }, [debouncedQuery, topic, sort]);
+  }, [debouncedQuery, topic, sort, scope]);
 
   const visible = filtered.slice(0, visibleCount);
   const hasMore = visibleCount < filtered.length;
@@ -129,6 +138,30 @@ export default function EpisodeArchive() {
           transition={{ duration: 0.35, ease: 'easeOut' }}
           className="container-gg flex flex-wrap items-center gap-x-5 gap-y-3 py-2.5"
         >
+          {/* Scope toggle — guest episodes by default, "All" reveals everything */}
+          <div
+            className="inline-flex shrink-0 rounded-lg border border-line bg-raised p-0.5"
+            role="group"
+            aria-label="Show guest episodes or all episodes"
+          >
+            {(['guests', 'all'] as const).map((s) => (
+              <button
+                key={s}
+                type="button"
+                onClick={() => setScope(s)}
+                aria-pressed={scope === s}
+                className={cn(
+                  'rounded-md px-3.5 py-1.5 font-mono text-xs transition-colors cursor-pointer',
+                  scope === s
+                    ? 'bg-brand font-semibold text-brand-ink'
+                    : 'text-slate-500 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white',
+                )}
+              >
+                {s === 'guests' ? 'Guest Episodes' : 'All Episodes'}
+              </button>
+            ))}
+          </div>
+
           {/* Search */}
           <div className="relative w-full sm:w-[320px]">
             <Search className="pointer-events-none absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-slate-500 dark:text-slate-400" />
