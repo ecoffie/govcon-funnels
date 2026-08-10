@@ -1,12 +1,16 @@
 import type { FormEvent } from 'react';
 import { useEffect, useState } from 'react';
 import { AnimatePresence, motion } from 'framer-motion';
-import { ArrowRight, CheckCircle2, X } from 'lucide-react';
+import { ArrowRight, CheckCircle2, Loader2, X } from 'lucide-react';
+import { GHL_WEBHOOK_URL } from '@/lib/config';
 import { cn } from '@/lib/utils';
 
 type Variant = 'hero' | 'compact' | 'modal';
+type SignupStatus = 'idle' | 'submitting' | 'done' | 'error';
 
 interface NewsletterCaptureProps {
+  /** CTA button text — defaults to "Join the Newsletter" */
+  buttonLabel?: string;
   variant?: Variant;
   /** Heading for the compact/band variant. */
   heading?: string;
@@ -17,22 +21,47 @@ interface NewsletterCaptureProps {
   className?: string;
 }
 
+/**
+ * Newsletter signup: POSTs the email to the GoHighLevel inbound webhook
+ * (src/lib/config.ts). Until the real URL is pasted there, falls back to
+ * the original localStorage behavior so the form never breaks in preview.
+ */
 function useSignup() {
   const [email, setEmail] = useState('');
-  const [done, setDone] = useState(false);
-  const submit = (e: FormEvent) => {
+  const [status, setStatus] = useState<SignupStatus>('idle');
+
+  const submit = async (e: FormEvent) => {
     e.preventDefault();
-    if (!email.trim()) return;
-    try {
-      const list = JSON.parse(localStorage.getItem('gg-signups') ?? '[]') as string[];
-      list.push(email.trim());
-      localStorage.setItem('gg-signups', JSON.stringify(list));
-    } catch {
-      /* storage unavailable — still show success */
+    const value = email.trim();
+    if (!value || status === 'submitting') return;
+
+    if (GHL_WEBHOOK_URL === 'PASTE_GHL_WEBHOOK_URL_HERE') {
+      try {
+        const list = JSON.parse(localStorage.getItem('gg-signups') ?? '[]') as string[];
+        list.push(value);
+        localStorage.setItem('gg-signups', JSON.stringify(list));
+      } catch {
+        /* storage unavailable — still show success */
+      }
+      setStatus('done');
+      return;
     }
-    setDone(true);
+
+    setStatus('submitting');
+    try {
+      const res = await fetch(GHL_WEBHOOK_URL, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ email: value }),
+      });
+      if (!res.ok) throw new Error(`HTTP ${res.status}`);
+      setStatus('done');
+    } catch {
+      setStatus('error'); // email stays in the input for retry
+    }
   };
-  return { email, setEmail, done, submit };
+
+  return { email, setEmail, status, submit };
 }
 
 const inputCls =
@@ -50,30 +79,60 @@ function SuccessNote({ className }: { className?: string }) {
       className={cn('flex items-center gap-2 text-[15px] font-medium text-brand', className)}
     >
       <CheckCircle2 className="h-5 w-5" />
-      Check your inbox. The Playbook is on its way.
+      You&apos;re on the list — check your inbox for a confirmation email.
     </motion.p>
   );
 }
 
-function InlineForm({ buttonLabel, dark }: { buttonLabel: string; dark?: boolean }) {
-  const { email, setEmail, done, submit } = useSignup();
-  if (done) return <SuccessNote className={cn('h-12', dark && 'text-green-400')} />;
+/** Submit button content: spinner + "Joining…" while submitting. */
+function SubmitLabel({ label, submitting }: { label: string; submitting: boolean }) {
+  if (submitting) {
+    return (
+      <>
+        <Loader2 className="h-4 w-4 animate-spin" />
+        Joining…
+      </>
+    );
+  }
   return (
-    <form onSubmit={submit} className="flex w-full flex-col gap-3 sm:flex-row">
-      <input
-        type="email"
-        required
-        value={email}
-        onChange={(e) => setEmail(e.target.value)}
-        placeholder="you@company.com"
-        aria-label="Email address"
-        className={dark ? inputDarkCls : inputCls}
-      />
-      <button type="submit" className={btnCls}>
-        {buttonLabel}
-        <ArrowRight className="h-4 w-4 transition-transform duration-150 group-hover:translate-x-1" />
-      </button>
-    </form>
+    <>
+      {label}
+      <ArrowRight className="h-4 w-4 transition-transform duration-150 group-hover:translate-x-1" />
+    </>
+  );
+}
+
+function InlineForm({ buttonLabel, dark }: { buttonLabel: string; dark?: boolean }) {
+  const { email, setEmail, status, submit } = useSignup();
+  if (status === 'done') return <SuccessNote className={cn('h-12', dark && 'text-green-400')} />;
+  const submitting = status === 'submitting';
+  return (
+    <div>
+      <form onSubmit={submit} className="flex w-full flex-col gap-3 sm:flex-row">
+        <input
+          type="email"
+          required
+          disabled={submitting}
+          value={email}
+          onChange={(e) => setEmail(e.target.value)}
+          placeholder="you@company.com"
+          aria-label="Email address"
+          className={cn(dark ? inputDarkCls : inputCls, submitting && 'opacity-70')}
+        />
+        <button
+          type="submit"
+          disabled={submitting}
+          className={cn(btnCls, submitting && 'cursor-wait opacity-80')}
+        >
+          <SubmitLabel label={buttonLabel} submitting={submitting} />
+        </button>
+      </form>
+      {status === 'error' && (
+        <p className="mt-2 text-sm font-medium text-red-500">
+          Something went wrong — try again.
+        </p>
+      )}
+    </div>
   );
 }
 
@@ -86,13 +145,14 @@ export default function NewsletterCapture({
   variant = 'hero',
   heading = 'Get new episodes & guides first.',
   kicker = 'FREE · NO SPAM · UNSUBSCRIBE ANYTIME',
+  buttonLabel = 'Join the Newsletter',
   dark,
   className,
 }: NewsletterCaptureProps) {
   if (variant === 'hero') {
     return (
       <div className={cn('w-full', className)}>
-        <InlineForm buttonLabel="Send Me the Starter Kit" dark={dark} />
+        <InlineForm buttonLabel="Join the Newsletter" dark={dark} />
         <p
           className={cn(
             'mt-3 font-mono text-[11px] tracking-[0.14em]',
@@ -115,7 +175,7 @@ export default function NewsletterCapture({
       >
         <p className="kicker mb-2">{kicker}</p>
         <h3 className="mb-5 font-display text-2xl font-bold tracking-normal text-slate-900 dark:text-white">{heading}</h3>
-        <InlineForm buttonLabel="Send Me the Starter Kit" />
+        <InlineForm buttonLabel={buttonLabel} />
       </div>
     );
   }
@@ -131,7 +191,8 @@ interface NewsletterModalProps {
 
 /** Modal variant — triggered by the navbar "Free Playbook" CTA. */
 export function NewsletterModal({ open, onClose }: NewsletterModalProps) {
-  const { email, setEmail, done, submit } = useSignup();
+  const { email, setEmail, status, submit } = useSignup();
+  const submitting = status === 'submitting';
 
   useEffect(() => {
     if (!open) return;
@@ -190,25 +251,36 @@ export function NewsletterModal({ open, onClose }: NewsletterModalProps) {
                 Five of the 72 federal websites Eric uses to find buyers, partners, and
                 contracts — delivered instantly, free.
               </p>
-              {done ? (
+              {status === 'done' ? (
                 <SuccessNote />
               ) : (
-                <form onSubmit={submit} className="flex flex-col gap-3">
-                  <input
-                    type="email"
-                    required
-                    autoFocus
-                    value={email}
-                    onChange={(e) => setEmail(e.target.value)}
-                    placeholder="you@company.com"
-                    aria-label="Email address"
-                    className={inputCls}
-                  />
-                  <button type="submit" className={btnCls}>
-                    Send Me the Starter Kit
-                    <ArrowRight className="h-4 w-4 transition-transform duration-150 group-hover:translate-x-1" />
-                  </button>
-                </form>
+                <div>
+                  <form onSubmit={submit} className="flex flex-col gap-3">
+                    <input
+                      type="email"
+                      required
+                      autoFocus
+                      disabled={submitting}
+                      value={email}
+                      onChange={(e) => setEmail(e.target.value)}
+                      placeholder="you@company.com"
+                      aria-label="Email address"
+                      className={cn(inputCls, submitting && 'opacity-70')}
+                    />
+                    <button
+                      type="submit"
+                      disabled={submitting}
+                      className={cn(btnCls, submitting && 'cursor-wait opacity-80')}
+                    >
+                      <SubmitLabel label="Join the Newsletter" submitting={submitting} />
+                    </button>
+                  </form>
+                  {status === 'error' && (
+                    <p className="mt-2 text-sm font-medium text-red-500">
+                      Something went wrong — try again.
+                    </p>
+                  )}
+                </div>
               )}
               <p className="mt-4 font-mono text-[11px] tracking-[0.14em] text-slate-500 dark:text-slate-400">
                 FREE · NO SPAM · UNSUBSCRIBE ANYTIME

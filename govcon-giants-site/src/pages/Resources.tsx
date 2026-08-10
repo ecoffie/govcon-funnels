@@ -2,6 +2,7 @@ import { useState } from 'react';
 import { motion } from 'framer-motion';
 import NewsletterCapture from '@/components/NewsletterCapture';
 import BookFeature from '@/components/resources/BookFeature';
+import BookshelfSection from '@/components/resources/BookshelfSection';
 import GuidesLibrary from '@/components/resources/GuidesLibrary';
 import DirectorySection from '@/components/resources/DirectorySection';
 import GuideSignupModal from '@/components/resources/GuideSignupModal';
@@ -180,6 +181,7 @@ export default function Resources() {
     >
       <PageHeader />
       <BookFeature onGetFreeWebsites={() => setActiveGuide(guides[0])} />
+      <BookshelfSection />
       <GuidesLibrary onSelect={setActiveGuide} />
       <DirectorySection />
       <FinalCta />

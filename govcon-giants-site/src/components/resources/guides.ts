@@ -1,5 +1,5 @@
 import type { LucideIcon } from 'lucide-react';
-import { Globe, ClipboardCheck, Award, FileText, Mail, Target } from 'lucide-react';
+import { Globe, ClipboardCheck, Award, FileText, Mail, Target, Compass, CalendarDays } from 'lucide-react';
 
 export interface Guide {
   title: string;
@@ -7,6 +7,11 @@ export interface Guide {
   /** Body copy shown inside the signup modal for this guide. */
   modalCopy: string;
   icon: LucideIcon;
+  /** Optional cover/thumbnail shown on the card instead of the icon badge. */
+  photo?: string;
+  /** When set, the card links directly to this URL (new tab) and skips the
+   *  signup modal — used for free PDF downloads. */
+  directUrl?: string;
 }
 
 /**
@@ -56,5 +61,21 @@ export const guides: Guide[] = [
     modalCopy:
       'A fill-in worksheet that walks you from what you sell to the NAICS and PSC codes federal buyers actually search. Free, delivered instantly.',
     icon: Target,
+  },
+  {
+    title: 'The Federal Contracting Action Plan',
+    blurb: 'Your step-by-step plan from registration to first bid.',
+    modalCopy:
+      'The Federal Contracting Action Plan — the exact sequence Eric walks students through, from SAM.gov registration to your first submitted bid. Free, delivered instantly.',
+    icon: Compass,
+    photo: '/books/action-plan.png',
+  },
+  {
+    title: 'The 5-Day Consulting Challenge',
+    blurb: 'Five days to your first govcon consulting offer — free PDF checklist.',
+    modalCopy: '',
+    icon: CalendarDays,
+    photo: '/books/consulting-challenge.png',
+    directUrl: '/downloads/5-day-consulting-challenge-checklist.pdf',
   },
 ];
