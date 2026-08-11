@@ -176,6 +176,86 @@
       "permanent": true
     },
     {
+      "source": "/podcast/:year(\\d{4})/:month(\\d{2})/:day(\\d{2})/:ep",
+      "destination": "https://podcast.govcongiants.org/podcast/:ep",
+      "permanent": true
+    },
+    {
+      "source": "/podcast/:path+",
+      "destination": "https://podcast.govcongiants.org/podcast/:path+",
+      "permanent": true
+    },
+    {
+      "source": "/guides/federal-contract-vehicles-guide",
+      "destination": "/blog/federal-contract-vehicles-guide",
+      "permanent": true
+    },
+    {
+      "source": "/jobs/:id(\\d+)",
+      "destination": "/jobs",
+      "permanent": true
+    },
+    {
+      "source": "/home",
+      "destination": "/",
+      "permanent": true
+    },
+    {
+      "source": "/mo",
+      "destination": "/",
+      "permanent": true
+    },
+    {
+      "source": "/Here",
+      "destination": "/",
+      "permanent": true
+    },
+    {
+      "source": "/latest-post",
+      "destination": "/blog",
+      "permanent": true
+    },
+    {
+      "source": "/feb-28-bootcamp",
+      "destination": "/bootcamp",
+      "permanent": true
+    },
+    {
+      "source": "/proposal-writing-services",
+      "destination": "/consulting",
+      "permanent": true
+    },
+    {
+      "source": "/bear-brothers-inc-awarded-36m-contract-to-construct-a-flight-simulator-facility",
+      "destination": "/blog",
+      "permanent": true
+    },
+    {
+      "source": "/dr-joseph-grant-retired-nasa-space-technology-mission-director",
+      "destination": "/blog",
+      "permanent": true
+    },
+    {
+      "source": "/narjis-ali-pakistani-immigrant-turned-award-winning-it-security-company",
+      "destination": "/blog",
+      "permanent": true
+    },
+    {
+      "source": "/mastermind-monday-dod-contractor-cybersecurity-requirements",
+      "destination": "/blog",
+      "permanent": true
+    },
+    {
+      "source": "/choosing-the-wrong-naics-code-can-cost-you-millions",
+      "destination": "/blog",
+      "permanent": true
+    },
+    {
+      "source": "/denita-conway-how-did-this-c-student-turn-into-a-successful-ceo",
+      "destination": "/blog",
+      "permanent": true
+    },
+    {
       "source": "/podcast",
       "destination": "https://podcast.govcongiants.org/podcast",
       "permanent": true
