@@ -12,7 +12,7 @@ export interface Platform {
 export const platforms: Platform[] = [
   {
     name: 'Apple Podcasts',
-    url: 'https://podcasts.apple.com/us/search?term=govcon%20giants',
+    url: 'https://podcasts.apple.com/us/podcast/govcon-giants/id1463074357',
     icon: Podcast,
   },
   {

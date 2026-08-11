@@ -8,6 +8,7 @@ import Blog from '@/pages/Blog';
 import BlogPost from '@/pages/BlogPost';
 import About from '@/pages/About';
 import Resources from '@/pages/Resources';
+import NotFound from '@/pages/NotFound';
 
 export default function App() {
   return (
@@ -21,7 +22,7 @@ export default function App() {
         <Route path="blog/:slug" element={<BlogPost />} />
         <Route path="about" element={<About />} />
         <Route path="resources" element={<Resources />} />
-        <Route path="*" element={<Home />} />
+        <Route path="*" element={<NotFound />} />
       </Route>
     </Routes>
   );
