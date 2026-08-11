@@ -5,13 +5,11 @@
  * tagged so podcast-site leads are segmentable in the CRM.
  *
  * Why not a GHL inbound webhook env var or hardcoded placeholder: Vite inlines
- * `VITE_*` at build time. When `VITE_GHL_NEWSLETTER_WEBHOOK` is unset (current
- * podcast Vercel project), the fetch branch is dead-code-eliminated and forms
- * silently "succeed" with zero network calls — verified live on
- * podcast.govcongiants.org. A source-level `PASTE_GHL_WEBHOOK_URL_HERE`
- * placeholder (Aug 10 2026) revived the same false-success path via
- * localStorage. The main-site `/api/lead` path already has CORS allowlisted
- * for this origin.
+ * `VITE_*` at build time. When the webhook env is unset, the fetch branch is
+ * dead-code-eliminated and forms silently "succeed" with zero network calls —
+ * verified live on podcast.govcongiants.org. A source-level placeholder URL
+ * (Aug 10 2026) revived the same false-success browser-only path. The
+ * main-site `/api/lead` path already has CORS allowlisted for this origin.
  */
 
 const LEAD_API = 'https://govcongiants.com/api/lead';
