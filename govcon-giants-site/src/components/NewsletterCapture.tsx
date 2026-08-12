@@ -1,63 +1,45 @@
 import type { FormEvent } from 'react';
 import { useEffect, useState } from 'react';
 import { AnimatePresence, motion } from 'framer-motion';
-import { ArrowRight, CheckCircle2, Loader2, X } from 'lucide-react';
-import { GHL_WEBHOOK_URL } from '@/lib/config';
+import { AlertCircle, ArrowRight, CheckCircle2, Loader2, X } from 'lucide-react';
 import { cn } from '@/lib/utils';
+import { submitSignup } from '@/lib/signup';
 
 type Variant = 'hero' | 'compact' | 'modal';
-type SignupStatus = 'idle' | 'submitting' | 'done' | 'error';
+type Status = 'idle' | 'loading' | 'done' | 'error';
 
 interface NewsletterCaptureProps {
-  /** CTA button text — defaults to "Join the Newsletter" */
-  buttonLabel?: string;
   variant?: Variant;
   /** Heading for the compact/band variant. */
   heading?: string;
   /** Kicker shown above the compact heading. */
   kicker?: string;
+  /** Submit button label. */
+  buttonLabel?: string;
+  /** Success line shown after a submit. */
+  successMessage?: string;
+  /** Tag passed to GHL so leads can be attributed to a specific CTA. */
+  source?: string;
   /** Dark-background styling for the hero variant (photo slideshow hero). */
   dark?: boolean;
   className?: string;
 }
 
-/**
- * Newsletter signup: POSTs the email to the GoHighLevel inbound webhook
- * (src/lib/config.ts). Until the real URL is pasted there, falls back to
- * the original localStorage behavior so the form never breaks in preview.
- */
-function useSignup() {
+const DEFAULT_SUCCESS = "You're on the list — check your inbox for a confirmation email.";
+
+function useSignup(source?: string) {
   const [email, setEmail] = useState('');
-  const [status, setStatus] = useState<SignupStatus>('idle');
+  const [status, setStatus] = useState<Status>('idle');
 
   const submit = async (e: FormEvent) => {
     e.preventDefault();
-    const value = email.trim();
-    if (!value || status === 'submitting') return;
-
-    if (GHL_WEBHOOK_URL === 'PASTE_GHL_WEBHOOK_URL_HERE') {
-      try {
-        const list = JSON.parse(localStorage.getItem('gg-signups') ?? '[]') as string[];
-        list.push(value);
-        localStorage.setItem('gg-signups', JSON.stringify(list));
-      } catch {
-        /* storage unavailable — still show success */
-      }
-      setStatus('done');
-      return;
-    }
-
-    setStatus('submitting');
+    if (!email.trim() || status === 'loading') return;
+    setStatus('loading');
     try {
-      const res = await fetch(GHL_WEBHOOK_URL, {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ email: value }),
-      });
-      if (!res.ok) throw new Error(`HTTP ${res.status}`);
+      await submitSignup({ email, source });
       setStatus('done');
     } catch {
-      setStatus('error'); // email stays in the input for retry
+      setStatus('error');
     }
   };
 
@@ -69,69 +51,77 @@ const inputCls =
 const inputDarkCls =
   'h-12 w-full rounded-lg border border-white/40 bg-white/10 px-4 text-[15px] text-white placeholder:text-white/50 backdrop-blur-sm transition-colors focus:border-green-400 focus:outline-none focus:ring-2 focus:ring-green-400/40';
 const btnCls =
-  'group inline-flex h-12 shrink-0 items-center justify-center gap-2 whitespace-nowrap rounded-lg bg-brand px-6 text-[15px] font-semibold text-brand-ink transition-all duration-150 hover:bg-brand-hover hover:-translate-y-px active:scale-[0.98] cursor-pointer';
+  'group inline-flex h-12 shrink-0 items-center justify-center gap-2 whitespace-nowrap rounded-lg bg-brand px-6 text-[15px] font-semibold text-brand-ink transition-all duration-150 hover:bg-brand-hover hover:-translate-y-px active:scale-[0.98] disabled:pointer-events-none disabled:opacity-70 cursor-pointer';
 
-function SuccessNote({ className }: { className?: string }) {
+function SuccessNote({ message, className }: { message: string; className?: string }) {
   return (
     <motion.p
       initial={{ opacity: 0, y: 8 }}
       animate={{ opacity: 1, y: 0 }}
       className={cn('flex items-center gap-2 text-[15px] font-medium text-brand', className)}
     >
-      <CheckCircle2 className="h-5 w-5" />
-      You&apos;re on the list — check your inbox for a confirmation email.
+      <CheckCircle2 className="h-5 w-5 shrink-0" />
+      {message}
     </motion.p>
   );
 }
 
-/** Submit button content: spinner + "Joining…" while submitting. */
-function SubmitLabel({ label, submitting }: { label: string; submitting: boolean }) {
-  if (submitting) {
-    return (
-      <>
-        <Loader2 className="h-4 w-4 animate-spin" />
-        Joining…
-      </>
-    );
-  }
+function ErrorNote({ dark }: { dark?: boolean }) {
   return (
-    <>
-      {label}
-      <ArrowRight className="h-4 w-4 transition-transform duration-150 group-hover:translate-x-1" />
-    </>
+    <p
+      className={cn(
+        'mt-2 flex items-center gap-1.5 text-[13px] font-medium',
+        dark ? 'text-red-300' : 'text-red-600 dark:text-red-400',
+      )}
+    >
+      <AlertCircle className="h-4 w-4 shrink-0" />
+      Something went wrong. Please try again.
+    </p>
   );
 }
 
-function InlineForm({ buttonLabel, dark }: { buttonLabel: string; dark?: boolean }) {
-  const { email, setEmail, status, submit } = useSignup();
-  if (status === 'done') return <SuccessNote className={cn('h-12', dark && 'text-green-400')} />;
-  const submitting = status === 'submitting';
+function InlineForm({
+  buttonLabel,
+  successMessage,
+  source,
+  dark,
+}: {
+  buttonLabel: string;
+  successMessage: string;
+  source?: string;
+  dark?: boolean;
+}) {
+  const { email, setEmail, status, submit } = useSignup(source);
+  if (status === 'done')
+    return <SuccessNote message={successMessage} className={cn('h-12', dark && 'text-green-400')} />;
   return (
-    <div>
+    <div className="w-full">
       <form onSubmit={submit} className="flex w-full flex-col gap-3 sm:flex-row">
         <input
           type="email"
           required
-          disabled={submitting}
           value={email}
           onChange={(e) => setEmail(e.target.value)}
           placeholder="you@company.com"
           aria-label="Email address"
-          className={cn(dark ? inputDarkCls : inputCls, submitting && 'opacity-70')}
+          disabled={status === 'loading'}
+          className={dark ? inputDarkCls : inputCls}
         />
-        <button
-          type="submit"
-          disabled={submitting}
-          className={cn(btnCls, submitting && 'cursor-wait opacity-80')}
-        >
-          <SubmitLabel label={buttonLabel} submitting={submitting} />
+        <button type="submit" className={btnCls} disabled={status === 'loading'}>
+          {status === 'loading' ? (
+            <>
+              Joining…
+              <Loader2 className="h-4 w-4 animate-spin" />
+            </>
+          ) : (
+            <>
+              {buttonLabel}
+              <ArrowRight className="h-4 w-4 transition-transform duration-150 group-hover:translate-x-1" />
+            </>
+          )}
         </button>
       </form>
-      {status === 'error' && (
-        <p className="mt-2 text-sm font-medium text-red-500">
-          Something went wrong — try again.
-        </p>
-      )}
+      {status === 'error' && <ErrorNote dark={dark} />}
     </div>
   );
 }
@@ -140,19 +130,29 @@ function InlineForm({ buttonLabel, dark }: { buttonLabel: string; dark?: boolean
  * Reusable email capture in three variants (design.md §6.3):
  * hero — single-line form + helper line; compact — panel with green left
  * border for footer/CTA bands; modal — centered card with book cover.
+ *
+ * Submissions POST to govcongiants.com/api/lead (see src/lib/signup.ts), which
+ * creates the contact in GHL and notifies Slack.
  */
 export default function NewsletterCapture({
   variant = 'hero',
   heading = 'Get new episodes & guides first.',
   kicker = 'FREE · NO SPAM · UNSUBSCRIBE ANYTIME',
   buttonLabel = 'Join the Newsletter',
+  successMessage = DEFAULT_SUCCESS,
+  source,
   dark,
   className,
 }: NewsletterCaptureProps) {
   if (variant === 'hero') {
     return (
       <div className={cn('w-full', className)}>
-        <InlineForm buttonLabel="Join the Newsletter" dark={dark} />
+        <InlineForm
+          buttonLabel={buttonLabel}
+          successMessage={successMessage}
+          source={source ?? 'hero-newsletter'}
+          dark={dark}
+        />
         <p
           className={cn(
             'mt-3 font-mono text-[11px] tracking-[0.14em]',
@@ -175,7 +175,11 @@ export default function NewsletterCapture({
       >
         <p className="kicker mb-2">{kicker}</p>
         <h3 className="mb-5 font-display text-2xl font-bold tracking-normal text-slate-900 dark:text-white">{heading}</h3>
-        <InlineForm buttonLabel={buttonLabel} />
+        <InlineForm
+          buttonLabel={buttonLabel}
+          successMessage={successMessage}
+          source={source ?? 'compact-newsletter'}
+        />
       </div>
     );
   }
@@ -191,8 +195,7 @@ interface NewsletterModalProps {
 
 /** Modal variant — triggered by the navbar "Free Playbook" CTA. */
 export function NewsletterModal({ open, onClose }: NewsletterModalProps) {
-  const { email, setEmail, status, submit } = useSignup();
-  const submitting = status === 'submitting';
+  const { email, setEmail, status, submit } = useSignup('playbook-modal');
 
   useEffect(() => {
     if (!open) return;
@@ -252,35 +255,35 @@ export function NewsletterModal({ open, onClose }: NewsletterModalProps) {
                 contracts — delivered instantly, free.
               </p>
               {status === 'done' ? (
-                <SuccessNote />
+                <SuccessNote message={DEFAULT_SUCCESS} />
               ) : (
-                <div>
-                  <form onSubmit={submit} className="flex flex-col gap-3">
-                    <input
-                      type="email"
-                      required
-                      autoFocus
-                      disabled={submitting}
-                      value={email}
-                      onChange={(e) => setEmail(e.target.value)}
-                      placeholder="you@company.com"
-                      aria-label="Email address"
-                      className={cn(inputCls, submitting && 'opacity-70')}
-                    />
-                    <button
-                      type="submit"
-                      disabled={submitting}
-                      className={cn(btnCls, submitting && 'cursor-wait opacity-80')}
-                    >
-                      <SubmitLabel label="Join the Newsletter" submitting={submitting} />
-                    </button>
-                  </form>
-                  {status === 'error' && (
-                    <p className="mt-2 text-sm font-medium text-red-500">
-                      Something went wrong — try again.
-                    </p>
-                  )}
-                </div>
+                <form onSubmit={submit} className="flex flex-col gap-3">
+                  <input
+                    type="email"
+                    required
+                    autoFocus
+                    value={email}
+                    onChange={(e) => setEmail(e.target.value)}
+                    placeholder="you@company.com"
+                    aria-label="Email address"
+                    disabled={status === 'loading'}
+                    className={inputCls}
+                  />
+                  <button type="submit" className={btnCls} disabled={status === 'loading'}>
+                    {status === 'loading' ? (
+                      <>
+                        Joining…
+                        <Loader2 className="h-4 w-4 animate-spin" />
+                      </>
+                    ) : (
+                      <>
+                        Send Me the Starter Kit
+                        <ArrowRight className="h-4 w-4 transition-transform duration-150 group-hover:translate-x-1" />
+                      </>
+                    )}
+                  </button>
+                  {status === 'error' && <ErrorNote />}
+                </form>
               )}
               <p className="mt-4 font-mono text-[11px] tracking-[0.14em] text-slate-500 dark:text-slate-400">
                 FREE · NO SPAM · UNSUBSCRIBE ANYTIME

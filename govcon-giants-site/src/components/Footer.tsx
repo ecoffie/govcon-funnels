@@ -31,6 +31,7 @@ export default function Footer() {
           kicker="THE FREE ACTION PLAN"
           heading="Your step-by-step plan to win federal contracts — free."
           buttonLabel="Send Me the Action Plan"
+          source="footer-action-plan"
           className="mb-16"
         />
 
@@ -117,8 +118,8 @@ export default function Footer() {
           </div>
           <p className="font-mono text-xs text-slate-500 dark:text-slate-400">
             © {new Date().getFullYear()} GOVCON GIANTS · MIAMI, FL ·{' '}
-            <Link to="/privacy" className="hover:text-brand">PRIVACY</Link> ·{' '}
-            <Link to="/terms" className="hover:text-brand">TERMS</Link>
+            <a href="https://govcongiants.com/privacy" className="hover:text-brand">PRIVACY</a> ·{' '}
+            <a href="https://govcongiants.com/terms" className="hover:text-brand">TERMS</a>
           </p>
         </div>
       </div>
