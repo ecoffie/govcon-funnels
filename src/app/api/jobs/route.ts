@@ -17,13 +17,26 @@ export async function GET(request: NextRequest) {
   const limit = searchParams.get('limit') ? parseInt(searchParams.get('limit')!) : 25;
 
   try {
-    const { jobs, total } = await searchGovConJobs({
+    const { jobs, total, error } = await searchGovConJobs({
       keyword,
       category,
       remote,
       page,
       limit,
     });
+
+    if (error) {
+      return NextResponse.json(
+        {
+          error: error.message,
+          jobs: [],
+          total: 0,
+          page,
+          totalPages: 0,
+        },
+        { status: error.status }
+      );
+    }
 
     return NextResponse.json({
       jobs,

@@ -43,6 +43,7 @@ export default function JobListClient({ initialJobs, initialTotal, fixedCategory
   const [jobs, setJobs] = useState<Job[]>(initialJobs);
   const [total, setTotal] = useState(initialTotal);
   const [loading, setLoading] = useState(false);
+  const [errorMessage, setErrorMessage] = useState<string | null>(null);
   const [page, setPage] = useState(1);
   const [hasMore, setHasMore] = useState(initialJobs.length < initialTotal);
 
@@ -69,6 +70,7 @@ export default function JobListClient({ initialJobs, initialTotal, fixedCategory
 
   const fetchJobs = useCallback(async (resetPage = true) => {
     setLoading(true);
+    setErrorMessage(null);
     try {
       const params = new URLSearchParams();
       if (keyword) params.set('keyword', keyword);
@@ -89,6 +91,9 @@ export default function JobListClient({ initialJobs, initialTotal, fixedCategory
 
       const response = await fetch(`/api/jobs?${params.toString()}`);
       const data = await response.json();
+      if (!response.ok) {
+        throw new Error(data?.error || 'Failed to fetch jobs');
+      }
 
       if (resetPage) {
         setJobs(data.jobs);
@@ -102,6 +107,7 @@ export default function JobListClient({ initialJobs, initialTotal, fixedCategory
       setHasMore(data.jobs.length > 0 && (resetPage ? data.jobs.length < data.total : jobs.length + data.jobs.length < data.total));
     } catch (error) {
       console.error('Error fetching jobs:', error);
+      setErrorMessage(error instanceof Error ? error.message : 'Failed to fetch jobs');
     } finally {
       setLoading(false);
     }
@@ -211,6 +217,12 @@ export default function JobListClient({ initialJobs, initialTotal, fixedCategory
           <option value="closing">Closing Soon</option>
         </select>
       </div>
+
+      {errorMessage && (
+        <div className="mb-6 rounded-lg border border-amber-500/40 bg-amber-500/10 p-4 text-amber-200">
+          {errorMessage}
+        </div>
+      )}
 
       {/* Job listings */}
       <div className="space-y-4">
