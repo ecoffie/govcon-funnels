@@ -365,9 +365,16 @@ export async function searchGovConJobs(params: {
     // Transform and filter jobs
     let jobs = result.jobs.map(transformJSearchJob);
 
-    // Filter by category if specified
+    // Filter by category if specified. The JSearch query above is already
+    // category-targeted, so if the strict keyword re-filter wipes out every
+    // result (common for pricing-analyst / bd-consultant titles), fall back to
+    // the unfiltered results — otherwise the category page renders empty and
+    // Google flags it as a soft 404.
     if (category && category !== 'other') {
-      jobs = jobs.filter(j => j.category === category);
+      const filtered = jobs.filter(j => j.category === category);
+      if (filtered.length > 0) {
+        jobs = filtered;
+      }
     }
 
     // Limit results

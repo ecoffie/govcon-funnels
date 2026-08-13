@@ -1,5 +1,5 @@
 import Link from 'next/link';
-import { notFound } from 'next/navigation';
+import { permanentRedirect } from 'next/navigation';
 import { generateSeo, breadcrumbJsonLd } from '@/lib/seo';
 import { searchGovConJobs } from '@/lib/jsearch';
 import { JOB_CATEGORIES, getDisplayCategories, getCategoryInfo, CERTIFICATION_WEEKS } from '@/lib/job-categories';
@@ -71,6 +71,57 @@ export async function generateMetadata({ params }: { params: Promise<{ category:
   });
 }
 
+// Evergreen on-page copy for each category. Live job counts fluctuate (and the
+// JSearch feed can return few or zero matches), so this static section keeps the
+// page substantive for users and prevents thin-content / soft-404 classifications.
+const CATEGORY_CONTENT: Record<string, { overview: string; responsibilities: string[]; skills: string[] }> = {
+  'proposal-coordinator': {
+    overview: 'Proposal coordinators keep federal proposals on track: building compliance matrices, managing calendars, formatting volumes, and making sure every RFP requirement is answered before the deadline. It is the most common entry point into GovCon proposal work.',
+    responsibilities: ['Build compliance matrices from RFP requirements', 'Manage proposal schedules and color team reviews', 'Format and production-check proposal volumes', 'Coordinate inputs from technical writers and SMEs'],
+    skills: ['Shipley / APMP process', 'Microsoft Word & Excel', 'FAR basics', 'Deadline management'],
+  },
+  'pricing-analyst': {
+    overview: 'Pricing analysts build the cost volumes that win (or lose) federal contracts. They develop pricing models, analyze labor categories and rates, ensure cost proposals are compliant and competitive, and support negotiations with contracting officers.',
+    responsibilities: ['Develop cost proposals and pricing models', 'Analyze labor rates, indirect rates, and wrap rates', 'Ensure compliance with RFP pricing instructions', 'Support price-to-win and competitive analysis'],
+    skills: ['Advanced Excel modeling', 'Cost volume development', 'FAR Part 15 pricing', 'Price-to-win analysis'],
+  },
+  'contracts-administrator': {
+    overview: 'Contracts administrators manage the contract lifecycle after award: modifications, compliance tracking, deliverables, and closeout. They work directly with contracting officers and keep the company on the right side of the FAR.',
+    responsibilities: ['Administer contract modifications and change orders', 'Track deliverables, milestones, and compliance', 'Support contract closeout and audits', 'Interface with government contracting officers'],
+    skills: ['FAR / DFARS knowledge', 'Contract lifecycle management', 'Deltek Costpoint or similar', 'NCMA certification (CFCM/CPCM)'],
+  },
+  'capture-manager': {
+    overview: 'Capture managers own a pursuit from opportunity identification through proposal submission. They develop win strategies, assess competitors, build teaming arrangements, and position the company before the RFP ever drops.',
+    responsibilities: ['Qualify and pursue new opportunities', 'Develop win themes and capture plans', 'Build teaming and subcontracting strategies', 'Run gate reviews and competitive assessments'],
+    skills: ['Shipley capture process', 'Opportunity qualification', 'Competitive analysis', 'Customer relationship building'],
+  },
+  'bd-manager': {
+    overview: 'Business development managers build the pipeline: identifying opportunities, developing relationships with federal buyers, and moving pursuits from cold lead to qualified capture. BD is where every GovCon win starts.',
+    responsibilities: ['Identify and qualify new business opportunities', 'Build relationships with agency buyers and primes', 'Manage pipeline in CRM tools', 'Support capture and proposal efforts'],
+    skills: ['Federal sales & pipeline development', 'SAM.gov and FPDS research', 'CRM proficiency', 'Agency outreach'],
+  },
+  'proposal-manager': {
+    overview: 'Proposal managers lead the entire proposal effort: running kickoffs, managing writers and color teams, enforcing compliance, and delivering a compelling, compliant submission on time. Senior proposal managers command some of the highest salaries in GovCon.',
+    responsibilities: ['Lead proposal development end-to-end', 'Manage color team reviews (pink, red, gold)', 'Enforce RFP compliance and win themes', 'Coordinate writers, SMEs, and volume leads'],
+    skills: ['Shipley proposal process', 'APMP certification', 'Team leadership', 'RFP compliance management'],
+  },
+  'capture-director': {
+    overview: 'Capture directors oversee multiple capture campaigns, mentor capture managers, and drive the strategic pursuits that define company growth. They set pursuit strategy for the largest and most competitive opportunities.',
+    responsibilities: ['Direct portfolio of major captures', 'Mentor and develop capture managers', 'Shape win strategy on must-win pursuits', 'Engage C-level customers and partners'],
+    skills: ['Portfolio capture leadership', 'Strategic account planning', 'Executive engagement', 'Mentoring & team building'],
+  },
+  'vp-business-development': {
+    overview: 'VPs of Business Development own company growth: setting the growth strategy, leading BD and capture teams, managing executive relationships with agencies and primes, and answering to the board on pipeline and bookings.',
+    responsibilities: ['Set corporate growth and pipeline strategy', 'Lead BD, capture, and proposal organizations', 'Manage executive-level customer relationships', 'Report bookings and pipeline to leadership'],
+    skills: ['Growth strategy', 'Executive leadership', 'P&L and pipeline accountability', 'M&A and partnership development'],
+  },
+  'bd-consultant': {
+    overview: 'BD consultants advise government contractors on capture strategy, pipeline development, and proposals — often commanding $200K-$500K+ as independents or through consulting firms. It is the most flexible and highest-leverage path for experienced GovCon BD professionals.',
+    responsibilities: ['Advise clients on capture and proposal strategy', 'Provide fractional BD leadership', 'Lead proposal support and color team reviews', 'Coach client BD and capture teams'],
+    skills: ['Deep GovCon BD experience', 'Consulting & client management', 'Capture and proposal expertise', 'Independent business development'],
+  },
+};
+
 // JSON-LD for category page - use CollectionPage, not JobPosting
 // JobPosting schema is on individual job detail pages
 function categoryJsonLd(catInfo: typeof JOB_CATEGORIES[JobCategory], jobCount: number) {
@@ -103,12 +154,15 @@ function categoryJsonLd(catInfo: typeof JOB_CATEGORIES[JobCategory], jobCount: n
 export default async function CategoryPage({ params }: { params: Promise<{ category: string }> }) {
   const { category } = await params;
 
-  // Validate category
+  // Validate category. Unknown slugs are typically expired job-detail URLs
+  // (e.g. /jobs/<base64-id> from the old site); send them to /jobs instead of
+  // 404ing, matching the /jobs/:id(\d+) redirect in vercel.json.
   if (!JOB_CATEGORIES[category as JobCategory] || category === 'other') {
-    notFound();
+    permanentRedirect('/jobs');
   }
 
   const catInfo = getCategoryInfo(category as JobCategory);
+  const content = CATEGORY_CONTENT[category];
   const { jobs: initialJobs, total } = await searchGovConJobs({
     category: category as JobCategory,
     limit: 25
@@ -210,6 +264,42 @@ export default async function CategoryPage({ params }: { params: Promise<{ categ
           </div>
         </div>
       </section>
+
+      {/* About the Role (evergreen content) */}
+      {content && (
+        <section className="py-8 px-6 border-b border-slate-800">
+          <div className="max-w-6xl mx-auto">
+            <h2 className="text-2xl font-bold text-white mb-4">
+              What Does a <span className="text-green-500">{catInfo.name}</span> Do?
+            </h2>
+            <p className="text-slate-400 max-w-3xl mb-8">{content.overview}</p>
+            <div className="grid md:grid-cols-2 gap-8">
+              <div>
+                <h3 className="text-lg font-semibold text-white mb-3">Typical Responsibilities</h3>
+                <ul className="space-y-2">
+                  {content.responsibilities.map((item) => (
+                    <li key={item} className="flex items-start gap-2 text-slate-400">
+                      <span className="text-green-500 mt-1">•</span>
+                      {item}
+                    </li>
+                  ))}
+                </ul>
+              </div>
+              <div>
+                <h3 className="text-lg font-semibold text-white mb-3">Skills Employers Want</h3>
+                <ul className="space-y-2">
+                  {content.skills.map((item) => (
+                    <li key={item} className="flex items-start gap-2 text-slate-400">
+                      <span className="text-green-500 mt-1">•</span>
+                      {item}
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            </div>
+          </div>
+        </section>
+      )}
 
       {/* Job Listings */}
       <section className="py-8 px-6">
