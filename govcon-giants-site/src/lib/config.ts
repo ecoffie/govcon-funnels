@@ -1,10 +1,15 @@
 /**
- * GoHighLevel inbound webhook for the newsletter signup form.
+ * Lead capture endpoint for the signup forms.
  *
- * Paste your GHL workflow's "Inbound Webhook" URL here (GHL → Workflows →
- * trigger: Inbound Webhook → copy the URL).
+ * POSTs to the govcon-funnels (Next.js) lead API, which fans out to
+ * GoHighLevel (contact create/update + tags), a Supabase backup row,
+ * Slack notification, and the confirmation email. That app lives at
+ * app.govcongiants.org since the Aug 2026 domain swap and allows
+ * cross-origin POSTs from govcongiants.com / podcast.govcongiants.org
+ * (see CORS_ALLOWED_ORIGINS in src/app/api/lead/route.ts there).
  *
- * While this is still the placeholder, NewsletterCapture falls back to
- * localStorage signups so the form keeps working in preview.
+ * Previously this held a GHL inbound-webhook URL and stayed a placeholder,
+ * which silently dropped every signup to localStorage. Do NOT revert to the
+ * placeholder — if the endpoint changes, update it here.
  */
-export const GHL_WEBHOOK_URL = 'PASTE_GHL_WEBHOOK_URL_HERE';
+export const GHL_WEBHOOK_URL: string = 'https://app.govcongiants.org/api/lead';

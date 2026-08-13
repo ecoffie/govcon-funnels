@@ -6,9 +6,15 @@ import { enforceIpRateLimit } from '@/lib/rate-limit';
 import { maskEmail } from '@/lib/redact';
 
 // Cross-origin lead capture: the podcast site (separate Vercel project, no
-// backend of its own) posts its newsletter/guide signups here. Scoped to that
-// one origin — everything else stays same-origin as before.
-const CORS_ALLOWED_ORIGINS = new Set(['https://podcast.govcongiants.org']);
+// backend of its own) posts its newsletter/guide signups here. Scoped to
+// those origins — everything else stays same-origin as before.
+// govcongiants.com: the SPA now serves the apex domain (Aug 2026 swap), so
+// its signup forms post cross-origin from there too.
+const CORS_ALLOWED_ORIGINS = new Set([
+  'https://podcast.govcongiants.org',
+  'https://govcongiants.com',
+  'https://www.govcongiants.com',
+]);
 
 function corsHeaders(request: NextRequest): Record<string, string> {
   const origin = request.headers.get('origin') ?? '';

@@ -1,17 +1,19 @@
 /**
  * Newsletter / lead capture submit.
  *
- * Posts the email to a GoHighLevel (GHL) Inbound Webhook, which fans out to a
- * GHL workflow that creates/updates the contact and sends the welcome email.
- * No API keys ever touch the browser — the webhook URL is the only secret and
- * it is scoped to a single workflow.
+ * Posts the email to the govcon-funnels lead API (see src/lib/config.ts),
+ * which creates/updates the GHL contact, writes a Supabase backup, pings
+ * Slack, and sends the welcome email. No API keys ever touch the browser.
  *
- * Configure the URL with the Vite env var `VITE_GHL_NEWSLETTER_WEBHOOK`
- * (set it in the Vercel project env, then redeploy). Until it is set, submit()
- * resolves successfully without a network call so the form UX still works in
- * preview — it just doesn't create a lead yet.
+ * The Vite env var `VITE_GHL_NEWSLETTER_WEBHOOK` overrides the default
+ * endpoint (set it in the Vercel project env, then redeploy). If neither is
+ * set, submit() resolves successfully without a network call so the form UX
+ * still works in preview — it just doesn't create a lead yet.
  */
-const WEBHOOK_URL = import.meta.env.VITE_GHL_NEWSLETTER_WEBHOOK as string | undefined;
+import { GHL_WEBHOOK_URL } from './config';
+
+const WEBHOOK_URL =
+  (import.meta.env.VITE_GHL_NEWSLETTER_WEBHOOK as string | undefined) || GHL_WEBHOOK_URL;
 
 export interface SignupPayload {
   email: string;
