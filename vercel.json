@@ -112,6 +112,26 @@
       "permanent": true
     },
     {
+      "source": "/free-course/:path*",
+      "destination": "/",
+      "permanent": true
+    },
+    {
+      "source": "/mastermind/:path*",
+      "destination": "/premium",
+      "permanent": true
+    },
+    {
+      "source": "/surge/:path*",
+      "destination": "/",
+      "permanent": true
+    },
+    {
+      "source": "/jan-31-bootcamp-paid",
+      "destination": "/",
+      "permanent": true
+    },
+    {
       "source": "/learning/:path*",
       "destination": "/",
       "permanent": true
@@ -129,6 +149,11 @@
     {
       "source": "/author/:path*",
       "destination": "/",
+      "permanent": true
+    },
+    {
+      "source": "/2022/:path*",
+      "destination": "/blog",
       "permanent": true
     },
     {
