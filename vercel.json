@@ -56,6 +56,17 @@
       "permanent": true
     },
     {
+      "source": "/database/:path*",
+      "has": [
+        {
+          "type": "host",
+          "value": "guides.govcongiants.org"
+        }
+      ],
+      "destination": "https://govcongiants.com/data/contractors",
+      "permanent": true
+    },
+    {
       "source": "/shop",
       "destination": "https://shop.govcongiants.org",
       "permanent": true
