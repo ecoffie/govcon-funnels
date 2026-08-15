@@ -24,7 +24,7 @@ const books: Book[] = [
     blurb:
       'The exact 72 federal websites Eric uses to find buyers, partners, and contracts — the same ones behind $20M+ in government sales.',
     cover: '/book-playbook.png',
-    href: 'https://ericcoffie.com',
+    href: 'https://www.amazon.com/dp/B08NF1NPZQ',
     cta: 'Get the book',
   },
   {

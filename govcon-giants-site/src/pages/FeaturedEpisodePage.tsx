@@ -9,6 +9,7 @@ import { formatEpisodeDate } from '@/lib/episode-utils';
 import { parseEpisodeBody } from '@/lib/episode-content';
 import { platforms } from '@/data/platforms';
 import { cn } from '@/lib/utils';
+import { useMeta } from '@/lib/useMeta';
 
 const reveal = (delay = 0) => ({
   initial: { opacity: 0, y: 24 },
@@ -22,11 +23,18 @@ const reveal = (delay = 0) => ({
 export default function FeaturedEpisodePage() {
   const { index: raw } = useParams();
   const index = Number(raw);
-  if (!Number.isInteger(index) || index < 0 || index >= featuredEpisodes.length) {
+  const valid = Number.isInteger(index) && index >= 0 && index < featuredEpisodes.length;
+  const episode = valid ? featuredEpisodes[index] : undefined;
+
+  useMeta(
+    episode ? `${episode.title} | GovCon Giants` : 'Podcast | GovCon Giants',
+    episode?.blurb
+  );
+
+  if (!episode) {
     return <Navigate to="/podcast" replace />;
   }
 
-  const episode = featuredEpisodes[index];
   const speaker = speakers.find((s) => s.name === episode.guest);
   const credential = speaker?.credential;
   const roleLine = [episode.role, episode.agency].filter(Boolean).join(' · ');

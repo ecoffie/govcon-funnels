@@ -41,11 +41,23 @@ export async function POST(request: NextRequest) {
     const limited = await enforceIpRateLimit(request, 'lead', 10, 60);
     if (limited) return limited;
 
-    const body = await request.json();
-    const { name, email, phone, company, source, redirectUrl, tags, abTestId, abVariant } = body;
+    let body: Record<string, unknown>;
+    try {
+      body = await request.json();
+    } catch {
+      return NextResponse.json({ error: 'Invalid JSON body' }, { status: 400, headers: cors });
+    }
+    const { name, email, phone, company, source, redirectUrl, tags, abTestId, abVariant } = body as {
+      name?: string; email?: string; phone?: string; company?: string; source?: string;
+      redirectUrl?: string; tags?: string[]; abTestId?: string; abVariant?: string;
+    };
 
     if (!email?.trim()) {
       return NextResponse.json({ error: 'Email is required' }, { status: 400, headers: cors });
+    }
+
+    if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email.trim())) {
+      return NextResponse.json({ error: 'Valid email is required' }, { status: 400, headers: cors });
     }
 
     const lead = {

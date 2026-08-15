@@ -8,6 +8,7 @@ import DirectorySection from '@/components/resources/DirectorySection';
 import GuideSignupModal from '@/components/resources/GuideSignupModal';
 import type { Guide } from '@/components/resources/guides';
 import { guides } from '@/components/resources/guides';
+import { useMeta } from '@/lib/useMeta';
 
 const EASE = [0.16, 1, 0.3, 1] as [number, number, number, number];
 
@@ -171,6 +172,10 @@ function FinalCta() {
 /* --------------------------------- Page ----------------------------------- */
 
 export default function Resources() {
+  useMeta(
+    'Resources | GovCon Giants',
+    'Free guides, books, and tools that find buyers, not just bids — the Billion Dollar Playbook and more.'
+  );
   const [activeGuide, setActiveGuide] = useState<Guide | null>(null);
 
   return (

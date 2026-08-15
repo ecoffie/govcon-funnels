@@ -16,7 +16,7 @@ const companyLinks = [
 
 const socials = [
   { href: 'https://www.youtube.com/@ericcoffie', label: 'YouTube', Icon: Youtube },
-  { href: 'https://x.com/govcongiants', label: 'X / Twitter', Icon: Twitter },
+  { href: 'https://x.com/ericcoffie', label: 'X / Twitter', Icon: Twitter },
   { href: 'https://www.linkedin.com/in/ericcoffie/', label: 'LinkedIn', Icon: Linkedin },
   { href: 'https://www.instagram.com/ericcoffie/', label: 'Instagram', Icon: Instagram },
 ];
@@ -117,7 +117,7 @@ export default function Footer() {
           </div>
           <p className="font-mono text-xs text-slate-500 dark:text-slate-400">
             © {new Date().getFullYear()} GOVCON GIANTS · MIAMI, FL ·{' '}
-            <Link to="/privacy" className="hover:text-brand">PRIVACY</Link> ·{' '}
+            <Link to="/privacy-policy" className="hover:text-brand">PRIVACY</Link> ·{' '}
             <Link to="/terms" className="hover:text-brand">TERMS</Link>
           </p>
         </div>

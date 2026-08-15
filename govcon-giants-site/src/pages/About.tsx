@@ -6,12 +6,17 @@ import StatsBand from '@/components/about/StatsBand';
 import StoryTimeline from '@/components/about/StoryTimeline';
 import QuotesSection from '@/components/about/QuotesSection';
 import MissionBanner from '@/components/about/MissionBanner';
+import { useMeta } from '@/lib/useMeta';
 
 /**
  * `/about` — Eric Coffie bio (about.md): bio hero, stats counters,
  * pinned GSAP story timeline, philosophy quotes, mission banner CTA.
  */
 export default function About() {
+  useMeta(
+    'About | GovCon Giants',
+    'Eric Coffie’s story — from everyday beginnings to teaching thousands of small businesses how to win federal contracts.'
+  );
   const [modalOpen, setModalOpen] = useState(false);
 
   return (

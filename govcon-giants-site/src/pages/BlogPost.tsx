@@ -9,6 +9,7 @@ import { articles } from '@/data/articles';
 import type { Article } from '@/data/articles';
 import { getArticleBody } from '@/data/articleBodies';
 import type { ArticleBlock } from '@/data/articleBodies';
+import { useMeta } from '@/lib/useMeta';
 
 /** Slugify an H2 for anchor links. */
 function anchorId(text: string, index: number): string {
@@ -230,6 +231,11 @@ function relatedArticles(current: Article): Article[] {
 export default function BlogPost() {
   const { slug } = useParams();
   const article = articles.find((a) => a.slug === slug);
+
+  useMeta(
+    article ? `${article.title} | GovCon Giants` : 'Blog | GovCon Giants',
+    article?.excerpt
+  );
 
   if (!article) {
     return (

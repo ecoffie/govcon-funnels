@@ -3,6 +3,7 @@ import NewsletterCapture from '@/components/NewsletterCapture';
 import ShowHeader from '@/components/podcast/ShowHeader';
 import FeaturedGallery from '@/components/podcast/FeaturedGallery';
 import EpisodeArchive from '@/components/podcast/EpisodeArchive';
+import { useMeta } from '@/lib/useMeta';
 
 /* ------------------- Section 5 — Never Miss an Episode CTA ------------------- */
 
@@ -56,6 +57,10 @@ function EpisodeCta() {
 /** /podcast — full episode archive (podcast.md): show header, featured
  * episodes gallery, sticky filter bar, month-grouped archive, CTA band. */
 export default function Podcast() {
+  useMeta(
+    'Podcast | GovCon Giants',
+    'The GovCon Giants Podcast — daily tactical plays and interviews with government officials on winning federal contracts.'
+  );
   return (
     <motion.div
       initial={{ opacity: 0, y: 12 }}

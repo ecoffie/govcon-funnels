@@ -17,7 +17,7 @@ const books: Book[] = [
     blurb:
       "Eric's field manual of 72 federal websites — registration sites, small business programs, buying vehicles, grants, and more — what each one is and how to use it.",
     cover: '/books/billion-dollar-playbook.png',
-    link: 'https://ericcoffie.com/products/govcon-billion-dollar-playbook-72-websites-for-massive-scaling-in-the-marketplace',
+    link: 'https://www.amazon.com/dp/B08NF1NPZQ',
   },
   {
     title: 'Govcon Launch',

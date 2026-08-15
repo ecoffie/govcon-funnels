@@ -14,6 +14,7 @@ import FeaturedGallery from '@/components/podcast/FeaturedGallery';
 import SummitSection from '@/components/SummitSection';
 import { articles } from '@/data/articles';
 import { cn } from '@/lib/utils';
+import { useMeta } from '@/lib/useMeta';
 
 /* --------------------------------- Hero ---------------------------------- */
 
@@ -426,6 +427,10 @@ function PopularArticles() {
  * Summit band, "Experience GovCon Giants" 3-tile strip, popular articles.
  * The footer already carries the newsletter band, so no extra CTA section. */
 export default function Home() {
+  useMeta(
+    'GovCon Giants — Win Federal Contracts Like a Giant',
+    'Eric Coffie teaches everyday people how to win extraordinary federal contracts — free podcast, guides, and the Billion Dollar Playbook.'
+  );
   return (
     <motion.div
       initial={{ opacity: 0, y: 12 }}

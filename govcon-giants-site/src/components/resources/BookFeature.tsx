@@ -133,7 +133,7 @@ export default function BookFeature({ onGetFreeWebsites }: BookFeatureProps) {
             className="mt-9 flex flex-wrap items-center gap-4"
           >
             <a
-              href="https://ericcoffie.com"
+              href="https://www.amazon.com/dp/B08NF1NPZQ"
               target="_blank"
               rel="noopener noreferrer"
               className="inline-flex items-center justify-center gap-2 rounded-lg bg-brand px-7 py-3.5 text-[15px] font-semibold text-brand-ink transition-all duration-150 cursor-pointer hover:bg-brand-hover hover:-translate-y-px active:scale-[0.98] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand focus-visible:ring-offset-2 focus-visible:ring-offset-base"

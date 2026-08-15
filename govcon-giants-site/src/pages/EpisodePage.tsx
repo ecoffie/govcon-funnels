@@ -15,6 +15,7 @@ import { parseEpisodeBody } from '@/lib/episode-content';
 import { resolveGuest } from '@/lib/episode-guests';
 import { platforms } from '@/data/platforms';
 import { cn } from '@/lib/utils';
+import { useMeta } from '@/lib/useMeta';
 
 const reveal = (delay = 0) => ({
   initial: { opacity: 0, y: 24 },
@@ -37,11 +38,18 @@ function initials(name: string) {
 export default function EpisodePage() {
   const { index: raw } = useParams();
   const index = Number(raw);
-  if (!Number.isInteger(index) || index < 0 || index >= episodes.length) {
+  const valid = Number.isInteger(index) && index >= 0 && index < episodes.length;
+  const episode = valid ? episodes[index] : undefined;
+
+  useMeta(
+    episode ? `${episode.title} | GovCon Giants` : 'Podcast | GovCon Giants',
+    episode?.description
+  );
+
+  if (!episode) {
     return <Navigate to="/podcast" replace />;
   }
 
-  const episode = episodes[index];
   const topic = episodeTopic(episode.title);
   const guest = resolveGuest(index, episode.title, episode.description);
   const { intro, takeaways, chapters, links } = parseEpisodeBody(episode.body);
