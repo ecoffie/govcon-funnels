@@ -3,7 +3,6 @@ import { useEffect, useState } from 'react';
 import { AnimatePresence, motion } from 'framer-motion';
 import { AlertCircle, CheckCircle2, Loader2, X } from 'lucide-react';
 import type { VaultDoc } from '@/data/vault';
-import { vaultFormatIcon } from '@/data/vault';
 import { submitSignup } from '@/lib/signup';
 
 interface VaultSignupModalProps {
@@ -14,9 +13,9 @@ interface VaultSignupModalProps {
 
 /**
  * Page-specific sibling of GuideSignupModal (same layout, motion, and lead-API
- * signup contract) adapted to vault documents: the left panel shows a file-type
- * icon instead of the book cover, and the success state adds an immediate
- * "download it now" link alongside the "check your inbox" confirmation.
+ * signup contract) adapted to vault documents: the left panel shows the doc's
+ * cover thumbnail, and the success state adds an immediate "download it now"
+ * link alongside the "check your inbox" confirmation.
  */
 export default function VaultSignupModal({ doc, onClose }: VaultSignupModalProps) {
   const [email, setEmail] = useState('');
@@ -24,7 +23,6 @@ export default function VaultSignupModal({ doc, onClose }: VaultSignupModalProps
   const done = status === 'done';
   const open = doc !== null;
   const downloadUrl = doc ? `https://govcongiants.com/downloads/vault/${doc.file}` : '';
-  const Icon = doc ? vaultFormatIcon(doc.format) : null;
 
   useEffect(() => {
     if (!open) return;
@@ -57,7 +55,7 @@ export default function VaultSignupModal({ doc, onClose }: VaultSignupModalProps
 
   return (
     <AnimatePresence>
-      {open && doc && Icon && (
+      {open && doc && (
         <motion.div
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
@@ -85,7 +83,12 @@ export default function VaultSignupModal({ doc, onClose }: VaultSignupModalProps
               <X className="h-5 w-5" />
             </button>
             <div className="hidden flex-col items-center justify-center gap-3 bg-inset p-6 md:flex">
-              <Icon className="h-16 w-16 text-brand" aria-hidden />
+              <img
+                src={doc.cover}
+                alt={`${doc.title} cover`}
+                className="w-full -rotate-6 rounded-md shadow-[0_16px_40px_rgba(0,0,0,0.5)]"
+                loading="lazy"
+              />
               <span className="rounded-full border border-line bg-raised px-2.5 py-1 font-sans text-[11px] font-semibold uppercase tracking-wider text-slate-500 dark:text-slate-400">
                 {doc.format}
               </span>

@@ -17,6 +17,8 @@ export interface VaultDoc {
   /** Exact filename in public/downloads/vault/ */
   file: string;
   format: VaultFormat;
+  /** Branded cover thumbnail (public/downloads/vault/covers/<slug>.png). */
+  cover: string;
 }
 
 export interface VaultCategory {
@@ -36,6 +38,7 @@ export const VAULT_CATEGORIES: VaultCategory[] = [
       description: 'A finished example you can model your own one-pager on.',
       file: 'capability-statement-sample.pdf',
       format: 'PDF',
+      cover: '/downloads/vault/covers/capability-statement-sample.png',
       },
       {
       slug: 'capability-statement-checklist',
@@ -43,6 +46,7 @@ export const VAULT_CATEGORIES: VaultCategory[] = [
       description: 'The fill-in template that keeps your capability statement complete.',
       file: 'capability-statement-checklist.dotx',
       format: 'DOTX',
+      cover: '/downloads/vault/covers/capability-statement-checklist.png',
       },
       {
       slug: 'teaming-agreement-sample',
@@ -50,6 +54,7 @@ export const VAULT_CATEGORIES: VaultCategory[] = [
       description: 'A real teaming agreement you can adapt before you chase a bid together.',
       file: 'teaming-agreement-sample.pdf',
       format: 'PDF',
+      cover: '/downloads/vault/covers/teaming-agreement-sample.png',
       },
       {
       slug: 'sba-size-standards-2022',
@@ -57,6 +62,7 @@ export const VAULT_CATEGORIES: VaultCategory[] = [
       description: 'The official table of small business size standards by NAICS code.',
       file: 'sba-size-standards-2022.pdf',
       format: 'PDF',
+      cover: '/downloads/vault/covers/sba-size-standards-2022.png',
       },
       {
       slug: 'compliance-matrix-outline',
@@ -64,6 +70,7 @@ export const VAULT_CATEGORIES: VaultCategory[] = [
       description: 'Map every RFP requirement to a response so nothing gets missed.',
       file: 'compliance-matrix-outline.xlsx',
       format: 'XLSX',
+      cover: '/downloads/vault/covers/compliance-matrix-outline.png',
       },
       {
       slug: 'sources-sought-template',
@@ -71,6 +78,7 @@ export const VAULT_CATEGORIES: VaultCategory[] = [
       description: 'Answer sources sought notices in the format contracting officers expect.',
       file: 'sources-sought-template.pdf',
       format: 'PDF',
+      cover: '/downloads/vault/covers/sources-sought-template.png',
       },
       {
       slug: 'navfac-small-business-specialists',
@@ -78,6 +86,7 @@ export const VAULT_CATEGORIES: VaultCategory[] = [
       description: 'Contact list for NAVFAC small business specialists by region.',
       file: 'navfac-small-business-specialists.pdf',
       format: 'PDF',
+      cover: '/downloads/vault/covers/navfac-small-business-specialists.png',
       },
       {
       slug: '10-subcontractor-clauses',
@@ -85,6 +94,7 @@ export const VAULT_CATEGORIES: VaultCategory[] = [
       description: 'The clauses that sink subs — know them before you sign.',
       file: '10-subcontractor-clauses.pdf',
       format: 'PDF',
+      cover: '/downloads/vault/covers/10-subcontractor-clauses.png',
       },
       {
       slug: 'cold-email-script-1',
@@ -92,6 +102,7 @@ export const VAULT_CATEGORIES: VaultCategory[] = [
       description: 'The opener email that gets contracting officers to reply.',
       file: 'cold-email-script-1.pdf',
       format: 'PDF',
+      cover: '/downloads/vault/covers/cold-email-script-1.png',
       },
       {
       slug: 'renew-sam-registration',
@@ -99,6 +110,7 @@ export const VAULT_CATEGORIES: VaultCategory[] = [
       description: 'Step-by-step renewal so your registration never lapses.',
       file: 'renew-sam-registration.pdf',
       format: 'PDF',
+      cover: '/downloads/vault/covers/renew-sam-registration.png',
       },
     ],
   },
