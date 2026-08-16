@@ -6,6 +6,7 @@ import BookshelfSection from '@/components/resources/BookshelfSection';
 import GuidesLibrary from '@/components/resources/GuidesLibrary';
 import DirectorySection from '@/components/resources/DirectorySection';
 import GuideSignupModal from '@/components/resources/GuideSignupModal';
+import VaultLibrary from '@/components/resources/VaultLibrary';
 import type { Guide } from '@/components/resources/guides';
 import { guides } from '@/components/resources/guides';
 import { useMeta } from '@/lib/useMeta';
@@ -188,6 +189,7 @@ export default function Resources() {
       <BookFeature onGetFreeWebsites={() => setActiveGuide(guides[0])} />
       <BookshelfSection />
       <GuidesLibrary onSelect={setActiveGuide} />
+      <VaultLibrary />
       <DirectorySection />
       <FinalCta />
       <GuideSignupModal guide={activeGuide} onClose={() => setActiveGuide(null)} />

@@ -170,9 +170,19 @@ async function sendEmail(to: string, subject: string, html: string, cc?: string[
 /**
  * Send confirmation email based on funnel source
  */
-export async function sendConfirmationEmail(params: EmailParams & { source: string }): Promise<EmailResult> {
-  const { to, name, source } = params;
+export async function sendConfirmationEmail(params: EmailParams & { source: string; redirectUrl?: string }): Promise<EmailResult> {
+  const { to, name, source, redirectUrl } = params;
   const firstName = name.split(' ')[0] || 'there';
+
+  // Vault document library (govcongiants.com/resources): source is
+  // `vault:<doc title>` and redirectUrl is the direct download link. Without a
+  // redirectUrl there's nothing to deliver, so fall back to the generic welcome.
+  if (source.startsWith('vault:')) {
+    if (redirectUrl) {
+      return sendVaultDocumentEmail({ to, name, docTitle: source.slice(6), downloadUrl: redirectUrl });
+    }
+    return sendGenericWelcomeEmail({ to, name, source });
+  }
 
   switch (source) {
     case 'free-handouts':
@@ -464,6 +474,46 @@ export async function sendGenericWelcomeEmail(params: EmailParams & { source: st
 ${proCta()}`;
 
   return sendEmail(params.to, `${firstName}, Welcome to GovCon Giants!`, emailWrapper(content));
+}
+
+/**
+ * Vault document delivery email — gated downloads from the Document Library
+ * (govcongiants.com/resources). Sends the direct download link.
+ */
+export async function sendVaultDocumentEmail(params: EmailParams & { docTitle: string; downloadUrl: string }): Promise<EmailResult> {
+  const { to, name, docTitle, downloadUrl } = params;
+  const firstName = name.split(' ')[0] || 'there';
+
+  const content = `
+<h1 style="color: #ffffff; font-size: 28px; margin: 0 0 20px; text-align: center;">
+  Your Download is Ready!
+</h1>
+
+<p style="color: #94a3b8; font-size: 16px; line-height: 1.6; margin: 0 0 30px;">
+  Hey ${firstName},<br><br>
+  Thanks for grabbing <strong style="color: #ffffff;">${docTitle}</strong> from the GovCon Giants Document Library. Click below to download your copy.
+</p>
+
+<table width="100%" cellpadding="0" cellspacing="0">
+  <tr>
+    <td align="center" style="padding: 20px 0;">
+      <a href="${downloadUrl}" style="display: inline-block; background-color: #4ade80; color: #0f172a; padding: 16px 32px; border-radius: 8px; text-decoration: none; font-weight: 700; font-size: 16px;">
+        Download ${docTitle}
+      </a>
+    </td>
+  </tr>
+</table>
+
+<p style="color: #64748b; font-size: 13px; line-height: 1.6; margin: 0 0 30px; text-align: center;">
+  Button not working? Copy this link into your browser:<br>
+  <a href="${downloadUrl}" style="color: #4ade80; text-decoration: none; word-break: break-all;">${downloadUrl}</a>
+</p>
+
+<p style="color: #94a3b8; font-size: 14px; line-height: 1.6; margin: 0; text-align: center;">
+  Want more where that came from? Tune in to the GovCon Giants podcast and newsletter for weekly tactics on winning federal contracts.
+</p>`;
+
+  return sendEmail(to, `${firstName}, here's your ${docTitle}`, emailWrapper(content));
 }
 
 /**

@@ -19,9 +19,11 @@ export interface SignupPayload {
   email: string;
   /** Which form/CTA sent this — used for GHL tagging. */
   source?: string;
+  /** Direct delivery link — the lead API emails it (used by the vault library). */
+  redirectUrl?: string;
 }
 
-export async function submitSignup({ email, source }: SignupPayload): Promise<void> {
+export async function submitSignup({ email, source, redirectUrl }: SignupPayload): Promise<void> {
   const trimmed = email.trim();
   if (!trimmed) throw new Error('Email is required');
 
@@ -45,6 +47,7 @@ export async function submitSignup({ email, source }: SignupPayload): Promise<vo
       source: source ?? 'newsletter',
       site: 'podcast.govcongiants.org',
       submittedAt: new Date().toISOString(),
+      ...(redirectUrl ? { redirectUrl } : {}),
     }),
   });
 

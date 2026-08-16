@@ -105,6 +105,7 @@ export async function POST(request: NextRequest) {
       to: lead.email,
       name: lead.name,
       source: lead.source,
+      redirectUrl: lead.redirectUrl,
     });
 
     // 3c) Mindy Launch save-the-date: hand off the actual send to getmindy.ai so it

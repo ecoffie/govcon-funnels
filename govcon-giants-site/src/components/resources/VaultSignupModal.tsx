@@ -2,26 +2,29 @@ import type { FormEvent } from 'react';
 import { useEffect, useState } from 'react';
 import { AnimatePresence, motion } from 'framer-motion';
 import { AlertCircle, CheckCircle2, Loader2, X } from 'lucide-react';
-import type { Guide } from '@/components/resources/guides';
+import type { VaultDoc } from '@/data/vault';
+import { vaultFormatIcon } from '@/data/vault';
 import { submitSignup } from '@/lib/signup';
 
-interface GuideSignupModalProps {
-  /** The guide being requested — null means closed. */
-  guide: Guide | null;
+interface VaultSignupModalProps {
+  /** The vault document being requested — null means closed. */
+  doc: VaultDoc | null;
   onClose: () => void;
 }
 
 /**
- * Page-specific sibling of the shared NewsletterModal (same layout and
- * motion) that POSTs to the lead API and adapts its heading, body copy, and
- * success state to the requested guide:
- * "Check your inbox — [guide name] is on its way."
+ * Page-specific sibling of GuideSignupModal (same layout, motion, and lead-API
+ * signup contract) adapted to vault documents: the left panel shows a file-type
+ * icon instead of the book cover, and the success state adds an immediate
+ * "download it now" link alongside the "check your inbox" confirmation.
  */
-export default function GuideSignupModal({ guide, onClose }: GuideSignupModalProps) {
+export default function VaultSignupModal({ doc, onClose }: VaultSignupModalProps) {
   const [email, setEmail] = useState('');
   const [status, setStatus] = useState<'idle' | 'loading' | 'done' | 'error'>('idle');
   const done = status === 'done';
-  const open = guide !== null;
+  const open = doc !== null;
+  const downloadUrl = doc ? `https://govcongiants.com/downloads/vault/${doc.file}` : '';
+  const Icon = doc ? vaultFormatIcon(doc.format) : null;
 
   useEffect(() => {
     if (!open) return;
@@ -34,14 +37,18 @@ export default function GuideSignupModal({ guide, onClose }: GuideSignupModalPro
       window.removeEventListener('keydown', onKey);
       document.body.style.overflow = '';
     };
-  }, [open, onClose, guide]);
+  }, [open, onClose, doc]);
 
   const submit = async (e: FormEvent) => {
     e.preventDefault();
-    if (!email.trim() || status === 'loading') return;
+    if (!email.trim() || status === 'loading' || !doc) return;
     setStatus('loading');
     try {
-      await submitSignup({ email, source: guide ? `guide:${guide.title}` : 'guide' });
+      await submitSignup({
+        email,
+        source: `vault:${doc.title}`,
+        redirectUrl: downloadUrl,
+      });
       setStatus('done');
     } catch {
       setStatus('error');
@@ -50,7 +57,7 @@ export default function GuideSignupModal({ guide, onClose }: GuideSignupModalPro
 
   return (
     <AnimatePresence>
-      {open && guide && (
+      {open && doc && Icon && (
         <motion.div
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
@@ -60,7 +67,7 @@ export default function GuideSignupModal({ guide, onClose }: GuideSignupModalPro
           onClick={onClose}
           role="dialog"
           aria-modal="true"
-          aria-label={`Get ${guide.title} by email`}
+          aria-label={`Get ${doc.title} by email`}
         >
           <motion.div
             initial={{ scale: 0.95, opacity: 0 }}
@@ -77,31 +84,37 @@ export default function GuideSignupModal({ guide, onClose }: GuideSignupModalPro
             >
               <X className="h-5 w-5" />
             </button>
-            <div className="hidden items-center justify-center bg-inset p-6 md:flex">
-              <img
-                src="/book-playbook.png"
-                alt="Billion Dollar Playbook book cover"
-                className="w-full -rotate-6 rounded-md shadow-[0_16px_40px_rgba(0,0,0,0.5)]"
-                loading="lazy"
-              />
+            <div className="hidden flex-col items-center justify-center gap-3 bg-inset p-6 md:flex">
+              <Icon className="h-16 w-16 text-brand" aria-hidden />
+              <span className="rounded-full border border-line bg-raised px-2.5 py-1 font-sans text-[11px] font-semibold uppercase tracking-wider text-slate-500 dark:text-slate-400">
+                {doc.format}
+              </span>
             </div>
             <div className="p-6 md:p-8">
-              <p className="kicker mb-2">FREE GUIDE</p>
+              <p className="kicker mb-2">FREE DOWNLOAD</p>
               <h3 className="mb-2 font-display text-2xl font-black tracking-normal text-slate-900 dark:text-white md:text-3xl">
-                {guide.title}
+                {doc.title}
               </h3>
               <p className="mb-6 text-[15px] leading-relaxed text-slate-600 dark:text-slate-300">
-                {guide.modalCopy}
+                {doc.description}
               </p>
               {done ? (
-                <motion.p
+                <motion.div
                   initial={{ opacity: 0, y: 8 }}
                   animate={{ opacity: 1, y: 0 }}
-                  className="flex items-center gap-2 text-[15px] font-medium text-brand"
                 >
-                  <CheckCircle2 className="h-5 w-5 shrink-0" />
-                  Check your inbox — {guide.title} is on its way.
-                </motion.p>
+                  <p className="flex items-center gap-2 text-[15px] font-medium text-brand">
+                    <CheckCircle2 className="h-5 w-5 shrink-0" />
+                    Check your inbox — {doc.title} is on its way.
+                  </p>
+                  <a
+                    href={downloadUrl}
+                    download
+                    className="mt-4 inline-flex h-12 items-center justify-center gap-2 whitespace-nowrap rounded-lg bg-brand px-6 text-[15px] font-semibold text-brand-ink transition-all duration-150 hover:bg-brand-hover hover:-translate-y-px active:scale-[0.98] cursor-pointer"
+                  >
+                    Or download it now →
+                  </a>
+                </motion.div>
               ) : (
                 <form onSubmit={submit} className="flex flex-col gap-3">
                   <input
