@@ -5,17 +5,16 @@ const stats = [
   { value: 20, prefix: '$', suffix: 'M+', label: 'FEDERAL SALES BUILT FROM ZERO' },
   { value: 250, suffix: 'K+', label: 'PODCAST LISTENS' },
   { value: 334, suffix: '+', label: 'EPISODES PUBLISHED' },
-  { value: 72, label: 'WEBSITES IN THE PLAYBOOK' },
 ];
 
 /**
- * About §2 — stats band: 4-up counters on bg/raised. Rules draw left→right,
+ * About §2 — stats band: 3-up counters on bg/raised. Rules draw left→right,
  * GSAP numbers count up (inside shared StatCounter), labels fade.
  */
 export default function StatsBand() {
   return (
     <section className="border-y border-line bg-raised py-16 md:py-20">
-      <div className="container-gg grid grid-cols-2 gap-x-6 gap-y-10 lg:grid-cols-4">
+      <div className="container-gg grid grid-cols-2 gap-x-6 gap-y-10 lg:grid-cols-3">
         {stats.map((s, i) => (
           <div key={s.label}>
             <motion.span

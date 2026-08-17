@@ -276,7 +276,7 @@ const experienceTiles: {
   },
   {
     title: 'Get the Playbook',
-    desc: '72 websites for massive scaling in the federal marketplace.',
+    desc: 'The exact federal websites behind $20M+ in government sales.',
     img: '/articles/playbook-tile.jpg',
     to: '/resources',
   },

@@ -11,13 +11,13 @@ const bullets = [
 ];
 
 interface BookFeatureProps {
-  /** Opens the guide signup modal with the 72-Website Starter Kit. */
+  /** Opens the guide signup modal with the Website Starter Kit. */
   onGetFreeWebsites: () => void;
 }
 
 /**
- * Book hero band (resources.md §2): floating playbook mockup with gold
- * "72 WEBSITES" chip on a pedestal, sales copy, bullets, and dual CTAs.
+ * Book hero band (resources.md §2): floating playbook mockup on a pedestal,
+ * sales copy, bullets, and dual CTAs.
  */
 export default function BookFeature({ onGetFreeWebsites }: BookFeatureProps) {
   const reduceMotion = useReducedMotion();
@@ -65,22 +65,12 @@ export default function BookFeature({ onGetFreeWebsites }: BookFeatureProps) {
             >
               <img
                 src="/book-playbook.png"
-                alt="Billion Dollar Playbook — 72 Websites for Massive Scaling in the Federal Marketplace, by Eric Coffie"
+                alt="Billion Dollar Playbook, by Eric Coffie"
                 className="w-full rounded-lg shadow-[0_24px_60px_rgba(0,0,0,0.25)]"
                 loading="lazy"
               />
             </motion.div>
           </motion.div>
-          {/* floating gold chip */}
-          <motion.span
-            initial={{ scale: 0, opacity: 0 }}
-            whileInView={{ scale: 1, opacity: 1 }}
-            viewport={{ once: true }}
-            transition={{ type: 'spring', stiffness: 200, damping: 12, delay: 0.3 }}
-            className="absolute -right-2 top-4 rounded-md bg-gold px-3 py-1.5 font-mono text-[11px] font-semibold tracking-[0.14em] text-slate-900 dark:text-white shadow-[0_8px_24px_rgba(0,0,0,0.2)]"
-          >
-            72 WEBSITES
-          </motion.span>
         </div>
 
         {/* Sales copy column */}
@@ -112,8 +102,8 @@ export default function BookFeature({ onGetFreeWebsites }: BookFeatureProps) {
             variants={{ hidden: { opacity: 0, y: 24 }, show: { opacity: 1, y: 0, transition: { duration: 0.45, ease: EASE } } }}
             className="mt-4 max-w-xl text-[17px] leading-[1.7] text-slate-600 dark:text-slate-300"
           >
-            72 Websites for Massive Scaling in the Federal Marketplace — the exact
-            sites Eric used to go from zero to $20M+ in government sales.
+            The exact federal websites Eric used to go from zero to $20M+ in
+            government sales — what each one is and how to use it.
           </motion.p>
 
           <motion.ul

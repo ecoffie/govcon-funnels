@@ -147,7 +147,7 @@ function FinalCta() {
             transition={{ duration: 0.5, delay: 0.2, ease: 'easeOut' }}
             className="mb-8 text-[17px] leading-[1.7] text-slate-600 dark:text-slate-300"
           >
-            Five of the 72 federal websites Eric uses to find buyers, partners, and
+            Five federal websites Eric uses to find buyers, partners, and
             contracts — free, in your inbox, today.
           </motion.p>
           <motion.div

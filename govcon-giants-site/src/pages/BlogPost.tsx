@@ -389,7 +389,7 @@ export default function BlogPost() {
             />
             <div className="max-w-2xl flex-1">
               <h3 className="mb-6 font-display text-[28px] font-bold leading-snug tracking-normal text-slate-900 dark:text-white">
-                Want the 72 websites this article is <em className="italic text-brand">based on</em>?
+                Want the websites this article is <em className="italic text-brand">based on</em>?
               </h3>
               <NewsletterCapture
                 variant="compact"

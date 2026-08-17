@@ -6,7 +6,7 @@ const EASE = [0.16, 1, 0.3, 1] as [number, number, number, number];
 
 interface Book {
   title: string;
-  subtitle: string;
+  subtitle?: string;
   blurb: string;
   cover: string;
   href: string;
@@ -20,9 +20,8 @@ interface Book {
 const books: Book[] = [
   {
     title: 'Billion Dollar Playbook',
-    subtitle: '72 Websites for Massive Scaling in the Federal Marketplace',
     blurb:
-      'The exact 72 federal websites Eric uses to find buyers, partners, and contracts — the same ones behind $20M+ in government sales.',
+      'The exact federal websites Eric uses to find buyers, partners, and contracts — the same ones behind $20M+ in government sales.',
     cover: '/book-playbook.png',
     href: 'https://www.amazon.com/dp/B08NF1NPZQ',
     cta: 'Get the book',
@@ -67,9 +66,11 @@ export default function BooksSection() {
                 <h3 className="font-display text-xl font-bold leading-[1.2] tracking-normal text-slate-900 dark:text-white transition-colors group-hover:text-brand">
                   {book.title}
                 </h3>
-                <p className="mt-1 text-[13px] font-medium leading-snug text-slate-500 dark:text-slate-400">
-                  {book.subtitle}
-                </p>
+                {book.subtitle && (
+                  <p className="mt-1 text-[13px] font-medium leading-snug text-slate-500 dark:text-slate-400">
+                    {book.subtitle}
+                  </p>
+                )}
                 <p className="mt-3 flex-1 text-[15px] leading-relaxed text-slate-600 dark:text-slate-300">
                   {book.blurb}
                 </p>

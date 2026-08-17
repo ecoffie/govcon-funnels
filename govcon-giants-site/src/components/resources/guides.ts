@@ -16,15 +16,15 @@ export interface Guide {
 
 /**
  * Free guide library (resources.md §3). Topics track the real GovCon Giants
- * curriculum: SAM.gov registration, the 72 websites, set-aside certifications,
+ * curriculum: SAM.gov registration, federal buyer websites, set-aside certifications,
  * proposals, subcontracting outreach, and NAICS/PSC codes.
  */
 export const guides: Guide[] = [
   {
-    title: 'The 72-Website Starter Kit',
-    blurb: '5 of the 72 federal websites, with a walkthrough for each.',
+    title: 'The Website Starter Kit',
+    blurb: '5 federal websites, with a walkthrough for each.',
     modalCopy:
-      'Five of the 72 federal websites Eric uses to find buyers, partners, and contracts — with a walkthrough for each, delivered instantly, free.',
+      'Five federal websites Eric uses to find buyers, partners, and contracts — with a walkthrough for each, delivered instantly, free.',
     icon: Globe,
   },
   {

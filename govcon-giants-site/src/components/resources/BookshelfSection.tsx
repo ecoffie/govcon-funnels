@@ -4,7 +4,7 @@ import SectionHeader from '@/components/SectionHeader';
 
 interface Book {
   title: string;
-  subtitle: string;
+  subtitle?: string;
   blurb: string;
   cover: string;
   link: string;
@@ -13,9 +13,8 @@ interface Book {
 const books: Book[] = [
   {
     title: 'Billion Dollar Playbook',
-    subtitle: '72 Websites for Massive Scaling in the Federal Marketplace',
     blurb:
-      "Eric's field manual of 72 federal websites — registration sites, small business programs, buying vehicles, grants, and more — what each one is and how to use it.",
+      "Eric's field manual of federal websites — registration sites, small business programs, buying vehicles, grants, and more — what each one is and how to use it.",
     cover: '/books/billion-dollar-playbook.png',
     link: 'https://www.amazon.com/dp/B08NF1NPZQ',
   },
@@ -70,9 +69,11 @@ export default function BookshelfSection() {
                 <h3 className="font-display text-2xl font-bold leading-[1.2] tracking-normal text-slate-900 dark:text-white">
                   {book.title}
                 </h3>
-                <p className="mt-1 font-display text-[15px] italic leading-snug text-brand">
-                  {book.subtitle}
-                </p>
+                {book.subtitle && (
+                  <p className="mt-1 font-display text-[15px] italic leading-snug text-brand">
+                    {book.subtitle}
+                  </p>
+                )}
                 <p className="mt-3 flex-1 text-[15px] leading-[1.7] text-slate-500 dark:text-slate-400">
                   {book.blurb}
                 </p>
