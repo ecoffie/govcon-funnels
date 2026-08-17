@@ -39,6 +39,34 @@ stays in this repo.
 
 ---
 
+## Command Center (site observability)
+
+`/dashboard/command-center` (behind the dashboard auth gate) shows live site
+health: traffic funnel, top clicks, lead pipeline per destination, JS errors,
+uptime, and production deploys. Backed by Supabase tables `site_events`,
+`lead_pipeline_log`, `synthetic_checks`, `alert_log`
+(migration: `supabase/migrations/20260817_command_center.sql`).
+
+- The SPA (`govcon-giants-site/src/lib/track.ts`) beacons page views, clicks,
+  form submits, scroll depth, and JS errors to `POST /api/event`.
+- `/api/lead` logs every attempt (per-destination ok/fail + latency) to
+  `lead_pipeline_log`.
+- Cron `/api/cron/synthetic-checks` (every 15 min) runs the canary lead + URL
+  uptime + sitemap/robots checks and sends deduped (4h) Slack alerts on failure.
+
+**After ANY site change/deploy, run the verification harness and paste the
+result as proof nothing broke:**
+
+```
+curl -s -X POST https://app.govcongiants.org/api/command-center/verify \
+  -H "x-admin-password: $ADMIN_PASSWORD"
+```
+
+Expect `"ok": true` (canary lead delivered to all 4 destinations + all URLs
+200). If `ok` is false, report the failing checks before doing anything else.
+
+---
+
 ## Key Routes
 
 ### Content Pages

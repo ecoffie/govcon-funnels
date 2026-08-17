@@ -526,6 +526,10 @@
     {
       "path": "/api/cron/seo-report",
       "schedule": "0 13 * * 1"
+    },
+    {
+      "path": "/api/cron/synthetic-checks",
+      "schedule": "*/15 * * * *"
     }
   ]
 }

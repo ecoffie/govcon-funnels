@@ -2,6 +2,7 @@ import { NextRequest, NextResponse } from 'next/server';
 import { sendLeadToCrm } from '@/lib/crm';
 import { sendConfirmationEmail } from '@/lib/email';
 import { saveLeadToSupabase, recentDuplicateExists } from '@/lib/supabase-leads';
+import { logLeadPipeline } from '@/lib/command-center';
 import { enforceIpRateLimit } from '@/lib/rate-limit';
 import { maskEmail } from '@/lib/redact';
 
@@ -33,6 +34,7 @@ export async function OPTIONS(request: NextRequest) {
 
 export async function POST(request: NextRequest) {
   const cors = corsHeaders(request);
+  const startedAt = Date.now();
   try {
     // Per-IP rate limit: this endpoint fans out to GHL + Supabase + Slack +
     // email, so it's an attractive spam-amplification target. 10/min per IP is
@@ -79,6 +81,10 @@ export async function POST(request: NextRequest) {
     //    redirects normally. Fails OPEN, so a check error never blocks a real signup.
     if (await recentDuplicateExists(lead.email, lead.source)) {
       console.log('Duplicate lead suppressed (recent submit):', { email: maskEmail(lead.email), source: lead.source });
+      void logLeadPipeline({
+        email: maskEmail(lead.email), source: lead.source, duplicate: true,
+        duration_ms: Date.now() - startedAt,
+      });
       return NextResponse.json({ success: true, duplicate: true }, { headers: cors });
     }
 
@@ -134,6 +140,21 @@ export async function POST(request: NextRequest) {
       supabase: supabaseResult.ok,
       slack: slackResult.ok,
       emailSent: emailResult.ok,
+    });
+
+    // Command Center pipeline log — one row per attempt, per-destination
+    // results. Fire-and-forget: must never slow or break the response.
+    void logLeadPipeline({
+      email: maskEmail(lead.email),
+      source: lead.source,
+      ghl_ok: crmResults.ghl?.ok,
+      ghl_error: crmResults.ghl?.ok ? undefined : crmResults.ghl?.error,
+      supabase_ok: supabaseResult.ok,
+      supabase_error: supabaseResult.ok ? undefined : supabaseResult.error,
+      slack_ok: slackResult.ok,
+      email_ok: emailResult.ok,
+      email_error: emailResult.ok ? undefined : emailResult.error,
+      duration_ms: Date.now() - startedAt,
     });
 
     // 4) Response so front-end can redirect

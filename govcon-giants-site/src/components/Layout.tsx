@@ -3,6 +3,7 @@ import { Outlet, useLocation } from 'react-router';
 import Lenis from 'lenis';
 import Navbar from '@/components/Navbar';
 import Footer from '@/components/Footer';
+import { armAutoTracking, trackPageview } from '@/lib/track';
 
 /**
  * Shared layout — nested-route pattern (renders <Outlet/>, App.tsx MUST use
@@ -32,6 +33,14 @@ export default function Layout() {
 
   useEffect(() => {
     window.scrollTo(0, 0);
+  }, [pathname]);
+
+  // Command Center beacon: arm global trackers once, page_view per route.
+  useEffect(() => {
+    armAutoTracking();
+  }, []);
+  useEffect(() => {
+    trackPageview(pathname);
   }, [pathname]);
 
   return (
