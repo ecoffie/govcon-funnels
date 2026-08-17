@@ -3,60 +3,403 @@
   "buildCommand": "npm run build",
   "outputDirectory": "dist",
   "redirects": [
-    { "source": "/jobs/:path*", "destination": "https://app.govcongiants.org/jobs/:path*", "permanent": true },
-    { "source": "/guides/:path*", "destination": "https://app.govcongiants.org/guides/:path*", "permanent": true },
-    { "source": "/data/:path*", "destination": "https://app.govcongiants.org/data/:path*", "permanent": true },
-    { "source": "/tools/:path*", "destination": "https://app.govcongiants.org/tools/:path*", "permanent": true },
-    { "source": "/compare/:path*", "destination": "https://app.govcongiants.org/compare/:path*", "permanent": true },
-    { "source": "/for/:path*", "destination": "https://app.govcongiants.org/for/:path*", "permanent": true },
-    { "source": "/glossary/:path*", "destination": "https://app.govcongiants.org/glossary/:path*", "permanent": true },
-    { "source": "/videos/:path*", "destination": "https://app.govcongiants.org/videos/:path*", "permanent": true },
-    { "source": "/premium/:path*", "destination": "https://app.govcongiants.org/premium/:path*", "permanent": true },
-    { "source": "/consulting/:path*", "destination": "https://app.govcongiants.org/consulting/:path*", "permanent": true },
-    { "source": "/pricing/:path*", "destination": "https://app.govcongiants.org/pricing/:path*", "permanent": true },
-    { "source": "/features/:path*", "destination": "https://app.govcongiants.org/features/:path*", "permanent": true },
-    { "source": "/demo/:path*", "destination": "https://app.govcongiants.org/demo/:path*", "permanent": true },
-    { "source": "/case-studies/:path*", "destination": "https://app.govcongiants.org/case-studies/:path*", "permanent": true },
-    { "source": "/federal-contractor/:path*", "destination": "https://app.govcongiants.org/federal-contractor/:path*", "permanent": true },
-    { "source": "/government-contract-help/:path*", "destination": "https://app.govcongiants.org/government-contract-help/:path*", "permanent": true },
-    { "source": "/best-government-contracting-software/:path*", "destination": "https://app.govcongiants.org/best-government-contracting-software/:path*", "permanent": true },
-    { "source": "/hubzone/:path*", "destination": "https://app.govcongiants.org/hubzone/:path*", "permanent": true },
-    { "source": "/quiz/:path*", "destination": "https://app.govcongiants.org/quiz/:path*", "permanent": true },
-    { "source": "/upskilling/:path*", "destination": "https://app.govcongiants.org/upskilling/:path*", "permanent": true },
-    { "source": "/market-intel/:path*", "destination": "https://app.govcongiants.org/market-intel/:path*", "permanent": true },
-    { "source": "/mi/:path*", "destination": "https://app.govcongiants.org/mi/:path*", "permanent": true },
-    { "source": "/mi-free/:path*", "destination": "https://app.govcongiants.org/mi-free/:path*", "permanent": true },
-    { "source": "/mindy/:path*", "destination": "https://app.govcongiants.org/mindy/:path*", "permanent": true },
-    { "source": "/mindy-launch/:path*", "destination": "https://app.govcongiants.org/mindy-launch/:path*", "permanent": true },
-    { "source": "/privacy-policy/:path*", "destination": "https://app.govcongiants.org/privacy-policy/:path*", "permanent": true },
-    { "source": "/terms/:path*", "destination": "https://app.govcongiants.org/terms/:path*", "permanent": true },
-    { "source": "/partners/:path*", "destination": "https://app.govcongiants.org/partners/:path*", "permanent": true },
-    { "source": "/platform/:path*", "destination": "https://app.govcongiants.org/platform/:path*", "permanent": true },
-    { "source": "/migration/:path*", "destination": "https://app.govcongiants.org/migration/:path*", "permanent": true },
-    { "source": "/team/:path*", "destination": "https://app.govcongiants.org/team/:path*", "permanent": true },
-    { "source": "/checkout/:path*", "destination": "https://app.govcongiants.org/checkout/:path*", "permanent": true },
-    { "source": "/bootcamp/:path*", "destination": "https://app.govcongiants.org/bootcamp/:path*", "permanent": true },
-    { "source": "/access/:path*", "destination": "https://app.govcongiants.org/access/:path*", "permanent": true },
-    { "source": "/admin/:path*", "destination": "https://app.govcongiants.org/admin/:path*", "permanent": true },
-    { "source": "/api/:path*", "destination": "https://app.govcongiants.org/api/:path*", "permanent": true },
-    { "source": "/dashboard.html", "destination": "https://app.govcongiants.org/dashboard.html", "permanent": true }
+    {
+      "source": "/jobs",
+      "destination": "https://app.govcongiants.org/jobs",
+      "permanent": true
+    },
+    {
+      "source": "/guides",
+      "destination": "https://app.govcongiants.org/guides",
+      "permanent": true
+    },
+    {
+      "source": "/data",
+      "destination": "https://app.govcongiants.org/data",
+      "permanent": true
+    },
+    {
+      "source": "/tools",
+      "destination": "https://app.govcongiants.org/tools",
+      "permanent": true
+    },
+    {
+      "source": "/compare",
+      "destination": "https://app.govcongiants.org/compare",
+      "permanent": true
+    },
+    {
+      "source": "/for",
+      "destination": "https://app.govcongiants.org/for",
+      "permanent": true
+    },
+    {
+      "source": "/glossary",
+      "destination": "https://app.govcongiants.org/glossary",
+      "permanent": true
+    },
+    {
+      "source": "/videos",
+      "destination": "https://app.govcongiants.org/videos",
+      "permanent": true
+    },
+    {
+      "source": "/premium",
+      "destination": "https://app.govcongiants.org/premium",
+      "permanent": true
+    },
+    {
+      "source": "/consulting",
+      "destination": "https://app.govcongiants.org/consulting",
+      "permanent": true
+    },
+    {
+      "source": "/pricing",
+      "destination": "https://app.govcongiants.org/pricing",
+      "permanent": true
+    },
+    {
+      "source": "/features",
+      "destination": "https://app.govcongiants.org/features",
+      "permanent": true
+    },
+    {
+      "source": "/demo",
+      "destination": "https://app.govcongiants.org/demo",
+      "permanent": true
+    },
+    {
+      "source": "/case-studies",
+      "destination": "https://app.govcongiants.org/case-studies",
+      "permanent": true
+    },
+    {
+      "source": "/federal-contractor",
+      "destination": "https://app.govcongiants.org/federal-contractor",
+      "permanent": true
+    },
+    {
+      "source": "/government-contract-help",
+      "destination": "https://app.govcongiants.org/government-contract-help",
+      "permanent": true
+    },
+    {
+      "source": "/best-government-contracting-software",
+      "destination": "https://app.govcongiants.org/best-government-contracting-software",
+      "permanent": true
+    },
+    {
+      "source": "/hubzone",
+      "destination": "https://app.govcongiants.org/hubzone",
+      "permanent": true
+    },
+    {
+      "source": "/quiz",
+      "destination": "https://app.govcongiants.org/quiz",
+      "permanent": true
+    },
+    {
+      "source": "/upskilling",
+      "destination": "https://app.govcongiants.org/upskilling",
+      "permanent": true
+    },
+    {
+      "source": "/market-intel",
+      "destination": "https://app.govcongiants.org/market-intel",
+      "permanent": true
+    },
+    {
+      "source": "/mi",
+      "destination": "https://app.govcongiants.org/mi",
+      "permanent": true
+    },
+    {
+      "source": "/mi-free",
+      "destination": "https://app.govcongiants.org/mi-free",
+      "permanent": true
+    },
+    {
+      "source": "/mindy",
+      "destination": "https://app.govcongiants.org/mindy",
+      "permanent": true
+    },
+    {
+      "source": "/mindy-launch",
+      "destination": "https://app.govcongiants.org/mindy-launch",
+      "permanent": true
+    },
+    {
+      "source": "/privacy-policy",
+      "destination": "https://app.govcongiants.org/privacy-policy",
+      "permanent": true
+    },
+    {
+      "source": "/terms",
+      "destination": "https://app.govcongiants.org/terms",
+      "permanent": true
+    },
+    {
+      "source": "/partners",
+      "destination": "https://app.govcongiants.org/partners",
+      "permanent": true
+    },
+    {
+      "source": "/platform",
+      "destination": "https://app.govcongiants.org/platform",
+      "permanent": true
+    },
+    {
+      "source": "/migration",
+      "destination": "https://app.govcongiants.org/migration",
+      "permanent": true
+    },
+    {
+      "source": "/team",
+      "destination": "https://app.govcongiants.org/team",
+      "permanent": true
+    },
+    {
+      "source": "/checkout",
+      "destination": "https://app.govcongiants.org/checkout",
+      "permanent": true
+    },
+    {
+      "source": "/bootcamp",
+      "destination": "https://app.govcongiants.org/bootcamp",
+      "permanent": true
+    },
+    {
+      "source": "/access",
+      "destination": "https://app.govcongiants.org/access",
+      "permanent": true
+    },
+    {
+      "source": "/admin",
+      "destination": "https://app.govcongiants.org/admin",
+      "permanent": true
+    },
+    {
+      "source": "/api",
+      "destination": "https://app.govcongiants.org/api",
+      "permanent": true
+    },
+    {
+      "source": "/jobs/:path*",
+      "destination": "https://app.govcongiants.org/jobs/:path*",
+      "permanent": true
+    },
+    {
+      "source": "/guides/:path*",
+      "destination": "https://app.govcongiants.org/guides/:path*",
+      "permanent": true
+    },
+    {
+      "source": "/data/:path*",
+      "destination": "https://app.govcongiants.org/data/:path*",
+      "permanent": true
+    },
+    {
+      "source": "/tools/:path*",
+      "destination": "https://app.govcongiants.org/tools/:path*",
+      "permanent": true
+    },
+    {
+      "source": "/compare/:path*",
+      "destination": "https://app.govcongiants.org/compare/:path*",
+      "permanent": true
+    },
+    {
+      "source": "/for/:path*",
+      "destination": "https://app.govcongiants.org/for/:path*",
+      "permanent": true
+    },
+    {
+      "source": "/glossary/:path*",
+      "destination": "https://app.govcongiants.org/glossary/:path*",
+      "permanent": true
+    },
+    {
+      "source": "/videos/:path*",
+      "destination": "https://app.govcongiants.org/videos/:path*",
+      "permanent": true
+    },
+    {
+      "source": "/premium/:path*",
+      "destination": "https://app.govcongiants.org/premium/:path*",
+      "permanent": true
+    },
+    {
+      "source": "/consulting/:path*",
+      "destination": "https://app.govcongiants.org/consulting/:path*",
+      "permanent": true
+    },
+    {
+      "source": "/pricing/:path*",
+      "destination": "https://app.govcongiants.org/pricing/:path*",
+      "permanent": true
+    },
+    {
+      "source": "/features/:path*",
+      "destination": "https://app.govcongiants.org/features/:path*",
+      "permanent": true
+    },
+    {
+      "source": "/demo/:path*",
+      "destination": "https://app.govcongiants.org/demo/:path*",
+      "permanent": true
+    },
+    {
+      "source": "/case-studies/:path*",
+      "destination": "https://app.govcongiants.org/case-studies/:path*",
+      "permanent": true
+    },
+    {
+      "source": "/federal-contractor/:path*",
+      "destination": "https://app.govcongiants.org/federal-contractor/:path*",
+      "permanent": true
+    },
+    {
+      "source": "/government-contract-help/:path*",
+      "destination": "https://app.govcongiants.org/government-contract-help/:path*",
+      "permanent": true
+    },
+    {
+      "source": "/best-government-contracting-software/:path*",
+      "destination": "https://app.govcongiants.org/best-government-contracting-software/:path*",
+      "permanent": true
+    },
+    {
+      "source": "/hubzone/:path*",
+      "destination": "https://app.govcongiants.org/hubzone/:path*",
+      "permanent": true
+    },
+    {
+      "source": "/quiz/:path*",
+      "destination": "https://app.govcongiants.org/quiz/:path*",
+      "permanent": true
+    },
+    {
+      "source": "/upskilling/:path*",
+      "destination": "https://app.govcongiants.org/upskilling/:path*",
+      "permanent": true
+    },
+    {
+      "source": "/market-intel/:path*",
+      "destination": "https://app.govcongiants.org/market-intel/:path*",
+      "permanent": true
+    },
+    {
+      "source": "/mi/:path*",
+      "destination": "https://app.govcongiants.org/mi/:path*",
+      "permanent": true
+    },
+    {
+      "source": "/mi-free/:path*",
+      "destination": "https://app.govcongiants.org/mi-free/:path*",
+      "permanent": true
+    },
+    {
+      "source": "/mindy/:path*",
+      "destination": "https://app.govcongiants.org/mindy/:path*",
+      "permanent": true
+    },
+    {
+      "source": "/mindy-launch/:path*",
+      "destination": "https://app.govcongiants.org/mindy-launch/:path*",
+      "permanent": true
+    },
+    {
+      "source": "/privacy-policy/:path*",
+      "destination": "https://app.govcongiants.org/privacy-policy/:path*",
+      "permanent": true
+    },
+    {
+      "source": "/terms/:path*",
+      "destination": "https://app.govcongiants.org/terms/:path*",
+      "permanent": true
+    },
+    {
+      "source": "/partners/:path*",
+      "destination": "https://app.govcongiants.org/partners/:path*",
+      "permanent": true
+    },
+    {
+      "source": "/platform/:path*",
+      "destination": "https://app.govcongiants.org/platform/:path*",
+      "permanent": true
+    },
+    {
+      "source": "/migration/:path*",
+      "destination": "https://app.govcongiants.org/migration/:path*",
+      "permanent": true
+    },
+    {
+      "source": "/team/:path*",
+      "destination": "https://app.govcongiants.org/team/:path*",
+      "permanent": true
+    },
+    {
+      "source": "/checkout/:path*",
+      "destination": "https://app.govcongiants.org/checkout/:path*",
+      "permanent": true
+    },
+    {
+      "source": "/bootcamp/:path*",
+      "destination": "https://app.govcongiants.org/bootcamp/:path*",
+      "permanent": true
+    },
+    {
+      "source": "/access/:path*",
+      "destination": "https://app.govcongiants.org/access/:path*",
+      "permanent": true
+    },
+    {
+      "source": "/admin/:path*",
+      "destination": "https://app.govcongiants.org/admin/:path*",
+      "permanent": true
+    },
+    {
+      "source": "/api/:path*",
+      "destination": "https://app.govcongiants.org/api/:path*",
+      "permanent": true
+    },
+    {
+      "source": "/dashboard.html",
+      "destination": "https://app.govcongiants.org/dashboard.html",
+      "permanent": true
+    }
   ],
   "rewrites": [
-    { "source": "/(.*)", "destination": "/index.html" }
+    {
+      "source": "/(.*)",
+      "destination": "/index.html"
+    }
   ],
   "headers": [
     {
       "source": "/assets/(.*)",
       "headers": [
-        { "key": "Cache-Control", "value": "public, max-age=31536000, immutable" }
+        {
+          "key": "Cache-Control",
+          "value": "public, max-age=31536000, immutable"
+        }
       ]
     },
     {
       "source": "/(.*)",
       "headers": [
-        { "key": "X-Content-Type-Options", "value": "nosniff" },
-        { "key": "X-Frame-Options", "value": "SAMEORIGIN" },
-        { "key": "Referrer-Policy", "value": "strict-origin-when-cross-origin" }
+        {
+          "key": "X-Content-Type-Options",
+          "value": "nosniff"
+        },
+        {
+          "key": "X-Frame-Options",
+          "value": "SAMEORIGIN"
+        },
+        {
+          "key": "Referrer-Policy",
+          "value": "strict-origin-when-cross-origin"
+        }
       ]
     }
   ]
