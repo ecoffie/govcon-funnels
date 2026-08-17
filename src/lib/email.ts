@@ -185,6 +185,8 @@ export async function sendConfirmationEmail(params: EmailParams & { source: stri
   }
 
   switch (source) {
+    case 'newsletter':
+      return sendNewsletterWelcomeEmail({ to, name });
     case 'free-handouts':
       return sendFreeHandoutsEmail({ to, name });
     case 'contract-vehicles-bootcamp':
@@ -474,6 +476,53 @@ export async function sendGenericWelcomeEmail(params: EmailParams & { source: st
 ${proCta()}`;
 
   return sendEmail(params.to, `${firstName}, Welcome to GovCon Giants!`, emailWrapper(content));
+}
+
+/**
+ * Newsletter welcome email — sent when someone joins the GovCon Giants
+ * newsletter (source: newsletter, govcongiants.com signup forms).
+ */
+export async function sendNewsletterWelcomeEmail(params: EmailParams): Promise<EmailResult> {
+  const firstName = params.name.split(' ')[0] || 'there';
+
+  const content = `
+<h1 style="color: #ffffff; font-size: 28px; margin: 0 0 20px; text-align: center;">
+  You're on the List!
+</h1>
+
+<p style="color: #94a3b8; font-size: 16px; line-height: 1.6; margin: 0 0 20px;">
+  Hey ${firstName},<br><br>
+  Thanks for signing up for the GovCon Giants newsletter — you're officially in.
+</p>
+
+<p style="color: #94a3b8; font-size: 16px; line-height: 1.6; margin: 0 0 20px;">
+  Every week you'll get the tactics Eric uses to win federal contracts:
+</p>
+
+<ul style="color: #94a3b8; font-size: 16px; line-height: 1.8; margin: 0 0 30px; padding-left: 24px;">
+  <li>New federal opportunities worth chasing</li>
+  <li>Buyer and agency intel you won't find on SAM.gov</li>
+  <li>The exact plays behind $20M+ in government sales</li>
+</ul>
+
+<table width="100%" cellpadding="0" cellspacing="0">
+  <tr>
+    <td align="center" style="padding: 20px 0;">
+      <a href="https://govcongiants.com/podcast" style="display: inline-block; background-color: #4ade80; color: #0f172a; padding: 16px 32px; border-radius: 8px; text-decoration: none; font-weight: 700; font-size: 16px;">
+        Catch Up on the Podcast
+      </a>
+    </td>
+  </tr>
+</table>
+
+<p style="color: #94a3b8; font-size: 16px; line-height: 1.6; margin: 0;">
+  Talk soon,<br>
+  The GovCon Giants Team
+</p>
+
+${proCta()}`;
+
+  return sendEmail(params.to, `${firstName}, thanks for joining the GovCon Giants newsletter!`, emailWrapper(content));
 }
 
 /**

@@ -34,14 +34,11 @@
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <script>
-      // Set the theme class before first paint (no flash of wrong theme).
+      // Light mode only — clear any legacy dark-theme preference before first paint.
       (function () {
         try {
-          var stored = localStorage.getItem('gg-theme');
-          var dark = stored
-            ? stored === 'dark'
-            : window.matchMedia('(prefers-color-scheme: dark)').matches;
-          if (dark) document.documentElement.classList.add('dark');
+          localStorage.removeItem('gg-theme');
+          document.documentElement.classList.remove('dark');
         } catch (e) {}
       })();
     </script>

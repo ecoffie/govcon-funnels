@@ -1,34 +1,20 @@
-export type Theme = 'light' | 'dark';
-
-const STORAGE_KEY = 'gg-theme';
+export type Theme = 'light';
 
 /**
- * Theme state: 'light' | 'dark', persisted to localStorage, falling back to
- * prefers-color-scheme. Applied as `class="dark"` on <html>; index.html
- * carries an inline script that applies the same logic before first paint.
+ * The site is light-mode only. The dark-mode toggle was removed; these helpers
+ * remain as no-ops so existing imports keep working, and always report/apply
+ * the light theme. index.html clears any legacy `gg-theme` localStorage value
+ * before first paint.
  */
 export function getTheme(): Theme {
-  if (typeof window === 'undefined') return 'light';
+  return 'light';
+}
+
+export function applyTheme(): void {
+  document.documentElement.classList.remove('dark');
   try {
-    const stored = localStorage.getItem(STORAGE_KEY);
-    if (stored === 'dark' || stored === 'light') return stored;
+    localStorage.removeItem('gg-theme');
   } catch {
     /* storage unavailable */
   }
-  return window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
-}
-
-export function applyTheme(theme: Theme): void {
-  document.documentElement.classList.toggle('dark', theme === 'dark');
-  try {
-    localStorage.setItem(STORAGE_KEY, theme);
-  } catch {
-    /* storage unavailable */
-  }
-}
-
-export function toggleTheme(): Theme {
-  const next: Theme = getTheme() === 'dark' ? 'light' : 'dark';
-  applyTheme(next);
-  return next;
 }

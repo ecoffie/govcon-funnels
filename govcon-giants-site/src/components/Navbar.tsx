@@ -1,10 +1,8 @@
 import { useEffect, useState } from 'react';
 import { Link, NavLink } from 'react-router';
 import { AnimatePresence, motion } from 'framer-motion';
-import { Menu, X, ArrowUpRight, Sun, Moon } from 'lucide-react';
+import { Menu, X, ArrowUpRight } from 'lucide-react';
 import { NewsletterModal } from '@/components/NewsletterCapture';
-import { getTheme, toggleTheme } from '@/lib/theme';
-import type { Theme } from '@/lib/theme';
 import { cn } from '@/lib/utils';
 
 const links: { to: string; label: string; external?: boolean }[] = [
@@ -25,7 +23,6 @@ export default function Navbar() {
   const [scrolled, setScrolled] = useState(false);
   const [drawerOpen, setDrawerOpen] = useState(false);
   const [modalOpen, setModalOpen] = useState(false);
-  const [theme, setTheme] = useState<Theme>(() => getTheme());
 
   useEffect(() => {
     let lastY = window.scrollY;
@@ -89,30 +86,10 @@ export default function Navbar() {
 
           <div className="flex items-center gap-3">
             <button
-              type="button"
-              onClick={() => setTheme(toggleTheme())}
-              aria-label={theme === 'dark' ? 'Switch to light mode' : 'Switch to dark mode'}
-              aria-pressed={theme === 'dark'}
-              className="rounded-lg p-2 text-slate-600 dark:text-slate-300 transition-colors hover:text-slate-900 dark:hover:text-white cursor-pointer dark:text-slate-400 dark:hover:text-white"
-            >
-              <AnimatePresence mode="wait" initial={false}>
-                <motion.span
-                  key={theme}
-                  initial={{ opacity: 0, rotate: -30, scale: 0.8 }}
-                  animate={{ opacity: 1, rotate: 0, scale: 1 }}
-                  exit={{ opacity: 0, rotate: 30, scale: 0.8 }}
-                  transition={{ duration: 0.15 }}
-                  className="block"
-                >
-                  {theme === 'dark' ? <Sun className="h-5 w-5" /> : <Moon className="h-5 w-5" />}
-                </motion.span>
-              </AnimatePresence>
-            </button>
-            <button
               onClick={() => setModalOpen(true)}
               className="hidden rounded-lg bg-brand px-4 py-2 text-sm font-semibold text-brand-ink transition-all duration-150 hover:bg-brand-hover hover:-translate-y-px active:scale-[0.98] cursor-pointer sm:inline-flex"
             >
-              Free Playbook
+              Free Newsletter
             </button>
             <button
               onClick={() => setDrawerOpen((v) => !v)}
@@ -183,17 +160,7 @@ export default function Navbar() {
                   }}
                   className="inline-flex w-fit rounded-lg bg-brand px-6 py-3 text-base font-semibold text-brand-ink cursor-pointer"
                 >
-                  Free Playbook
-                </button>
-                <button
-                  type="button"
-                  onClick={() => setTheme(toggleTheme())}
-                  aria-label={theme === 'dark' ? 'Switch to light mode' : 'Switch to dark mode'}
-                  aria-pressed={theme === 'dark'}
-                  className="inline-flex items-center gap-2 rounded-lg border border-line px-4 py-3 font-sans text-base font-semibold uppercase tracking-[0.08em] text-slate-600 dark:text-slate-300 cursor-pointer dark:text-slate-300"
-                >
-                  {theme === 'dark' ? <Sun className="h-5 w-5" /> : <Moon className="h-5 w-5" />}
-                  {theme === 'dark' ? 'Light' : 'Dark'}
+                  Free Newsletter
                 </button>
               </motion.div>
             </nav>

@@ -52,7 +52,7 @@ function useSignup() {
       const res = await fetch(GHL_WEBHOOK_URL, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ email: value }),
+        body: JSON.stringify({ email: value, source: 'newsletter' }),
       });
       if (!res.ok) throw new Error(`HTTP ${res.status}`);
       setStatus('done');
@@ -189,7 +189,7 @@ interface NewsletterModalProps {
   onClose: () => void;
 }
 
-/** Modal variant — triggered by the navbar "Free Playbook" CTA. */
+/** Modal variant — triggered by the navbar "Free Newsletter" CTA. */
 export function NewsletterModal({ open, onClose }: NewsletterModalProps) {
   const { email, setEmail, status, submit } = useSignup();
   const submitting = status === 'submitting';
@@ -217,7 +217,7 @@ export function NewsletterModal({ open, onClose }: NewsletterModalProps) {
           onClick={onClose}
           role="dialog"
           aria-modal="true"
-          aria-label="Free Playbook signup"
+          aria-label="Newsletter signup"
         >
           <motion.div
             initial={{ scale: 0.95, opacity: 0 }}
@@ -225,7 +225,7 @@ export function NewsletterModal({ open, onClose }: NewsletterModalProps) {
             exit={{ scale: 0.95, opacity: 0 }}
             transition={{ duration: 0.25, ease: 'easeOut' }}
             onClick={(e) => e.stopPropagation()}
-            className="relative grid w-full max-w-2xl overflow-hidden rounded-xl border border-line bg-raised shadow-2xl md:grid-cols-[240px_1fr]"
+            className="relative w-full max-w-lg overflow-hidden rounded-xl border border-line bg-raised shadow-2xl"
           >
             <button
               onClick={onClose}
@@ -234,22 +234,15 @@ export function NewsletterModal({ open, onClose }: NewsletterModalProps) {
             >
               <X className="h-5 w-5" />
             </button>
-            <div className="hidden items-center justify-center bg-inset p-6 md:flex">
-              <img
-                src="/book-playbook.png"
-                alt="Billion Dollar Playbook book cover"
-                className="w-full -rotate-6 rounded-md shadow-[0_16px_40px_rgba(0,0,0,0.5)]"
-                loading="lazy"
-              />
-            </div>
             <div className="p-6 md:p-8">
-              <p className="kicker mb-2">FREE STARTER KIT</p>
+              <p className="kicker mb-2">FREE NEWSLETTER</p>
               <h3 className="mb-2 font-display text-2xl font-black tracking-normal text-slate-900 dark:text-white md:text-3xl">
-                The Billion Dollar <em className="italic text-brand">Playbook</em>
+                The GovCon Giants <em className="italic text-brand">Newsletter</em>
               </h3>
               <p className="mb-6 text-[15px] leading-relaxed text-slate-600 dark:text-slate-300">
-                Five of the 72 federal websites Eric uses to find buyers, partners, and
-                contracts — delivered instantly, free.
+                Weekly federal contracting tactics from Eric — new opportunities,
+                buyer intel, and the exact plays behind $20M+ in government sales.
+                Free, straight to your inbox.
               </p>
               {status === 'done' ? (
                 <SuccessNote />
