@@ -367,6 +367,116 @@
       "source": "/dashboard.html",
       "destination": "https://app.govcongiants.org/dashboard.html",
       "permanent": true
+    },
+    {
+      "source": "/opp",
+      "destination": "https://app.govcongiants.org/opp",
+      "permanent": true
+    },
+    {
+      "source": "/done-for-you",
+      "destination": "https://app.govcongiants.org/done-for-you",
+      "permanent": true
+    },
+    {
+      "source": "/funding",
+      "destination": "https://app.govcongiants.org/funding",
+      "permanent": true
+    },
+    {
+      "source": "/encore-funding",
+      "destination": "https://app.govcongiants.org/encore-funding",
+      "permanent": true
+    },
+    {
+      "source": "/shop",
+      "destination": "https://app.govcongiants.org/shop",
+      "permanent": true
+    },
+    {
+      "source": "/shop/:path*",
+      "destination": "https://app.govcongiants.org/shop/:path*",
+      "permanent": true
+    },
+    {
+      "source": "/alerts",
+      "destination": "https://app.govcongiants.org/alerts",
+      "permanent": true
+    },
+    {
+      "source": "/alerts/",
+      "destination": "https://app.govcongiants.org/alerts/",
+      "permanent": true
+    },
+    {
+      "source": "/vault",
+      "destination": "https://app.govcongiants.org/vault",
+      "permanent": true
+    },
+    {
+      "source": "/vault/:path*",
+      "destination": "https://app.govcongiants.org/vault/:path*",
+      "permanent": true
+    },
+    {
+      "source": "/premium-page",
+      "destination": "https://app.govcongiants.org/premium-page",
+      "permanent": true
+    },
+    {
+      "source": "/certs",
+      "destination": "https://app.govcongiants.org/certs",
+      "permanent": true
+    },
+    {
+      "source": "/who-we-are",
+      "destination": "https://app.govcongiants.org/who-we-are",
+      "permanent": true
+    },
+    {
+      "source": "/who-we-are/:path*",
+      "destination": "https://app.govcongiants.org/who-we-are/:path*",
+      "permanent": true
+    },
+    {
+      "source": "/privacy",
+      "destination": "https://app.govcongiants.org/privacy",
+      "permanent": true
+    },
+    {
+      "source": "/solutions",
+      "destination": "https://app.govcongiants.org/solutions",
+      "permanent": true
+    },
+    {
+      "source": "/solutions/:path*",
+      "destination": "https://app.govcongiants.org/solutions/:path*",
+      "permanent": true
+    },
+    {
+      "source": "/mastermind",
+      "destination": "https://app.govcongiants.org/mastermind",
+      "permanent": true
+    },
+    {
+      "source": "/mastermind/:path*",
+      "destination": "https://app.govcongiants.org/mastermind/:path*",
+      "permanent": true
+    },
+    {
+      "source": "/resources/handouts",
+      "destination": "https://app.govcongiants.org/resources/handouts",
+      "permanent": true
+    },
+    {
+      "source": "/resources/handouts/:path*",
+      "destination": "https://app.govcongiants.org/resources/handouts/:path*",
+      "permanent": true
+    },
+    {
+      "source": "/blog/cage-code-lookup-guide",
+      "destination": "https://app.govcongiants.org/blog/cage-code-lookup-guide",
+      "permanent": true
     }
   ],
   "rewrites": [
