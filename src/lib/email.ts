@@ -1085,7 +1085,7 @@ export async function sendMindyDayReminderEmail(
       </td></tr>
       <tr><td style="padding: 32px; text-align: center;">
         <a href="${joinUrl}" style="display: inline-block; background-color: #7c3aed; color: #ffffff; padding: 18px 44px; border-radius: 10px; text-decoration: none; font-weight: 800; font-size: 18px;">Join Now</a>
-        <p style="color: #64748b; font-size: 13px; margin: 18px 0 0; line-height: 1.6;">Meeting ID: <strong style="color:#0f172a;">892 8050 6481</strong> &nbsp;&middot;&nbsp; Passcode: <strong style="color:#0f172a;">206225</strong></p>
+        <p style="color: #64748b; font-size: 13px; margin: 18px 0 0; line-height: 1.6;">Meeting ID: <strong style="color:#0f172a;">861 5255 6791</strong> &nbsp;&middot;&nbsp; Passcode: <strong style="color:#0f172a;">48690</strong></p>
         <p style="color: #94a3b8; font-size: 12px; margin: 14px 0 0;"><a href="${joinUrl}" style="color:#7c3aed;text-decoration:none;word-break:break-all;">${joinUrl}</a></p>
       </td></tr>
     </table>
@@ -1113,7 +1113,7 @@ export async function sendMindyDayReminderEmail(
           <p style="color: #1e293b; font-size: 18px; font-weight: 800; margin: 0 0 4px;">Saturday, August 22</p>
           <p style="color: #475569; font-size: 14px; margin: 0 0 16px;">10:00 AM &ndash; 1:00 PM ET</p>
           <a href="${joinUrl}" style="display: inline-block; background-color: #7c3aed; color: #ffffff; padding: 18px 40px; border-radius: 10px; text-decoration: none; font-weight: 800; font-size: 18px;">Join on Zoom</a>
-          <p style="color: #64748b; font-size: 13px; margin: 18px 0 0; line-height: 1.6;">Meeting ID: <strong style="color:#0f172a;">892 8050 6481</strong> &nbsp;&middot;&nbsp; Passcode: <strong style="color:#0f172a;">206225</strong></p>
+          <p style="color: #64748b; font-size: 13px; margin: 18px 0 0; line-height: 1.6;">Meeting ID: <strong style="color:#0f172a;">861 5255 6791</strong> &nbsp;&middot;&nbsp; Passcode: <strong style="color:#0f172a;">48690</strong></p>
           <p style="color: #64748b; font-size: 13px; margin: 8px 0 0; line-height: 1.6;">Or paste this in your browser:<br><a href="${joinUrl}" style="color:#7c3aed;text-decoration:none;word-break:break-all;">${joinUrl}</a></p>
         </td></tr></table>
       </td></tr>
