@@ -53,30 +53,62 @@ type StripePaymentIntent = {
   } | null;
 };
 
+/**
+ * Verify a Stripe webhook signature.
+ *
+ * THE HEADER CAN CARRY MORE THAN ONE v1. Stripe's format is
+ *   t=<timestamp>,v1=<sig>[,v1=<sig>...][,v0=<sig>]
+ * and during a SIGNING-SECRET ROTATION Stripe signs each event with BOTH the old and
+ * the new secret, sending two v1 entries. Stripe's own docs say to accept the event if
+ * ANY v1 matches.
+ *
+ * The previous implementation built the parts with Object.fromEntries(), which keeps
+ * only the LAST value for a duplicated key. So when the signature matching our secret
+ * arrived FIRST, it was silently discarded and every event was rejected as
+ * "Invalid Stripe signature" — with a perfectly correct secret configured.
+ *
+ * Reproduced against production 2026-08-21 (govcon-funnels prod, real stored secret):
+ *   t,v1=GOOD                -> 200
+ *   t,v1=GOOD,v1=other       -> 400   <-- the bug: 402 of 413 deliveries failed this way
+ *   t,v1=other,v1=GOOD       -> 200
+ *   t, v1=GOOD (space)       -> 400   <-- second bug: whitespace was never trimmed
+ *
+ * Now: collect EVERY v1, trim whitespace around keys/values, and accept if any one
+ * matches. Comparison stays timing-safe and length-guarded (timingSafeEqual throws on
+ * a length mismatch, which a malformed/truncated sig would otherwise trigger).
+ */
 function verifyStripeSignature(payload: string, signatureHeader: string | null): boolean {
   const secret = process.env.STRIPE_WEBHOOK_SECRET;
   if (!secret || !signatureHeader) return false;
 
-  const parts = Object.fromEntries(
-    signatureHeader.split(",").map((part) => {
-      const [key, value] = part.split("=", 2);
-      return [key, value];
-    }),
-  );
-  const timestamp = parts.t;
-  const signature = parts.v1;
-  if (!timestamp || !signature) return false;
+  let timestamp: string | undefined;
+  const candidates: string[] = [];
+  for (const part of signatureHeader.split(",")) {
+    const idx = part.indexOf("=");
+    if (idx === -1) continue;
+    const key = part.slice(0, idx).trim();
+    const value = part.slice(idx + 1).trim();
+    if (!value) continue;
+    if (key === "t") timestamp = value;
+    else if (key === "v1") candidates.push(value); // may legitimately appear MORE THAN ONCE
+  }
+  if (!timestamp || candidates.length === 0) return false;
 
   const expected = crypto
     .createHmac("sha256", secret)
     .update(`${timestamp}.${payload}`)
     .digest("hex");
+  const expectedBuf = Buffer.from(expected);
 
-  try {
-    return crypto.timingSafeEqual(Buffer.from(signature), Buffer.from(expected));
-  } catch {
-    return false;
+  // Accept if ANY provided v1 matches — do not early-return, so a rotation-period event
+  // signed with both secrets still verifies whichever position ours arrives in.
+  let ok = false;
+  for (const candidate of candidates) {
+    const candidateBuf = Buffer.from(candidate);
+    if (candidateBuf.length !== expectedBuf.length) continue; // timingSafeEqual throws otherwise
+    if (crypto.timingSafeEqual(candidateBuf, expectedBuf)) ok = true;
   }
+  return ok;
 }
 
 function statusForSession(session: StripeCheckoutSession, eventType: string): PurchaseRecord["status"] {
