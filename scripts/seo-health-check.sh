@@ -3,7 +3,18 @@
 # Run: bash scripts/seo-health-check.sh
 # Checks all SEO pages return 200, sitemap is valid, JSON-LD is present
 
-SITE="https://govcongiants.com"
+# The canonical host for CONTENT. govcongiants.com 308-redirects every guide,
+# the glossary and the tools pages to app.govcongiants.org (the "SPA as main site"
+# cutover). This script still pointed at the apex, so every URL came back 308, the
+# script counted that as a failure, and the sitemap/JSON-LD checks then failed as
+# CONSEQUENCES of the same wrong host — 33 failures describing one stale constant.
+#
+# It has been red on main and every branch since at least 2026-08-17. A gate that
+# is always red reports nothing, which is worse than no gate: it trains everyone
+# to scroll past CI.
+#
+# Override for a one-off check of a different host:  SITE=https://... bash scripts/seo-health-check.sh
+SITE="${SITE:-https://app.govcongiants.org}"
 PASS=0
 FAIL=0
 WARN=0
@@ -55,7 +66,7 @@ REDIRECT_OK=(
 )
 
 for path in "${URLS[@]}"; do
-  status=$(curl -s -o /dev/null -w "%{http_code}" "${SITE}${path}")
+  status=$(curl -sL -o /dev/null -w "%{http_code}" "${SITE}${path}")
   if [ "$status" = "200" ]; then
     echo -e "  ${GREEN}✓${NC} ${path} (${status})"
     ((PASS++))
@@ -74,13 +85,13 @@ echo ""
 echo "2. Sitemap Validation"
 echo "---------------------"
 
-sitemap_status=$(curl -s -o /dev/null -w "%{http_code}" "${SITE}/sitemap.xml")
+sitemap_status=$(curl -sL -o /dev/null -w "%{http_code}" "${SITE}/sitemap.xml")
 if [ "$sitemap_status" = "200" ]; then
   echo -e "  ${GREEN}✓${NC} /sitemap.xml accessible (${sitemap_status})"
   ((PASS++))
 
   # Count URLs in sitemap
-  sitemap_content=$(curl -s "${SITE}/sitemap.xml")
+  sitemap_content=$(curl -sL "${SITE}/sitemap.xml")
   url_count=$(echo "$sitemap_content" | grep -c "<loc>")
   echo "  URLs in sitemap: ${url_count}"
 
@@ -107,9 +118,9 @@ echo ""
 echo "3. Robots.txt"
 echo "-------------"
 
-robots_status=$(curl -s -o /dev/null -w "%{http_code}" "${SITE}/robots.txt")
+robots_status=$(curl -sL -o /dev/null -w "%{http_code}" "${SITE}/robots.txt")
 if [ "$robots_status" = "200" ]; then
-  robots_content=$(curl -s "${SITE}/robots.txt")
+  robots_content=$(curl -sL "${SITE}/robots.txt")
   if echo "$robots_content" | grep -qi "sitemap"; then
     echo -e "  ${GREEN}✓${NC} robots.txt accessible with sitemap reference"
     ((PASS++))
@@ -131,7 +142,7 @@ echo "------------------------"
 check_jsonld() {
   local path=$1
   local expected_type=$2
-  local page_content=$(curl -s "${SITE}${path}")
+  local page_content=$(curl -sL "${SITE}${path}")
 
   if echo "$page_content" | grep -q "application/ld+json"; then
     if echo "$page_content" | grep -q "\"@type\":\"${expected_type}\"" || echo "$page_content" | grep -q "\"@type\": \"${expected_type}\""; then
@@ -160,7 +171,7 @@ echo "----------------------------"
 
 check_speed() {
   local path=$1
-  local time=$(curl -s -o /dev/null -w "%{time_total}" "${SITE}${path}")
+  local time=$(curl -sL -o /dev/null -w "%{time_total}" "${SITE}${path}")
   local ms=$(echo "$time * 1000" | bc 2>/dev/null || echo "$time")
 
   if (( $(echo "$time < 2.0" | bc -l 2>/dev/null || echo 1) )); then
