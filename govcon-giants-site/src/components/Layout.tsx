@@ -1,6 +1,7 @@
 import { useEffect } from 'react';
 import { Outlet, useLocation } from 'react-router';
 import Lenis from 'lenis';
+import MindyDayBanner from '@/components/MindyDayBanner';
 import Navbar from '@/components/Navbar';
 import Footer from '@/components/Footer';
 import { armAutoTracking, trackPageview } from '@/lib/track';
@@ -45,8 +46,12 @@ export default function Layout() {
 
   return (
     <div className="flex min-h-[100dvh] flex-col bg-base">
+      {/* Announcement bar sits ABOVE the fixed navbar and scrolls away normally, so it
+          never permanently eats viewport height. It renders nothing once the event has
+          passed (see MindyDayBanner), which is why no layout offset depends on it. */}
+      <MindyDayBanner />
       <Navbar />
-      <main className="flex-1 pt-[72px]">
+      <main className="flex-1 pt-[calc(72px+var(--gg-banner-h,0px))]">
         <Outlet />
       </main>
       <Footer />

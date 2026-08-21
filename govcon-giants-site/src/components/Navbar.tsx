@@ -4,6 +4,7 @@ import { AnimatePresence, motion } from 'framer-motion';
 import { Menu, X, ArrowUpRight } from 'lucide-react';
 import { NewsletterModal } from '@/components/NewsletterCapture';
 import { cn } from '@/lib/utils';
+import { MINDY_LAUNCH_URL } from '@/lib/mindy-launch';
 
 const links: { to: string; label: string; external?: boolean }[] = [
   { to: '/podcast', label: 'Podcast' },
@@ -11,6 +12,12 @@ const links: { to: string; label: string; external?: boolean }[] = [
   { to: 'https://gcgsummit.com', label: 'Summit', external: true },
   { to: '/resources', label: 'Resources' },
   { to: '/about', label: 'About' },
+  // Absolute, and deliberately NOT '/mindy-launch'. This SPA has no such route —
+  // its catch-all `path="*"` renders <Home />, so a relative link would silently
+  // serve the homepage instead of the registration page (verified 2026-08-20:
+  // govcongiants.com/mindy-launch/ returned HTTP 200 with homepage content).
+  // app.govcongiants.org/mindy-launch is where the real page is served.
+  { to: MINDY_LAUNCH_URL, label: 'Mindy Day', external: true },
 ];
 
 /**
@@ -43,7 +50,7 @@ export default function Navbar() {
         animate={{ y: hidden && !drawerOpen ? '-100%' : '0%' }}
         transition={{ duration: 0.3, ease: 'easeOut' }}
         className={cn(
-          'fixed inset-x-0 top-0 z-[70] border-b border-line bg-base/85 backdrop-blur-[12px] transition-[height,box-shadow] duration-300',
+          'fixed inset-x-0 top-[var(--gg-banner-h,0px)] z-[70] border-b border-line bg-base/85 backdrop-blur-[12px] transition-[height,box-shadow] duration-300',
           scrolled ? 'h-14 shadow-[0_4px_24px_rgba(0,0,0,0.12)]' : 'h-[72px]',
         )}
       >
