@@ -1,5 +1,28 @@
 # TODO
 
+## 🟢 AFTER MINDY DAY (2026-08-22 event ends 1 PM ET): merge PR #170
+
+**[PR #170 — Page the funnel_leads readers so they stop capping at 1,000](https://github.com/ecoffie/govcon-funnels/pull/170)**
+Built and green (tsc clean, production build exit 0), deliberately NOT merged during the event
+because it touches `getMindyDayRegistrantsFromSupabase()` — the exact function the 8 AM and 10 AM
+reminder routes call to build the recipient list. Merging mid-event risks a deploy for a bug that
+cannot bite below 1,000 registrants (we were at 769).
+
+- [ ] Merge #170 once the event is over
+- [ ] **Then fix `scripts/audit-unranged-selects.mjs`** — the pre-push gate built for exactly this
+      bug class dies with `MODULE_NOT_FOUND` before it checks anything, at the repo root and in a
+      worktree alike, on code it never touched. **It has been silently passing**, which is why the
+      three unranged selects survived in `src/lib/supabase-leads.ts`. A guard that fails invisibly
+      is worse than no guard — it bought false confidence. Verify with a negative control after
+      fixing (introduce an unranged select, confirm the script actually fails).
+
+**Why this came up (don't re-derive):** the site banner showed **769** registrants while the email
+dry-run showed **760**. That gap is CORRECT — the site counts raw `funnel_leads` rows; the mailer
+dedupes by lowercased email and drops test/plus addresses via
+`/\+|@example\.com$|\b(test|email-test)\b/i`. Nine were dupes or test entries. The mailer's number
+is the more accurate one. The unranged-select hazard was found while checking that gap, not because
+of it.
+
 ## 🟡 TOMORROW (2026-08-23+): stale header comment in the Mindy Day reminder route
 
 **Do NOT do this on Aug 22** — the route fires at 8:00 AM and 10:00 AM ET that day, and editing it
