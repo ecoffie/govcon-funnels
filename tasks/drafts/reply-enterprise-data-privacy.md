@@ -37,7 +37,7 @@ On your last point — you're right that there's more here. A written agreement 
 
 — Eric
 
-<strong>P.S.</strong> The reason I can answer this so specifically is that a customer asked me the same thing last summer, and instead of writing a policy page I went and checked whether we could actually back it up. We couldn't, in three places. So we fixed those first, then wrote the page. <u>The page came second on purpose.</u>
+<strong>P.S.</strong> Enough customers asked me some version of your question that we went and audited it last July. Turns out we couldn't back up three of the things we would have wanted to say. We fixed those first, then wrote the trust page. <u>The page came second on purpose.</u>
 
 ---
 
@@ -55,6 +55,8 @@ On your last point — you're right that there's more here. A written agreement 
 | Org workspace "not self-serve yet" | `organizations`/`org_members`/`org_clients` exist (`20260702_coach_org_rls.sql`) but Data Trust Layer **Phase 4 is "later, contract-driven"** |
 
 ## Deliberately NOT said
+
+- **No invented customer anecdote.** The P.S. originally read *"a customer asked me the same thing last summer"* — unverifiable and effectively a fabricated person. The PRD only supports "multiple have asked, in effect: *is my data safe in here? can another company see it?*" The P.S. now says "enough customers asked me some version of your question," which is what the record supports. **The audit itself (3 claims false, fixed before publishing) is true and is the strongest line in the email — keep it, just don't attach it to a specific customer.**
 
 - **No CMMC / CUI / FedRAMP claim.** `docs/strategy/PRD-cmmc-cui-custody-strategy.md` is an exploration draft (2026-07-12), not shipped. Naming it would create an expectation we can't meet.
 - **No ship date on the org tier.** Phase 4 is contract-driven; the PRD says "only for the 1–2 who pay, never default."
