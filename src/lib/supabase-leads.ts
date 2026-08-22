@@ -29,6 +29,54 @@ const client =
     : null;
 
 /**
+ * PostgREST returns at most `db-max-rows` (1,000 on Supabase) for ANY select
+ * without an explicit .range() — and it does NOT error when it truncates. A
+ * capped read here is invisible and wrong in the worst way: the registrant list
+ * silently stops growing at 1,000, so the 1,001st signup never gets the webinar
+ * link and the signup counter freezes while real people keep registering.
+ *
+ * Every reader in this file that returns ROWS must page through this helper.
+ * (A `{ count: 'exact', head: true }` query is exempt — it returns a count, not
+ * rows, and is never truncated.)
+ *
+ * Pass a builder that applies the filters/order; we re-invoke it per page. The
+ * caller's ordering must be stable or pages can overlap/skip — every caller
+ * here orders by created_at.
+ */
+const PAGE_SIZE = 1000;
+
+/** Minimal shape we need from a PostgREST query builder: just .range(). */
+type RangeableQuery<T> = {
+  range: (
+    from: number,
+    to: number
+  ) => PromiseLike<{ data: T[] | null; error: { message: string } | null }>;
+};
+
+async function fetchAllRows<T>(
+  build: () => RangeableQuery<T>,
+  label: string
+): Promise<T[] | null> {
+  const out: T[] = [];
+  for (let from = 0; ; from += PAGE_SIZE) {
+    const { data, error } = await build().range(from, from + PAGE_SIZE - 1);
+    if (error) {
+      console.error(`${label} failed:`, error.message);
+      return null;
+    }
+    const rows = (data ?? []) as T[];
+    out.push(...rows);
+    if (rows.length < PAGE_SIZE) return out;
+    // Safety valve: funnel_leads is event-signup scale. If we ever page past
+    // 50k here something is wrong with the filter — stop rather than loop.
+    if (out.length >= 50_000) {
+      console.error(`${label}: stopped at ${out.length} rows (unexpected volume)`);
+      return out;
+    }
+  }
+}
+
+/**
  * Count distinct signups for a funnel source. Distinct-by-email so a refresh
  * or double-submit doesn't inflate the count (which would wrongly push a real
  * person past the Zoom cap). Returns null on any failure — callers fail soft.
@@ -37,16 +85,19 @@ export async function countLeadsBySource(source: string): Promise<number | null>
   if (!client) return null;
   try {
     // Pull just the email column for matching rows, then dedupe in memory.
-    // Volume here is event-signup scale (hundreds), so this is cheap.
-    const { data, error } = await client
-      .from('funnel_leads')
-      .select('email')
-      .eq('source', source);
-    if (error) {
-      console.error('countLeadsBySource failed:', error.message);
-      return null;
-    }
-    const distinct = new Set((data ?? []).map((r) => (r.email || '').toLowerCase().trim()));
+    // Paged: an unranged select caps at 1,000 and the count would freeze there.
+    // Ordered by created_at so pages can't overlap or skip rows.
+    const data = await fetchAllRows<{ email: string | null }>(
+      () =>
+        client
+          .from('funnel_leads')
+          .select('email,created_at')
+          .eq('source', source)
+          .order('created_at', { ascending: true }),
+      'countLeadsBySource'
+    );
+    if (data === null) return null;
+    const distinct = new Set(data.map((r) => (r.email || '').toLowerCase().trim()));
     distinct.delete('');
     return distinct.size;
   } catch (e) {
@@ -69,17 +120,18 @@ export async function getHubzoneRegistrantsFromSupabase(): Promise<
 > {
   if (!client) return [];
   try {
-    const { data, error } = await client
-      .from('funnel_leads')
-      .select('email,name,created_at')
-      .in('source', HUBZONE_SOURCES)
-      .order('created_at', { ascending: true });
-    if (error) {
-      console.error('getHubzoneRegistrantsFromSupabase failed:', error.message);
-      return [];
-    }
+    const data = await fetchAllRows<{ email: string | null; name: string | null }>(
+      () =>
+        client
+          .from('funnel_leads')
+          .select('email,name,created_at')
+          .in('source', HUBZONE_SOURCES)
+          .order('created_at', { ascending: true }),
+      'getHubzoneRegistrantsFromSupabase'
+    );
+    if (data === null) return [];
     const byEmail = new Map<string, { email: string; name: string }>();
-    for (const r of data ?? []) {
+    for (const r of data) {
       const email = (r.email || '').toLowerCase().trim();
       if (!email || TEST_EMAIL_RE.test(email)) continue;
       // First occurrence wins (earliest signup); keep a real name if present.
@@ -107,17 +159,18 @@ export async function getMindyDayRegistrantsFromSupabase(): Promise<
 > {
   if (!client) return [];
   try {
-    const { data, error } = await client
-      .from('funnel_leads')
-      .select('email,name,created_at')
-      .in('source', MINDY_DAY_SOURCES)
-      .order('created_at', { ascending: true });
-    if (error) {
-      console.error('getMindyDayRegistrantsFromSupabase failed:', error.message);
-      return [];
-    }
+    const data = await fetchAllRows<{ email: string | null; name: string | null }>(
+      () =>
+        client
+          .from('funnel_leads')
+          .select('email,name,created_at')
+          .in('source', MINDY_DAY_SOURCES)
+          .order('created_at', { ascending: true }),
+      'getMindyDayRegistrantsFromSupabase'
+    );
+    if (data === null) return [];
     const byEmail = new Map<string, { email: string; name: string }>();
-    for (const r of data ?? []) {
+    for (const r of data) {
       const email = (r.email || '').toLowerCase().trim();
       if (!email || TEST_EMAIL_RE.test(email)) continue;
       if (!byEmail.has(email)) byEmail.set(email, { email, name: (r.name || '').trim() });
