@@ -1,5 +1,35 @@
 # TODO
 
+## 🟡 TOMORROW (2026-08-23+): stale header comment in the Mindy Day reminder route
+
+**Do NOT do this on Aug 22** — the route fires at 8:00 AM and 10:00 AM ET that day, and editing it
+means a deploy for zero runtime benefit. Documentation-only fix; do it after the event.
+
+`src/app/api/cron/mindy-day-reminders/[type]/route.ts`, the block comment at lines ~6–24, still
+describes the **July 25** schedule from before Mindy Day moved to **Aug 22**:
+
+| Comment says | Actual (`cron_jobs` rows, verified 2026-08-22) |
+|---|---|
+| "Mindy Day (July 25, 2026 · 10:00 AM ET)" | Aug 22, 2026 · 10:00 AM ET |
+| `heads-up` → `0 6 25 7 *` = 1:00 AM EST | `0 15 21 8 *` = 11:00 AM ET **Aug 21** |
+| `morning` → `30 12 25 7 *` = 7:30 AM EST | `0 12 22 8 *` = **8:00 AM ET** |
+| `live` → `55 14 25 7 *` = 9:55 AM EST | `0 14 22 8 *` = **10:00 AM ET** (class start) |
+
+**Runtime is unaffected** — the schedule that actually fires lives in the `cron_jobs` table, not in
+this comment. But this is the same half-migration shape that bit us before (Zoom URL updated to the
+`MINDY_DAY` constant while the meeting ID and passcode stayed on June literals): someone updated the
+DB rows and the constant, and left the comment. A reader in three months believes the wrong schedule.
+
+- [ ] Rewrite the comment to match the live cron rows, and note that `cron_jobs` is the source of
+      truth for scheduling — not the comment (there is no `vercel.json` cron; see rule #5).
+- [ ] While in there: confirm no other July-25 literals survive (`grep -rn "25 7 \*\|July 25" src/`).
+
+**Verified working on 2026-08-22 (for context, don't redo):** `?dry=1` on both `morning` and `live`
+returned 760 recipients, real Zoom link `us06web.zoom.us/j/86152556791`, `usingFallbackLink: false`.
+The prior day's `heads-up` sent 578. The route has a dry mode (`?dry=1`) and a safety gate that
+refuses to send if only the registration-page fallback link is available — use the dry mode for any
+future verification instead of firing a real send.
+
 ## 🔴 PAUSED: Mindy Re-Ignite email drip → pivoted to META RETARGETING (2026-07-08)
 
 **DO NOT re-enable the cron or "un-stick the ramp."** Two weeks of cron/ramp/seed plumbing never
