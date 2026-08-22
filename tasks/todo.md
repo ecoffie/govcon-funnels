@@ -17,6 +17,36 @@ nobody, worsening as you enroll more.
 
 Full state: `tasks/mindy-reignite-launch-state.md` | Engine: `src/lib/mindy-reignite.ts`
 
+## 🟡 OPEN: Enterprise data-privacy prospect → validates Data Trust Layer Phase 4 (2026-08-21)
+
+**Trigger phrase to resume: "enterprise privacy" or "the North Star prospect."**
+
+A prospect (partner: Sandeep, company: North Star) emailed asking for an "Enterprise connection"
+so their queries — e.g. comparing North Star to a teaming partner — stay private, and **offered to
+pay for it**. This is the first demand signal for Data Trust Layer **Phase 4**, which the PRD
+deliberately deferred as *"later, contract-driven… only for the 1–2 who pay, never default."*
+
+- [ ] **You:** send the reply → `tasks/drafts/reply-enterprise-data-privacy.md`
+      (plain-letter, verified proof table, deliberately no price / no CUI claim / no ship date)
+- [ ] Open items in that draft: name Sandeep directly? attach NDA now or after the call?
+- [ ] **If the call goes well:** scope Phase 4. Smaller than the PRD assumed — `organizations` /
+      `org_members` / `org_clients` already exist (`20260702_coach_org_rls.sql`). Net-new is
+      `org_id` on the 5 vault tables + seats. Do NOT scope it before the call.
+
+**Answer to "what do we already have?" (all verified in code 2026-08-21, safe to repeat to customers):**
+Phases 1–3 of the Data Trust Layer shipped 2026-07-05. Vault deletion + self-serve export
+(`src/lib/vault/vault-data.ts`), **RLS FORCE'd on all 5 vault tables** (`20260705_vault_rls_backstop.sql`
+— pre-flight proved the anon key COULD read the vault; post: anon blocked 5/5), sensitive LLM calls
+pinned to a no-training allow-list that **ignores the `LLM_CHAIN` env override** (5 tests),
+RAG PII scrubbing (`src/lib/rag/scrub-pii.ts`), and the live trust page `/app/trust` (HTTP 200).
+Chat is owner-checked twice (`chat-sessions/route.ts:64`); nothing writes user activity into the
+RAG corpus (zero application writers to `mindy_rag_documents`).
+
+**Do NOT claim CMMC/CUI/FedRAMP** — `docs/strategy/PRD-cmmc-cui-custody-strategy.md` (market-assassin)
+is an exploration draft, not shipped.
+
+PRD: `~/Market Assasin/market-assassin/docs/PRD-data-trust-layer.md` | Draft: `tasks/drafts/reply-enterprise-data-privacy.md`
+
 ### Other tabled work
 - Homepage redesign (Apollo-style, light+dark mockups): `tasks/mindy-homepage-redesign.md`
 - Briefing entitlement gap (466 orphans): `tasks/mindy-briefing-entitlement-gap.md`
