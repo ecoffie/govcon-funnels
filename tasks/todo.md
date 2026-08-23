@@ -40,35 +40,47 @@ dedupes by lowercased email and drops test/plus addresses via
 is the more accurate one. The unranged-select hazard was found while checking that gap, not because
 of it.
 
-## 🟡 TOMORROW (2026-08-23+): stale header comment in the Mindy Day reminder route
+## ✅ DONE (2026-08-22) — stale July-25 date fixed (PR #174), and one was USER-FACING
 
-**Do NOT do this on Aug 22** — the route fires at 8:00 AM and 10:00 AM ET that day, and editing it
-means a deploy for zero runtime benefit. Documentation-only fix; do it after the event.
+Scoped as a documentation-only comment fix. It wasn't: the date was stale in **7 files**, and
+`src/components/SiteNav.tsx` rendered the literal text **"Mindy Day — July 25"** in the mobile nav.
+Client component → never in server HTML → curl couldn't catch it; only visible when the menu opens.
 
-`src/app/api/cron/mindy-day-reminders/[type]/route.ts`, the block comment at lines ~6–24, still
-describes the **July 25** schedule from before Mindy Day moved to **Aug 22**:
+**Root cause = the half-migration predicted here.** `MINDY_DAY_SHORT_DATE = 'August 22'` already
+existed in `mindy-bootcamp-registrations.ts` and its comment claimed "SiteNav… read from here" —
+but SiteNav *couldn't*: that module dynamically imports `@supabase/supabase-js`, so no client
+component can import it. Aspirational comment, hardcoded date, silent drift.
 
-| Comment says | Actual (`cron_jobs` rows, verified 2026-08-22) |
-|---|---|
-| "Mindy Day (July 25, 2026 · 10:00 AM ET)" | Aug 22, 2026 · 10:00 AM ET |
-| `heads-up` → `0 6 25 7 *` = 1:00 AM EST | `0 15 21 8 *` = 11:00 AM ET **Aug 21** |
-| `morning` → `30 12 25 7 *` = 7:30 AM EST | `0 12 22 8 *` = **8:00 AM ET** |
-| `live` → `55 14 25 7 *` = 9:55 AM EST | `0 14 22 8 *` = **10:00 AM ET** (class start) |
+**Fix:** dates now live in **`src/lib/mindy-day.ts`** (dependency-free, server+client safe).
+`mindy-bootcamp-registrations.ts` re-exports from it. **Any new place that shows the Mindy Day date
+must import from `src/lib/mindy-day.ts`** — never retype it.
 
-**Runtime is unaffected** — the schedule that actually fires lives in the `cron_jobs` table, not in
-this comment. But this is the same half-migration shape that bit us before (Zoom URL updated to the
-`MINDY_DAY` constant while the meeting ID and passcode stayed on June literals): someone updated the
-DB rows and the constant, and left the comment. A reader in three months believes the wrong schedule.
+The route header was also wrong beyond the schedule: it cited a "vercel.json note" for cron timing,
+but there is no vercel.json cron (rule #5). It now names `cron_jobs` as the only source of truth,
+lists the live rows, and warns that **date-pinned rows stay enabled and re-arm on the same calendar
+date next year**.
 
-- [ ] Rewrite the comment to match the live cron rows, and note that `cron_jobs` is the source of
-      truth for scheduling — not the comment (there is no `vercel.json` cron; see rule #5).
-- [ ] While in there: confirm no other July-25 literals survive (`grep -rn "25 7 \*\|July 25" src/`).
+Verified: zero July-25 literals in `src/` · live prod nav chunk serves "Mindy Day — " + "August 22",
+no "July 25" in any served chunk · tsc 0 · build 0 · 33 tests · guard 15/15.
 
-**Verified working on 2026-08-22 (for context, don't redo):** `?dry=1` on both `morning` and `live`
-returned 760 recipients, real Zoom link `us06web.zoom.us/j/86152556791`, `usingFallbackLink: false`.
-The prior day's `heads-up` sent 578. The route has a dry mode (`?dry=1`) and a safety gate that
-refuses to send if only the registration-page fallback link is available — use the dry mode for any
-future verification instead of firing a real send.
+## ✅ DONE (2026-08-22) — disabled a cron that would have emailed 797 people
+
+**`mindy-lifetime-finalclose`** (`cron_jobs` id `e49245b8-7f29-40b0-aaf7-697d3be018d8`) was still
+`enabled=true` with `cron_expr = 0 0 25 8 *` → **Sun Aug 24, 8 PM ET**, and would have sent the
+lifetime "final close" offer email to **797 Mindy Day registrants** using copy written for a
+**June 29** deadline. Its sibling `mindy-lifetime-extension` had already been disabled; this row
+was missed. **Idempotency would NOT have stopped it** — the guard key TTL is 48h and the job last
+ran Jun 30, so the key was long expired. Disabled on Eric's go-ahead; reason recorded in the row's
+`notes`. Verified `enabled=false` via a separate read-only connection.
+
+**Two things worth remembering:**
+- **Date-pinned cron rows are a recurring hazard.** `0 0 25 8 *` has no year — it re-arms every
+  Aug 25. After any event, sweep: `SELECT job_name, cron_expr, enabled FROM cron_jobs WHERE
+  enabled = true AND cron_expr !~ '^\S+\s+\S+\s+\*\s+\*'` and disable the one-shots.
+- **The stored Supabase service-role key in `market-assassin/.env.local` is STALE** ("Invalid API
+  key"). Both projects share one database (`krpyelfrbicmvsmwovti`); the working key is in
+  **govcon-funnels** production env — `vercel env pull`. Anything running locally against the
+  market-assassin copy is silently failing.
 
 ## 🔴 PAUSED: Mindy Re-Ignite email drip → pivoted to META RETARGETING (2026-07-08)
 
