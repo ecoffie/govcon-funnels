@@ -15,6 +15,8 @@
  * (name/email/phone) for the team to work the list.
  */
 
+import { fetchAllLeadRows } from './supabase-paging';
+
 /** funnel_leads source(s) that mark a Mindy bootcamp registration. */
 const MINDY_BOOTCAMP_SOURCES = ['mindy-launch'];
 
@@ -146,12 +148,18 @@ async function fetchFromSupabase(): Promise<LeadContact[]> {
   try {
     const { createClient } = await import('@supabase/supabase-js');
     const client = createClient(url, key, { auth: { persistSession: false } });
-    const { data, error } = await client
-      .from('funnel_leads')
-      .select('name,email,phone,source,created_at,raw')
-      .in('source', MINDY_BOOTCAMP_SOURCES)
-      .order('created_at', { ascending: true });
-    if (error || !data) return [];
+    // Paged: an unranged select caps at 1,000 rows and PostgREST does not error
+    // when it truncates, so the registrant list would silently stop growing —
+    // the same bug fixed in supabase-leads.ts (PR #170). 'mindy-launch' was at
+    // 950 rows on 2026-08-22, ~50 signups from the cap.
+    const data = await fetchAllLeadRows(() =>
+      client
+        .from('funnel_leads')
+        .select('name,email,phone,source,created_at,raw')
+        .in('source', MINDY_BOOTCAMP_SOURCES)
+        .order('created_at', { ascending: true })
+    );
+    if (!data) return [];
     return data.map((r) => {
       const raw = (r.raw ?? {}) as Record<string, unknown>;
       const fullName = (r.name || (raw.name as string) || '').trim();
