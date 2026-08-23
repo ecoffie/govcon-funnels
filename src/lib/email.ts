@@ -25,7 +25,7 @@ const HUBZONE_ZOOM_URL = 'https://us06web.zoom.us/j/87112164591?pwd=bakXu7g8fbSU
 const HUBZONE_MEETING_ID = '871 1216 4591';
 const HUBZONE_PASSCODE = '467983';
 
-// Mindy Day (July 25) live-unveil join link. Default comes from env so the link
+// Mindy Day (August 22) live-unveil join link. Default comes from env so the link
 // can change without a redeploy; the blast route may also pass an explicit
 // `joinUrl` (from ?join=) to override at send time. Falls back to the
 // registration page, which can host the player/redirect.
@@ -1156,7 +1156,7 @@ export async function sendHubzoneReminderEmail(params: EmailParams): Promise<Ema
 }
 
 /**
- * Mindy Day (July 25) DAY-OF reminder — carries the real live join link.
+ * Mindy Day (August 22) DAY-OF reminder — carries the real live join link.
  * Mindy navy→purple branding. The join link comes from `params.joinUrl` if the
  * blast route passes one (?join=…), otherwise from MINDY_DAY_JOIN_URL env, and
  * finally the registration page. This is the "people are waiting for the link"

@@ -5,7 +5,7 @@ export const runtime = 'nodejs';
 export const dynamic = 'force-dynamic';
 
 /**
- * PUBLIC, count-only endpoint for the Mindy Launch (July 25) scarcity banner.
+ * PUBLIC, count-only endpoint for the Mindy Launch (August 22) scarcity banner.
  * Returns ONLY aggregate numbers — no names/emails/PII — so it is safe to call
  * from the unauthenticated static landing page (served from the funnels-one
  * project, proxied to govcongiants.com/mindy-launch).
