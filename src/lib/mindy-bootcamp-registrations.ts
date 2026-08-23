@@ -16,18 +16,20 @@
  */
 
 import { fetchAllLeadRows } from './supabase-paging';
+import { MINDY_DAY_DATE_ISO, MINDY_DAY_DATE_LABEL, MINDY_DAY_SHORT_DATE } from './mindy-day';
 
 /** funnel_leads source(s) that mark a Mindy bootcamp registration. */
 const MINDY_BOOTCAMP_SOURCES = ['mindy-launch'];
 
-/** Bootcamp / Mindy Launch date — drives the countdown + pace math, and the
- *  single funnels-side source of truth for the Mindy Day date (SiteNav, reminder
- *  route, spots route read from here). Saturday, August 22, 2026 · 10 AM–1 PM ET.
+/** Bootcamp / Mindy Launch date — drives the countdown + pace math.
+ *  The values now live in `src/lib/mindy-day.ts` so CLIENT components can import
+ *  them too: this module dynamically imports @supabase/supabase-js, so SiteNav
+ *  could never read from here — and hardcoded "July 25" for a month after the
+ *  date moved. Re-exported so existing importers keep working.
  *  NOTE: the day-of reminder CRON schedule lives in cron_jobs rows (Supabase) and
- *  must be rescheduled there separately — this constant does not drive cron timing. */
-export const BOOTCAMP_DATE_ISO = '2026-08-22';
-export const MINDY_DAY_DATE_LABEL = 'Saturday, August 22, 2026';
-export const MINDY_DAY_SHORT_DATE = 'August 22';
+ *  must be rescheduled there separately — these constants do not drive cron timing. */
+export const BOOTCAMP_DATE_ISO = MINDY_DAY_DATE_ISO;
+export { MINDY_DAY_DATE_LABEL, MINDY_DAY_SHORT_DATE };
 
 /** Registration goal — 750 signups → ~500 attendees (67% show rate). */
 export const REGISTRATION_GOAL = 750;

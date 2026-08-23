@@ -3,6 +3,7 @@
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import { useState, useRef, useEffect } from 'react';
+import { MINDY_DAY_SHORT_DATE } from '@/lib/mindy-day';
 
 type DropdownKey = 'intelligence' | 'learn' | 'compare' | null;
 
@@ -184,7 +185,7 @@ export default function SiteNav() {
               Pricing
             </Link>
 
-            {/* Mindy Day — the live product unveil (July 25) */}
+            {/* Mindy Day — the live product unveil. Date from the shared constant. */}
             <Link
               href="/mindy-launch"
               className="px-4 py-2 text-violet-300 hover:text-white transition flex items-center gap-1.5"
@@ -266,7 +267,7 @@ export default function SiteNav() {
               {/* Direct Links */}
               <div className="border-t border-slate-800 pt-4 mt-4">
                 <Link href="/mindy-launch" className="block px-2 py-2 text-violet-300 hover:text-white transition font-medium">
-                  Mindy Day — July 25
+                  Mindy Day — {MINDY_DAY_SHORT_DATE}
                 </Link>
                 <Link href="/pricing" className="block px-2 py-2 text-slate-300 hover:text-white transition">
                   Pricing

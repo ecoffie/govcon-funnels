@@ -4,17 +4,32 @@ import { getMindyDayRegistrantsFromSupabase } from '@/lib/supabase-leads';
 import { extractPassword, isAuthorized } from '@/lib/admin-auth';
 
 /**
- * Scheduled Mindy Day (July 25, 2026 · 10:00 AM ET) webinar-link reminders.
+ * Scheduled Mindy Day (Saturday, August 22, 2026 · 10:00 AM ET) webinar-link reminders.
  * Cloned from /api/cron/hubzone-reminders — same shape, idempotency, and auth.
  *
- * One route, three fires selected by ?type= (each has its OWN idempotency key,
- * so all three genuinely send — like HUBZone's one-hour/live/recording):
- *   heads-up → overnight "save your link" send (cron 0 6 25 7 *  = 1:00 AM EST*)
- *   morning  → "today at 10 AM, your link is inside" (cron 30 12 25 7 * = 7:30 AM EST)
- *   live     → "we're live now, join" (cron 55 14 25 7 * = 9:55 AM EST)
- * *EST = UTC-5 (no DST in this notation; July is EDT/UTC-4 in reality — see
- * vercel.json note: crons run in UTC, scheduled to the requested EST wall times
- * treating EST as the label the user gave).
+ * ⚠️ SCHEDULING IS NOT DEFINED HERE. There is no vercel.json cron (the 100-cron
+ * cap would block the whole deploy). The schedule lives in `cron_jobs` rows in
+ * Supabase, fired by the dispatcher — that table is the ONLY source of truth for
+ * when these run. Editing this comment changes nothing at runtime; to reschedule,
+ * update the rows. Cron expressions there are UTC.
+ *
+ * One route, several fires selected by ?type= (each has its OWN idempotency key,
+ * so each genuinely sends — like HUBZone's one-hour/live/recording).
+ * Live `cron_jobs` rows as of 2026-08-22 (job_name → cron_expr → ET wall time):
+ *   heads-up → mindy-heads-up → `0 15 21 8 *` → Fri Aug 21, 11:00 AM ET
+ *   morning  → mindy-morning  → `0 12 22 8 *` → Sat Aug 22,  8:00 AM ET
+ *   live     → mindy-live     → `0 14 22 8 *` → Sat Aug 22, 10:00 AM ET (class start)
+ *
+ * The lifetime-* types are offer emails, not join-link reminders, and are
+ * scheduled by their own rows. `mindy-lifetime-extension` and
+ * `mindy-lifetime-finalclose` are both DISABLED (finalclose was disabled
+ * 2026-08-22: it was still armed for Sun Aug 24 8 PM ET and would have blasted
+ * 797 registrants with copy written for a June 29 deadline).
+ *
+ * NOTE ON TIMES: cron_expr is UTC and does not track DST, so a row pinned to a
+ * date is only correct for that date's offset (Aug 2026 = EDT/UTC-4). These are
+ * one-shot date-pinned rows, not recurring schedules — but they stay enabled and
+ * will re-arm on the same calendar date next year unless disabled.
  *
  * The join link comes from MINDY_DAY_JOIN_URL env (a scheduled call can't pass
  * ?join=). A real send REFUSES the registration-page fallback so nobody gets a
