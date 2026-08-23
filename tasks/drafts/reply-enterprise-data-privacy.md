@@ -45,13 +45,13 @@ On your last point — you're right that there's more here. A written agreement 
 
 | Claim in the email | Verified where |
 |---|---|
-| Questions don't feed back into what Mindy knows | `mindy_rag_documents` has **zero application writers** — all writers are operator-run ingest scripts (`ingest-vault-docs.js`, `ingest-govcon-podcast.js`, `ingest-mcp-docs.js`) |
-| Chat locked to your login | `src/app/api/app/chat-sessions/route.ts:64` re-verifies `session.user_email === userEmail` before returning messages, on top of `.eq('user_email', …)` |
+| Questions don't feed back into what Mindy knows | **No user-facing path writes to `mindy_rag_documents`.** Writers are operator-run ingest scripts (`ingest-vault-docs.js`, `ingest-govcon-podcast.js`, `ingest-mcp-docs.js`) plus ONE admin route, `src/app/api/admin/rag-library/route.ts` (`.update`/`.upsert`), gated on `ADMIN_PASSWORD` — that is Eric curating the corpus, never user activity. The user-facing routes (`app/rag-doc`, `app/knowledge-base`) are **read-only** (verified: no write verbs). ⚠️ Re-verified 2026-08-23 — the earlier wording "zero application writers" was imprecise; say "nothing a user does writes to it," which is what is true and what the customer asked |
+| Chat locked to your login | `src/app/api/app/chat-sessions/route.ts:64` re-verifies `session.user_email?.toLowerCase() !== userEmail` before returning messages, on top of `.eq('user_email', …)`. ✅ Re-verified 2026-08-23, still line 64 |
 | Searches are per-user, not pooled | `src/lib/search-history.ts:55-60` requires an email; `aggregate-profiles` builds one profile **per user** |
-| Uploads walled off at the DB | `supabase/migrations/20260705_vault_rls_backstop.sql` — RLS enabled + FORCE'd on all 5 vault tables. Pre-flight: anon key **could** read the vault. Post: anon BLOCKED 5/5, service OK 5/5 (210 rows) |
-| Sensitive data pinned to no-training providers | Data Trust Layer Phase 3.1 — `callLLM` `dataClass: 'sensitive'`, `SENSITIVE_LLM_PROVIDERS` allow-list, **ignores `LLM_CHAIN` env override**, grok excluded, 5 unit tests |
+| Uploads walled off at the DB | `supabase/migrations/20260705_vault_rls_backstop.sql` — RLS enabled + FORCE'd on all 5 vault tables. Pre-flight: anon key **could** read the vault. Post: anon BLOCKED 5/5, service OK 5/5 (210 rows). ✅ **Re-verified against LIVE PROD 2026-08-23** via `pg_class`: all 5 tables `relrowsecurity=true`, `relforcerowsecurity=true`, 2 policies each — not just asserted by a migration file |
+| Sensitive data pinned to no-training providers | Data Trust Layer Phase 3.1 — `src/lib/llm/call-llm.ts:180` — a `dataClass:'sensitive'` call rebuilds its chain from `jobChain`, **never** `envChain()`, so `LLM_CHAIN` cannot route PII; grok excluded; **throws** `No no-training LLM provider available for sensitive data` rather than falling back. ✅ Re-verified in code 2026-08-23 |
 | Export / delete is self-serve | `GET /api/app/vault/export`; `DELETE /api/app/vault?confirm=DELETE`; canonical table list `src/lib/vault/vault-data.ts` |
-| Trust page is real | `src/app/app/trust/page.tsx` — **live, HTTP 200** at getmindy.ai/app/trust |
+| Trust page is real | `src/app/app/trust/page.tsx` — **live, HTTP 200** at getmindy.ai/app/trust (✅ re-checked 2026-08-23) |
 | Org workspace "not self-serve yet" | `organizations`/`org_members`/`org_clients` exist (`20260702_coach_org_rls.sql`) but Data Trust Layer **Phase 4 is "later, contract-driven"** |
 
 ## Deliberately NOT said
