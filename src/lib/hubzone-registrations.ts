@@ -11,6 +11,8 @@
  * caching — the route does.
  */
 
+import { fetchAllLeadRows } from './supabase-paging';
+
 const GHL_SEARCH_URL = 'https://services.leadconnectorhq.com/contacts/search';
 
 /** Tags applied by the hubzone lead forms (top + bottom of page). */
@@ -180,12 +182,18 @@ async function fetchFromSupabase(): Promise<GhlContact[]> {
   try {
     const { createClient } = await import('@supabase/supabase-js');
     const client = createClient(url, key, { auth: { persistSession: false } });
-    const { data, error } = await client
-      .from('funnel_leads')
-      .select('name,email,phone,source,created_at,raw')
-      .in('source', ['hubzone-webinar', 'hubzone-webinar-bottom'])
-      .order('created_at', { ascending: true });
-    if (error || !data) return [];
+    // Paged: an unranged select caps at 1,000 rows and PostgREST does not error
+    // when it truncates, so the registrant list would silently stop growing.
+    // This list feeds /api/cron/hubzone-reminders — a send path, where a capped
+    // read means real registrants never receive the webinar link.
+    const data = await fetchAllLeadRows(() =>
+      client
+        .from('funnel_leads')
+        .select('name,email,phone,source,created_at,raw')
+        .in('source', ['hubzone-webinar', 'hubzone-webinar-bottom'])
+        .order('created_at', { ascending: true })
+    );
+    if (!data) return [];
     return data.map((r) => {
       const raw = (r.raw ?? {}) as Record<string, unknown>;
       const fullName = (r.name || (raw.name as string) || '').trim();

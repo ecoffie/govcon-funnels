@@ -15,7 +15,9 @@
     "test:sam:entity": "vitest run src/lib/sam/__tests__/**/entity*",
     "test:sam:awards": "vitest run src/lib/sam/__tests__/**/awards*",
     "test:api": "vitest run src/app/api/**/__tests__",
-    "test:all": "npm run test:unit && npm run test:integration"
+    "test:all": "npm run test:unit && npm run test:integration",
+    "audit:selects": "node scripts/audit-unranged-selects.mjs",
+    "audit:selects:self-test": "node scripts/audit-unranged-selects.mjs --self-test"
   },
   "dependencies": {
     "@google-analytics/data": "^6.1.0",

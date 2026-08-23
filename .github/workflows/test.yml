@@ -25,6 +25,27 @@ jobs:
       - name: Run unit tests
         run: npm run test:unit
 
+  audit-selects:
+    name: Unranged Select Audit
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v5
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+
+      # Zero-dependency by design: no `npm ci` here, so an install failure can
+      # never silently skip this guard. Self-test runs FIRST as a negative
+      # control — it proves the audit still fails on an unbounded select before
+      # we trust a clean audit run.
+      - name: Guard self-test (negative control)
+        run: npm run audit:selects:self-test
+
+      - name: Audit for unranged Supabase selects
+        run: npm run audit:selects
+
   build:
     name: Build Check
     runs-on: ubuntu-latest
