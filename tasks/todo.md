@@ -1,20 +1,37 @@
 # TODO
 
-## 🟢 AFTER MINDY DAY (2026-08-22 event ends 1 PM ET): merge PR #170
+## ✅ DONE (2026-08-22, after the event) — PR #170 merged + the guard actually built
 
-**[PR #170 — Page the funnel_leads readers so they stop capping at 1,000](https://github.com/ecoffie/govcon-funnels/pull/170)**
-Built and green (tsc clean, production build exit 0), deliberately NOT merged during the event
-because it touches `getMindyDayRegistrantsFromSupabase()` — the exact function the 8 AM and 10 AM
-reminder routes call to build the recipient list. Merging mid-event risks a deploy for a bug that
-cannot bite below 1,000 registrants (we were at 769).
+**[PR #170 — Page the funnel_leads readers](https://github.com/ecoffie/govcon-funnels/pull/170)** — MERGED.
+**[PR #172 — Build the unranged-select guard for real](https://github.com/ecoffie/govcon-funnels/pull/172)** — MERGED.
 
-- [ ] Merge #170 once the event is over
-- [ ] **Then fix `scripts/audit-unranged-selects.mjs`** — the pre-push gate built for exactly this
-      bug class dies with `MODULE_NOT_FOUND` before it checks anything, at the repo root and in a
-      worktree alike, on code it never touched. **It has been silently passing**, which is why the
-      three unranged selects survived in `src/lib/supabase-leads.ts`. A guard that fails invisibly
-      is worse than no guard — it bought false confidence. Verify with a negative control after
-      fixing (introduce an unranged select, confirm the script actually fails).
+**The guard was never broken — it never existed.** The note below said
+`scripts/audit-unranged-selects.mjs` died with `MODULE_NOT_FOUND` and had been "silently passing."
+The truth was worse: no file, no git history of one, no npm script, no CI step, no git hook. The
+only mention of that filename in the entire repo was this todo entry. Nothing ran. This repo has
+**no pre-push hook at all**, so the guard now lives in **CI** (`.github/workflows/test.yml` job
+"Unranged Select Audit") where it runs for every agent and machine.
+
+**It immediately found 2 MORE live instances of the same bug that #170 did not touch:**
+- `src/lib/hubzone-registrations.ts` → feeds `/api/cron/hubzone-reminders` — **a send path**
+- `src/lib/mindy-bootcamp-registrations.ts` → reads `source='mindy-launch'`
+
+Both now page via shared `fetchAllLeadRows()` in **`src/lib/supabase-paging.ts`** (these files build
+their own Supabase client, so they can't use the module-private helper in `supabase-leads.ts`).
+
+**Live sizing (2026-08-22, don't re-derive):** `funnel_leads` had **950** `mindy-launch` rows —
+that source was **~50 signups from the 1,000 cap**, thinner than the 769 figure below suggested.
+HUBZone was at 226 (187 + 39), so those two readers had not yet begun truncating.
+
+**Using the guard:**
+- `npm run audit:selects` — audit (exit 1 on findings, **exit 2 if the audit itself throws**)
+- `npm run audit:selects:self-test` — negative control; CI runs this FIRST
+- `node scripts/audit-unranged-selects.mjs --list` — every site + verdict
+- Deliberately **zero-dependency**; the CI job does NOT run `npm ci` so an install failure can never
+  silently skip it. `PAGER_HINTS` entries are asserted to still call `.range()`, so a hint cannot
+  outlive its paging. `ALLOWLIST` requires a written reason (one entry: `sam/utils.ts`
+  `delete().select('id')` — the DELETE is uncapped, only the returned id list truncates).
+- Verified: self-test 8/8 · 15/15 sites bounded · tsc 0 · build 0 · 33 unit tests pass.
 
 **Why this came up (don't re-derive):** the site banner showed **769** registrants while the email
 dry-run showed **760**. That gap is CORRECT — the site counts raw `funnel_leads` rows; the mailer
