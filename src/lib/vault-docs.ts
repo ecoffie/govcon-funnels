@@ -9,6 +9,12 @@
  * (`vault:Capability Statement Sample`, `vault:Sources Sought Response Template`,
  * …). CHANGING A TITLE ORPHANS ITS HISTORICAL ATTRIBUTION. If a display name
  * must change, add a separate display field — do not edit `title`.
+ *
+ * Corollary (Eric, 2026-08-24): a STABLE attribution key does not mean stale content. The
+ * `title` on `SBA Size Standards (2022)` must stay verbatim so its historical leads still
+ * reconcile, but nothing stops us refreshing the underlying document or showing a newer
+ * display name. If that day comes, add `displayTitle` and render THAT — keep `title` as the
+ * immutable identifier it already is.
  */
 
 export interface VaultDoc {
