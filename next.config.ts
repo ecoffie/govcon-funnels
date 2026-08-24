@@ -27,6 +27,30 @@ const nextConfig: NextConfig = {
         destination: "https://govcongiants.com/:path*",
         permanent: true,
       },
+      // ── ONE-SITE CONSOLIDATION (2026-08-24) ──────────────────────────────────
+      // govcongiants.com is the single public site. app.govcongiants.org and
+      // podcast.govcongiants.org are LEGACY ENTRANCES ONLY: path-preserving, permanent.
+      //
+      // These are never removed. The live Libsyn RSS feed carries ~1,694 links to
+      // govcongiants.org inside episode descriptions, already distributed to every
+      // podcast platform and not retroactively editable. Same reasoning for the
+      // podcast subdomain, which has been shared directly for years.
+      //
+      // ⚠️ NOTHING HERE MAY MATCH A LIBSYN HOSTNAME. Podcast distribution
+      // (govcongiants.libsyn.com/rss, traffic.libsyn.com/*, static.libsyn.com/*) is
+      // outside this consolidation and must keep resolving untouched.
+      {
+        source: "/:path*",
+        has: [{ type: "host", value: "app.govcongiants.org" }],
+        destination: "https://govcongiants.com/:path*",
+        permanent: true,
+      },
+      {
+        source: "/:path*",
+        has: [{ type: "host", value: "podcast.govcongiants.org" }],
+        destination: "https://govcongiants.com/:path*",
+        permanent: true,
+      },
       {
         source: "/vault",
         destination: "https://vault.govcongiants.org/",
@@ -56,6 +80,26 @@ const nextConfig: NextConfig = {
       {
         source: "/blog/cage-code-lookup-guide",
         destination: "/guides/cage-code",
+        permanent: true,
+      },
+      // One-site consolidation (2026-08-24): three podcast-SPA articles merged into the
+      // stronger existing posts. Unique material was folded into the destination first.
+      // All three source slugs had 0 GSC clicks / 0 impressions over 90 days, so nothing
+      // ranked is being redirected — the merge consolidates topical authority instead of
+      // splitting it. Permanent, because the slugs may exist in old emails and links.
+      {
+        source: "/blog/start-govcon-no-experience",
+        destination: "/blog/win-government-contracts-no-experience",
+        permanent: true,
+      },
+      {
+        source: "/blog/register-right-first-time",
+        destination: "/blog/sam-gov-registration-checklist",
+        permanent: true,
+      },
+      {
+        source: "/blog/cmmc-real-math",
+        destination: "/blog/cmmc-2-compliance-guide",
         permanent: true,
       },
       // OH landing page → direct to tool (no funnel, tool is ungated)
