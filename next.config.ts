@@ -58,6 +58,26 @@ const nextConfig: NextConfig = {
         destination: "/guides/cage-code",
         permanent: true,
       },
+      // One-site consolidation (2026-08-24): three podcast-SPA articles merged into the
+      // stronger existing posts. Unique material was folded into the destination first.
+      // All three source slugs had 0 GSC clicks / 0 impressions over 90 days, so nothing
+      // ranked is being redirected — the merge consolidates topical authority instead of
+      // splitting it. Permanent, because the slugs may exist in old emails and links.
+      {
+        source: "/blog/start-govcon-no-experience",
+        destination: "/blog/win-government-contracts-no-experience",
+        permanent: true,
+      },
+      {
+        source: "/blog/register-right-first-time",
+        destination: "/blog/sam-gov-registration-checklist",
+        permanent: true,
+      },
+      {
+        source: "/blog/cmmc-real-math",
+        destination: "/blog/cmmc-2-compliance-guide",
+        permanent: true,
+      },
       // OH landing page → direct to tool (no funnel, tool is ungated)
       {
         source: "/opp",

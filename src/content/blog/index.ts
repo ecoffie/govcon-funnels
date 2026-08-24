@@ -36,8 +36,22 @@ import { post as vendorMistakes } from './vendor-mistakes-contracting-officers';
 import { post as cmmcGuide } from './cmmc-2-compliance-guide';
 import { post as oasisPlusGuide } from './oasis-plus-guide';
 import { post as fy2026Trends } from './fy2026-contracting-trends';
+// Migrated from the podcast SPA (2026-08-24 one-site consolidation) — slugs preserved exactly.
+import { post as samNotStrategy } from './sam-gov-is-not-a-strategy';
+import { post as eightAExplained } from './8a-program-explained';
+import { post as firstProposalChecklist } from './first-proposal-checklist';
+import { post as subcontractingSideDoor } from './subcontracting-side-door';
+import { post as teamingAgreements101 } from './teaming-agreements-101';
+import { post as progressPayments } from './progress-payments-guide';
 
 export const allPosts: BlogPost[] = [
+  // Migrated from the podcast SPA — one-site consolidation, 2026-08-24
+  samNotStrategy,
+  eightAExplained,
+  firstProposalChecklist,
+  subcontractingSideDoor,
+  teamingAgreements101,
+  progressPayments,
   // 2026 Trends & Hot Topics
   fy2026Trends,
   cmmcGuide,

@@ -56,8 +56,17 @@ Preserve unique material, then 308 the weaker slug. All three SPA slugs have **0
 not already cover, fold it in as a new section, then add the 308. Do not delete the source text
 until the merge is reviewed.
 
-**The other 6 SPA articles migrate with their slugs unchanged** — no collision, so same URL, new
-template, no redirect (see Phase 1 §A2).
+**Article arithmetic — 9 total, not 12.** The 3 merges above are PART OF the 9 SPA articles, not
+additional to them:
+
+| | Count |
+|---|---|
+| SPA articles total | **9** |
+| → merged into a stronger Next post (308) | 3 |
+| → standalone migrations, slug unchanged, no redirect | **6** |
+
+The 6 standalone: `sam-gov-is-not-a-strategy`, `8a-program-explained`, `first-proposal-checklist`,
+`subcontracting-side-door`, `teaming-agreements-101`, `progress-payments-guide`.
 
 ---
 
