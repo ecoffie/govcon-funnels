@@ -28,6 +28,12 @@ const IMPORTANT_URLS = [
   'https://app.govcongiants.org/jobs',
   'https://app.govcongiants.org/guides/federal-contract-vehicles-guide',
   'https://mi.govcongiants.com/',
+  // The /funding + /encore-funding redirect target. A PARTNER-OWNED url, which is
+  // why it is monitored: on 2026-08-24 we found every funding referral had been
+  // landing on a 404 because Encore reversed a domain migration without notice, and
+  // nothing told us. An outbound destination we do not control is exactly the thing
+  // that rots silently — watch it like our own routes.
+  'https://gov.encore-funding.com/govcon-giants-partner-government-contractor-funding/',
   `${SITE}/sitemap.xml`,
 ];
 
