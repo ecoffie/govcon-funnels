@@ -9,7 +9,7 @@
     "start": "next start",
     "lint": "eslint",
     "test": "vitest",
-    "test:unit": "vitest run src/lib/sam/__tests__/unit/",
+    "test:unit": "vitest run src/lib/sam/__tests__/unit/ src/lib/__tests__/",
     "test:integration": "vitest run src/lib/sam/__tests__/integration/",
     "test:sam": "vitest run src/lib/sam/__tests__",
     "test:sam:entity": "vitest run src/lib/sam/__tests__/**/entity*",

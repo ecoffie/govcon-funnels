@@ -27,6 +27,30 @@ const nextConfig: NextConfig = {
         destination: "https://govcongiants.com/:path*",
         permanent: true,
       },
+      // ── ONE-SITE CONSOLIDATION (2026-08-24) ──────────────────────────────────
+      // govcongiants.com is the single public site. app.govcongiants.org and
+      // podcast.govcongiants.org are LEGACY ENTRANCES ONLY: path-preserving, permanent.
+      //
+      // These are never removed. The live Libsyn RSS feed carries ~1,694 links to
+      // govcongiants.org inside episode descriptions, already distributed to every
+      // podcast platform and not retroactively editable. Same reasoning for the
+      // podcast subdomain, which has been shared directly for years.
+      //
+      // ⚠️ NOTHING HERE MAY MATCH A LIBSYN HOSTNAME. Podcast distribution
+      // (govcongiants.libsyn.com/rss, traffic.libsyn.com/*, static.libsyn.com/*) is
+      // outside this consolidation and must keep resolving untouched.
+      {
+        source: "/:path*",
+        has: [{ type: "host", value: "app.govcongiants.org" }],
+        destination: "https://govcongiants.com/:path*",
+        permanent: true,
+      },
+      {
+        source: "/:path*",
+        has: [{ type: "host", value: "podcast.govcongiants.org" }],
+        destination: "https://govcongiants.com/:path*",
+        permanent: true,
+      },
       {
         source: "/vault",
         destination: "https://vault.govcongiants.org/",
