@@ -1,0 +1,537 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Eric Coffie — Keynote Speaker | Government Contracting</title>
+<meta name="description" content="Eric Coffie teaches everyday people to win extraordinary federal contracts. Keynotes, workshops, panels and live podcast recordings for conferences, agencies and primes.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Inter:ital,wght@0,400;0,500;0,600;0,700;1,400;1,600&display=swap" rel="stylesheet">
+<style>
+:root{
+  --ink:#06090C;      /* page background */
+  --navy:#0B1118;     /* section alt */
+  --panel:#11171F;    /* cards */
+  --paper:#FFFFFF;
+  --cyan:#00BEFF;     /* accent */
+  --cyan-dk:#003653;  /* deep accent */
+  --mute:#9AA7B2;
+  --line:rgba(255,255,255,.09);
+}
+*{margin:0;padding:0;box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  background:var(--ink);
+  color:var(--paper);
+  font-family:'Inter',sans-serif;
+  font-size:16px;
+  line-height:1.6;
+  -webkit-font-smoothing:antialiased;
+}
+img{display:block;max-width:100%}
+a{color:inherit}
+.wrap{max-width:1180px;margin:0 auto;padding:0 24px}
+:focus-visible{outline:2px solid var(--cyan);outline-offset:3px}
+
+/* ---------- type ---------- */
+h1,h2,h3{
+  font-family:'Bebas Neue',sans-serif;
+  font-weight:400;
+  text-transform:uppercase;
+  line-height:.95;
+  letter-spacing:.015em;
+}
+h1{font-size:clamp(52px,6.4vw,96px)}
+h2{font-size:clamp(40px,4.4vw,64px)}
+h3{font-size:clamp(24px,2.4vw,30px)}
+.eyebrow{
+  font-style:italic;
+  font-weight:600;
+  font-size:14px;
+  color:var(--cyan);
+  margin-bottom:14px;
+}
+.sec-intro{color:var(--mute);max-width:560px;margin-top:18px;font-size:15.5px}
+.cyan{color:var(--cyan)}
+
+/* ---------- pill buttons ---------- */
+.pill{
+  display:inline-block;
+  font-weight:600;
+  font-size:14px;
+  text-decoration:none;
+  padding:12px 28px;
+  border-radius:999px;
+  transition:transform .15s,background .2s,color .2s,opacity .2s;
+  cursor:pointer;
+  border:none;
+}
+.pill:hover{transform:translateY(-1px)}
+.pill-white{background:var(--paper);color:var(--ink)}
+.pill-white:hover{background:#e8eef3}
+.pill-cyan{background:var(--cyan);color:var(--ink)}
+.pill-cyan:hover{background:#2ecdff}
+.pill-outline{background:transparent;color:var(--paper);border:1px solid rgba(255,255,255,.35)}
+.pill-outline:hover{border-color:var(--paper)}
+
+/* ---------- nav ---------- */
+nav{
+  position:sticky;top:0;z-index:100;
+  background:rgba(6,9,12,.92);
+  backdrop-filter:blur(10px);
+  border-bottom:1px solid var(--line);
+}
+.nav-inner{display:flex;align-items:center;justify-content:space-between;height:68px}
+.logo{font-family:'Bebas Neue',sans-serif;font-size:24px;letter-spacing:.06em;text-decoration:none}
+.logo span{color:var(--cyan)}
+.nav-links{display:flex;gap:26px;align-items:center}
+.nav-links a:not(.pill){font-size:13px;font-weight:500;color:var(--mute);text-decoration:none;transition:color .2s}
+.nav-links a:not(.pill):hover{color:var(--paper)}
+.nav-links .pill{padding:9px 20px;font-size:13px}
+@media(max-width:760px){.nav-links a:not(.pill){display:none}}
+
+/* ---------- hero ---------- */
+.hero{
+  position:relative;
+  border-bottom:1px solid var(--line);
+  background:
+    radial-gradient(1000px 500px at 85% 20%, rgba(0,190,255,.08), transparent 60%),
+    var(--ink);
+  overflow:hidden;
+}
+.hero-grid{
+  display:grid;grid-template-columns:1fr 1fr;gap:48px;align-items:center;
+  padding:88px 0;
+}
+.hero h1{margin:0 0 22px}
+.hero h1 em{font-style:normal;color:var(--cyan)}
+.lede{color:var(--mute);font-size:16.5px;max-width:520px;margin-bottom:32px}
+.hero-ctas{display:flex;gap:14px;flex-wrap:wrap}
+.hero-photo{
+  position:relative;border-radius:12px;overflow:hidden;
+  aspect-ratio:4/5;max-height:600px;width:100%;
+}
+.hero-photo img{width:100%;height:100%;object-fit:cover;object-position:top}
+.hero-photo::after{
+  content:"";position:absolute;inset:0;
+  background:linear-gradient(180deg,transparent 55%,rgba(6,9,12,.55));
+}
+@media(max-width:900px){
+  .hero-grid{grid-template-columns:1fr;gap:36px;padding:56px 0}
+  .hero-photo{max-width:420px}
+}
+
+/* ---------- marquee ---------- */
+.marquee{background:var(--navy);border-bottom:1px solid var(--line);overflow:hidden;padding:18px 0}
+.marquee-track{display:flex;width:max-content;animation:scroll 34s linear infinite}
+.marquee-set{display:flex;align-items:center;flex-shrink:0}
+.marquee-set span{
+  font-family:'Bebas Neue',sans-serif;font-size:24px;letter-spacing:.05em;
+  white-space:nowrap;padding:0 28px;color:rgba(255,255,255,.35);
+}
+.marquee-set span:nth-child(odd){color:var(--cyan)}
+.marquee-set i{width:5px;height:5px;background:rgba(255,255,255,.25);border-radius:50%;flex-shrink:0}
+@keyframes scroll{from{transform:translateX(0)}to{transform:translateX(-50%)}}
+@media(prefers-reduced-motion:reduce){.marquee-track{animation:none}}
+
+/* ---------- sections ---------- */
+section{padding:88px 0;border-bottom:1px solid var(--line)}
+@media(max-width:760px){section{padding:60px 0}}
+
+/* ---------- stats ---------- */
+.stats{display:grid;grid-template-columns:repeat(4,1fr);gap:32px;text-align:left}
+.stat .num{font-family:'Bebas Neue',sans-serif;font-size:clamp(44px,4.4vw,64px);line-height:1;color:var(--paper)}
+.stat .num.cyan{color:var(--cyan)}
+.stat .lbl{font-size:12.5px;font-weight:600;letter-spacing:.08em;text-transform:uppercase;color:var(--mute);margin-top:8px}
+@media(max-width:760px){.stats{grid-template-columns:1fr 1fr;gap:24px}}
+
+/* ---------- audience photo cards (Martell style) ---------- */
+.aud-head{text-align:center;margin-bottom:44px}
+.aud-head .sec-intro{margin-left:auto;margin-right:auto}
+.aud-cards{display:grid;grid-template-columns:repeat(3,1fr);gap:20px}
+.aud-card{
+  position:relative;border-radius:14px;overflow:hidden;min-height:400px;
+  display:flex;flex-direction:column;justify-content:flex-end;
+  background:var(--panel);
+}
+.aud-card img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;transition:transform .5s}
+.aud-card:hover img{transform:scale(1.04)}
+.aud-card::after{
+  content:"";position:absolute;inset:0;
+  background:linear-gradient(180deg,rgba(6,9,12,.1) 30%,rgba(6,9,12,.92) 78%);
+}
+.aud-card .body{position:relative;z-index:2;padding:26px}
+.aud-card h3{margin-bottom:10px}
+.aud-card p{color:rgba(255,255,255,.75);font-size:14px;margin-bottom:18px}
+@media(max-width:900px){.aud-cards{grid-template-columns:1fr}.aud-card{min-height:320px}}
+
+/* ---------- story (photo background) ---------- */
+.story{
+  position:relative;
+  background:var(--navy);
+  overflow:hidden;
+}
+.story-bgimg{
+  position:absolute;inset:0;
+}
+.story-bgimg img{width:100%;height:100%;object-fit:cover;opacity:.28;object-position:center 30%}
+.story-bgimg::after{
+  content:"";position:absolute;inset:0;
+  background:linear-gradient(90deg,rgba(11,17,24,.97) 25%,rgba(11,17,24,.55) 70%,rgba(11,17,24,.35));
+}
+.story-inner{position:relative;z-index:2;max-width:600px}
+.story-inner h2{margin-bottom:26px}
+.story-inner p{color:rgba(255,255,255,.78);margin-bottom:16px;font-size:15.5px}
+.pullquote{
+  border-left:3px solid var(--cyan);padding:4px 0 4px 22px;margin:28px 0;
+  font-family:'Bebas Neue',sans-serif;text-transform:uppercase;letter-spacing:.02em;
+  font-size:clamp(24px,2.4vw,32px);line-height:1.05;color:var(--cyan);
+}
+.story-inner .pill{margin-top:14px}
+
+/* ---------- podcast ---------- */
+.pod-grid{display:grid;grid-template-columns:.9fr 1.1fr;gap:56px;align-items:center;margin-top:48px}
+.player{
+  background:var(--panel);border:1px solid var(--line);border-radius:16px;padding:28px;
+  box-shadow:0 30px 60px rgba(0,0,0,.45);
+}
+.player-top{display:flex;gap:18px;align-items:center}
+.cover-art{width:96px;height:96px;flex-shrink:0;border-radius:12px;overflow:hidden}
+.cover-art img{width:100%;height:100%;object-fit:cover}
+.player-title{font-weight:700;font-size:15px}
+.player-sub{color:var(--mute);font-size:12.5px;margin-top:4px}
+.badges{display:flex;gap:8px;margin-top:12px;flex-wrap:wrap}
+.badge{
+  font-size:10.5px;font-weight:600;letter-spacing:.08em;text-transform:uppercase;
+  color:var(--mute);border:1px solid var(--line);border-radius:999px;padding:4px 12px;
+}
+.progress{margin-top:24px}
+.bar{height:4px;background:rgba(255,255,255,.12);border-radius:99px;overflow:hidden}
+.bar i{display:block;height:100%;width:36%;background:var(--cyan);border-radius:99px}
+.times{display:flex;justify-content:space-between;margin-top:8px;font-size:11.5px;color:var(--mute)}
+.controls{display:flex;align-items:center;gap:18px;margin-top:20px}
+.play{
+  width:48px;height:48px;border-radius:50%;background:var(--cyan);border:none;
+  display:flex;align-items:center;justify-content:center;cursor:pointer;transition:background .2s;
+}
+.play:hover{background:#2ecdff}
+.play::after{content:"";border-left:13px solid var(--ink);border-top:8px solid transparent;border-bottom:8px solid transparent;margin-left:3px}
+.ctrl{color:var(--mute);font-size:18px}
+.episodes{border-top:1px solid var(--line)}
+.ep{display:grid;grid-template-columns:48px 1fr;gap:18px;padding:22px 0;border-bottom:1px solid var(--line)}
+.ep .epnum{font-family:'Bebas Neue',sans-serif;font-size:22px;color:var(--cyan);padding-top:1px}
+.ep .eptitle{font-weight:600;font-size:15.5px}
+.ep .epsub{color:var(--mute);font-size:13.5px;margin-top:5px}
+.episodes + .pill{margin-top:28px}
+@media(max-width:900px){.pod-grid{grid-template-columns:1fr}}
+
+/* ---------- books ---------- */
+.books{background:#000}
+.book-row{display:grid;grid-template-columns:1fr 1fr;gap:56px;align-items:center}
+.book-row + .book-row{margin-top:72px}
+.book-row .cover{
+  max-width:300px;margin:0 auto;
+  border-radius:4px 10px 10px 4px;overflow:hidden;
+  box-shadow:0 30px 60px rgba(0,0,0,.6);
+  transform:rotate(1.5deg);transition:transform .3s;
+}
+.book-row .cover:hover{transform:rotate(0)}
+.book-row .cover img{width:100%}
+.book-row h3{font-size:clamp(30px,3.2vw,42px);margin-bottom:14px}
+.book-row .bsub{font-weight:600;font-size:14.5px;margin-bottom:14px;color:var(--paper)}
+.book-row p{color:var(--mute);font-size:14.5px;margin-bottom:24px}
+@media(max-width:820px){.book-row{grid-template-columns:1fr}.book-row .cover{max-width:230px}}
+
+/* ---------- booking (speaking, photo bg) ---------- */
+.booking{position:relative;overflow:hidden;padding:110px 0}
+.booking-bg{position:absolute;inset:0}
+.booking-bg img{width:100%;height:100%;object-fit:cover}
+.booking-bg::after{
+  content:"";position:absolute;inset:0;
+  background:linear-gradient(90deg,rgba(6,9,12,.96) 20%,rgba(6,9,12,.72) 60%,rgba(6,9,12,.45));
+}
+.booking-inner{position:relative;z-index:2;max-width:620px}
+.booking-inner h2{margin-bottom:18px}
+.booking-inner .sec-intro{color:rgba(255,255,255,.75)}
+.checks{display:flex;flex-wrap:wrap;gap:10px 26px;margin:28px 0;font-size:13px;font-weight:600;color:rgba(255,255,255,.85)}
+.checks span::before{content:"✓";color:var(--cyan);margin-right:8px}
+.org-note{
+  border-left:3px solid var(--cyan);padding:2px 0 2px 20px;margin:0 0 34px;
+  font-size:14.5px;color:rgba(255,255,255,.8);
+}
+.booking-ctas{display:flex;gap:14px;flex-wrap:wrap}
+
+/* ---------- footer ---------- */
+footer{background:var(--navy);padding:64px 0 40px}
+.foot-social{display:flex;justify-content:center;gap:44px;flex-wrap:wrap;margin-bottom:44px}
+.soc{display:flex;align-items:center;gap:12px;text-decoration:none}
+.soc .ic{
+  width:44px;height:44px;border-radius:50%;background:var(--paper);color:var(--ink);
+  display:flex;align-items:center;justify-content:center;
+  font-family:'Bebas Neue',sans-serif;font-size:17px;letter-spacing:.03em;
+  transition:background .2s;
+}
+.soc:hover .ic{background:var(--cyan)}
+.soc .nm{font-weight:600;font-size:14px}
+.soc .ct{color:var(--mute);font-size:12px}
+.foot-mid{text-align:center;margin-bottom:44px}
+.foot-mid .logo{font-size:30px}
+.foot-mid p{color:var(--mute);font-size:14px;margin-top:8px}
+.foot-mid a{color:var(--cyan);text-decoration:none;font-weight:600}
+.foot-base{
+  border-top:1px solid var(--line);padding-top:26px;
+  text-align:center;color:var(--mute);font-size:12.5px;
+}
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <div class="wrap nav-inner">
+    <a class="logo" href="#top">ERIC <span>COFFIE</span></a>
+    <div class="nav-links">
+      <a href="#audience">Who It's For</a>
+      <a href="#story">Story</a>
+      <a href="#podcast">Podcast</a>
+      <a href="#books">Books</a>
+      <a class="pill pill-cyan" href="#book">Book Eric</a>
+    </div>
+  </div>
+</nav>
+
+<!-- HERO -->
+<header class="hero" id="top">
+  <div class="wrap hero-grid">
+    <div>
+      <p class="eyebrow">Keynote speaker, author, GovCon coach and…</p>
+      <h1>Teaching everyday people to win <em>extraordinary contracts.</em></h1>
+      <p class="lede">Eric Coffie went from a construction company weeks away from collapse to winning multi-million dollar federal contracts — then gave the entire playbook away for free. Put him in front of your audience and they leave knowing exactly what to do Monday morning.</p>
+      <div class="hero-ctas">
+        <a class="pill pill-cyan" href="#book">Book Eric to Speak</a>
+        <a class="pill pill-outline" href="#story">His Story</a>
+      </div>
+    </div>
+    <div class="hero-photo">
+      <img src="images/eric-hero.png" alt="Eric Coffie">
+    </div>
+  </div>
+</header>
+
+<!-- AGENCY MARQUEE -->
+<div class="marquee" aria-hidden="true">
+  <div class="marquee-track">
+    <div class="marquee-set">
+      <span>FEMA</span><i></i><span>VA</span><i></i><span>DHS</span><i></i><span>USACE</span><i></i><span>Navy</span><i></i><span>Air Force</span><i></i><span>DLA</span><i></i><span>Dept. of State</span><i></i>
+    </div>
+    <div class="marquee-set">
+      <span>FEMA</span><i></i><span>VA</span><i></i><span>DHS</span><i></i><span>USACE</span><i></i><span>Navy</span><i></i><span>Air Force</span><i></i><span>DLA</span><i></i><span>Dept. of State</span><i></i>
+    </div>
+  </div>
+</div>
+
+<!-- STATS -->
+<section style="padding-top:64px;padding-bottom:64px">
+  <div class="wrap">
+    <div class="stats">
+      <div class="stat"><div class="num cyan">$100M+</div><div class="lbl">In contracts won by his students</div></div>
+      <div class="stat"><div class="num">250K+</div><div class="lbl">Podcast listens</div></div>
+      <div class="stat"><div class="num">91</div><div class="lbl">Countries watching his content</div></div>
+      <div class="stat"><div class="num">#5</div><div class="lbl">Creator worldwide in procurement</div></div>
+    </div>
+  </div>
+</section>
+
+<!-- AUDIENCE -->
+<section id="audience">
+  <div class="wrap">
+    <div class="aud-head">
+      <h2>For the rooms ready <span class="cyan">to win…</span></h2>
+      <p class="sec-intro">…who keep hearing "go get government contracts" and have never been told how.</p>
+    </div>
+    <div class="aud-cards">
+      <div class="aud-card">
+        <img src="images/audience-conferences.jpg" alt="Conference audience">
+        <div class="body">
+          <h3>Conferences &amp; Associations</h3>
+          <p>Small business owners who need the first three moves — not a motivational speech.</p>
+          <a class="pill pill-white" href="#book">Learn More</a>
+        </div>
+      </div>
+      <div class="aud-card">
+        <img src="images/audience-agencies.jpg" alt="Agency panel event">
+        <div class="body">
+          <h3>Agencies &amp; APEX</h3>
+          <p>OSDBU industry days, APEX Accelerator programs, matchmaking events. Eric speaks the industry side fluently — and fills the room.</p>
+          <a class="pill pill-white" href="#book">Learn More</a>
+        </div>
+      </div>
+      <div class="aud-card">
+        <img src="images/audience-primes.jpg" alt="Corporate networking event">
+        <div class="body">
+          <h3>Primes &amp; Corporates</h3>
+          <p>Supplier diversity programs building a real subcontractor bench. Eric coaches suppliers on being findable, qualified, and easy to team with.</p>
+          <a class="pill pill-white" href="#book">Learn More</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- STORY -->
+<section id="story" class="story">
+  <div class="story-bgimg"><img src="images/story-bg.jpg" alt=""></div>
+  <div class="wrap">
+    <div class="story-inner">
+      <h2>He's not a professor. He's a grinder who figured it out.</h2>
+      <p>In 2007 the market crashed and took his construction company with it. Weeks from going under. Bad credit, no connections, no money. What saved him was a friend who understood how the federal government actually buys — and was willing to explain it.</p>
+      <p>What he found made him angry. The information wasn't hard. It was hoarded. Friends of his lost businesses the government would happily have paid them to keep running — if anyone had told them how to ask.</p>
+      <p class="pullquote">"When I won a $4 million contract, I quit traveling and started sharing everything I learned."</p>
+      <p>In 2012 he founded Evankoff Construction — steel erection, building airplane hangars for federal agencies. In 2017 he pointed a camera at himself and started giving away 99% of what he knew for free. That became GovCon Giants: a 501(c)(3), a top-ranked podcast, a training platform, and an AI market intelligence tool. The stated goal: help 200 companies reach $5 million each — a billion dollars of impact.</p>
+      <a class="pill pill-white" href="#book">Book Eric</a>
+    </div>
+  </div>
+</section>
+
+<!-- PODCAST -->
+<section id="podcast">
+  <div class="wrap">
+    <p class="eyebrow">The podcast</p>
+    <h2>GovCon Giants, <span class="cyan">in your feed.</span></h2>
+    <div class="pod-grid">
+      <div class="player">
+        <div class="player-top">
+          <div class="cover-art">
+            <img src="images/podcast-cover.png" alt="GovCon Giants podcast cover">
+          </div>
+          <div>
+            <div class="player-title">GovCon Giants Podcast</div>
+            <div class="player-sub">with Eric Coffie</div>
+            <div class="badges">
+              <span class="badge">Apple</span>
+              <span class="badge">Spotify</span>
+              <span class="badge">YouTube</span>
+            </div>
+          </div>
+        </div>
+        <div class="progress">
+          <div class="bar"><i></i></div>
+          <div class="times"><span>18:42</span><span>52:10</span></div>
+        </div>
+        <div class="controls">
+          <span class="ctrl">⏮</span>
+          <button class="play" aria-label="Play"></button>
+          <span class="ctrl">⏭</span>
+        </div>
+      </div>
+      <div>
+        <div class="episodes">
+          <div class="ep">
+            <span class="epnum">304</span>
+            <div>
+              <div class="eptitle">From Zero GovCon Experience to Buying a 20-Year Federal Contractor</div>
+              <div class="epsub">with Mario Antwine — how a finance guy acquired an eight-figure federal contractor sight unseen</div>
+            </div>
+          </div>
+          <div class="ep">
+            <span class="epnum">—</span>
+            <div>
+              <div class="eptitle">The Real Cost of CMMC Compliance</div>
+              <div class="epsub">with Katie Arrington, the architect behind CMMC — killing the $250,000 myth</div>
+            </div>
+          </div>
+          <div class="ep">
+            <span class="epnum">246</span>
+            <div>
+              <div class="eptitle">DLA Secrets: How to Win Big in Federal Contracting</div>
+              <div class="epsub">with Kevie Hendrix — inside the Defense Logistics Agency</div>
+            </div>
+          </div>
+        </div>
+        <a class="pill pill-outline" href="https://govcongiants.libsyn.com" target="_blank" rel="noopener">Browse All Episodes</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- BOOKS -->
+<section id="books" class="books">
+  <div class="wrap">
+    <div class="book-row">
+      <div>
+        <p class="eyebrow">Get the reference book</p>
+        <h3>Billion Dollar Playbook</h3>
+        <p class="bsub">72 Websites for Massive Scaling in the Federal Marketplace</p>
+        <p>Seventy-two places where federal opportunity data actually lives — forecasts, expiring contracts, subcontracting flows, agency portals — and what to do with each one.</p>
+        <a class="pill pill-white" href="#book">Get The Book</a>
+      </div>
+      <div class="cover">
+        <img src="images/book-billion-dollar-playbook.png" alt="Billion Dollar Playbook book cover">
+      </div>
+    </div>
+    <div class="book-row">
+      <div class="cover">
+        <img src="images/book-govcon-launch.jpg" alt="GovCon Launch book cover">
+      </div>
+      <div>
+        <p class="eyebrow">Get the starting point</p>
+        <h3>GovCon Launch</h3>
+        <p class="bsub">A Complete Guide to Launching Your Government Contracting Business</p>
+        <p>Dismantles the false narratives around federal contracts and lays out a framework for landing a first government client using free resources. Includes Eric's own journey — and the mistakes in it.</p>
+        <a class="pill pill-white" href="#book">Get The Book</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- BOOKING -->
+<section id="book" class="booking">
+  <div class="booking-bg"><img src="images/audience-conferences.jpg" alt=""></div>
+  <div class="wrap">
+    <div class="booking-inner">
+      <p class="eyebrow">Speaking</p>
+      <h2>Put Eric <span class="cyan">on your stage.</span></h2>
+      <p class="sec-intro">Keynotes, workshops, panels, firesides, and live GovCon Giants podcast recordings. Tell us the date, the audience, and what you want them walking away able to do. You'll get a reply within two business days.</p>
+      <div class="checks">
+        <span>Dates open 2026–2027</span>
+        <span>In-person &amp; virtual</span>
+        <span>Fees vary by event — inquire</span>
+        <span>Speaker kit on request</span>
+      </div>
+      <p class="org-note"><b>For organizers:</b> Eric promotes the events he speaks at across all of his channels — 53K+ YouTube subscribers, 250K+ podcast listens, 24K+ LinkedIn followers — before, during, and after. A live podcast recording on site becomes content your event keeps.</p>
+      <div class="booking-ctas">
+        <a class="pill pill-cyan" href="mailto:service@govcongiants.com?subject=Speaking%20request%20for%20Eric%20Coffie">Request Availability</a>
+        <a class="pill pill-white" href="#">Download One-Sheet</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="wrap">
+    <div class="foot-social">
+      <a class="soc" href="https://youtube.com/c/EricCoffie" target="_blank" rel="noopener">
+        <span class="ic">YT</span>
+        <span><span class="nm">YouTube</span><br><span class="ct">53K+ Subscribers</span></span>
+      </a>
+      <a class="soc" href="https://govcongiants.libsyn.com" target="_blank" rel="noopener">
+        <span class="ic">GCG</span>
+        <span><span class="nm">Podcast</span><br><span class="ct">250K+ Listens</span></span>
+      </a>
+      <a class="soc" href="https://linkedin.com/in/ecoffie" target="_blank" rel="noopener">
+        <span class="ic">in</span>
+        <span><span class="nm">LinkedIn</span><br><span class="ct">24K+ Followers</span></span>
+      </a>
+    </div>
+    <div class="foot-mid">
+      <a class="logo" href="#top">ERIC <span>COFFIE</span></a>
+      <p>Speaking inquiries: <a href="mailto:service@govcongiants.com?subject=Speaking%20request%20for%20Eric%20Coffie">service@govcongiants.com</a></p>
+    </div>
+    <div class="foot-base">© 2026 GovCon Giants. All rights reserved.</div>
+  </div>
+</footer>
+
+</body>
+</html>
