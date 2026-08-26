@@ -1,0 +1,23 @@
+---
+description: Redirect priority and absolute paths for static HTML
+globs: vercel.json,next.config.ts,public/**
+alwaysApply: false
+---
+
+# Routing
+
+Order:
+
+1. `vercel.json` redirects
+2. `next.config.ts` redirects/rewrites
+3. Next.js App Router
+4. Static files in `public/`
+
+Static HTML in `public/` must use absolute paths.
+
+- Use `/proposal-bootcamp/2-upsell.html`
+- Do not use `2-upsell.html` (breaks without a trailing slash)
+
+`govcongiants.org` and www hosts 308 to `govcongiants.com`. Do not remove those redirects. Libsyn already shipped `.org` links.
+
+Do not describe `/bootcamp`, `/free-course`, or `/proposal-bootcamp` as live funnels without reading `vercel.json`. `/opp` is defined in `next.config.ts` (currently `getmindy.ai/opportunity-hunter`).

@@ -1,0 +1,38 @@
+---
+description: GovCon Funnels repo fences (identity, hybrid cron, commit pause, worktrees)
+alwaysApply: true
+---
+
+# This repo
+
+Marketing site for **govcongiants.com** (the $82B homepage). Not getmindy.ai.
+
+When a `~/CLAUDE.md` Market Assassin rule conflicts with `package.json`, `vercel.json`, `tsconfig.json`, CI, or this file, those repo files win. `~/CLAUDE.md` auto-load is not a documented Cursor guarantee. Do not make correctness depend on it.
+
+## Authorization
+
+Do not commit, push, open or merge a PR, or deploy unless Eric explicitly asked for that action in the current conversation. Do not auto-ship.
+
+Non-trivial work in `.claude/worktrees/<short-slug>` on a `category/kebab` branch. Do not commit from a shared checkout on `main`.
+
+## Cron (hybrid)
+
+Two Vercel crons in `vercel.json`: `/api/cron/seo-report` and `/api/cron/synthetic-checks`. Some event/marketing routes in this tree are scheduled by Market Assassin `cron_jobs` rows (see `mindy-reignite` and `mindy-day-reminders`). Not "all Vercel." Not "never Vercel." No `/api/cron/dispatch` and no `npm run migrate` here.
+
+## Sub-apps
+
+Do not re-include `govcon-giants-site/` in root tsconfig/eslint. Do not add another TypeScript app subdirectory. Keep `dashboard/` and `govcon-crm2/` on their own toolchains. Podcast live host is unresolved. See `CLAUDE.md`.
+
+## Verify
+
+After a production deploy Eric asked for, `POST /api/command-center/verify`. Read hosts from `src/lib/synthetic.ts`. Do not assume `app.govcongiants.org` or `.com`.
+
+## Numbers and MA imports
+
+Do not invent SAM/USASpending figures. Do not import `market-assassin/src/lib/marketing-stats.ts`. Do not freeze test or guide counts in prose.
+
+## Email
+
+Dual standard. Nurture is Brunson (`src/lib/mindy-reignite-emails.mjs`). Event/transactional HTML is `src/lib/email.ts`. Do not collapse them.
+
+Public `.org` → `.com` redirects are forever.
