@@ -1,0 +1,22 @@
+---
+description: Brunson plain-letter style for list and nurture emails
+globs: src/lib/mindy-reignite-emails.mjs,scripts/mindy-reignite*.mjs
+alwaysApply: false
+---
+
+# Nurture email (Brunson plain-letter)
+
+Applies to list and nurture sends. Helpers live in `src/lib/mindy-reignite-emails.mjs` (`B`, `U`, `BU`, `LIST`, `LINK`, `PS`, `shell`). Reuse them. Do not rebuild a template.
+
+This rule does not apply to `src/lib/email.ts` (event and transactional HTML).
+
+Approved 2026-07-01.
+
+- White background, black text (#222), system sans-serif. No gradient header, logo banner, colored pill buttons, or graphics.
+- Signed personally: `— Eric`. A letter from a person, not a broadcast.
+- Heavy inline emphasis. `<strong>` for key phrases, underline for single words, bold+underline for the gut-punch lines.
+- Index lists with `→` arrows (or `*`), 2–3 short items, each with a bolded keyword. Not graphics or bullets.
+- P.S. line after the signature (often most-read). Make it a loss-reframe stinger.
+- CTA is an underlined text link (`→ Finish my profile`), not a button, plus tiny gray "(takes about two minutes)" under it.
+- Voice: fear-of-loss / curiosity, short paragraphs, one idea per line.
+- Why: reads personal, higher engagement, better inbox placement. Designed HTML trips Promotions/spam. Plain letters land in Primary.

@@ -1,0 +1,16 @@
+---
+description: SAM.gov Entity API v3 required parameters
+globs: src/lib/sam/**
+alwaysApply: false
+---
+
+# SAM.gov Entity API v3
+
+Required or the API returns empty `entityData`:
+
+- `samRegistered=Yes`
+- `page=0` (0-indexed pagination, not 1-indexed)
+
+Do not pass comma-separated NAICS codes (returns 0 results). Make parallel requests per code, then merge and dedupe.
+
+Canonical implementation: `src/lib/sam/entity-api.ts`. Longer notes: `tasks/lessons.md`.
