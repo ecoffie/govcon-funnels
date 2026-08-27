@@ -1,6 +1,7 @@
 import { NextRequest } from 'next/server';
 import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest';
 import { getAdminPassword, isAuthorized } from '@/lib/admin-auth';
+import { getHubzoneRegistrations } from '@/lib/hubzone-registrations';
 import { GET as hubzoneDashboardGET } from '@/app/api/hubzone/registrations/route';
 import { GET as hubzoneReminderGET } from '@/app/api/admin/hubzone-reminder/route';
 import { GET as hubzoneCronGET } from '@/app/api/cron/hubzone-reminders/route';
@@ -52,6 +53,7 @@ beforeEach(() => {
   for (const key of ENV_KEYS) {
     delete process.env[key];
   }
+  vi.mocked(getHubzoneRegistrations).mockClear();
 });
 
 afterEach(() => {
@@ -74,14 +76,28 @@ describe('admin auth boundaries', () => {
     expect(isAuthorized('real-admin-secret')).toBe(true);
   });
 
-  it('keeps the shareable tracker password limited to the read-only HUBZone dashboard', async () => {
+  it('returns 404 for the retired HUBZone registrations dashboard even with a tracker placeholder', async () => {
     process.env.HUBZONE_TRACKER_PASSWORD = 'tracker-secret';
 
     const res = await hubzoneDashboardGET(
       request('https://govcongiants.com/api/hubzone/registrations?password=tracker-secret')
     );
 
-    expect(res.status).toBe(200);
+    expect(res.status).toBe(404);
+    expect(getHubzoneRegistrations).not.toHaveBeenCalled();
+  });
+
+  it('returns 404 for the retired HUBZone registrations dashboard even with an admin placeholder', async () => {
+    process.env.PURCHASES_ADMIN_PASSWORD = 'real-admin-secret';
+
+    const res = await hubzoneDashboardGET(
+      request('https://govcongiants.com/api/hubzone/registrations', {
+        'x-admin-password': 'real-admin-secret',
+      })
+    );
+
+    expect(res.status).toBe(404);
+    expect(getHubzoneRegistrations).not.toHaveBeenCalled();
   });
 
   it('rejects the shareable tracker password on the manual HUBZone send route', async () => {
