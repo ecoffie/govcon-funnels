@@ -357,6 +357,7 @@
                 <input type="email" name="email" class="form-input full" placeholder="Email Address" required>
                 <input type="tel" name="phone" class="form-input full" placeholder="Phone Number">
                 <button type="submit" class="form-btn">Get Free Proposal Resources →</button>
+                <div id="leadFormError" style="display:none; margin-top: 14px; color: #f87171; font-size: 14px; font-weight: 600;"></div>
             </form>
         </div>
     </section>
@@ -443,9 +444,14 @@
         document.getElementById('leadForm').addEventListener('submit', async function(e) {
             e.preventDefault();
             const submitBtn = this.querySelector('button[type="submit"]');
+            const errorBox = document.getElementById('leadFormError');
             const originalText = submitBtn.textContent;
             submitBtn.textContent = 'Processing...';
             submitBtn.disabled = true;
+            if (errorBox) {
+                errorBox.style.display = 'none';
+                errorBox.textContent = '';
+            }
 
             const firstName = this.querySelector('input[name="firstName"]').value;
             const lastName = this.querySelector('input[name="lastName"]').value;
@@ -461,7 +467,7 @@
 
             // Send to API (GoHighLevel webhook)
             try {
-                await fetch('/api/lead', {
+                const response = await fetch('/api/lead', {
                     method: 'POST',
                     headers: { 'Content-Type': 'application/json' },
                     body: JSON.stringify({
@@ -474,8 +480,27 @@
                         tags: ['feb-proposal-bootcamp']
                     })
                 });
+                if (!response.ok) {
+                    let message = response.status === 429
+                        ? 'Too many signup attempts. Please wait a minute and try again.'
+                        : 'We could not save your signup. Please try again.';
+                    try {
+                        const body = await response.json();
+                        if (body && typeof body.error === 'string' && body.error.trim()) {
+                            message = body.error.trim();
+                        }
+                    } catch (parseErr) {}
+                    throw new Error(message);
+                }
             } catch (err) {
-                console.log('API error (continuing anyway):', err);
+                console.log('API error:', err);
+                if (errorBox) {
+                    errorBox.textContent = err && err.message ? err.message : 'We could not save your signup. Please try again.';
+                    errorBox.style.display = 'block';
+                }
+                submitBtn.textContent = originalText;
+                submitBtn.disabled = false;
+                return;
             }
 
             // Redirect to upsell page
