@@ -3,6 +3,8 @@
 import { useState, useEffect } from 'react';
 import Link from 'next/link';
 
+const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL || 'https://funnels.govcongiants.org';
+
 type Category = 'all' | 'videos' | 'templates' | 'contacts' | 'tools';
 
 interface Resource {
@@ -560,8 +562,10 @@ export default function ResourceLibrary() {
                           {resource.gated ? (
                             unlocked && resource.downloadFile ? (
                               <a
-                                href={`/handouts/${resource.downloadFile}`}
-                                download
+                                href={`${SITE_URL}/handouts/${resource.downloadFile}`}
+                                download={resource.downloadFile}
+                                target="_blank"
+                                rel="noopener noreferrer"
                                 className="px-6 py-3 bg-green-600 hover:bg-green-500 text-white rounded-lg font-semibold transition"
                               >
                                 {resource.buttonText}
