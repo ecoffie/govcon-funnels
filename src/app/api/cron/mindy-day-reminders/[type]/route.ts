@@ -42,6 +42,7 @@ import { extractPassword, isAuthorized } from '@/lib/admin-auth';
 const FALLBACK_JOIN_URL = 'https://govcongiants.com/mindy-launch';
 const SEND_DELAY_MS = 250;
 const sleep = (ms: number) => new Promise((r) => setTimeout(r, ms));
+const IDEMPOTENCY_TTL_SECONDS = 60 * 60 * 48;
 
 export const runtime = 'nodejs';
 export const dynamic = 'force-dynamic';
@@ -52,19 +53,38 @@ export const maxDuration = 300;
  * SAME type. Keyed per type with a 2-day TTL. Fails OPEN (returns true) if Redis
  * is down — better a possible dup than a missed send.
  */
+function getIdempotencyRedis(): Redis | null {
+  const url = process.env.STORAGE_KV_REST_API_URL || process.env.KV_REST_API_URL;
+  const token = process.env.STORAGE_KV_REST_API_TOKEN || process.env.KV_REST_API_TOKEN;
+  if (!url || !token) return null;
+  return new Redis({ url, token });
+}
+
+function idempotencyKey(type: string): string {
+  return `mindy-day:reminder-sent:${type}`;
+}
+
 async function claimSend(type: string): Promise<boolean> {
-  const url = process.env.KV_REST_API_URL;
-  const token = process.env.KV_REST_API_TOKEN;
-  if (!url || !token) return true;
+  const redis = getIdempotencyRedis();
+  if (!redis) return true;
   try {
-    const redis = new Redis({ url, token });
-    const res = await redis.set(`mindy-day:reminder-sent:${type}`, new Date().toISOString(), {
+    const res = await redis.set(idempotencyKey(type), new Date().toISOString(), {
       nx: true,
-      ex: 60 * 60 * 48,
+      ex: IDEMPOTENCY_TTL_SECONDS,
     });
     return res === 'OK';
   } catch {
     return true; // fail open
+  }
+}
+
+async function releaseSend(type: string): Promise<void> {
+  const redis = getIdempotencyRedis();
+  if (!redis) return;
+  try {
+    await redis.del(idempotencyKey(type));
+  } catch {
+    // If Redis is unavailable, the original claim would also have failed open.
   }
 }
 
@@ -103,6 +123,7 @@ export async function GET(req: NextRequest, ctx: { params: Promise<{ type: strin
   const dry = searchParams.get('dry') === '1';
   const force = searchParams.get('force') === '1'; // bypass the idempotency guard
   const joinOverride = searchParams.get('join')?.trim() || null;
+  let claimed = false;
 
   if (!VALID_TYPES.includes(type)) {
     return NextResponse.json(
@@ -140,22 +161,16 @@ export async function GET(req: NextRequest, ctx: { params: Promise<{ type: strin
       );
     }
 
-    // Idempotency: cron + manual backup can both call this; only the first wins.
-    if (!force) {
-      const claimed = await claimSend(type);
-      if (!claimed) {
-        return NextResponse.json(
-          { mode: 'skipped', type, reason: 'already sent (idempotency guard); use &force=1 to override' },
-          { headers: { 'Cache-Control': 'no-store' } }
-        );
-      }
+    if (recipients.length === 0) {
+      return NextResponse.json(
+        {
+          error: 'Refusing to send: no recipients loaded from Supabase.',
+          type,
+          recipientCount: 0,
+        },
+        { status: 503, headers: { 'Cache-Control': 'no-store' } }
+      );
     }
-
-    // Map the cron type to the send payload: lifetime-* → the offer email at the
-    // right phase; 'live' → ultra-short "we're live"; everything else → reminder.
-    const payloadBase = isLifetime
-      ? { variant: 'lifetime' as const, phase: lifetimePhase }
-      : { variant: (type === 'live' ? 'live' : 'reminder') as 'live' | 'reminder' };
 
     // Send through getmindy.ai's VERIFIED mail.getmindy.ai sender (same as the
     // confirmation email) — NOT the local alerts@govcongiants.com path, which is
@@ -169,6 +184,24 @@ export async function GET(req: NextRequest, ctx: { params: Promise<{ type: strin
         { status: 500, headers: { 'Cache-Control': 'no-store' } }
       );
     }
+
+    // Idempotency: cron + manual backup can both call this; only the first wins.
+    if (!force) {
+      const canSend = await claimSend(type);
+      if (!canSend) {
+        return NextResponse.json(
+          { mode: 'skipped', type, reason: 'already sent (idempotency guard); use &force=1 to override' },
+          { headers: { 'Cache-Control': 'no-store' } }
+        );
+      }
+      claimed = true;
+    }
+
+    // Map the cron type to the send payload: lifetime-* → the offer email at the
+    // right phase; 'live' → ultra-short "we're live"; everything else → reminder.
+    const payloadBase = isLifetime
+      ? { variant: 'lifetime' as const, phase: lifetimePhase }
+      : { variant: (type === 'live' ? 'live' : 'reminder') as 'live' | 'reminder' };
 
     const results: { email: string; ok: boolean; error?: string }[] = [];
     for (const r of recipients) {
@@ -187,19 +220,26 @@ export async function GET(req: NextRequest, ctx: { params: Promise<{ type: strin
     }
 
     const sent = results.filter((r) => r.ok).length;
+    const failed = results.length - sent;
+    if (failed > 0 && claimed) {
+      await releaseSend(type);
+      claimed = false;
+    }
+
     return NextResponse.json(
       {
         mode: 'send',
         type,
         joinUrl,
         sent,
-        failed: results.length - sent,
+        failed,
         total: results.length,
         failures: results.filter((r) => !r.ok),
       },
-      { headers: { 'Cache-Control': 'no-store' } }
+      { status: failed > 0 ? 500 : 200, headers: { 'Cache-Control': 'no-store' } }
     );
   } catch (err) {
+    if (claimed) await releaseSend(type);
     const message = err instanceof Error ? err.message : 'Failed to send Mindy Day reminders';
     return NextResponse.json({ error: message }, { status: 500 });
   }
