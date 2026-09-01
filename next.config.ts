@@ -109,6 +109,24 @@ const nextConfig: NextConfig = {
         destination: "/blog/cmmc-2-compliance-guide",
         permanent: true,
       },
+      // Encore Funding partner tracking link (2026-09-01).
+      // /encore is the short URL published in Encore's own materials and used as
+      // the tracked entry point for the partnership. It previously resolved to a
+      // landing page that was removed in a later cleanup, leaving it to serve the
+      // homepage at HTTP 200 — a silent dead end that no uptime check would flag,
+      // so every click on it was lost. Forward it to the real partner page.
+      // Temporary (307) because the destination may be repointed to a dedicated
+      // qualifying page; query strings (utm_*) are preserved by Next automatically.
+      {
+        source: "/encore",
+        destination: "/encore-funding",
+        permanent: false,
+      },
+      {
+        source: "/encore/:path*",
+        destination: "/encore-funding",
+        permanent: false,
+      },
       // OH landing page → direct to tool (no funnel, tool is ungated)
       {
         source: "/opp",
