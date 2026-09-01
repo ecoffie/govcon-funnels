@@ -369,6 +369,16 @@
       "permanent": true
     },
     {
+      "source": "/encore",
+      "destination": "https://app.govcongiants.org/encore-funding",
+      "permanent": false
+    },
+    {
+      "source": "/encore/",
+      "destination": "https://app.govcongiants.org/encore-funding",
+      "permanent": false
+    },
+    {
       "source": "/encore-funding",
       "destination": "https://app.govcongiants.org/encore-funding",
       "permanent": true
