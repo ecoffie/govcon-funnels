@@ -2,6 +2,7 @@ import Image from 'next/image';
 import LeadForm from '@/components/LeadForm';
 import HubzoneScarcityBanner from '@/components/HubzoneScarcityBanner';
 import JsonLd from '@/components/JsonLd';
+import { FUNDING_DEST } from '@/lib/funding-dest';
 import { generateSeo, SITE_URL } from '@/lib/seo';
 
 export const metadata = generateSeo({
@@ -443,7 +444,7 @@ export default function HubzonePage() {
               </p>
               <p>
                 <a
-                  href="https://encoregov.com/government-contractor-financing"
+                  href={FUNDING_DEST}
                   target="_blank"
                   rel="noopener"
                   className="hover:text-orange-600"

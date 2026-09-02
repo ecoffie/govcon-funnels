@@ -1,3 +1,4 @@
+import { FUNDING_DEST } from '@/lib/funding-dest';
 import type { GuideData } from './index';
 
 export const guide: GuideData = {
@@ -210,7 +211,7 @@ export const guide: GuideData = {
           <li>Test submission process periodically</li>
           <li>Monitor invoice status in system</li>
         </ul>
-        <p>Even a clean invoice still pays on Net-30 to Net-90. To bridge that gap, <a href="https://encoregov.com/govcon-invoice-factoring" rel="noopener">government invoice factoring</a> advances most of the invoice value in days instead of weeks.</p>
+        <p>Even a clean invoice still pays on Net-30 to Net-90. To bridge that gap, <a href="${FUNDING_DEST}" rel="noopener">government invoice factoring</a> advances most of the invoice value in days instead of weeks.</p>
       `,
     },
     {

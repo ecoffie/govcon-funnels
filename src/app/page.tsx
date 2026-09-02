@@ -1,4 +1,5 @@
 import Link from 'next/link';
+import { FUNDING_DEST } from '@/lib/funding-dest';
 import { generateSeo } from '@/lib/seo';
 
 export const metadata = generateSeo({
@@ -559,7 +560,7 @@ export default function Home() {
           <p className="text-slate-600 text-xs mb-4">
             Need working capital for your contracts? Our financing partner{' '}
             <a
-              href="https://encoregov.com/government-contractor-financing"
+              href={FUNDING_DEST}
               target="_blank"
               rel="noopener"
               className="text-slate-400 hover:text-white underline transition"
