@@ -1,3 +1,4 @@
+import { FUNDING_DEST } from '@/lib/funding-dest';
 import type { GuideData } from './index';
 
 export const guide: GuideData = {
@@ -122,7 +123,7 @@ export const guide: GuideData = {
           <li><strong>Find recompete opportunities.</strong> Use our free <a href="/tools/expiring-contracts">Expiring Contracts Finder</a> to identify contracts ending soon in your NAICS code. When an incumbent's contract expires, agencies often look to GSA Schedule holders for the follow-on work.</li>
         </ul>
         <p>The most successful GSA Schedule holders treat their schedule like a business development tool, not a passive listing. Invest time weekly in monitoring eBuy, updating your catalog, and building agency relationships. The companies that win consistently on GSA are the ones that actively market their schedule capabilities.</p>
-        <p>Won a large GSA order but need to fund delivery before the agency pays? <a href="https://encoregov.com/financing/gsa-schedule" rel="noopener">GSA Schedule financing</a> advances up to 90% of your invoice value so you can perform without a cash crunch.</p>
+        <p>Won a large GSA order but need to fund delivery before the agency pays? <a href="${FUNDING_DEST}" rel="noopener">GSA Schedule financing</a> advances up to 90% of your invoice value so you can perform without a cash crunch.</p>
       `,
     },
     {

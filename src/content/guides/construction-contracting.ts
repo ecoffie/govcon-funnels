@@ -1,3 +1,4 @@
+import { FUNDING_DEST } from '@/lib/funding-dest';
 import type { GuideData } from './index';
 
 export const guide: GuideData = {
@@ -124,7 +125,7 @@ export const guide: GuideData = {
           <li>Helps small businesses obtain bonding</li>
           <li>Applies to construction and service contracts</li>
         </ul>
-        <p>Construction ties up cash early — payroll, materials, and mobilization hit long before the government pays. <a href="https://encoregov.com/financing/construction-contract-factoring" rel="noopener">Construction contract factoring</a> advances your progress-payment invoices so you can fund the next phase.</p>
+        <p>Construction ties up cash early — payroll, materials, and mobilization hit long before the government pays. <a href="${FUNDING_DEST}" rel="noopener">Construction contract factoring</a> advances your progress-payment invoices so you can fund the next phase.</p>
       `,
     },
     {
