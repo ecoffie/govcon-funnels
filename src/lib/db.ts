@@ -37,6 +37,8 @@ const k = {
   events:   (id: string) => `${NS}:events:${id}`,
 };
 
+export type RecurrenceType = 'none' | 'daily' | 'weekly' | 'biweekly' | 'monthly';
+
 export interface Task {
   id: string;
   task_id: string;
@@ -54,6 +56,7 @@ export interface Task {
   created_at: string;
   updated_at: string;
   context: TaskContext;
+  recurrence: RecurrenceType;
 }
 
 export interface Project {
@@ -93,6 +96,12 @@ function normalizeContext(input: unknown): TaskContext {
   return input === 'delivery' ? 'delivery' : 'marketing';
 }
 
+function normalizeRecurrence(input: unknown): RecurrenceType {
+  const v = String(input ?? '').toLowerCase();
+  if (['daily', 'weekly', 'biweekly', 'monthly'].includes(v)) return v as RecurrenceType;
+  return 'none';
+}
+
 function mapTask(h: Record<string, unknown>): Task {
   let tags: string[] = [];
   if (Array.isArray(h.tags)) {
@@ -117,7 +126,39 @@ function mapTask(h: Record<string, unknown>): Task {
     created_at: String(h.created_at ?? ''),
     updated_at: String(h.updated_at ?? ''),
     context: normalizeContext(h.context),
+    recurrence: normalizeRecurrence(h.recurrence),
   };
+}
+
+/** Compute next due date for a recurring task. */
+export function getNextRecurrenceDate(
+  dueDate: string | null,
+  recurrence: RecurrenceType
+): string | null {
+  if (recurrence === 'none') return null;
+  const d = dueDate ? new Date(dueDate) : new Date();
+  if (Number.isNaN(d.getTime())) return null;
+  switch (recurrence) {
+    case 'daily':
+      d.setDate(d.getDate() + 1);
+      break;
+    case 'weekly':
+      d.setDate(d.getDate() + 7);
+      break;
+    case 'biweekly':
+      d.setDate(d.getDate() + 14);
+      break;
+    case 'monthly': {
+      const origDay = d.getDate();
+      d.setMonth(d.getMonth() + 1);
+      const lastDay = new Date(d.getFullYear(), d.getMonth() + 1, 0).getDate();
+      d.setDate(Math.min(origDay, lastDay));
+      break;
+    }
+    default:
+      return null;
+  }
+  return d.toISOString().slice(0, 10);
 }
 
 function mapProject(h: Record<string, unknown>): Project {
@@ -229,6 +270,7 @@ export async function createTask(data: {
   estimate?: string | null;
   tags?: string[] | null;
   context?: TaskContext;
+  recurrence?: RecurrenceType | string | null;
 }): Promise<Task> {
   const r = getRedis();
   const id = crypto.randomUUID();
@@ -241,6 +283,7 @@ export async function createTask(data: {
   const projectId = data.project_id || (await ensureDefaultProject(context));
   const now = new Date().toISOString();
   const status = data.status || 'open';
+  const recurrence = normalizeRecurrence(data.recurrence);
   const hash: Record<string, string> = {
     id,
     task_id,
@@ -256,6 +299,7 @@ export async function createTask(data: {
     estimate: data.estimate ?? '',
     tags: JSON.stringify(data.tags ?? []),
     context,
+    recurrence,
     created_at: now,
     updated_at: now,
   };
@@ -280,6 +324,7 @@ export async function updateTask(
     tags?: string[] | null;
     status?: string;
     context?: TaskContext;
+    recurrence?: RecurrenceType | string | null;
   }
 ): Promise<Task | null> {
   const r = getRedis();
@@ -299,6 +344,7 @@ export async function updateTask(
   if (updates.tags !== undefined) patch.tags = JSON.stringify(updates.tags ?? []);
   if (updates.status !== undefined) patch.status = updates.status;
   if (updates.context !== undefined) patch.context = normalizeContext(updates.context);
+  if (updates.recurrence !== undefined) patch.recurrence = normalizeRecurrence(updates.recurrence);
   await r.hset(k.task(id), patch);
   const updated = await r.hgetall<Record<string, unknown>>(k.task(id));
   return updated ? mapTask(updated) : null;
