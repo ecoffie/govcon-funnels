@@ -1,6 +1,7 @@
 import Link from 'next/link';
 import { generateSeo, SITE_URL } from '@/lib/seo';
 import JsonLd from '@/components/JsonLd';
+import { PARTNERSHIP_CALL_URL } from '@/lib/booking';
 
 export const metadata = generateSeo({
   title: 'APEX Accelerator Partnership — Help Your Clients Win More Contracts',
@@ -111,7 +112,7 @@ export default function ApexAcceleratorsPage() {
 
           <div className="flex flex-col sm:flex-row gap-4 justify-center mb-12">
             <Link
-              href="https://calendly.com/govconedumeet/apex-partnership"
+              href={PARTNERSHIP_CALL_URL}
               className="px-8 py-4 bg-green-600 hover:bg-green-500 text-white rounded-xl font-bold text-lg transition-all"
             >
               Schedule Partnership Call
@@ -339,7 +340,7 @@ export default function ApexAcceleratorsPage() {
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
             <Link
-              href="https://calendly.com/govconedumeet/apex-partnership"
+              href={PARTNERSHIP_CALL_URL}
               className="px-8 py-4 bg-green-600 hover:bg-green-500 text-white rounded-xl font-bold text-lg transition-all"
             >
               Schedule Partnership Call
