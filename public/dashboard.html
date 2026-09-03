@@ -80,8 +80,11 @@
     .task-toolbar button.primary { background: #16a34a; border-color: #16a34a; color: white; font-weight: 600; }
     .task-toolbar button:hover { background: #334155; }
     .task-toolbar button.primary:hover { background: #22c55e; }
-    .task-controls { display: grid; grid-template-columns: 1.8fr 1.1fr auto auto; gap: 0.5rem; margin-bottom: 0.75rem; }
+    .task-controls { display: flex; flex-wrap: wrap; align-items: center; gap: 0.5rem; margin-bottom: 0.75rem; }
     .task-controls input, .task-controls select, .task-controls button { padding: 0.5rem 0.625rem; border-radius: 0.5rem; background: #0f172a; border: 1px solid #334155; color: #e2e8f0; font-size: 0.85rem; }
+    .task-hide-option { display: inline-flex; align-items: center; gap: 0.35rem; color: #94a3b8; font-size: 0.8rem; cursor: pointer; white-space: nowrap; }
+    .task-hide-option input { margin: 0; cursor: pointer; }
+    .task-hide-option:hover { color: #cbd5e1; }
     .task-controls button { cursor: pointer; }
     .task-filter-panel { display: none; margin-bottom: 0.6rem; border: 1px solid #334155; background: #0f172a; border-radius: 0.6rem; padding: 0.6rem; grid-template-columns: repeat(6, minmax(120px, 1fr)); gap: 0.45rem; }
     .task-filter-panel.show { display: grid; }
@@ -224,6 +227,14 @@
           </div>
         </div>
         <div class="task-controls">
+          <label class="task-hide-option" title="Hide completed tasks from the list">
+            <input type="checkbox" id="hide-done-tasks" />
+            <span>Hide done tasks</span>
+          </label>
+          <label class="task-hide-option" title="Hide archived projects and their tasks">
+            <input type="checkbox" id="hide-archived-projects" />
+            <span>Hide archived projects</span>
+          </label>
           <input type="text" id="task-search" placeholder="Search tasks..." />
           <select id="task-sort">
             <option value="updated_desc">Sort: Recently updated</option>
@@ -1009,6 +1020,8 @@
       var filterAssigneeEl = document.getElementById('filter-assignee');
       var filterDueEl = document.getElementById('filter-due');
       var resetFiltersEl = document.getElementById('reset-filters');
+      var hideDoneTasksEl = document.getElementById('hide-done-tasks');
+      var hideArchivedProjectsEl = document.getElementById('hide-archived-projects');
       var taskViewBtns = document.querySelectorAll('.task-view-btn');
       var newTaskBtn = document.getElementById('new-task-btn');
       var taskNewBackdropEl = document.getElementById('task-new-backdrop');
@@ -1080,6 +1093,8 @@
         ui: {
           fullscreen: false,
           activeContext: 'marketing',
+          hideDoneTasks: false,
+          hideArchivedProjects: false,
           contextSettings: {
             marketing: {
               groupBy: 'project',
@@ -1257,14 +1272,21 @@
       async function syncWorkspaceFromApi() {
         try {
           var context = getActiveContext();
+          var hideDone = !!workspace.ui.hideDoneTasks;
+          var hideArchived = !!workspace.ui.hideArchivedProjects;
+          var projectUrl = '/api/dashboard/projects?context=' + encodeURIComponent(context);
+          if (hideArchived) projectUrl += '&exclude_archived=true';
+          var taskUrl = '/api/dashboard/tasks?limit=200&context=' + encodeURIComponent(context);
+          taskUrl += '&include_done=' + (hideDone ? 'false' : 'true');
           var responses = await Promise.all([
-            fetch('/api/dashboard/projects?context=' + encodeURIComponent(context), { cache: 'no-store' }),
-            fetch('/api/dashboard/tasks?limit=200&include_done=true&context=' + encodeURIComponent(context), { cache: 'no-store' })
+            fetch(projectUrl, { cache: 'no-store' }),
+            fetch(taskUrl, { cache: 'no-store' })
           ]);
           if (!responses[0].ok || !responses[1].ok) return false;
           var projects = await responses[0].json();
           var tasks = await responses[1].json();
           if (!Array.isArray(projects) || !Array.isArray(tasks)) return false;
+          var projectIds = new Set(projects.map(function(p) { return p.id; }));
           var keepProjects = workspace.projects.filter(function(p) {
             return (p.context || 'marketing') !== context;
           });
@@ -1291,6 +1313,12 @@
               context: t.context || context
             };
           });
+          if (hideArchived) {
+            syncedTasks = syncedTasks.filter(function(t) {
+              var pid = t.project_id || null;
+              return pid === null || projectIds.has(pid);
+            });
+          }
           workspace.projects = keepProjects.concat(syncedProjects);
           workspace.tasks = keepTasks.concat(syncedTasks);
           workspace.events = [];
@@ -2117,6 +2145,8 @@
       loadWorkspace();
       workspace.ui.fullscreen = !!workspace.ui.fullscreen;
       workspace.ui.activeContext = workspace.ui.activeContext === 'delivery' ? 'delivery' : 'marketing';
+      workspace.ui.hideDoneTasks = !!workspace.ui.hideDoneTasks;
+      workspace.ui.hideArchivedProjects = !!workspace.ui.hideArchivedProjects;
       var initialSettings = getContextSettings();
       taskSortEl.value = initialSettings.sort;
       groupByEl.value = initialSettings.groupBy;
@@ -2124,6 +2154,21 @@
       filterPriorityEl.value = initialSettings.filters.priority;
       filterAssigneeEl.value = initialSettings.filters.assignee;
       filterDueEl.value = initialSettings.filters.due;
+      if (hideDoneTasksEl) hideDoneTasksEl.checked = workspace.ui.hideDoneTasks;
+      if (hideArchivedProjectsEl) hideArchivedProjectsEl.checked = workspace.ui.hideArchivedProjects;
+      function onHidePrefChange() {
+        workspace.ui.hideDoneTasks = hideDoneTasksEl ? hideDoneTasksEl.checked : false;
+        workspace.ui.hideArchivedProjects = hideArchivedProjectsEl ? hideArchivedProjectsEl.checked : false;
+        saveWorkspace();
+        syncWorkspaceFromApi().then(function(ok) {
+          if (ok) {
+            renderTaskViews();
+            loadRecentUpdates();
+          }
+        });
+      }
+      if (hideDoneTasksEl) hideDoneTasksEl.addEventListener('change', onHidePrefChange);
+      if (hideArchivedProjectsEl) hideArchivedProjectsEl.addEventListener('change', onHidePrefChange);
       renderAssigneeSelects();
       showTasksNote('');
       renderTaskViews();

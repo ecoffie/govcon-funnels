@@ -304,7 +304,11 @@ export async function updateTask(
   return updated ? mapTask(updated) : null;
 }
 
-export async function queryProjects(context?: TaskContext): Promise<Project[]> {
+export async function queryProjects(opts?: {
+  context?: TaskContext;
+  excludeArchived?: boolean;
+}): Promise<Project[]> {
+  const { context, excludeArchived = false } = opts ?? {};
   const r = getRedis();
   const ids = await r.smembers(k.projects());
   if (!(ids as string[]).length) return [];
@@ -315,6 +319,7 @@ export async function queryProjects(context?: TaskContext): Promise<Project[]> {
     .filter((h): h is Record<string, unknown> => h !== null)
     .map(mapProject);
   if (context) projects = projects.filter((p) => p.context === context);
+  if (excludeArchived) projects = projects.filter((p) => p.status !== 'archived');
   return projects.sort((a, b) => a.created_at.localeCompare(b.created_at));
 }
 
