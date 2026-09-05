@@ -20,7 +20,7 @@ interface BeaconEvent {
   meta?: Record<string, unknown>;
 }
 
-let queue: BeaconEvent[] = [];
+const queue: BeaconEvent[] = [];
 let timer: ReturnType<typeof setTimeout> | undefined;
 let armed = false;
 const scrollMarks = new Set<number>();

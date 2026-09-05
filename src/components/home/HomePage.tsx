@@ -1,5 +1,9 @@
 'use client';
 
+/* The source site uses editorial photography at responsive, CSS-controlled
+ * dimensions. Keeping native images preserves that behavior during the port. */
+/* eslint-disable @next/next/no-img-element */
+
 import Link from 'next/link';
 import { FormEvent, useEffect, useRef, useState } from 'react';
 import featuredEpisodes from '@/data/featured-episodes.json';
@@ -210,15 +214,13 @@ function Hero() {
 
   return (
     <section className={styles.hero}>
-      {HERO_PHOTOS.map((photo, index) => (
-        <img
-          key={photo}
-          src={`/summit/${photo}.jpg`}
-          alt=""
-          aria-hidden="true"
-          className={`${styles.heroImage} ${index === slide ? styles.activeImage : ''}`}
-        />
-      ))}
+      <img
+        key={HERO_PHOTOS[slide]}
+        src={`/summit/${HERO_PHOTOS[slide]}.jpg`}
+        alt=""
+        aria-hidden="true"
+        className={`${styles.heroImage} ${styles.activeImage}`}
+      />
       <div className={styles.heroScrim} />
       <div className={`${styles.container} ${styles.heroContent}`}>
         <p className={styles.heroKicker}>GOVERNMENT CONTRACTING, WITHOUT THE FLUFF</p>
