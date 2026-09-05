@@ -107,7 +107,10 @@ export async function logLeadPipeline(row: PipelineRow): Promise<void> {
 export interface CheckRow {
   /** 'canonical-host' asserts a retired hostname still permanently redirects to
    *  govcongiants.com and never serves indexable 200 content (Phase 4, 2026-09-05). */
-  check: 'canary-lead' | 'url' | 'sitemap' | 'robots' | 'canonical-host';
+  /** 'legacy-bridge' asserts a hostname that redirects to a DIFFERENT product's
+   *  canonical host (e.g. mi.govcongiants.com -> getmindy.ai) still does so
+   *  permanently, path- and query-preserving, with no indexable content of its own. */
+  check: 'canary-lead' | 'url' | 'sitemap' | 'robots' | 'canonical-host' | 'legacy-bridge';
   target?: string;
   ok: boolean;
   status?: number;
