@@ -105,7 +105,9 @@ export async function logLeadPipeline(row: PipelineRow): Promise<void> {
 // --------------------------------------------------------------- checks ----
 
 export interface CheckRow {
-  check: 'canary-lead' | 'url' | 'sitemap' | 'robots';
+  /** 'canonical-host' asserts a retired hostname still permanently redirects to
+   *  govcongiants.com and never serves indexable 200 content (Phase 4, 2026-09-05). */
+  check: 'canary-lead' | 'url' | 'sitemap' | 'robots' | 'canonical-host';
   target?: string;
   ok: boolean;
   status?: number;
