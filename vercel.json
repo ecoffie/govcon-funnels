@@ -292,6 +292,11 @@
       "permanent": true
     },
     {
+      "source": "/data",
+      "destination": "/data/contractors",
+      "permanent": true
+    },
+    {
       "source": "/category/:slug*",
       "destination": "/blog",
       "permanent": true
