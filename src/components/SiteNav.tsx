@@ -29,7 +29,8 @@ export default function SiteNav() {
     setOpenDropdown(null);
   }, [pathname]);
 
-  if (pathname.startsWith('/dashboard') || pathname.startsWith('/internal')) {
+  // The public homepage owns its brand-specific navigation and footer.
+  if (pathname === '/' || pathname.startsWith('/dashboard') || pathname.startsWith('/internal')) {
     return null;
   }
   const isEncore = pathname?.startsWith('/encore');

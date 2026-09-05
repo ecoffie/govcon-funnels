@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import Script from "next/script";
 import { Inter } from "next/font/google";
 import SiteNav from "@/components/SiteNav";
+import SiteEventTracker from "@/components/SiteEventTracker";
 import AttributionTracker from "@/components/AttributionTracker";
 import JsonLd from "@/components/JsonLd";
 import { organizationJsonLd } from "@/lib/seo";
@@ -61,6 +62,7 @@ export default function RootLayout({
           </>
         )}
         <AttributionTracker />
+        <SiteEventTracker />
         <JsonLd data={organizationJsonLd()} />
         <SiteNav />
         {children}
