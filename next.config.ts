@@ -39,15 +39,31 @@ const nextConfig: NextConfig = {
       // ⚠️ NOTHING HERE MAY MATCH A LIBSYN HOSTNAME. Podcast distribution
       // (govcongiants.libsyn.com/rss, traffic.libsyn.com/*, static.libsyn.com/*) is
       // outside this consolidation and must keep resolving untouched.
-      // Legacy app host: preserve every shared/bookmarked path on the canonical
-      // .com site. This ships with the production domain move so there is no
-      // interval where the old SPA can redirect a request back here.
-      {
-        source: "/:path*",
-        has: [{ type: "host", value: "app.govcongiants.org" }],
-        destination: "https://govcongiants.com/:path*",
-        permanent: true,
-      },
+      // ⚠️ app.govcongiants.org → .com rule DISABLED AGAIN (2026-09-05, incident).
+      //
+      // The rule's own premise is "this ships with the production domain move so there
+      // is no interval where the old SPA can redirect a request back here." That move
+      // has NOT happened: govcongiants.com is still served by the govcon-giants-site
+      // SPA, which 308s ~35 Next-owned path families (/guides, /features, /compare,
+      // /for, /jobs, /data, /glossary, /tools, /consulting, ...) straight back to
+      // app.govcongiants.org. With this rule live, those bounce forever.
+      //
+      // Enabling it without the domain move took ~10 route families down with an
+      // infinite redirect loop (curl: 50 redirects, no page). This is the SECOND time
+      // the same rule has caused the same outage — it was first disabled 2026-08-24
+      // for exactly this reason, then re-enabled before the prerequisite landed.
+      //
+      // DO NOT re-enable until govcongiants.com is served by THIS project. Verify with:
+      //   curl -s https://govcongiants.com/ | grep -o 'id="root"'
+      // A match means the Vite SPA still serves apex and re-enabling will loop again.
+      // Re-enable in the SAME deploy that moves the domain, never before.
+      // See tasks/CUTOVER-podcast-routes.md and tasks/PLAN-one-site-on-dotcom.md.
+      // {
+      //   source: "/:path*",
+      //   has: [{ type: "host", value: "app.govcongiants.org" }],
+      //   destination: "https://govcongiants.com/:path*",
+      //   permanent: true,
+      // },
       {
         source: "/:path*",
         has: [{ type: "host", value: "podcast.govcongiants.org" }],
