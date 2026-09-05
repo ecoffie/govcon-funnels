@@ -27,7 +27,10 @@ const IMPORTANT_URLS = [
   `${SITE}/privacy-policy`,
   `${SITE}/jobs`,
   `${SITE}/guides/federal-contract-vehicles-guide`,
-  'https://mi.govcongiants.com/',
+  // mi.govcongiants.com is NOT listed here. It is a redirect-only legacy bridge to
+  // getmindy.ai, so the `url` check's "200 with no redirect chain" expectation was
+  // wrong for it — see runLegacyBridgeChecks() below, which asserts the contract it
+  // actually has.
   // The /funding + /encore-funding redirect target. A PARTNER-OWNED url, which is
   // why it is monitored: on 2026-08-24 we found every funding referral had been
   // landing on a 404 because Encore reversed a domain migration without notice, and
@@ -258,15 +261,140 @@ export async function runCanonicalHostChecks(): Promise<CheckResult[]> {
   return out;
 }
 
+/**
+ * LEGACY BRIDGES — hostnames that redirect to a product on a DIFFERENT canonical host.
+ *
+ * These are not part of the govcongiants.com consolidation and must not be folded into
+ * it. mi.govcongiants.com is a legacy entrance to Mindy, which is a distinct product
+ * living on getmindy.ai; pointing it at govcongiants.com would send users and link
+ * equity to the wrong product.
+ *
+ * The contract is the same shape as a retired host, but the approved destination is
+ * getmindy.ai rather than the canonical site:
+ *   - permanent redirect (301/308), never temporary
+ *   - lands on the EXACT approved destination host
+ *   - path and query are preserved
+ *   - serves no independent indexable 200 content of its own
+ *   - one hop, no cycle, no unexpected intermediate hostname
+ *
+ * Why this exists: mi.govcongiants.com was previously listed in IMPORTANT_URLS, whose
+ * `url` check requires "200, no redirect chain, <3s". A redirect-only bridge can never
+ * satisfy that, so the probe was reporting a failure for a host that was behaving
+ * exactly as intended — noise that trains people to ignore the check.
+ */
+const LEGACY_BRIDGES: { host: string; destination: string; paths: string[] }[] = [
+  {
+    host: 'https://mi.govcongiants.com',
+    destination: 'https://getmindy.ai',
+    // Root plus a deep path: a rule covering only one shape is a common failure.
+    paths: ['/', '/pricing'],
+  },
+];
+
+/** Hostnames a bridge must never route through on its way to the destination. */
+const UNEXPECTED_INTERMEDIATES = [
+  'govcongiants.com',
+  'www.govcongiants.com',
+  'app.govcongiants.org',
+  'govcongiants.org',
+  'www.govcongiants.org',
+  'guides.govcongiants.org',
+  'funnels.govcongiants.org',
+  'podcast.govcongiants.org',
+  'shop.govcongiants.com',
+];
+
+export async function runLegacyBridgeChecks(): Promise<CheckResult[]> {
+  const out: CheckResult[] = [];
+  for (const bridge of LEGACY_BRIDGES) {
+    for (const path of bridge.paths) {
+      const url = `${bridge.host}${path}`;
+      const target = `${bridge.destination}${path}`;
+      try {
+        const start = Date.now();
+        // Do NOT follow: assert on the FIRST response, so a 200 is caught as a failure.
+        const res = await fetch(url, { redirect: 'manual' });
+        const ms = Date.now() - start;
+        const location = res.headers.get('location') ?? '';
+
+        const isPermanent = res.status === 301 || res.status === 308;
+        const exactDestination = location === target;
+        const onApprovedHost = location.startsWith(`${bridge.destination}/`);
+        const noCycle = !location.startsWith(bridge.host);
+        const noBadIntermediate = !UNEXPECTED_INTERMEDIATES.some((h) =>
+          location.startsWith(`https://${h}/`),
+        );
+
+        const ok =
+          isPermanent && exactDestination && onApprovedHost && noCycle && noBadIntermediate;
+
+        const why = !isPermanent
+          ? res.status === 200
+            ? 'SERVING 200 — a legacy bridge must not serve indexable content'
+            : `not a permanent redirect (status=${res.status})`
+          : !noCycle
+            ? 'redirects to itself — cycle'
+            : !noBadIntermediate
+              ? `routes through an unexpected intermediate: ${location}`
+              : !exactDestination
+                ? `expected ${target}, got ${location || '(no Location)'}`
+                : '';
+
+        out.push({
+          check: 'legacy-bridge',
+          target: url,
+          ok,
+          status: res.status,
+          duration_ms: ms,
+          detail: ok ? `-> ${location}` : why,
+        });
+      } catch (e) {
+        out.push({
+          check: 'legacy-bridge',
+          target: url,
+          ok: false,
+          detail: e instanceof Error ? e.message : String(e),
+        });
+      }
+    }
+
+    // Query strings must survive the hop, or tracked/paginated links break silently.
+    const qsUrl = `${bridge.host}/pricing?utm_source=synthetic&page=2`;
+    try {
+      const res = await fetch(qsUrl, { redirect: 'manual' });
+      const location = res.headers.get('location') ?? '';
+      const ok =
+        (res.status === 301 || res.status === 308) &&
+        location === `${bridge.destination}/pricing?utm_source=synthetic&page=2`;
+      out.push({
+        check: 'legacy-bridge',
+        target: qsUrl,
+        ok,
+        status: res.status,
+        detail: ok ? 'query preserved' : `query not preserved: ${location || '(none)'}`,
+      });
+    } catch (e) {
+      out.push({
+        check: 'legacy-bridge',
+        target: qsUrl,
+        ok: false,
+        detail: e instanceof Error ? e.message : String(e),
+      });
+    }
+  }
+  return out;
+}
+
 /** Run the full suite, persist every result, return them. */
 export async function runSyntheticSuite(): Promise<CheckResult[]> {
-  const [canary, urls, content, canonicalHosts] = await Promise.all([
+  const [canary, urls, content, canonicalHosts, bridges] = await Promise.all([
     runCanaryLead(),
     runUrlChecks(),
     runContentChecks(),
     runCanonicalHostChecks(),
+    runLegacyBridgeChecks(),
   ]);
-  const all = [canary, ...urls, ...content, ...canonicalHosts];
+  const all = [canary, ...urls, ...content, ...canonicalHosts, ...bridges];
   await Promise.all(all.map((r) => recordCheck(r)));
   return all;
 }
