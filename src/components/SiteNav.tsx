@@ -25,8 +25,11 @@ export default function SiteNav() {
 
   // Close mobile menu on route change
   useEffect(() => {
-    setMobileMenuOpen(false);
-    setOpenDropdown(null);
+    const timer = window.setTimeout(() => {
+      setMobileMenuOpen(false);
+      setOpenDropdown(null);
+    }, 0);
+    return () => window.clearTimeout(timer);
   }, [pathname]);
 
   // The public homepage owns its brand-specific navigation and footer.

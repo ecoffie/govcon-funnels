@@ -37,7 +37,7 @@ const IMPORTANT_URLS = [
   `${SITE}/sitemap.xml`,
 ];
 
-export interface CheckResult extends CheckRow {}
+export type CheckResult = CheckRow;
 
 async function timeFetch(url: string, init?: RequestInit): Promise<{ res: Response; ms: number; redirects: number }> {
   const start = Date.now();
