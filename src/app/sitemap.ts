@@ -2,6 +2,7 @@ import type { MetadataRoute } from 'next';
 import { allPosts } from '@/content/blog';
 import { allVideos } from '@/content/videos';
 import { agencies } from '@/content/agencies';
+import { episodes } from '@/lib/episodes';
 import { SITE_URL } from '@/lib/seo';
 
 // Job board categories for SEO
@@ -279,5 +280,19 @@ export default function sitemap(): MetadataRoute.Sitemap {
     { url: `${SITE_URL}/data/forecasts`, lastModified: now, changeFrequency: 'weekly' as const, priority: 0.8 },
   ];
 
-  return [...staticPages, ...guidePages, ...blogPages, ...jobPages, ...videoPages, ...agencyPages, ...contractorPages, ...forecastPages];
+  // Podcast: the index plus one entry per episode, addressed by STABLE SLUG.
+  // Legacy `/podcast/:index` URLs are deliberately absent — they 308 to the slug, and
+  // a sitemap should only ever list the canonical destination, never a redirect.
+  // `lastModified` is the episode's own publish date, not the build time.
+  const podcastPages: MetadataRoute.Sitemap = [
+    { url: `${SITE_URL}/podcast`, lastModified: episodes[0]?.date ?? now, changeFrequency: 'daily' as const, priority: 0.9 },
+    ...episodes.map((episode) => ({
+      url: `${SITE_URL}/podcast/${episode.slug}`,
+      lastModified: episode.date,
+      changeFrequency: 'yearly' as const,
+      priority: 0.7,
+    })),
+  ];
+
+  return [...staticPages, ...guidePages, ...blogPages, ...jobPages, ...videoPages, ...agencyPages, ...contractorPages, ...forecastPages, ...podcastPages];
 }
