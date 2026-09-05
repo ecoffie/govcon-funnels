@@ -570,6 +570,1788 @@
       "source": "/rising-eagle-medical-llc-awarded-100m-for-patient-monitoring-systems-accessories-and-training/",
       "destination": "/blog",
       "permanent": true
+    },
+    {
+      "source": "/podcast/featured/0",
+      "has": [
+        {
+          "type": "host",
+          "value": "podcast.govcongiants.org"
+        }
+      ],
+      "destination": "https://govcongiants.com/podcast/296-260b-navy-100000-jobs-the-government-contract-gold-rush-before-its-gone-with-erik-rave",
+      "permanent": true
+    },
+    {
+      "source": "/podcast/featured/1",
+      "has": [
+        {
+          "type": "host",
+          "value": "podcast.govcongiants.org"
+        }
+      ],
+      "destination": "https://govcongiants.com/podcast/the-woman-who-wrote-cmmc-the-250k-compliance-cost-is-a-lie-ep-334",
+      "permanent": true
+    },
+    {
+      "source": "/podcast/featured/2",
+      "has": [
+        {
+          "type": "host",
+          "value": "podcast.govcongiants.org"
+        }
+      ],
+      "destination": "https://govcongiants.com/podcast/simplifying-federal-certifications-a-game-changer-for-small-businesses",
+      "permanent": true
+    },
+    {
+      "source": "/podcast/featured/3",
+      "has": [
+        {
+          "type": "host",
+          "value": "podcast.govcongiants.org"
+        }
+      ],
+      "destination": "https://govcongiants.com/podcast/209-scoring-major-bid-opportunities-in-the-department-of-energy-with-shalaya-morissette",
+      "permanent": true
+    },
+    {
+      "source": "/podcast/featured/4",
+      "has": [
+        {
+          "type": "host",
+          "value": "podcast.govcongiants.org"
+        }
+      ],
+      "destination": "https://govcongiants.com/podcast/stop-70000-contracts-youre-still-losing-heres-why-hhs-might-be-ignoring-you",
+      "permanent": true
+    },
+    {
+      "source": "/podcast/featured/5",
+      "has": [
+        {
+          "type": "host",
+          "value": "podcast.govcongiants.org"
+        }
+      ],
+      "destination": "https://govcongiants.com/podcast/012-ashley-d-bell-region-iv-administrator-us-small-business-administration",
+      "permanent": true
+    },
+    {
+      "source": "/podcast/0",
+      "has": [
+        {
+          "type": "host",
+          "value": "podcast.govcongiants.org"
+        }
+      ],
+      "destination": "https://govcongiants.com/podcast/5-ways-to-find-your-federal-program-manager-before-everyone-else-does",
+      "permanent": true
+    },
+    {
+      "source": "/podcast/1",
+      "has": [
+        {
+          "type": "host",
+          "value": "podcast.govcongiants.org"
+        }
+      ],
+      "destination": "https://govcongiants.com/podcast/the-woman-who-wrote-cmmc-the-250k-compliance-cost-is-a-lie-ep-334",
+      "permanent": true
+    },
+    {
+      "source": "/podcast/2",
+      "has": [
+        {
+          "type": "host",
+          "value": "podcast.govcongiants.org"
+        }
+      ],
+      "destination": "https://govcongiants.com/podcast/the-side-door-strategy-for-winning-subcontracts-with-defense-primes",
+      "permanent": true
+    },
+    {
+      "source": "/podcast/3",
+      "has": [
+        {
+          "type": "host",
+          "value": "podcast.govcongiants.org"
+        }
+      ],
+      "destination": "https://govcongiants.com/podcast/how-to-find-federal-contracts-before-they-hit-samgov-with-no-experience",
+      "permanent": true
+    },
+    {
+      "source": "/podcast/4",
+      "has": [
+        {
+          "type": "host",
+          "value": "podcast.govcongiants.org"
+        }
+      ],
+      "destination": "https://govcongiants.com/podcast/how-one-subcontractor-turned-a-40000-dispute-into-a-federal-contracting-lesson",
+      "permanent": true
+    },
+    {
+      "source": "/podcast/5",
+      "has": [
+        {
+          "type": "host",
+          "value": "podcast.govcongiants.org"
+        }
+      ],
+      "destination": "https://govcongiants.com/podcast/how-to-build-a-business-foundation-when-you-have-no-experience-at-all",
+      "permanent": true
+    },
+    {
+      "source": "/podcast/6",
+      "has": [
+        {
+          "type": "host",
+          "value": "podcast.govcongiants.org"
+        }
+      ],
+      "destination": "https://govcongiants.com/podcast/how-to-turn-a-50k-line-item-into-steady-progress-payments",
+      "permanent": true
+    },
+    {
+      "source": "/podcast/7",
+      "has": [
+        {
+          "type": "host",
+          "value": "podcast.govcongiants.org"
+        }
+      ],
+      "destination": "https://govcongiants.com/podcast/why-smart-contractors-use-government-work-to-survive-recessions-and-storm-slowdowns",
+      "permanent": true
+    },
+    {
+      "source": "/podcast/8",
+      "has": [
+        {
+          "type": "host",
+          "value": "podcast.govcongiants.org"
+        }
+      ],
+      "destination": "https://govcongiants.com/podcast/how-to-use-naics-and-psc-codes-to-find-government-buyers-for-your-products-ep-333",
+      "permanent": true
+    },
+    {
+      "source": "/podcast/9",
+      "has": [
+        {
+          "type": "host",
+          "value": "podcast.govcongiants.org"
+        }
+      ],
+      "destination": "https://govcongiants.com/podcast/2-red-flags-that-mean-you-should-skip-that-government-contract-bid",
+      "permanent": true
+    },
+    {
+      "source": "/podcast/10",
+      "has": [
+        {
+          "type": "host",
+          "value": "podcast.govcongiants.org"
+        }
+      ],
+      "destination": "https://govcongiants.com/podcast/how-small-business-owners-can-use-subcontracting-to-land-their-first-federal-contract",
+      "permanent": true
+    },
+    {
+      "source": "/podcast/11",
+      "has": [
+        {
+          "type": "host",
+          "value": "podcast.govcongiants.org"
+        }
+      ],
+      "destination": "https://govcongiants.com/podcast/what-it-really-takes-to-land-your-first-federal-subcontract-with-no-money",
+      "permanent": true
+    },
+    {
+      "source": "/podcast/12",
+      "has": [
+        {
+          "type": "host",
+          "value": "podcast.govcongiants.org"
+        }
+      ],
+      "destination": "https://govcongiants.com/podcast/how-to-choose-the-right-small-business-certification-for-federal-contracting-success",
+      "permanent": true
+    },
+    {
+      "source": "/podcast/13",
+      "has": [
+        {
+          "type": "host",
+          "value": "podcast.govcongiants.org"
+        }
+      ],
+      "destination": "https://govcongiants.com/podcast/why-full-and-open-competition-is-rigged-and-8a-contracts-are-actually-fairer",
+      "permanent": true
+    },
+    {
+      "source": "/podcast/14",
+      "has": [
+        {
+          "type": "host",
+          "value": "podcast.govcongiants.org"
+        }
+      ],
+      "destination": "https://govcongiants.com/podcast/how-to-draft-a-winning-sources-sought-response-step-by-step",
+      "permanent": true
+    },
+    {
+      "source": "/podcast/15",
+      "has": [
+        {
+          "type": "host",
+          "value": "podcast.govcongiants.org"
+        }
+      ],
+      "destination": "https://govcongiants.com/podcast/how-she-won-5-million-in-federal-contracts-with-no-past-performance-ep-332",
+      "permanent": true
+    },
+    {
+      "source": "/podcast/16",
+      "has": [
+        {
+          "type": "host",
+          "value": "podcast.govcongiants.org"
+        }
+      ],
+      "destination": "https://govcongiants.com/podcast/what-a-20-million-dollar-proposal-rejection-taught-this-govcon-consultant-about-ai",
+      "permanent": true
+    },
+    {
+      "source": "/podcast/17",
+      "has": [
+        {
+          "type": "host",
+          "value": "podcast.govcongiants.org"
+        }
+      ],
+      "destination": "https://govcongiants.com/podcast/how-subcontractors-can-build-prime-relationships-by-showing-up-at-federal-site-visits",
+      "permanent": true
+    },
+    {
+      "source": "/podcast/18",
+      "has": [
+        {
+          "type": "host",
+          "value": "podcast.govcongiants.org"
+        }
+      ],
+      "destination": "https://govcongiants.com/podcast/the-free-government-tool-most-small-business-owners-never-knew-existed",
+      "permanent": true
+    },
+    {
+      "source": "/podcast/19",
+      "has": [
+        {
+          "type": "host",
+          "value": "podcast.govcongiants.org"
+        }
+      ],
+      "destination": "https://govcongiants.com/podcast/how-to-build-relationships-with-contracting-officers-before-the-rfp-even-drops",
+      "permanent": true
+    },
+    {
+      "source": "/podcast/20",
+      "has": [
+        {
+          "type": "host",
+          "value": "podcast.govcongiants.org"
+        }
+      ],
+      "destination": "https://govcongiants.com/podcast/what-it-takes-to-form-an-8a-joint-venture-with-a-tribal-company",
+      "permanent": true
+    },
+    {
+      "source": "/podcast/21",
+      "has": [
+        {
+          "type": "host",
+          "value": "podcast.govcongiants.org"
+        }
+      ],
+      "destination": "https://govcongiants.com/podcast/how-to-know-if-your-government-contract-proposal-pricing-is-actually-competitive",
+      "permanent": true
+    },
+    {
+      "source": "/podcast/22",
+      "has": [
+        {
+          "type": "host",
+          "value": "podcast.govcongiants.org"
+        }
+      ],
+      "destination": "https://govcongiants.com/podcast/three-ways-to-turn-your-existing-skills-into-real-income-right-now-ep-331",
+      "permanent": true
+    },
+    {
+      "source": "/podcast/23",
+      "has": [
+        {
+          "type": "host",
+          "value": "podcast.govcongiants.org"
+        }
+      ],
+      "destination": "https://govcongiants.com/podcast/how-small-business-owners-can-use-capability-statements-as-a-follow-up-marketing-tool",
+      "permanent": true
+    },
+    {
+      "source": "/podcast/24",
+      "has": [
+        {
+          "type": "host",
+          "value": "podcast.govcongiants.org"
+        }
+      ],
+      "destination": "https://govcongiants.com/podcast/what-every-small-business-needs-to-know-about-cmmc-compliance-before-working-with-dod",
+      "permanent": true
+    },
+    {
+      "source": "/podcast/25",
+      "has": [
+        {
+          "type": "host",
+          "value": "podcast.govcongiants.org"
+        }
+      ],
+      "destination": "https://govcongiants.com/podcast/the-exact-letter-format-that-gets-business-opportunity-specialists-to-respond-fast",
+      "permanent": true
+    },
+    {
+      "source": "/podcast/26",
+      "has": [
+        {
+          "type": "host",
+          "value": "podcast.govcongiants.org"
+        }
+      ],
+      "destination": "https://govcongiants.com/podcast/how-small-businesses-use-set-asides-and-joint-ventures-to-beat-large-incumbent-contractors",
+      "permanent": true
+    },
+    {
+      "source": "/podcast/27",
+      "has": [
+        {
+          "type": "host",
+          "value": "podcast.govcongiants.org"
+        }
+      ],
+      "destination": "https://govcongiants.com/podcast/why-hubzone-price-preference-rarely-works-in-practice-and-what-to-do-on-an-idiq-instead",
+      "permanent": true
+    },
+    {
+      "source": "/podcast/28",
+      "has": [
+        {
+          "type": "host",
+          "value": "podcast.govcongiants.org"
+        }
+      ],
+      "destination": "https://govcongiants.com/podcast/what-to-do-when-someone-claims-they-can-get-you-guaranteed-government-contracts",
+      "permanent": true
+    },
+    {
+      "source": "/podcast/29",
+      "has": [
+        {
+          "type": "host",
+          "value": "podcast.govcongiants.org"
+        }
+      ],
+      "destination": "https://govcongiants.com/podcast/how-to-make-your-first-20k-in-government-contracting-with-no-experience-or-money-ep-330",
+      "permanent": true
+    },
+    {
+      "source": "/podcast/30",
+      "has": [
+        {
+          "type": "host",
+          "value": "podcast.govcongiants.org"
+        }
+      ],
+      "destination": "https://govcongiants.com/podcast/why-submitting-a-sources-sought-response-can-cut-80-percent-of-your-competition",
+      "permanent": true
+    },
+    {
+      "source": "/podcast/31",
+      "has": [
+        {
+          "type": "host",
+          "value": "podcast.govcongiants.org"
+        }
+      ],
+      "destination": "https://govcongiants.com/podcast/why-most-8a-businesses-never-get-sole-source-contracts-and-how-to-fix-that",
+      "permanent": true
+    },
+    {
+      "source": "/podcast/32",
+      "has": [
+        {
+          "type": "host",
+          "value": "podcast.govcongiants.org"
+        }
+      ],
+      "destination": "https://govcongiants.com/podcast/how-to-use-psc-codes-to-find-more-government-contract-opportunities-fast",
+      "permanent": true
+    },
+    {
+      "source": "/podcast/33",
+      "has": [
+        {
+          "type": "host",
+          "value": "podcast.govcongiants.org"
+        }
+      ],
+      "destination": "https://govcongiants.com/podcast/what-government-representatives-look-for-when-they-read-your-capability-statement",
+      "permanent": true
+    },
+    {
+      "source": "/podcast/34",
+      "has": [
+        {
+          "type": "host",
+          "value": "podcast.govcongiants.org"
+        }
+      ],
+      "destination": "https://govcongiants.com/podcast/why-sole-source-contracts-disappear-after-you-graduate-from-the-8a-program",
+      "permanent": true
+    },
+    {
+      "source": "/podcast/35",
+      "has": [
+        {
+          "type": "host",
+          "value": "podcast.govcongiants.org"
+        }
+      ],
+      "destination": "https://govcongiants.com/podcast/what-aspiring-govcon-consultants-can-learn-from-this-ai-proposal-workflow",
+      "permanent": true
+    },
+    {
+      "source": "/podcast/36",
+      "has": [
+        {
+          "type": "host",
+          "value": "podcast.govcongiants.org"
+        }
+      ],
+      "destination": "https://govcongiants.com/podcast/how-to-win-government-contracts-with-zero-experience-using-strategic-networking-ep-329",
+      "permanent": true
+    },
+    {
+      "source": "/podcast/37",
+      "has": [
+        {
+          "type": "host",
+          "value": "podcast.govcongiants.org"
+        }
+      ],
+      "destination": "https://govcongiants.com/podcast/how-to-write-a-capability-statement-that-actually-wins-federal-contracts",
+      "permanent": true
+    },
+    {
+      "source": "/podcast/38",
+      "has": [
+        {
+          "type": "host",
+          "value": "podcast.govcongiants.org"
+        }
+      ],
+      "destination": "https://govcongiants.com/podcast/how-to-avoid-the-8a-application-mistakes-that-get-your-paperwork-rejected",
+      "permanent": true
+    },
+    {
+      "source": "/podcast/39",
+      "has": [
+        {
+          "type": "host",
+          "value": "podcast.govcongiants.org"
+        }
+      ],
+      "destination": "https://govcongiants.com/podcast/find-your-competitors-contracts-in-60-seconds-and-use-that-intel-to-win",
+      "permanent": true
+    },
+    {
+      "source": "/podcast/40",
+      "has": [
+        {
+          "type": "host",
+          "value": "podcast.govcongiants.org"
+        }
+      ],
+      "destination": "https://govcongiants.com/podcast/how-to-find-the-proposal-errors-that-get-small-businesses-disqualified-every-time",
+      "permanent": true
+    },
+    {
+      "source": "/podcast/41",
+      "has": [
+        {
+          "type": "host",
+          "value": "podcast.govcongiants.org"
+        }
+      ],
+      "destination": "https://govcongiants.com/podcast/sources-sought-notices-are-free-marketing-and-most-small-businesses-never-respond",
+      "permanent": true
+    },
+    {
+      "source": "/podcast/42",
+      "has": [
+        {
+          "type": "host",
+          "value": "podcast.govcongiants.org"
+        }
+      ],
+      "destination": "https://govcongiants.com/podcast/government-procurement-decoded-how-to-read-solicitations-before-your-competition-does",
+      "permanent": true
+    },
+    {
+      "source": "/podcast/43",
+      "has": [
+        {
+          "type": "host",
+          "value": "podcast.govcongiants.org"
+        }
+      ],
+      "destination": "https://govcongiants.com/podcast/how-to-find-a-govcon-consulting-client-without-any-past-performance-or-capital-ep-328",
+      "permanent": true
+    },
+    {
+      "source": "/podcast/44",
+      "has": [
+        {
+          "type": "host",
+          "value": "podcast.govcongiants.org"
+        }
+      ],
+      "destination": "https://govcongiants.com/podcast/federal-subcontracting-strategy-that-gets-you-in-front-of-project-managers-who-actually-pa",
+      "permanent": true
+    },
+    {
+      "source": "/podcast/45",
+      "has": [
+        {
+          "type": "host",
+          "value": "podcast.govcongiants.org"
+        }
+      ],
+      "destination": "https://govcongiants.com/podcast/why-building-relationships-gets-you-federal-contracts-before-the-competition-even-knows",
+      "permanent": true
+    },
+    {
+      "source": "/podcast/46",
+      "has": [
+        {
+          "type": "host",
+          "value": "podcast.govcongiants.org"
+        }
+      ],
+      "destination": "https://govcongiants.com/podcast/how-joint-ventures-and-teaming-agreements-work-without-losing-your-small-business-status",
+      "permanent": true
+    },
+    {
+      "source": "/podcast/47",
+      "has": [
+        {
+          "type": "host",
+          "value": "podcast.govcongiants.org"
+        }
+      ],
+      "destination": "https://govcongiants.com/podcast/the-real-reason-small-businesses-lose-government-contracts-after-winning-them",
+      "permanent": true
+    },
+    {
+      "source": "/podcast/48",
+      "has": [
+        {
+          "type": "host",
+          "value": "podcast.govcongiants.org"
+        }
+      ],
+      "destination": "https://govcongiants.com/podcast/what-the-gurus-never-teach-about-end-user-direct-strategy-and-winning-federal-contracts",
+      "permanent": true
+    },
+    {
+      "source": "/podcast/49",
+      "has": [
+        {
+          "type": "host",
+          "value": "podcast.govcongiants.org"
+        }
+      ],
+      "destination": "https://govcongiants.com/podcast/how-smart-govcon-contractors-use-bd-and-capture-to-build-a-consistent-winning-pipeline",
+      "permanent": true
+    },
+    {
+      "source": "/podcast/50",
+      "has": [
+        {
+          "type": "host",
+          "value": "podcast.govcongiants.org"
+        }
+      ],
+      "destination": "https://govcongiants.com/podcast/he-went-from-street-life-to-government-contracts-with-zero-connections-ep-327",
+      "permanent": true
+    },
+    {
+      "source": "/podcast/51",
+      "has": [
+        {
+          "type": "host",
+          "value": "podcast.govcongiants.org"
+        }
+      ],
+      "destination": "https://govcongiants.com/podcast/how-govcon-consultants-track-decision-makers-across-agencies-before-contracts-hit-samgov",
+      "permanent": true
+    },
+    {
+      "source": "/podcast/52",
+      "has": [
+        {
+          "type": "host",
+          "value": "podcast.govcongiants.org"
+        }
+      ],
+      "destination": "https://govcongiants.com/podcast/why-subcontracting-first-is-the-smartest-move-before-you-pursue-a-prime-government-contrac",
+      "permanent": true
+    },
+    {
+      "source": "/podcast/53",
+      "has": [
+        {
+          "type": "host",
+          "value": "podcast.govcongiants.org"
+        }
+      ],
+      "destination": "https://govcongiants.com/podcast/government-contracting-tools-that-help-small-businesses-win-more-federal-contracts-faster",
+      "permanent": true
+    },
+    {
+      "source": "/podcast/54",
+      "has": [
+        {
+          "type": "host",
+          "value": "podcast.govcongiants.org"
+        }
+      ],
+      "destination": "https://govcongiants.com/podcast/starting-a-government-contracting-consulting-business-around-ai-companies-in-2026",
+      "permanent": true
+    },
+    {
+      "source": "/podcast/55",
+      "has": [
+        {
+          "type": "host",
+          "value": "podcast.govcongiants.org"
+        }
+      ],
+      "destination": "https://govcongiants.com/podcast/how-overhead-costs-will-kill-your-small-business-if-you-dont-watch-them-carefully",
+      "permanent": true
+    },
+    {
+      "source": "/podcast/56",
+      "has": [
+        {
+          "type": "host",
+          "value": "podcast.govcongiants.org"
+        }
+      ],
+      "destination": "https://govcongiants.com/podcast/why-most-small-businesses-lose-federal-contracts-before-they-even-submit-a-bid",
+      "permanent": true
+    },
+    {
+      "source": "/podcast/57",
+      "has": [
+        {
+          "type": "host",
+          "value": "podcast.govcongiants.org"
+        }
+      ],
+      "destination": "https://govcongiants.com/podcast/8-brutal-truths-about-government-subcontracting-that-no-one-tells-small-businesses-ep-326",
+      "permanent": true
+    },
+    {
+      "source": "/podcast/58",
+      "has": [
+        {
+          "type": "host",
+          "value": "podcast.govcongiants.org"
+        }
+      ],
+      "destination": "https://govcongiants.com/podcast/what-procurement-readiness-really-looks-like-before-you-walk-into-any-agency",
+      "permanent": true
+    },
+    {
+      "source": "/podcast/59",
+      "has": [
+        {
+          "type": "host",
+          "value": "podcast.govcongiants.org"
+        }
+      ],
+      "destination": "https://govcongiants.com/podcast/how-to-find-prime-contractors-and-pitch-tribal-8a-firms-for-subcontracts",
+      "permanent": true
+    },
+    {
+      "source": "/podcast/60",
+      "has": [
+        {
+          "type": "host",
+          "value": "podcast.govcongiants.org"
+        }
+      ],
+      "destination": "https://govcongiants.com/podcast/the-real-reason-big-primes-run-small-business-cohorts-and-it-is-not-to-help-you",
+      "permanent": true
+    },
+    {
+      "source": "/podcast/61",
+      "has": [
+        {
+          "type": "host",
+          "value": "podcast.govcongiants.org"
+        }
+      ],
+      "destination": "https://govcongiants.com/podcast/how-to-build-your-first-capability-statement-and-get-noticed-by-federal-agencies",
+      "permanent": true
+    },
+    {
+      "source": "/podcast/62",
+      "has": [
+        {
+          "type": "host",
+          "value": "podcast.govcongiants.org"
+        }
+      ],
+      "destination": "https://govcongiants.com/podcast/how-to-grow-bonding-capacity-and-win-bigger-federal-construction-contracts-step-by-step",
+      "permanent": true
+    },
+    {
+      "source": "/podcast/63",
+      "has": [
+        {
+          "type": "host",
+          "value": "podcast.govcongiants.org"
+        }
+      ],
+      "destination": "https://govcongiants.com/podcast/the-industry-secret-to-selling-high-value-supplies-to-the-federal-government-revealed",
+      "permanent": true
+    },
+    {
+      "source": "/podcast/64",
+      "has": [
+        {
+          "type": "host",
+          "value": "podcast.govcongiants.org"
+        }
+      ],
+      "destination": "https://govcongiants.com/podcast/government-contracting-is-an-inflation-hedge-and-here-is-where-to-find-the-opportunities-e",
+      "permanent": true
+    },
+    {
+      "source": "/podcast/65",
+      "has": [
+        {
+          "type": "host",
+          "value": "podcast.govcongiants.org"
+        }
+      ],
+      "destination": "https://govcongiants.com/podcast/why-your-existing-expertise-is-the-fastest-path-to-your-next-government-contract-win",
+      "permanent": true
+    },
+    {
+      "source": "/podcast/66",
+      "has": [
+        {
+          "type": "host",
+          "value": "podcast.govcongiants.org"
+        }
+      ],
+      "destination": "https://govcongiants.com/podcast/bid-or-no-bid-how-to-choose-the-right-government-contracts",
+      "permanent": true
+    },
+    {
+      "source": "/podcast/67",
+      "has": [
+        {
+          "type": "host",
+          "value": "podcast.govcongiants.org"
+        }
+      ],
+      "destination": "https://govcongiants.com/podcast/what-is-a-contracting-officer-warrant-why-it-matters",
+      "permanent": true
+    },
+    {
+      "source": "/podcast/68",
+      "has": [
+        {
+          "type": "host",
+          "value": "podcast.govcongiants.org"
+        }
+      ],
+      "destination": "https://govcongiants.com/podcast/what-it-really-takes-to-win-a-government-contract-when-you-have-no-past-performance",
+      "permanent": true
+    },
+    {
+      "source": "/podcast/69",
+      "has": [
+        {
+          "type": "host",
+          "value": "podcast.govcongiants.org"
+        }
+      ],
+      "destination": "https://govcongiants.com/podcast/how-federal-contractors-use-community-networks-to-land-teaming-partners-and-win-bids",
+      "permanent": true
+    },
+    {
+      "source": "/podcast/70",
+      "has": [
+        {
+          "type": "host",
+          "value": "podcast.govcongiants.org"
+        }
+      ],
+      "destination": "https://govcongiants.com/podcast/the-custom-kit-strategy-that-makes-you-the-only-vendor-a-government-customer-can-call",
+      "permanent": true
+    },
+    {
+      "source": "/podcast/71",
+      "has": [
+        {
+          "type": "host",
+          "value": "podcast.govcongiants.org"
+        }
+      ],
+      "destination": "https://govcongiants.com/podcast/how-govcon-giants-market-intelligence-replaces-11-tools-for-small-business-federal-contrac",
+      "permanent": true
+    },
+    {
+      "source": "/podcast/72",
+      "has": [
+        {
+          "type": "host",
+          "value": "podcast.govcongiants.org"
+        }
+      ],
+      "destination": "https://govcongiants.com/podcast/why-knowing-how-agencies-buy-is-more-powerful-than-having-any-certification",
+      "permanent": true
+    },
+    {
+      "source": "/podcast/73",
+      "has": [
+        {
+          "type": "host",
+          "value": "podcast.govcongiants.org"
+        }
+      ],
+      "destination": "https://govcongiants.com/podcast/8a-certification-stalled-how-congress-can-escalate-your-sba-case",
+      "permanent": true
+    },
+    {
+      "source": "/podcast/74",
+      "has": [
+        {
+          "type": "host",
+          "value": "podcast.govcongiants.org"
+        }
+      ],
+      "destination": "https://govcongiants.com/podcast/what-every-aspiring-federal-contractor-should-know-before-bidding-on-their-first-solicitat",
+      "permanent": true
+    },
+    {
+      "source": "/podcast/75",
+      "has": [
+        {
+          "type": "host",
+          "value": "podcast.govcongiants.org"
+        }
+      ],
+      "destination": "https://govcongiants.com/podcast/new-to-dod-contracting-master-pie-and-cmmc-before-you-bid",
+      "permanent": true
+    },
+    {
+      "source": "/podcast/76",
+      "has": [
+        {
+          "type": "host",
+          "value": "podcast.govcongiants.org"
+        }
+      ],
+      "destination": "https://govcongiants.com/podcast/why-now-is-the-best-time-to-win-government-contracts-while-everyone-else-is-scared",
+      "permanent": true
+    },
+    {
+      "source": "/podcast/77",
+      "has": [
+        {
+          "type": "host",
+          "value": "podcast.govcongiants.org"
+        }
+      ],
+      "destination": "https://govcongiants.com/podcast/three-proposal-red-flags-that-tell-contracting-officers-you-used-ai-to-write-it",
+      "permanent": true
+    },
+    {
+      "source": "/podcast/78",
+      "has": [
+        {
+          "type": "host",
+          "value": "podcast.govcongiants.org"
+        }
+      ],
+      "destination": "https://govcongiants.com/podcast/sources-sought-responses-that-actually-get-noticed-ep-324",
+      "permanent": true
+    },
+    {
+      "source": "/podcast/79",
+      "has": [
+        {
+          "type": "host",
+          "value": "podcast.govcongiants.org"
+        }
+      ],
+      "destination": "https://govcongiants.com/podcast/what-large-defense-primes-know-about-kitting-that-small-businesses-miss",
+      "permanent": true
+    },
+    {
+      "source": "/podcast/80",
+      "has": [
+        {
+          "type": "host",
+          "value": "podcast.govcongiants.org"
+        }
+      ],
+      "destination": "https://govcongiants.com/podcast/sources-sought-the-legal-way-to-shape-government-contracts-in-your-favor",
+      "permanent": true
+    },
+    {
+      "source": "/podcast/81",
+      "has": [
+        {
+          "type": "host",
+          "value": "podcast.govcongiants.org"
+        }
+      ],
+      "destination": "https://govcongiants.com/podcast/idiq-contracts-explained-capture-strategy-that-actually-works",
+      "permanent": true
+    },
+    {
+      "source": "/podcast/82",
+      "has": [
+        {
+          "type": "host",
+          "value": "podcast.govcongiants.org"
+        }
+      ],
+      "destination": "https://govcongiants.com/podcast/why-your-capability-statement-is-costing-you-federal-contracts-and-how-to-fix-it-with-ai",
+      "permanent": true
+    },
+    {
+      "source": "/podcast/83",
+      "has": [
+        {
+          "type": "host",
+          "value": "podcast.govcongiants.org"
+        }
+      ],
+      "destination": "https://govcongiants.com/podcast/how-small-businesses-can-consult-their-way-into-47m-federal-deals",
+      "permanent": true
+    },
+    {
+      "source": "/podcast/84",
+      "has": [
+        {
+          "type": "host",
+          "value": "podcast.govcongiants.org"
+        }
+      ],
+      "destination": "https://govcongiants.com/podcast/scared-to-bid-how-small-businesses-win-federal-contracts-anyway",
+      "permanent": true
+    },
+    {
+      "source": "/podcast/85",
+      "has": [
+        {
+          "type": "host",
+          "value": "podcast.govcongiants.org"
+        }
+      ],
+      "destination": "https://govcongiants.com/podcast/how-to-fund-govcon-growth-without-killing-cash-flow-ep-322",
+      "permanent": true
+    },
+    {
+      "source": "/podcast/86",
+      "has": [
+        {
+          "type": "host",
+          "value": "podcast.govcongiants.org"
+        }
+      ],
+      "destination": "https://govcongiants.com/podcast/how-to-build-a-capability-statement-that-wins-federal-contracts",
+      "permanent": true
+    },
+    {
+      "source": "/podcast/87",
+      "has": [
+        {
+          "type": "host",
+          "value": "podcast.govcongiants.org"
+        }
+      ],
+      "destination": "https://govcongiants.com/podcast/how-to-review-proposals-fast-and-avoid-costly-bidding-mistakes",
+      "permanent": true
+    },
+    {
+      "source": "/podcast/88",
+      "has": [
+        {
+          "type": "host",
+          "value": "podcast.govcongiants.org"
+        }
+      ],
+      "destination": "https://govcongiants.com/podcast/federal-contract-protests-explained-when-to-fight-back-and-when-not-to",
+      "permanent": true
+    },
+    {
+      "source": "/podcast/89",
+      "has": [
+        {
+          "type": "host",
+          "value": "podcast.govcongiants.org"
+        }
+      ],
+      "destination": "https://govcongiants.com/podcast/what-federal-buyers-actually-look-at-before-they-decide-to-call-you",
+      "permanent": true
+    },
+    {
+      "source": "/podcast/90",
+      "has": [
+        {
+          "type": "host",
+          "value": "podcast.govcongiants.org"
+        }
+      ],
+      "destination": "https://govcongiants.com/podcast/how-bid-bonds-work-when-you-actually-need-them",
+      "permanent": true
+    },
+    {
+      "source": "/podcast/91",
+      "has": [
+        {
+          "type": "host",
+          "value": "podcast.govcongiants.org"
+        }
+      ],
+      "destination": "https://govcongiants.com/podcast/how-to-sell-more-contracts-while-staying-cmmc-compliant",
+      "permanent": true
+    },
+    {
+      "source": "/podcast/92",
+      "has": [
+        {
+          "type": "host",
+          "value": "podcast.govcongiants.org"
+        }
+      ],
+      "destination": "https://govcongiants.com/podcast/how-to-build-a-cyber-defense-strategy-that-meets-cmmc-without-overspending",
+      "permanent": true
+    },
+    {
+      "source": "/podcast/93",
+      "has": [
+        {
+          "type": "host",
+          "value": "podcast.govcongiants.org"
+        }
+      ],
+      "destination": "https://govcongiants.com/podcast/how-to-get-better-clients-in-government-contracting-bd-tips",
+      "permanent": true
+    },
+    {
+      "source": "/podcast/94",
+      "has": [
+        {
+          "type": "host",
+          "value": "podcast.govcongiants.org"
+        }
+      ],
+      "destination": "https://govcongiants.com/podcast/turn-your-hidden-skills-into-a-federal-government-contract",
+      "permanent": true
+    },
+    {
+      "source": "/podcast/95",
+      "has": [
+        {
+          "type": "host",
+          "value": "podcast.govcongiants.org"
+        }
+      ],
+      "destination": "https://govcongiants.com/podcast/what-to-do-when-agencies-keep-requesting-quotes-without-buying",
+      "permanent": true
+    },
+    {
+      "source": "/podcast/96",
+      "has": [
+        {
+          "type": "host",
+          "value": "podcast.govcongiants.org"
+        }
+      ],
+      "destination": "https://govcongiants.com/podcast/how-to-win-federal-contracts-when-you-have-no-past-performance-yet",
+      "permanent": true
+    },
+    {
+      "source": "/podcast/97",
+      "has": [
+        {
+          "type": "host",
+          "value": "podcast.govcongiants.org"
+        }
+      ],
+      "destination": "https://govcongiants.com/podcast/how-to-shape-a-solicitation-and-increase-your-probability-of-winning-federal-contracts",
+      "permanent": true
+    },
+    {
+      "source": "/podcast/98",
+      "has": [
+        {
+          "type": "host",
+          "value": "podcast.govcongiants.org"
+        }
+      ],
+      "destination": "https://govcongiants.com/podcast/how-to-show-federal-agencies-you-are-ready-before-the-capabilities-briefing",
+      "permanent": true
+    },
+    {
+      "source": "/podcast/99",
+      "has": [
+        {
+          "type": "host",
+          "value": "podcast.govcongiants.org"
+        }
+      ],
+      "destination": "https://govcongiants.com/podcast/break-into-government-construction-without-prime-experience-ep-325",
+      "permanent": true
+    },
+    {
+      "source": "/podcast/100",
+      "has": [
+        {
+          "type": "host",
+          "value": "podcast.govcongiants.org"
+        }
+      ],
+      "destination": "https://govcongiants.com/podcast/government-subcontracting-strategy-to-land-contracts-and-scale-fast",
+      "permanent": true
+    },
+    {
+      "source": "/podcast/101",
+      "has": [
+        {
+          "type": "host",
+          "value": "podcast.govcongiants.org"
+        }
+      ],
+      "destination": "https://govcongiants.com/podcast/how-to-get-government-contracting-clients-using-market-data-strategy",
+      "permanent": true
+    },
+    {
+      "source": "/podcast/102",
+      "has": [
+        {
+          "type": "host",
+          "value": "podcast.govcongiants.org"
+        }
+      ],
+      "destination": "https://govcongiants.com/podcast/how-small-businesses-win-federal-contracts-through-relationship-networking",
+      "permanent": true
+    },
+    {
+      "source": "/podcast/103",
+      "has": [
+        {
+          "type": "host",
+          "value": "podcast.govcongiants.org"
+        }
+      ],
+      "destination": "https://govcongiants.com/podcast/how-to-find-government-contracting-points-of-contact-using-free-tools",
+      "permanent": true
+    },
+    {
+      "source": "/podcast/104",
+      "has": [
+        {
+          "type": "host",
+          "value": "podcast.govcongiants.org"
+        }
+      ],
+      "destination": "https://govcongiants.com/podcast/why-i-started-my-government-contracting-business-and-why-it-keeps-me-from-quitting",
+      "permanent": true
+    },
+    {
+      "source": "/podcast/105",
+      "has": [
+        {
+          "type": "host",
+          "value": "podcast.govcongiants.org"
+        }
+      ],
+      "destination": "https://govcongiants.com/podcast/government-contract-competitor-intelligence-using-samgov-free-tools",
+      "permanent": true
+    },
+    {
+      "source": "/podcast/106",
+      "has": [
+        {
+          "type": "host",
+          "value": "podcast.govcongiants.org"
+        }
+      ],
+      "destination": "https://govcongiants.com/podcast/7-questions-that-can-land-you-a-government-contract-without-a-bid-ep-319",
+      "permanent": true
+    },
+    {
+      "source": "/podcast/107",
+      "has": [
+        {
+          "type": "host",
+          "value": "podcast.govcongiants.org"
+        }
+      ],
+      "destination": "https://govcongiants.com/podcast/prime-contractor-teaming-strategy-to-win-more-government-contracts",
+      "permanent": true
+    },
+    {
+      "source": "/podcast/108",
+      "has": [
+        {
+          "type": "host",
+          "value": "podcast.govcongiants.org"
+        }
+      ],
+      "destination": "https://govcongiants.com/podcast/government-contracting-skills-how-to-identify-and-win-with-what-you-know",
+      "permanent": true
+    },
+    {
+      "source": "/podcast/109",
+      "has": [
+        {
+          "type": "host",
+          "value": "podcast.govcongiants.org"
+        }
+      ],
+      "destination": "https://govcongiants.com/podcast/sources-sought-strategy-how-small-businesses-win-before-the-rfp",
+      "permanent": true
+    },
+    {
+      "source": "/podcast/110",
+      "has": [
+        {
+          "type": "host",
+          "value": "podcast.govcongiants.org"
+        }
+      ],
+      "destination": "https://govcongiants.com/podcast/how-to-start-grow-a-government-contracting-business-certifications-funding-getting-your-fi",
+      "permanent": true
+    },
+    {
+      "source": "/podcast/111",
+      "has": [
+        {
+          "type": "host",
+          "value": "podcast.govcongiants.org"
+        }
+      ],
+      "destination": "https://govcongiants.com/podcast/what-federal-contractors-must-know-about-background-checks-base-access",
+      "permanent": true
+    },
+    {
+      "source": "/podcast/112",
+      "has": [
+        {
+          "type": "host",
+          "value": "podcast.govcongiants.org"
+        }
+      ],
+      "destination": "https://govcongiants.com/podcast/build-a-100k-capability-statement-in-15-minutes-using-ai-tools",
+      "permanent": true
+    },
+    {
+      "source": "/podcast/113",
+      "has": [
+        {
+          "type": "host",
+          "value": "podcast.govcongiants.org"
+        }
+      ],
+      "destination": "https://govcongiants.com/podcast/why-small-businesses-should-avoid-large-rfps-and-win-micro-purchases-ep-318",
+      "permanent": true
+    },
+    {
+      "source": "/podcast/114",
+      "has": [
+        {
+          "type": "host",
+          "value": "podcast.govcongiants.org"
+        }
+      ],
+      "destination": "https://govcongiants.com/podcast/building-a-capability-statement-that-gets-you-in-the-room-fast",
+      "permanent": true
+    },
+    {
+      "source": "/podcast/115",
+      "has": [
+        {
+          "type": "host",
+          "value": "podcast.govcongiants.org"
+        }
+      ],
+      "destination": "https://govcongiants.com/podcast/how-federal-contracting-consulting-is-the-fastest-path-to-big-wins",
+      "permanent": true
+    },
+    {
+      "source": "/podcast/116",
+      "has": [
+        {
+          "type": "host",
+          "value": "podcast.govcongiants.org"
+        }
+      ],
+      "destination": "https://govcongiants.com/podcast/how-to-identify-hidden-skills-that-win-you-federal-contracts-today",
+      "permanent": true
+    },
+    {
+      "source": "/podcast/117",
+      "has": [
+        {
+          "type": "host",
+          "value": "podcast.govcongiants.org"
+        }
+      ],
+      "destination": "https://govcongiants.com/podcast/how-to-get-noticed-by-agencies-in-federal-contracting-beginner-guide",
+      "permanent": true
+    },
+    {
+      "source": "/podcast/118",
+      "has": [
+        {
+          "type": "host",
+          "value": "podcast.govcongiants.org"
+        }
+      ],
+      "destination": "https://govcongiants.com/podcast/using-ai-to-break-down-federal-proposals-in-minutes",
+      "permanent": true
+    },
+    {
+      "source": "/podcast/119",
+      "has": [
+        {
+          "type": "host",
+          "value": "podcast.govcongiants.org"
+        }
+      ],
+      "destination": "https://govcongiants.com/podcast/how-to-capture-government-contracts-before-they-go-to-bid",
+      "permanent": true
+    },
+    {
+      "source": "/podcast/120",
+      "has": [
+        {
+          "type": "host",
+          "value": "podcast.govcongiants.org"
+        }
+      ],
+      "destination": "https://govcongiants.com/podcast/why-consulting-is-the-easiest-way-to-start-government-contracting-ep-317",
+      "permanent": true
+    },
+    {
+      "source": "/podcast/121",
+      "has": [
+        {
+          "type": "host",
+          "value": "podcast.govcongiants.org"
+        }
+      ],
+      "destination": "https://govcongiants.com/podcast/why-no-new-8a-approvals-how-to-win-contracts-anyway",
+      "permanent": true
+    },
+    {
+      "source": "/podcast/122",
+      "has": [
+        {
+          "type": "host",
+          "value": "podcast.govcongiants.org"
+        }
+      ],
+      "destination": "https://govcongiants.com/podcast/the-goal-setting-strategy-that-helped-me-win-my-first-big-opportunity",
+      "permanent": true
+    },
+    {
+      "source": "/podcast/123",
+      "has": [
+        {
+          "type": "host",
+          "value": "podcast.govcongiants.org"
+        }
+      ],
+      "destination": "https://govcongiants.com/podcast/naics-vs-psc-codes-what-govcon-beginners-must-know",
+      "permanent": true
+    },
+    {
+      "source": "/podcast/124",
+      "has": [
+        {
+          "type": "host",
+          "value": "podcast.govcongiants.org"
+        }
+      ],
+      "destination": "https://govcongiants.com/podcast/bd-vs-capture-management-whats-the-difference-in-federal-contracting",
+      "permanent": true
+    },
+    {
+      "source": "/podcast/125",
+      "has": [
+        {
+          "type": "host",
+          "value": "podcast.govcongiants.org"
+        }
+      ],
+      "destination": "https://govcongiants.com/podcast/how-to-use-sources-sought-rfis-to-win-government-contracts",
+      "permanent": true
+    },
+    {
+      "source": "/podcast/126",
+      "has": [
+        {
+          "type": "host",
+          "value": "podcast.govcongiants.org"
+        }
+      ],
+      "destination": "https://govcongiants.com/podcast/how-to-avoid-costly-mistakes-with-wage-determinations-in-federal-bids",
+      "permanent": true
+    },
+    {
+      "source": "/podcast/127",
+      "has": [
+        {
+          "type": "host",
+          "value": "podcast.govcongiants.org"
+        }
+      ],
+      "destination": "https://govcongiants.com/podcast/316-win-your-first-government-contract-in-2026-step-by-step",
+      "permanent": true
+    },
+    {
+      "source": "/podcast/128",
+      "has": [
+        {
+          "type": "host",
+          "value": "podcast.govcongiants.org"
+        }
+      ],
+      "destination": "https://govcongiants.com/podcast/how-unknown-contractors-make-billions-without-big-contracts",
+      "permanent": true
+    },
+    {
+      "source": "/podcast/129",
+      "has": [
+        {
+          "type": "host",
+          "value": "podcast.govcongiants.org"
+        }
+      ],
+      "destination": "https://govcongiants.com/podcast/the-15k-to-350k-path-most-government-contractors-never-see",
+      "permanent": true
+    },
+    {
+      "source": "/podcast/130",
+      "has": [
+        {
+          "type": "host",
+          "value": "podcast.govcongiants.org"
+        }
+      ],
+      "destination": "https://govcongiants.com/podcast/harsh-govcon-truth-the-loudest-contractor-gets-the-call",
+      "permanent": true
+    },
+    {
+      "source": "/podcast/131",
+      "has": [
+        {
+          "type": "host",
+          "value": "podcast.govcongiants.org"
+        }
+      ],
+      "destination": "https://govcongiants.com/podcast/why-federal-buying-is-not-fairand-thats-good-for-smart-contractors",
+      "permanent": true
+    },
+    {
+      "source": "/podcast/132",
+      "has": [
+        {
+          "type": "host",
+          "value": "podcast.govcongiants.org"
+        }
+      ],
+      "destination": "https://govcongiants.com/podcast/how-contractors-win-faster-using-unison-marketplace-up-to-350k-govcon-deals",
+      "permanent": true
+    },
+    {
+      "source": "/podcast/133",
+      "has": [
+        {
+          "type": "host",
+          "value": "podcast.govcongiants.org"
+        }
+      ],
+      "destination": "https://govcongiants.com/podcast/the-15000-govcon-shortcut-nobody-explains-clearly",
+      "permanent": true
+    },
+    {
+      "source": "/podcast/134",
+      "has": [
+        {
+          "type": "host",
+          "value": "podcast.govcongiants.org"
+        }
+      ],
+      "destination": "https://govcongiants.com/podcast/how-to-choose-skills-that-actually-win-government-contracts",
+      "permanent": true
+    },
+    {
+      "source": "/podcast/135",
+      "has": [
+        {
+          "type": "host",
+          "value": "podcast.govcongiants.org"
+        }
+      ],
+      "destination": "https://govcongiants.com/podcast/youre-sitting-on-skills-that-could-be-paying-you-right-now",
+      "permanent": true
+    },
+    {
+      "source": "/podcast/136",
+      "has": [
+        {
+          "type": "host",
+          "value": "podcast.govcongiants.org"
+        }
+      ],
+      "destination": "https://govcongiants.com/podcast/youre-losing-contracts-because-youre-looking-in-the-wrong-places",
+      "permanent": true
+    },
+    {
+      "source": "/podcast/137",
+      "has": [
+        {
+          "type": "host",
+          "value": "podcast.govcongiants.org"
+        }
+      ],
+      "destination": "https://govcongiants.com/podcast/youre-not-missing-skills-youre-under-selling-your-expertise",
+      "permanent": true
+    },
+    {
+      "source": "/podcast/138",
+      "has": [
+        {
+          "type": "host",
+          "value": "podcast.govcongiants.org"
+        }
+      ],
+      "destination": "https://govcongiants.com/podcast/315-5-moves-that-win-government-contracts-in-2026-free-1500-bootcamp-secrets",
+      "permanent": true
+    },
+    {
+      "source": "/podcast/139",
+      "has": [
+        {
+          "type": "host",
+          "value": "podcast.govcongiants.org"
+        }
+      ],
+      "destination": "https://govcongiants.com/podcast/most-new-govcon-businesses-fail-at-this-one-simple-step",
+      "permanent": true
+    },
+    {
+      "source": "/podcast/140",
+      "has": [
+        {
+          "type": "host",
+          "value": "podcast.govcongiants.org"
+        }
+      ],
+      "destination": "https://govcongiants.com/podcast/how-a-22m-contract-was-won-with-zero-past-performance-just-one-bold-move",
+      "permanent": true
+    },
+    {
+      "source": "/podcast/141",
+      "has": [
+        {
+          "type": "host",
+          "value": "podcast.govcongiants.org"
+        }
+      ],
+      "destination": "https://govcongiants.com/podcast/how-to-win-a-16m-federal-recompete-by-outsmarting-the-incumbent-0",
+      "permanent": true
+    },
+    {
+      "source": "/podcast/142",
+      "has": [
+        {
+          "type": "host",
+          "value": "podcast.govcongiants.org"
+        }
+      ],
+      "destination": "https://govcongiants.com/podcast/from-cor-to-contractor-winning-high-stakes-socom-contracts-the-smart-way-with-ryan-atencio",
+      "permanent": true
+    },
+    {
+      "source": "/podcast/143",
+      "has": [
+        {
+          "type": "host",
+          "value": "podcast.govcongiants.org"
+        }
+      ],
+      "destination": "https://govcongiants.com/podcast/314-8-agency-pain-points-that-can-triple-your-win-rate-in-2026",
+      "permanent": true
+    },
+    {
+      "source": "/podcast/144",
+      "has": [
+        {
+          "type": "host",
+          "value": "podcast.govcongiants.org"
+        }
+      ],
+      "destination": "https://govcongiants.com/podcast/opngoviqs-2-part-system-contractors-need-before-ai-contracts-explode",
+      "permanent": true
+    },
+    {
+      "source": "/podcast/145",
+      "has": [
+        {
+          "type": "host",
+          "value": "podcast.govcongiants.org"
+        }
+      ],
+      "destination": "https://govcongiants.com/podcast/how-to-review-6-federal-opportunities-in-30-minutes-using-opngoviq",
+      "permanent": true
+    },
+    {
+      "source": "/podcast/146",
+      "has": [
+        {
+          "type": "host",
+          "value": "podcast.govcongiants.org"
+        }
+      ],
+      "destination": "https://govcongiants.com/podcast/avoid-va-proposal-disqualification-with-opngoviq",
+      "permanent": true
+    },
+    {
+      "source": "/podcast/147",
+      "has": [
+        {
+          "type": "host",
+          "value": "podcast.govcongiants.org"
+        }
+      ],
+      "destination": "https://govcongiants.com/podcast/the-5-minute-rfp-skim-every-govcon-business-needs-using-opengoviq",
+      "permanent": true
+    },
+    {
+      "source": "/podcast/148",
+      "has": [
+        {
+          "type": "host",
+          "value": "podcast.govcongiants.org"
+        }
+      ],
+      "destination": "https://govcongiants.com/podcast/313-26b-in-8a-contracts-1100-firms-suspended-why-opportunity-is-bigger-than-ever-with-sam",
+      "permanent": true
+    },
+    {
+      "source": "/podcast/149",
+      "has": [
+        {
+          "type": "host",
+          "value": "podcast.govcongiants.org"
+        }
+      ],
+      "destination": "https://govcongiants.com/podcast/why-your-network-matters-more-than-your-next-bid",
+      "permanent": true
+    },
+    {
+      "source": "/podcast",
+      "has": [
+        {
+          "type": "host",
+          "value": "podcast.govcongiants.org"
+        }
+      ],
+      "destination": "https://govcongiants.com/podcast",
+      "permanent": true
+    },
+    {
+      "source": "/blog",
+      "has": [
+        {
+          "type": "host",
+          "value": "podcast.govcongiants.org"
+        }
+      ],
+      "destination": "https://govcongiants.com/blog",
+      "permanent": true
+    },
+    {
+      "source": "/about",
+      "has": [
+        {
+          "type": "host",
+          "value": "podcast.govcongiants.org"
+        }
+      ],
+      "destination": "https://govcongiants.com/about",
+      "permanent": true
+    },
+    {
+      "source": "/resources",
+      "has": [
+        {
+          "type": "host",
+          "value": "podcast.govcongiants.org"
+        }
+      ],
+      "destination": "https://govcongiants.com/resources",
+      "permanent": true
+    },
+    {
+      "source": "/",
+      "has": [
+        {
+          "type": "host",
+          "value": "podcast.govcongiants.org"
+        }
+      ],
+      "destination": "https://govcongiants.com/podcast",
+      "permanent": true
+    },
+    {
+      "source": "/:path*",
+      "has": [
+        {
+          "type": "host",
+          "value": "podcast.govcongiants.org"
+        }
+      ],
+      "destination": "https://govcongiants.com/:path*",
+      "permanent": true
     }
   ],
   "crons": [
