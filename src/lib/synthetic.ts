@@ -175,14 +175,90 @@ export async function runContentChecks(): Promise<CheckResult[]> {
   return out;
 }
 
+/**
+ * Hosts retired in the Phase 4 canonicalization. Each must PERMANENTLY REDIRECT to
+ * govcongiants.com and must never serve indexable 200 content again.
+ *
+ * This is the regression contract for the 2026-09-05 incident class. Two failure modes
+ * are caught here:
+ *
+ *  1. A retired host starts serving 200 again (a domain reattached to a deployment, or
+ *     a redirect rule dropped). That silently recreates duplicate content across hosts
+ *     and splits ranking signals — the condition Phase 4 exists to end.
+ *  2. A redirect points somewhere other than the canonical host, or bounces more than
+ *     once. Multi-hop chains leak crawl budget; a cycle takes routes down outright,
+ *     which is exactly what happened when app.govcongiants.org and the old SPA pointed
+ *     at each other.
+ *
+ * podcast.govcongiants.org is intentionally ABSENT: it is attached to the
+ * govcon-giants-site project, so its redirect is not ours to define here. Add it once
+ * that host moves to this project.
+ */
+const RETIRED_HOSTS = [
+  'https://app.govcongiants.org',
+  'https://govcongiants.org',
+  'https://www.govcongiants.org',
+  'https://guides.govcongiants.org',
+  'https://funnels.govcongiants.org',
+  'https://www.govcongiants.com',
+];
+
+/** Paths probed on each retired host — root plus a deep path, to catch rules that
+ *  only cover one shape. */
+const RETIRED_PROBE_PATHS = ['/', '/guides/8a-certification'];
+
+export async function runCanonicalHostChecks(): Promise<CheckResult[]> {
+  const out: CheckResult[] = [];
+  for (const host of RETIRED_HOSTS) {
+    for (const path of RETIRED_PROBE_PATHS) {
+      const url = `${host}${path}`;
+      try {
+        // Do NOT follow redirects: we are asserting on the FIRST response.
+        const start = Date.now();
+        const res = await fetch(url, { redirect: 'manual' });
+        const ms = Date.now() - start;
+        const location = res.headers.get('location') ?? '';
+        const isPermanent = res.status === 301 || res.status === 308;
+        const targetsCanonical =
+          location.startsWith('https://govcongiants.com') ||
+          // Same-origin relative Location on a host that is itself being redirected
+          // still resolves to the canonical host once followed.
+          location.startsWith('/');
+        const ok = isPermanent && targetsCanonical;
+        out.push({
+          check: 'canonical-host',
+          target: url,
+          ok,
+          status: res.status,
+          duration_ms: ms,
+          detail: ok
+            ? `-> ${location}`
+            : res.status === 200
+              ? 'SERVING 200 — retired host must not serve indexable content'
+              : `status=${res.status} location=${location || '(none)'}`,
+        });
+      } catch (e) {
+        out.push({
+          check: 'canonical-host',
+          target: url,
+          ok: false,
+          detail: e instanceof Error ? e.message : String(e),
+        });
+      }
+    }
+  }
+  return out;
+}
+
 /** Run the full suite, persist every result, return them. */
 export async function runSyntheticSuite(): Promise<CheckResult[]> {
-  const [canary, urls, content] = await Promise.all([
+  const [canary, urls, content, canonicalHosts] = await Promise.all([
     runCanaryLead(),
     runUrlChecks(),
     runContentChecks(),
+    runCanonicalHostChecks(),
   ]);
-  const all = [canary, ...urls, ...content];
+  const all = [canary, ...urls, ...content, ...canonicalHosts];
   await Promise.all(all.map((r) => recordCheck(r)));
   return all;
 }

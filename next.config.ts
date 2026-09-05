@@ -39,31 +39,25 @@ const nextConfig: NextConfig = {
       // ⚠️ NOTHING HERE MAY MATCH A LIBSYN HOSTNAME. Podcast distribution
       // (govcongiants.libsyn.com/rss, traffic.libsyn.com/*, static.libsyn.com/*) is
       // outside this consolidation and must keep resolving untouched.
-      // ⚠️ app.govcongiants.org → .com rule DISABLED AGAIN (2026-09-05, incident).
+      // app.govcongiants.org → .com now lives in vercel.json (Phase 4, 2026-09-05).
       //
-      // The rule's own premise is "this ships with the production domain move so there
-      // is no interval where the old SPA can redirect a request back here." That move
-      // has NOT happened: govcongiants.com is still served by the govcon-giants-site
-      // SPA, which 308s ~35 Next-owned path families (/guides, /features, /compare,
-      // /for, /jobs, /data, /glossary, /tools, /consulting, ...) straight back to
-      // app.govcongiants.org. With this rule live, those bounce forever.
+      // HISTORY, because this rule caused the same outage twice. It 308s the legacy app
+      // host onto .com. While .com was still served by the govcon-giants-site SPA, that
+      // SPA 308'd ~35 Next-owned path families (/guides, /features, /compare, /for,
+      // /jobs, /data, /glossary, /tools, /consulting, ...) straight back to
+      // app.govcongiants.org — so the pair formed an infinite loop and took ~10
+      // customer-facing families down (curl: 50 redirects, no page). It was disabled
+      // 2026-08-24, re-enabled 2026-09-05 before the domain move, and disabled again
+      // the same day during the incident.
       //
-      // Enabling it without the domain move took ~10 route families down with an
-      // infinite redirect loop (curl: 50 redirects, no page). This is the SECOND time
-      // the same rule has caused the same outage — it was first disabled 2026-08-24
-      // for exactly this reason, then re-enabled before the prerequisite landed.
+      // THE PREREQUISITE IS NOW MET. govcongiants.com was reassigned to this project and
+      // proven to serve it directly (Phase 3 gate: 0 SPA markers, 170/170 compatibility
+      // URLs 200, all 427 sitemap URLs 200, no cycles). The SPA no longer serves .com,
+      // so nothing can redirect back here.
       //
-      // DO NOT re-enable until govcongiants.com is served by THIS project. Verify with:
-      //   curl -s https://govcongiants.com/ | grep -o 'id="root"'
-      // A match means the Vite SPA still serves apex and re-enabling will loop again.
-      // Re-enable in the SAME deploy that moves the domain, never before.
-      // See tasks/CUTOVER-podcast-routes.md and tasks/PLAN-one-site-on-dotcom.md.
-      // {
-      //   source: "/:path*",
-      //   has: [{ type: "host", value: "app.govcongiants.org" }],
-      //   destination: "https://govcongiants.com/:path*",
-      //   permanent: true,
-      // },
+      // The rule is defined in vercel.json alongside every other host redirect, so all
+      // canonicalization lives in ONE file and cannot drift between two.
+      // See tasks/PHASE3-apex-cutover-runbook.md.
       {
         source: "/:path*",
         has: [{ type: "host", value: "podcast.govcongiants.org" }],
