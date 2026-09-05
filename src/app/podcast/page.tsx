@@ -59,10 +59,10 @@ export default function PodcastIndexPage() {
         </p>
 
         <ul className="mt-10 flex flex-col gap-4">
-          {episodes.map((ep, i) => (
-            <li key={`${ep.link}-${i}`}>
+          {episodes.map((ep) => (
+            <li key={ep.slug}>
               <Link
-                href={`/podcast/${i}`}
+                href={`/podcast/${ep.slug}`}
                 className="flex gap-4 rounded-xl border border-slate-800 bg-slate-900/40 p-4 transition hover:border-violet-500/50 hover:bg-slate-900"
               >
                 <Image

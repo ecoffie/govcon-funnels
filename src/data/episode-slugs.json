@@ -1,0 +1,907 @@
+{
+  "generated": "2026-09-05",
+  "note": "index -> slug map, frozen at the slug migration. Legacy /podcast/:index redirects to /podcast/:slug using index. The runtime binds a slug to its episode by LINK (not array position) so a feed refresh cannot reassign published slugs.",
+  "count": 150,
+  "episodes": [
+    {
+      "index": 0,
+      "slug": "5-ways-to-find-your-federal-program-manager-before-everyone-else-does",
+      "title": "5 Ways To Find Your Federal Program Manager Before Everyone Else Does",
+      "link": "https://govcongiants.libsyn.com/5-ways-to-find-your-federal-program-manager-before-everyone-else-does"
+    },
+    {
+      "index": 1,
+      "slug": "the-woman-who-wrote-cmmc-the-250k-compliance-cost-is-a-lie-ep-334",
+      "title": "The Woman Who Wrote CMMC: The $250K \"Compliance Cost\" Is a Lie | EP: 334",
+      "link": "https://govcongiants.libsyn.com/the-woman-who-wrote-cmmc-the-250k-compliance-cost-is-a-lie-ep-334"
+    },
+    {
+      "index": 2,
+      "slug": "the-side-door-strategy-for-winning-subcontracts-with-defense-primes",
+      "title": "The Side Door Strategy For Winning Subcontracts With Defense Primes",
+      "link": "https://govcongiants.libsyn.com/the-side-door-strategy-for-winning-subcontracts-with-defense-primes"
+    },
+    {
+      "index": 3,
+      "slug": "how-to-find-federal-contracts-before-they-hit-samgov-with-no-experience",
+      "title": "How to Find Federal Contracts Before They Hit SAM.gov With No Experience",
+      "link": "https://govcongiants.libsyn.com/how-to-find-federal-contracts-before-they-hit-samgov-with-no-experience"
+    },
+    {
+      "index": 4,
+      "slug": "how-one-subcontractor-turned-a-40000-dispute-into-a-federal-contracting-lesson",
+      "title": "3 Subcontracting Mistakes That Can Bankrupt a Small Government Contractor Fast",
+      "link": "https://govcongiants.libsyn.com/how-one-subcontractor-turned-a-40000-dispute-into-a-federal-contracting-lesson"
+    },
+    {
+      "index": 5,
+      "slug": "how-to-build-a-business-foundation-when-you-have-no-experience-at-all",
+      "title": "How To Build A Business Foundation When You Have No Experience At All",
+      "link": "https://govcongiants.libsyn.com/how-to-build-a-business-foundation-when-you-have-no-experience-at-all"
+    },
+    {
+      "index": 6,
+      "slug": "how-to-turn-a-50k-line-item-into-steady-progress-payments",
+      "title": "How to Turn a $50K Line Item Into Steady Progress Payments",
+      "link": "https://govcongiants.libsyn.com/how-to-turn-a-50k-line-item-into-steady-progress-payments"
+    },
+    {
+      "index": 7,
+      "slug": "why-smart-contractors-use-government-work-to-survive-recessions-and-storm-slowdowns",
+      "title": "Why Smart Contractors Use Government Work to Survive Recessions and Storm Slowdowns",
+      "link": "https://govcongiants.libsyn.com/why-smart-contractors-use-government-work-to-survive-recessions-and-storm-slowdowns"
+    },
+    {
+      "index": 8,
+      "slug": "how-to-use-naics-and-psc-codes-to-find-government-buyers-for-your-products-ep-333",
+      "title": "How to Use NAICS and PSC Codes to Find Government Buyers for Your Products | EP: 333",
+      "link": "https://govcongiants.libsyn.com/how-to-use-naics-and-psc-codes-to-find-government-buyers-for-your-products-ep-333"
+    },
+    {
+      "index": 9,
+      "slug": "2-red-flags-that-mean-you-should-skip-that-government-contract-bid",
+      "title": "2 Red Flags That Mean You Should Skip That Government Contract Bid",
+      "link": "https://govcongiants.libsyn.com/2-red-flags-that-mean-you-should-skip-that-government-contract-bid"
+    },
+    {
+      "index": 10,
+      "slug": "how-small-business-owners-can-use-subcontracting-to-land-their-first-federal-contract",
+      "title": "How Small Business Owners Can Use Subcontracting to Land Their First Federal Contract",
+      "link": "https://govcongiants.libsyn.com/how-small-business-owners-can-use-subcontracting-to-land-their-first-federal-contract"
+    },
+    {
+      "index": 11,
+      "slug": "what-it-really-takes-to-land-your-first-federal-subcontract-with-no-money",
+      "title": "What It Really Takes to Land Your First Federal Subcontract With No Money",
+      "link": "https://govcongiants.libsyn.com/what-it-really-takes-to-land-your-first-federal-subcontract-with-no-money"
+    },
+    {
+      "index": 12,
+      "slug": "how-to-choose-the-right-small-business-certification-for-federal-contracting-success",
+      "title": "How to Choose the Right Small Business Certification for Federal Contracting Success",
+      "link": "https://govcongiants.libsyn.com/how-to-choose-the-right-small-business-certification-for-federal-contracting-success"
+    },
+    {
+      "index": 13,
+      "slug": "why-full-and-open-competition-is-rigged-and-8a-contracts-are-actually-fairer",
+      "title": "Why Full and Open Competition Is Rigged and 8a Contracts Are Actually Fairer",
+      "link": "https://govcongiants.libsyn.com/why-full-and-open-competition-is-rigged-and-8a-contracts-are-actually-fairer"
+    },
+    {
+      "index": 14,
+      "slug": "how-to-draft-a-winning-sources-sought-response-step-by-step",
+      "title": "How to Draft a Winning Sources Sought Response Step by Step",
+      "link": "https://govcongiants.libsyn.com/how-to-draft-a-winning-sources-sought-response-step-by-step"
+    },
+    {
+      "index": 15,
+      "slug": "how-she-won-5-million-in-federal-contracts-with-no-past-performance-ep-332",
+      "title": "How She Won $5 Million In Federal Contracts With No Past Performance | EP: 332",
+      "link": "https://govcongiants.libsyn.com/how-she-won-5-million-in-federal-contracts-with-no-past-performance-ep-332"
+    },
+    {
+      "index": 16,
+      "slug": "what-a-20-million-dollar-proposal-rejection-taught-this-govcon-consultant-about-ai",
+      "title": "What a 20 Million Dollar Proposal Rejection Taught This Govcon Consultant About AI",
+      "link": "https://govcongiants.libsyn.com/what-a-20-million-dollar-proposal-rejection-taught-this-govcon-consultant-about-ai"
+    },
+    {
+      "index": 17,
+      "slug": "how-subcontractors-can-build-prime-relationships-by-showing-up-at-federal-site-visits",
+      "title": "How Subcontractors Can Build Prime Relationships by Showing Up at Federal Site Visits",
+      "link": "https://govcongiants.libsyn.com/how-subcontractors-can-build-prime-relationships-by-showing-up-at-federal-site-visits"
+    },
+    {
+      "index": 18,
+      "slug": "the-free-government-tool-most-small-business-owners-never-knew-existed",
+      "title": "The Free Government Tool Most Small Business Owners Never Knew Existed",
+      "link": "https://govcongiants.libsyn.com/the-free-government-tool-most-small-business-owners-never-knew-existed"
+    },
+    {
+      "index": 19,
+      "slug": "how-to-build-relationships-with-contracting-officers-before-the-rfp-even-drops",
+      "title": "How To Build Relationships With Contracting Officers Before The RFP Even Drops",
+      "link": "https://govcongiants.libsyn.com/how-to-build-relationships-with-contracting-officers-before-the-rfp-even-drops"
+    },
+    {
+      "index": 20,
+      "slug": "what-it-takes-to-form-an-8a-joint-venture-with-a-tribal-company",
+      "title": "What It Takes to Form an 8a Joint Venture With a Tribal Company",
+      "link": "https://govcongiants.libsyn.com/what-it-takes-to-form-an-8a-joint-venture-with-a-tribal-company"
+    },
+    {
+      "index": 21,
+      "slug": "how-to-know-if-your-government-contract-proposal-pricing-is-actually-competitive",
+      "title": "How To Know If Your Government Contract Proposal Pricing Is Actually Competitive",
+      "link": "https://govcongiants.libsyn.com/how-to-know-if-your-government-contract-proposal-pricing-is-actually-competitive"
+    },
+    {
+      "index": 22,
+      "slug": "three-ways-to-turn-your-existing-skills-into-real-income-right-now-ep-331",
+      "title": "Three Ways to Turn Your Existing Skills Into Real Income Right Now | EP: 331",
+      "link": "https://govcongiants.libsyn.com/three-ways-to-turn-your-existing-skills-into-real-income-right-now-ep-331"
+    },
+    {
+      "index": 23,
+      "slug": "how-small-business-owners-can-use-capability-statements-as-a-follow-up-marketing-tool",
+      "title": "How small business owners can use capability statements as a follow up marketing tool",
+      "link": "https://govcongiants.libsyn.com/how-small-business-owners-can-use-capability-statements-as-a-follow-up-marketing-tool"
+    },
+    {
+      "index": 24,
+      "slug": "what-every-small-business-needs-to-know-about-cmmc-compliance-before-working-with-dod",
+      "title": "What every small business needs to know about CMMC compliance before working with DOD",
+      "link": "https://govcongiants.libsyn.com/what-every-small-business-needs-to-know-about-cmmc-compliance-before-working-with-dod"
+    },
+    {
+      "index": 25,
+      "slug": "the-exact-letter-format-that-gets-business-opportunity-specialists-to-respond-fast",
+      "title": "The exact letter format that gets business opportunity specialists to respond fast",
+      "link": "https://govcongiants.libsyn.com/the-exact-letter-format-that-gets-business-opportunity-specialists-to-respond-fast"
+    },
+    {
+      "index": 26,
+      "slug": "how-small-businesses-use-set-asides-and-joint-ventures-to-beat-large-incumbent-contractors",
+      "title": "How Small Businesses Use Set-Asides and Joint Ventures to Beat Large Incumbent Contractors",
+      "link": "https://govcongiants.libsyn.com/how-small-businesses-use-set-asides-and-joint-ventures-to-beat-large-incumbent-contractors"
+    },
+    {
+      "index": 27,
+      "slug": "why-hubzone-price-preference-rarely-works-in-practice-and-what-to-do-on-an-idiq-instead",
+      "title": "Why HUBZone Price Preference Rarely Works in Practice and What to Do on an IDIQ Instead",
+      "link": "https://govcongiants.libsyn.com/why-hubzone-price-preference-rarely-works-in-practice-and-what-to-do-on-an-idiq-instead"
+    },
+    {
+      "index": 28,
+      "slug": "what-to-do-when-someone-claims-they-can-get-you-guaranteed-government-contracts",
+      "title": "What to Do When Someone Claims They Can Get You Guaranteed Government Contracts",
+      "link": "https://govcongiants.libsyn.com/what-to-do-when-someone-claims-they-can-get-you-guaranteed-government-contracts"
+    },
+    {
+      "index": 29,
+      "slug": "how-to-make-your-first-20k-in-government-contracting-with-no-experience-or-money-ep-330",
+      "title": "How to make your first $20K in government contracting with no experience or money | EP: 330",
+      "link": "https://govcongiants.libsyn.com/how-to-make-your-first-20k-in-government-contracting-with-no-experience-or-money-ep-330"
+    },
+    {
+      "index": 30,
+      "slug": "why-submitting-a-sources-sought-response-can-cut-80-percent-of-your-competition",
+      "title": "Why Submitting a Sources Sought Response Can Cut 80 Percent of Your Competition",
+      "link": "https://govcongiants.libsyn.com/why-submitting-a-sources-sought-response-can-cut-80-percent-of-your-competition"
+    },
+    {
+      "index": 31,
+      "slug": "why-most-8a-businesses-never-get-sole-source-contracts-and-how-to-fix-that",
+      "title": "Why Most 8(a) Businesses Never Get Sole Source Contracts and How to Fix That",
+      "link": "https://govcongiants.libsyn.com/why-most-8a-businesses-never-get-sole-source-contracts-and-how-to-fix-that"
+    },
+    {
+      "index": 32,
+      "slug": "how-to-use-psc-codes-to-find-more-government-contract-opportunities-fast",
+      "title": "How to Use PSC Codes to Find More Government Contract Opportunities Fast",
+      "link": "https://govcongiants.libsyn.com/how-to-use-psc-codes-to-find-more-government-contract-opportunities-fast"
+    },
+    {
+      "index": 33,
+      "slug": "what-government-representatives-look-for-when-they-read-your-capability-statement",
+      "title": "What Government Representatives Look for When They Read Your Capability Statement",
+      "link": "https://govcongiants.libsyn.com/what-government-representatives-look-for-when-they-read-your-capability-statement"
+    },
+    {
+      "index": 34,
+      "slug": "why-sole-source-contracts-disappear-after-you-graduate-from-the-8a-program",
+      "title": "Why Sole Source Contracts Disappear After You Graduate From the 8a Program",
+      "link": "https://govcongiants.libsyn.com/why-sole-source-contracts-disappear-after-you-graduate-from-the-8a-program"
+    },
+    {
+      "index": 35,
+      "slug": "what-aspiring-govcon-consultants-can-learn-from-this-ai-proposal-workflow",
+      "title": "What Aspiring GovCon Consultants Can Learn From This AI Proposal Workflow",
+      "link": "https://govcongiants.libsyn.com/what-aspiring-govcon-consultants-can-learn-from-this-ai-proposal-workflow"
+    },
+    {
+      "index": 36,
+      "slug": "how-to-win-government-contracts-with-zero-experience-using-strategic-networking-ep-329",
+      "title": "How to Win Government Contracts With Zero Experience Using Strategic Networking | Ep: 329",
+      "link": "https://govcongiants.libsyn.com/how-to-win-government-contracts-with-zero-experience-using-strategic-networking-ep-329"
+    },
+    {
+      "index": 37,
+      "slug": "how-to-write-a-capability-statement-that-actually-wins-federal-contracts",
+      "title": "What to Do If You Have No Past Performance for Government Contracts Yet",
+      "link": "https://govcongiants.libsyn.com/how-to-write-a-capability-statement-that-actually-wins-federal-contracts"
+    },
+    {
+      "index": 38,
+      "slug": "how-to-avoid-the-8a-application-mistakes-that-get-your-paperwork-rejected",
+      "title": "How to Avoid the 8(a) Application Mistakes That Get Your Paperwork Rejected",
+      "link": "https://govcongiants.libsyn.com/how-to-avoid-the-8a-application-mistakes-that-get-your-paperwork-rejected"
+    },
+    {
+      "index": 39,
+      "slug": "find-your-competitors-contracts-in-60-seconds-and-use-that-intel-to-win",
+      "title": "Find Your Competitor's Contracts in 60 Seconds and Use That Intel to Win",
+      "link": "https://govcongiants.libsyn.com/find-your-competitors-contracts-in-60-seconds-and-use-that-intel-to-win"
+    },
+    {
+      "index": 40,
+      "slug": "how-to-find-the-proposal-errors-that-get-small-businesses-disqualified-every-time",
+      "title": "How to Find the Proposal Errors That Get Small Businesses Disqualified Every Time",
+      "link": "https://govcongiants.libsyn.com/how-to-find-the-proposal-errors-that-get-small-businesses-disqualified-every-time"
+    },
+    {
+      "index": 41,
+      "slug": "sources-sought-notices-are-free-marketing-and-most-small-businesses-never-respond",
+      "title": "Sources Sought Notices Are Free Marketing and Most Small Businesses Never Respond",
+      "link": "https://govcongiants.libsyn.com/sources-sought-notices-are-free-marketing-and-most-small-businesses-never-respond"
+    },
+    {
+      "index": 42,
+      "slug": "government-procurement-decoded-how-to-read-solicitations-before-your-competition-does",
+      "title": "Government Procurement Decoded | How to Read Solicitations Before Your Competition Does",
+      "link": "https://govcongiants.libsyn.com/government-procurement-decoded-how-to-read-solicitations-before-your-competition-does"
+    },
+    {
+      "index": 43,
+      "slug": "how-to-find-a-govcon-consulting-client-without-any-past-performance-or-capital-ep-328",
+      "title": "How to Find a GovCon Consulting Client Without Any Past Performance or Capital | EP: 328",
+      "link": "https://govcongiants.libsyn.com/how-to-find-a-govcon-consulting-client-without-any-past-performance-or-capital-ep-328"
+    },
+    {
+      "index": 44,
+      "slug": "federal-subcontracting-strategy-that-gets-you-in-front-of-project-managers-who-actually-pa",
+      "title": "Federal Subcontracting Strategy That Gets You in Front of Project Managers Who Actually Pay",
+      "link": "https://govcongiants.libsyn.com/federal-subcontracting-strategy-that-gets-you-in-front-of-project-managers-who-actually-pay"
+    },
+    {
+      "index": 45,
+      "slug": "why-building-relationships-gets-you-federal-contracts-before-the-competition-even-knows",
+      "title": "Why Building Relationships Gets You Federal Contracts Before the Competition Even Knows",
+      "link": "https://govcongiants.libsyn.com/why-building-relationships-gets-you-federal-contracts-before-the-competition-even-knows"
+    },
+    {
+      "index": 46,
+      "slug": "how-joint-ventures-and-teaming-agreements-work-without-losing-your-small-business-status",
+      "title": "How Joint Ventures and Teaming Agreements Work Without Losing Your Small Business Status",
+      "link": "https://govcongiants.libsyn.com/how-joint-ventures-and-teaming-agreements-work-without-losing-your-small-business-status"
+    },
+    {
+      "index": 47,
+      "slug": "the-real-reason-small-businesses-lose-government-contracts-after-winning-them",
+      "title": "The Real Reason Small Businesses Lose Government Contracts After Winning Them",
+      "link": "https://govcongiants.libsyn.com/the-real-reason-small-businesses-lose-government-contracts-after-winning-them"
+    },
+    {
+      "index": 48,
+      "slug": "what-the-gurus-never-teach-about-end-user-direct-strategy-and-winning-federal-contracts",
+      "title": "What the Gurus Never Teach About End User Direct Strategy and Winning Federal Contracts",
+      "link": "https://govcongiants.libsyn.com/what-the-gurus-never-teach-about-end-user-direct-strategy-and-winning-federal-contracts"
+    },
+    {
+      "index": 49,
+      "slug": "how-smart-govcon-contractors-use-bd-and-capture-to-build-a-consistent-winning-pipeline",
+      "title": "How Smart Govcon Contractors Use BD and Capture to Build a Consistent Winning Pipeline",
+      "link": "https://govcongiants.libsyn.com/how-smart-govcon-contractors-use-bd-and-capture-to-build-a-consistent-winning-pipeline"
+    },
+    {
+      "index": 50,
+      "slug": "he-went-from-street-life-to-government-contracts-with-zero-connections-ep-327",
+      "title": "He Went From Street Life to Government Contracts With Zero Connections | EP: 327",
+      "link": "https://govcongiants.libsyn.com/he-went-from-street-life-to-government-contracts-with-zero-connections-ep-327"
+    },
+    {
+      "index": 51,
+      "slug": "how-govcon-consultants-track-decision-makers-across-agencies-before-contracts-hit-samgov",
+      "title": "How Govcon Consultants Track Decision Makers Across Agencies Before Contracts Hit SAM.gov",
+      "link": "https://govcongiants.libsyn.com/how-govcon-consultants-track-decision-makers-across-agencies-before-contracts-hit-samgov"
+    },
+    {
+      "index": 52,
+      "slug": "why-subcontracting-first-is-the-smartest-move-before-you-pursue-a-prime-government-contrac",
+      "title": "Why Subcontracting First Is the Smartest Move Before You Pursue a Prime Government Contract",
+      "link": "https://govcongiants.libsyn.com/why-subcontracting-first-is-the-smartest-move-before-you-pursue-a-prime-government-contract"
+    },
+    {
+      "index": 53,
+      "slug": "government-contracting-tools-that-help-small-businesses-win-more-federal-contracts-faster",
+      "title": "Government Contracting Tools That Help Small Businesses Win More Federal Contracts Faster",
+      "link": "https://govcongiants.libsyn.com/government-contracting-tools-that-help-small-businesses-win-more-federal-contracts-faster"
+    },
+    {
+      "index": 54,
+      "slug": "starting-a-government-contracting-consulting-business-around-ai-companies-in-2026",
+      "title": "Starting a Government Contracting Consulting Business Around AI Companies in 2026",
+      "link": "https://govcongiants.libsyn.com/starting-a-government-contracting-consulting-business-around-ai-companies-in-2026"
+    },
+    {
+      "index": 55,
+      "slug": "how-overhead-costs-will-kill-your-small-business-if-you-dont-watch-them-carefully",
+      "title": "How Overhead Costs Will Kill Your Small Business if You Don't Watch Them Carefully",
+      "link": "https://govcongiants.libsyn.com/how-overhead-costs-will-kill-your-small-business-if-you-dont-watch-them-carefully"
+    },
+    {
+      "index": 56,
+      "slug": "why-most-small-businesses-lose-federal-contracts-before-they-even-submit-a-bid",
+      "title": "Why Most Small Businesses Lose Federal Contracts Before They Even Submit a Bid",
+      "link": "https://govcongiants.libsyn.com/why-most-small-businesses-lose-federal-contracts-before-they-even-submit-a-bid"
+    },
+    {
+      "index": 57,
+      "slug": "8-brutal-truths-about-government-subcontracting-that-no-one-tells-small-businesses-ep-326",
+      "title": "8 Brutal Truths About Government Subcontracting That No One Tells Small Businesses | Ep: 326",
+      "link": "https://govcongiants.libsyn.com/8-brutal-truths-about-government-subcontracting-that-no-one-tells-small-businesses-ep-326"
+    },
+    {
+      "index": 58,
+      "slug": "what-procurement-readiness-really-looks-like-before-you-walk-into-any-agency",
+      "title": "What Procurement Readiness Really Looks Like Before You Walk Into Any Agency",
+      "link": "https://govcongiants.libsyn.com/what-procurement-readiness-really-looks-like-before-you-walk-into-any-agency"
+    },
+    {
+      "index": 59,
+      "slug": "how-to-find-prime-contractors-and-pitch-tribal-8a-firms-for-subcontracts",
+      "title": "How to Find Prime Contractors and Pitch Tribal 8a Firms for Subcontracts",
+      "link": "https://govcongiants.libsyn.com/how-to-find-prime-contractors-and-pitch-tribal-8a-firms-for-subcontracts"
+    },
+    {
+      "index": 60,
+      "slug": "the-real-reason-big-primes-run-small-business-cohorts-and-it-is-not-to-help-you",
+      "title": "The Real Reason Big Primes Run Small Business Cohorts and It Is Not to Help You",
+      "link": "https://govcongiants.libsyn.com/the-real-reason-big-primes-run-small-business-cohorts-and-it-is-not-to-help-you"
+    },
+    {
+      "index": 61,
+      "slug": "how-to-build-your-first-capability-statement-and-get-noticed-by-federal-agencies",
+      "title": "How to build your first capability statement and get noticed by federal agencies",
+      "link": "https://govcongiants.libsyn.com/how-to-build-your-first-capability-statement-and-get-noticed-by-federal-agencies"
+    },
+    {
+      "index": 62,
+      "slug": "how-to-grow-bonding-capacity-and-win-bigger-federal-construction-contracts-step-by-step",
+      "title": "What a Federal Construction CEO Wants You to Know Before You Bid Your First Contract",
+      "link": "https://govcongiants.libsyn.com/how-to-grow-bonding-capacity-and-win-bigger-federal-construction-contracts-step-by-step"
+    },
+    {
+      "index": 63,
+      "slug": "the-industry-secret-to-selling-high-value-supplies-to-the-federal-government-revealed",
+      "title": "The Industry Secret to Selling High Value Supplies to the Federal Government Revealed",
+      "link": "https://govcongiants.libsyn.com/the-industry-secret-to-selling-high-value-supplies-to-the-federal-government-revealed"
+    },
+    {
+      "index": 64,
+      "slug": "government-contracting-is-an-inflation-hedge-and-here-is-where-to-find-the-opportunities-e",
+      "title": "Government Contracting Is an Inflation Hedge and Here Is Where to Find the Opportunities | EP: 325",
+      "link": "https://govcongiants.libsyn.com/government-contracting-is-an-inflation-hedge-and-here-is-where-to-find-the-opportunities-ep-325"
+    },
+    {
+      "index": 65,
+      "slug": "why-your-existing-expertise-is-the-fastest-path-to-your-next-government-contract-win",
+      "title": "Why your existing expertise is the fastest path to your next government contract win",
+      "link": "https://govcongiants.libsyn.com/why-your-existing-expertise-is-the-fastest-path-to-your-next-government-contract-win"
+    },
+    {
+      "index": 66,
+      "slug": "bid-or-no-bid-how-to-choose-the-right-government-contracts",
+      "title": "Bid or No Bid? How to Choose the Right Government Contracts",
+      "link": "https://govcongiants.libsyn.com/bid-or-no-bid-how-to-choose-the-right-government-contracts"
+    },
+    {
+      "index": 67,
+      "slug": "what-is-a-contracting-officer-warrant-why-it-matters",
+      "title": "What Is a Contracting Officer Warrant & Why It Matters",
+      "link": "https://govcongiants.libsyn.com/what-is-a-contracting-officer-warrant-why-it-matters"
+    },
+    {
+      "index": 68,
+      "slug": "what-it-really-takes-to-win-a-government-contract-when-you-have-no-past-performance",
+      "title": "What It Really Takes to Win a Government Contract When You Have No Past Performance",
+      "link": "https://govcongiants.libsyn.com/what-it-really-takes-to-win-a-government-contract-when-you-have-no-past-performance"
+    },
+    {
+      "index": 69,
+      "slug": "how-federal-contractors-use-community-networks-to-land-teaming-partners-and-win-bids",
+      "title": "How Federal Contractors Use Community Networks to Land Teaming Partners and Win Bids",
+      "link": "https://govcongiants.libsyn.com/how-federal-contractors-use-community-networks-to-land-teaming-partners-and-win-bids"
+    },
+    {
+      "index": 70,
+      "slug": "the-custom-kit-strategy-that-makes-you-the-only-vendor-a-government-customer-can-call",
+      "title": "The Custom Kit Strategy That Makes You the Only Vendor a Government Customer Can Call",
+      "link": "https://govcongiants.libsyn.com/the-custom-kit-strategy-that-makes-you-the-only-vendor-a-government-customer-can-call"
+    },
+    {
+      "index": 71,
+      "slug": "how-govcon-giants-market-intelligence-replaces-11-tools-for-small-business-federal-contrac",
+      "title": "How GovCon Giants Market Intelligence Replaces 11 Tools for Small Business Federal Contractors | EP: 324",
+      "link": "https://govcongiants.libsyn.com/how-govcon-giants-market-intelligence-replaces-11-tools-for-small-business-federal-contractors-ep-324"
+    },
+    {
+      "index": 72,
+      "slug": "why-knowing-how-agencies-buy-is-more-powerful-than-having-any-certification",
+      "title": "Why Knowing How Agencies Buy Is More Powerful Than Having Any Certification",
+      "link": "https://govcongiants.libsyn.com/why-knowing-how-agencies-buy-is-more-powerful-than-having-any-certification"
+    },
+    {
+      "index": 73,
+      "slug": "8a-certification-stalled-how-congress-can-escalate-your-sba-case",
+      "title": "8a Certification Stalled: How Congress Can Escalate Your SBA Case",
+      "link": "https://govcongiants.libsyn.com/8a-certification-stalled-how-congress-can-escalate-your-sba-case"
+    },
+    {
+      "index": 74,
+      "slug": "what-every-aspiring-federal-contractor-should-know-before-bidding-on-their-first-solicitat",
+      "title": "What Every Aspiring Federal Contractor Should Know Before Bidding on Their First Solicitation",
+      "link": "https://govcongiants.libsyn.com/what-every-aspiring-federal-contractor-should-know-before-bidding-on-their-first-solicitation"
+    },
+    {
+      "index": 75,
+      "slug": "new-to-dod-contracting-master-pie-and-cmmc-before-you-bid",
+      "title": "New to DOD Contracting? Master PIE and CMMC Before You Bid",
+      "link": "https://govcongiants.libsyn.com/new-to-dod-contracting-master-pie-and-cmmc-before-you-bid"
+    },
+    {
+      "index": 76,
+      "slug": "why-now-is-the-best-time-to-win-government-contracts-while-everyone-else-is-scared",
+      "title": "Why Now Is the Best Time to Win Government Contracts While Everyone Else Is Scared",
+      "link": "https://govcongiants.libsyn.com/why-now-is-the-best-time-to-win-government-contracts-while-everyone-else-is-scared"
+    },
+    {
+      "index": 77,
+      "slug": "three-proposal-red-flags-that-tell-contracting-officers-you-used-ai-to-write-it",
+      "title": "Three Proposal Red Flags That Tell Contracting Officers You Used AI to Write It",
+      "link": "https://govcongiants.libsyn.com/three-proposal-red-flags-that-tell-contracting-officers-you-used-ai-to-write-it"
+    },
+    {
+      "index": 78,
+      "slug": "sources-sought-responses-that-actually-get-noticed-ep-324",
+      "title": "Sources Sought Responses That Actually Get Noticed | EP: 323",
+      "link": "https://govcongiants.libsyn.com/sources-sought-responses-that-actually-get-noticed-ep-324"
+    },
+    {
+      "index": 79,
+      "slug": "what-large-defense-primes-know-about-kitting-that-small-businesses-miss",
+      "title": "What Large Defense Primes Know About Kitting That Small Businesses Miss",
+      "link": "https://govcongiants.libsyn.com/what-large-defense-primes-know-about-kitting-that-small-businesses-miss"
+    },
+    {
+      "index": 80,
+      "slug": "sources-sought-the-legal-way-to-shape-government-contracts-in-your-favor",
+      "title": "Sources Sought: The Legal Way to Shape Government Contracts in Your Favor",
+      "link": "https://govcongiants.libsyn.com/sources-sought-the-legal-way-to-shape-government-contracts-in-your-favor"
+    },
+    {
+      "index": 81,
+      "slug": "idiq-contracts-explained-capture-strategy-that-actually-works",
+      "title": "IDIQ Contracts Explained: Capture Strategy That Actually Works",
+      "link": "https://govcongiants.libsyn.com/idiq-contracts-explained-capture-strategy-that-actually-works"
+    },
+    {
+      "index": 82,
+      "slug": "why-your-capability-statement-is-costing-you-federal-contracts-and-how-to-fix-it-with-ai",
+      "title": "Why Your Capability Statement Is Costing You Federal Contracts (And How to Fix It With AI)",
+      "link": "https://govcongiants.libsyn.com/why-your-capability-statement-is-costing-you-federal-contracts-and-how-to-fix-it-with-ai"
+    },
+    {
+      "index": 83,
+      "slug": "how-small-businesses-can-consult-their-way-into-47m-federal-deals",
+      "title": "How Small Businesses Can Consult Their Way Into $47M Federal Deals",
+      "link": "https://govcongiants.libsyn.com/how-small-businesses-can-consult-their-way-into-47m-federal-deals"
+    },
+    {
+      "index": 84,
+      "slug": "scared-to-bid-how-small-businesses-win-federal-contracts-anyway",
+      "title": "Scared to Bid? How Small Businesses Win Federal Contracts Anyway",
+      "link": "https://govcongiants.libsyn.com/scared-to-bid-how-small-businesses-win-federal-contracts-anyway"
+    },
+    {
+      "index": 85,
+      "slug": "how-to-fund-govcon-growth-without-killing-cash-flow-ep-322",
+      "title": "How to Find and Respond to SAM.gov Sources Sought Opportunities | EP: 322",
+      "link": "https://govcongiants.libsyn.com/how-to-fund-govcon-growth-without-killing-cash-flow-ep-322"
+    },
+    {
+      "index": 86,
+      "slug": "how-to-build-a-capability-statement-that-wins-federal-contracts",
+      "title": "How to Build a Capability Statement That Wins Federal Contracts",
+      "link": "https://govcongiants.libsyn.com/how-to-build-a-capability-statement-that-wins-federal-contracts"
+    },
+    {
+      "index": 87,
+      "slug": "how-to-review-proposals-fast-and-avoid-costly-bidding-mistakes",
+      "title": "How to Review Proposals Fast and Avoid Costly Bidding Mistakes",
+      "link": "https://govcongiants.libsyn.com/how-to-review-proposals-fast-and-avoid-costly-bidding-mistakes"
+    },
+    {
+      "index": 88,
+      "slug": "federal-contract-protests-explained-when-to-fight-back-and-when-not-to",
+      "title": "Federal Contract Protests Explained: When to Fight Back and When Not To",
+      "link": "https://govcongiants.libsyn.com/federal-contract-protests-explained-when-to-fight-back-and-when-not-to"
+    },
+    {
+      "index": 89,
+      "slug": "what-federal-buyers-actually-look-at-before-they-decide-to-call-you",
+      "title": "What Federal Buyers Actually Look at Before They Decide to Call You",
+      "link": "https://govcongiants.libsyn.com/what-federal-buyers-actually-look-at-before-they-decide-to-call-you"
+    },
+    {
+      "index": 90,
+      "slug": "how-bid-bonds-work-when-you-actually-need-them",
+      "title": "How Bid Bonds Work & When You Actually Need Them",
+      "link": "https://govcongiants.libsyn.com/how-bid-bonds-work-when-you-actually-need-them"
+    },
+    {
+      "index": 91,
+      "slug": "how-to-sell-more-contracts-while-staying-cmmc-compliant",
+      "title": "How to Sell More Contracts While Staying CMMC Compliant",
+      "link": "https://govcongiants.libsyn.com/how-to-sell-more-contracts-while-staying-cmmc-compliant"
+    },
+    {
+      "index": 92,
+      "slug": "how-to-build-a-cyber-defense-strategy-that-meets-cmmc-without-overspending",
+      "title": "How to Build a Cyber Defense Strategy That Meets CMMC Without Overspending | EP: 321",
+      "link": "https://govcongiants.libsyn.com/how-to-build-a-cyber-defense-strategy-that-meets-cmmc-without-overspending"
+    },
+    {
+      "index": 93,
+      "slug": "how-to-get-better-clients-in-government-contracting-bd-tips",
+      "title": "How to Get Better Clients in Government Contracting (BD Tips)",
+      "link": "https://govcongiants.libsyn.com/how-to-get-better-clients-in-government-contracting-bd-tips"
+    },
+    {
+      "index": 94,
+      "slug": "turn-your-hidden-skills-into-a-federal-government-contract",
+      "title": "Turn Your Hidden Skills Into a Federal Government Contract",
+      "link": "https://govcongiants.libsyn.com/turn-your-hidden-skills-into-a-federal-government-contract"
+    },
+    {
+      "index": 95,
+      "slug": "what-to-do-when-agencies-keep-requesting-quotes-without-buying",
+      "title": "What to Do When Agencies Keep Requesting Quotes Without Buying",
+      "link": "https://govcongiants.libsyn.com/what-to-do-when-agencies-keep-requesting-quotes-without-buying"
+    },
+    {
+      "index": 96,
+      "slug": "how-to-win-federal-contracts-when-you-have-no-past-performance-yet",
+      "title": "How to Win Federal Contracts When You Have No Past Performance Yet",
+      "link": "https://govcongiants.libsyn.com/how-to-win-federal-contracts-when-you-have-no-past-performance-yet"
+    },
+    {
+      "index": 97,
+      "slug": "how-to-shape-a-solicitation-and-increase-your-probability-of-winning-federal-contracts",
+      "title": "What Firm Fixed Price and Cost Plus Contracts Mean for Your Bid Strategy",
+      "link": "https://govcongiants.libsyn.com/how-to-shape-a-solicitation-and-increase-your-probability-of-winning-federal-contracts"
+    },
+    {
+      "index": 98,
+      "slug": "how-to-show-federal-agencies-you-are-ready-before-the-capabilities-briefing",
+      "title": "How to show federal agencies you are ready before the capabilities briefing",
+      "link": "https://govcongiants.libsyn.com/how-to-show-federal-agencies-you-are-ready-before-the-capabilities-briefing"
+    },
+    {
+      "index": 99,
+      "slug": "break-into-government-construction-without-prime-experience-ep-325",
+      "title": "Break Into Government Construction Without Prime Experience | EP: 320",
+      "link": "https://govcongiants.libsyn.com/break-into-government-construction-without-prime-experience-ep-325"
+    },
+    {
+      "index": 100,
+      "slug": "government-subcontracting-strategy-to-land-contracts-and-scale-fast",
+      "title": "Government Subcontracting Strategy to Land Contracts and Scale Fast",
+      "link": "https://govcongiants.libsyn.com/government-subcontracting-strategy-to-land-contracts-and-scale-fast"
+    },
+    {
+      "index": 101,
+      "slug": "how-to-get-government-contracting-clients-using-market-data-strategy",
+      "title": "How to Get Government Contracting Clients Using Market Data Strategy",
+      "link": "https://govcongiants.libsyn.com/how-to-get-government-contracting-clients-using-market-data-strategy"
+    },
+    {
+      "index": 102,
+      "slug": "how-small-businesses-win-federal-contracts-through-relationship-networking",
+      "title": "How Small Businesses Win Federal Contracts Through Relationship Networking",
+      "link": "https://govcongiants.libsyn.com/how-small-businesses-win-federal-contracts-through-relationship-networking"
+    },
+    {
+      "index": 103,
+      "slug": "how-to-find-government-contracting-points-of-contact-using-free-tools",
+      "title": "How to Find Government Contracting Points of Contact Using Free Tools",
+      "link": "https://govcongiants.libsyn.com/how-to-find-government-contracting-points-of-contact-using-free-tools"
+    },
+    {
+      "index": 104,
+      "slug": "why-i-started-my-government-contracting-business-and-why-it-keeps-me-from-quitting",
+      "title": "Why I Started My Government Contracting Business and Why It Keeps Me From Quitting",
+      "link": "https://govcongiants.libsyn.com/why-i-started-my-government-contracting-business-and-why-it-keeps-me-from-quitting"
+    },
+    {
+      "index": 105,
+      "slug": "government-contract-competitor-intelligence-using-samgov-free-tools",
+      "title": "Government Contract Competitor Intelligence Using SAM.gov Free Tools",
+      "link": "https://govcongiants.libsyn.com/government-contract-competitor-intelligence-using-samgov-free-tools"
+    },
+    {
+      "index": 106,
+      "slug": "7-questions-that-can-land-you-a-government-contract-without-a-bid-ep-319",
+      "title": "SAM.gov Search Strategy That Finds Real Opportunities | EP: 319",
+      "link": "https://govcongiants.libsyn.com/7-questions-that-can-land-you-a-government-contract-without-a-bid-ep-319"
+    },
+    {
+      "index": 107,
+      "slug": "prime-contractor-teaming-strategy-to-win-more-government-contracts",
+      "title": "Prime Contractor Teaming Strategy to Win More Government Contracts",
+      "link": "https://govcongiants.libsyn.com/prime-contractor-teaming-strategy-to-win-more-government-contracts"
+    },
+    {
+      "index": 108,
+      "slug": "government-contracting-skills-how-to-identify-and-win-with-what-you-know",
+      "title": "Government Contracting Skills: How to Identify and Win With What You Know",
+      "link": "https://govcongiants.libsyn.com/government-contracting-skills-how-to-identify-and-win-with-what-you-know"
+    },
+    {
+      "index": 109,
+      "slug": "sources-sought-strategy-how-small-businesses-win-before-the-rfp",
+      "title": "Sources Sought Strategy: How Small Businesses Win Before the RFP",
+      "link": "https://govcongiants.libsyn.com/sources-sought-strategy-how-small-businesses-win-before-the-rfp"
+    },
+    {
+      "index": 110,
+      "slug": "how-to-start-grow-a-government-contracting-business-certifications-funding-getting-your-fi",
+      "title": "How to Start & Grow a Government Contracting Business: Certifications, Funding & Getting Your First Contract",
+      "link": "https://govcongiants.libsyn.com/how-to-start-grow-a-government-contracting-business-certifications-funding-getting-your-first-contract"
+    },
+    {
+      "index": 111,
+      "slug": "what-federal-contractors-must-know-about-background-checks-base-access",
+      "title": "What Federal Contractors Must Know About Background Checks & Base Access",
+      "link": "https://govcongiants.libsyn.com/what-federal-contractors-must-know-about-background-checks-base-access"
+    },
+    {
+      "index": 112,
+      "slug": "build-a-100k-capability-statement-in-15-minutes-using-ai-tools",
+      "title": "Build a $100K Capability Statement in 15 Minutes Using AI Tools",
+      "link": "https://govcongiants.libsyn.com/build-a-100k-capability-statement-in-15-minutes-using-ai-tools"
+    },
+    {
+      "index": 113,
+      "slug": "why-small-businesses-should-avoid-large-rfps-and-win-micro-purchases-ep-318",
+      "title": "Micro-Purchase Strategy: Fastest Way to Get Federal Revenue | EP: 318",
+      "link": "https://govcongiants.libsyn.com/why-small-businesses-should-avoid-large-rfps-and-win-micro-purchases-ep-318"
+    },
+    {
+      "index": 114,
+      "slug": "building-a-capability-statement-that-gets-you-in-the-room-fast",
+      "title": "Building a Capability Statement That Gets You in the Room Fast",
+      "link": "https://govcongiants.libsyn.com/building-a-capability-statement-that-gets-you-in-the-room-fast"
+    },
+    {
+      "index": 115,
+      "slug": "how-federal-contracting-consulting-is-the-fastest-path-to-big-wins",
+      "title": "How Federal Contracting Consulting Is the Fastest Path to Big Wins",
+      "link": "https://govcongiants.libsyn.com/how-federal-contracting-consulting-is-the-fastest-path-to-big-wins"
+    },
+    {
+      "index": 116,
+      "slug": "how-to-identify-hidden-skills-that-win-you-federal-contracts-today",
+      "title": "How to Identify Hidden Skills That Win You Federal Contracts Today",
+      "link": "https://govcongiants.libsyn.com/how-to-identify-hidden-skills-that-win-you-federal-contracts-today"
+    },
+    {
+      "index": 117,
+      "slug": "how-to-get-noticed-by-agencies-in-federal-contracting-beginner-guide",
+      "title": "How to Get Noticed by Agencies in Federal Contracting (Beginner Guide)",
+      "link": "https://govcongiants.libsyn.com/how-to-get-noticed-by-agencies-in-federal-contracting-beginner-guide"
+    },
+    {
+      "index": 118,
+      "slug": "using-ai-to-break-down-federal-proposals-in-minutes",
+      "title": "Decode Million-Dollar Proposals in 3 Minutes Using AI Tools",
+      "link": "https://govcongiants.libsyn.com/using-ai-to-break-down-federal-proposals-in-minutes"
+    },
+    {
+      "index": 119,
+      "slug": "how-to-capture-government-contracts-before-they-go-to-bid",
+      "title": "How to Capture Government Contracts Before They Go to Bid",
+      "link": "https://govcongiants.libsyn.com/how-to-capture-government-contracts-before-they-go-to-bid"
+    },
+    {
+      "index": 120,
+      "slug": "why-consulting-is-the-easiest-way-to-start-government-contracting-ep-317",
+      "title": "No Past Performance? Here's How You Still Win Federal Contracts | EP: 317",
+      "link": "https://govcongiants.libsyn.com/why-consulting-is-the-easiest-way-to-start-government-contracting-ep-317"
+    },
+    {
+      "index": 121,
+      "slug": "why-no-new-8a-approvals-how-to-win-contracts-anyway",
+      "title": "Why No New 8(a) Approvals & How to Win Contracts Anyway",
+      "link": "https://govcongiants.libsyn.com/why-no-new-8a-approvals-how-to-win-contracts-anyway"
+    },
+    {
+      "index": 122,
+      "slug": "the-goal-setting-strategy-that-helped-me-win-my-first-big-opportunity",
+      "title": "The Goal Setting Strategy That Helped Me Win My First Big Opportunity",
+      "link": "https://govcongiants.libsyn.com/the-goal-setting-strategy-that-helped-me-win-my-first-big-opportunity"
+    },
+    {
+      "index": 123,
+      "slug": "naics-vs-psc-codes-what-govcon-beginners-must-know",
+      "title": "NAICS vs PSC Codes: What GovCon Beginners Must Know",
+      "link": "https://govcongiants.libsyn.com/naics-vs-psc-codes-what-govcon-beginners-must-know"
+    },
+    {
+      "index": 124,
+      "slug": "bd-vs-capture-management-whats-the-difference-in-federal-contracting",
+      "title": "BD vs. Capture Management: What's the Difference in Federal Contracting?",
+      "link": "https://govcongiants.libsyn.com/bd-vs-capture-management-whats-the-difference-in-federal-contracting"
+    },
+    {
+      "index": 125,
+      "slug": "how-to-use-sources-sought-rfis-to-win-government-contracts",
+      "title": "How to Use Sources Sought & RFIs to Win Government Contracts",
+      "link": "https://govcongiants.libsyn.com/how-to-use-sources-sought-rfis-to-win-government-contracts"
+    },
+    {
+      "index": 126,
+      "slug": "how-to-avoid-costly-mistakes-with-wage-determinations-in-federal-bids",
+      "title": "How to Avoid Costly Mistakes with Wage Determinations in Federal Bids",
+      "link": "https://govcongiants.libsyn.com/how-to-avoid-costly-mistakes-with-wage-determinations-in-federal-bids"
+    },
+    {
+      "index": 127,
+      "slug": "316-win-your-first-government-contract-in-2026-step-by-step",
+      "title": "316: Win Your First Government Contract in 2026 (Step-by-Step)",
+      "link": "https://govcongiants.libsyn.com/316-win-your-first-government-contract-in-2026-step-by-step"
+    },
+    {
+      "index": 128,
+      "slug": "how-unknown-contractors-make-billions-without-big-contracts",
+      "title": "How UNKNOWN Contractors Make Billions Without Big Contracts",
+      "link": "https://govcongiants.libsyn.com/how-unknown-contractors-make-billions-without-big-contracts"
+    },
+    {
+      "index": 129,
+      "slug": "the-15k-to-350k-path-most-government-contractors-never-see",
+      "title": "The $15K to $350K Path Most Government Contractors NEVER See",
+      "link": "https://govcongiants.libsyn.com/the-15k-to-350k-path-most-government-contractors-never-see"
+    },
+    {
+      "index": 130,
+      "slug": "harsh-govcon-truth-the-loudest-contractor-gets-the-call",
+      "title": "HARSH GovCon Truth: The LOUDEST Contractor Gets the Call",
+      "link": "https://govcongiants.libsyn.com/harsh-govcon-truth-the-loudest-contractor-gets-the-call"
+    },
+    {
+      "index": 131,
+      "slug": "why-federal-buying-is-not-fairand-thats-good-for-smart-contractors",
+      "title": "Why Federal Buying Is Not Fair—and That's Good for Smart Contractors",
+      "link": "https://govcongiants.libsyn.com/why-federal-buying-is-not-fairand-thats-good-for-smart-contractors"
+    },
+    {
+      "index": 132,
+      "slug": "how-contractors-win-faster-using-unison-marketplace-up-to-350k-govcon-deals",
+      "title": "How Contractors WIN FASTER Using Unison Marketplace (Up To $350K GovCon Deals!)",
+      "link": "https://govcongiants.libsyn.com/how-contractors-win-faster-using-unison-marketplace-up-to-350k-govcon-deals"
+    },
+    {
+      "index": 133,
+      "slug": "the-15000-govcon-shortcut-nobody-explains-clearly",
+      "title": "The $15,000 GovCon SHORTCUT Nobody Explains Clearly!",
+      "link": "https://govcongiants.libsyn.com/the-15000-govcon-shortcut-nobody-explains-clearly"
+    },
+    {
+      "index": 134,
+      "slug": "how-to-choose-skills-that-actually-win-government-contracts",
+      "title": "How to Choose SKILLS That Actually WIN Government Contracts",
+      "link": "https://govcongiants.libsyn.com/how-to-choose-skills-that-actually-win-government-contracts"
+    },
+    {
+      "index": 135,
+      "slug": "youre-sitting-on-skills-that-could-be-paying-you-right-now",
+      "title": "You're Sitting on SKILLS That Could Be Paying You Right Now",
+      "link": "https://govcongiants.libsyn.com/youre-sitting-on-skills-that-could-be-paying-you-right-now"
+    },
+    {
+      "index": 136,
+      "slug": "youre-losing-contracts-because-youre-looking-in-the-wrong-places",
+      "title": "You're LOSING Contracts Because You're Looking in the WRONG Places",
+      "link": "https://govcongiants.libsyn.com/youre-losing-contracts-because-youre-looking-in-the-wrong-places"
+    },
+    {
+      "index": 137,
+      "slug": "youre-not-missing-skills-youre-under-selling-your-expertise",
+      "title": "You're NOT Missing Skills, You're Under-Selling Your Expertise!",
+      "link": "https://govcongiants.libsyn.com/youre-not-missing-skills-youre-under-selling-your-expertise"
+    },
+    {
+      "index": 138,
+      "slug": "315-5-moves-that-win-government-contracts-in-2026-free-1500-bootcamp-secrets",
+      "title": "315: 5 Moves That Win Government Contracts in 2026 (FREE $1,500 Bootcamp Secrets)",
+      "link": "https://govcongiants.libsyn.com/315-5-moves-that-win-government-contracts-in-2026-free-1500-bootcamp-secrets"
+    },
+    {
+      "index": 139,
+      "slug": "most-new-govcon-businesses-fail-at-this-one-simple-step",
+      "title": "MOST New GovCon Businesses FAIL at This One SIMPLE Step!",
+      "link": "https://govcongiants.libsyn.com/most-new-govcon-businesses-fail-at-this-one-simple-step"
+    },
+    {
+      "index": 140,
+      "slug": "how-a-22m-contract-was-won-with-zero-past-performance-just-one-bold-move",
+      "title": "How a $2.2M Contract Was WON With ZERO Past Performance — Just One Bold Move",
+      "link": "https://govcongiants.libsyn.com/how-a-22m-contract-was-won-with-zero-past-performance-just-one-bold-move"
+    },
+    {
+      "index": 141,
+      "slug": "how-to-win-a-16m-federal-recompete-by-outsmarting-the-incumbent-0",
+      "title": "How to WIN a $16M Federal RECOMPETE by Outsmarting the Incumbent",
+      "link": "https://govcongiants.libsyn.com/how-to-win-a-16m-federal-recompete-by-outsmarting-the-incumbent-0"
+    },
+    {
+      "index": 142,
+      "slug": "from-cor-to-contractor-winning-high-stakes-socom-contracts-the-smart-way-with-ryan-atencio",
+      "title": "From COR to Contractor: Winning High-Stakes SOCOM Contracts the Smart Way With Ryan Atencio",
+      "link": "https://govcongiants.libsyn.com/from-cor-to-contractor-winning-high-stakes-socom-contracts-the-smart-way-with-ryan-atencio"
+    },
+    {
+      "index": 143,
+      "slug": "314-8-agency-pain-points-that-can-triple-your-win-rate-in-2026",
+      "title": "314: 8 Agency Pain Points That Can TRIPLE Your Win Rate in 2026!",
+      "link": "https://govcongiants.libsyn.com/314-8-agency-pain-points-that-can-triple-your-win-rate-in-2026"
+    },
+    {
+      "index": 144,
+      "slug": "opngoviqs-2-part-system-contractors-need-before-ai-contracts-explode",
+      "title": "OpnGovIQ's 2-Part System Contractors NEED Before AI Contracts EXPLODE!",
+      "link": "https://govcongiants.libsyn.com/opngoviqs-2-part-system-contractors-need-before-ai-contracts-explode"
+    },
+    {
+      "index": 145,
+      "slug": "how-to-review-6-federal-opportunities-in-30-minutes-using-opngoviq",
+      "title": "How to Review 6 Federal OPPORTUNITIES in 30 Minutes Using OpnGovIQ",
+      "link": "https://govcongiants.libsyn.com/how-to-review-6-federal-opportunities-in-30-minutes-using-opngoviq"
+    },
+    {
+      "index": 146,
+      "slug": "avoid-va-proposal-disqualification-with-opngoviq",
+      "title": "Avoid VA Proposal DISQUALIFICATION with OpnGovIQ!",
+      "link": "https://govcongiants.libsyn.com/avoid-va-proposal-disqualification-with-opngoviq"
+    },
+    {
+      "index": 147,
+      "slug": "the-5-minute-rfp-skim-every-govcon-business-needs-using-opengoviq",
+      "title": "The 5-Minute RFP Skim EVERY GovCon Business NEEDS using OpnGovIQ!",
+      "link": "https://govcongiants.libsyn.com/the-5-minute-rfp-skim-every-govcon-business-needs-using-opengoviq"
+    },
+    {
+      "index": 148,
+      "slug": "313-26b-in-8a-contracts-1100-firms-suspended-why-opportunity-is-bigger-than-ever-with-sam",
+      "title": "313: $26B in 8A Contracts + 1,100 Firms Suspended: Why Opportunity Is Bigger Than Ever With Sam Le",
+      "link": "https://govcongiants.libsyn.com/313-26b-in-8a-contracts-1100-firms-suspended-why-opportunity-is-bigger-than-ever-with-sam-le"
+    },
+    {
+      "index": 149,
+      "slug": "why-your-network-matters-more-than-your-next-bid",
+      "title": "Why YOUR NETWORK Matters More Than Your Next Bid!",
+      "link": "https://govcongiants.libsyn.com/why-your-network-matters-more-than-your-next-bid"
+    }
+  ]
+}

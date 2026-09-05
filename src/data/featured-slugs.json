@@ -1,0 +1,49 @@
+{
+  "generated": "2026-09-05",
+  "note": "Frozen /podcast/featured/:index -> episode identity. Bound by immutable Libsyn link, NOT list position, so reordering or re-curating the featured list can never reassign these six historical URLs.",
+  "count": 6,
+  "episodes": [
+    {
+      "index": 0,
+      "slug": "296-260b-navy-100000-jobs-the-government-contract-gold-rush-before-its-gone-with-erik-rave",
+      "guest": "Erik Raven",
+      "title": "296: $260B Navy, 100,000 Jobs: The Government Contract Gold Rush (Before It's Gone) with Erik Raven",
+      "link": "https://govcongiants.libsyn.com/296-260b-navy-100000-jobs-the-government-contract-gold-rush-before-its-gone-with-erik-raven"
+    },
+    {
+      "index": 1,
+      "slug": "the-woman-who-wrote-cmmc-the-250k-compliance-cost-is-a-lie-ep-334",
+      "guest": "Katie Arrington",
+      "title": "The Woman Who Wrote CMMC: The $250K \"Compliance Cost\" Is a Lie | EP: 334",
+      "link": "https://govcongiants.libsyn.com/the-woman-who-wrote-cmmc-the-250k-compliance-cost-is-a-lie-ep-334"
+    },
+    {
+      "index": 2,
+      "slug": "simplifying-federal-certifications-a-game-changer-for-small-businesses",
+      "guest": "Jackie Robinson-Burnette",
+      "title": "Simplifying Federal Certifications: A Game-Changer for Small Businesses",
+      "link": "https://govcongiants.libsyn.com/simplifying-federal-certifications-a-game-changer-for-small-businesses"
+    },
+    {
+      "index": 3,
+      "slug": "209-scoring-major-bid-opportunities-in-the-department-of-energy-with-shalaya-morissette",
+      "guest": "Shalaya Morissette",
+      "title": "Scoring Major Bid Opportunities in the Department of Energy",
+      "link": "https://govcongiants.libsyn.com/209-scoring-major-bid-opportunities-in-the-department-of-energy-with-shalaya-morissette"
+    },
+    {
+      "index": 4,
+      "slug": "stop-70000-contracts-youre-still-losing-heres-why-hhs-might-be-ignoring-you",
+      "guest": "Wayne Berry",
+      "title": "STOP! 70,000 Contracts & You're Still Losing? Here's Why HHS Might Be Ignoring You!",
+      "link": "https://govcongiants.libsyn.com/stop-70000-contracts-youre-still-losing-heres-why-hhs-might-be-ignoring-you"
+    },
+    {
+      "index": 5,
+      "slug": "012-ashley-d-bell-region-iv-administrator-us-small-business-administration",
+      "guest": "Ashley D. Bell",
+      "title": "012: Ashley D. Bell - Region IV Administrator, U.S. Small Business Administration",
+      "link": "https://govcongiants.libsyn.com/012-ashley-d-bell-region-iv-administrator-us-small-business-administration"
+    }
+  ]
+}
