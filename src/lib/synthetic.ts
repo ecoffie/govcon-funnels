@@ -203,8 +203,16 @@ const RETIRED_HOSTS = [
   'https://www.govcongiants.com',
 ];
 
-/** Paths probed on each retired host — root plus a deep path, to catch rules that
- *  only cover one shape. */
+/**
+ * Paths probed on each retired host — root plus a deep path, to catch rules that only
+ * cover one shape.
+ *
+ * The root is not redundant. `/:path*` does not match a bare `/` for a subdomain
+ * attached to this Vercel project: app./, guides./ and funnels./ each served the app at
+ * the root while every deeper path redirected correctly, leaving three duplicate
+ * homepages indexable. Explicit `"source": "/"` rules fixed it; this probe is what
+ * catches a regression.
+ */
 const RETIRED_PROBE_PATHS = ['/', '/guides/8a-certification'];
 
 export async function runCanonicalHostChecks(): Promise<CheckResult[]> {

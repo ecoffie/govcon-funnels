@@ -23,6 +23,17 @@
       "permanent": true
     },
     {
+      "source": "/",
+      "has": [
+        {
+          "type": "host",
+          "value": "app.govcongiants.org"
+        }
+      ],
+      "destination": "https://govcongiants.com/",
+      "permanent": true
+    },
+    {
       "source": "/:path*",
       "has": [
         {
@@ -42,6 +53,17 @@
         }
       ],
       "destination": "https://govcongiants.com/:path*",
+      "permanent": true
+    },
+    {
+      "source": "/",
+      "has": [
+        {
+          "type": "host",
+          "value": "funnels.govcongiants.org"
+        }
+      ],
+      "destination": "https://govcongiants.com/",
       "permanent": true
     },
     {
@@ -75,6 +97,17 @@
         }
       ],
       "destination": "https://govcongiants.com/data/contractors",
+      "permanent": true
+    },
+    {
+      "source": "/",
+      "has": [
+        {
+          "type": "host",
+          "value": "guides.govcongiants.org"
+        }
+      ],
+      "destination": "https://govcongiants.com/",
       "permanent": true
     },
     {
