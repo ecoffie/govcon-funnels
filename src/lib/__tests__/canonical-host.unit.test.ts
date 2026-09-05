@@ -126,6 +126,89 @@ describe('canonical host contract', () => {
     }
   });
 
+  it('every retired host has an EXPLICIT "/" rule', () => {
+    // `/:path*` does not match a bare "/" for a subdomain attached to this Vercel
+    // project: app./, guides./ and funnels./ each served the app at the root while
+    // every deeper path redirected. Three duplicate homepages stayed indexable.
+    // Apex/www hosts happen to redirect at "/" without one, but the explicit rule is
+    // required where the host is project-attached, so assert it for all of them.
+    const missing = RETIRED_HOSTS.filter(
+      (h) => !hostRules.some((r) => hostOf(r) === h && (r.source === '/' || r.source === '/:path*')),
+    );
+    expect(missing, `retired hosts with no root coverage: ${missing.join(', ')}`).toEqual([]);
+
+    const PROJECT_ATTACHED = [
+      'app.govcongiants.org',
+      'guides.govcongiants.org',
+      'funnels.govcongiants.org',
+    ];
+    const noExplicitRoot = PROJECT_ATTACHED.filter(
+      (h) => !hostRules.some((r) => hostOf(r) === h && r.source === '/'),
+    );
+    expect(
+      noExplicitRoot,
+      `project-attached hosts need an explicit "/" rule: ${noExplicitRoot.join(', ')}`,
+    ).toEqual([]);
+  });
+
+  it('every explicit "/" rule redirects permanently to the canonical root', () => {
+    const rootRules = hostRules.filter(
+      (r) => r.source === '/' && RETIRED_HOSTS.includes(hostOf(r)),
+    );
+    expect(rootRules.length).toBeGreaterThan(0);
+    for (const r of rootRules) {
+      expect(r.destination, `${hostOf(r)}/ destination`).toBe(`${CANONICAL}/`);
+      expect(r.permanent, `${hostOf(r)}/ must be permanent`).toBe(true);
+    }
+  });
+
+  it('places each explicit "/" rule BEFORE that host\'s catch-all', () => {
+    // Order matters: Vercel takes the first match. A "/" rule after /:path* is dead.
+    for (const host of RETIRED_HOSTS) {
+      const idxs = hostRules.map((r, i) => ({ r, i })).filter(({ r }) => hostOf(r) === host);
+      const root = idxs.find(({ r }) => r.source === '/');
+      const catchAll = idxs.find(({ r }) => r.source === '/:path*');
+      if (!root || !catchAll) continue;
+      expect(root.i, `${host}: "/" must precede "/:path*"`).toBeLessThan(catchAll.i);
+    }
+  });
+
+  it('keeps guides /database/* ahead of BOTH its root and catch-all rules', () => {
+    const guides = hostRules
+      .map((r, i) => ({ r, i }))
+      .filter(({ r }) => hostOf(r) === 'guides.govcongiants.org');
+    const db = guides.find(({ r }) => r.source.startsWith('/database'));
+    const root = guides.find(({ r }) => r.source === '/');
+    const catchAll = guides.find(({ r }) => r.source === '/:path*');
+    expect(db, '/database rule must exist').toBeDefined();
+    expect(db!.i, '/database must precede "/"').toBeLessThan(root!.i);
+    expect(db!.i, '/database must precede "/:path*"').toBeLessThan(catchAll!.i);
+    expect(db!.r.destination).toBe(`${CANONICAL}/data/contractors`);
+  });
+
+  it('no retired host is left able to serve indexable 200 content', () => {
+    // Every retired host must have BOTH root coverage and deep-path coverage, so no
+    // request shape falls through to the app and renders a duplicate page.
+    for (const host of RETIRED_HOSTS) {
+      const rules = hostRules.filter((r) => hostOf(r) === host);
+      const coversRoot = rules.some((r) => r.source === '/' || r.source === '/:path*');
+      const coversDeep = rules.some((r) => r.source === '/:path*');
+      expect(coversRoot, `${host} has no rule covering "/"`).toBe(true);
+      expect(coversDeep, `${host} has no rule covering deep paths`).toBe(true);
+    }
+  });
+
+  it('no retired host redirects to another retired host', () => {
+    const retiredOrigins = RETIRED_HOSTS.map((h) => `https://${h}`);
+    const crossed = hostRules
+      .filter((r) => RETIRED_HOSTS.includes(hostOf(r)))
+      .filter((r) => retiredOrigins.some((o) => r.destination.startsWith(o)))
+      .map((r) => `${hostOf(r)}${r.source} -> ${r.destination}`);
+    expect(crossed, `retired host pointing at another retired host:\n${crossed.join('\n')}`).toEqual(
+      [],
+    );
+  });
+
   it('does not touch hosts that intentionally point elsewhere', () => {
     for (const [host, dest] of Object.entries(INTENTIONAL_NON_CANONICAL)) {
       const rule = hostRules.find((r) => hostOf(r) === host);
