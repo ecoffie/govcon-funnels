@@ -15,8 +15,8 @@
  */
 import { recordCheck, type CheckRow } from '@/lib/command-center';
 
-const LEAD_API = 'https://app.govcongiants.org/api/lead';
 const SITE = 'https://govcongiants.com';
+const LEAD_API = `${SITE}/api/lead`;
 
 const IMPORTANT_URLS = [
   `${SITE}/`,
@@ -25,8 +25,8 @@ const IMPORTANT_URLS = [
   `${SITE}/blog`,
   `${SITE}/about`,
   `${SITE}/privacy-policy`,
-  'https://app.govcongiants.org/jobs',
-  'https://app.govcongiants.org/guides/federal-contract-vehicles-guide',
+  `${SITE}/jobs`,
+  `${SITE}/guides/federal-contract-vehicles-guide`,
   'https://mi.govcongiants.com/',
   // The /funding + /encore-funding redirect target. A PARTNER-OWNED url, which is
   // why it is monitored: on 2026-08-24 we found every funding referral had been

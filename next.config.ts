@@ -39,19 +39,15 @@ const nextConfig: NextConfig = {
       // ⚠️ NOTHING HERE MAY MATCH A LIBSYN HOSTNAME. Podcast distribution
       // (govcongiants.libsyn.com/rss, traffic.libsyn.com/*, static.libsyn.com/*) is
       // outside this consolidation and must keep resolving untouched.
-      // ⚠️ app.govcongiants.org → .com rule TEMPORARILY REMOVED (2026-08-24):
-      // it shipped with #176 before the Phase 3 domain flip, but govcongiants.com
-      // is still served by the govcon-giants-site SPA, which 308s ~35 Next-owned
-      // path families (/funding, /jobs, /guides, /hubzone, ...) right back to
-      // app.govcongiants.org — an infinite redirect loop on all of them.
-      // Re-add this rule in the same deploy that moves the govcongiants.com
-      // domain to this project (tasks/PHASE3-domain-flip-runbook.md).
-      // {
-      //   source: "/:path*",
-      //   has: [{ type: "host", value: "app.govcongiants.org" }],
-      //   destination: "https://govcongiants.com/:path*",
-      //   permanent: true,
-      // },
+      // Legacy app host: preserve every shared/bookmarked path on the canonical
+      // .com site. This ships with the production domain move so there is no
+      // interval where the old SPA can redirect a request back here.
+      {
+        source: "/:path*",
+        has: [{ type: "host", value: "app.govcongiants.org" }],
+        destination: "https://govcongiants.com/:path*",
+        permanent: true,
+      },
       {
         source: "/:path*",
         has: [{ type: "host", value: "podcast.govcongiants.org" }],

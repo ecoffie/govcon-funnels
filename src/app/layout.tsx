@@ -25,7 +25,7 @@ export const metadata: Metadata = {
     template: "%s | GovCon Giants",
   },
   description: "Free resources to help you win federal contracts. Join thousands of entrepreneurs breaking into the $700+ billion federal marketplace.",
-  metadataBase: new URL("https://www.govcongiants.com"),
+  metadataBase: new URL("https://govcongiants.com"),
   openGraph: {
     siteName: "GovCon Giants",
     type: "website",

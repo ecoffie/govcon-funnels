@@ -213,12 +213,7 @@
     },
     {
       "source": "/podcast/:year(\\d{4})/:month(\\d{2})/:day(\\d{2})/:ep",
-      "destination": "https://podcast.govcongiants.org/podcast/:ep",
-      "permanent": true
-    },
-    {
-      "source": "/podcast/:path+",
-      "destination": "https://podcast.govcongiants.org/podcast/:path+",
+      "destination": "/podcast",
       "permanent": true
     },
     {
@@ -289,11 +284,6 @@
     {
       "source": "/denita-conway-how-did-this-c-student-turn-into-a-successful-ceo",
       "destination": "/blog",
-      "permanent": true
-    },
-    {
-      "source": "/podcast",
-      "destination": "https://podcast.govcongiants.org/podcast",
       "permanent": true
     },
     {
@@ -403,7 +393,7 @@
     },
     {
       "source": "/podcast-1",
-      "destination": "https://podcast.govcongiants.org/podcast",
+      "destination": "/podcast",
       "permanent": true
     },
     {
