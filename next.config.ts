@@ -241,6 +241,7 @@ const nextConfig: NextConfig = {
     return {
       beforeFiles: [
         { source: "/quiz", destination: "/quiz/index.html" },
+        { source: "/ericcoffie", destination: "/ericcoffie/index.html" },
         { source: "/upskilling", destination: "/upskilling/index.html" },
         { source: "/market-intel", destination: "/market-intel/index.html" },
         // Mindy Launch (Sat June 27, 2026): proxy the static funnel so the URL
