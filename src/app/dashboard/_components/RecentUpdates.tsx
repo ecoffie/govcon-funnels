@@ -33,7 +33,7 @@ function formatDate(iso: string): string {
 export default async function RecentUpdates() {
   try {
     const [projects, tasks] = await Promise.all([
-      queryProjects('marketing'),
+      queryProjects({ context: 'marketing' }),
       queryTasks({ context: 'marketing', limit: 8, includeDone: true }),
     ]);
     const byProjectId = new Map(
