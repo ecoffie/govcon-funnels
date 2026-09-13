@@ -1,5 +1,12 @@
 import { NextRequest, NextResponse } from 'next/server';
-import { updateTask, getTaskById, addTaskEvent, type TaskContext } from '@/lib/db';
+import {
+  updateTask,
+  getTaskById,
+  createTask,
+  addTaskEvent,
+  getNextRecurrenceDate,
+  type TaskContext,
+} from '@/lib/db';
 import {
   notifySlackTaskChange,
   formatTaskSlackMessage,
@@ -28,6 +35,7 @@ export async function PATCH(
       tags?: string[] | null;
       status?: string;
       context?: TaskContext;
+      recurrence?: string;
     } = {};
     if (typeof body.title === 'string') updates.title = body.title.trim();
     if (body.description !== undefined)
@@ -76,9 +84,44 @@ export async function PATCH(
     if (body.context !== undefined) {
       updates.context = body.context === 'delivery' ? 'delivery' : 'marketing';
     }
+    if (
+      typeof body.recurrence === 'string' &&
+      ['none', 'daily', 'weekly', 'biweekly', 'monthly'].includes(body.recurrence.toLowerCase())
+    ) {
+      updates.recurrence = body.recurrence.toLowerCase();
+    }
+    const existing = await getTaskById(id);
+    if (!existing) {
+      return NextResponse.json({ error: 'Task not found' }, { status: 404 });
+    }
     const task = await updateTask(id, updates);
     if (!task) {
       return NextResponse.json({ error: 'Task not found' }, { status: 404 });
+    }
+    const transitioningToDone =
+      updates.status === 'done' && existing.status !== 'done';
+    if (
+      transitioningToDone &&
+      task.recurrence &&
+      task.recurrence !== 'none'
+    ) {
+      const nextDue = getNextRecurrenceDate(task.due_date, task.recurrence);
+      if (nextDue) {
+        await createTask({
+          title: task.title,
+          description: task.description,
+          attachment_url: task.attachment_url,
+          assignee: task.assignee,
+          assignee_user_id: task.assignee_user_id,
+          project_id: task.project_id,
+          due_date: nextDue,
+          priority: task.priority,
+          status: 'open',
+          tags: task.tags,
+          context: task.context,
+          recurrence: task.recurrence,
+        });
+      }
     }
     await addTaskEvent({
       task_id: task.id,
