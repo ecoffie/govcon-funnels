@@ -2,6 +2,7 @@
 
 import { useState } from 'react';
 import { trackLeadConversion } from '@/lib/google-ads';
+import { LeadSubmissionError, submitLead } from '@/lib/lead-submit';
 
 interface LeadFormProps {
   buttonText?: string;
@@ -39,10 +40,12 @@ export default function LeadForm({
     company: ''
   });
   const [isSubmitting, setIsSubmitting] = useState(false);
+  const [submitError, setSubmitError] = useState('');
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setIsSubmitting(true);
+    setSubmitError('');
 
     try {
       // Store in localStorage for persistence
@@ -56,13 +59,7 @@ export default function LeadForm({
       localStorage.setItem('leadName', formData.name);
 
       // Post to API endpoint (sends to CRM: GoHighLevel and/or webhook)
-      await fetch('/api/lead', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ ...formData, source, redirectUrl })
-      }).catch(() => {
-        // Continue even if API fails so user still gets redirect
-      });
+      await submitLead({ ...formData, source, redirectUrl });
 
       // Fire Google Ads lead conversion, then redirect (deferred so the hit
       // isn't dropped on page unload). Redirects immediately if unconfigured.
@@ -71,6 +68,11 @@ export default function LeadForm({
       });
     } catch (error) {
       console.error('Form submission error:', error);
+      setSubmitError(
+        error instanceof LeadSubmissionError
+          ? error.message
+          : 'We could not process your signup. Please try again in a moment.'
+      );
       setIsSubmitting(false);
     }
   };
@@ -119,6 +121,11 @@ export default function LeadForm({
       >
         {isSubmitting ? 'Processing...' : buttonText}
       </button>
+      {submitError && (
+        <p className="text-center text-sm text-red-400" role="alert">
+          {submitError}
+        </p>
+      )}
       <p className={helperTextClassName}>
         Instant access. No credit card required.
       </p>

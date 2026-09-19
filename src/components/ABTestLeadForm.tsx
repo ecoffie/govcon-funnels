@@ -3,6 +3,7 @@
 import { useState, useEffect } from 'react';
 import { getVariant, trackConversion } from '@/lib/ab-test';
 import { trackLeadConversion } from '@/lib/google-ads';
+import { LeadSubmissionError, submitLead } from '@/lib/lead-submit';
 
 interface ABTestLeadFormProps {
   testId: string;
@@ -33,6 +34,7 @@ export default function ABTestLeadForm({
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [buttonText, setButtonText] = useState(fallbackButtonText);
   const [mounted, setMounted] = useState(false);
+  const [submitError, setSubmitError] = useState('');
 
   useEffect(() => {
     setMounted(true);
@@ -45,6 +47,7 @@ export default function ABTestLeadForm({
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setIsSubmitting(true);
+    setSubmitError('');
 
     // Track A/B conversion
     trackConversion(testId, 'form_submit');
@@ -63,18 +66,12 @@ export default function ABTestLeadForm({
       localStorage.setItem('leadName', formData.name);
 
       // Post to API endpoint (sends to CRM: GoHighLevel and/or webhook)
-      await fetch('/api/lead', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({
-          ...formData,
-          source,
-          redirectUrl,
-          abTestId: testId,
-          abVariant: localStorage.getItem(`ab_${testId}`),
-        }),
-      }).catch(() => {
-        // Continue even if API fails so user still gets redirect
+      await submitLead({
+        ...formData,
+        source,
+        redirectUrl,
+        abTestId: testId,
+        abVariant: localStorage.getItem(`ab_${testId}`),
       });
 
       // Fire Google Ads lead conversion, then redirect (deferred so the hit
@@ -84,6 +81,11 @@ export default function ABTestLeadForm({
       });
     } catch (error) {
       console.error('Form submission error:', error);
+      setSubmitError(
+        error instanceof LeadSubmissionError
+          ? error.message
+          : 'We could not process your signup. Please try again in a moment.'
+      );
       setIsSubmitting(false);
     }
   };
@@ -122,6 +124,11 @@ export default function ABTestLeadForm({
       >
         {isSubmitting ? 'Processing...' : buttonText}
       </button>
+      {submitError && (
+        <p className="text-center text-sm text-red-400" role="alert">
+          {submitError}
+        </p>
+      )}
       <p className={helperTextClassName}>
         Instant access. No credit card required.
       </p>
