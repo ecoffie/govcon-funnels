@@ -12,14 +12,16 @@
  *
  * Usage:
  *   GHL_API_KEY=pit-...  node scripts/export-reignite-audience-meta.mjs
- *   → writes ./reignite-meta-audience.csv (move it somewhere safe; it's PII)
+ *   → writes /tmp/reignite-meta-audience.csv by default (override with OUT=...)
  */
 import fs from 'node:fs';
+import os from 'node:os';
+import path from 'node:path';
 
 const TOKEN = process.env.GHL_API_KEY;
 const LOCATION = process.env.GHL_LOCATION_ID || 'AMkIivLuREYwsX5GhAAL';
 const TAG = 'mindy-profile-incomplete';
-const OUT = process.env.OUT || './reignite-meta-audience.csv';
+const OUT = process.env.OUT || path.join(os.tmpdir(), 'reignite-meta-audience.csv');
 if (!TOKEN) { console.error('❌ set GHL_API_KEY'); process.exit(1); }
 
 const BASE = 'https://services.leadconnectorhq.com';

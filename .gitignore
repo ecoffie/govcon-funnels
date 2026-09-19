@@ -40,6 +40,9 @@ yarn-error.log*
 .env*
 !.env.example
 
+# generated PII exports
+/reignite-meta-audience*.csv
+
 # vercel
 .vercel
 

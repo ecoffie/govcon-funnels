@@ -209,6 +209,45 @@ describe('SAM Utils - Unit Tests', () => {
       expect(result.data?.totalRecords).toBe(1);
     });
 
+    it('does not let the shared API-type counter block backup key failover', async () => {
+      checkRateLimit('entity');
+      for (let i = 0; i < 1000; i++) {
+        incrementRateLimit('entity');
+      }
+      expect(checkRateLimit('entity').allowed).toBe(false);
+
+      const fetchMock = vi
+        .spyOn(global, 'fetch')
+        .mockResolvedValueOnce({
+          ok: false,
+          status: 429,
+          text: async () => JSON.stringify({ message: 'Too many requests' }),
+        } as Response)
+        .mockResolvedValueOnce({
+          ok: true,
+          status: 200,
+          text: async () => JSON.stringify({ entityData: [{ entityRegistration: { ueiSAM: 'X' } }], totalRecords: 1 }),
+        } as Response);
+
+      const result = await makeSAMRequest<{ entityData: unknown[]; totalRecords: number }>(
+        {
+          apiType: 'entity',
+          baseUrl: 'https://api.sam.gov/entity-information/v3',
+          apiKey: 'unused',
+          cacheTTLHours: 24,
+        },
+        '/entities',
+        { cageCode: '67890' },
+        { useCache: false }
+      );
+
+      expect(fetchMock).toHaveBeenCalledTimes(2);
+      expect(fetchMock.mock.calls[0][0]).toContain('api_key=primary-key');
+      expect(fetchMock.mock.calls[1][0]).toContain('api_key=backup-key');
+      expect(result.error).toBeNull();
+      expect(result.data?.totalRecords).toBe(1);
+    });
+
     it('does not try backup key on non-fallback error', async () => {
       const fetchMock = vi.spyOn(global, 'fetch').mockResolvedValueOnce({
         ok: false,

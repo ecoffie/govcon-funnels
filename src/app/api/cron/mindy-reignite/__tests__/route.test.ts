@@ -15,6 +15,7 @@ describe('/api/cron/mindy-reignite', () => {
     delete process.env.PURCHASES_ADMIN_PASSWORD;
     delete process.env.ADMIN_PASSWORD;
     delete process.env.GHL_API_KEY;
+    delete process.env.MINDY_REIGNITE_EMAIL_ENABLED;
   });
 
   afterEach(() => {
@@ -30,21 +31,39 @@ describe('/api/cron/mindy-reignite', () => {
     await expect(res.json()).resolves.toEqual({ error: 'Unauthorized' });
   });
 
-  it('accepts the configured cron bearer secret', async () => {
+  it('keeps live cron sends disabled by default even with the configured bearer secret', async () => {
     process.env.CRON_SECRET = 'cron-secret';
 
     const res = await GET(request('https://govcongiants.com/api/cron/mindy-reignite', {
       authorization: 'Bearer cron-secret',
     }));
 
-    expect(res.status).toBe(500);
-    await expect(res.json()).resolves.toEqual({ error: 'GHL_API_KEY not set' });
+    expect(res.status).toBe(409);
+    await expect(res.json()).resolves.toEqual({
+      success: false,
+      error: 'Mindy Re-Ignite email drip is disabled. Set MINDY_REIGNITE_EMAIL_ENABLED=true to resume live sends.',
+    });
   });
 
-  it('accepts the configured admin password for manual runs', async () => {
+  it('keeps manual live runs disabled by default even with the configured admin password', async () => {
     process.env.PURCHASES_ADMIN_PASSWORD = 'admin-secret';
 
     const res = await GET(request('https://govcongiants.com/api/cron/mindy-reignite?password=admin-secret'));
+
+    expect(res.status).toBe(409);
+    await expect(res.json()).resolves.toEqual({
+      success: false,
+      error: 'Mindy Re-Ignite email drip is disabled. Set MINDY_REIGNITE_EMAIL_ENABLED=true to resume live sends.',
+    });
+  });
+
+  it('requires GHL credentials after live sends are explicitly enabled', async () => {
+    process.env.CRON_SECRET = 'cron-secret';
+    process.env.MINDY_REIGNITE_EMAIL_ENABLED = 'true';
+
+    const res = await GET(request('https://govcongiants.com/api/cron/mindy-reignite', {
+      authorization: 'Bearer cron-secret',
+    }));
 
     expect(res.status).toBe(500);
     await expect(res.json()).resolves.toEqual({ error: 'GHL_API_KEY not set' });

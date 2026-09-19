@@ -79,6 +79,12 @@ const RATE_LIMIT = {
   windowMs: 24 * 60 * 60 * 1000 // 24 hours
 };
 
+function rateLimitKey(apiType: string, apiKey?: string): string {
+  if (!apiKey) return `sam_${apiType}`;
+  const keyHash = crypto.createHash('sha256').update(apiKey).digest('hex').slice(0, 12);
+  return `sam_${apiType}_${keyHash}`;
+}
+
 /**
  * Get available API keys for a given API type
  * Returns primary key first, then backup key
@@ -172,8 +178,8 @@ export function generateCacheKey(apiType: string, params: Record<string, unknown
 /**
  * Check rate limit before making request
  */
-export function checkRateLimit(apiType: string): { allowed: boolean; remaining: number; resetIn: number } {
-  const key = `sam_${apiType}`;
+export function checkRateLimit(apiType: string, apiKey?: string): { allowed: boolean; remaining: number; resetIn: number } {
+  const key = rateLimitKey(apiType, apiKey);
   const now = Date.now();
 
   if (!rateLimitState[key] || rateLimitState[key].resetAt < now) {
@@ -197,8 +203,8 @@ export function checkRateLimit(apiType: string): { allowed: boolean; remaining: 
 /**
  * Increment rate limit counter
  */
-export function incrementRateLimit(apiType: string): void {
-  const key = `sam_${apiType}`;
+export function incrementRateLimit(apiType: string, apiKey?: string): void {
+  const key = rateLimitKey(apiType, apiKey);
   if (rateLimitState[key]) {
     rateLimitState[key].count++;
   }
@@ -324,7 +330,7 @@ async function makeSingleRequest<T>(
       }
     });
 
-    incrementRateLimit(config.apiType);
+    incrementRateLimit(config.apiType, apiKey);
 
     const responseText = await response.text();
     let data;
@@ -400,24 +406,7 @@ export async function makeSAMRequest<T>(
     }
   }
 
-  // 2. Check internal rate limit
-  if (!bypassRateLimit) {
-    const rateLimit = checkRateLimit(config.apiType);
-    if (!rateLimit.allowed) {
-      return {
-        data: null,
-        error: {
-          status: 429,
-          message: `Rate limit exceeded. Resets in ${Math.ceil(rateLimit.resetIn / 1000 / 60)} minutes`,
-          retryable: true,
-          fallbackAvailable: true
-        },
-        fromCache: false
-      };
-    }
-  }
-
-  // 3. Try available API keys (with automatic failover)
+  // 2. Try available API keys (with automatic failover)
   const apiKeys = getAPIKeys(config.apiType);
   let lastError: SAMError | null = null;
 
@@ -427,6 +416,19 @@ export async function makeSAMRequest<T>(
     if (throttledUntil && throttledUntil > Date.now()) {
       console.log(`[SAM API] Skipping throttled key ${apiKey.slice(0, 10)}...`);
       continue;
+    }
+
+    if (!bypassRateLimit) {
+      const rateLimit = checkRateLimit(config.apiType, apiKey);
+      if (!rateLimit.allowed) {
+        lastError = {
+          status: 429,
+          message: `Rate limit exceeded for SAM.gov ${config.apiType} API key. Resets in ${Math.ceil(rateLimit.resetIn / 1000 / 60)} minutes`,
+          retryable: true,
+          fallbackAvailable: true
+        };
+        continue;
+      }
     }
 
     const result = await makeSingleRequest<T>(config, endpoint, params, apiKey);
