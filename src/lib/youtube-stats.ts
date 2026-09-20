@@ -172,8 +172,8 @@ const EPISODE_VIDEO_IDS: Record<string, string> = {
  * Count /youtube lead-magnet signups per episode, from getmindy.ai's `leads` table
  * (utm_content = ep02..ep10, set by the per-video tracking links). Cross-project read
  * (funnels → getmindy Supabase) via GETMINDY_SUPABASE_* env. Returns null on failure
- * (→ show "—"); an empty/partial map means the query ran (→ show 0). This is the money
- * lane — it lights up as videos publish WITH the tracking links in their descriptions.
+ * (→ show "—"). Uses PostgREST's exact count headers instead of reading matching rows,
+ * because Supabase truncates row responses at the project's API max (1,000 by default).
  */
 const SIGNUP_EPISODES = ['ep01', 'ep02', 'ep03', 'ep04', 'ep05', 'ep06', 'ep07', 'ep08', 'ep09', 'ep10'];
 
@@ -182,16 +182,25 @@ export async function getYoutubeSignups(): Promise<Record<string, number> | null
   const key = process.env.GETMINDY_SUPABASE_SERVICE_ROLE_KEY;
   if (!url || !key) return null;
   try {
-    const r = await fetch(
-      `${url}/rest/v1/leads?utm_content=in.(${SIGNUP_EPISODES.join(',')})&select=utm_content`,
-      { headers: { apikey: key, Authorization: `Bearer ${key}` } },
-    );
-    if (!r.ok) return null;
-    const rows = (await r.json()) as Array<{ utm_content: string | null }>;
-    const out: Record<string, number> = {};
-    for (const ep of SIGNUP_EPISODES) out[ep] = 0;
-    for (const row of rows) if (row.utm_content && out[row.utm_content] != null) out[row.utm_content]++;
-    return out;
+    const counts = await Promise.all(SIGNUP_EPISODES.map(async (ep) => {
+      const endpoint = new URL(`${url.replace(/\/$/, '')}/rest/v1/leads`);
+      endpoint.searchParams.set('utm_content', `eq.${ep}`);
+      endpoint.searchParams.set('select', 'utm_content');
+      const r = await fetch(endpoint, {
+        method: 'HEAD',
+        headers: {
+          apikey: key,
+          Authorization: `Bearer ${key}`,
+          Prefer: 'count=exact',
+          Range: '0-0',
+        },
+      });
+      if (!r.ok) throw new Error(`Signup count failed for ${ep}`);
+      const total = r.headers.get('content-range')?.match(/\/(\d+)$/)?.[1];
+      if (total == null) throw new Error(`Signup count missing for ${ep}`);
+      return [ep, Number(total)] as const;
+    }));
+    return Object.fromEntries(counts);
   } catch {
     return null;
   }
