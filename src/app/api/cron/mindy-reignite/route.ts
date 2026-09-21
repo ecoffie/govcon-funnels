@@ -9,9 +9,11 @@
  *
  * Shared engine: src/lib/mindy-reignite.ts (same code the CLI uses).
  *
- * Auth: Vercel cron sends `Authorization: Bearer <CRON_SECRET>`. We accept that,
- * OR `?password=<ADMIN_PASSWORD>` for manual trigger / testing. `?dry=true` plans
- * without sending. `?seed=N` overrides the ramp quota for a manual run.
+ * Auth: HEADERS ONLY — `Authorization: Bearer <CRON_SECRET>` (how the dispatcher
+ * fires this), or `x-admin-password` for a manual trigger. A `?password=` query
+ * credential is NOT accepted; see src/lib/cron-auth.ts for why a scheduled
+ * route must not take its secret from the URL. `?dry=true` plans without
+ * sending. `?seed=N` overrides the ramp quota for a manual run.
  *
  * Scheduled via MINDY'S DISPATCHER (cron_jobs row "mindy-reignite-drip",
  * daily 14:00 UTC) which fires this absolute URL cross-origin with
@@ -24,6 +26,7 @@ import {
   runSeed, runSend, seedQuotaForDay,
   type DripConfig,
 } from '@/lib/mindy-reignite';
+import { cronAuthorized } from '@/lib/cron-auth';
 
 export const dynamic = 'force-dynamic';
 export const maxDuration = 300;
@@ -64,20 +67,8 @@ function stamp(d: Date): string {
   return `${et} ET (${utc} UTC) · ${day}`;
 }
 
-function authorized(req: NextRequest): boolean {
-  const auth = req.headers.get('authorization');
-  const cronSecret = process.env.CRON_SECRET;
-  if (cronSecret && auth === `Bearer ${cronSecret}`) return true;
-  // Manual trigger / testing. This repo's admin secret is PURCHASES_ADMIN_PASSWORD
-  // (there is no plain ADMIN_PASSWORD here); accept either if present.
-  const pw = new URL(req.url).searchParams.get('password');
-  const adminPw = process.env.PURCHASES_ADMIN_PASSWORD || process.env.ADMIN_PASSWORD;
-  if (pw && adminPw && pw === adminPw) return true;
-  return false;
-}
-
 export async function GET(req: NextRequest) {
-  if (!authorized(req)) return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
+  if (!cronAuthorized(req)) return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
 
   const url = new URL(req.url);
   const dry = url.searchParams.get('dry') === 'true';

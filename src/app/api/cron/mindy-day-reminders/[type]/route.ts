@@ -1,7 +1,7 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { Redis } from '@upstash/redis';
 import { getMindyDayRegistrantsFromSupabase } from '@/lib/supabase-leads';
-import { extractPassword, isAuthorized } from '@/lib/admin-auth';
+import { cronAuthorized } from '@/lib/cron-auth';
 
 /**
  * Scheduled Mindy Day (July 25, 2026 · 10:00 AM ET) webinar-link reminders.
@@ -20,8 +20,11 @@ import { extractPassword, isAuthorized } from '@/lib/admin-auth';
  * ?join=). A real send REFUSES the registration-page fallback so nobody gets a
  * dead link.
  *
- * Auth: Vercel cron sends `Authorization: Bearer <CRON_SECRET>`. We accept that
- * OR the admin password (?password=) for manual fire/testing.
+ * Auth: HEADERS ONLY — `Authorization: Bearer <CRON_SECRET>` (how both Vercel
+ * cron and Mindy's dispatcher fire this), or `x-admin-password` for a manual
+ * fire. A `?password=` query credential is NOT accepted: the scheduler has to
+ * STORE the URL it calls, so a secret in the query string is a secret at rest in
+ * the scheduler's database and in every access log. See src/lib/cron-auth.ts.
  */
 
 const FALLBACK_JOIN_URL = 'https://govcongiants.com/mindy-launch';
@@ -53,13 +56,6 @@ async function claimSend(type: string): Promise<boolean> {
   }
 }
 
-function authorized(req: NextRequest): boolean {
-  const auth = req.headers.get('authorization');
-  const cronSecret = process.env.CRON_SECRET;
-  if (cronSecret && auth === `Bearer ${cronSecret}`) return true;
-  return isAuthorized(extractPassword(req));
-}
-
 const VALID_TYPES = [
   // pre-event reminders (carry the Zoom link, no pricing)
   'heads-up', 'morning', 'live',
@@ -76,7 +72,7 @@ const LIFETIME_PHASE: Record<string, 'deal' | 'lastcall' | 'extension' | 'finalc
 };
 
 export async function GET(req: NextRequest, ctx: { params: Promise<{ type: string }> }) {
-  if (!authorized(req)) {
+  if (!cronAuthorized(req)) {
     return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
   }
 
