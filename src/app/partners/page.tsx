@@ -1,6 +1,7 @@
 import Link from 'next/link';
 import { generateSeo, SITE_URL } from '@/lib/seo';
 import JsonLd from '@/components/JsonLd';
+import { PARTNERSHIP_CALL_URL } from '@/lib/booking';
 
 export const metadata = generateSeo({
   title: 'Partnership Programs — Help Your Members Win Government Contracts',
@@ -147,7 +148,7 @@ export default function PartnersPage() {
 
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
             <Link
-              href="https://calendly.com/govconedumeet/partnership"
+              href={PARTNERSHIP_CALL_URL}
               className="px-8 py-4 bg-white hover:bg-slate-100 text-slate-900 rounded-xl font-bold text-lg transition-all"
             >
               Schedule Partnership Call
@@ -329,7 +330,7 @@ export default function PartnersPage() {
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
             <Link
-              href="https://calendly.com/govconedumeet/partnership"
+              href={PARTNERSHIP_CALL_URL}
               className="px-8 py-4 bg-white hover:bg-slate-100 text-slate-900 rounded-xl font-bold text-lg transition-all"
             >
               Schedule Partnership Call
