@@ -228,7 +228,7 @@ export default function MindyFreePage() {
           <div className="bg-slate-800 border border-slate-700 rounded-xl p-6">
             <h3 className="text-lg font-bold text-white mb-2">What&apos;s in the paid upgrade?</h3>
             <p className="text-slate-300">
-              Mindy Pro ($149/mo) adds AI-powered briefings with win probability scores, competitor tracking, weekly deep dives, and pursuit briefs. But the free tier is plenty to get started.
+              Mindy Pro ($149/mo) adds AI-powered briefings with win probability scores, competitor tracking, and weekly deep dives. But the free tier is plenty to get started.
             </p>
           </div>
         </div>

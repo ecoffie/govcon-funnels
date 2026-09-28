@@ -42,18 +42,6 @@ const briefingTypes = [
       'Agency spending trends',
     ],
   },
-  {
-    name: 'Pursuit Briefing',
-    description: 'Deep dive on active pursuits',
-    frequency: 'On-demand',
-    icon: '🎯',
-    includes: [
-      'Incumbent analysis',
-      'Competitive landscape',
-      'Agency pain points',
-      'Recommended positioning',
-    ],
-  },
 ];
 
 const aiCapabilities = [
@@ -95,7 +83,6 @@ const comparisonData = [
   { feature: 'Amendment alerts', samGov: false, govWin: true, gcg: true },
   { feature: 'Competitor tracking', samGov: false, govWin: true, gcg: true },
   { feature: 'Weekly digest', samGov: false, govWin: true, gcg: true },
-  { feature: 'Pursuit briefings', samGov: false, govWin: true, gcg: true },
   { feature: 'Agency intelligence', samGov: false, govWin: true, gcg: true },
   { feature: 'Price', samGov: 'Free', govWin: '$13K+/yr', gcg: '$149/mo' },
 ];
@@ -103,7 +90,7 @@ const comparisonData = [
 const faqs = [
   {
     question: 'When are briefings delivered?',
-    answer: 'Daily briefings arrive by 6 AM Eastern. Weekly digests arrive Monday mornings. Pursuit briefings are generated on-demand when you request them.',
+    answer: 'Daily briefings arrive by 6 AM Eastern. Weekly digests arrive Monday mornings.',
   },
   {
     question: 'Can I get briefings via Slack or Teams?',
@@ -145,7 +132,6 @@ export default function AIBriefingsPage() {
           'Fit scoring',
           'Amendment alerts',
           'Competitor tracking',
-          'Pursuit analysis',
         ],
       }} />
 
@@ -218,13 +204,13 @@ export default function AIBriefingsPage() {
       <section className="py-16 px-6 bg-slate-900/50">
         <div className="max-w-5xl mx-auto">
           <h2 className="text-3xl font-bold text-white text-center mb-4">
-            Three Briefing Types
+            Two Briefing Types
           </h2>
           <p className="text-slate-400 text-center mb-12 max-w-2xl mx-auto">
             Different intelligence for different needs — from daily tactical to strategic planning.
           </p>
 
-          <div className="grid md:grid-cols-3 gap-6">
+          <div className="grid md:grid-cols-2 gap-6">
             {briefingTypes.map((briefing) => (
               <div key={briefing.name} className="bg-slate-900 border border-slate-800 rounded-xl p-6 hover:border-violet-500/50 transition">
                 <div className="text-4xl mb-4">{briefing.icon}</div>
