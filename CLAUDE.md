@@ -34,7 +34,9 @@ Keep the toolchain fence. Do not invent a single live-host story.
 
 ## Command center
 
-`/dashboard/command-center` (auth gated). Tables are created by `supabase/migrations/20260817_command_center.sql`. The synthetic suite is `src/lib/synthetic.ts`. On-demand run is `POST /api/command-center/verify` (`src/app/api/command-center/verify/route.ts`). After a production deploy Eric asked you to make, run that verify. If `ok` is false, report the failing checks before doing anything else.
+`/dashboard/command-center` (auth gated). Tables are created by `supabase/migrations/20261004_command_center_v2.sql` (RLS on, service role only; rollback in `supabase/rollback/`). The earlier `20260817_command_center.sql` never applied (unquoted reserved column `check`) and is commented out. As of 2026-10-04 the v2 migration is **not yet applied in production**: `site_events`, `lead_pipeline_log` and `synthetic_checks` do not exist there, so nothing is persisted. The dashboard and the cron/verify JSON report that as "monitoring unavailable".
+
+The Supabase database is shared with Mindy. `alert_log` is **Mindy's** table (per-user alert emails). Command Center alert dedupe uses `cc_alert_log`, and `sendAlert` fails closed (does not post) if dedupe can't be read. Never write to or drop `alert_log` from this repo. The synthetic suite is `src/lib/synthetic.ts`. On-demand run is `POST /api/command-center/verify` (`src/app/api/command-center/verify/route.ts`). After a production deploy Eric asked you to make, run that verify. If `ok` is false, report the failing checks before doing anything else.
 
 **Unresolved (verify and canary hosts).** `src/lib/synthetic.ts` sets `SITE` to `https://govcongiants.com` and `LEAD_API` to `https://app.govcongiants.org/api/lead`. `next.config.ts` 308s the `app.` host to `.com`. Do not assert which public hostname currently serves the route. Read those files.
 

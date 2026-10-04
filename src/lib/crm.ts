@@ -1,7 +1,21 @@
 /**
  * CRM automation: send form leads to GoHighLevel and/or a webhook (Zapier, Make, etc.)
  * Set env vars in .env.local (see .env.example).
+ *
+ * Every outbound sender here refuses synthetic leads (src/lib/synthetic-lead.ts)
+ * on its own, so a caller that forgets /api/lead's guard still cannot push test
+ * traffic into GHL, the generic webhook, or Slack.
  */
+import { syntheticLeadReason } from '@/lib/synthetic-lead';
+
+type SuppressedResult = { ok: false; error: string };
+
+function suppressSynthetic(lead: LeadPayload, destination: string): SuppressedResult | null {
+  const reason = syntheticLeadReason(lead);
+  if (!reason) return null;
+  console.log(`[CRM] Suppressed synthetic lead for ${destination}: ${reason}`);
+  return { ok: false, error: `suppressed: synthetic lead — ${reason}` };
+}
 
 export interface LeadPayload {
   name: string;
@@ -22,6 +36,9 @@ export interface LeadPayload {
 
 /** Send lead to GoHighLevel v2 API (creates or updates contact) */
 export async function sendToGoHighLevel(lead: LeadPayload): Promise<{ ok: boolean; error?: string; contactId?: string }> {
+  const suppressed = suppressSynthetic(lead, 'GHL');
+  if (suppressed) return suppressed;
+
   const apiKey = process.env.GHL_API_KEY;
   const locationId = process.env.GHL_LOCATION_ID;
 
@@ -80,6 +97,9 @@ export async function sendToGoHighLevel(lead: LeadPayload): Promise<{ ok: boolea
 
 /** Send lead to a generic webhook (Zapier, Make, n8n, or your CRM's inbound webhook) */
 export async function sendToWebhook(lead: LeadPayload): Promise<{ ok: boolean; error?: string }> {
+  const suppressed = suppressSynthetic(lead, 'webhook');
+  if (suppressed) return suppressed;
+
   const url = process.env.CRM_WEBHOOK_URL;
   if (!url) return { ok: false, error: 'CRM_WEBHOOK_URL not set' };
 
@@ -127,6 +147,9 @@ export async function sendToWebhook(lead: LeadPayload): Promise<{ ok: boolean; e
 
 /** Send lead to Slack (notification with email, name, source, phone). */
 export async function sendToSlack(lead: LeadPayload): Promise<{ ok: boolean; error?: string }> {
+  const suppressed = suppressSynthetic(lead, 'Slack');
+  if (suppressed) return suppressed;
+
   const webhookUrl = process.env.SLACK_LEAD_WEBHOOK_URL;
   if (!webhookUrl) {
     return { ok: false, error: 'SLACK_LEAD_WEBHOOK_URL not set' };
@@ -186,7 +209,15 @@ export async function sendLeadToCrm(lead: LeadPayload): Promise<{
   ghl?: { ok: boolean; error?: string; contactId?: string };
   webhook?: { ok: boolean; error?: string };
   slack?: { ok: boolean; error?: string };
+  /** Set (with the reason) when the lead was synthetic and nothing was sent. */
+  suppressed?: string;
 }> {
+  const syntheticReason = syntheticLeadReason(lead);
+  if (syntheticReason) {
+    console.log(`[CRM] Suppressed synthetic lead (no GHL/webhook/Slack): ${syntheticReason}`);
+    return { suppressed: syntheticReason };
+  }
+
   const hasGhl = !!(process.env.GHL_API_KEY && process.env.GHL_LOCATION_ID);
   const hasWebhook = !!process.env.CRM_WEBHOOK_URL;
   const hasSlack = !!process.env.SLACK_LEAD_WEBHOOK_URL;

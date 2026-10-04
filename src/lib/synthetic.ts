@@ -2,7 +2,8 @@
  * Synthetic monitoring suite — shared by the 15-min cron
  * (/api/cron/synthetic-checks) and the on-demand verify endpoint
  * (/api/command-center/verify). Every probe records a row in
- * synthetic_checks and returns its result for the caller.
+ * synthetic_checks and returns its result for the caller, along with whether
+ * the rows were actually saved.
  *
  * Probes (all read-only GETs against the live site):
  *   1. url          — GET the important pages: expect 200, no redirect chain,
@@ -17,7 +18,9 @@
  * GovCon Giants!" email; cleanup only deleted the GHL contact. Do not re-add a
  * probe that submits through /api/lead — that route now suppresses synthetic
  * leads (src/lib/synthetic-lead.ts), so such a probe would also prove nothing.
- * Historical canary-lead rows stay in synthetic_checks.
+ * No canary-lead results were ever persisted: synthetic_checks did not exist
+ * until 20261004_command_center_v2.sql. The fake submissions themselves are in
+ * funnel_leads (canary+%@example.com).
  */
 import { recordCheck, type CheckRow } from '@/lib/command-center';
 
@@ -329,15 +332,38 @@ export async function runLegacyBridgeChecks(): Promise<CheckResult[]> {
   return out;
 }
 
-/** Run the full suite, persist every result, return them. */
-export async function runSyntheticSuite(): Promise<CheckResult[]> {
+export interface SuitePersistence {
+  table: 'synthetic_checks';
+  attempted: number;
+  saved: number;
+  ok: boolean;
+  /** First save error, when any result failed to persist. */
+  error?: string;
+}
+
+/**
+ * Run the full suite, persist every result, and report BOTH: the check results and
+ * whether they were actually saved. Callers must not present a run as recorded
+ * monitoring when persistence failed.
+ */
+export async function runSyntheticSuite(): Promise<{ checks: CheckResult[]; persistence: SuitePersistence }> {
   const [urls, content, canonicalHosts, bridges] = await Promise.all([
     runUrlChecks(),
     runContentChecks(),
     runCanonicalHostChecks(),
     runLegacyBridgeChecks(),
   ]);
-  const all = [...urls, ...content, ...canonicalHosts, ...bridges];
-  await Promise.all(all.map((r) => recordCheck(r)));
-  return all;
+  const checks = [...urls, ...content, ...canonicalHosts, ...bridges];
+  const saves = await Promise.all(checks.map((r) => recordCheck(r)));
+  const saved = saves.filter((s) => s.ok).length;
+  return {
+    checks,
+    persistence: {
+      table: 'synthetic_checks',
+      attempted: checks.length,
+      saved,
+      ok: saved === checks.length,
+      ...(saved < checks.length && { error: saves.find((s) => !s.ok)?.error ?? 'unknown error' }),
+    },
+  };
 }

@@ -60,6 +60,7 @@ beforeEach(() => {
   leads.saveLeadToSupabase.mockResolvedValue({ ok: true });
   leads.recentDuplicateExists.mockResolvedValue(false);
   cc.sendAlert.mockResolvedValue({ sent: false, reason: 'test' });
+  cc.recordCheck.mockResolvedValue({ ok: true });
   mail.resendSend.mockResolvedValue({ data: { id: 'msg_1' }, error: null });
   mail.smtpSend.mockResolvedValue({ messageId: 'smtp_1', accepted: [], rejected: [] });
   fetchMock.mockImplementation(async () => new Response('<urlset><url></url></urlset>', { status: 200 }));

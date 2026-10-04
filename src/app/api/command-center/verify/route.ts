@@ -18,11 +18,15 @@ export async function POST(request: NextRequest) {
     return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
   }
 
-  const results = await runSyntheticSuite();
+  const { checks: results, persistence } = await runSyntheticSuite();
   const failures = results.filter((r) => !r.ok);
 
+  // `ok` covers the checks AND whether they were recorded: a run whose results
+  // could not be saved is not working monitoring, even if every check passed.
   return NextResponse.json({
-    ok: failures.length === 0,
+    ok: failures.length === 0 && persistence.ok,
+    checksOk: failures.length === 0,
+    persistence,
     ranAt: new Date().toISOString(),
     checks: results.map((r) => ({
       check: r.check,

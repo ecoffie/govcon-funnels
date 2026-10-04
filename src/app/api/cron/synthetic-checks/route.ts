@@ -6,6 +6,11 @@
  *   - JS errors >20/hour (from site_events)
  *   - lead pipeline destination failing >5% over the last 100 leads
  *
+ * Monitoring-store problems (a table missing, a failed save, alert dedupe
+ * unavailable) are NOT swallowed: they come back in `monitoringErrors` and make
+ * `ok` false. They are deliberately NOT sent to Slack — the broken store is often
+ * the dedupe store itself, so alerting on it would repeat every run.
+ *
  * Auth: Vercel cron (Authorization: Bearer CRON_SECRET) or ?password= admin.
  */
 import { NextRequest, NextResponse } from 'next/server';
@@ -16,32 +21,49 @@ import { runSyntheticSuite } from '@/lib/synthetic';
 export const dynamic = 'force-dynamic';
 export const maxDuration = 120;
 
-async function evaluateAlerts(): Promise<string[]> {
-  const fired: string[] = [];
-  if (!ccClient) return fired;
+type AlertOutcome = { fired: string[]; monitoringErrors: string[] };
+
+/** Record an alert attempt: fired, or — if alerting itself is broken — an error. */
+function noteAlert(out: AlertOutcome, key: string, r: { sent: boolean; reason?: string }) {
+  if (r.sent) out.fired.push(key);
+  if (r.reason?.startsWith('alerting unavailable')) out.monitoringErrors.push(r.reason);
+}
+
+async function evaluateAlerts(out: AlertOutcome): Promise<void> {
+  if (!ccClient) {
+    out.monitoringErrors.push('Supabase not configured — threshold alerts not evaluated');
+    return;
+  }
 
   // JS errors >20 in the last hour
   try {
     const since = new Date(Date.now() - 3600_000).toISOString();
-    const { count } = await ccClient
+    const { count, error } = await ccClient
       .from('site_events')
       .select('id', { count: 'exact', head: true })
       .eq('event', 'js_error')
       .gte('ts', since);
-    if ((count ?? 0) > 20) {
-      const r = await sendAlert('js-errors-hourly', `${count} JS errors in the last hour on govcongiants.com (threshold 20). Check /dashboard/command-center.`);
-      if (r.sent) fired.push('js-errors-hourly');
+    if (error) {
+      out.monitoringErrors.push(`site_events: ${error.message} — JS-error alert not evaluated`);
+    } else if ((count ?? 0) > 20) {
+      noteAlert(out, 'js-errors-hourly', await sendAlert('js-errors-hourly', `${count} JS errors in the last hour on govcongiants.com (threshold 20). Check /dashboard/command-center.`));
     }
-  } catch { /* alerting must never break the cron */ }
+  } catch (e) {
+    out.monitoringErrors.push(`site_events: ${e instanceof Error ? e.message : String(e)}`);
+  }
 
   // Pipeline destination failure rate >5% over the last 100 non-canary leads
   try {
-    const { data } = await ccClient
+    const { data, error } = await ccClient
       .from('lead_pipeline_log')
       .select('ghl_ok,supabase_ok,slack_ok,email_ok')
       .neq('source', 'canary')
       .order('ts', { ascending: false })
       .limit(100);
+    if (error) {
+      out.monitoringErrors.push(`lead_pipeline_log: ${error.message} — pipeline failure-rate alert not evaluated`);
+      return;
+    }
     const rows = data ?? [];
     if (rows.length >= 10) {
       for (const dest of ['ghl_ok', 'supabase_ok', 'slack_ok', 'email_ok'] as const) {
@@ -50,17 +72,20 @@ async function evaluateAlerts(): Promise<string[]> {
         const rate = attempted.length ? failed / attempted.length : 0;
         if (rate > 0.05) {
           const name = dest.replace('_ok', '');
-          const r = await sendAlert(
+          noteAlert(
+            out,
             `pipeline-${name}-failing`,
-            `Lead pipeline destination *${name}* failing at ${(rate * 100).toFixed(1)}% over the last ${attempted.length} leads. Check /dashboard/command-center.`,
+            await sendAlert(
+              `pipeline-${name}-failing`,
+              `Lead pipeline destination *${name}* failing at ${(rate * 100).toFixed(1)}% over the last ${attempted.length} leads. Check /dashboard/command-center.`,
+            ),
           );
-          if (r.sent) fired.push(`pipeline-${name}-failing`);
         }
       }
     }
-  } catch { /* ignore */ }
-
-  return fired;
+  } catch (e) {
+    out.monitoringErrors.push(`lead_pipeline_log: ${e instanceof Error ? e.message : String(e)}`);
+  }
 }
 
 export async function GET(request: NextRequest) {
@@ -71,25 +96,39 @@ export async function GET(request: NextRequest) {
     return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
   }
 
-  const results = await runSyntheticSuite();
-  const failures = results.filter((r) => !r.ok);
+  const { checks, persistence } = await runSyntheticSuite();
+  const failures = checks.filter((r) => !r.ok);
+  const out: AlertOutcome = { fired: [], monitoringErrors: [] };
+  if (!persistence.ok) {
+    out.monitoringErrors.push(
+      `synthetic_checks: saved ${persistence.saved}/${persistence.attempted} results — ${persistence.error}`,
+    );
+  }
 
   // Alert on each distinct failure class (deduped 4h inside sendAlert).
-  const alerts: string[] = [];
   for (const f of failures) {
     const key = `synthetic-${f.check}-${f.target ?? ''}`;
-    const r = await sendAlert(
+    noteAlert(
+      out,
       key,
-      `Synthetic check *${f.check}* FAILED for ${f.target ?? 'target'} — status ${f.status ?? 'n/a'}${f.detail ? ` (${f.detail})` : ''}.`,
+      await sendAlert(
+        key,
+        `Synthetic check *${f.check}* FAILED for ${f.target ?? 'target'} — status ${f.status ?? 'n/a'}${f.detail ? ` (${f.detail})` : ''}.`,
+      ),
     );
-    if (r.sent) alerts.push(key);
   }
-  alerts.push(...(await evaluateAlerts()));
+  await evaluateAlerts(out);
+
+  const monitoringErrors = [...new Set(out.monitoringErrors)];
+  if (monitoringErrors.length) console.error('[synthetic-checks] monitoring unavailable:', monitoringErrors);
 
   return NextResponse.json({
-    ok: failures.length === 0,
-    ran: results.length,
+    ok: failures.length === 0 && monitoringErrors.length === 0,
+    checksOk: failures.length === 0,
+    ran: checks.length,
     failures: failures.map((f) => ({ check: f.check, target: f.target, status: f.status, detail: f.detail })),
-    alertsSent: alerts,
+    persistence,
+    monitoringErrors,
+    alertsSent: out.fired,
   });
 }

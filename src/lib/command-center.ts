@@ -2,6 +2,8 @@
  * Command Center — shared server-side helpers (Supabase service client,
  * event/pipeline/check writes, deduped Slack alerts).
  *
+ * Tables: supabase/migrations/20261004_command_center_v2.sql.
+ *
  * Env (already used elsewhere in this app):
  *   NEXT_PUBLIC_SUPABASE_URL (or SUPABASE_URL), SUPABASE_SERVICE_ROLE_KEY
  *   SLACK_LEAD_WEBHOOK_URL — alerts channel (same webhook leads use)
@@ -119,8 +121,10 @@ export interface CheckRow {
   detail?: string;
 }
 
-export async function recordCheck(row: CheckRow): Promise<void> {
-  if (!ccClient) return;
+/** Persist one check result. Returns whether it was saved, so callers can report
+ *  "monitoring unavailable" instead of implying the result was recorded. */
+export async function recordCheck(row: CheckRow): Promise<{ ok: boolean; error?: string }> {
+  if (!ccClient) return { ok: false, error: 'Supabase not configured' };
   try {
     const { error } = await ccClient.from('synthetic_checks').insert({
       check: row.check,
@@ -130,9 +134,15 @@ export async function recordCheck(row: CheckRow): Promise<void> {
       duration_ms: row.duration_ms ?? null,
       detail: row.detail?.slice(0, 1000) ?? null,
     });
-    if (error) console.error('recordCheck failed:', error.message);
+    if (error) {
+      console.error('recordCheck failed:', error.message);
+      return { ok: false, error: error.message };
+    }
+    return { ok: true };
   } catch (e) {
-    console.error('recordCheck threw:', e instanceof Error ? e.message : String(e));
+    const message = e instanceof Error ? e.message : String(e);
+    console.error('recordCheck threw:', message);
+    return { ok: false, error: message };
   }
 }
 
@@ -140,7 +150,24 @@ export async function recordCheck(row: CheckRow): Promise<void> {
 
 const ALERT_DEDUPE_HOURS = 4;
 
-/** Send a Slack alert, deduped by key for 4h (same key → swallowed). */
+/**
+ * Dedupe store for Command Center Slack alerts. NOT `alert_log`: that name is taken
+ * in this shared database by Mindy's per-user alert-email log (user_email,
+ * alert_date, ...). Querying it here failed with 42703 on every call, and the old
+ * code treated that error as "not a duplicate", so dedupe never worked.
+ */
+// The .from() calls below use the literal, not this constant: scripts/audit-unranged-selects.mjs
+// only recognises `.from('<table>')` as a Supabase query.
+export const ALERT_TABLE = 'cc_alert_log';
+
+/**
+ * Send a Slack alert, deduped by key for 4h (same key → swallowed).
+ *
+ * FAILS CLOSED: if the dedupe store can't be read, the alert is NOT sent. A broken
+ * dedupe store would otherwise repost the same alert on every 15-minute cron run.
+ * The failure is returned (and logged) so the cron/verify response and the
+ * dashboard can show "alerting unavailable" instead of staying silent.
+ */
 export async function sendAlert(alertKey: string, message: string): Promise<{ sent: boolean; reason?: string }> {
   if (!ccClient) return { sent: false, reason: 'supabase not configured' };
   const webhook = process.env.SLACK_LEAD_WEBHOOK_URL;
@@ -148,11 +175,15 @@ export async function sendAlert(alertKey: string, message: string): Promise<{ se
   try {
     const since = new Date(Date.now() - ALERT_DEDUPE_HOURS * 3600_000).toISOString();
     const { count, error } = await ccClient
-      .from('alert_log')
+      .from('cc_alert_log')
       .select('id', { count: 'exact', head: true })
       .eq('alert_key', alertKey)
       .gte('ts', since);
-    if (!error && (count ?? 0) > 0) return { sent: false, reason: 'deduped (4h window)' };
+    if (error) {
+      console.error(`sendAlert: dedupe store ${ALERT_TABLE} unavailable, NOT sending "${alertKey}":`, error.message);
+      return { sent: false, reason: `alerting unavailable: dedupe store ${ALERT_TABLE}: ${error.message}` };
+    }
+    if ((count ?? 0) > 0) return { sent: false, reason: 'deduped (4h window)' };
 
     const res = await fetch(webhook, {
       method: 'POST',
@@ -160,7 +191,13 @@ export async function sendAlert(alertKey: string, message: string): Promise<{ se
       body: JSON.stringify({ text: `:rotating_light: *Command Center* — ${message}` }),
     });
     if (!res.ok) return { sent: false, reason: `slack HTTP ${res.status}` };
-    await ccClient.from('alert_log').insert({ alert_key: alertKey, message: message.slice(0, 1000) });
+    const { error: logError } = await ccClient
+      .from('cc_alert_log')
+      .insert({ alert_key: alertKey, message: message.slice(0, 1000) });
+    if (logError) {
+      console.error(`sendAlert: sent "${alertKey}" but could not record it in ${ALERT_TABLE}:`, logError.message);
+      return { sent: true, reason: `sent, but not recorded for dedupe: ${logError.message}` };
+    }
     return { sent: true };
   } catch (e) {
     return { sent: false, reason: e instanceof Error ? e.message : String(e) };
