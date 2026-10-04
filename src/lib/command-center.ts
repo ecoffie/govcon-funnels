@@ -161,50 +161,114 @@ const ALERT_DEDUPE_HOURS = 4;
 export const ALERT_TABLE = 'cc_alert_log';
 
 /**
+ * Outcome of an alert attempt. Callers branch on `status`, never on message text:
+ *   sent     — posted to Slack (`reason` notes if it could not be recorded for dedupe)
+ *   deduped  — same key already alerted inside the 4h window
+ *   paused   — dedupe store unreadable (error, exception, timeout, or no client):
+ *              NOTHING was posted. Fail-closed; callers must report this state.
+ *   skipped  — Slack webhook not configured
+ *   failed   — dedupe was fine, but the Slack post itself failed
+ */
+export type AlertStatus = 'sent' | 'deduped' | 'paused' | 'skipped' | 'failed';
+export interface AlertResult {
+  sent: boolean;
+  status: AlertStatus;
+  reason?: string;
+}
+
+/** Upper bound on the dedupe read. A hang must pause alerting, not stall the cron. */
+export const DEDUPE_TIMEOUT_MS = 5000;
+
+type DedupeRead = { ok: true; duplicate: boolean } | { ok: false; why: string };
+
+/**
+ * Bounded dedupe read. Resolves within DEDUPE_TIMEOUT_MS no matter what the client
+ * does: a returned error, a thrown exception and a hang all become `ok: false`.
+ * On timeout the request is aborted, and because sendAlert only ever acts on what
+ * this function RETURNS, a read that completes late is discarded — it can never
+ * resume the send.
+ *
+ * A plain row read, NOT `{ count: 'exact', head: true }`: for a MISSING table a
+ * head:true query comes back 204 with error=null and count=null (verified against
+ * production 2026-10-04), which would read as "no duplicate" and fail open.
+ */
+async function readDedupe(client: SupabaseClient, alertKey: string, sinceIso: string): Promise<DedupeRead> {
+  const controller = new AbortController();
+  let timer: ReturnType<typeof setTimeout> | undefined;
+  const timedOut = new Promise<DedupeRead>((resolve) => {
+    timer = setTimeout(() => {
+      controller.abort();
+      resolve({ ok: false, why: `dedupe read timed out after ${DEDUPE_TIMEOUT_MS}ms` });
+    }, DEDUPE_TIMEOUT_MS);
+  });
+  const read = (async (): Promise<DedupeRead> => {
+    try {
+      const { data, error } = await client
+        .from('cc_alert_log')
+        .select('id')
+        .eq('alert_key', alertKey)
+        .gte('ts', sinceIso)
+        .limit(1)
+        .abortSignal(controller.signal);
+      if (error) return { ok: false, why: error.message };
+      if (!Array.isArray(data)) return { ok: false, why: 'no rows array returned' };
+      return { ok: true, duplicate: data.length > 0 };
+    } catch (e) {
+      return { ok: false, why: e instanceof Error ? e.message : String(e) };
+    }
+  })();
+  try {
+    return await Promise.race([read, timedOut]);
+  } finally {
+    clearTimeout(timer);
+  }
+}
+
+/**
  * Send a Slack alert, deduped by key for 4h (same key → swallowed).
  *
- * FAILS CLOSED: if the dedupe store can't be read, the alert is NOT sent. A broken
- * dedupe store would otherwise repost the same alert on every 15-minute cron run.
- * The failure is returned (and logged) so the cron/verify response and the
- * dashboard can show "alerting unavailable" instead of staying silent.
+ * FAILS CLOSED: if the dedupe store can't be read — returned error, thrown
+ * exception, or no answer within DEDUPE_TIMEOUT_MS — the alert is NOT sent and
+ * `status: 'paused'` is returned so the cron/verify response and the dashboard can
+ * show "alerting paused" instead of staying silent. A broken dedupe store would
+ * otherwise repost the same alert on every 15-minute cron run.
  */
-export async function sendAlert(alertKey: string, message: string): Promise<{ sent: boolean; reason?: string }> {
-  if (!ccClient) return { sent: false, reason: 'supabase not configured' };
+export async function sendAlert(alertKey: string, message: string): Promise<AlertResult> {
+  if (!ccClient) return { sent: false, status: 'paused', reason: 'dedupe store unavailable: Supabase not configured' };
   const webhook = process.env.SLACK_LEAD_WEBHOOK_URL;
-  if (!webhook) return { sent: false, reason: 'SLACK_LEAD_WEBHOOK_URL not set' };
-  try {
-    const since = new Date(Date.now() - ALERT_DEDUPE_HOURS * 3600_000).toISOString();
-    // A plain row read, NOT `{ count: 'exact', head: true }`: for a MISSING table a
-    // head:true query comes back 204 with error=null and count=null (verified against
-    // production 2026-10-04), which would read as "no duplicate" and fail open.
-    const { data, error } = await ccClient
-      .from('cc_alert_log')
-      .select('id')
-      .eq('alert_key', alertKey)
-      .gte('ts', since)
-      .limit(1);
-    if (error || !Array.isArray(data)) {
-      const why = error?.message ?? 'no rows array returned';
-      console.error(`sendAlert: dedupe store ${ALERT_TABLE} unavailable, NOT sending "${alertKey}":`, why);
-      return { sent: false, reason: `alerting unavailable: dedupe store ${ALERT_TABLE}: ${why}` };
-    }
-    if (data.length > 0) return { sent: false, reason: 'deduped (4h window)' };
+  if (!webhook) return { sent: false, status: 'skipped', reason: 'SLACK_LEAD_WEBHOOK_URL not set' };
 
+  const since = new Date(Date.now() - ALERT_DEDUPE_HOURS * 3600_000).toISOString();
+  const dedupe = await readDedupe(ccClient, alertKey, since);
+  if (!dedupe.ok) {
+    console.error(`sendAlert: dedupe store ${ALERT_TABLE} unavailable, NOT sending "${alertKey}":`, dedupe.why);
+    return { sent: false, status: 'paused', reason: `dedupe store ${ALERT_TABLE} unavailable: ${dedupe.why}` };
+  }
+  if (dedupe.duplicate) return { sent: false, status: 'deduped', reason: 'deduped (4h window)' };
+
+  try {
     const res = await fetch(webhook, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({ text: `:rotating_light: *Command Center* — ${message}` }),
     });
-    if (!res.ok) return { sent: false, reason: `slack HTTP ${res.status}` };
+    if (!res.ok) return { sent: false, status: 'failed', reason: `slack HTTP ${res.status}` };
+  } catch (e) {
+    return { sent: false, status: 'failed', reason: `slack post threw: ${e instanceof Error ? e.message : String(e)}` };
+  }
+
+  try {
     const { error: logError } = await ccClient
       .from('cc_alert_log')
       .insert({ alert_key: alertKey, message: message.slice(0, 1000) });
     if (logError) {
       console.error(`sendAlert: sent "${alertKey}" but could not record it in ${ALERT_TABLE}:`, logError.message);
-      return { sent: true, reason: `sent, but not recorded for dedupe: ${logError.message}` };
+      return { sent: true, status: 'sent', reason: `sent, but not recorded for dedupe: ${logError.message}` };
     }
-    return { sent: true };
   } catch (e) {
-    return { sent: false, reason: e instanceof Error ? e.message : String(e) };
+    const why = e instanceof Error ? e.message : String(e);
+    console.error(`sendAlert: sent "${alertKey}" but recording it threw:`, why);
+    return { sent: true, status: 'sent', reason: `sent, but not recorded for dedupe: ${why}` };
   }
+  return { sent: true, status: 'sent' };
 }

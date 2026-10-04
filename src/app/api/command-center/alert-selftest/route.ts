@@ -30,17 +30,19 @@ export async function POST(request: NextRequest) {
   const first = await sendAlert(SELFTEST_KEY, message);
   const second = await sendAlert(SELFTEST_KEY, message);
 
-  const secondDeduped = !second.sent && second.reason === 'deduped (4h window)';
-  const verdict = first.sent && first.reason === undefined && secondDeduped
+  // Proven only by the explicit statuses, never by message text.
+  const proven = first.status === 'sent' && first.reason === undefined && second.status === 'deduped';
+  const alreadyRan = first.status === 'deduped' && second.status === 'deduped';
+  const verdict = proven
     ? 'proven: first sent and recorded, second suppressed'
-    : !first.sent && first.reason === 'deduped (4h window)' && secondDeduped
+    : alreadyRan
       ? 'dedupe read proven; a self-test already ran in the last 4h, so nothing was sent'
-      : !first.sent && first.reason?.startsWith('alerting unavailable')
-        ? 'alerting paused: dedupe store unreadable, both attempts withheld'
+      : first.status === 'paused'
+        ? 'alerting paused: dedupe store unavailable, both attempts withheld'
         : 'NOT proven — see first/second';
 
   return NextResponse.json({
-    ok: secondDeduped && (first.sent ? first.reason === undefined : first.reason === 'deduped (4h window)'),
+    ok: proven || alreadyRan,
     verdict,
     key: SELFTEST_KEY,
     first,

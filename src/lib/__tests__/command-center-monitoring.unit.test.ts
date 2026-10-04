@@ -1,4 +1,4 @@
-import { describe, it, expect, vi, beforeEach } from 'vitest';
+import { describe, it, expect, vi, beforeEach, afterEach } from 'vitest';
 import { NextRequest } from 'next/server';
 import { renderToStaticMarkup } from 'react-dom/server';
 
@@ -31,9 +31,12 @@ vi.hoisted(() => {
 
 // ---- fake Supabase: records every terminal call, answers per (table, op) -------
 type Resp = { data?: unknown; error: { message: string } | null; count?: number | null };
+/** A response, a pending promise (to simulate a hang), or a thrown exception. */
+type Answer = Resp | Promise<Resp> | { throws: Error };
 const db = vi.hoisted(() => ({
   calls: [] as { table: string; op: 'select' | 'insert'; payload?: unknown }[],
-  respond: ((): Resp => ({ data: [], error: null, count: 0 })) as (table: string, op: 'select' | 'insert') => Resp,
+  respond: ((): Answer => ({ data: [], error: null, count: 0 })) as (table: string, op: 'select' | 'insert') => Answer,
+  signals: [] as AbortSignal[],
 }));
 
 vi.mock('@supabase/supabase-js', () => {
@@ -43,6 +46,10 @@ vi.mock('@supabase/supabase-js', () => {
     let head = false;
     const b: Record<string, unknown> = {};
     for (const m of ['eq', 'neq', 'gte', 'order', 'limit', 'range', 'not', 'ilike']) b[m] = () => b;
+    b.abortSignal = (sig: AbortSignal) => {
+      db.signals.push(sig);
+      return b;
+    };
     b.select = (_cols?: string, opts?: { head?: boolean }) => {
       head = !!opts?.head;
       return b;
@@ -54,7 +61,10 @@ vi.mock('@supabase/supabase-js', () => {
     };
     b.then = (res: (v: Resp) => unknown, rej: (e: unknown) => unknown) => {
       db.calls.push({ table, op, payload });
-      let r = db.respond(table, op);
+      const a = db.respond(table, op);
+      if (a instanceof Promise) return a.then(res, rej);
+      if ('throws' in a) return Promise.reject(a.throws).then(res, rej);
+      let r = a;
       // Real PostgREST/supabase-js behaviour (verified on production 2026-10-04): a
       // `head: true` query against a MISSING table returns 204 with error=null and
       // count=null — the error only surfaces on a normal (GET) read.
@@ -79,6 +89,7 @@ const missing = (t: string): Resp => ({
 
 beforeEach(() => {
   db.calls.length = 0;
+  db.signals.length = 0;
   db.respond = () => ({ data: [], error: null, count: 0 });
   fetchMock.mockImplementation(async () => new Response('{}', { status: 200 }));
 });
@@ -143,7 +154,8 @@ describe('sendAlert', async () => {
     db.respond = (t) => missing(t);
     const r = await sendAlert('synthetic-url-x', 'down');
     expect(r.sent).toBe(false);
-    expect(r.reason).toMatch(/^alerting unavailable: dedupe store cc_alert_log/);
+    expect(r.status).toBe('paused');
+    expect(r.reason).toMatch(/^dedupe store cc_alert_log unavailable/);
     expect(fetchMock).not.toHaveBeenCalled();
     expect(db.calls.map((c) => c.table)).toEqual(['cc_alert_log']);
   });
@@ -158,14 +170,14 @@ describe('sendAlert', async () => {
 
   it('posts once and records it when dedupe works and the key is new', async () => {
     const r = await sendAlert('synthetic-url-x', 'down');
-    expect(r).toEqual({ sent: true });
+    expect(r).toEqual({ sent: true, status: 'sent' });
     expect(fetchMock).toHaveBeenCalledOnce();
     expect(db.calls.at(-1)).toMatchObject({ table: 'cc_alert_log', op: 'insert', payload: { alert_key: 'synthetic-url-x' } });
   });
 
   it('swallows a repeat inside the 4h window', async () => {
     db.respond = () => ({ data: [{ id: 1 }], error: null, count: 1 });
-    expect(await sendAlert('synthetic-url-x', 'down')).toEqual({ sent: false, reason: 'deduped (4h window)' });
+    expect(await sendAlert('synthetic-url-x', 'down')).toEqual({ sent: false, status: 'deduped', reason: 'deduped (4h window)' });
     expect(fetchMock).not.toHaveBeenCalled();
   });
 });
@@ -204,7 +216,7 @@ describe('GET /api/cron/synthetic-checks with the monitoring tables missing', as
     expect(errs).toMatch(/synthetic_checks: saved 0\//);
     expect(errs).toMatch(/site_events: .*JS-error alert not evaluated/);
     expect(errs).toMatch(/lead_pipeline_log: .*failure-rate alert not evaluated/);
-    expect(errs).toMatch(/alerting unavailable: dedupe store cc_alert_log/);
+    expect(errs).toMatch(/alerting paused \(synthetic-url-.*\): dedupe store cc_alert_log unavailable/);
     expect(json.alerting).toMatch(/^PAUSED/); // fail-closed limitation is explicit, not silent
     expect(json.alertsSent).toEqual([]);
     const slackPosts = fetchMock.mock.calls.filter(([u]) => String(u).includes('hooks.slack.test'));
@@ -295,8 +307,8 @@ describe('POST /api/command-center/alert-selftest', async () => {
     const json = await (await POST(req('admin-pw'))).json();
     expect(json.ok).toBe(true);
     expect(json.verdict).toMatch(/^proven/);
-    expect(json.first).toEqual({ sent: true });
-    expect(json.second).toEqual({ sent: false, reason: 'deduped (4h window)' });
+    expect(json.first).toEqual({ sent: true, status: 'sent' });
+    expect(json.second).toEqual({ sent: false, status: 'deduped', reason: 'deduped (4h window)' });
     expect(slackPosts()).toHaveLength(1);
     expect(String(JSON.parse(String(slackPosts()[0][1]?.body)).text)).toContain('Controlled dedupe self-test');
     expect(logged).toEqual([expect.objectContaining({ alert_key: 'cc-dedupe-selftest' })]);
@@ -308,5 +320,94 @@ describe('POST /api/command-center/alert-selftest', async () => {
     expect(json.ok).toBe(false);
     expect(json.verdict).toMatch(/^alerting paused/);
     expect(slackPosts()).toEqual([]);
+  });
+});
+
+// ---- 6. dedupe read failures: every mode withholds Slack and reports PAUSED -----
+
+describe('alerting status: every unreadable-dedupe mode is paused, never sent', async () => {
+  const { sendAlert, DEDUPE_TIMEOUT_MS } = await import('@/lib/command-center');
+  const { GET } = await import('@/app/api/cron/synthetic-checks/route');
+  const slackPosts = () => fetchMock.mock.calls.filter(([u]) => String(u).includes('hooks.slack.test')).length;
+
+  /** Drive fake timers until `p` settles (sequential 5s timeouts inside the cron). */
+  async function settle<T>(p: Promise<T>): Promise<T> {
+    let done = false;
+    p.then(() => (done = true), () => (done = true));
+    for (let i = 0; i < 200 && !done; i++) await vi.advanceTimersByTimeAsync(1000);
+    return p;
+  }
+  const never = () => new Promise<Resp>(() => {});
+
+  const MODES: [string, () => Answer][] = [
+    ['missing table', () => missing('cc_alert_log')],
+    ['permission error', () => ({ data: null, error: { message: 'permission denied for table cc_alert_log' } })],
+    ['timeout returned as an error', () => ({ data: null, error: { message: 'TypeError: fetch failed' } })],
+    ['thrown exception', () => ({ throws: new Error('The operation was aborted due to timeout') })],
+    ['no error and no rows array', () => ({ data: null, error: null, count: null })],
+    ['hang (never answers)', never],
+  ];
+
+  beforeEach(() => vi.useFakeTimers({ toFake: ['setTimeout', 'clearTimeout'] }));
+  afterEach(() => vi.useRealTimers());
+
+  it.each(MODES)('sendAlert — %s → status paused, nothing posted', async (_n, answer) => {
+    db.respond = (t) => (t === 'cc_alert_log' ? answer() : { data: [], error: null, count: 0 });
+    const r = await settle(sendAlert('k', 'm'));
+    expect(r.status).toBe('paused');
+    expect(r.sent).toBe(false);
+    expect(slackPosts()).toBe(0);
+    expect(db.calls.some((c) => c.table === 'cc_alert_log' && c.op === 'insert')).toBe(false);
+  });
+
+  it.each(MODES)('cron — %s → alerting PAUSED, nothing posted', async (_n, answer) => {
+    db.respond = (t) => (t === 'cc_alert_log' ? answer() : { data: [], error: null, count: 0 });
+    // Every probe fails, so every check tries to alert.
+    fetchMock.mockImplementation(async (u) =>
+      String(u).includes('hooks.slack.test') ? new Response('{}') : new Response('down', { status: 500 }),
+    );
+    const res = await settle(
+      GET(new NextRequest('https://govcongiants.com/api/cron/synthetic-checks', { headers: { authorization: 'Bearer cron-secret' } })),
+    );
+    const json = await res.json();
+    expect(json.alerting).toMatch(/^PAUSED/);
+    expect(json.ok).toBe(false);
+    expect(json.alertsSent).toEqual([]);
+    expect(slackPosts()).toBe(0);
+  });
+
+  it('a timed-out read is aborted, and a LATE answer can never resume the send', async () => {
+    let lateResolve!: (r: Resp) => void;
+    db.respond = (t, op) =>
+      t === 'cc_alert_log' && op === 'select'
+        ? new Promise<Resp>((resolve) => (lateResolve = resolve))
+        : { data: null, error: null };
+
+    const r = await settle(sendAlert('k', 'm'));
+    expect(r).toMatchObject({ sent: false, status: 'paused' });
+    expect(r.reason).toContain(`timed out after ${DEDUPE_TIMEOUT_MS}ms`);
+    expect(db.signals.at(-1)?.aborted).toBe(true);
+
+    // The hung read now "succeeds" with no duplicate — the answer that would have sent.
+    lateResolve({ data: [], error: null });
+    await vi.advanceTimersByTimeAsync(10_000);
+    expect(slackPosts()).toBe(0);
+    expect(db.calls.some((c) => c.table === 'cc_alert_log' && c.op === 'insert')).toBe(false);
+  });
+
+  it('control — existing EMPTY dedupe table: first alert sent + recorded, repeat suppressed', async () => {
+    const logged: unknown[] = [];
+    db.respond = (t, op) => {
+      if (t !== 'cc_alert_log') return { data: [], error: null };
+      if (op === 'insert') {
+        logged.push(db.calls.at(-1)?.payload);
+        return { data: null, error: null };
+      }
+      return { data: logged.map((_, i) => ({ id: i + 1 })), error: null };
+    };
+    expect(await settle(sendAlert('k', 'm'))).toEqual({ sent: true, status: 'sent' });
+    expect(await settle(sendAlert('k', 'm'))).toEqual({ sent: false, status: 'deduped', reason: 'deduped (4h window)' });
+    expect(slackPosts()).toBe(1);
+    expect(logged).toEqual([expect.objectContaining({ alert_key: 'k' })]);
   });
 });

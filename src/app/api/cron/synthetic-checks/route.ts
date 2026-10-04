@@ -19,18 +19,21 @@
  */
 import { NextRequest, NextResponse } from 'next/server';
 import { isAuthorized, extractPassword } from '@/lib/admin-auth';
-import { ccClient, sendAlert } from '@/lib/command-center';
+import { ccClient, sendAlert, type AlertResult } from '@/lib/command-center';
 import { runSyntheticSuite } from '@/lib/synthetic';
 
 export const dynamic = 'force-dynamic';
 export const maxDuration = 120;
 
-type AlertOutcome = { fired: string[]; monitoringErrors: string[] };
+type AlertOutcome = { fired: string[]; monitoringErrors: string[]; alertingPaused: boolean };
 
-/** Record an alert attempt: fired, or — if alerting itself is broken — an error. */
-function noteAlert(out: AlertOutcome, key: string, r: { sent: boolean; reason?: string }) {
+/** Record an alert attempt by its explicit status — never by parsing message text. */
+function noteAlert(out: AlertOutcome, key: string, r: AlertResult) {
   if (r.sent) out.fired.push(key);
-  if (r.reason?.startsWith('alerting unavailable')) out.monitoringErrors.push(r.reason);
+  if (r.status === 'paused') {
+    out.alertingPaused = true;
+    out.monitoringErrors.push(`alerting paused (${key}): ${r.reason ?? 'dedupe store unavailable'}`);
+  }
 }
 
 async function evaluateAlerts(out: AlertOutcome): Promise<void> {
@@ -105,7 +108,7 @@ export async function GET(request: NextRequest) {
 
   const { checks, persistence } = await runSyntheticSuite();
   const failures = checks.filter((r) => !r.ok);
-  const out: AlertOutcome = { fired: [], monitoringErrors: [] };
+  const out: AlertOutcome = { fired: [], monitoringErrors: [], alertingPaused: false };
   if (!persistence.ok) {
     out.monitoringErrors.push(
       `synthetic_checks: saved ${persistence.saved}/${persistence.attempted} results — ${persistence.error}`,
@@ -127,9 +130,6 @@ export async function GET(request: NextRequest) {
   await evaluateAlerts(out);
 
   const monitoringErrors = [...new Set(out.monitoringErrors)];
-  // sendAlert fails closed: while the dedupe store is unreadable, failing checks are
-  // NOT alerted. Say so explicitly rather than leaving it implied by silence.
-  const alertingPaused = monitoringErrors.some((e) => e.startsWith('alerting unavailable'));
   if (monitoringErrors.length) console.error('[synthetic-checks] monitoring unavailable:', monitoringErrors);
 
   return NextResponse.json({
@@ -139,7 +139,9 @@ export async function GET(request: NextRequest) {
     failures: failures.map((f) => ({ check: f.check, target: f.target, status: f.status, detail: f.detail })),
     persistence,
     monitoringErrors,
-    alerting: alertingPaused
+    // sendAlert fails closed: while the dedupe store is unreadable, failing checks are
+    // NOT alerted. Say so explicitly rather than leaving it implied by silence.
+    alerting: out.alertingPaused
       ? 'PAUSED — dedupe store unreadable; failing checks were NOT alerted to Slack'
       : 'ok',
     alertsSent: out.fired,
