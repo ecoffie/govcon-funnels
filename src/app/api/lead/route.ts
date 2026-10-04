@@ -5,6 +5,7 @@ import { saveLeadToSupabase, recentDuplicateExists } from '@/lib/supabase-leads'
 import { logLeadPipeline } from '@/lib/command-center';
 import { enforceIpRateLimit } from '@/lib/rate-limit';
 import { maskEmail } from '@/lib/redact';
+import { syntheticLeadReason } from '@/lib/synthetic-lead';
 
 // Cross-origin lead capture: the podcast site (separate Vercel project, no
 // backend of its own) posts its newsletter/guide signups here. Scoped to
@@ -74,7 +75,21 @@ export async function POST(request: NextRequest) {
       abVariant: abVariant ?? null,
     };
 
-    // 0) Idempotency guard: if this exact (email, source) already came in within the
+    // 0a) Synthetic guard: test/monitoring addresses (reserved domains like
+    //     example.com, or source 'canary') must never reach ANY side effect —
+    //     no dedupe lookup, GHL, Supabase, webhook, Slack, email, or pipeline log.
+    //     Answer 200 so a probe doesn't read as an outage, but say plainly that
+    //     nothing was delivered.
+    const syntheticReason = syntheticLeadReason(lead);
+    if (syntheticReason) {
+      console.log('Synthetic lead suppressed:', { email: maskEmail(lead.email), source: lead.source, reason: syntheticReason });
+      return NextResponse.json(
+        { suppressed: true, delivered: false, reason: syntheticReason },
+        { headers: cors },
+      );
+    }
+
+    // 0b) Idempotency guard: if this exact (email, source) already came in within the
     //    last 2 min, treat it as a double-submit (double-click / browser retry) and
     //    short-circuit — don't create a second lead in GHL/Supabase or fire a second
     //    Slack ping + confirmation email. Return success so the front-end still

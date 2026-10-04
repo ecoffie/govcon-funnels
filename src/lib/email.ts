@@ -6,6 +6,7 @@
 import nodemailer from 'nodemailer';
 import { Resend } from 'resend';
 import { maskEmail } from './redact';
+import { syntheticRecipientReason } from './synthetic-lead';
 
 const transporter = nodemailer.createTransport({
   service: 'gmail',
@@ -110,9 +111,22 @@ function proCta(): string {
 </div>`;
 }
 
+// Defense in depth behind /api/lead's synthetic guard: never send to a reserved
+// test address (example.com, .test, ...), whoever the caller is. Every transport
+// call in this file must go through this check.
+function suppressSyntheticRecipient(to: string): EmailResult | null {
+  const reason = syntheticRecipientReason(to);
+  if (!reason) return null;
+  console.log(`[EMAIL] Suppressed send to synthetic recipient ${maskEmail(to)}: ${reason}`);
+  return { ok: false, error: `suppressed: synthetic recipient — ${reason}` };
+}
+
 // Helper to send email. Resend primary, Gmail/Nodemailer fallback.
 async function sendEmail(to: string, subject: string, html: string, cc?: string[]): Promise<EmailResult> {
-  const ccList = cc && cc.length ? cc : undefined;
+  const suppressed = suppressSyntheticRecipient(to);
+  if (suppressed) return suppressed;
+  const realCc = cc?.filter((addr) => !syntheticRecipientReason(addr));
+  const ccList = realCc && realCc.length ? realCc : undefined;
   const logCc = ccList ? ` | cc: ${ccList.map(maskEmail).join(', ')}` : '';
   const logTo = maskEmail(to);
 
@@ -605,6 +619,9 @@ export async function sendEncoreBookletEmail(params: EmailParams): Promise<Email
 export async function sendProposalResourcesEmail(params: EmailParams): Promise<EmailResult> {
   const { to, name } = params;
   const firstName = name.split(' ')[0] || 'there';
+
+  const suppressed = suppressSyntheticRecipient(to);
+  if (suppressed) return suppressed;
 
   if (!process.env.SMTP_USER || !process.env.SMTP_PASSWORD) {
     console.error('SMTP credentials not configured');
