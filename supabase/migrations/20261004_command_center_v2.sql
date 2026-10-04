@@ -14,14 +14,32 @@
 -- RLS. RLS is enabled with NO policies and anon/authenticated privileges are
 -- revoked, so the public anon key can neither read nor write these tables.
 --
--- Idempotent: safe to re-run. Runs in one transaction; the shape guard at the end
--- aborts the whole thing if a same-named table already exists with a different
--- shape (CREATE TABLE IF NOT EXISTS would otherwise silently accept it).
+-- Ownership: every table this migration creates is tagged with the table comment
+-- 'command-center-v2'. The migration REFUSES to run if any of the four names already
+-- exists without that tag, so it can never adopt someone else's table (CREATE TABLE
+-- IF NOT EXISTS would otherwise silently accept one). The rollback drops only tagged
+-- tables.
+--
+-- Idempotent: safe to re-run (tagged tables are recognised as ours). Runs in one
+-- transaction; the shape guard at the end is a second line of defence.
 --
 -- Does NOT restore history: no monitoring results were ever saved before this.
 -- Rollback: supabase/rollback/20261004_command_center_v2.down.sql
 
 BEGIN;
+
+-- Ownership guard: refuse to touch a same-named table this migration did not create.
+DO $$
+DECLARE
+  t text;
+BEGIN
+  FOREACH t IN ARRAY ARRAY['site_events', 'lead_pipeline_log', 'synthetic_checks', 'cc_alert_log'] LOOP
+    IF to_regclass('public.' || t) IS NOT NULL
+       AND coalesce(obj_description(('public.' || t)::regclass, 'pg_class'), '') <> 'command-center-v2' THEN
+      RAISE EXCEPTION 'command_center_v2: public.% already exists and is not owned by this migration (no command-center-v2 tag) — refusing to adopt it', t;
+    END IF;
+  END LOOP;
+END $$;
 
 CREATE TABLE IF NOT EXISTS public.site_events (
   id bigint GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
@@ -74,6 +92,12 @@ CREATE TABLE IF NOT EXISTS public.cc_alert_log (
   message text
 );
 CREATE INDEX IF NOT EXISTS cc_alert_log_key_ts_idx ON public.cc_alert_log (alert_key, ts DESC);
+
+-- Ownership tag (read by the guard above on re-runs, and by the rollback).
+COMMENT ON TABLE public.site_events       IS 'command-center-v2';
+COMMENT ON TABLE public.lead_pipeline_log IS 'command-center-v2';
+COMMENT ON TABLE public.synthetic_checks  IS 'command-center-v2';
+COMMENT ON TABLE public.cc_alert_log      IS 'command-center-v2';
 
 -- Lock down: service role only.
 ALTER TABLE public.site_events       ENABLE ROW LEVEL SECURITY;

@@ -11,6 +11,10 @@
  * `ok` false. They are deliberately NOT sent to Slack — the broken store is often
  * the dedupe store itself, so alerting on it would repeat every run.
  *
+ * KNOWN LIMITATION (by design): sendAlert fails closed. While cc_alert_log can't be
+ * read, real failures are withheld from Slack too. `alerting: 'PAUSED …'` in the
+ * response and the dashboard banner make that state visible.
+ *
  * Auth: Vercel cron (Authorization: Bearer CRON_SECRET) or ?password= admin.
  */
 import { NextRequest, NextResponse } from 'next/server';
@@ -120,6 +124,9 @@ export async function GET(request: NextRequest) {
   await evaluateAlerts(out);
 
   const monitoringErrors = [...new Set(out.monitoringErrors)];
+  // sendAlert fails closed: while the dedupe store is unreadable, failing checks are
+  // NOT alerted. Say so explicitly rather than leaving it implied by silence.
+  const alertingPaused = monitoringErrors.some((e) => e.startsWith('alerting unavailable'));
   if (monitoringErrors.length) console.error('[synthetic-checks] monitoring unavailable:', monitoringErrors);
 
   return NextResponse.json({
@@ -129,6 +136,9 @@ export async function GET(request: NextRequest) {
     failures: failures.map((f) => ({ check: f.check, target: f.target, status: f.status, detail: f.detail })),
     persistence,
     monitoringErrors,
+    alerting: alertingPaused
+      ? 'PAUSED — dedupe store unreadable; failing checks were NOT alerted to Slack'
+      : 'ok',
     alertsSent: out.fired,
   });
 }

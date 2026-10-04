@@ -154,6 +154,18 @@ async function loadErrorCount(sinceIso: string): Promise<{ count: number; error:
   return { count: count ?? 0, error: null };
 }
 
+/**
+ * Can alert dedupe be read? sendAlert fails closed, so if not, failing checks are
+ * silently withheld from Slack — that has to be visible here.
+ */
+async function loadAlertingError(): Promise<string | null> {
+  if (!ccClient) return NO_DB;
+  const { error } = await ccClient.from('cc_alert_log').select('id', { count: 'exact', head: true });
+  return error
+    ? `cc_alert_log: ${error.message} — ALERTING PAUSED: failing checks will NOT be alerted to Slack until this is fixed`
+    : null;
+}
+
 // ------------------------------------------------------------ UI helpers ---
 
 function pct(n: number, d: number): string {
@@ -199,13 +211,14 @@ function Bar({ value, max, color = 'bg-green-500' }: { value: number; max: numbe
 
 export default async function CommandCenterPage() {
   const now = Date.now();
-  const [deploys, checksFeed, pipelineFeed, eventsFeed, errors24hRes, errorsPrev24hRes] = await Promise.all([
+  const [deploys, checksFeed, pipelineFeed, eventsFeed, errors24hRes, errorsPrev24hRes, alertingError] = await Promise.all([
     loadDeploys(),
     loadLatestChecks(),
     loadPipeline(30),
     loadEvents(7),
     loadErrorCount(new Date(now - 86400_000).toISOString()),
     loadErrorCount(new Date(now - 2 * 86400_000).toISOString()),
+    loadAlertingError(),
   ]);
   const checks = checksFeed.rows;
   const pipeline = pipelineFeed.rows;
@@ -213,7 +226,7 @@ export default async function CommandCenterPage() {
   const errors24h = errors24hRes.count;
   const errorsPrior = errorsPrev24hRes.count - errors24h;
   const errorCountError = errors24hRes.error ?? errorsPrev24hRes.error;
-  const unavailable = [checksFeed.error, pipelineFeed.error, eventsFeed.error ?? errorCountError].filter(
+  const unavailable = [alertingError, checksFeed.error, pipelineFeed.error, eventsFeed.error ?? errorCountError].filter(
     (e): e is string => !!e,
   );
 

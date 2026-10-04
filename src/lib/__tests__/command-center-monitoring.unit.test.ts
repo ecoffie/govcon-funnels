@@ -55,7 +55,10 @@ vi.mock('@supabase/supabase-js', () => {
   }
   return { createClient: () => ({ from: (t: string) => builder(t) }) };
 });
-vi.mock('@/lib/admin-auth', () => ({ extractPassword: () => null, isAuthorized: () => false }));
+vi.mock('@/lib/admin-auth', () => ({
+  extractPassword: (req: NextRequest) => req.headers.get('x-admin-password'),
+  isAuthorized: (p: string | null) => p === 'admin-pw',
+}));
 
 const fetchMock = global.fetch as ReturnType<typeof vi.fn>;
 const missing = (t: string): Resp => ({
@@ -184,6 +187,7 @@ describe('GET /api/cron/synthetic-checks with the monitoring tables missing', as
     expect(errs).toMatch(/site_events: .*JS-error alert not evaluated/);
     expect(errs).toMatch(/lead_pipeline_log: .*failure-rate alert not evaluated/);
     expect(errs).toMatch(/alerting unavailable: dedupe store cc_alert_log/);
+    expect(json.alerting).toMatch(/^PAUSED/); // fail-closed limitation is explicit, not silent
     expect(json.alertsSent).toEqual([]);
     const slackPosts = fetchMock.mock.calls.filter(([u]) => String(u).includes('hooks.slack.test'));
     expect(slackPosts).toEqual([]);
@@ -206,11 +210,13 @@ describe('/dashboard/command-center', () => {
     expect(html).toContain('synthetic_checks: Could not find the table');
     expect(html).not.toMatch(/\d+\/\d+ UP/);
     expect(html).not.toContain('NO OBSERVATIONS YET');
+    expect(html).toContain('ALERTING PAUSED');
   });
 
   it('stores readable but empty → NO OBSERVATIONS YET, no banner, no healthy pill', async () => {
     const html = await renderDashboard();
     expect(html).not.toContain('Monitoring unavailable');
+    expect(html).not.toContain('ALERTING PAUSED');
     expect(html.match(/NO OBSERVATIONS YET/g)?.length).toBe(3);
     expect(html).not.toMatch(/\d+\/\d+ UP/);
   });
@@ -235,5 +241,51 @@ describe('/dashboard/command-center', () => {
     expect(html).toContain('funnel_leads');
     expect(html).toContain('not monitoring results');
     expect(html).not.toContain('Past runs remain in synthetic_checks');
+  });
+});
+
+// ---- 5. controlled production proof of dedupe -----------------------------------
+
+describe('POST /api/command-center/alert-selftest', async () => {
+  const { POST } = await import('@/app/api/command-center/alert-selftest/route');
+  const req = (pw?: string) =>
+    new NextRequest('https://govcongiants.com/api/command-center/alert-selftest', {
+      method: 'POST',
+      headers: pw ? { 'x-admin-password': pw } : {},
+    });
+  const slackPosts = () => fetchMock.mock.calls.filter(([u]) => String(u).includes('hooks.slack.test'));
+
+  it('requires the admin password and sends nothing without it', async () => {
+    expect((await POST(req())).status).toBe(401);
+    expect(slackPosts()).toEqual([]);
+  });
+
+  it('working dedupe: exactly one Slack post, second attempt suppressed', async () => {
+    // Stateful cc_alert_log: the dedupe count reflects rows actually inserted.
+    const logged: unknown[] = [];
+    db.respond = (t, op) => {
+      if (t !== 'cc_alert_log') return { data: [], error: null, count: 0 };
+      if (op === 'insert') {
+        logged.push(db.calls.at(-1)?.payload);
+        return { data: null, error: null };
+      }
+      return { data: null, error: null, count: logged.length };
+    };
+    const json = await (await POST(req('admin-pw'))).json();
+    expect(json.ok).toBe(true);
+    expect(json.verdict).toMatch(/^proven/);
+    expect(json.first).toEqual({ sent: true });
+    expect(json.second).toEqual({ sent: false, reason: 'deduped (4h window)' });
+    expect(slackPosts()).toHaveLength(1);
+    expect(String(JSON.parse(String(slackPosts()[0][1]?.body)).text)).toContain('Controlled dedupe self-test');
+    expect(logged).toEqual([expect.objectContaining({ alert_key: 'cc-dedupe-selftest' })]);
+  });
+
+  it('dedupe store unreadable: both withheld, reported as paused, ok=false', async () => {
+    db.respond = (t) => missing(t);
+    const json = await (await POST(req('admin-pw'))).json();
+    expect(json.ok).toBe(false);
+    expect(json.verdict).toMatch(/^alerting paused/);
+    expect(slackPosts()).toEqual([]);
   });
 });
