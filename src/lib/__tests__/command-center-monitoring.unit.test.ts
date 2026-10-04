@@ -40,8 +40,13 @@ vi.mock('@supabase/supabase-js', () => {
   function builder(table: string) {
     let op: 'select' | 'insert' = 'select';
     let payload: unknown;
+    let head = false;
     const b: Record<string, unknown> = {};
-    for (const m of ['select', 'eq', 'neq', 'gte', 'order', 'limit', 'range', 'not', 'ilike']) b[m] = () => b;
+    for (const m of ['eq', 'neq', 'gte', 'order', 'limit', 'range', 'not', 'ilike']) b[m] = () => b;
+    b.select = (_cols?: string, opts?: { head?: boolean }) => {
+      head = !!opts?.head;
+      return b;
+    };
     b.insert = (p: unknown) => {
       op = 'insert';
       payload = p;
@@ -49,7 +54,12 @@ vi.mock('@supabase/supabase-js', () => {
     };
     b.then = (res: (v: Resp) => unknown, rej: (e: unknown) => unknown) => {
       db.calls.push({ table, op, payload });
-      return Promise.resolve(db.respond(table, op)).then(res, rej);
+      let r = db.respond(table, op);
+      // Real PostgREST/supabase-js behaviour (verified on production 2026-10-04): a
+      // `head: true` query against a MISSING table returns 204 with error=null and
+      // count=null — the error only surfaces on a normal (GET) read.
+      if (head && r.error && /Could not find the table/.test(r.error.message)) r = { data: null, error: null, count: null };
+      return Promise.resolve(r).then(res, rej);
     };
     return b;
   }
@@ -138,6 +148,14 @@ describe('sendAlert', async () => {
     expect(db.calls.map((c) => c.table)).toEqual(['cc_alert_log']);
   });
 
+  it('regression: a missing cc_alert_log cannot read as "no duplicate" (head:true returns error=null)', async () => {
+    db.respond = (t) => missing(t);
+    const r = await sendAlert('synthetic-url-x', 'down');
+    expect(r.sent).toBe(false);
+    expect(r.reason).toMatch(/Could not find the table 'public\.cc_alert_log'/);
+    expect(fetchMock).not.toHaveBeenCalled();
+  });
+
   it('posts once and records it when dedupe works and the key is new', async () => {
     const r = await sendAlert('synthetic-url-x', 'down');
     expect(r).toEqual({ sent: true });
@@ -146,7 +164,7 @@ describe('sendAlert', async () => {
   });
 
   it('swallows a repeat inside the 4h window', async () => {
-    db.respond = () => ({ data: null, error: null, count: 1 });
+    db.respond = () => ({ data: [{ id: 1 }], error: null, count: 1 });
     expect(await sendAlert('synthetic-url-x', 'down')).toEqual({ sent: false, reason: 'deduped (4h window)' });
     expect(fetchMock).not.toHaveBeenCalled();
   });
@@ -211,6 +229,9 @@ describe('/dashboard/command-center', () => {
     expect(html).not.toMatch(/\d+\/\d+ UP/);
     expect(html).not.toContain('NO OBSERVATIONS YET');
     expect(html).toContain('ALERTING PAUSED');
+    // Funnel counts are never printed as a 0 that could not be observed.
+    expect(html.match(/>unavailable</g)?.length).toBe(4);
+    expect(html).not.toMatch(/Page views<\/p><p[^>]*>0</);
   });
 
   it('stores readable but empty → NO OBSERVATIONS YET, no banner, no healthy pill', async () => {
@@ -269,7 +290,7 @@ describe('POST /api/command-center/alert-selftest', async () => {
         logged.push(db.calls.at(-1)?.payload);
         return { data: null, error: null };
       }
-      return { data: null, error: null, count: logged.length };
+      return { data: logged.map((_, i) => ({ id: i + 1 })), error: null, count: logged.length };
     };
     const json = await (await POST(req('admin-pw'))).json();
     expect(json.ok).toBe(true);

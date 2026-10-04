@@ -47,9 +47,12 @@ async function evaluateAlerts(out: AlertOutcome): Promise<void> {
       .select('id', { count: 'exact', head: true })
       .eq('event', 'js_error')
       .gte('ts', since);
-    if (error) {
-      out.monitoringErrors.push(`site_events: ${error.message} — JS-error alert not evaluated`);
-    } else if ((count ?? 0) > 20) {
+    // head:true reports a MISSING table as 204 with error=null and count=null.
+    if (error || count === null) {
+      out.monitoringErrors.push(
+        `site_events: ${error?.message ?? 'count unavailable (table missing or unreadable)'} — JS-error alert not evaluated`,
+      );
+    } else if (count > 20) {
       noteAlert(out, 'js-errors-hourly', await sendAlert('js-errors-hourly', `${count} JS errors in the last hour on govcongiants.com (threshold 20). Check /dashboard/command-center.`));
     }
   } catch (e) {

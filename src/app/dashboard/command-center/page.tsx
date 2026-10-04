@@ -151,7 +151,10 @@ async function loadErrorCount(sinceIso: string): Promise<{ count: number; error:
     .eq('event', 'js_error')
     .gte('ts', sinceIso);
   if (error) return { count: 0, error: `site_events: ${error.message}` };
-  return { count: count ?? 0, error: null };
+  // head:true reports a MISSING table as 204 with error=null and count=null, so a
+  // null count means "unreadable", never zero.
+  if (count === null) return { count: 0, error: 'site_events: count unavailable (table missing or unreadable)' };
+  return { count, error: null };
 }
 
 /**
@@ -160,7 +163,8 @@ async function loadErrorCount(sinceIso: string): Promise<{ count: number; error:
  */
 async function loadAlertingError(): Promise<string | null> {
   if (!ccClient) return NO_DB;
-  const { error } = await ccClient.from('cc_alert_log').select('id', { count: 'exact', head: true });
+  // Plain row read: a head:true query reports a missing table as 204/error=null.
+  const { error } = await ccClient.from('cc_alert_log').select('id').limit(1);
   return error
     ? `cc_alert_log: ${error.message} — ALERTING PAUSED: failing checks will NOT be alerted to Slack until this is fixed`
     : null;
@@ -416,15 +420,25 @@ export default async function CommandCenterPage() {
         <FeedNotice error={eventsFeed.error} />
         <div className="grid gap-4 md:grid-cols-4">
           {[
-            { label: 'Page views', value: pageViews },
-            { label: 'CTA clicks', value: ctaClicks },
-            { label: 'Form submits', value: formSubmits },
-            { label: 'Leads delivered', value: leads7d.length },
+            { label: 'Page views', value: pageViews, unavailable: !!eventsFeed.error },
+            { label: 'CTA clicks', value: ctaClicks, unavailable: !!eventsFeed.error },
+            { label: 'Form submits', value: formSubmits, unavailable: !!eventsFeed.error },
+            { label: 'Leads delivered', value: leads7d.length, unavailable: !!pipelineFeed.error },
           ].map((s) => (
             <div key={s.label} className="rounded-xl border border-slate-700 bg-slate-900/70 p-4">
               <p className="text-xs font-semibold uppercase tracking-wider text-slate-400">{s.label}</p>
-              <p className="mt-1 text-2xl font-bold text-white">{s.value}</p>
-              <div className="mt-2"><Bar value={s.value} max={pageViews || 1} /></div>
+              {s.unavailable ? (
+                // Never print a 0 that we could not actually observe.
+                <>
+                  <p className="mt-1 text-2xl font-bold text-slate-500">—</p>
+                  <p className="mt-2 text-xs text-amber-300">unavailable</p>
+                </>
+              ) : (
+                <>
+                  <p className="mt-1 text-2xl font-bold text-white">{s.value}</p>
+                  <div className="mt-2"><Bar value={s.value} max={pageViews || 1} /></div>
+                </>
+              )}
             </div>
           ))}
         </div>

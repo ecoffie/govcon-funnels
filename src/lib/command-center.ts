@@ -174,16 +174,21 @@ export async function sendAlert(alertKey: string, message: string): Promise<{ se
   if (!webhook) return { sent: false, reason: 'SLACK_LEAD_WEBHOOK_URL not set' };
   try {
     const since = new Date(Date.now() - ALERT_DEDUPE_HOURS * 3600_000).toISOString();
-    const { count, error } = await ccClient
+    // A plain row read, NOT `{ count: 'exact', head: true }`: for a MISSING table a
+    // head:true query comes back 204 with error=null and count=null (verified against
+    // production 2026-10-04), which would read as "no duplicate" and fail open.
+    const { data, error } = await ccClient
       .from('cc_alert_log')
-      .select('id', { count: 'exact', head: true })
+      .select('id')
       .eq('alert_key', alertKey)
-      .gte('ts', since);
-    if (error) {
-      console.error(`sendAlert: dedupe store ${ALERT_TABLE} unavailable, NOT sending "${alertKey}":`, error.message);
-      return { sent: false, reason: `alerting unavailable: dedupe store ${ALERT_TABLE}: ${error.message}` };
+      .gte('ts', since)
+      .limit(1);
+    if (error || !Array.isArray(data)) {
+      const why = error?.message ?? 'no rows array returned';
+      console.error(`sendAlert: dedupe store ${ALERT_TABLE} unavailable, NOT sending "${alertKey}":`, why);
+      return { sent: false, reason: `alerting unavailable: dedupe store ${ALERT_TABLE}: ${why}` };
     }
-    if ((count ?? 0) > 0) return { sent: false, reason: 'deduped (4h window)' };
+    if (data.length > 0) return { sent: false, reason: 'deduped (4h window)' };
 
     const res = await fetch(webhook, {
       method: 'POST',
