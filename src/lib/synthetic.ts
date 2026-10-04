@@ -4,19 +4,24 @@
  * (/api/command-center/verify). Every probe records a row in
  * synthetic_checks and returns its result for the caller.
  *
- * Probes:
- *   1. canary-lead  — POST a throwaway lead through /api/lead, verify all
- *      four destinations (GHL/Supabase/Slack/email) report ok, then delete
- *      the GHL contact so the CRM stays clean.
- *   2. url          — GET the important pages: expect 200, no redirect chain,
+ * Probes (all read-only GETs against the live site):
+ *   1. url          — GET the important pages: expect 200, no redirect chain,
  *      <3s TTFB.
- *   3. sitemap      — sitemap.xml is 200 and contains <url> entries.
- *   4. robots       — robots.txt is 200 and mentions the sitemap.
+ *   2. sitemap      — sitemap.xml is 200 and contains <url> entries.
+ *   3. robots       — robots.txt is 200 and mentions the sitemap.
+ *   4. canonical-host / legacy-bridge — retired hosts keep redirecting.
+ *
+ * RETIRED 2026-10-03: the `canary-lead` probe. Every 15 min it POSTed
+ * canary+<ts>@example.com through the REAL /api/lead, which wrote GHL +
+ * Supabase rows, pinged Slack/webhooks, and sent a real "there, Welcome to
+ * GovCon Giants!" email; cleanup only deleted the GHL contact. Do not re-add a
+ * probe that submits through /api/lead — that route now suppresses synthetic
+ * leads (src/lib/synthetic-lead.ts), so such a probe would also prove nothing.
+ * Historical canary-lead rows stay in synthetic_checks.
  */
 import { recordCheck, type CheckRow } from '@/lib/command-center';
 
 const SITE = 'https://govcongiants.com';
-const LEAD_API = `${SITE}/api/lead`;
 
 const IMPORTANT_URLS = [
   `${SITE}/`,
@@ -54,67 +59,6 @@ async function timeFetch(url: string, init?: RequestInit): Promise<{ res: Respon
     res = await fetch(current, { redirect: 'manual', ...init });
   }
   return { res, ms: Date.now() - start, redirects };
-}
-
-/** Canary lead through the full pipeline, then clean up the GHL contact. */
-export async function runCanaryLead(): Promise<CheckResult> {
-  const email = `canary+${Date.now()}@example.com`;
-  const start = Date.now();
-  try {
-    const res = await fetch(LEAD_API, {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json', Origin: SITE },
-      body: JSON.stringify({ email, source: 'canary' }),
-    });
-    const ms = Date.now() - start;
-    const json = (await res.json().catch(() => ({}))) as {
-      success?: boolean;
-      crm?: { ghl?: { ok?: boolean; contactId?: string } };
-      supabase?: { ok?: boolean };
-      slack?: { ok?: boolean };
-      email?: { ok?: boolean };
-    };
-    const destOk = {
-      ghl: !!json.crm?.ghl?.ok,
-      supabase: !!json.supabase?.ok,
-      slack: !!json.slack?.ok,
-      email: !!json.email?.ok,
-    };
-    const ok = res.status === 200 && !!json.success && Object.values(destOk).every(Boolean);
-
-    // Clean up the canary contact in GHL so the CRM isn't polluted.
-    const contactId = json.crm?.ghl?.contactId;
-    if (contactId && process.env.GHL_API_KEY) {
-      try {
-        await fetch(`https://services.leadconnectorhq.com/contacts/${contactId}`, {
-          method: 'DELETE',
-          headers: {
-            Authorization: `Bearer ${process.env.GHL_API_KEY}`,
-            Version: '2021-07-28',
-          },
-        });
-      } catch {
-        /* cleanup is best-effort */
-      }
-    }
-
-    return {
-      check: 'canary-lead',
-      target: LEAD_API,
-      ok,
-      status: res.status,
-      duration_ms: ms,
-      detail: `destinations: ${Object.entries(destOk).map(([k, v]) => `${k}=${v ? 'ok' : 'FAIL'}`).join(' ')}`,
-    };
-  } catch (e) {
-    return {
-      check: 'canary-lead',
-      target: LEAD_API,
-      ok: false,
-      duration_ms: Date.now() - start,
-      detail: e instanceof Error ? e.message : String(e),
-    };
-  }
 }
 
 export async function runUrlChecks(): Promise<CheckResult[]> {
@@ -387,14 +331,13 @@ export async function runLegacyBridgeChecks(): Promise<CheckResult[]> {
 
 /** Run the full suite, persist every result, return them. */
 export async function runSyntheticSuite(): Promise<CheckResult[]> {
-  const [canary, urls, content, canonicalHosts, bridges] = await Promise.all([
-    runCanaryLead(),
+  const [urls, content, canonicalHosts, bridges] = await Promise.all([
     runUrlChecks(),
     runContentChecks(),
     runCanonicalHostChecks(),
     runLegacyBridgeChecks(),
   ]);
-  const all = [canary, ...urls, ...content, ...canonicalHosts, ...bridges];
+  const all = [...urls, ...content, ...canonicalHosts, ...bridges];
   await Promise.all(all.map((r) => recordCheck(r)));
   return all;
 }

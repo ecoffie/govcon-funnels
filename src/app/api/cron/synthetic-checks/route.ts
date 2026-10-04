@@ -1,8 +1,7 @@
 /**
  * Synthetic checks cron — every 15 min (vercel.json). Runs the shared
- * synthetic suite (canary lead, URL uptime, sitemap/robots), persists results
- * to synthetic_checks, and fires deduped Slack alerts when thresholds trip:
- *   - canary lead fails (lead pipeline is down)
+ * synthetic suite (URL uptime, sitemap/robots, redirect contracts), persists
+ * results to synthetic_checks, and fires deduped Slack alerts when thresholds trip:
  *   - any important URL 5xx / down / slow
  *   - JS errors >20/hour (from site_events)
  *   - lead pipeline destination failing >5% over the last 100 leads

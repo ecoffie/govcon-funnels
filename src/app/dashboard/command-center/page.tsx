@@ -235,16 +235,16 @@ export default async function CommandCenterPage() {
         <h3 className="mb-3 text-lg font-semibold text-green-400">Is everything working right now?</h3>
         <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-4">
           <div className="rounded-xl border border-slate-700 bg-slate-900/70 p-4">
-            <p className="mb-2 text-xs font-semibold uppercase tracking-wider text-slate-400">Canary lead (15 min)</p>
-            {canary ? (
-              <>
-                <Pill ok={canary.ok} label={canary.ok ? 'PASSING' : 'FAILING'} />
-                <p className="mt-2 text-xs text-slate-400">
-                  {canary.duration_ms}ms · {canary.detail}
-                </p>
-              </>
-            ) : (
-              <p className="text-sm text-slate-500">No run yet — cron fires every 15 min.</p>
+            <p className="mb-2 text-xs font-semibold uppercase tracking-wider text-slate-400">Canary lead</p>
+            <span className="inline-block rounded-full bg-slate-700 px-2 py-0.5 text-xs font-semibold text-slate-300">RETIRED</span>
+            <p className="mt-2 text-xs text-slate-400">
+              Retired 2026-10-03 — it submitted fake leads through the live pipeline. No longer runs. Past runs remain in synthetic_checks (check = canary-lead).
+            </p>
+            {canary && (
+              <p className="mt-1 text-xs text-slate-500">
+                Last recorded run: {new Date(canary.ts).toLocaleString('en-US', { timeZone: 'America/New_York' })} ET ·{' '}
+                {canary.ok ? 'passed' : 'failed'} · {canary.detail}
+              </p>
             )}
           </div>
           <div className="rounded-xl border border-slate-700 bg-slate-900/70 p-4">

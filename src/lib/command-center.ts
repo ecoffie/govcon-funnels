@@ -110,6 +110,7 @@ export interface CheckRow {
   /** 'legacy-bridge' asserts a hostname that redirects to a DIFFERENT product's
    *  canonical host (e.g. mi.govcongiants.com -> getmindy.ai) still does so
    *  permanently, path- and query-preserving, with no indexable content of its own. */
+  /** 'canary-lead' is RETIRED (2026-10-03) — kept only so historical rows type-check. */
   check: 'canary-lead' | 'url' | 'sitemap' | 'robots' | 'canonical-host' | 'legacy-bridge';
   target?: string;
   ok: boolean;
