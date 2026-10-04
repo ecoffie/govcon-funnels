@@ -14,6 +14,26 @@ const VERCEL_PROJECTS = ['govcon-giants-site', 'govcon-funnels'];
 
 // ------------------------------------------------------------ data loaders ---
 
+/**
+ * Every Supabase loader returns its error instead of swallowing it. A missing table
+ * or failed query must render as "monitoring unavailable", never as an empty — and
+ * therefore healthy-looking — panel. (Until 2026-10 the tables did not exist and the
+ * page showed "0/0 UP" and "0 JS errors".)
+ */
+interface Loaded<T> {
+  rows: T[];
+  error: string | null;
+}
+
+const NO_DB = 'Supabase not configured';
+
+/** unavailable = the store could not be read; empty = read fine, nothing observed. */
+type FeedState = 'unavailable' | 'empty' | 'ok';
+function feedState(l: { rows: unknown[]; error: string | null }): FeedState {
+  if (l.error) return 'unavailable';
+  return l.rows.length === 0 ? 'empty' : 'ok';
+}
+
 interface DeployInfo {
   project: string;
   sha: string;
@@ -59,22 +79,23 @@ interface CheckStatus {
   detail: string | null;
 }
 
-async function loadLatestChecks(): Promise<CheckStatus[]> {
-  if (!ccClient) return [];
+async function loadLatestChecks(): Promise<Loaded<CheckStatus>> {
+  if (!ccClient) return { rows: [], error: NO_DB };
   // Latest status per (check, target) over the last 2 hours.
   const since = new Date(Date.now() - 2 * 3600_000).toISOString();
-  const { data } = await ccClient
+  const { data, error } = await ccClient
     .from('synthetic_checks')
     .select('check,target,ok,ts,duration_ms,detail')
     .gte('ts', since)
     .order('ts', { ascending: false })
     .limit(500);
+  if (error) return { rows: [], error: `synthetic_checks: ${error.message}` };
   const seen = new Map<string, CheckStatus>();
   for (const r of data ?? []) {
     const key = `${r.check}|${r.target}`;
     if (!seen.has(key)) seen.set(key, r as CheckStatus);
   }
-  return [...seen.values()];
+  return { rows: [...seen.values()], error: null };
 }
 
 interface PipelineRow {
@@ -88,16 +109,17 @@ interface PipelineRow {
   duration_ms: number | null;
 }
 
-async function loadPipeline(days: number): Promise<PipelineRow[]> {
-  if (!ccClient) return [];
+async function loadPipeline(days: number): Promise<Loaded<PipelineRow>> {
+  if (!ccClient) return { rows: [], error: NO_DB };
   const since = new Date(Date.now() - days * 86400_000).toISOString();
-  const { data } = await ccClient
+  const { data, error } = await ccClient
     .from('lead_pipeline_log')
     .select('ts,source,duplicate,ghl_ok,supabase_ok,slack_ok,email_ok,duration_ms')
     .gte('ts', since)
     .order('ts', { ascending: false })
     .limit(5000);
-  return (data ?? []) as PipelineRow[];
+  if (error) return { rows: [], error: `lead_pipeline_log: ${error.message}` };
+  return { rows: (data ?? []) as PipelineRow[], error: null };
 }
 
 interface EventRow {
@@ -108,26 +130,44 @@ interface EventRow {
   meta: Record<string, unknown> | null;
 }
 
-async function loadEvents(days: number): Promise<EventRow[]> {
-  if (!ccClient) return [];
+async function loadEvents(days: number): Promise<Loaded<EventRow>> {
+  if (!ccClient) return { rows: [], error: NO_DB };
   const since = new Date(Date.now() - days * 86400_000).toISOString();
-  const { data } = await ccClient
+  const { data, error } = await ccClient
     .from('site_events')
     .select('ts,event,label,page,meta')
     .gte('ts', since)
     .order('ts', { ascending: false })
     .limit(10000);
-  return (data ?? []) as EventRow[];
+  if (error) return { rows: [], error: `site_events: ${error.message}` };
+  return { rows: (data ?? []) as EventRow[], error: null };
 }
 
-async function loadErrorCount(sinceIso: string): Promise<number> {
-  if (!ccClient) return 0;
-  const { count } = await ccClient
+async function loadErrorCount(sinceIso: string): Promise<{ count: number; error: string | null }> {
+  if (!ccClient) return { count: 0, error: NO_DB };
+  const { count, error } = await ccClient
     .from('site_events')
     .select('id', { count: 'exact', head: true })
     .eq('event', 'js_error')
     .gte('ts', sinceIso);
-  return count ?? 0;
+  if (error) return { count: 0, error: `site_events: ${error.message}` };
+  // head:true reports a MISSING table as 204 with error=null and count=null, so a
+  // null count means "unreadable", never zero.
+  if (count === null) return { count: 0, error: 'site_events: count unavailable (table missing or unreadable)' };
+  return { count, error: null };
+}
+
+/**
+ * Can alert dedupe be read? sendAlert fails closed, so if not, failing checks are
+ * silently withheld from Slack — that has to be visible here.
+ */
+async function loadAlertingError(): Promise<string | null> {
+  if (!ccClient) return NO_DB;
+  // Plain row read: a head:true query reports a missing table as 204/error=null.
+  const { error } = await ccClient.from('cc_alert_log').select('id').limit(1);
+  return error
+    ? `cc_alert_log: ${error.message} — ALERTING PAUSED: failing checks will NOT be alerted to Slack until this is fixed`
+    : null;
 }
 
 // ------------------------------------------------------------ UI helpers ---
@@ -147,6 +187,21 @@ function Pill({ ok, label }: { ok: boolean | null; label: string }) {
   return <span className={`rounded px-2 py-0.5 text-xs font-semibold ${cls}`}>{label}</span>;
 }
 
+/** Amber badge for states that are neither healthy nor failing: no data. */
+function StateBadge({ label }: { label: string }) {
+  return (
+    <span className="rounded border border-amber-700 bg-amber-900/50 px-2 py-0.5 text-xs font-semibold text-amber-300">
+      {label}
+    </span>
+  );
+}
+
+/** One line under a section heading when its data source can't be read. */
+function FeedNotice({ error }: { error: string | null }) {
+  if (!error) return null;
+  return <p className="mb-2 text-xs text-amber-300">Monitoring unavailable — {error}</p>;
+}
+
 function Bar({ value, max, color = 'bg-green-500' }: { value: number; max: number; color?: string }) {
   const w = max > 0 ? Math.max(2, Math.round((value / max) * 100)) : 0;
   return (
@@ -160,15 +215,24 @@ function Bar({ value, max, color = 'bg-green-500' }: { value: number; max: numbe
 
 export default async function CommandCenterPage() {
   const now = Date.now();
-  const [deploys, checks, pipeline, events, errors24h, errorsPrev24h] = await Promise.all([
+  const [deploys, checksFeed, pipelineFeed, eventsFeed, errors24hRes, errorsPrev24hRes, alertingError] = await Promise.all([
     loadDeploys(),
     loadLatestChecks(),
     loadPipeline(30),
     loadEvents(7),
     loadErrorCount(new Date(now - 86400_000).toISOString()),
     loadErrorCount(new Date(now - 2 * 86400_000).toISOString()),
+    loadAlertingError(),
   ]);
-  const errorsPrior = errorsPrev24h - errors24h;
+  const checks = checksFeed.rows;
+  const pipeline = pipelineFeed.rows;
+  const events = eventsFeed.rows;
+  const errors24h = errors24hRes.count;
+  const errorsPrior = errorsPrev24hRes.count - errors24h;
+  const errorCountError = errors24hRes.error ?? errorsPrev24hRes.error;
+  const unavailable = [alertingError, checksFeed.error, pipelineFeed.error, eventsFeed.error ?? errorCountError].filter(
+    (e): e is string => !!e,
+  );
 
   // Funnel (7d)
   const pageViews = events.filter((e) => e.event === 'page_view').length;
@@ -217,7 +281,8 @@ export default async function CommandCenterPage() {
   }
   const sources = [...bySource.entries()].sort((a, b) => b[1].total - a[1].total);
 
-  const canary = checks.find((c) => c.check === 'canary-lead');
+  const checksState = feedState(checksFeed);
+  const eventsState = errorCountError ? 'unavailable' : feedState(eventsFeed);
   const urlChecks = checks.filter((c) => c.check === 'url');
   const urlFailures = urlChecks.filter((c) => !c.ok);
 
@@ -230,6 +295,17 @@ export default async function CommandCenterPage() {
         </p>
       </div>
 
+      {unavailable.length > 0 && (
+        <div role="alert" className="rounded-xl border border-amber-700 bg-amber-950/40 p-4">
+          <p className="text-sm font-semibold text-amber-300">Monitoring unavailable — panels below that depend on these stores are NOT showing real data:</p>
+          <ul className="mt-2 list-disc pl-5 text-xs text-amber-200">
+            {unavailable.map((e) => (
+              <li key={e}>{e}</li>
+            ))}
+          </ul>
+        </div>
+      )}
+
       {/* 1. Health strip */}
       <section>
         <h3 className="mb-3 text-lg font-semibold text-green-400">Is everything working right now?</h3>
@@ -238,18 +314,28 @@ export default async function CommandCenterPage() {
             <p className="mb-2 text-xs font-semibold uppercase tracking-wider text-slate-400">Canary lead</p>
             <span className="inline-block rounded-full bg-slate-700 px-2 py-0.5 text-xs font-semibold text-slate-300">RETIRED</span>
             <p className="mt-2 text-xs text-slate-400">
-              Retired 2026-10-03 — it submitted fake leads through the live pipeline. No longer runs. Past runs remain in synthetic_checks (check = canary-lead).
+              Retired 2026-10-03 — it submitted fake leads through the live pipeline. No longer runs.
             </p>
-            {canary && (
-              <p className="mt-1 text-xs text-slate-500">
-                Last recorded run: {new Date(canary.ts).toLocaleString('en-US', { timeZone: 'America/New_York' })} ET ·{' '}
-                {canary.ok ? 'passed' : 'failed'} · {canary.detail}
-              </p>
-            )}
+            <p className="mt-1 text-xs text-slate-500">
+              Its fake signups are in funnel_leads (canary+…@example.com) — historical synthetic submissions, not
+              monitoring results. No canary check results were ever saved.
+            </p>
           </div>
           <div className="rounded-xl border border-slate-700 bg-slate-900/70 p-4">
-            <p className="mb-2 text-xs font-semibold uppercase tracking-wider text-slate-400">Uptime ({urlChecks.length} URLs)</p>
-            <Pill ok={urlFailures.length === 0 && urlChecks.length > 0} label={urlFailures.length === 0 ? `${urlChecks.length}/${urlChecks.length} UP` : `${urlFailures.length} DOWN`} />
+            <p className="mb-2 text-xs font-semibold uppercase tracking-wider text-slate-400">Uptime{checksState === 'ok' ? ` (${urlChecks.length} URLs)` : ''}</p>
+            {checksState === 'unavailable' ? (
+              <>
+                <StateBadge label="MONITORING UNAVAILABLE" />
+                <p className="mt-2 text-xs text-amber-300">{checksFeed.error}</p>
+              </>
+            ) : urlChecks.length === 0 ? (
+              <>
+                <StateBadge label="NO OBSERVATIONS YET" />
+                <p className="mt-2 text-xs text-slate-400">No URL check results in the last 2 hours.</p>
+              </>
+            ) : (
+              <Pill ok={urlFailures.length === 0} label={urlFailures.length === 0 ? `${urlChecks.length}/${urlChecks.length} UP` : `${urlFailures.length} DOWN`} />
+            )}
             {urlFailures.slice(0, 3).map((f) => (
               <p key={f.target} className="mt-1 truncate text-xs text-red-400">
                 {f.target} — {f.detail ?? f.ok}
@@ -258,13 +344,41 @@ export default async function CommandCenterPage() {
           </div>
           <div className="rounded-xl border border-slate-700 bg-slate-900/70 p-4">
             <p className="mb-2 text-xs font-semibold uppercase tracking-wider text-slate-400">Lead API latency (24h)</p>
-            <p className="text-xl font-bold text-white">{p50 != null ? `${p50}ms` : '—'}</p>
-            <p className="text-xs text-slate-400">p50 · p95 {p95 != null ? `${p95}ms` : '—'} · {lat.length} leads</p>
+            {pipelineFeed.error ? (
+              <>
+                <StateBadge label="MONITORING UNAVAILABLE" />
+                <p className="mt-2 text-xs text-amber-300">{pipelineFeed.error}</p>
+              </>
+            ) : lat.length === 0 ? (
+              <>
+                <StateBadge label="NO OBSERVATIONS YET" />
+                <p className="mt-2 text-xs text-slate-400">No leads logged in the last 24 hours.</p>
+              </>
+            ) : (
+              <>
+                <p className="text-xl font-bold text-white">{p50}ms</p>
+                <p className="text-xs text-slate-400">p50 · p95 {p95}ms · {lat.length} leads</p>
+              </>
+            )}
           </div>
           <div className="rounded-xl border border-slate-700 bg-slate-900/70 p-4">
             <p className="mb-2 text-xs font-semibold uppercase tracking-wider text-slate-400">JS errors (24h)</p>
-            <p className={`text-xl font-bold ${errors24h > 20 ? 'text-red-400' : 'text-white'}`}>{errors24h}</p>
-            <p className="text-xs text-slate-400">prior 24h: {Math.max(0, errorsPrior)}</p>
+            {eventsState === 'unavailable' ? (
+              <>
+                <StateBadge label="MONITORING UNAVAILABLE" />
+                <p className="mt-2 text-xs text-amber-300">{eventsFeed.error ?? errorCountError}</p>
+              </>
+            ) : eventsState === 'empty' ? (
+              <>
+                <StateBadge label="NO OBSERVATIONS YET" />
+                <p className="mt-2 text-xs text-slate-400">No site beacon events in 7 days, so a zero here would mean nothing.</p>
+              </>
+            ) : (
+              <>
+                <p className={`text-xl font-bold ${errors24h > 20 ? 'text-red-400' : 'text-white'}`}>{errors24h}</p>
+                <p className="text-xs text-slate-400">prior 24h: {Math.max(0, errorsPrior)}</p>
+              </>
+            )}
           </div>
         </div>
       </section>
@@ -303,17 +417,28 @@ export default async function CommandCenterPage() {
       {/* 3. Funnel */}
       <section>
         <h3 className="mb-3 text-lg font-semibold text-green-400">What are visitors doing? (7 days)</h3>
+        <FeedNotice error={eventsFeed.error} />
         <div className="grid gap-4 md:grid-cols-4">
           {[
-            { label: 'Page views', value: pageViews },
-            { label: 'CTA clicks', value: ctaClicks },
-            { label: 'Form submits', value: formSubmits },
-            { label: 'Leads delivered', value: leads7d.length },
+            { label: 'Page views', value: pageViews, unavailable: !!eventsFeed.error },
+            { label: 'CTA clicks', value: ctaClicks, unavailable: !!eventsFeed.error },
+            { label: 'Form submits', value: formSubmits, unavailable: !!eventsFeed.error },
+            { label: 'Leads delivered', value: leads7d.length, unavailable: !!pipelineFeed.error },
           ].map((s) => (
             <div key={s.label} className="rounded-xl border border-slate-700 bg-slate-900/70 p-4">
               <p className="text-xs font-semibold uppercase tracking-wider text-slate-400">{s.label}</p>
-              <p className="mt-1 text-2xl font-bold text-white">{s.value}</p>
-              <div className="mt-2"><Bar value={s.value} max={pageViews || 1} /></div>
+              {s.unavailable ? (
+                // Never print a 0 that we could not actually observe.
+                <>
+                  <p className="mt-1 text-2xl font-bold text-slate-500">—</p>
+                  <p className="mt-2 text-xs text-amber-300">unavailable</p>
+                </>
+              ) : (
+                <>
+                  <p className="mt-1 text-2xl font-bold text-white">{s.value}</p>
+                  <div className="mt-2"><Bar value={s.value} max={pageViews || 1} /></div>
+                </>
+              )}
             </div>
           ))}
         </div>
@@ -322,6 +447,7 @@ export default async function CommandCenterPage() {
       {/* 4. Top clicks */}
       <section>
         <h3 className="mb-3 text-lg font-semibold text-green-400">Top clicked elements (7 days)</h3>
+        <FeedNotice error={eventsFeed.error} />
         <div className="overflow-x-auto rounded-xl border border-slate-700 bg-slate-900/70 p-4">
           {topClicks.length === 0 ? (
             <p className="text-sm text-slate-500">No click data yet — the beacon ships with the next govcon-giants-site deploy.</p>
@@ -353,6 +479,7 @@ export default async function CommandCenterPage() {
       {/* 5. Leads by source + pipeline health */}
       <section>
         <h3 className="mb-3 text-lg font-semibold text-green-400">Are leads flowing end-to-end? (30 days)</h3>
+        <FeedNotice error={pipelineFeed.error} />
         <div className="overflow-x-auto rounded-xl border border-slate-700 bg-slate-900/70 p-4">
           {sources.length === 0 ? (
             <p className="text-sm text-slate-500">No pipeline data yet — logging starts with the next govcon-funnels deploy.</p>
@@ -392,6 +519,7 @@ export default async function CommandCenterPage() {
       {/* 6. Top errors */}
       <section>
         <h3 className="mb-3 text-lg font-semibold text-green-400">Top JS errors (7 days)</h3>
+        <FeedNotice error={eventsFeed.error} />
         <div className="rounded-xl border border-slate-700 bg-slate-900/70 p-4">
           {topErrors.length === 0 ? (
             <p className="text-sm text-green-400">No JS errors recorded. ✅</p>

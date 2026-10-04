@@ -9,6 +9,7 @@
  *   SUPABASE_SERVICE_ROLE_KEY
  */
 import { createClient } from '@supabase/supabase-js';
+import { syntheticLeadReason } from '@/lib/synthetic-lead';
 
 type LeadPayload = {
   name?: string;
@@ -227,6 +228,12 @@ export async function recentDuplicateExists(
 export async function saveLeadToSupabase(
   lead: LeadPayload
 ): Promise<{ ok: boolean; error?: string }> {
+  // Synthetic/test leads never reach the customer lead table, whoever the caller is.
+  const syntheticReason = syntheticLeadReason(lead);
+  if (syntheticReason) {
+    console.log(`[funnel_leads] Suppressed synthetic lead: ${syntheticReason}`);
+    return { ok: false, error: `suppressed: synthetic lead — ${syntheticReason}` };
+  }
   if (!client) return { ok: false, error: 'Supabase env not configured' };
   try {
     const { error } = await client.from('funnel_leads').insert({
