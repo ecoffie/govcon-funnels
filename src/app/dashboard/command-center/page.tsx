@@ -5,7 +5,10 @@
  * site_events / lead_pipeline_log / synthetic_checks (Supabase) + the
  * Vercel deployments API. Server-rendered, no client JS.
  */
+import { cookies } from 'next/headers';
 import { ccClient } from '@/lib/command-center';
+import { isAuthorized } from '@/lib/admin-auth';
+import { DASHBOARD_AUTH_COOKIE, decodeDashboardAuthCookie } from '@/lib/dashboard-auth-cookie';
 
 export const dynamic = 'force-dynamic';
 
@@ -213,7 +216,7 @@ function Bar({ value, max, color = 'bg-green-500' }: { value: number; max: numbe
 
 // ------------------------------------------------------------ page ---------
 
-export default async function CommandCenterPage() {
+export async function CommandCenterDashboard() {
   const now = Date.now();
   const [deploys, checksFeed, pipelineFeed, eventsFeed, errors24hRes, errorsPrev24hRes, alertingError] = await Promise.all([
     loadDeploys(),
@@ -537,4 +540,22 @@ export default async function CommandCenterPage() {
       </section>
     </div>
   );
+}
+
+/**
+ * Anonymous visitors get a shell only. DashboardAuthGate is a client component,
+ * so it cannot stop this Server Component from running — Next still serializes
+ * the result into the RSC flight data. Querying Supabase before this check put
+ * live uptime, lead, and error data in that payload for anyone who requested
+ * the URL.
+ */
+export default async function CommandCenterPage() {
+  const jar = await cookies();
+  const provided = decodeDashboardAuthCookie(jar.get(DASHBOARD_AUTH_COOKIE)?.value ?? '');
+  if (!isAuthorized(provided)) {
+    return (
+      <p className="text-sm text-slate-400">Sign in to load command center data.</p>
+    );
+  }
+  return await CommandCenterDashboard();
 }
