@@ -82,6 +82,15 @@ export async function sendToGoHighLevel(lead: LeadPayload): Promise<{ ok: boolea
 
     if (!res.ok) {
       const text = await res.text();
+      // This location rejects a second contact with the same email (400 +
+      // meta.contactId). The person is already in GHL — the lead is not lost,
+      // but this funnel's tags were never applied. Add them to the existing
+      // contact. Tags only: POST /contacts/:id/tags is additive, and we never
+      // overwrite the name/phone/tags the contact already has.
+      const existingId = res.status === 400 ? duplicateContactId(text) : null;
+      if (existingId) {
+        return addTagsToExistingContact(existingId, allTags, apiKey);
+      }
       console.error('GHL v2 API error:', res.status, text);
       return { ok: false, error: `${res.status}: ${text.slice(0, 200)}` };
     }
@@ -92,6 +101,47 @@ export async function sendToGoHighLevel(lead: LeadPayload): Promise<{ ok: boolea
     const message = e instanceof Error ? e.message : String(e);
     console.error('GHL request failed:', message);
     return { ok: false, error: message };
+  }
+}
+
+/** The existing contact's id when GHL refused a create as a duplicate, else null. */
+export function duplicateContactId(body: string): string | null {
+  try {
+    const parsed = JSON.parse(body) as { message?: unknown; meta?: { contactId?: unknown } };
+    const id = parsed?.meta?.contactId;
+    if (typeof id !== 'string' || !id) return null;
+    if (typeof parsed.message !== 'string' || !/duplicated contacts/i.test(parsed.message)) return null;
+    return id;
+  } catch {
+    return null;
+  }
+}
+
+async function addTagsToExistingContact(
+  contactId: string,
+  tags: string[],
+  apiKey: string,
+): Promise<{ ok: boolean; error?: string; contactId?: string }> {
+  try {
+    const res = await fetch(`https://services.leadconnectorhq.com/contacts/${contactId}/tags`, {
+      method: 'POST',
+      headers: {
+        Authorization: `Bearer ${apiKey}`,
+        'Content-Type': 'application/json',
+        'Version': '2021-07-28',
+      },
+      body: JSON.stringify({ tags }),
+    });
+    if (!res.ok) {
+      const text = await res.text();
+      console.error('GHL add-tags to existing contact failed:', res.status, text);
+      return { ok: false, contactId, error: `existing contact ${contactId}, tag add ${res.status}: ${text.slice(0, 200)}` };
+    }
+    return { ok: true, contactId };
+  } catch (e) {
+    const message = e instanceof Error ? e.message : String(e);
+    console.error('GHL add-tags request failed:', message);
+    return { ok: false, contactId, error: `existing contact ${contactId}, tag add failed: ${message}` };
   }
 }
 
