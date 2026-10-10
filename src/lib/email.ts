@@ -225,7 +225,8 @@ export async function sendConfirmationEmail(params: EmailParams & { source: stri
     // via /api/mindy-launch/send-confirmation — see /api/lead. They intentionally do
     // NOT fall through to the generic welcome here.
     case 'mindy-launch':
-      return { ok: true };
+      // Nothing is sent here, so this must not report success.
+      return { ok: false, error: 'not sent here: mindy-launch confirmations are sent by getmindy.ai' };
     default:
       // Generic welcome email for unknown sources
       return sendGenericWelcomeEmail({ to, name, source });

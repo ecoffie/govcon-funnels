@@ -108,6 +108,42 @@ export async function logLeadPipeline(row: PipelineRow): Promise<void> {
   }
 }
 
+export type PipelineDestination = 'ghl' | 'supabase' | 'slack' | 'email';
+export interface PipelineRateRow {
+  ghl_ok: boolean | null;
+  supabase_ok: boolean | null;
+  slack_ok: boolean | null;
+  email_ok: boolean | null;
+  email_error?: string | null;
+}
+export interface DestinationRate {
+  dest: PipelineDestination;
+  attempted: number;
+  failed: number;
+  rate: number;
+  /** email only: failures whose outcome is unknown (`pending:` — e.g. a confirmation
+   *  handoff that timed out). Counted as failures: unconfirmed is not success. */
+  pending: number;
+}
+
+/** Per-destination failure rate over pipeline-log rows. `null` = not attempted and is
+ *  excluded; `false` = failure, including an unconfirmed (pending) email. */
+export function pipelineFailureRates(rows: PipelineRateRow[]): DestinationRate[] {
+  return (['ghl', 'supabase', 'slack', 'email'] as const).map((dest) => {
+    const key = `${dest}_ok` as const;
+    const attempted = rows.filter((r) => r[key] !== null);
+    const failedRows = attempted.filter((r) => r[key] === false);
+    const pending = dest === 'email' ? failedRows.filter((r) => (r.email_error ?? '').startsWith('pending:')).length : 0;
+    return {
+      dest,
+      attempted: attempted.length,
+      failed: failedRows.length,
+      rate: attempted.length ? failedRows.length / attempted.length : 0,
+      pending,
+    };
+  });
+}
+
 // --------------------------------------------------------------- checks ----
 
 export interface CheckRow {

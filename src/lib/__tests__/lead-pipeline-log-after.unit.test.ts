@@ -78,7 +78,7 @@ function leadRequest(body: Record<string, unknown>) {
   });
 }
 
-const REAL = { name: 'Jane Doe', email: 'jane@acme.co', source: 'mindy-launch', tags: ['mindy-launch'] };
+const REAL = { name: 'Jane Doe', email: 'jane@acme.co', source: 'free-handouts', tags: [] };
 
 let errorSpy: ReturnType<typeof vi.spyOn>;
 
@@ -131,7 +131,7 @@ describe('pipeline log is written through after(), not abandoned', () => {
 
     const row = logInserts()[0].payload;
     expect(row).toMatchObject({
-      source: 'mindy-launch',
+      source: 'free-handouts',
       duplicate: false,
       ghl_ok: false,
       ghl_error: 'existing contact c1, tag add 500: boom',
@@ -185,7 +185,7 @@ describe('existing guards are unchanged', () => {
 
     await Promise.all(runDeferred());
     expect(logInserts()).toHaveLength(1);
-    expect(logInserts()[0].payload).toMatchObject({ duplicate: true, source: 'mindy-launch' });
+    expect(logInserts()[0].payload).toMatchObject({ duplicate: true, source: 'free-handouts' });
   });
 
   it('a synthetic lead defers nothing and writes nothing', async () => {
