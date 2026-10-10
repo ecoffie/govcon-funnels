@@ -19,7 +19,7 @@
  */
 import { NextRequest, NextResponse } from 'next/server';
 import { isAuthorized, extractPassword } from '@/lib/admin-auth';
-import { ccClient, sendAlert, type AlertResult } from '@/lib/command-center';
+import { ccClient, sendAlert, pipelineFailureRates, pipelineAlertMessage, type AlertResult } from '@/lib/command-center';
 import { runSyntheticSuite } from '@/lib/synthetic';
 
 export const dynamic = 'force-dynamic';
@@ -66,7 +66,7 @@ async function evaluateAlerts(out: AlertOutcome): Promise<void> {
   try {
     const { data, error } = await ccClient
       .from('lead_pipeline_log')
-      .select('ghl_ok,supabase_ok,slack_ok,email_ok')
+      .select('ghl_ok,supabase_ok,slack_ok,email_ok,email_error')
       .neq('source', 'canary')
       .order('ts', { ascending: false })
       .limit(100);
@@ -76,20 +76,9 @@ async function evaluateAlerts(out: AlertOutcome): Promise<void> {
     }
     const rows = data ?? [];
     if (rows.length >= 10) {
-      for (const dest of ['ghl_ok', 'supabase_ok', 'slack_ok', 'email_ok'] as const) {
-        const attempted = rows.filter((r) => r[dest] !== null);
-        const failed = attempted.filter((r) => r[dest] === false).length;
-        const rate = attempted.length ? failed / attempted.length : 0;
-        if (rate > 0.05) {
-          const name = dest.replace('_ok', '');
-          noteAlert(
-            out,
-            `pipeline-${name}-failing`,
-            await sendAlert(
-              `pipeline-${name}-failing`,
-              `Lead pipeline destination *${name}* failing at ${(rate * 100).toFixed(1)}% over the last ${attempted.length} leads. Check /dashboard/command-center.`,
-            ),
-          );
+      for (const d of pipelineFailureRates(rows)) {
+        if (d.rate > 0.05) {
+          noteAlert(out, `pipeline-${d.dest}-failing`, await sendAlert(`pipeline-${d.dest}-failing`, pipelineAlertMessage(d)));
         }
       }
     }

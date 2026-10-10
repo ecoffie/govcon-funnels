@@ -6,6 +6,7 @@ import { logLeadPipeline } from '@/lib/command-center';
 import { enforceIpRateLimit } from '@/lib/rate-limit';
 import { maskEmail } from '@/lib/redact';
 import { syntheticLeadReason } from '@/lib/synthetic-lead';
+import { handOffMindyLaunchConfirmation, confirmationLogFields } from '@/lib/mindy-launch-handoff';
 
 // Cross-origin lead capture: the podcast site (separate Vercel project, no
 // backend of its own) posts its newsletter/guide signups here. Scoped to
@@ -28,6 +29,11 @@ function corsHeaders(request: NextRequest): Record<string, string> {
     Vary: 'Origin',
   };
 }
+
+// Explicit budget for the work after the response: the mindy-launch handoff (15s
+// timeout) followed by the pipeline-log insert (5s timeout). Not left to the platform
+// default, which may be shorter than that.
+export const maxDuration = 120;
 
 export async function OPTIONS(request: NextRequest) {
   return new NextResponse(null, { status: 204, headers: corsHeaders(request) });
@@ -121,31 +127,17 @@ export async function POST(request: NextRequest) {
     // 3b) Send confirmation email based on funnel source.
     //     EXCEPTION: mindy-launch confirmations are owned by getmindy.ai
     //     (market-assassin) — sent via its guarded Resend path with suppression +
-    //     deliverability tracking. We fire that cross-call below; sendConfirmationEmail
-    //     deliberately no-ops for 'mindy-launch' so we don't double-send.
-    const emailResult = await sendConfirmationEmail({
-      to: lead.email,
-      name: lead.name,
-      source: lead.source,
-      redirectUrl: lead.redirectUrl,
-    });
-
-    // 3c) Mindy Launch save-the-date: hand off the actual send to getmindy.ai so it
-    //     runs through Mindy's guarded sender (tracked in email_provider_sends).
-    //     Fire-and-forget — a send failure must NEVER block the signup/redirect.
-    if (lead.source === 'mindy-launch' && process.env.MINDY_LAUNCH_SEND_URL && process.env.MINDY_LAUNCH_SEND_SECRET) {
-      void fetch(process.env.MINDY_LAUNCH_SEND_URL, {
-        method: 'POST',
-        headers: {
-          'content-type': 'application/json',
-          authorization: `Bearer ${process.env.MINDY_LAUNCH_SEND_SECRET}`,
-        },
-        body: JSON.stringify({
-          email: lead.email,
+    //     deliverability tracking. That handoff runs after the response (below), so
+    //     nothing is sent here and nothing here may claim it was.
+    const isMindyLaunch = lead.source === 'mindy-launch';
+    const emailResult = isMindyLaunch
+      ? { ok: false, status: 'pending', error: 'confirmation is sent by getmindy.ai after this response' }
+      : await sendConfirmationEmail({
+          to: lead.email,
           name: lead.name,
-        }),
-      }).catch((e) => console.error('mindy-launch confirmation handoff failed:', e));
-    }
+          source: lead.source,
+          redirectUrl: lead.redirectUrl,
+        });
 
     // Log for debugging (including A/B test data)
     console.log('New lead:', {
@@ -155,15 +147,17 @@ export async function POST(request: NextRequest) {
       crm: crmResults.ghl?.ok,
       supabase: supabaseResult.ok,
       slack: slackResult.ok,
-      emailSent: emailResult.ok,
+      emailSent: isMindyLaunch ? 'handoff pending' : emailResult.ok,
     });
 
     // Command Center pipeline log — one row per attempt, per-destination
     // results. Runs after the response via next/server `after()`, which keeps
-    // the function alive until the insert settles. A bare `void` promise can be
-    // frozen once the response is sent: a 2026-10-05 mindy-launch signup got its
-    // funnel_leads row and confirmation email but no log row. logLeadPipeline
-    // never throws; it reports insert errors with console.error.
+    // the function alive until the work settles. That protects the write's
+    // lifecycle; it does not guarantee persistence — a function timeout or a
+    // Supabase failure can still lose the row (reported with console.error).
+    // A bare `void` promise can be frozen once the response is sent: a 2026-10-05
+    // mindy-launch signup got its funnel_leads row and confirmation email but no
+    // log row.
     const pipelineRow = {
       email: maskEmail(lead.email),
       source: lead.source,
@@ -176,7 +170,23 @@ export async function POST(request: NextRequest) {
       email_error: emailResult.ok ? undefined : emailResult.error,
       duration_ms: Date.now() - startedAt,
     };
-    after(() => logLeadPipeline(pipelineRow));
+    if (isMindyLaunch) {
+      // 3c) Mindy Launch confirmation: hand off to getmindy.ai after the response,
+      //     then record what it reported (confirmed / failed / pending) — never a
+      //     guess. One awaited sequence inside after(): the log row is written only
+      //     once the handoff has settled or timed out. One handoff attempt per
+      //     processed request, no automatic retry: see src/lib/mindy-launch-handoff.ts.
+      const registrant = { email: lead.email, name: lead.name };
+      after(async () => {
+        const outcome = await handOffMindyLaunchConfirmation(registrant);
+        if (outcome.state !== 'confirmed') {
+          console.error('mindy-launch confirmation not confirmed:', { email: pipelineRow.email, ...outcome });
+        }
+        await logLeadPipeline({ ...pipelineRow, ...confirmationLogFields(outcome) });
+      });
+    } else {
+      after(() => logLeadPipeline(pipelineRow));
+    }
 
     // 4) Response so front-end can redirect
     return NextResponse.json(
