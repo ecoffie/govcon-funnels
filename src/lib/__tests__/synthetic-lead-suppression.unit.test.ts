@@ -20,6 +20,14 @@ const leads = vi.hoisted(() => ({ saveLeadToSupabase: vi.fn(), recentDuplicateEx
 const mail = vi.hoisted(() => ({ resendSend: vi.fn(), smtpSend: vi.fn(), smtpVerify: vi.fn() }));
 const cc = vi.hoisted(() => ({ logLeadPipeline: vi.fn(), recordCheck: vi.fn(), sendAlert: vi.fn() }));
 
+// The route defers its pipeline log with next/server `after()`, which throws
+// outside a real request scope. Run deferred work immediately here.
+vi.mock('next/server', async (importOriginal) => ({
+  ...(await importOriginal<typeof import('next/server')>()),
+  after: (task: () => unknown) => {
+    void task();
+  },
+}));
 vi.mock('@/lib/crm', () => crm);
 vi.mock('@/lib/supabase-leads', () => leads);
 vi.mock('@/lib/rate-limit', () => ({ enforceIpRateLimit: vi.fn(async () => null) }));

@@ -83,7 +83,11 @@ export interface PipelineRow {
 }
 
 export async function logLeadPipeline(row: PipelineRow): Promise<void> {
-  if (!ccClient) return;
+  if (!ccClient) {
+    // Say so: a silent return here looks exactly like "no leads arrived".
+    console.error('logLeadPipeline skipped: Supabase service client not configured');
+    return;
+  }
   try {
     const { error } = await ccClient.from('lead_pipeline_log').insert({
       email: row.email.slice(0, 120),

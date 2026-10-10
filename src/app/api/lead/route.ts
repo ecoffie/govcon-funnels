@@ -1,4 +1,4 @@
-import { NextRequest, NextResponse } from 'next/server';
+import { NextRequest, NextResponse, after } from 'next/server';
 import { sendLeadToCrm } from '@/lib/crm';
 import { sendConfirmationEmail } from '@/lib/email';
 import { saveLeadToSupabase, recentDuplicateExists } from '@/lib/supabase-leads';
@@ -96,10 +96,11 @@ export async function POST(request: NextRequest) {
     //    redirects normally. Fails OPEN, so a check error never blocks a real signup.
     if (await recentDuplicateExists(lead.email, lead.source)) {
       console.log('Duplicate lead suppressed (recent submit):', { email: maskEmail(lead.email), source: lead.source });
-      void logLeadPipeline({
+      const durationMs = Date.now() - startedAt;
+      after(() => logLeadPipeline({
         email: maskEmail(lead.email), source: lead.source, duplicate: true,
-        duration_ms: Date.now() - startedAt,
-      });
+        duration_ms: durationMs,
+      }));
       return NextResponse.json({ success: true, duplicate: true }, { headers: cors });
     }
 
@@ -158,8 +159,12 @@ export async function POST(request: NextRequest) {
     });
 
     // Command Center pipeline log — one row per attempt, per-destination
-    // results. Fire-and-forget: must never slow or break the response.
-    void logLeadPipeline({
+    // results. Runs after the response via next/server `after()`, which keeps
+    // the function alive until the insert settles. A bare `void` promise can be
+    // frozen once the response is sent: a 2026-10-05 mindy-launch signup got its
+    // funnel_leads row and confirmation email but no log row. logLeadPipeline
+    // never throws; it reports insert errors with console.error.
+    const pipelineRow = {
       email: maskEmail(lead.email),
       source: lead.source,
       ghl_ok: crmResults.ghl?.ok,
@@ -170,7 +175,8 @@ export async function POST(request: NextRequest) {
       email_ok: emailResult.ok,
       email_error: emailResult.ok ? undefined : emailResult.error,
       duration_ms: Date.now() - startedAt,
-    });
+    };
+    after(() => logLeadPipeline(pipelineRow));
 
     // 4) Response so front-end can redirect
     return NextResponse.json(
