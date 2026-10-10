@@ -11,10 +11,13 @@ import { NextRequest } from 'next/server';
  * These tests run the real route, the real handoff module and the real pipeline logger.
  * Only `fetch` (getmindy.ai) and Supabase are faked; `after` is a collector run once the
  * response exists, as the platform does. They pin:
- *   1. The handoff runs after the response, exactly once, and is never retried.
- *   2. Only a stated provider acceptance is `confirmed` (email_ok true). A refusal, a
- *      guard block or a provider failure is `failed`; a timeout, a network error or a
- *      bare HTTP 200 is `pending`. Both are email_ok false, so the alert counts them.
+ *   1. The handoff runs after the response: one attempt per processed request, never
+ *      retried, and the log row is written only after it settles (one sequence).
+ *   2. Only a stated provider acceptance is `confirmed` (email_ok true). An explicit
+ *      refusal, guard block or provider rejection is `failed`. An unknown outcome — our
+ *      timeout, a network error, getmindy.ai's `unconfirmed`, a bare HTTP 200 — is
+ *      `pending`, never `failed`. Both are email_ok false, so the alert counts them,
+ *      and the alert text says how many were unconfirmed.
  *   3. Normal signups, duplicate submits and synthetic leads behave as before.
  */
 
@@ -38,7 +41,7 @@ vi.mock('@supabase/supabase-js', () => ({
     from: (table: string) => ({
       insert: (payload: Record<string, unknown>) => {
         db.inserts.push({ table, payload });
-        return Promise.resolve({ data: null, error: null });
+        return { abortSignal: () => Promise.resolve({ data: null, error: null }) };
       },
     }),
   }),
@@ -53,8 +56,7 @@ vi.mock('@/lib/email', () => mail);
 vi.mock('@/lib/rate-limit', () => ({ enforceIpRateLimit: vi.fn(async () => null) }));
 
 const { POST } = await import('@/app/api/lead/route');
-const { pipelineFailureRates } = await import('@/lib/command-center');
-const { confirmationLogFields } = await import('@/lib/mindy-launch-handoff');
+const { pipelineFailureRates, pipelineAlertMessage } = await import('@/lib/command-center');
 
 const fetchMock = global.fetch as ReturnType<typeof vi.fn>;
 const SEND_URL = 'https://getmindy.ai/api/mindy-launch/send-confirmation';
@@ -124,7 +126,8 @@ describe('successful handoff', () => {
 describe('outcomes that are not confirmed are never recorded as success', () => {
   it.each([
     ['getmindy.ai refuses (401)', () => json(401, { error: 'Unauthorized' }), 'failed: refused by getmindy.ai: HTTP 401'],
-    ['downstream email failure (both providers)', () => json(502, { ok: false, status: 'failed', error: 'SMTP auth failed' }), 'failed: provider failed at getmindy.ai: SMTP auth failed'],
+    ['downstream email failure (every provider explicitly rejected)', () => json(502, { ok: false, status: 'failed', error: 'SMTP auth failed' }), 'failed: every provider rejected it at getmindy.ai: SMTP auth failed'],
+    ['downstream provider gave no answer (getmindy.ai unconfirmed)', () => json(500, { ok: false, status: 'unconfirmed', error: 'outcome unknown at resend: no response' }), 'pending: getmindy.ai could not confirm provider acceptance: outcome unknown at resend: no response'],
     ['send guard block', () => json(422, { ok: false, status: 'blocked', reason: 'synthetic_client_address' }), 'failed: blocked by getmindy.ai send guard'],
     ['bare HTTP 200 with ok:true (no stated acceptance)', () => json(200, { ok: true }), 'pending: HTTP 200 without a stated provider acceptance'],
     ['HTTP 200 with ok:false', () => json(200, { ok: false }), 'pending: HTTP 200'],
@@ -135,7 +138,7 @@ describe('outcomes that are not confirmed are never recorded as success', () => 
     const row = logRow();
     expect(row.email_ok).toBe(false);
     expect(String(row.email_error)).toContain(expected);
-    expect(handoffCalls()).toHaveLength(1); // no retry
+    expect(handoffCalls()).toHaveLength(1); // one attempt, no retry
     expect(errorSpy).toHaveBeenCalledWith('mindy-launch confirmation not confirmed:', expect.objectContaining({ email: expect.not.stringContaining('jane@') }));
   });
 
@@ -166,19 +169,64 @@ describe('outcomes that are not confirmed are never recorded as success', () => 
   });
 });
 
-describe('failures reach the monitoring logic', () => {
-  it('pending and failed confirmations count as email failures; only confirmed counts as success', () => {
-    const base = { ghl_ok: true, supabase_ok: true, slack_ok: true };
-    const toRow = (f: { email_ok: boolean; email_error?: string }) => ({ ...base, email_ok: f.email_ok, email_error: f.email_error ?? null });
-    const rows = [
-      ...Array.from({ length: 8 }, () => toRow(confirmationLogFields({ state: 'confirmed', provider: 'resend', providerMessageId: 'x' }))),
-      toRow(confirmationLogFields({ state: 'pending', reason: 'no response after 15000ms' })),
-      toRow(confirmationLogFields({ state: 'failed', reason: 'provider failed' })),
-      { ...base, email_ok: null, email_error: null }, // not attempted: excluded
+describe('the handoff and the log write are one awaited sequence', () => {
+  it('the row is written only after the handoff settles, from a single after() task', async () => {
+    let finish!: (r: Response) => void;
+    fetchMock.mockImplementation(() => new Promise<Response>((r) => (finish = r)));
+    await POST(leadRequest(REGISTRANT));
+    expect(deferred.tasks).toHaveLength(1);
+    const task = Promise.resolve(deferred.tasks.splice(0)[0]());
+    await new Promise((r) => setTimeout(r, 20));
+    expect(handoffCalls()).toHaveLength(1);
+    expect(db.inserts).toHaveLength(0); // still waiting on the handoff
+    finish(json(200, { ok: true, status: 'accepted', provider: 'office365', providerMessageId: '<m1>' }));
+    await task;
+    expect(logRow()).toMatchObject({ email_ok: true });
+  });
+});
+
+describe('failed vs unconfirmed through the real pipeline log and the alert', () => {
+  it('explicit rejection is failed, timeout and lost provider response are unconfirmed; the alert counts both and says which', async () => {
+    process.env.MINDY_LAUNCH_SEND_TIMEOUT_MS = '30';
+    const accepted = () => json(200, { ok: true, status: 'accepted', provider: 'resend', providerMessageId: 're_x' });
+    const scenarios: (() => Promise<Response>)[] = [
+      ...Array.from({ length: 8 }, () => async () => accepted()),
+      async () => json(502, { ok: false, status: 'failed', error: 'SMTP 535' }), // explicit
+      async () => json(500, { ok: false, status: 'unconfirmed', error: 'outcome unknown at resend: no response' }), // lost provider response
+      (_u?: unknown, init?: RequestInit) => new Promise<Response>((_res, rej) => { // our timeout
+        init?.signal?.addEventListener('abort', () => rej(init.signal?.reason));
+      }),
     ];
-    const email = pipelineFailureRates(rows).find((d) => d.dest === 'email')!;
-    expect(email).toEqual({ dest: 'email', attempted: 10, failed: 2, rate: 0.2, pending: 1 });
-    expect(email.rate).toBeGreaterThan(0.05); // the alert threshold
+    for (const scenario of scenarios) {
+      fetchMock.mockClear(); // per-registration call count (register() asserts none before the response)
+      fetchMock.mockImplementationOnce(scenario as never);
+      await register();
+      expect(handoffCalls()).toHaveLength(1); // one attempt per processed request
+    }
+    const rows = db.inserts.filter((i) => i.table === 'lead_pipeline_log').map((i) => i.payload);
+    expect(rows).toHaveLength(11);
+    const errors = rows.map((r) => r.email_error).filter(Boolean).map(String);
+    expect(errors.filter((e) => e.startsWith('failed:'))).toHaveLength(1);
+    expect(errors.filter((e) => e.startsWith('pending:'))).toHaveLength(2);
+    expect(rows.filter((r) => r.email_ok === true)).toHaveLength(8);
+
+    const email = pipelineFailureRates(rows as never).find((d) => d.dest === 'email')!;
+    expect(email).toMatchObject({ attempted: 11, failed: 3, pending: 2 });
+    expect(email.rate).toBeGreaterThan(0.05); // over the alert threshold
+    expect(pipelineAlertMessage(email)).toBe(
+      'Lead pipeline destination *email* failing at 27.3% over the last 11 leads (2 unconfirmed — outcome unknown, not proven failed). Check /dashboard/command-center.',
+    );
+  });
+
+  it('a not-attempted email (null) is excluded, and the GHL alert text is unchanged', () => {
+    const rates = pipelineFailureRates([
+      { ghl_ok: false, supabase_ok: true, slack_ok: true, email_ok: null, email_error: null },
+      { ghl_ok: true, supabase_ok: true, slack_ok: true, email_ok: true, email_error: null },
+    ]);
+    expect(rates.find((d) => d.dest === 'email')).toMatchObject({ attempted: 1, failed: 0 });
+    expect(pipelineAlertMessage(rates.find((d) => d.dest === 'ghl')!)).toBe(
+      'Lead pipeline destination *ghl* failing at 50.0% over the last 2 leads. Check /dashboard/command-center.',
+    );
   });
 });
 

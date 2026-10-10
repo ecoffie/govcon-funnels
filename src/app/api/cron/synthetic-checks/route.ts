@@ -19,7 +19,7 @@
  */
 import { NextRequest, NextResponse } from 'next/server';
 import { isAuthorized, extractPassword } from '@/lib/admin-auth';
-import { ccClient, sendAlert, pipelineFailureRates, type AlertResult } from '@/lib/command-center';
+import { ccClient, sendAlert, pipelineFailureRates, pipelineAlertMessage, type AlertResult } from '@/lib/command-center';
 import { runSyntheticSuite } from '@/lib/synthetic';
 
 export const dynamic = 'force-dynamic';
@@ -78,17 +78,7 @@ async function evaluateAlerts(out: AlertOutcome): Promise<void> {
     if (rows.length >= 10) {
       for (const d of pipelineFailureRates(rows)) {
         if (d.rate > 0.05) {
-          // Unconfirmed confirmations count as failures; say how many were unknown
-          // rather than definitely failed, so nobody mistakes one for the other.
-          const pendingNote = d.pending ? ` (${d.pending} unconfirmed — outcome unknown, not proven failed)` : '';
-          noteAlert(
-            out,
-            `pipeline-${d.dest}-failing`,
-            await sendAlert(
-              `pipeline-${d.dest}-failing`,
-              `Lead pipeline destination *${d.dest}* failing at ${(d.rate * 100).toFixed(1)}% over the last ${d.attempted} leads${pendingNote}. Check /dashboard/command-center.`,
-            ),
-          );
+          noteAlert(out, `pipeline-${d.dest}-failing`, await sendAlert(`pipeline-${d.dest}-failing`, pipelineAlertMessage(d)));
         }
       }
     }

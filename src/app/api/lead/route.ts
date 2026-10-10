@@ -30,6 +30,11 @@ function corsHeaders(request: NextRequest): Record<string, string> {
   };
 }
 
+// Explicit budget for the work after the response: the mindy-launch handoff (15s
+// timeout) followed by the pipeline-log insert (5s timeout). Not left to the platform
+// default, which may be shorter than that.
+export const maxDuration = 120;
+
 export async function OPTIONS(request: NextRequest) {
   return new NextResponse(null, { status: 204, headers: corsHeaders(request) });
 }
@@ -168,7 +173,9 @@ export async function POST(request: NextRequest) {
     if (isMindyLaunch) {
       // 3c) Mindy Launch confirmation: hand off to getmindy.ai after the response,
       //     then record what it reported (confirmed / failed / pending) — never a
-      //     guess. One call, no retry: see src/lib/mindy-launch-handoff.ts.
+      //     guess. One awaited sequence inside after(): the log row is written only
+      //     once the handoff has settled or timed out. One handoff attempt per
+      //     processed request, no automatic retry: see src/lib/mindy-launch-handoff.ts.
       const registrant = { email: lead.email, name: lead.name };
       after(async () => {
         const outcome = await handOffMindyLaunchConfirmation(registrant);

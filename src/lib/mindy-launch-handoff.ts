@@ -8,16 +8,19 @@
  *
  *   confirmed — getmindy.ai says a provider (Resend or Office365) ACCEPTED the message.
  *               Acceptance is not delivery; bounces arrive later on the Mindy side.
- *   failed    — definitely nothing was sent: not configured, refused (auth/validation),
- *               blocked by the send guard, or both providers failed.
- *   pending   — the request may have reached getmindy.ai but we never saw the outcome:
- *               timeout, network error, an unstructured 5xx, or a response that doesn't
- *               state provider acceptance. An HTTP 200 alone is NOT confirmation.
+ *   failed    — an explicit "not sent": not configured, refused (auth/validation),
+ *               blocked by the send guard, or every provider explicitly rejected it.
+ *   pending   — unconfirmed: the email may or may not have gone out. Our own timeout,
+ *               a network error, getmindy.ai's `unconfirmed` (its provider gave no
+ *               answer), an unstructured 5xx, or any response that doesn't state provider
+ *               acceptance. An HTTP 200 alone is NOT confirmation. Never reported as failed.
  *
- * NO RETRIES, deliberately. The endpoint sends one email per request and has no
- * idempotency store, so retrying a request whose outcome we didn't see (pending) is
- * exactly how a registrant would get two confirmations. One call per registration;
- * an unknown outcome is surfaced, never retried.
+ * ONE HANDOFF ATTEMPT PER PROCESSED REQUEST, NO AUTOMATIC RETRIES. getmindy.ai sends one
+ * email per request and nothing deduplicates across requests, so retrying a request
+ * whose outcome we didn't see is exactly how a registrant would get two confirmations.
+ * This does not make a registration idempotent: a registrant who submits again after
+ * the 2-minute duplicate guard gets a second request (as before). Durable deduplication
+ * is a separate follow-up.
  *
  * Never throws.
  */
@@ -74,7 +77,10 @@ export async function handOffMindyLaunchConfirmation(lead: { email: string; name
     };
   }
   if (status === 'failed') {
-    return { state: 'failed', reason: `provider failed at getmindy.ai: ${String(body?.error ?? 'no detail')}` };
+    return { state: 'failed', reason: `every provider rejected it at getmindy.ai: ${String(body?.error ?? 'no detail')}` };
+  }
+  if (status === 'unconfirmed') {
+    return { state: 'pending', reason: `getmindy.ai could not confirm provider acceptance: ${String(body?.error ?? 'no detail')}` };
   }
   if (status === 'blocked') {
     return { state: 'failed', reason: `blocked by getmindy.ai send guard: ${String(body?.reason ?? 'no reason')}` };

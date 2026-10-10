@@ -46,6 +46,7 @@ function runDeferred(): Promise<unknown>[] {
 type Resp = { data?: unknown; error: { message: string } | null };
 const db = vi.hoisted(() => ({
   inserts: [] as { table: string; payload: Record<string, unknown> }[],
+  signals: [] as AbortSignal[],
   answer: (): Promise<Resp> => Promise.resolve({ data: null, error: null }),
 }));
 vi.mock('@supabase/supabase-js', () => ({
@@ -53,7 +54,13 @@ vi.mock('@supabase/supabase-js', () => ({
     from: (table: string) => ({
       insert: (payload: Record<string, unknown>) => {
         db.inserts.push({ table, payload });
-        return db.answer();
+        const pending = db.answer();
+        return {
+          abortSignal: (signal: AbortSignal) => {
+            db.signals.push(signal);
+            return pending;
+          },
+        };
       },
     }),
   }),
@@ -85,6 +92,7 @@ let errorSpy: ReturnType<typeof vi.spyOn>;
 beforeEach(() => {
   deferred.tasks.length = 0;
   db.inserts.length = 0;
+  db.signals.length = 0;
   db.answer = () => Promise.resolve({ data: null, error: null });
   crm.sendLeadToCrm.mockResolvedValue({
     ghl: { ok: false, contactId: 'c1', error: 'existing contact c1, tag add 500: boom' },
@@ -141,6 +149,20 @@ describe('pipeline log is written through after(), not abandoned', () => {
     });
     expect(row.email).not.toBe(REAL.email); // masked
     expect(errorSpy).not.toHaveBeenCalledWith(expect.stringMatching(/^logLeadPipeline/), expect.anything());
+  });
+
+  it('the insert is bounded by its own timeout signal', async () => {
+    await POST(leadRequest(REAL));
+    await Promise.all(runDeferred());
+    expect(db.signals).toHaveLength(1);
+    expect(db.signals[0]).toBeInstanceOf(AbortSignal);
+  });
+
+  it('an aborted (timed-out) insert is reported, not silent', async () => {
+    db.answer = () => Promise.reject(Object.assign(new Error('This operation was aborted'), { name: 'TimeoutError' }));
+    await POST(leadRequest(REAL));
+    await Promise.all(runDeferred());
+    expect(errorSpy).toHaveBeenCalledWith('logLeadPipeline threw:', 'This operation was aborted');
   });
 
   it('a rejected insert is reported with console.error and does not fail the lead', async () => {

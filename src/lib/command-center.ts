@@ -82,6 +82,8 @@ export interface PipelineRow {
   duration_ms?: number;
 }
 
+export const LOG_INSERT_TIMEOUT_MS = 5_000;
+
 export async function logLeadPipeline(row: PipelineRow): Promise<void> {
   if (!ccClient) {
     // Say so: a silent return here looks exactly like "no leads arrived".
@@ -89,6 +91,8 @@ export async function logLeadPipeline(row: PipelineRow): Promise<void> {
     return;
   }
   try {
+    // Bounded, so a hung insert can't run the function to its time limit; an abort
+    // surfaces below as "logLeadPipeline threw".
     const { error } = await ccClient.from('lead_pipeline_log').insert({
       email: row.email.slice(0, 120),
       source: (row.source || 'website').slice(0, 120),
@@ -101,7 +105,7 @@ export async function logLeadPipeline(row: PipelineRow): Promise<void> {
       email_ok: row.email_ok ?? null,
       email_error: row.email_error?.slice(0, 500) ?? null,
       duration_ms: row.duration_ms ?? null,
-    });
+    }).abortSignal(AbortSignal.timeout(LOG_INSERT_TIMEOUT_MS));
     if (error) console.error('logLeadPipeline failed:', error.message);
   } catch (e) {
     console.error('logLeadPipeline threw:', e instanceof Error ? e.message : String(e));
@@ -124,6 +128,13 @@ export interface DestinationRate {
   /** email only: failures whose outcome is unknown (`pending:` — e.g. a confirmation
    *  handoff that timed out). Counted as failures: unconfirmed is not success. */
   pending: number;
+}
+
+/** Slack text for a destination over the alert threshold. Unconfirmed confirmations
+ *  count as failures; the note says how many were unknown rather than proven failed. */
+export function pipelineAlertMessage(d: DestinationRate): string {
+  const pendingNote = d.pending ? ` (${d.pending} unconfirmed — outcome unknown, not proven failed)` : '';
+  return `Lead pipeline destination *${d.dest}* failing at ${(d.rate * 100).toFixed(1)}% over the last ${d.attempted} leads${pendingNote}. Check /dashboard/command-center.`;
 }
 
 /** Per-destination failure rate over pipeline-log rows. `null` = not attempted and is
