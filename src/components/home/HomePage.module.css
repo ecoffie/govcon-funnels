@@ -442,26 +442,6 @@
   color: var(--muted);
 }
 
-.summitLinks {
-  display: flex;
-  align-items: center;
-  gap: 24px;
-  margin-top: 30px;
-}
-
-.summitLinks a {
-  color: var(--brand);
-  font-weight: 700;
-  text-decoration: none;
-}
-
-.summitLinks a:first-child {
-  border-radius: 8px;
-  background: var(--brand);
-  color: white;
-  padding: 13px 22px;
-}
-
 .summitVisual {
   position: relative;
   padding-bottom: 70px;
@@ -652,7 +632,6 @@
   .summitVisual > img:nth-child(2) { display: none; }
   .stats { position: relative; right: auto; bottom: auto; left: auto; margin: -45px 12px 0; }
   .summitVisual { padding-bottom: 0; }
-  .summitLinks { align-items: flex-start; flex-direction: column; }
   .articleGrid { gap: 28px; }
 }
 

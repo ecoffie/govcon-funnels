@@ -212,7 +212,7 @@ function FeaturedEpisodes() {
 
 function Summit() {
   return (
-    <section className={`${styles.section} ${styles.summit}`}>
+    <section id="summit" className={`${styles.section} ${styles.summit}`}>
       <img className={styles.starPattern} src="/pattern-stars.svg" alt="" aria-hidden="true" />
       <div className={styles.container}>
         <SectionHeading kicker="THE ANNUAL EVENT">GCG National <em>Summit</em></SectionHeading>
@@ -233,10 +233,7 @@ function Summit() {
               <p><b>Shannon Jackson</b><small>Executive Director (SES), HHS OSDBU</small></p>
               <p><b>Vonna Ordaz</b><small>Director, NRC Office of Small Business</small></p>
             </div>
-            <div className={styles.summitLinks}>
-              <a href="https://gcgsummit.com" target="_blank" rel="noopener">Visit gcgsummit.com ↗</a>
-              <a href="https://gcgsummit.com/speakers/" target="_blank" rel="noopener">Meet the speakers →</a>
-            </div>
+            {/* gcgsummit.com links held out while that site is down (TLS fails, HTTP 409, 2026-10-27). */}
           </div>
           <div className={styles.summitVisual}>
             <img src="/summit/moment-01.jpg" alt="Attendees networking at the GCG National Summit" loading="lazy" />
@@ -256,7 +253,7 @@ function Summit() {
 function Experiences() {
   const tiles = [
     { title: 'Listen to the Podcast', desc: '250K+ listens — near-daily plays and long-form interviews.', image: '/summit/moment-06.jpg', href: '/podcast' },
-    { title: 'Attend the Summit', desc: 'The annual Contracting Connections + Technology Summit in Miami.', image: '/summit/candid-laugh.jpg', href: 'https://gcgsummit.com', external: true },
+    { title: 'Attend the Summit', desc: 'The annual Contracting Connections + Technology Summit in Miami.', image: '/summit/candid-laugh.jpg', href: '#summit' },
     { title: 'Get the Playbook', desc: 'The exact federal websites behind $20M+ in government sales.', image: '/articles/playbook-tile.jpg', href: '/resources' },
   ];
   return (
@@ -271,9 +268,7 @@ function Experiences() {
                 <div><h3>{tile.title}</h3><p>{tile.desc}</p><span>EXPLORE →</span></div>
               </>
             );
-            return tile.external
-              ? <a className={styles.tile} href={tile.href} target="_blank" rel="noopener" key={tile.title}>{content}</a>
-              : <Link className={styles.tile} href={tile.href} key={tile.title}>{content}</Link>;
+            return <Link className={styles.tile} href={tile.href} key={tile.title}>{content}</Link>;
           })}
         </div>
       </div>
