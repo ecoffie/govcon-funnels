@@ -13,11 +13,14 @@ export function isPartnerPage(pathname: string): boolean {
   return pathname.startsWith('/encore');
 }
 
-/** Primary navigation. The homepage design defines this set. */
+/**
+ * Primary navigation. The homepage design defines this set.
+ * Summit is held out until gcgsummit.com is reachable again (TLS fails, HTTP 409
+ * Cloudflare 1001 as of 2026-10-27). Re-add it once a working destination is confirmed.
+ */
 export const NAV_LINKS: { href: string; label: string; external?: boolean }[] = [
   { href: '/podcast', label: 'Podcast' },
   { href: '/blog', label: 'Blog' },
-  { href: 'https://gcgsummit.com', label: 'Summit', external: true },
   { href: '/resources', label: 'Resources' },
   { href: '/about', label: 'About' },
   { href: '/mi', label: 'Mindy' },
