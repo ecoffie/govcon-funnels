@@ -1,7 +1,8 @@
 import type { Metadata } from "next";
 import Script from "next/script";
-import { Inter } from "next/font/google";
-import SiteNav from "@/components/SiteNav";
+import { Merriweather, Public_Sans } from "next/font/google";
+import SiteHeader from "@/components/chrome/SiteHeader";
+import SiteFooter from "@/components/chrome/SiteFooter";
 import SiteEventTracker from "@/components/SiteEventTracker";
 import AttributionTracker from "@/components/AttributionTracker";
 import JsonLd from "@/components/JsonLd";
@@ -9,9 +10,19 @@ import { organizationJsonLd } from "@/lib/seo";
 import { Analytics } from "@vercel/analytics/next";
 import "./globals.css";
 
-const inter = Inter({
+// Homepage typography is the site standard: Merriweather for display, Public Sans for body.
+const display = Merriweather({
   subsets: ["latin"],
-  variable: "--font-inter",
+  weight: ["400", "700", "900"],
+  style: ["normal", "italic"],
+  variable: "--font-merriweather",
+  display: "swap",
+});
+
+const sans = Public_Sans({
+  subsets: ["latin"],
+  variable: "--font-public-sans",
+  display: "swap",
 });
 
 const GA_ID = process.env.NEXT_PUBLIC_GA_ID;
@@ -43,7 +54,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body className={`${inter.variable} antialiased`}>
+      <body className={`${display.variable} ${sans.variable} antialiased`}>
         {GTAG_LOADER_ID && (
           <>
             <Script
@@ -64,8 +75,9 @@ export default function RootLayout({
         <AttributionTracker />
         <SiteEventTracker />
         <JsonLd data={organizationJsonLd()} />
-        <SiteNav />
+        <SiteHeader />
         {children}
+        <SiteFooter />
         <Analytics />
         <Script
           src="https://widgets.leadconnectorhq.com/loader.js"

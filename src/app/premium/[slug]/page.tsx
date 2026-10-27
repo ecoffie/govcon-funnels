@@ -161,9 +161,6 @@ export default async function PremiumLandingPage({ params }: Props) {
         </div>
       </section>
 
-      <footer className="py-8 text-center text-slate-500 text-sm border-t border-slate-800">
-        © 2026 GovCon Giants. All rights reserved.
-      </footer>
     </main>
   );
 }
