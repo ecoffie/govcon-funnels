@@ -55,6 +55,7 @@ export default function SiteFooter() {
           <nav aria-label="Company">
             <b>COMPANY</b>
             <Link href="/about">About</Link>
+            <a href="https://ericcoffie.com" target="_blank" rel="noopener">Eric Coffie · Speaking ↗</a>
           </nav>
         </div>
         <div className={styles.legal}>
