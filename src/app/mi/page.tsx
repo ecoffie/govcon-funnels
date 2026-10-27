@@ -258,7 +258,7 @@ export default function MindyFreePage() {
       </section>
 
       {/* Footer */}
-      <footer className="border-t border-slate-800 py-8">
+      <section aria-label="Contact" className="border-t border-slate-800 py-8">
         <div className="max-w-4xl mx-auto px-4 text-center">
           <div className="flex items-center justify-center gap-3 mb-4">
             <div className="w-8 h-8 rounded-lg bg-purple-600 flex items-center justify-center">
@@ -267,7 +267,7 @@ export default function MindyFreePage() {
             <span className="text-white font-semibold">Mindy</span>
             <span className="text-slate-500">by GovCon Giants</span>
           </div>
-          <p className="text-slate-500 text-sm mb-4">
+          <p className="text-slate-500 text-sm mb-4 flex flex-wrap justify-center gap-y-2">
             <a href="tel:5082906692" className="text-slate-400 hover:text-white transition">508-290-6692</a>
             <span className="mx-4">&bull;</span>
             <a href="mailto:hello@govconedu.com" className="text-slate-400 hover:text-white transition">hello@govconedu.com</a>
@@ -276,14 +276,11 @@ export default function MindyFreePage() {
             <span className="mx-4">&bull;</span>
             <Link href="/terms" className="text-slate-400 hover:text-white transition">Terms</Link>
           </p>
-          <p className="text-slate-600 text-xs">
-            &copy; 2026 GovCon Giants
-          </p>
           <p className="text-slate-700 text-xs mt-2 italic">
             &quot;The big contractors have armies. You have Mindy.&quot;
           </p>
         </div>
-      </footer>
+      </section>
     </main>
   );
 }

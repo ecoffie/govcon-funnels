@@ -389,7 +389,7 @@ export default function Home() {
       </section>
 
       {/* Footer */}
-      <footer className="py-12 px-6 border-t border-slate-800">
+      <section aria-label="Contact" className="py-12 px-6 border-t border-slate-800">
         <div className="max-w-6xl mx-auto">
           <div className="flex flex-col md:flex-row justify-between items-center gap-6">
             <div className="flex items-center gap-1">
@@ -402,12 +402,9 @@ export default function Home() {
               <Link href="/privacy-policy" className="text-slate-400 hover:text-white transition">Privacy</Link>
               <Link href="/terms" className="text-slate-400 hover:text-white transition">Terms</Link>
             </div>
-            <p className="text-slate-600 text-sm">
-              © 2026 GovCon Giants
-            </p>
           </div>
         </div>
-      </footer>
+      </section>
     </main>
   );
 }

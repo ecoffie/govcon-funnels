@@ -1,0 +1,313 @@
+/*
+ * Site header + footer. Ported from the homepage (HomePage.module.css), which is
+ * the design source: navy glass header, Merriweather wordmark, green CTA,
+ * dark footer with the action-plan signup.
+ */
+.chrome {
+  --brand: #16a34a;
+  --brand-bright: #4ade80;
+  --ink: #1f2937;
+  --muted: #64748b;
+  --line: #e4e4e7;
+  font-family: var(--font-public-sans), system-ui, sans-serif;
+}
+
+.chrome,
+.chrome * {
+  box-sizing: border-box;
+}
+
+.container {
+  width: min(1200px, calc(100% - 48px));
+  margin-inline: auto;
+}
+
+/* Header ------------------------------------------------------------------ */
+
+.nav {
+  position: sticky;
+  top: 0;
+  z-index: 70;
+  height: 72px;
+  border-bottom: 1px solid rgb(255 255 255 / 18%);
+  background: rgb(10 15 30 / 92%);
+  color: white;
+  backdrop-filter: blur(12px);
+}
+
+/* Homepage: the header floats over the full-bleed hero photography. */
+.overlay {
+  position: fixed;
+  inset: 0 0 auto;
+  background: rgb(10 15 30 / 82%);
+}
+
+.nav .container {
+  display: flex;
+  height: 100%;
+  align-items: center;
+  justify-content: space-between;
+  gap: 24px;
+}
+
+.logo {
+  color: inherit;
+  font-family: var(--font-merriweather), Georgia, serif;
+  font-size: 22px;
+  font-weight: 900;
+  text-decoration: none;
+  white-space: nowrap;
+}
+
+.logo span,
+.nav a:hover,
+.footer a:hover {
+  color: var(--brand-bright);
+}
+
+.desktopNav {
+  display: flex;
+  align-items: center;
+  gap: 28px;
+}
+
+.desktopNav a {
+  color: #cbd5e1;
+  font-size: 14px;
+  font-weight: 700;
+  letter-spacing: .06em;
+  text-decoration: none;
+  text-transform: uppercase;
+  transition: color .2s;
+}
+
+.desktopNav a[aria-current='page'] {
+  color: white;
+}
+
+.navActions {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.newsletterButton,
+.mobileNav button {
+  border: 0;
+  border-radius: 8px;
+  background: var(--brand);
+  color: white;
+  cursor: pointer;
+  font: inherit;
+  font-weight: 700;
+  padding: 10px 16px;
+}
+
+.menuButton {
+  display: none;
+  border: 0;
+  background: transparent;
+  color: white;
+  cursor: pointer;
+  font-size: 26px;
+}
+
+.mobileNav {
+  position: fixed;
+  inset: 72px 0 0;
+  z-index: 65;
+  display: flex;
+  flex-direction: column;
+  gap: 22px;
+  overflow-y: auto;
+  padding: 40px 28px;
+  background: #0a0f1e;
+}
+
+.mobileNav a {
+  color: white;
+  font-family: var(--font-merriweather), Georgia, serif;
+  font-size: 28px;
+  font-weight: 900;
+  text-decoration: none;
+}
+
+.mobileNav button {
+  width: max-content;
+  font-size: 16px;
+}
+
+/* Partner pages (/encore*) keep their own minimal header. */
+.partnerNav {
+  border-bottom: 1px solid #e2e8f0;
+  background: white;
+  padding: 16px 24px;
+  text-align: center;
+}
+
+.partnerNav a {
+  color: #f97316;
+  font-size: 20px;
+  font-weight: 700;
+  text-decoration: none;
+}
+
+/* Newsletter modal ---------------------------------------------------------- */
+
+.kicker {
+  display: block;
+  margin: 0 0 8px;
+  color: var(--brand);
+  font-size: 12px;
+  font-weight: 800;
+  letter-spacing: .18em;
+  text-transform: uppercase;
+}
+
+.modalBackdrop {
+  position: fixed;
+  inset: 0;
+  z-index: 90;
+  display: grid;
+  place-items: center;
+  padding: 20px;
+  background: rgb(0 0 0 / 70%);
+  backdrop-filter: blur(5px);
+}
+
+.modal {
+  position: relative;
+  width: min(520px, 100%);
+  border: 1px solid var(--line);
+  border-radius: 14px;
+  background: white;
+  color: var(--ink);
+  box-shadow: 0 24px 80px rgb(0 0 0 / 30%);
+  padding: 34px;
+}
+
+.modal h2,
+.footerSignup h2 {
+  margin: 0;
+  font-family: var(--font-merriweather), Georgia, serif;
+  font-weight: 900;
+}
+
+.modal h2 {
+  font-size: 30px;
+}
+
+.modal h2 em {
+  color: var(--brand);
+}
+
+.modal > p:not(.kicker) {
+  color: var(--muted);
+  line-height: 1.6;
+}
+
+.modalClose {
+  position: absolute;
+  top: 10px;
+  right: 14px;
+  border: 0;
+  background: none;
+  color: var(--muted);
+  cursor: pointer;
+  font-size: 28px;
+}
+
+/* Footer ------------------------------------------------------------------ */
+
+.footer {
+  border-top: 1px solid #334155;
+  background: #0d1526;
+  color: #cbd5e1;
+  padding: 76px 0 28px;
+}
+
+.footerSignup {
+  border: 1px solid #334155;
+  border-left: 4px solid var(--brand-bright);
+  border-radius: 12px;
+  background: #111827;
+  padding: 30px;
+}
+
+.footerSignup h2 {
+  margin-bottom: 20px;
+  color: white;
+  font-size: 28px;
+  line-height: 1.16;
+}
+
+.footerSignup form {
+  max-width: 650px;
+}
+
+.footerGrid {
+  display: grid;
+  grid-template-columns: 1.4fr repeat(4, 1fr);
+  gap: 40px;
+  margin-top: 60px;
+}
+
+.footerGrid > div > p:not(.logo) {
+  max-width: 290px;
+  color: #94a3b8;
+  font-size: 14px;
+  line-height: 1.7;
+}
+
+.footerGrid nav {
+  display: flex;
+  flex-direction: column;
+  gap: 11px;
+}
+
+.footerGrid nav b {
+  margin-bottom: 4px;
+  color: var(--brand-bright);
+  font-size: 12px;
+  letter-spacing: .16em;
+}
+
+.footerGrid nav a,
+.legal a {
+  color: #94a3b8;
+  text-decoration: none;
+}
+
+.legal {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 25px;
+  margin-top: 54px;
+  border-top: 1px solid #334155;
+  padding-top: 24px;
+  color: #64748b;
+  font-family: monospace;
+  font-size: 11px;
+}
+
+.legal > div {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 16px;
+}
+
+@media (max-width: 1000px) {
+  .desktopNav { display: none; }
+  .menuButton { display: block; }
+  .footerGrid { grid-template-columns: repeat(2, 1fr); }
+  .footerGrid > div:first-child { grid-column: 1 / -1; }
+}
+
+@media (max-width: 760px) {
+  .container { width: min(100% - 32px, 1200px); }
+  .newsletterButton { display: none; }
+  .footer { padding-top: 54px; }
+  .footerGrid { margin-top: 42px; gap: 32px; }
+  .legal { align-items: flex-start; flex-direction: column; }
+}

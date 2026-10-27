@@ -478,7 +478,7 @@ export default function DoneForYouPage() {
       </section>
 
       {/* Footer note */}
-      <footer className="py-10 px-6 border-t border-slate-900">
+      <section aria-label="Contact" className="py-10 px-6 border-t border-slate-900">
         <div className="max-w-6xl mx-auto text-center">
           <p className="text-slate-600 text-sm">
             Questions? Email{' '}
@@ -495,7 +495,7 @@ export default function DoneForYouPage() {
             .
           </p>
         </div>
-      </footer>
+      </section>
     </main>
   );
 }

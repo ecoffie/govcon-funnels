@@ -87,10 +87,10 @@ export default function AboutPage() {
 
       <div className="mx-auto max-w-3xl px-4 py-16 sm:py-24">
         <header>
-          <p className="text-sm font-semibold uppercase tracking-widest text-violet-300">
+          <p className="text-sm font-semibold uppercase tracking-widest text-brand-bright">
             About
           </p>
-          <h1 className="mt-3 text-3xl font-bold leading-tight sm:text-5xl">
+          <h1 className="mt-3 font-display text-3xl font-black leading-tight sm:text-5xl">
             Everyday people. Extraordinary federal contracts.
           </h1>
           <p className="mt-6 text-lg leading-relaxed text-slate-300">
@@ -120,15 +120,15 @@ export default function AboutPage() {
         </section>
 
         <section className="mt-16">
-          <h2 className="text-2xl font-bold">How it happened</h2>
+          <h2 className="font-display text-2xl font-black">How it happened</h2>
           <ol className="mt-8 flex flex-col gap-8 border-l border-slate-800 pl-6">
             {TIMELINE.map((t) => (
               <li key={t.title} className="relative">
                 <span
                   aria-hidden="true"
-                  className="absolute -left-[1.65rem] top-2 h-2.5 w-2.5 rounded-full bg-violet-400"
+                  className="absolute -left-[1.65rem] top-2 h-2.5 w-2.5 rounded-full bg-brand-bright"
                 />
-                <p className="text-xs font-semibold uppercase tracking-widest text-violet-300">
+                <p className="text-xs font-semibold uppercase tracking-widest text-brand-bright">
                   {t.marker}
                 </p>
                 <h3 className="mt-1 text-lg font-semibold text-white">{t.title}</h3>
@@ -139,7 +139,7 @@ export default function AboutPage() {
         </section>
 
         <section className="mt-16 rounded-xl border border-slate-800 bg-slate-900/50 p-6 sm:p-8">
-          <h2 className="text-2xl font-bold">The mission</h2>
+          <h2 className="font-display text-2xl font-black">The mission</h2>
           <p className="mt-4 text-lg leading-relaxed text-slate-300">
             Give away 99.9% for free. The information that decides who wins federal
             contracts shouldn&apos;t sit behind a five-figure consulting retainer — it should
@@ -148,7 +148,7 @@ export default function AboutPage() {
           <div className="mt-7 flex flex-col gap-3 sm:flex-row">
             <Link
               href="/podcast"
-              className="rounded-lg bg-violet-600 px-5 py-3 text-center font-semibold text-white transition hover:bg-violet-500"
+              className="rounded-lg bg-brand px-5 py-3 text-center font-semibold text-white transition hover:bg-brand-dark"
             >
               Listen to the podcast
             </Link>

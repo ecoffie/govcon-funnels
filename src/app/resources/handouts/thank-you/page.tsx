@@ -102,15 +102,6 @@ export default function ResourcesThankYou() {
       </section>
 
       {/* Footer */}
-      <footer className="py-8 px-6 border-t border-slate-800">
-        <div className="max-w-4xl mx-auto text-center">
-          <div className="flex items-center justify-center gap-1 mb-4">
-            <span className="text-xl font-bold text-white">GovCon</span>
-            <span className="text-xl font-bold text-green-500">Giants</span>
-          </div>
-          <p className="text-slate-600 text-sm">&copy; 2026 GovCon Giants. All rights reserved.</p>
-        </div>
-      </footer>
     </main>
   );
 }
