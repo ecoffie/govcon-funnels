@@ -8,6 +8,10 @@ const nextConfig: NextConfig = {
   },
   async redirects() {
     return [
+      // Eric Coffie's speaker page moved to its own domain (repo ecoffie/ericcoffie-site).
+      // MERGE ONLY AFTER https://ericcoffie.com serves the site, or these send visitors to a dead domain.
+      { source: "/ericcoffie", destination: "https://ericcoffie.com", permanent: true },
+      { source: "/ericcoffie/:path*", destination: "https://ericcoffie.com", permanent: true },
       // SEO Migration: .org → .com (May 2026) - canonical is govcongiants.com (no www)
       {
         source: "/:path*",
@@ -241,7 +245,6 @@ const nextConfig: NextConfig = {
     return {
       beforeFiles: [
         { source: "/quiz", destination: "/quiz/index.html" },
-        { source: "/ericcoffie", destination: "/ericcoffie/index.html" },
         { source: "/upskilling", destination: "/upskilling/index.html" },
         { source: "/market-intel", destination: "/market-intel/index.html" },
         // Mindy Launch (Sat June 27, 2026): proxy the static funnel so the URL
