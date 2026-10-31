@@ -5,7 +5,8 @@
 /* eslint-disable @next/next/no-img-element */
 
 import Link from 'next/link';
-import { FormEvent, useEffect, useRef, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
+import NewsletterForm from '@/components/chrome/NewsletterForm';
 import featuredEpisodes from '@/data/featured-episodes.json';
 import styles from './HomePage.module.css';
 
@@ -66,137 +67,6 @@ const ARTICLES = [
     readTime: '8 min',
   },
 ];
-
-const NAV_LINKS = [
-  { href: '/podcast', label: 'Podcast' },
-  { href: '/blog', label: 'Blog' },
-  { href: 'https://gcgsummit.com', label: 'Summit', external: true },
-  { href: '/resources', label: 'Resources' },
-  { href: '/about', label: 'About' },
-  { href: '/mindy-launch', label: 'Mindy Day' },
-];
-
-function NewsletterForm({
-  compact = false,
-  onSuccess,
-}: {
-  compact?: boolean;
-  onSuccess?: () => void;
-}) {
-  const [email, setEmail] = useState('');
-  const [status, setStatus] = useState<'idle' | 'submitting' | 'done' | 'error'>('idle');
-
-  async function submit(event: FormEvent<HTMLFormElement>) {
-    event.preventDefault();
-    if (!email.trim() || status === 'submitting') return;
-    setStatus('submitting');
-    try {
-      const response = await fetch('/api/lead', {
-        method: 'POST',
-        headers: { 'content-type': 'application/json' },
-        body: JSON.stringify({ email: email.trim(), source: 'newsletter' }),
-      });
-      if (!response.ok) throw new Error(`Lead request failed: ${response.status}`);
-      setStatus('done');
-      onSuccess?.();
-    } catch {
-      setStatus('error');
-    }
-  }
-
-  if (status === 'done') {
-    return <p className={styles.success}>✓ You&apos;re on the list — check your inbox.</p>;
-  }
-
-  return (
-    <form className={compact ? styles.compactForm : styles.heroForm} onSubmit={submit} aria-label="Newsletter signup">
-      <input
-        type="email"
-        required
-        value={email}
-        disabled={status === 'submitting'}
-        onChange={(event) => setEmail(event.target.value)}
-        placeholder="you@company.com"
-        aria-label="Email address"
-      />
-      <button type="submit" disabled={status === 'submitting'}>
-        {status === 'submitting' ? 'Joining…' : compact ? 'Send Me the Action Plan →' : 'Join the Newsletter →'}
-      </button>
-      {status === 'error' && <span className={styles.formError}>Something went wrong — try again.</span>}
-    </form>
-  );
-}
-
-function HomeNav() {
-  const [open, setOpen] = useState(false);
-  const [newsletterOpen, setNewsletterOpen] = useState(false);
-
-  useEffect(() => {
-    document.body.style.overflow = newsletterOpen ? 'hidden' : '';
-    return () => {
-      document.body.style.overflow = '';
-    };
-  }, [newsletterOpen]);
-
-  return (
-    <>
-      <header className={styles.nav}>
-        <div className={styles.container}>
-          <Link href="/" className={styles.logo} aria-label="GovCon Giants home">
-            GovCon <span>Giants</span>
-          </Link>
-          <nav className={styles.desktopNav} aria-label="Primary navigation">
-            {NAV_LINKS.map((link) =>
-              link.external ? (
-                <a key={link.href} href={link.href} target="_blank" rel="noopener">{link.label} ↗</a>
-              ) : (
-                <Link key={link.href} href={link.href}>{link.label}</Link>
-              ),
-            )}
-          </nav>
-          <div className={styles.navActions}>
-            <button className={styles.newsletterButton} onClick={() => setNewsletterOpen(true)}>
-              Free Newsletter
-            </button>
-            <button
-              className={styles.menuButton}
-              onClick={() => setOpen((value) => !value)}
-              aria-label={open ? 'Close menu' : 'Open menu'}
-              aria-expanded={open}
-            >
-              {open ? '×' : '☰'}
-            </button>
-          </div>
-        </div>
-      </header>
-      {open && (
-        <nav className={styles.mobileNav} aria-label="Mobile navigation">
-          {[{ href: '/', label: 'Home' }, ...NAV_LINKS].map((link) =>
-            link.external ? (
-              <a key={link.href} href={link.href} target="_blank" rel="noopener" onClick={() => setOpen(false)}>
-                {link.label} ↗
-              </a>
-            ) : (
-              <Link key={link.href} href={link.href} onClick={() => setOpen(false)}>{link.label}</Link>
-            ),
-          )}
-          <button onClick={() => { setOpen(false); setNewsletterOpen(true); }}>Free Newsletter</button>
-        </nav>
-      )}
-      {newsletterOpen && (
-        <div className={styles.modalBackdrop} role="dialog" aria-modal="true" aria-label="Newsletter signup" onClick={() => setNewsletterOpen(false)}>
-          <div className={styles.modal} onClick={(event) => event.stopPropagation()}>
-            <button className={styles.modalClose} onClick={() => setNewsletterOpen(false)} aria-label="Close">×</button>
-            <p className={styles.kicker}>FREE NEWSLETTER</p>
-            <h2>The GovCon Giants <em>Newsletter</em></h2>
-            <p>Weekly federal contracting tactics, buyer intel, and the exact plays behind $20M+ in government sales.</p>
-            <NewsletterForm compact onSuccess={() => window.setTimeout(() => setNewsletterOpen(false), 1200)} />
-          </div>
-        </div>
-      )}
-    </>
-  );
-}
 
 function Hero() {
   const [slide, setSlide] = useState(0);
@@ -342,7 +212,7 @@ function FeaturedEpisodes() {
 
 function Summit() {
   return (
-    <section className={`${styles.section} ${styles.summit}`}>
+    <section id="summit" className={`${styles.section} ${styles.summit}`}>
       <img className={styles.starPattern} src="/pattern-stars.svg" alt="" aria-hidden="true" />
       <div className={styles.container}>
         <SectionHeading kicker="THE ANNUAL EVENT">GCG National <em>Summit</em></SectionHeading>
@@ -363,10 +233,7 @@ function Summit() {
               <p><b>Shannon Jackson</b><small>Executive Director (SES), HHS OSDBU</small></p>
               <p><b>Vonna Ordaz</b><small>Director, NRC Office of Small Business</small></p>
             </div>
-            <div className={styles.summitLinks}>
-              <a href="https://gcgsummit.com" target="_blank" rel="noopener">Visit gcgsummit.com ↗</a>
-              <a href="https://gcgsummit.com/speakers/" target="_blank" rel="noopener">Meet the speakers →</a>
-            </div>
+            {/* gcgsummit.com links held out while that site is down (TLS fails, HTTP 409, 2026-10-27). */}
           </div>
           <div className={styles.summitVisual}>
             <img src="/summit/moment-01.jpg" alt="Attendees networking at the GCG National Summit" loading="lazy" />
@@ -386,7 +253,7 @@ function Summit() {
 function Experiences() {
   const tiles = [
     { title: 'Listen to the Podcast', desc: '250K+ listens — near-daily plays and long-form interviews.', image: '/summit/moment-06.jpg', href: '/podcast' },
-    { title: 'Attend the Summit', desc: 'The annual Contracting Connections + Technology Summit in Miami.', image: '/summit/candid-laugh.jpg', href: 'https://gcgsummit.com', external: true },
+    { title: 'Attend the Summit', desc: 'The annual Contracting Connections + Technology Summit in Miami.', image: '/summit/candid-laugh.jpg', href: '#summit' },
     { title: 'Get the Playbook', desc: 'The exact federal websites behind $20M+ in government sales.', image: '/articles/playbook-tile.jpg', href: '/resources' },
   ];
   return (
@@ -401,9 +268,7 @@ function Experiences() {
                 <div><h3>{tile.title}</h3><p>{tile.desc}</p><span>EXPLORE →</span></div>
               </>
             );
-            return tile.external
-              ? <a className={styles.tile} href={tile.href} target="_blank" rel="noopener" key={tile.title}>{content}</a>
-              : <Link className={styles.tile} href={tile.href} key={tile.title}>{content}</Link>;
+            return <Link className={styles.tile} href={tile.href} key={tile.title}>{content}</Link>;
           })}
         </div>
       </div>
@@ -438,34 +303,9 @@ function PopularArticles() {
   );
 }
 
-function Footer() {
-  return (
-    <footer className={styles.footer}>
-      <div className={styles.container}>
-        <div className={styles.footerSignup}>
-          <p className={styles.kicker}>THE FREE ACTION PLAN</p>
-          <h2>Your step-by-step plan to win federal contracts — free.</h2>
-          <NewsletterForm compact />
-        </div>
-        <div className={styles.footerGrid}>
-          <div><p className={styles.logo}>GovCon <span>Giants</span></p><p>Government contracting education with one rule: give away 99.9% for free.</p></div>
-          <nav><b>LISTEN</b><a href="https://podcasts.apple.com/us/podcast/govcon-giants/id1463074357" target="_blank" rel="noopener">Apple Podcasts</a><a href="https://open.spotify.com/show/0lrErW5lY6VHqskkQH4WMk" target="_blank" rel="noopener">Spotify</a></nav>
-          <nav><b>LEARN</b><Link href="/blog">Blog</Link><Link href="/resources">Resources</Link></nav>
-          <nav><b>COMPANY</b><Link href="/about">About</Link><Link href="/about#contact">Contact</Link><Link href="/about#press">Press</Link><a href="https://gcgsummit.com" target="_blank" rel="noopener">GCG Summit ↗</a></nav>
-        </div>
-        <div className={styles.legal}>
-          <div><a href="https://www.youtube.com/@ericcoffie">YouTube</a><a href="https://x.com/ericcoffie">X</a><a href="https://www.linkedin.com/in/ericcoffie/">LinkedIn</a><a href="https://www.instagram.com/ericcoffie/">Instagram</a></div>
-          <p>© {new Date().getFullYear()} GOVCON GIANTS · MIAMI, FL · <Link href="/privacy-policy">PRIVACY</Link> · <Link href="/terms">TERMS</Link></p>
-        </div>
-      </div>
-    </footer>
-  );
-}
-
 export default function HomePage() {
   return (
     <div className={styles.home}>
-      <HomeNav />
       <main>
         <Hero />
         <LogoMarquee />
@@ -474,7 +314,6 @@ export default function HomePage() {
         <Experiences />
         <PopularArticles />
       </main>
-      <Footer />
     </div>
   );
 }

@@ -169,11 +169,6 @@ export default function ProMemberGroupPage() {
       </section>
 
       {/* Footer */}
-      <footer className="py-8 px-6 border-t border-slate-800">
-        <div className="max-w-4xl mx-auto text-center">
-          <p className="text-slate-600 text-sm">© 2026 GovCon Giants. All rights reserved.</p>
-        </div>
-      </footer>
     </main>
   );
 }

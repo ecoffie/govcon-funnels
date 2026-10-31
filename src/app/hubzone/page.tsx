@@ -413,7 +413,7 @@ export default function HubzonePage() {
       </section>
 
       {/* Footer */}
-      <footer className="border-t border-gray-200 py-10 px-6">
+      <section aria-label="Contact" className="border-t border-gray-200 py-10 px-6">
         <div className="max-w-6xl mx-auto">
           <div className="flex flex-col md:flex-row items-start justify-between gap-8">
             <div>
@@ -453,11 +453,8 @@ export default function HubzonePage() {
               </p>
             </div>
           </div>
-          <div className="mt-8 pt-6 border-t border-gray-100 text-center text-sm text-gray-400">
-            &copy; {new Date().getFullYear()} GovCon Giants. All rights reserved.
-          </div>
         </div>
-      </footer>
+      </section>
     </main>
   );
 }

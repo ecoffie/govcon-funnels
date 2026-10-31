@@ -9,17 +9,31 @@
   --muted: #94a3b8;
 }
 
+/*
+ * GovCon Giants brand tokens. The homepage (src/components/home/HomePage.module.css)
+ * is the design source; these mirror its --brand / --ink / --paper values so every
+ * page can use them as Tailwind utilities: bg-brand, text-brand-bright, bg-paper,
+ * text-ink, border-line, bg-night, font-display.
+ */
 @theme inline {
   --color-background: var(--background);
   --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+  --color-brand: #16a34a;
+  --color-brand-dark: #15803d;
+  --color-brand-bright: #4ade80;
+  --color-ink: #1f2937;
+  --color-ink-muted: #64748b;
+  --color-line: #e4e4e7;
+  --color-paper: #fafafa;
+  --color-night: #0d1526;
+  --font-sans: var(--font-public-sans), system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif;
+  --font-display: var(--font-merriweather), Georgia, serif;
 }
 
 body {
   background: var(--background);
   color: var(--foreground);
-  font-family: system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif;
+  font-family: var(--font-public-sans), system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif;
 }
 
 /* Green glow effect */
