@@ -75,7 +75,13 @@ export default function AboutPage() {
     url: 'https://govcongiants.com/about',
     description:
       'Federal contracting educator and host of the GovCon Giants Podcast. Built $20M+ in federal sales before teaching the process publicly.',
-    sameAs: ['https://govcongiants.com', 'https://getmindy.ai'],
+    sameAs: [
+      'https://ericcoffie.com',
+      'https://govcongiants.com',
+      'https://getmindy.ai',
+      'https://www.youtube.com/@EricCoffie',
+      'https://www.linkedin.com/in/ecoffie/',
+    ],
   };
 
   return (
@@ -158,6 +164,14 @@ export default function AboutPage() {
             >
               Free resources
             </Link>
+            <a
+              href="https://ericcoffie.com"
+              target="_blank"
+              rel="noopener"
+              className="rounded-lg border border-slate-700 px-5 py-3 text-center font-semibold text-slate-200 transition hover:border-slate-500 hover:text-white"
+            >
+              Book Eric to speak ↗
+            </a>
           </div>
         </section>
       </div>
