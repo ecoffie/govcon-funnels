@@ -118,7 +118,9 @@ export async function searchJobs(params: JSearchParams): Promise<{
       'X-RapidAPI-Key': apiKey,
       'X-RapidAPI-Host': 'jsearch.p.rapidapi.com',
     },
-    cache: 'no-store',
+    // Same reasoning as usajobs.ts: cache an hour, never wait more than 5s.
+    next: { revalidate: 3600 },
+    signal: AbortSignal.timeout(5000),
   });
 
   if (!response.ok) {

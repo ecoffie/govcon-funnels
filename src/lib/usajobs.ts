@@ -113,7 +113,11 @@ async function fetchUSAJobsSearch(
       'User-Agent': email,
       'Host': 'data.usajobs.gov',
     },
-    cache: 'no-store',
+    // Listings change a few times a day. Caching for an hour keeps /jobs from
+    // making five live USAJobs calls per view, and the timeout stops a slow
+    // upstream from holding the page open (it took 3-90s from Vercel, Oct 2026).
+    next: { revalidate: 3600 },
+    signal: AbortSignal.timeout(5000),
   });
 
   if (!response.ok) {
@@ -190,9 +194,9 @@ export async function searchUSAJobs(params: JobSearchParams = {}): Promise<{
       total: totalEstimate,
     };
   } catch (error) {
+    // Empty, never mock: invented listings would be shown to visitors as real jobs.
     console.error('USAJobs API error:', error);
-    const mockJobs = getMockJobs();
-    return { jobs: mockJobs, total: mockJobs.length };
+    return { jobs: [], total: 0 };
   }
 }
 
