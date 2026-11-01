@@ -1,6 +1,32 @@
+import type { ReactNode } from 'react';
 import Link from 'next/link';
 import type { Job } from '@/types/job';
 import { formatSalary, getCategoryInfo, getCertificationMatch } from '@/lib/job-categories';
+import { getJobDestination } from '@/lib/job-destination';
+
+function JobCardShell({
+  job,
+  className,
+  children,
+}: {
+  job: Job;
+  className: string;
+  children: ReactNode;
+}) {
+  const destination = getJobDestination(job);
+  if (destination.external) {
+    return (
+      <a href={destination.href} target="_blank" rel="noopener noreferrer" className={className}>
+        {children}
+      </a>
+    );
+  }
+  return (
+    <Link href={destination.href} className={className}>
+      {children}
+    </Link>
+  );
+}
 
 interface JobCardProps {
   job: Job;
@@ -21,8 +47,8 @@ export default function JobCard({ job, featured = false }: JobCardProps) {
   const daysSincePosted = Math.floor((today.getTime() - postedDate.getTime()) / (1000 * 60 * 60 * 24));
 
   return (
-    <Link
-      href={`/jobs/view/${job.id}`}
+    <JobCardShell
+      job={job}
       className={`block bg-slate-900 border rounded-xl p-6 hover:border-green-500/50 transition-all hover:translate-y-[-2px] ${
         featured ? 'border-green-500/30 ring-1 ring-green-500/20' : 'border-slate-800'
       }`}
@@ -107,6 +133,6 @@ export default function JobCard({ job, featured = false }: JobCardProps) {
           </div>
         </div>
       )}
-    </Link>
+    </JobCardShell>
   );
 }
