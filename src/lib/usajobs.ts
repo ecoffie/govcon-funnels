@@ -228,11 +228,20 @@ export async function getJob(id: string): Promise<Job | null> {
     }
 
     const data: USAJobsSearchResult = await response.json();
-    if (data.SearchResult.SearchResultCount === 0) {
+    const items = data.SearchResult?.SearchResultItems ?? [];
+    // USAJobs ignores an unknown PositionID and still returns other open
+    // postings. Rendering the first of those shows a different job than the
+    // one the visitor opened (seen live: a JSearch capture-manager id rendered
+    // "Honors Attorney" at CIA, position 721962100).
+    const match = items.find((item) => {
+      const positionId = item.MatchedObjectDescriptor?.PositionID;
+      return item.MatchedObjectId === id || positionId === id;
+    });
+    if (!match) {
       return null;
     }
 
-    return transformJob(data.SearchResult.SearchResultItems[0]);
+    return transformJob(match);
   } catch (error) {
     console.error('USAJobs API error:', error);
     return null;
