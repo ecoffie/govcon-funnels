@@ -111,7 +111,7 @@
   margin-top: 36px;
 }
 
-.heroGrid > p {
+.heroIntro > p {
   max-width: 580px;
   margin: 0;
   color: #e2e8f0;
@@ -613,9 +613,102 @@
   letter-spacing: .12em;
 }
 
+.heroByline {
+  display: inline-block;
+  margin-top: 18px;
+  color: var(--brand-bright);
+  font-weight: 700;
+  text-decoration: none;
+}
+
+.heroByline:hover {
+  text-decoration: underline;
+}
+
+.meetEric {
+  scroll-margin-top: 72px;
+  background: white;
+}
+
+.meetGrid {
+  display: grid;
+  grid-template-columns: minmax(0, 5fr) minmax(0, 7fr);
+  align-items: center;
+  gap: 70px;
+}
+
+.meetPhoto {
+  width: 100%;
+  height: auto;
+  aspect-ratio: 736 / 921;
+  border: 1px solid var(--line);
+  border-radius: 12px;
+  object-fit: cover;
+}
+
+.meetEric .sectionHeading {
+  margin-bottom: 24px;
+}
+
+.stageList {
+  display: grid;
+  gap: 12px;
+  margin: 12px 0 0;
+  padding: 0;
+  list-style: none;
+}
+
+.stageList li {
+  border-left: 3px solid var(--brand);
+  padding-left: 14px;
+  font-size: 15px;
+}
+
+.stageList small {
+  display: block;
+  margin-top: 2px;
+  color: var(--muted);
+}
+
+.meetActions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  margin-top: 32px;
+}
+
+.meetPrimary,
+.meetSecondary {
+  border-radius: 999px;
+  font-weight: 700;
+  padding: 13px 24px;
+  text-decoration: none;
+}
+
+.meetPrimary {
+  background: var(--brand);
+  color: white;
+}
+
+.meetPrimary:hover {
+  background: #15803d;
+}
+
+.meetSecondary {
+  border: 1px solid #d4d4d8;
+  color: var(--ink);
+}
+
+.meetSecondary:hover {
+  border-color: var(--brand);
+  color: var(--brand);
+}
+
 @media (max-width: 1000px) {
   .heroGrid { grid-template-columns: 1fr; gap: 28px; }
   .summitGrid { grid-template-columns: 1fr; }
+  .meetGrid { grid-template-columns: 1fr; gap: 40px; }
+  .meetPhoto { max-width: 420px; }
 }
 
 @media (max-width: 760px) {

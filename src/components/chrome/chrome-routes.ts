@@ -23,5 +23,6 @@ export const NAV_LINKS: { href: string; label: string; external?: boolean }[] = 
   { href: '/blog', label: 'Blog' },
   { href: '/resources', label: 'Resources' },
   { href: '/about', label: 'About' },
+  { href: 'https://ericcoffie.com', label: 'Eric Coffie', external: true },
   { href: '/mi', label: 'Mindy' },
 ];

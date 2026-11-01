@@ -99,11 +99,14 @@ function Hero() {
           <path d="M4 9 C 40 2, 80 12, 118 7 C 150 3, 190 10, 216 6" stroke="currentColor" strokeWidth="5" strokeLinecap="round" />
         </svg>
         <div className={styles.heroGrid}>
-          <p>
-            Every year, the federal government awards hundreds of billions in contracts — and everyday small
-            businesses never get a shot, because nobody shows them how the system actually works. GovCon Giants
-            closes that gap: free education, real playbooks, and a community that turns new businesses into federal contractors.
-          </p>
+          <div className={styles.heroIntro}>
+            <p>
+              Every year, the federal government awards hundreds of billions in contracts — and everyday small
+              businesses never get a shot, because nobody shows them how the system actually works. GovCon Giants
+              closes that gap: free education, real playbooks, and a community that turns new businesses into federal contractors.
+            </p>
+            <a href="#meet-eric" className={styles.heroByline}>Founded and hosted by Eric Coffie →</a>
+          </div>
           <div>
             <p className={styles.master}>Master <em>{TOPICS[topic]}</em></p>
             <NewsletterForm />
@@ -155,6 +158,48 @@ function LogoMarquee() {
           {[...SPONSORS, ...SPONSORS].map((name, index) => (
             <img key={`${name}-${index}`} src={`/logos/${name}.png`} alt={index < SPONSORS.length ? `${name} logo` : ''} />
           ))}
+        </div>
+      </div>
+    </section>
+  );
+}
+
+/* Copy and stages match ericcoffie.com (live since 2026-10-31); every stage is from Eric's own records. */
+const STAGES = [
+  { event: 'DC Startup & Tech Week 2026', role: 'Panelist' },
+  { event: '2026 National HUBZone Conference', role: 'Plenary moderator' },
+  { event: 'Morehouse MIEC Ascend National Cohort', role: '2026' },
+];
+
+function MeetEric() {
+  return (
+    <section id="meet-eric" className={`${styles.section} ${styles.meetEric}`}>
+      <div className={`${styles.container} ${styles.meetGrid}`}>
+        <img
+          className={styles.meetPhoto}
+          src="/home/eric-coffie-stage.jpg"
+          alt="Eric Coffie speaking at the GCG National Summit"
+          width={736}
+          height={921}
+          loading="lazy"
+        />
+        <div>
+          <SectionHeading kicker="MEET YOUR HOST">Eric <em>Coffie</em></SectionHeading>
+          <p className={styles.lead}>
+            Eric Coffie went from a construction company weeks away from collapse to winning multi-million dollar
+            federal contracts, then gave the entire playbook away for free. He founded GovCon Giants and hosts the
+            podcast so everyday business owners can see how the government actually buys.
+          </p>
+          <p className={styles.speakerLabel}>RECENT STAGES</p>
+          <ul className={styles.stageList}>
+            {STAGES.map((stage) => (
+              <li key={stage.event}><b>{stage.event}</b><small>{stage.role}</small></li>
+            ))}
+          </ul>
+          <div className={styles.meetActions}>
+            <a className={styles.meetPrimary} href="https://ericcoffie.com/#book" target="_blank" rel="noopener">Book Eric to speak ↗</a>
+            <a className={styles.meetSecondary} href="https://ericcoffie.com/#story" target="_blank" rel="noopener">Read his story ↗</a>
+          </div>
         </div>
       </div>
     </section>
@@ -309,6 +354,7 @@ export default function HomePage() {
       <main>
         <Hero />
         <LogoMarquee />
+        <MeetEric />
         <FeaturedEpisodes />
         <Summit />
         <Experiences />
