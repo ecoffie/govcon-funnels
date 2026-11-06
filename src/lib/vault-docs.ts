@@ -105,4 +105,22 @@ export const vaultSource = (doc: VaultDoc) => `vault:${doc.title}`;
 /** Public download path for a vault doc. */
 export const vaultDownloadUrl = (doc: VaultDoc) => `/downloads/vault/${doc.file}`;
 
+const VAULT_EMAIL_ORIGIN = 'https://govcongiants.com';
+
+/**
+ * Download link a vault confirmation email is allowed to contain.
+ *
+ * `/api/lead` accepts a client `redirectUrl`, but that value is not a source of
+ * truth: the resources pages post a relative path (dead inside an email client),
+ * and any caller can post an off-site URL. Only an exact catalog title produces
+ * a link, and the link is always the file on govcongiants.com.
+ */
+export function resolveVaultDelivery(source: string): { title: string; downloadUrl: string } | null {
+  if (!source.startsWith('vault:')) return null;
+  const title = source.slice('vault:'.length);
+  const doc = VAULT_DOCS.find((d) => d.title === title);
+  if (!doc) return null;
+  return { title: doc.title, downloadUrl: `${VAULT_EMAIL_ORIGIN}${vaultDownloadUrl(doc)}` };
+}
+
 export const getVaultDoc = (slug: string) => VAULT_DOCS.find((d) => d.slug === slug);

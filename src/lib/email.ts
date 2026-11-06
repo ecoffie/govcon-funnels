@@ -7,6 +7,7 @@ import nodemailer from 'nodemailer';
 import { Resend } from 'resend';
 import { maskEmail } from './redact';
 import { syntheticRecipientReason } from './synthetic-lead';
+import { resolveVaultDelivery } from './vault-docs';
 
 const transporter = nodemailer.createTransport({
   service: 'gmail',
@@ -181,19 +182,38 @@ async function sendEmail(to: string, subject: string, html: string, cc?: string[
   }
 }
 
+/** Strip markup and control characters before a name is placed in email HTML or a subject. */
+function emailSafeName(name: string): string {
+  const cleaned = name.replace(/[<>]/g, '').replace(/[\u0000-\u001f\u007f]/g, ' ').trim();
+  return cleaned || 'there';
+}
+
+function escapeHtml(value: string): string {
+  return value
+    .replace(/&/g, '&amp;')
+    .replace(/</g, '&lt;')
+    .replace(/>/g, '&gt;')
+    .replace(/"/g, '&quot;');
+}
+
 /**
- * Send confirmation email based on funnel source
+ * Send confirmation email based on funnel source.
+ *
+ * `redirectUrl` stays on the type because callers still send it (the browser
+ * redirect is client-side). It is never written into an email: vault downloads
+ * use the catalog URL from `resolveVaultDelivery`.
  */
 export async function sendConfirmationEmail(params: EmailParams & { source: string; redirectUrl?: string }): Promise<EmailResult> {
-  const { to, name, source, redirectUrl } = params;
-  const firstName = name.split(' ')[0] || 'there';
+  const { to, source } = params;
+  const name = emailSafeName(params.name);
 
-  // Vault document library (govcongiants.com/resources): source is
-  // `vault:<doc title>` and redirectUrl is the direct download link. Without a
-  // redirectUrl there's nothing to deliver, so fall back to the generic welcome.
+  // Vault document library (govcongiants.com/resources). The link is the catalog
+  // file on govcongiants.com, never the client-supplied redirectUrl. An unknown
+  // title gets the generic welcome so a made-up source cannot invent a link.
   if (source.startsWith('vault:')) {
-    if (redirectUrl) {
-      return sendVaultDocumentEmail({ to, name, docTitle: source.slice(6), downloadUrl: redirectUrl });
+    const delivery = resolveVaultDelivery(source);
+    if (delivery) {
+      return sendVaultDocumentEmail({ to, name, docTitle: delivery.title, downloadUrl: delivery.downloadUrl });
     }
     return sendGenericWelcomeEmail({ to, name, source });
   }
@@ -540,13 +560,25 @@ ${proCta()}`;
   return sendEmail(params.to, `${firstName}, thanks for joining the GovCon Giants newsletter!`, emailWrapper(content));
 }
 
+/** Filename-only library URL. Rejects off-site hosts, query strings, and markup. */
+function isCanonicalVaultDownloadUrl(url: string): boolean {
+  const prefix = 'https://govcongiants.com/downloads/vault/';
+  if (!url.startsWith(prefix)) return false;
+  return /^[a-z0-9][a-z0-9.-]*\.[a-z0-9]+$/i.test(url.slice(prefix.length));
+}
+
 /**
  * Vault document delivery email — gated downloads from the Document Library
- * (govcongiants.com/resources). Sends the direct download link.
+ * (govcongiants.com/resources). The link must already be a catalog file URL.
  */
 export async function sendVaultDocumentEmail(params: EmailParams & { docTitle: string; downloadUrl: string }): Promise<EmailResult> {
   const { to, name, docTitle, downloadUrl } = params;
-  const firstName = name.split(' ')[0] || 'there';
+  if (!isCanonicalVaultDownloadUrl(downloadUrl)) {
+    return { ok: false, error: 'refusing vault email: download URL is not a library file on govcongiants.com' };
+  }
+  const rawFirst = (name.split(' ')[0] || 'there').replace(/[<>]/g, '').trim() || 'there';
+  const firstName = escapeHtml(rawFirst);
+  const safeTitle = escapeHtml(docTitle);
 
   const content = `
 <h1 style="color: #ffffff; font-size: 28px; margin: 0 0 20px; text-align: center;">
@@ -555,14 +587,14 @@ export async function sendVaultDocumentEmail(params: EmailParams & { docTitle: s
 
 <p style="color: #94a3b8; font-size: 16px; line-height: 1.6; margin: 0 0 30px;">
   Hey ${firstName},<br><br>
-  Thanks for grabbing <strong style="color: #ffffff;">${docTitle}</strong> from the GovCon Giants Document Library. Click below to download your copy.
+  Thanks for grabbing <strong style="color: #ffffff;">${safeTitle}</strong> from the GovCon Giants Document Library. Click below to download your copy.
 </p>
 
 <table width="100%" cellpadding="0" cellspacing="0">
   <tr>
     <td align="center" style="padding: 20px 0;">
       <a href="${downloadUrl}" style="display: inline-block; background-color: #4ade80; color: #0f172a; padding: 16px 32px; border-radius: 8px; text-decoration: none; font-weight: 700; font-size: 16px;">
-        Download ${docTitle}
+        Download ${safeTitle}
       </a>
     </td>
   </tr>
@@ -577,7 +609,7 @@ export async function sendVaultDocumentEmail(params: EmailParams & { docTitle: s
   Want more where that came from? Tune in to the GovCon Giants podcast and newsletter for weekly tactics on winning federal contracts.
 </p>`;
 
-  return sendEmail(to, `${firstName}, here's your ${docTitle}`, emailWrapper(content));
+  return sendEmail(to, `${rawFirst}, here's your ${docTitle.replace(/[<>]/g, '')}`, emailWrapper(content));
 }
 
 /**
