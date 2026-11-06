@@ -80,6 +80,16 @@ vi.mock('@/lib/admin-auth', () => ({
   isAuthorized: (p: string | null) => p === 'admin-pw',
 }));
 
+const authCookie = vi.hoisted(() => ({ value: undefined as string | undefined }));
+vi.mock('next/headers', () => ({
+  cookies: async () => ({
+    get: (name: string) =>
+      name === 'dashboard_admin_pw' && authCookie.value !== undefined
+        ? { name, value: authCookie.value }
+        : undefined,
+  }),
+}));
+
 const fetchMock = global.fetch as ReturnType<typeof vi.fn>;
 const missing = (t: string): Resp => ({
   data: null,
@@ -90,6 +100,7 @@ const missing = (t: string): Resp => ({
 beforeEach(() => {
   db.calls.length = 0;
   db.signals.length = 0;
+  authCookie.value = undefined;
   db.respond = () => ({ data: [], error: null, count: 0 });
   fetchMock.mockImplementation(async () => new Response('{}', { status: 200 }));
 });
@@ -227,8 +238,8 @@ describe('GET /api/cron/synthetic-checks with the monitoring tables missing', as
 // ---- 4. dashboard never shows healthy without data ------------------------------
 
 async function renderDashboard() {
-  const { default: Page } = await import('@/app/dashboard/command-center/page');
-  return renderToStaticMarkup(await Page());
+  const { CommandCenterDashboard } = await import('@/app/dashboard/command-center/page');
+  return renderToStaticMarkup(await CommandCenterDashboard());
 }
 
 describe('/dashboard/command-center', () => {
@@ -274,6 +285,70 @@ describe('/dashboard/command-center', () => {
     expect(html).toContain('funnel_leads');
     expect(html).toContain('not monitoring results');
     expect(html).not.toContain('Past runs remain in synthetic_checks');
+  });
+});
+
+describe('dashboard auth cookie', async () => {
+  const { encodeDashboardAuthCookie, decodeDashboardAuthCookie, dashboardAuthCookieWrite } = await import(
+    '@/lib/dashboard-auth-cookie'
+  );
+
+  it('round-trips passwords that contain cookie delimiters', () => {
+    for (const pw of ['p@ss; word%100%', 'café — 合同']) {
+      const encoded = encodeDashboardAuthCookie(pw);
+      expect(encoded).not.toMatch(/[+/=;%\s]/);
+      expect(decodeDashboardAuthCookie(encoded)).toBe(pw);
+    }
+    const pw = 'p@ss; word%100%';
+    const encoded = encodeDashboardAuthCookie(pw);
+    const header = dashboardAuthCookieWrite(pw, true);
+    expect(header.startsWith(`dashboard_admin_pw=${encoded}`)).toBe(true);
+    expect(header).toContain('Path=/dashboard');
+    expect(header).toContain('SameSite=Lax');
+    expect(header).toContain('; Secure');
+  });
+});
+
+describe('command center page is not in the anonymous RSC payload', () => {
+  it('does not query or render monitoring without the staff cookie', async () => {
+    const now = new Date().toISOString();
+    db.respond = () => ({
+      data: [{ check: 'url', target: 'https://secret.example/leak', ok: true, ts: now, duration_ms: 1, detail: 'LEAK_MARKER' }],
+      error: null,
+      count: 7,
+    });
+    const { default: Page } = await import('@/app/dashboard/command-center/page');
+    const html = renderToStaticMarkup(await Page());
+    expect(html).toContain('Sign in to load command center data');
+    expect(html).not.toContain('LEAK_MARKER');
+    expect(html).not.toContain('secret.example');
+    expect(html).not.toMatch(/\d+\/\d+ UP/);
+    expect(db.calls).toEqual([]);
+  });
+
+  it('renders monitoring when the cookie is the admin password', async () => {
+    const { encodeDashboardAuthCookie } = await import('@/lib/dashboard-auth-cookie');
+    authCookie.value = encodeDashboardAuthCookie('admin-pw');
+    const now = new Date().toISOString();
+    db.respond = (t) =>
+      t === 'synthetic_checks'
+        ? { data: [{ check: 'url', target: 'https://govcongiants.com/', ok: true, ts: now, duration_ms: 90, detail: null }], error: null }
+        : t === 'site_events'
+          ? { data: [{ ts: now, event: 'page_view', label: null, page: '/', meta: {} }], error: null, count: 0 }
+          : { data: [{ ts: now, source: 'free-course', duplicate: false, ghl_ok: true, supabase_ok: true, slack_ok: true, email_ok: true, duration_ms: 400 }], error: null };
+    const { default: Page } = await import('@/app/dashboard/command-center/page');
+    const html = renderToStaticMarkup(await Page());
+    expect(html).toContain('1/1 UP');
+    expect(db.calls.length).toBeGreaterThan(0);
+  });
+
+  it('a wrong cookie is the same as no cookie', async () => {
+    const { encodeDashboardAuthCookie } = await import('@/lib/dashboard-auth-cookie');
+    authCookie.value = encodeDashboardAuthCookie('not-the-password');
+    const { default: Page } = await import('@/app/dashboard/command-center/page');
+    const html = renderToStaticMarkup(await Page());
+    expect(html).toContain('Sign in to load command center data');
+    expect(db.calls).toEqual([]);
   });
 });
 

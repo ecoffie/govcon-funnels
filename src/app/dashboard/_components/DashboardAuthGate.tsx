@@ -8,8 +8,30 @@ import {
   useState,
   type ReactNode,
 } from 'react';
+import { useRouter } from 'next/navigation';
+import {
+  DASHBOARD_AUTH_COOKIE,
+  dashboardAuthCookieClear,
+  dashboardAuthCookieWrite,
+  encodeDashboardAuthCookie,
+} from '@/lib/dashboard-auth-cookie';
 
 const STORAGE_KEY = 'dashboard_admin_pw';
+
+function currentAuthCookie(): string | null {
+  const row = document.cookie.split('; ').find((p) => p.startsWith(`${DASHBOARD_AUTH_COOKIE}=`));
+  return row ? row.slice(DASHBOARD_AUTH_COOKIE.length + 1) : null;
+}
+
+function persistAuthCookie(password: string) {
+  const secure = window.location.protocol === 'https:';
+  document.cookie = dashboardAuthCookieWrite(password, secure);
+}
+
+function forgetAuthCookie() {
+  const secure = window.location.protocol === 'https:';
+  document.cookie = dashboardAuthCookieClear(secure);
+}
 
 type AuthContextValue = {
   /** The admin password entered this session, or '' if not signed in. */
@@ -37,31 +59,45 @@ export function useDashboardAuth(): AuthContextValue {
 }
 
 export default function DashboardAuthGate({ children }: { children: ReactNode }) {
+  const router = useRouter();
   const [password, setPassword] = useState<string | null>(null);
   const [pwInput, setPwInput] = useState('');
   const [show, setShow] = useState(false);
   const [checked, setChecked] = useState(false);
 
   // Restore a previously-entered admin password (session-scoped).
+  // Also mirror it into the dashboard cookie so Server Components (the command
+  // center) can refuse to render on the anonymous request. Refresh once when
+  // the cookie was missing — otherwise the payload from the locked render stays.
   useEffect(() => {
-    const stored =
-      typeof window !== 'undefined' ? sessionStorage.getItem(STORAGE_KEY) : null;
-    if (stored) setPassword(stored);
+    const stored = sessionStorage.getItem(STORAGE_KEY);
+    if (stored) {
+      setPassword(stored);
+      const encoded = encodeDashboardAuthCookie(stored);
+      if (currentAuthCookie() !== encoded) {
+        persistAuthCookie(stored);
+        router.refresh();
+      }
+    }
     setChecked(true);
-  }, []);
+  }, [router]);
 
   const signOut = useCallback(() => {
-    if (typeof window !== 'undefined') sessionStorage.removeItem(STORAGE_KEY);
+    sessionStorage.removeItem(STORAGE_KEY);
+    forgetAuthCookie();
     setPassword(null);
-  }, []);
+    router.refresh();
+  }, [router]);
 
   const onLogin = (e: React.FormEvent) => {
     e.preventDefault();
     const pw = pwInput.trim();
     if (!pw) return;
-    if (typeof window !== 'undefined') sessionStorage.setItem(STORAGE_KEY, pw);
+    sessionStorage.setItem(STORAGE_KEY, pw);
+    persistAuthCookie(pw);
     setPassword(pw);
     setPwInput('');
+    router.refresh();
   };
 
   // Avoid a flash of the login screen before sessionStorage is read.
