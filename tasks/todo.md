@@ -1,86 +1,113 @@
 # TODO
 
-## ✅ DONE (2026-08-22, after the event) — PR #170 merged + the guard actually built
+## 📍 State as of 2026-10-27
 
-**[PR #170 — Page the funnel_leads readers](https://github.com/ecoffie/govcon-funnels/pull/170)** — MERGED.
-**[PR #172 — Build the unranged-select guard for real](https://github.com/ecoffie/govcon-funnels/pull/172)** — MERGED.
+origin/main = `d4a30ef` (merge of #216, 2026-10-10). Nothing merged since. **govcongiants.com is now the
+only canonical public host** (#190/#191/#192, 2026-09-05); live check 2026-10-27: `/podcast` 200,
+`/about` 200, `/encore` 307 → `/encore-funding`. Open work is mostly **unmerged PRs + held
+Command Center actions + stale worktrees** — listed under OPEN below.
 
-**The guard was never broken — it never existed.** The note below said
-`scripts/audit-unranged-selects.mjs` died with `MODULE_NOT_FOUND` and had been "silently passing."
-The truth was worse: no file, no git history of one, no npm script, no CI step, no git hook. The
-only mention of that filename in the entire repo was this todo entry. Nothing ran. This repo has
-**no pre-push hook at all**, so the guard now lives in **CI** (`.github/workflows/test.yml` job
-"Unranged Select Audit") where it runs for every agent and machine.
+## ✅ Done since 2026-08-22 (merged PRs by theme)
 
-**It immediately found 2 MORE live instances of the same bug that #170 did not touch:**
-- `src/lib/hubzone-registrations.ts` → feeds `/api/cron/hubzone-reminders` — **a send path**
-- `src/lib/mindy-bootcamp-registrations.ts` → reads `source='mindy-launch'`
+**One site on .com / SEO canonicalization**
+- #175 `/funding` destination 404 fixed (Encore reversed a domain migration)
+- #176 Phase 2: blog, resources, podcast, /about on .com + legacy redirects
+- #186 Consolidate GovCon production into the root app (brand homepage into Next)
+- #187 Podcast URLs: positional identity removed from every public podcast URL
+- #188 Disabled the looping app-host redirect (~10 route families)
+- #189 Phase 3 apex cutover runbook (`tasks/PHASE3-apex-cutover-runbook.md`)
+- #190 govcongiants.com the only canonical host; canonicalization lives in `vercel.json`; `runCanonicalHostChecks()` in `src/lib/synthetic.ts`
+- #191 Retired hosts served indexable 200 at `/` → explicit root redirects
+- #192 Dormant `podcast.govcongiants.org` → canonical .com redirects
+- #193 Synthetic: `mi.govcongiants.com` is a redirect bridge, not a 200 URL
+- direct commits: `338b327` `/encore` → `/encore-funding`; `c02d179` `/ericcoffie` 404 → speaker page in live app; `c609b43` two sitemap entries pointed at redirects (`docs/changes/2026-09-09-sitemap-redirect-hops.md`)
 
-Both now page via shared `fetchAllLeadRows()` in **`src/lib/supabase-paging.ts`** (these files build
-their own Supabase client, so they can't use the module-private helper in `supabase-leads.ts`).
+**Security / hygiene**
+- #178 Cursor repository instruction foundation (`.cursor/rules/`, CLAUDE.md)
+- #179 Retired the HUBZone registrations dashboard
+- #204 Retired Pursuit Briefs from marketing copy
 
-**Live sizing (2026-08-22, don't re-derive):** `funnel_leads` had **950** `mindy-launch` rows —
-that source was **~50 signups from the 1,000 cap**, thinner than the 769 figure below suggested.
-HUBZone was at 226 (187 + 39), so those two readers had not yet begun truncating.
+**Command Center + lead pipeline honesty (Oct)**
+- #207 Retired the canary-lead probe; synthetic leads suppressed (route + both email paths)
+- #208 Honest monitoring, fail-closed alerts, v2 migration (`supabase/rollback/20261004_command_center_v2.down.sql` is the guarded rollback)
+- #209 Release record → `tasks/RELEASE-RECORD-command-center-2026-10-04.md`
+- #212 Existing GHL contact gets tagged instead of failing on duplicate (`400 "does not allow duplicated contacts"`)
+- #213 Pipeline-log write runs via `next/server` `after()` so it survives the response
+- #214 Incident record → `tasks/INCIDENT-ghl-duplicate-contact-2026-10.md`
+- #216 mindy-launch confirmation outcome recorded: accepted / failed / **pending (unconfirmed ≠ failed)**; closes issue #215
 
-**Using the guard:**
-- `npm run audit:selects` — audit (exit 1 on findings, **exit 2 if the audit itself throws**)
-- `npm run audit:selects:self-test` — negative control; CI runs this FIRST
-- `node scripts/audit-unranged-selects.mjs --list` — every site + verdict
-- Deliberately **zero-dependency**; the CI job does NOT run `npm ci` so an install failure can never
-  silently skip it. `PAGER_HINTS` entries are asserted to still call `.range()`, so a hint cannot
-  outlive its paging. `ALLOWLIST` requires a written reason (one entry: `sam/utils.ts`
-  `delete().select('id')` — the DELETE is uncapped, only the returned id list truncates).
-- Verified: self-test 8/8 · 15/15 sites bounded · tsc 0 · build 0 · 33 unit tests pass.
+**Aug 22 post-Mindy-Day cleanup (condensed — durable rules kept)**
+- #170 + #172: `funnel_leads` readers paged (were ~50 rows from the 1,000 PostgREST cap). Shared pager
+  `fetchAllLeadRows()` in **`src/lib/supabase-paging.ts`**. Guard lives in **CI** (`.github/workflows/test.yml`,
+  "Unranged Select Audit"); repo has **no pre-push hook**.
+  **Using the guard:** `npm run audit:selects` (exit 1 findings, **exit 2 if the audit throws**) ·
+  `npm run audit:selects:self-test` (negative control, CI runs first) · `node scripts/audit-unranged-selects.mjs --list`.
+  Zero-dependency on purpose. `ALLOWLIST` needs a written reason. **It only recognises `.from('<literal>')`** —
+  passing a table-name constant hides the site (found in #208).
+- #174: **Any place that shows the Mindy Day date must import from `src/lib/mindy-day.ts`** — never retype it
+  (SiteNav once rendered a stale "July 25" client-side, invisible to curl). `cron_jobs` rows are the only cron
+  source of truth for those routes.
+- Disabled `mindy-lifetime-finalclose` (`cron_jobs` `e49245b8-…`), which would have emailed **797** registrants
+  June-29 copy. **Date-pinned cron rows re-arm yearly.** After any event sweep:
+  `SELECT job_name, cron_expr, enabled FROM cron_jobs WHERE enabled = true AND cron_expr !~ '^\S+\s+\S+\s+\*\s+\*'`
+  and disable the one-shots.
+- **The Supabase service-role key in `market-assassin/.env.local` was STALE** ("Invalid API key") as of 2026-08-22.
+  Both projects share DB `krpyelfrbicmvsmwovti`; the working key is in govcon-funnels prod env (`vercel env pull`).
+- Site banner (raw rows) vs mailer (deduped, test addresses dropped) counts differ by design; the mailer's is accurate.
 
-**Why this came up (don't re-derive):** the site banner showed **769** registrants while the email
-dry-run showed **760**. That gap is CORRECT — the site counts raw `funnel_leads` rows; the mailer
-dedupes by lowercased email and drops test/plus addresses via
-`/\+|@example\.com$|\b(test|email-test)\b/i`. Nine were dupes or test entries. The mailer's number
-is the more accurate one. The unranged-select hazard was found while checking that gap, not because
-of it.
+## 🟡 OPEN (as of 2026-10-27)
 
-## ✅ DONE (2026-08-22) — stale July-25 date fixed (PR #174), and one was USER-FACING
+**In progress**
+- [ ] **Site-wide brand refresh: PR #218 open** (`fix/about-brand-and-stale-content`). Shared SiteHeader/SiteFooter,
+      Merriweather/Public Sans + brand tokens site-wide, SiteNav deleted, stale Mindy Day nav + wrong LinkedIn fixed.
+      Needs: merge, then an approved deploy, then `POST /api/command-center/verify`.
+- [ ] **Eric Coffie personal site → ericcoffie.com** (approved 2026-10-27). Standalone site built from
+      `public/ericcoffie/index.html`; private preview first. Shopify no longer needed for ericcoffie.com.
+      **Keep ALL email DNS (MX, SPF, DKIM, DMARC) at Namecheap.** No DNS change, Shopify billing change, or prod deploy
+      without Eric's go-ahead. After launch: 301 `govcongiants.com/ericcoffie` → `https://ericcoffie.com`, and add a
+      Speaking / Eric Coffie link on govcongiants.com (separate PR from #218).
 
-Scoped as a documentation-only comment fix. It wasn't: the date was stale in **7 files**, and
-`src/components/SiteNav.tsx` rendered the literal text **"Mindy Day — July 25"** in the mobile nav.
-Client component → never in server HTML → curl couldn't catch it; only visible when the menu opens.
+**Open PRs needing a decision**
+- [ ] **#217** docs: correct confirmation-evidence wording in the GHL incident record (2026-10-10) — docs only.
+- [ ] **#210** fix(command-center): keep monitoring data out of anonymous responses (Cursor, 2026-10-05) —
+      page reads a `/dashboard`-scoped cookie and returns a sign-in shell without querying Supabase. **Security fix; review first.**
+- [ ] **#203** security(cron): header-only auth for the Mindy cron routes — `?password=` refused (2026-09-21).
+      Only caller is Mindy's dispatcher (authenticates by header) per PR body.
+- [ ] **#177** Phase 3 runbook "DO NOT EXECUTE" (2026-08-24) — likely superseded by merged #189 (same runbook file); status unverified → close or merge.
+- [ ] **Cursor draft/bug PRs, possibly obsolete after the .com cutover:** #180 apex `/encore` serving SPA
+      (live `/encore` now 307s to `/encore-funding` → looks obsolete), #181 leftover encoregov.com CTAs, #184 partner
+      CTAs 404 on Calendly, drafts #152, #158, #159, #160. Status of #181/#184/#152/#158–#160 unverified.
+- [ ] **Dependabot batch (19 open):** #211 undici, #206 nodemailer 10.0.9 (major), #205 ip-address, #201 js-yaml,
+      #200 baseline-browser-mapping, **#199 sharp + next**, #196 vitest, #185 @humanfs/node, #173 brace-expansion,
+      #154 nanoid, #151 postcss + next; sub-apps: #202/#157 (`govcon-giants-site`), #198/#183/#155 (`govcon-crm2`),
+      #195/#194/#182 (`dashboard`).
 
-**Root cause = the half-migration predicted here.** `MINDY_DAY_SHORT_DATE = 'August 22'` already
-existed in `mindy-bootcamp-registrations.ts` and its comment claimed "SiteNav… read from here" —
-but SiteNav *couldn't*: that module dynamically imports `@supabase/supabase-js`, so no client
-component can import it. Aspirational comment, hardcoded date, silent drift.
+**Command Center held / follow-ups** (from `tasks/RELEASE-RECORD-command-center-2026-10-04.md`)
+- [ ] HELD (needs authorization): `POST /api/command-center/alert-selftest` — sends one real Slack message; Slack delivery + dedupe in prod **not tested**.
+- [ ] HELD (needs authorization, bulk delete → rule #11): cleanup of **4,549** `canary+…@example.com` rows in `funnel_leads` (last 2026-10-04T02:45Z) + CRM/Slack/email side effects.
+- [ ] Dashboard shows "—" for every zero; should only when unmeasured.
+- [ ] Stale empty-state copy ("beacon ships with the next govcon-giants-site deploy", "logging starts with the next govcon-funnels deploy").
+- [ ] Deploy panel says "Set VERCEL_API_TOKEN" but token is set and Vercel API returns **403** — check token scope; show real error.
+- [ ] Residual: Slack post OK but `cc_alert_log` write fails → may re-post next run (reported, not prevented).
+- [ ] No retention policy for `synthetic_checks` (~2,600 rows/day) or `site_events`.
+- [ ] Vercel Preview env has no Supabase/admin creds; authenticated previews need an isolated test DB.
 
-**Fix:** dates now live in **`src/lib/mindy-day.ts`** (dependency-free, server+client safe).
-`mindy-bootcamp-registrations.ts` re-exports from it. **Any new place that shows the Mindy Day date
-must import from `src/lib/mindy-day.ts`** — never retype it.
+**Lead pipeline follow-ups** (from #213/#216 bodies)
+- [ ] #213's live check "still pending a real submission" (per #216, 2026-10-10) — status unverified since.
+- [ ] Work **before** the response in `/api/lead` (GHL, Slack, Supabase, SMTP) has no timeouts; >~100s could cut the `after()` sequence at the 120s limit.
 
-The route header was also wrong beyond the schedule: it cited a "vercel.json note" for cron timing,
-but there is no vercel.json cron (rule #5). It now names `cron_jobs` as the only source of truth,
-lists the live rows, and warns that **date-pinned rows stay enabled and re-arm on the same calendar
-date next year**.
+**Domain / podcast loose ends**
+- [ ] `tasks/REMOVAL-RECORD-app-govcongiants-com.md`: dead Vercel attachment `app.govcongiants.com` verified safe to remove 2026-09-05, **NOT removed**. (Do not confuse with `app.govcongiants.ORG`.)
+- [ ] `tasks/CUTOVER-podcast-routes.md` still says "Not started", but `vercel.json` no longer has an unconditional `/podcast` → podcast host rule and live `/podcast` is 200 on .com → doc is likely stale; status unverified.
+- [ ] Root `CLAUDE.md` "Unresolved (podcast live source)" still says `vercel.json` sends `/podcast` to `podcast.govcongiants.org`; that rule is now host-conditional only → CLAUDE.md likely stale.
 
-Verified: zero July-25 literals in `src/` · live prod nav chunk serves "Mindy Day — " + "August 22",
-no "July 25" in any served chunk · tsc 0 · build 0 · 33 tests · guard 15/15.
-
-## ✅ DONE (2026-08-22) — disabled a cron that would have emailed 797 people
-
-**`mindy-lifetime-finalclose`** (`cron_jobs` id `e49245b8-7f29-40b0-aaf7-697d3be018d8`) was still
-`enabled=true` with `cron_expr = 0 0 25 8 *` → **Sun Aug 24, 8 PM ET**, and would have sent the
-lifetime "final close" offer email to **797 Mindy Day registrants** using copy written for a
-**June 29** deadline. Its sibling `mindy-lifetime-extension` had already been disabled; this row
-was missed. **Idempotency would NOT have stopped it** — the guard key TTL is 48h and the job last
-ran Jun 30, so the key was long expired. Disabled on Eric's go-ahead; reason recorded in the row's
-`notes`. Verified `enabled=false` via a separate read-only connection.
-
-**Two things worth remembering:**
-- **Date-pinned cron rows are a recurring hazard.** `0 0 25 8 *` has no year — it re-arms every
-  Aug 25. After any event, sweep: `SELECT job_name, cron_expr, enabled FROM cron_jobs WHERE
-  enabled = true AND cron_expr !~ '^\S+\s+\S+\s+\*\s+\*'` and disable the one-shots.
-- **The stored Supabase service-role key in `market-assassin/.env.local` is STALE** ("Invalid API
-  key"). Both projects share one database (`krpyelfrbicmvsmwovti`); the working key is in
-  **govcon-funnels** production env — `vercel env pull`. Anything running locally against the
-  market-assassin copy is silently failing.
+**Unmerged worktree branches**
+- [ ] `docs/speaker-calendar-2027` (worktree `speaker2027`, 2026-08-24): `tasks/SPEAKER-CALENDAR-2027.md`, 1 commit, **no PR**.
+- [ ] `wip/ga4-handoff-notes` (worktree `wip-ga4-handoff`, 2026-10-08): GA4 property wiring notes in `tasks/ga4-dashboard-setup.md`, **no PR**; shared checkout also has uncommitted edits to that file.
+- [ ] `hotfix-redirect-loop` worktree (#188 merged) has an untracked `tasks/PHASE3-apex-cutover-runbook.md` — superseded by #189's copy; check before pruning.
+- [ ] **Prunable (merged or patch-equivalent):** `encore-redirect` (= `338b327`), `ericcoffie-links`, `ericcoffie-page`, `sitemap-cleanup`,
+      `mi-synthetic-fix`, `phase4-canonical`, `podcast-host-retire`, `podcast-port`, `retire-hubzone-registrations`,
+      `root-redirect-fix`, `runbook-doc`. `phase3` holds open #177.
 
 ## 🔴 PAUSED: Mindy Re-Ignite email drip → pivoted to META RETARGETING (2026-07-08)
 
