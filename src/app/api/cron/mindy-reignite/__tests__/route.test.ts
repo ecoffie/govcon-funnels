@@ -41,12 +41,25 @@ describe('/api/cron/mindy-reignite', () => {
     await expect(res.json()).resolves.toEqual({ error: 'GHL_API_KEY not set' });
   });
 
-  it('accepts the configured admin password for manual runs', async () => {
+  it('accepts the configured admin password for manual runs (header-borne)', async () => {
+    process.env.PURCHASES_ADMIN_PASSWORD = 'admin-secret';
+
+    const res = await GET(request('https://govcongiants.com/api/cron/mindy-reignite', {
+      'x-admin-password': 'admin-secret',
+    }));
+
+    expect(res.status).toBe(500);
+    await expect(res.json()).resolves.toEqual({ error: 'GHL_API_KEY not set' });
+  });
+
+  // A scheduled route's URL is STORED by its scheduler, so a `?password=` in it
+  // is a secret at rest in that database and in every access log. Header only.
+  it('REJECTS a credential supplied in the query string', async () => {
     process.env.PURCHASES_ADMIN_PASSWORD = 'admin-secret';
 
     const res = await GET(request('https://govcongiants.com/api/cron/mindy-reignite?password=admin-secret'));
 
-    expect(res.status).toBe(500);
-    await expect(res.json()).resolves.toEqual({ error: 'GHL_API_KEY not set' });
+    expect(res.status).toBe(401);
+    await expect(res.json()).resolves.toEqual({ error: 'Unauthorized' });
   });
 });
