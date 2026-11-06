@@ -20,7 +20,13 @@ Fixed in PR #212 (merge `ec81df5`, deployed 2026-10-08 ~16:50 UTC): on that spec
 | B | 2026-10-07 16:59 | newsletter | `lead_pipeline_log` id 9, duplicate-contact error recorded | **Confirmed** failure |
 | C | 2026-10-05 19:08 | mindy-launch | No `lead_pipeline_log` row; see below | **Suspected duplicate-contact failure; exact error unavailable** |
 
-All three are real people, not synthetic submissions. Each has a `funnel_leads` row, and the confirmation email was sent. That shows the registration was saved and the email went out. It does **not** show that every signup action completed: each contact is still missing the tag the signup should have applied.
+All three are real people, not synthetic submissions. Each has a `funnel_leads` row, so the registration was saved. It does **not** show that every signup action completed: each contact is still missing the tag the signup should have applied.
+
+**Confirmations:** No confirmation failures were found in the available independent evidence. That is not proof of delivery:
+
+- Historical `email_ok = true` values from the old mindy-launch path are **not** delivery evidence. That path recorded `true` without sending anything; the real send happened on getmindy.ai and its outcome was never reported back.
+- For C, the only independent record is Mindy's `email_provider_sends` row for the confirmation. It shows a provider accepted the message, not that it reached the inbox.
+- For A and B, the record is the email step's own provider result, which also shows acceptance, not inbox delivery.
 
 ### Lead C — why it is suspected, not confirmed
 
@@ -28,6 +34,13 @@ All three are real people, not synthetic submissions. Each has a `funnel_leads` 
 - There is no `lead_pipeline_log` row for the request, so the GHL result was never recorded. Vercel runtime logs (about 24 h retention) had expired before the investigation. The exact error cannot be recovered.
 - C is therefore **not** counted as a third confirmed failure, and the alert's 2-of-11 figure stands as measured.
 - The missing log row is most likely the unawaited log write being lost after the response was sent. The code path does not skip logging for mindy-launch. Fix in a separate PR: the write now runs through `next/server` `after()`.
+
+## Confirmation handoff fix (issue #215)
+
+Released 2026-10-10: ecoffie/market-assassin#1869 (merge `29fcef09`) first, then #216 (merge `d4a30efa`). The pipeline log now records each mindy-launch confirmation as `confirmed` (getmindy.ai reports a provider accepted it), `failed` (an explicit rejection) or `pending` (outcome unknown). Provider acceptance is not inbox delivery.
+
+- **Unverified: how a Resend quota response is classified.** Rejections with a 4xx status are treated as explicit (`failed`, with the Office365 fallback allowed). The tests prove that for a 429 rate-limit response only. A tested rate-limit response doesn't prove a quota response carries the same status or meaning; no real quota response has been observed.
+- **Still open:** issue #215 stays open until a real mindy-launch registration shows its handoff outcome correctly recorded.
 
 ## Held (not done, awaiting approval)
 
