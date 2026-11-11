@@ -155,20 +155,37 @@ export async function searchUSAJobs(params: JobSearchParams = {}): Promise<{
       return { jobs: filteredJobs, total: result.total };
     }
 
-    // Otherwise, run multiple searches in parallel for BD-related terms
+    // Otherwise, run multiple searches in parallel for BD-related terms.
+    // Each call aborts at 5s. Promise.all would discard the searches that
+    // already returned if any one of them timed out, and /jobs would render
+    // "No jobs found" for the whole federal section. Keep the ones that landed.
     const searches = BD_SEARCH_TERMS.map(term =>
       fetchUSAJobsSearch(term, { ...params, limit: 10 }, apiKey, email || 'hello@govconedu.com')
     );
 
-    const results = await Promise.all(searches);
+    const settled = await Promise.allSettled(searches);
+    const failures = settled.filter((result) => result.status === 'rejected');
+
+    if (failures.length === settled.length) {
+      // Empty, never mock: invented listings would be shown to visitors as real jobs.
+      console.error('USAJobs API error:', failures[0].reason);
+      return { jobs: [], total: 0 };
+    }
+    if (failures.length > 0) {
+      console.error(
+        `USAJobs: ${failures.length} of ${settled.length} searches failed; keeping the rest`,
+        failures[0].reason,
+      );
+    }
 
     // Combine and deduplicate jobs by ID
     const jobMap = new Map<string, Job>();
     let totalEstimate = 0;
 
-    for (const result of results) {
-      totalEstimate += result.total;
-      for (const job of result.jobs) {
+    for (const result of settled) {
+      if (result.status !== 'fulfilled') continue;
+      totalEstimate += result.value.total;
+      for (const job of result.value.jobs) {
         if (!jobMap.has(job.id)) {
           jobMap.set(job.id, job);
         }
@@ -194,7 +211,8 @@ export async function searchUSAJobs(params: JobSearchParams = {}): Promise<{
       total: totalEstimate,
     };
   } catch (error) {
-    // Empty, never mock: invented listings would be shown to visitors as real jobs.
+    // Single-keyword searches and unexpected throws land here. Empty, never
+    // mock: invented listings would be shown to visitors as real jobs.
     console.error('USAJobs API error:', error);
     return { jobs: [], total: 0 };
   }
