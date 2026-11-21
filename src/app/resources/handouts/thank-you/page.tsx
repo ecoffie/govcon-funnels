@@ -3,6 +3,8 @@
 import { useEffect, useState } from 'react';
 import Link from 'next/link';
 
+const BASE_URL = process.env.NEXT_PUBLIC_SITE_URL || 'https://funnels.govcongiants.org';
+
 const downloads = [
   { name: "75 GovCon AI Prompts", file: "ai-prompts.pdf", icon: "\u{1F916}", desc: "Ready-to-use prompts for proposals and research" },
   { name: "2026 GovCon Action Plan", file: "2026-action-plan.pdf", icon: "\u{1F4C5}", desc: "Your step-by-step roadmap for 2026" },
@@ -63,8 +65,10 @@ export default function ResourcesThankYou() {
             {downloads.map((item, i) => (
               <a
                 key={i}
-                href={`/handouts/${item.file}`}
-                download
+                href={`${BASE_URL}/handouts/${item.file}`}
+                download={item.file}
+                target="_blank"
+                rel="noopener noreferrer"
                 className="flex items-start gap-4 bg-slate-900 border border-slate-800 hover:border-green-600 rounded-xl p-5 transition-all group"
               >
                 <div className="w-12 h-12 bg-green-900/30 border border-green-700/50 rounded-xl flex items-center justify-center flex-shrink-0 group-hover:bg-green-900/50">
