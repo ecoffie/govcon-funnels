@@ -330,3 +330,10 @@ server.login(SMTP_USER, SMTP_PASSWORD);
 - Fix: Redirect to Calendly directly, skipping the checkout page logic
 
 **Why:** Users clicking "checkout" expect to pay. Showing a booking form instead creates confusion and reduces conversions.
+
+## November 10, 2026
+
+- **Always exhaust every source I can reach (Google Drive, email, local docs, then public records) BEFORE doubting or flagging one of Eric's claims, not after.** One thin USASpending search led me to mark his Evankoff contracts "not yet sourced" and ask him to prove them, when Drive held the capability statement, the executed Aerostar subcontracts, change orders and pay apps. USASpending only shows primes from FY2008, so subcontracts and older work never appear there. A failed search means "I haven't looked hard enough yet," not "the claim is unsupported." Order: search everything → record the sources → ask Eric only about what's genuinely missing. Never rewrite his copy on the strength of a failed search.
+
+## 2026-11-10 — ericcoffie.com student wall: search prime AND sub, from the source spelling
+Always pull the company's legal name from the episode script/notes in Drive before querying the warehouse, and search awards + subawards by name AND UEI, not a prime-only query on a name I typed. "Astral Appraisal" returned nothing; the ep 248 script says "Astro Appraisal Management", which has 36 USDA awards ($156,875).
